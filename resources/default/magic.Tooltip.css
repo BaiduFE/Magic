@@ -1,0 +1,55 @@
+.tang-tooltip{
+	margin-top:12px;
+    padding:16px 20px 16px 16px;
+}
+
+.tang-tooltip .tang-close{
+    z-index:1;
+    position:absolute;
+}
+
+.tang-tooltip .tang-background {
+	border:none;
+	background-color:transparent;
+}
+.tang-tooltip .tang-foreground{
+}
+
+/* 两箭头的处理 */
+.tang-tooltip .arrow_up{
+	top:-7px;
+	left:0px;
+	width:100%;
+	height:8px;
+	z-index:1;
+	position:absolute;
+	background:transparent url(magic.Tooltip/arrow.png) no-repeat 20px top;
+}
+.tang-tooltip .arrow_down{
+	top:100%;
+	left:0px;
+	width:100%;
+	height:12px;
+	z-index:1;
+	position:absolute;
+	margin-top:-5px;
+	background:transparent url(magic.Tooltip/arrow.png) no-repeat center -10px;
+}
+
+.tang-tooltip-close{position:absolute; width:10px; height:9px; top:8px; right:11px;}
+.tang-tooltip-close a{display:block; width:100%; height:100%; background:url(magic.Tooltip/close.gif) no-repeat center center; text-decoration:none;}
+.tang-tooltip-close a:hover{background-color:yellow;}
+
+.tang-tooltip .ie6__ .arrow_up,
+.tang-tooltip .ie6__ .arrow_down{background-image:url(magic.Tooltip/arrow.gif);}
+
+.tang-tooltip .arrow_left .arrow_up{background-position:20px top;}
+.tang-tooltip .arrow_center .arrow_up{background-position:center top;}
+.tang-tooltip .arrow_right .arrow_up{background-position:right top; left:-20px;}
+
+.tang-tooltip .arrow_left .arrow_down{background-position:20px -10px;}
+.tang-tooltip .arrow_center .arrow_down{background-position:center -10px;}
+.tang-tooltip .arrow_right .arrow_down{background-position:right -10px; left:-20px;}
+
+.tang-tooltip .arrow_up .arrow_down{display:none;}
+.tang-tooltip .arrow_down .arrow_up{display:none;}

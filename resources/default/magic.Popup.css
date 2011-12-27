@@ -1,0 +1,10 @@
+.tang-popup{}
+
+.tang-popup .tang-foreground {
+	padding:5px;
+}
+
+.tang-popup .tang-background {
+	border:1px solid #CCCCCC;
+	background-color:#FFFFFF;
+}

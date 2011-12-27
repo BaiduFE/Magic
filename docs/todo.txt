@@ -1,0 +1,24 @@
+[done] dialog-mask 的第二次 show 没有 mask
+[] control.dialog.mask 中 onload 触发两次（bug）
+[] 插件的 $ 符号支持
+[done] 遮羞布没有盖住 select
+[done] 遮羞布需要提供 zIndex 参数
+[done] dialog 的 show, hide 方法
+[done] dialog.html 中那段恶心的 setInterval 代码封装
+[done] 方荣的 Import 代码修复后代码调整
+[done] .tang-dialog .tang-background .shadow 的数值移到 js 代码里
+[done] dialog render 方法尝试
+[done] 完善 dialog jsdoc
+[done] dialog 的插件示例
+[done] dialog mask 的实现
+[done] 检查 dialog dispatchEvent 是否书写正确
+[done] filter 滤镜地址考虑
+[done] 绑事件的都移至 load 里去实现
+[done] dialog close-btn 的实现
+[done] resources 目录规范调整
+[done] tang-event
+
+原则：
+
+1、可能被重写的方法的类不能调用自己的该方法；
+2、重写父类的方法时，保持输入输出一致；

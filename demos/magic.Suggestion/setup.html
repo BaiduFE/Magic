@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tangram-UI 示例</title>
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Suggestion.css'/>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.event.on,baidu.dom.query,baidu.dom.getAttr"></script>
+<script type="text/javascript">
+	// Import("baidu.setup.suggestion");
+</script>
+<style type='text/css'>
+
+    .console {
+        border: 1px solid #e1e1e1;
+        margin: 10px;
+        padding: 10px;
+        line-height: 2em;
+    }
+
+    .tang-suggestion-closeBtn {
+        float: right;
+        margin-right: 8px;
+        cursor: pointer;
+    }
+    .tang-suggestion-popup {
+        box-shadow: 0px 2px 2px #e1e1e1;
+        -webkit-box-shadow: 0px 2px 2px #e1e1e1;
+        -moz-box-shadow: 0px 2px 2px #e1e1e1;
+    }
+</style>
+</head>
+<body>
+    
+    <div class="console">
+        <input type="checkbox" id="J_holdHightLightControl" /><label id="J_holdHighLight" for="J_holdHightLightControl">打开holdHighLight选项</label><br />
+        <button id="J_newSuggestion">初始化suggestion</button><button id="J_disposeSuggestion">销毁suggestion</button><br />
+        <label>suggestion实例状态:</label><span id="J_suggestionStatus">未初始化</span>
+    </div>
+    
+    <div id='one-suggestion' class='tang-ui tang-suggestion' tang-param=''>
+        <form action="#" id="form">
+                    请任意输入：<input type="text" class="tang-suggestion-input" id="tang-suggestion-input" name="q" /><br />
+        测试select遮盖<select>
+            <option>测试select遮盖</option>
+        </select>
+        </form>
+    </div>
+    <script type="text/javascript">
+        var suggestionInited = false, s;
+
+        var options = {
+            prependHTML: '写在下拉框列表前面的HTML',
+            appendHTML: '<span class="tang-suggestion-closeBtn">关闭</span>',
+            holdHighLight: false,
+            getData: function(key){
+                var me = this;
+                baidu.ajax.request("./service.php?key=" + encodeURIComponent(key), {
+                    'method': 'GET',
+                    'timeout': 2000,
+                    'onsuccess': function(xhr, response){
+                        var a = eval(response);
+                        me.fire("ongetdata", key, a);
+                    }
+                });
+            },
+            onconfirm: function(){
+                var form = baidu.g("form");
+                // if(form.onsubmit && form.onsubmit() === false){
+                    // return ;
+                // }
+                // form.submit();
+                
+                //模拟用户触发表单提交
+                if (document.createEvent) { // w3c
+                    var evObj = document.createEvent('MouseEvents');
+                    evObj.initEvent('submit', true, false);
+                    form.dispatchEvent(evObj);
+                }
+                else if (document.createEventObject) { // ie
+                    form.fireEvent('onsubmit');
+                }
+                
+            },
+            offset: {
+                'offsetX': 200,
+                'offsetY': 0,
+                'width': '200px'
+            }
+        };
+        
+        baidu.g("form").onsubmit = function(){
+            console.log("提交表单"); //TODO alert
+            return false;
+        }
+        
+        
+        var holdHightLightControl = baidu.dom.g("J_holdHightLightControl");
+        baidu.event.on(holdHightLightControl, "click", function(){
+            if(holdHightLightControl.checked){
+                options.holdHighLight = true;
+            }else{
+                options.holdHighLight = false;
+            }
+        });
+        
+        baidu.event.on("J_newSuggestion", "click", function(){
+            
+            if(suggestionInited){
+                alert("suggestion已初始化");
+                return;
+            }
+            
+            s = magic.setup.suggestion('tang-suggestion-input', options),
+                handler = function(){
+                    s.hide();
+                };
+            
+            baidu.dom.g("J_suggestionStatus").innerHTML = "初始化";
+            suggestionInited = true;
+
+            s.on("onshow", function(){
+                baidu.event.on(baidu.dom.query(".tang-suggestion-closeBtn")[0], "click", handler);
+            });
+            
+            s.on("onhide", function(){
+                baidu.event.un(baidu.dom.query(".tang-suggestion-closeBtn")[0], "click", handler);
+            });
+            
+            s.on("onpick", function(e, picked){
+                // console.log(picked);
+            });
+        });
+        
+        
+        baidu.event.on("J_disposeSuggestion", "click", function(){
+            if(!suggestionInited){
+                alert("suggestion尚未初始化");
+                return;
+            }
+            
+            s.dispose();
+            baidu.dom.g("J_suggestionStatus").innerHTML = "已销毁";
+            suggestionInited = false;
+        });
+        
+    </script>
+    
+</body>
+</html>

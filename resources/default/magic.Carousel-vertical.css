@@ -1,0 +1,59 @@
+.tang-carousel {
+    background: #f4f4f4;
+}
+.tang-carousel-container {
+    position: relative;/*must*/
+    width: 140px;
+    height: 560px;
+    overflow: hidden;
+}
+.tang-carousel-container .tang-carousel-element {
+    width: 140px;
+}
+.tang-carousel-container .tang-carousel-element .tang-carousel-item {
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+}
+.tang-carousel-container .tang-carousel-element .tang-carousel-item-selected {
+    background: white;
+}
+
+/*btn*/
+.tang-carousel-btn {
+    display: block;
+    width: 62px;
+    height: 42px;
+    margin: 0 auto;
+    background: url(baidu.ui.Carousel/carousel-vertical-btn.png) no-repeat;
+}
+
+
+a.tang-carousel-btn-prev:link,
+a.tang-carousel-btn-prev:visited {background-position: 0px 0px;}
+a.tang-carousel-btn-next:link,
+a.tang-carousel-btn-next:visited {background-position: 0px -42px;}
+a.tang-carousel-btn-prev:hover {
+    background-position: -62px 0px;
+    background-color: #0084ff;
+}
+a.tang-carousel-btn-next:hover {
+    background-position: -62px -42px;
+    background-color: #0084ff;
+}
+
+
+a.tang-carousel-btn-prev-disabled:link,
+a.tang-carousel-btn-prev-disabled:visited,
+a.tang-carousel-btn-prev-disabled:hover,
+a.tang-carousel-btn-prev-disabled:active {
+    background-position: -124px 0px;
+}
+
+a.tang-carousel-btn-next-disabled:link,
+a.tang-carousel-btn-next-disabled:visited,
+a.tang-carousel-btn-next-disabled:hover,
+a.tang-carousel-btn-next-disabled:active {
+    background-position: -124px -42px;
+}
+

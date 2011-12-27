@@ -1,0 +1,11 @@
+[] dialog 的 show, hide 方法
+[] dialog.html 中那段恶心的 setInterval 代码封装
+[] 方荣的 Import 代码修复后代码调整
+[] .tang-dialog .tang-background .shadow 的数值移到 js 代码里
+[] 写一个 demo 页
+[] dialog render 方法尝试
+[] 完善 dialog jsdoc
+[] dialog 的插件示例
+[] dialog mask 的实现
+[] 检查 dialog dispatchEvent 是否书写正确
+[] filter 滤镜地址考虑

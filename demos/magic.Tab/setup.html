@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tangram-UI 示例</title>
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tab.css"/>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.tab"></script>
+<style type="text/css">
+.tang-tab {
+    width: 400px;
+}
+.tang-tab .tang-body .tang-body-item{
+    height: 50px;
+    border: #a9a9a9 solid 1px;
+    border-top: none;
+    padding: 5px;
+}
+
+.tab-container {
+	margin-bottom : 20px;
+}
+
+.tab-container .tab-title {
+	font-weight : bold;
+	font-size : 13px;
+	padding : 0;
+	margin : 5px;
+}
+</style>
+</head>
+<body>
+<h1>Tab setup模式demo</h1>
+<dl class="tab-container">
+	<dt class="tab-title">普通的三个tab</dt>
+	<dd id="tab0" class="tang-ui tang-tab" tang-param="selectedIndex: 0;">
+	    <ul class="tang-title">
+	        <li class="tang-title-item">
+	            <a href="#" onclick="return false;" hidefocus="true"><span>项目一</span></a>
+	        </li>
+	        <li class="tang-title-item">
+	            <a href="#" onclick="return false;" hidefocus="true"><span>项目二</span></a>
+	        </li>
+	        <li class="tang-title-item">
+	            <a href="#" onclick="return false;" hidefocus="true"><span>----项目三----</span></a>
+	        </li>
+	    </ul>
+	    <div class="tang-body">
+	        <div class="tang-body-item">hello world~1</div>
+	        <div class="tang-body-item">hello world~2</div>
+	        <div class="tang-body-item">hello world~3</div>
+	    </div>
+	</dd>	
+</dl>
+
+<dl class="tab-container">
+	<dt class="tab-title">三个tab，mouseover时切换，且延时500ms，默认选中第二个。</dt>
+	<dd id="tab1" class="tang-ui tang-tab" tang-param="selectedIndex:1;toggleEvent:mouseover;toggleDelay:500">
+	    <ul class="tang-title">
+	        <li class="tang-title-item">
+	            <a href="#" onclick="return false;" hidefocus="true"><span>项目一</span></a>
+	        </li>
+	        
+	        <li class="tang-title-item">
+	            <a href="#" onclick="return false;" hidefocus="true"><span>项目二</span></a>
+	        </li>
+	        
+	        <li class="tang-title-item">
+	            <a href="#" onclick="return false;" hidefocus="true"><span>----项目三----</span></a>
+	        </li>
+	    </ul>
+	    <div class="tang-body">
+	        <div class="tang-body-item">hello world~1</div>
+	        <div class="tang-body-item">hello world~2</div>
+	        <div class="tang-body-item">hello world~3</div>
+	    </div>
+	</dd>
+</dl>
+</body>
+<script type="text/javascript">
+    var tab0 = magic.setup.tab('tab0');
+    var tab1 = magic.setup.tab('tab1');
+</script>
+</html>

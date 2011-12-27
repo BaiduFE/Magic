@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>magic.Popup Demo</title>
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<script type="text/javascript" src="../../src/import.php?f=magic.Popup"></script>
+<style type="text/css">
+.c1{text-align:right;}
+.detial{font-size:12px; color:#888;}
+.tang-popup{border:1px solid blue; background-color:yellow; padding:5px;}
+/*.tang-foreground{padding:5px;}*/
+</style>
+</head>
+
+</head>
+<body>
+	<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%; border-color:#888; background-color:#EEE">
+	 	<caption style="margin:0.5em 0"><h3 style="text-align:left;">Popup 弹出层测试页面</h3></caption>
+	  	<tr>
+	  		<td width="400px">
+	  			<table style="width:100%">
+	  				<tr><td class="c1">autoHide :</td><td><input id="param_autoHide" type="checkbox" checked="true"></td></tr>
+	  				<tr><td class="c1">hideOnEscape :</td><td><input id="param_hideOnEscape" type="checkbox" checked="true"></td></tr>
+	  				<tr><td class="c1">top :</td><td><input id="param_top" type="text" value="auto" size="5"> <span class="detial">auto|200|200px|50%|12em|12cm</span></td></tr>
+	  				<tr><td class="c1">left :</td><td><input id="param_left" type="text" value="auto" size="5"> <span class="detial">auto|200|200px|50%|12em|12cm</span></td></tr>
+	  				<tr><td class="c1">width :</td><td><input id="param_width" type="text" value="auto" size="5"> <span class="detial">auto|200|200px|50%|12em|12cm</span></td></tr>
+	  				<tr><td class="c1">height :</td><td><input id="param_height" type="text" value="auto" size="5"> <span class="detial">auto|200|200px|50%|12em|12cm</span></td></tr>
+	  				<tr><td class="c1">offsetX :</td><td><input id="param_offsetX" type="text" value="0" size="5"><span class="detial">Number</span></td></tr>
+	  				<tr><td class="c1">offsetY :</td><td><input id="param_offsetY" type="text" value="0" size="5"><span class="detial">Number</span></td></tr>
+	  				<tr><td class="c1">content :</td><td><textarea id="param_content">popup content</textarea></td></tr>
+	  			</table>
+	  		</td>
+	  		<td style="vertical-align:top">
+	  			<div style="height:100%; background-color:#F7F7F7">
+	  				<p>这是一段测试文本，当页面resize的时候会发生折行，将下面的文本位置发生改变，而这个时候弹出应该是紧跟着文本的位置变化而变化！当然在测试此功能的时候需要将 autoHie 设置为 false 状态！</p>
+	  				<fieldset style="border-color:green; height:100px; float:left;">
+	  					<legend>DEMO .attach()</legend>
+		  				<input type="text" value="attach模式,click me!" onclick="clickme1(this)" style="border-color:blue;"> <br>
+		  				<select style="margin:5px 0 0 -6px"><option>测试IE6浏览器的遮挡效果</option></select>
+	  				</fieldset>
+
+	  				<fieldset style="border-color:green; height:100px; float:left">
+	  					<legend>DEMO .show()</legend>
+		  				<input type="button" value="show模式, click me!" onclick="clickme2()" style="border-color:blue;">
+	  				</fieldset>
+
+	  				<br style="clear:both">
+	  			</div>
+	  		</td>
+	  	</tr>
+	</table>
+</body>
+
+<script language="JavaScript">
+
+var pop_test1 = new magic.Popup();
+var pop_test2 = new magic.Popup();
+
+function getParam() {
+	return {
+		top : document.getElementById("param_top").value
+		,left : document.getElementById("param_left").value
+		,width : document.getElementById("param_width").value
+		,height : document.getElementById("param_height").value
+		,offsetX : +document.getElementById("param_offsetX").value
+		,offsetY : +document.getElementById("param_offsetY").value
+		,autoHide : document.getElementById("param_autoHide").checked
+		,hideOnEscape : document.getElementById("param_hideOnEscape").checked
+	};
+}
+
+function clickme1(el) {
+	pop_test1.setContent(document.getElementById("param_content").value);
+	pop_test1.attach(el, getParam());
+}
+function clickme2(){
+	baidu.object.extend(pop_test2, getParam());
+	pop_test2.setContent(document.getElementById("param_content").value);
+	pop_test2.show();
+}
+</script>
+
+</html>

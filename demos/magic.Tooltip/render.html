@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>magic.Tooltip Demo</title>
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Popup.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip.css">
+<script type="text/javascript" src="../../src/jsloader.js"></script>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<h1>Tooltip render 模式实例</h1>
+</body>
+
+<script language="JavaScript">
+
+Import("magic.Tooltip");
+var testCase = (function(){
+	var caseNum = 0;
+	
+	function create(title, options) {
+		var html = '',
+			num = caseNum++;
+		options = options || {};
+		html += '<dl class="tooltip-container">';
+		html += '<dt class="tooltip-title">' + title + '</dt>';
+		html += '<dd><div id="tooltip' + num + '"></div></dd>'
+		html += '</dl>';
+		baidu.dom.insertHTML(document.body, 'beforeEnd', html);
+		var tooltip = new magic.Tooltip(options);
+		tooltip.attach('tooltip' + num);
+	}
+	return {
+		'create' : function(title, options) {
+			create(title, options);
+		}
+	}
+})();
+
+testCase.create('普通的tooltip', {
+	content:"<img src='http://www.baidu.com/img/baidu_jgylogo3.gif'> haha text!111111"	
+});
+</script>
+
+</html>

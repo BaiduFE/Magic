@@ -1,0 +1,49 @@
+/**
+ * Suggestion默认皮肤样式
+ */
+.tang-suggestion {
+    font-family: Arial, '宋体';
+    font-size: 14px;
+    color: #000;
+}
+
+.tang-suggestion-popup {
+    display: none;
+    font-size: 14px;
+    background-color: #fff;
+}
+.tang-suggestion-popup .tang-background table {
+    display: none;
+}
+.tang-suggestion-popup .tang-foreground {
+    border: 1px solid #817f82;
+}
+.tang-suggestion-popup .tang-suggestion-prepend,
+.tang-suggestion-popup .tang-suggestion-append {
+    height: 24px;
+    line-height: 24px;
+    padding-left: 8px;
+    color: #888;
+    font-size: 12px;
+    border-bottom: 1px solid #ebebeb;
+}
+.tang-suggestion-popup .tang-suggestion-append {
+    border-top: 1px solid #ebebeb;
+    border-bottom: none;
+}
+.tang-suggestion-popup .tang-suggestion-table {
+    width: 100%;
+}
+.tang-suggestion-popup .tang-suggestion-table td {
+    padding: 6px 0 6px 8px;
+}
+
+.tang-suggestion-popup .tang-suggestion-table td.tang-suggestion-current {
+    background-color: #ebebeb;
+}
+.tang-suggestion-popup .tang-suggestion-table td.tang-suggestion-disable {
+    background-color: #999;
+}
+.cssloaded{
+	width: 20px
+}

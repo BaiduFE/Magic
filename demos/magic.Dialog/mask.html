@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Dialog 组件 mask 插件示例" />
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Dialog/demo.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Dialog.css">
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.dialog,magic.control.Dialog.$mask,baidu.swf.create"></script>
+<title>Dialog 组件 mask 插件示例</title>
+</head>
+<body>
+
+<style type="text/css">
+	/* 对话框初始信息 */
+	#one-dialog{ left: 80px; top: 140px; }
+	#one-dialog .tang-foreground{ width: 400px; height: 300px; }
+	#one-dialog .tang-body{ height: 270px; font-size: 12px; }
+</style>
+
+<script type="text/javascript">
+	/* 这里指定 resources 目录相对于当前页面的地址 */
+	magic.resourcePath = "../../resources";
+</script>
+
+<div class="demo">
+	<h1>Dialog 组件 <strong>mask</strong> 插件示例</h1>
+	<p>使用 mask 插件必须在下载 tangram 代码时勾选了“mask”</p>
+	<p>mask 插件提供对话框背后的遮罩层。</p>
+	<p>mask 插件同时适用于 render 和 setup 模式，使用遮罩插件，请将 mask 选项设置为 true</p>
+	<p><input type="button" value="dialog.show();" onclick="dialog.show();" /></p>
+	<p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
+	<div id="flashContainer1"></div>
+    <div id="flashContainer2"></div>
+    <div id="flashContainer3"></div>
+</div>
+
+<!-- 对话框组件 Start -->
+<div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true; mask: true;">
+	<div class="tang-background">
+		<div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
+	</div>
+	<div class="tang-foreground">
+		<div class="tang-title">
+			<div class="buttons">
+				<a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
+			</div>
+			<span>对话框标题</span>
+		</div>
+		<div class="tang-body">
+			<div class="bars"><!-- bars 为各种条，可以任意添加 -->
+				<div class="bar"></div>
+				<div class="bar"></div>
+			</div>
+			<div class="content">对话框内容</div>
+			<div class="bars"><!-- bars 为各种条，可以任意添加 -->
+				<div class="bar"></div>
+				<div class="bar"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var dialog = magic.setup.dialog("one-dialog");
+	
+	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
+</script>
+<!-- 对话框组件 End -->
+<script>
+     baidu.swf.create({
+         id: "flash1",
+         url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
+         width:695,
+         height:90,
+         wmode:'transparent'
+     }, "flashContainer1");
+     
+     baidu.swf.create({
+         id: "flash2",
+         url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
+         width:695,
+         height:90,
+         wmode:'window'
+     }, "flashContainer2");
+     
+     baidu.swf.create({
+         id: "flash3",
+         url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
+         width:695,
+         height:90,
+         wmode:'opaque'
+     }, "flashContainer3");
+ </script>
+</body>
+</html>

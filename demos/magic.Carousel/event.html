@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Carousel 组件 event 示例</title>
+<link rel="stylesheet" type="text/css" href="demo.css">
+<link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
+<script type="text/javascript" src="../../src/import.js"></script>
+<script type="text/javascript">
+	Import('magic.setup.carousel');
+    Import('magic.control.Carousel.$button');
+    Import('magic.control.Carousel.$fx');
+</script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>event</strong> 示例</h1>
+    <p>carousel 内核程序支持三个事件分别是onitemclick，onitemouseover，onitemmouseout，onscrollto，例如：var options = {onitemclick: function(evt){}}，从evt参数中，可以通过evt.DOMEvent来取得触发事件时的浏览器事件对象，通过evt.index来取得触发事件时的目标滚动项。</p>
+</div>
+
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+    <div class='tang-carousel-container'>
+        <ul class='tang-carousel-element'>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='item/image156[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image166[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image170[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image175[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image203[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image209[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image236[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image241[1].gif'/></li>
+        </ul>
+    </div>
+    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+</div>
+</body>
+<script type='text/javascript'>
+var c = magic.setup.carousel('one-carousel', {
+    onitemclick: function(evt){
+        alert(evt.index);
+    }
+});
+</script>
+</html>

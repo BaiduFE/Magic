@@ -1,0 +1,72 @@
+.tang-dialog{
+	position: absolute;
+}
+
+.tang-dialog .tang-background-inner{
+	width: 100%; height: 100%;
+	margin: 5px auto auto 4px;
+	background: url(common/shadow.png) no-repeat right bottom;
+	_margin-top: 4px;
+	_background: url(common/shadow.gif) no-repeat right bottom;
+}
+
+.tang-dialog .tang-title{
+	background: url(magic.Dialog/dialog.png);
+	border: 1px solid #606060;
+	border-width: 1px 1px 0 1px;
+}
+
+.tang-dialog .tang-title .buttons{
+	float: right;
+}
+
+.tang-dialog .tang-title .buttons a{
+	display: block;
+	width: 29px;
+	height: 29px;
+	outline: none;
+	background: transparent url(magic.Dialog/btns.gif) no-repeat;
+}
+
+.tang-dialog .tang-title a.close-btn{
+	background-position: 0 0; 
+}
+
+.tang-dialog .tang-title a.close-btn:hover{
+	background-position: 0 -29px; 
+}
+
+.tang-dialog .tang-title span{
+	line-height: 29px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: default;
+	padding-left: 10px;
+	width: auto;
+	height: 29px;
+	margin-right: 29px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tang-dialog .tang-body{
+	background-color: #f4f4f4;
+	border: 1px solid #a9a9a9;
+	border-width: 0 1px 1px 1px;
+}
+
+.tang-dialog .tang-body .content{
+	padding: 10px;
+}
+
+.tang-dialog .tang-body .contentFrame{
+	padding: 0;
+}
+
+.tang-dialog .tang-body .contentFrame iframe{
+	border: 0;
+	width: 100%;
+	height: 100%;
+}

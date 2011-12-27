@@ -1,0 +1,50 @@
+.tang-pager {
+	font-size : 13px;
+	font-family : arial;
+}
+
+.tang-pager .tang-pager-first,
+.tang-pager .tang-pager-previous,
+.tang-pager .tang-pager-normal,
+.tang-pager .tang-pager-current,
+.tang-pager .tang-pager-next,
+.tang-pager .tang-pager-last {
+	display : inline-block;
+	margin-right : 5px;
+	height : 24px;
+	line-height : 24px;
+}
+
+.tang-pager .tang-pager-first,
+.tang-pager .tang-pager-previous,
+.tang-pager .tang-pager-normal,
+.tang-pager .tang-pager-next,
+.tang-pager .tang-pager-last {
+	text-decoration : none;
+	border : 1px solid #e7ecf0;
+	color : #0000cd;
+}
+
+.tang-pager .tang-pager-first,
+.tang-pager .tang-pager-previous,
+.tang-pager .tang-pager-next,
+.tang-pager .tang-pager-last {
+	padding : 0 8px;
+}
+
+.tang-pager .tang-pager-normal, 
+.tang-pager .tang-pager-current {
+	padding : 0 10px;
+}
+
+.tang-pager .tang-pager-first:hover,
+.tang-pager .tang-pager-previous:hover,
+.tang-pager .tang-pager-normal:hover,
+.tang-pager .tang-pager-next:hover,
+.tang-pager .tang-pager-last:hover {
+	background : #e9f1f7;
+}
+
+.tang-pager .tang-pager-current {
+	font-weight : bold;
+}

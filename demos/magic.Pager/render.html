@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Pager 组件 render 模式示例" />
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Pager.css">
+<script type="text/javascript" src="../../src/import.php?f=baidu.dom.insertHTML,magic.Pager"></script>
+<title>Pager 组件 render 模式示例</title>
+</head>
+<body>
+
+<style type="text/css">
+	.pager-container {
+		margin-bottom : 20px;
+	}
+	
+	.pager-container .pager-title {
+		font-weight : bold;
+		font-size : 13px;
+		padding : 0;
+		margin : 5px;
+	}
+</style>
+
+<script type="text/javascript">
+	/* 这里指定 resources 目录相对于当前页面的地址 */
+	magic.resourcePath = "../../resources";
+</script>
+
+<div class="demo">
+	<h1>Pager 组件 <strong>render</strong> 模式示例</h1>
+</div>
+
+<!-- 对话框组件 Start -->
+
+<script type="text/javascript">
+
+var testCase = (function(){
+	var caseNum = 0;
+	
+	function create(title, current, total, options) {
+		var html = '',
+			num = caseNum++;
+		options = options || {};
+		html += '<dl class="pager-container">';
+		html += '<dt class="pager-title">' + title + '</dt>';
+		html += '<dd><div id="pager' + num + '"></div></dd>'
+		html += '</dl>';
+		baidu.dom.insertHTML(document.body, 'beforeEnd', html);
+		var pager = new magic.Pager(current, total, options);
+		pager.render('pager' + num);
+		
+	}
+	
+	return {
+		'create' : function(title, current, total, options) {
+			create(title, current, total, options);
+		}
+	}
+})();
+
+testCase.create('只有1页', 1, 1);
+testCase.create('第1页，一共8页', 1, 8);
+testCase.create('第1页，一共20页', 1, 20);
+testCase.create('第2页，一共8页', 2, 8);
+testCase.create('第2页，一共20页', 2, 20);
+testCase.create('第10页，一共20页', 10, 20);
+testCase.create('第10页，一共12页', 10, 12);
+testCase.create('第3页，一共11页', 3, 11);
+testCase.create('第3页，一共3页', 3, 3);
+testCase.create('第10页，一共10页', 10, 10);
+testCase.create('第20页，一共20页', 20, 20);
+testCase.create('第10000页，一共20000页，往前翻，往后翻', 10000, 20000, {
+	'labelPrevious' : '往前翻',
+	'labelNext' : '往后翻'
+});
+
+testCase.create('第10000页，一共20000页，最前面，最后面', 10000, 20000, {
+	'labelFirst' : '最前面',
+	'labelLast' : '最后面'
+});
+
+testCase.create('第5页，一共10页，只显示5个页码，当前页前面有2个页码', 5, 10, {
+	'pageCount' : 5,
+	'currentPagePosition' : 2
+});
+
+testCase.create('第10页，一共20页，url的模版为http://www.baidu.com/s?wd=apple&pn=#{pageNum}，labelNormal的模版为[#{pageNum}]，labelCurent的模版为当前是#{pageNum}第页。', 10, 20, {
+	'tplURL' : 'http://www.baidu.com/s?wd=apple&pn=#{pageNum}',
+	'tplLabelNormal' : '[#{pageNum}]',
+	'tplLabelCurrent' : '当前是#{pageNum}第页'
+});
+
+testCase.create('第5页，一共10页，新窗口打开页面', 5, 10, {
+	'isNewWindow' : true
+});
+
+
+testCase.create('第0页，一共0页', 0, 0);
+testCase.create('第-1页，一共-1页', -1, -1);
+testCase.create('第abc页，一共def页', 'abc', 'def');
+
+testCase.create('第5页，一共20页，每页显示5个页码，当前页是第一个。', 5, 20, {
+	'pageCount' : 5,
+	'currentPagePosition' : 0
+});
+</script>
+<!-- 对话框组件 End -->
+
+</body>
+</html>
