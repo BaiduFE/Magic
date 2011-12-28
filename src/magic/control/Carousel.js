@@ -148,8 +148,12 @@ void function(){
         me._datas = {};//Item对象
         me.on('onload', function(evt){
             var axis = me._axis[me._options.orientation],
+                selectedIndex = me._selectedIndex,
+                opt = me._options,
+                focusRange = opt.focusRange,
                 query = magic._query,
-                handler = baidu.fn.bind('_onEventHandler', me);
+                handler = baidu.fn.bind('_onEventHandler', me),
+                offset;
             
             me.mappingDom('container', query('.tang-carousel-container', me.getElement())[0]).
             mappingDom('element', query('.tang-carousel-element', me.getElement())[0]);
@@ -163,7 +167,8 @@ void function(){
                     me._datas[item.guid] = item;
                 }
             );
-            me._clear(me._selectedIndex, me._options.focusRange.min);
+            offset = me._dataIds.length - opt.pageSize + focusRange.min;
+            me._clear(selectedIndex, selectedIndex > offset ? selectedIndex - offset + focusRange.min : focusRange.min);
             me._resize();
             //event
             baidu.event.on(me.getElement('element'), 'click', handler);
