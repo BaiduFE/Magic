@@ -9,6 +9,8 @@
 ///import baidu.string.format;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.addClass;
+///import baidu.dom.removeClass;
+///import baidu.dom.remove;
 
 /**
  * Carousel图片滚动组件的控制器
@@ -75,6 +77,7 @@ magic.Carousel = baidu.lang.createClass(function(options){
     dispose: function(){
         var me = this, container;
         if(me.disposed){return;}
+        baidu.dom.removeClass(me.getElement(), 'tang-ui tang-carousel');
         container = me.getElement('container');
         magic.Base.prototype.dispose.call(me);
         baidu.dom.remove(container);

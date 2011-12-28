@@ -10,6 +10,8 @@
 ///import baidu.string.format;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.addClass;
+///import baidu.dom.removeClass;
+///import baidu.dom.remove;
 
 /**
  * Tab选项卡组件
@@ -84,5 +86,20 @@ magic.Tab = baidu.lang.createClass(function(options) {
         baidu.dom.addClass(container, 'tang-ui tang-tab');
         baidu.dom.insertHTML(container, 'beforeEnd', me.toHTMLString());
         me.fire('onload');
+    },
+    
+    /**
+     * 析构
+     */
+    dispose: function(){
+        var me = this, title, body;
+        if(me.disposed){return;}
+        title = me.getElement('title');
+        body = me.getElement('body');
+        baidu.dom.removeClass(me.getElement(), 'tang-ui tang-tab');
+        magic.Base.prototype.dispose.call(me);
+        baidu.dom.remove(title);
+        baidu.dom.remove(body);
+        title = body = null;
     }
 });

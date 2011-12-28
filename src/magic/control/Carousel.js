@@ -19,7 +19,7 @@
 ///import baidu.event._eventFilter.mouseleave;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
-///import baidu.dom.query;
+///import magic._query;
 ///import baidu.dom.children;
 ///import baidu.dom.g;
 ///import baidu.dom.addClass;
@@ -136,10 +136,6 @@ void function(){
             isCycle: false
         }, options);
         opt = me._options;
-        opt.onitemclick && me.on('onitemclick', opt.onitemclick);
-        opt.onitemmouseover && me.on('onitemmouseover', opt.onitemmouseover);
-        opt.onitemmouseout && me.on('onitemmouseout', opt.onitemmouseout);
-        opt.onscrollto && me.on('onscrollto', opt.onscrollto);
         //
         me._selectedIndex = opt.selectedIndex;
         focusRange && (opt.focusRange = {//fix focusRange
@@ -152,7 +148,7 @@ void function(){
         me._datas = {};//Item对象
         me.on('onload', function(evt){
             var axis = me._axis[me._options.orientation],
-                query = baidu.dom.query,
+                query = magic._query,
                 handler = baidu.fn.bind('_onEventHandler', me);
             
             me.mappingDom('container', query('.tang-carousel-container', me.getElement())[0]).
