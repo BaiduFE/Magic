@@ -5,17 +5,13 @@
 <title>Carousel 组件 fx动画插件 示例</title>
 <link rel="stylesheet" type="text/css" href="demo.css">
 <link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
-<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
-<script type="text/javascript" src="../../src/import.js"></script>
-<script type="text/javascript">
-	Import('magic.setup.carousel');
-    Import('magic.control.Carousel.$button');
-    Import('magic.control.Carousel.$fx');
-</script>
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel-vertical.css'/>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx"></script>
+
 <style type='text/css'>
 .tang-carousel {
-    width: 644px;
-    height: 140px;
+    width: 140px;
+    height: 644px;
 }
 </style>
 </head>
@@ -45,6 +41,7 @@
 </body>
 <script type='text/javascript'>
 var c = magic.setup.carousel('one-carousel', {
+	orientation: 'vertical',
     scrollFxOptions: {
         duration: 1000
     }
