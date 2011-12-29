@@ -3,7 +3,7 @@ module("magic.control.Carousel.$button");
 (function(){
 	enSetup = function(){
 		var html = "<div id='one-carousel' class='tang-ui tang-carousel'>"
-			+"<a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>"
+			+"<a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'>left</a>"
 		    +"<div class='tang-carousel-container'>"
 	        +"<ul class='tang-carousel-element'>"
             +"<li class='tang-carousel-item'>text0</li>"
@@ -18,7 +18,7 @@ module("magic.control.Carousel.$button");
 		    +"<li class='tang-carousel-item'>text9</li>"
 	        +"</ul>"
 		    +"</div>"
-		    +"<a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>"
+		    +"<a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'>right</a>"
 		    +"</div>";
 		$(document.body).append(html);
 	}
@@ -30,7 +30,6 @@ test("enable", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel.css", function(){
 			enSetup();
 			var options = {
-			    buttonLabel: {prev: 'left', next: 'right'}
 			};
 		    var c = magic.setup.carousel('one-carousel', options);
 		    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
@@ -71,11 +70,7 @@ test("enable", function(){
 
 test("click", function(){
 	enSetup();
-	var div = document.createElement("div");
-	document.body.appendChild(div);
-	div.id = "one-carousel";
 	var options = {
-	    buttonLabel: {prev: 'left', next: 'right'}
 	};
     var c = magic.setup.carousel('one-carousel', options);
     ua.click(c.getElement().childNodes[2]);
@@ -92,34 +87,12 @@ test("click", function(){
     document.body.removeChild(baidu.dom.g("one-carousel"));
 });
 
-test("disable", function(){
-	enSetup();
-	var div = document.createElement("div");
-	document.body.appendChild(div);
-	div.id = "one-carousel";
-	var options = {
-	    showButton : false
-	};
-    var c = magic.setup.carousel('one-carousel', options);
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
-	equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
-	equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
-	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
-    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
-    equals(c.getElement().childNodes.length, 1, "No buttons");
-    document.body.removeChild(baidu.dom.g("one-carousel"));
-});
-
 test("click， vertical", function(){
 	stop();
 	ua.loadcss(upath + "../../setup/carousel/carousel-vertical.css", function(){
 		enSetup();
-		var div = document.createElement("div");
-		document.body.appendChild(div);
-		div.id = "one-carousel";
 		var options = {
-			orientation: 'vertical',
-		    buttonLabel: {prev: 'left', next: 'right'}
+			orientation: 'vertical'
 		};
 	    var c = magic.setup.carousel('one-carousel', options);
 	    ua.click(c.getElement().childNodes[2]);
