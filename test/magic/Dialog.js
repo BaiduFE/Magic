@@ -6,6 +6,7 @@ test("default params", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-dialog";
+	div.style.position = "absolute";
 	var dialog = new magic.Dialog();
 	dialog.render("one-dialog");
 	equals(dialog.draggable, true, "The draggable is right");
@@ -13,9 +14,9 @@ test("default params", function(){
 	equals(dialog.top, 0, "The top is right");
 	equals(dialog.height, 300, "The height is right");
 	equals(dialog.width, 400, "The width is right");
-	equals(dialog.getElement("foreground").offsetHeight, "300", "The height is right");
-	equals(dialog.getElement("foreground").offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
+	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	equals(dialog.getElement().offsetWidth, "400", "The width is right");
+	equals(dialog.getElement().id, "one-dialog", "The dialog container is right");
 	equals(dialog.getElement("title").className, "tang-title", "The draggable is right");
 	equals(dialog.getElement("body").className, "tang-body", "The body is right");
 	document.body.removeChild(div);
@@ -78,6 +79,7 @@ test("all params", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-dialog";
+	div.style.position = "absolute";
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
 	$(cdiv).html("dialog内容");
@@ -86,19 +88,19 @@ test("all params", function(){
 		content : cdiv,
 		left : 10,
 		top : 20,
-		height : 30,
-		width : 40,
+		height : 200,
+		width : 300,
 		draggable : false
 	});
 	dialog.render("one-dialog");
 	equals(dialog.left, 10, "The left is right");
 	equals(dialog.top, 20, "The top is right");
-	equals(dialog.height, 100, "The height is right"); // 最小为  100，下同
-	equals(dialog.width, 100, "The width is right"); 
+	equals(dialog.height, 200, "The height is right"); // 最小为  100，下同
+	equals(dialog.width, 300, "The width is right"); 
 	equals(dialog.getElement().style.left, "10px", "The left is right");
 	equals(dialog.getElement().style.top, "20px", "The top is right");
-	equals(dialog.getElement("foreground").offsetHeight, 100, "The height is right");
-	equals(dialog.getElement("foreground").offsetWidth, 100, "The width is right");
+	equals(dialog.getElement().offsetHeight, 200, "The height is right");
+	equals(dialog.getElement().offsetWidth, 300, "The width is right");
 	equals(dialog.draggable, false, "The draggable is right");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
@@ -120,8 +122,8 @@ test("hide & isShown", function(){
 		content : cdiv,
 		left : 10,
 		top : 20,
-		height : 30,
-		width : 40,
+		height : 200,
+		width : 300,
 		draggable : false
 	});
 	dialog.on("beforehide", function(e){
@@ -183,6 +185,7 @@ test("setSize", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-dialog";
+	div.style.position = "absolute";
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
 	$(cdiv).html("dialog内容");
@@ -198,14 +201,12 @@ test("setSize", function(){
 			equals(size.height, 100, "The y is right");
 			equals(dialog.height, 100, "The height is right");
 			equals(dialog.width, 50, "The width is right");
-			dialog.getElement().style.position = "absolute";
-			equals($(".tang-background", dialog.getElement())[0].offsetHeight, "100", "The height is right");
-			equals($(".tang-background", dialog.getElement())[0].offsetWidth, "50", "The width is right");
+			equals(dialog.getElement().offsetHeight, "100", "The height is right");
+			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
 	});
 	dialog.render("one-dialog");
 	dialog.setSize({ width: 50, height: 100 });
-	// stop();
 	document.body.removeChild(div);
 });
 
@@ -263,7 +264,7 @@ test("center, auto width & height", function(){
 		equals(dialog.getElement().style.top, "100px", "The top is right");
 		w.document.body.removeChild(div);
 		this.finish();
-		document.body.removeChild(f.parentElement);
+		document.body.removeChild(f.parentNode);
 	})	
 });
 
@@ -293,7 +294,7 @@ test("center", function(){
 		equals(dialog.getElement().style.top, "200px", "The top is right");
 		w.document.body.removeChild(div);
 		this.finish();
-		document.body.removeChild(f.parentElement);
+		document.body.removeChild(f.parentNode);
 	})	
 });
 
@@ -311,6 +312,7 @@ test("focus", function(){
 		w.document.body.appendChild(div1);
 		div1.id = "dialog-2";
 		$(div1).css("position", "absolute").css('backgroundColor', 'red');
+		var focus = 0;
 		var dialog1 = new w.magic.Dialog({
 			titleText : '标题',
 			content : '内容',
@@ -341,7 +343,7 @@ test("focus", function(){
 		w.document.body.removeChild(div);
 		w.document.body.removeChild(div1);
 		this.finish();
-		document.body.removeChild(f.parentElement);
+		document.body.removeChild(f.parentNode);
 	})	
 });
 
@@ -374,7 +376,7 @@ test("drag", function(){
 			equals(dialog.getElement().style.top, "50px", "The top is right");
 			w.document.body.removeChild(div);
 			me.finish();
-			document.body.removeChild(f.parentElement);
+			document.body.removeChild(f.parentNode);
 		}, 100);
 	})	
 });
