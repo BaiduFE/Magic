@@ -96,6 +96,35 @@ test("render", function(){
 	}, "magic.setup.carousel");
 });
 
+test("render, disable & dispose", function(){
+	stop();
+	expect(3);
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "one-carousel";
+	var scroll = 0; 
+	var time1 = 0;
+	var time2 = 0;
+	var l1 = baidu.event._listeners.length;
+	var c = new magic.Carousel({
+	    items: citems,
+	    enableFx: false
+	});
+    c.on("onscrollto", function(){
+    	 time2 = new Date();
+	     ok(time2 - time1 < 500, "The duration is right");
+		 equals(c._selectedIndex, 3, "Scroll to 3");
+		 c.dispose();
+		 var l2 = baidu.event._listeners.length;
+		 equals(l2, l1, "The events are un");
+		 document.body.removeChild(div);
+	     start();
+	});
+    c.render('one-carousel');
+    time1 = new Date();
+    c.focus(3);
+});
+
 test("setup", function(){
 	stop();
 	expect(8);
@@ -145,6 +174,33 @@ test("setup", function(){
 				start();
 			}, 0);
 		}
+	});
+    time1 = new Date();
+    c.focus(3);
+});
+
+test("setup, disable & dispose", function(){
+	stop();
+	expect(3);
+	var scroll = 0; 
+	var time1 = 0;
+	var time2 = 0;
+	enSetup();
+	var options = {
+	    items: citems,
+	    enableFx: false
+	};
+	var l1 = baidu.event._listeners.length;
+    var c = magic.setup.carousel('one-carousel', options);
+    c.on("onscrollto", function(){
+   	 time2 = new Date();
+	     ok(time2 - time1 < 500, "The duration is right");
+		 equals(c._selectedIndex, 3, "Scroll to 3");
+		 c.dispose();
+		 var l2 = baidu.event._listeners.length;
+		 equals(l2, l1, "The events are un");
+		 document.body.removeChild(baidu.dom.g("one-carousel"));
+	     start();
 	});
     time1 = new Date();
     c.focus(3);
