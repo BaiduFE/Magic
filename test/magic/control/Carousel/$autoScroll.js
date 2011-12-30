@@ -1,102 +1,263 @@
-/*
- * Tangram
- * Copyright 2011 Baidu Inc. All rights reserved.
- */
+module("magic.control.Carousel.$antoscroll");
 
+(function(){
+	citems = [
+		        {content: 'text0'},
+		        {content: 'text1'},
+		        {content: 'text2'},
+		        {content: 'text3'},
+		        {content: 'text4'},
+		        {content: 'text5'},
+		        {content: 'text6'},
+		        {content: 'text7'},
+		        {content: 'text8'},
+		        {content: 'text9'}
+		    ];
+	mouseenter = function(target){
+		if(ua.browser.ie)
+			ua.simulateMouseEvent(target, 'mouseenter', 0, 0, window, 1, 0, 0, 0, 0,
+				false, false, false, false, 0, document.documentElement);
+		else
+			ua.mouseover(target);
+	};
+	mouseleave = function(target){
+		if(ua.browser.ie)
+			ua.simulateMouseEvent(target, 'mouseleave', 0, 0, window, 1, 0, 0, 0, 0,
+				false, false, false, false, 0, document.documentElement);
+		else
+			ua.mouseout(target);
+	}
+	enSetup = function(){
+		var html = "<div id='one-carousel' class='tang-ui tang-carousel'>"
+			+"<a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'>left</a>"
+		    +"<div class='tang-carousel-container'>"
+	        +"<ul class='tang-carousel-element'>"
+            +"<li class='tang-carousel-item'>text0</li>"
+		    +"<li class='tang-carousel-item'>text1</li>"
+		    +"<li class='tang-carousel-item'>text2</li>"
+		    +"<li class='tang-carousel-item'>text3</li>"
+		    +"<li class='tang-carousel-item'>text4</li>"
+		    +"<li class='tang-carousel-item'>text5</li>"
+		    +"<li class='tang-carousel-item'>text6</li>"
+		    +"<li class='tang-carousel-item'>text7</li>"
+		    +"<li class='tang-carousel-item'>text8</li>"
+		    +"<li class='tang-carousel-item'>text9</li>"
+	        +"</ul>"
+		    +"</div>"
+		    +"<a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'>right</a>"
+		    +"</div>";
+		$(document.body).append(html);
+	}
+})();
 
-///import baidu.lang.register;
-///import magic.control.Carousel;
-///import baidu.fn.bind;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event._eventFilter.mouseenter;
-///import baidu.event._eventFilter.mouseleave;
+test("render,default params", function(){
+	stop();
+	expect(4);
+	ua.importsrc("magic.carousel,magic.setup.carousel,magic.control.carousel.$autoScroll", function(){
+		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
+			var div = document.createElement("div");
+			document.body.appendChild(div);
+			div.id = "one-carousel";
+			var scroll = 0; 
+			var c = new magic.Carousel({
+			    items: citems,
+			    selectedIndex: 7,
+			    onmouseenter: function(evt){
+			        evt.target.stop();
+					equals(c._selectedIndex, 8, "scroll to 8");
+			    },
+			    onmouseleave: function(evt){
+					equals(c._selectedIndex, 8, "scroll to 8");
+			        evt.target.start();
+			    }
+			});
+		    c.on("onscrollto", function(){
+				scroll ++;
+				if(scroll == 1){
+					equals(c._selectedIndex, 8, "scroll to 8");
+					mouseenter(c.getElement("element"));
+			        setTimeout(function(){
+			        	mouseleave(c.getElement("element"));
+			        }, 0);
+				}
+				if(scroll == 2){
+					equals(c._selectedIndex, 9, "scroll to 9");
+					c.dispose();
+					document.body.removeChild(div);
+					start();
+				}
+			});
+		    c.render('one-carousel');
+		});
+	}, "magic.setup.carousel");
+});
 
-/**
- * 为滚动组件增加自动滚动功能
- * @name magic.Carousel.$autoScroll
- * @addon magic.control.Carousel
- * @param {Object} options config参数.
- * @config {Boolean} isAutoScroll 是否支持自动滚动，默认支持
- * @config {Number} scrollInterval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
- * @config {String} direction 取值，up|right|down|left 描述组件的滚动方向
- * @event {Functoin} onmouseenter 当鼠标移入可视区时触发，function(evt){}，evt.DOMEvent取得触发事件时的浏览器事件对象.
- * @event {Functoin} onmouseleave 当鼠标移出可视区时触发，参数同onmouseenter.
- */
-baidu.lang.register(magic.control.Carousel, function(options){
-    var me = this, key, opt;
-    me._autoScrolling = true;
-    me._options = baidu.object.extend({
-        isAutoScroll: true,
-        scrollInterval: 1000,
-        direction: 'right'//up|right|down|left 描述组件的滚动方向
-    }, me._options);
-    if(!me._options.isAutoScroll){return;}
-    key = me._getDirection(me._options.direction);
-    opt = me._options;
-    opt.onmouseenter && me.on('onmouseenter', opt.onmouseenter);
-    opt.onmouseleave && me.on('onmouseleave', opt.onmouseleave);
-    me.on('onload', function(evt){
-        var handler = baidu.fn.bind('_onMouseEventHandler', me);
-        baidu.event.on(me.getElement(), 'mouseenter', handler);
-        baidu.event.on(me.getElement(), 'mouseleave', handler);
-        me.on('ondispose', function(){
-            baidu.event.un(me.getElement(), 'mouseenter', handler);
-            baidu.event.un(me.getElement(), 'mouseleave', handler);
-        });
-        setTimeout(function(){
-            me.start();
-        }, me._options.scrollInterval);
-    });
-    me.on('onscrollto', function(){
-        if(!me._autoScrolling){return;}
-        var opt = me._options;
-        me._autoScrollTimeout = setTimeout(function(){
-            me[me._getDirection(opt.direction)]();
-        }, opt.scrollInterval);
-    });
-    me.on('ondispose', function(evt){
-        clearTimeout(me._autoScrollTimeout);
-    });
-    
-}, {
-    /**
-     * 根据参数传入的方向转化为对应的调用方法
-     * @param {String} direction 方向，取值：up|right|down|left
-     * @private
-     */
-    _getDirection: function(direction){
-        var me = this,
-            keys = {up: 'prev', right: 'next', down: 'next', left: 'prev'};
-        return keys[direction.toLowerCase()];
-    },
-    
-    /**
-     * 
-     */
-    _onMouseEventHandler: function(evt){
-        var me = this,
-            evtName = {mouseover: 'mouseenter', mouseout: 'mouseleave'},
-            type = evt.type;
-        me.fire('on' + (evtName[type] || type), {DOMEvent: evt});
-    },
-    
-    /**
-     * 启动自动滚动
-     */
-    start: function(){
-        var me = this,
-            direction = me._getDirection(me._options.direction);
-        me._autoScrolling = true;
-        me[direction]();
-    },
-    
-    /**
-     * 停止自动滚动
-     */
-    stop: function(){
-        var me = this;
-        clearTimeout(me._autoScrollTimeout);
-        me._autoScrolling = false;
-    }
+test("render,all params", function(){
+	stop();
+	expect(6);
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "one-carousel";
+	var scroll = 0; 
+	var time1 = 0;
+	var time2 = 0;
+	var l1 = baidu.event._listeners.length;
+	var c = new magic.Carousel({
+	    items: citems,
+	    isCycle: true,
+	    scrollInterval: 100,
+	    direction: 'left',
+	    onmouseenter: function(evt){
+	        evt.target.stop();
+			equals(c._selectedIndex, 9, "scroll to 9");
+	    },
+	    onmouseleave: function(evt){
+			equals(c._selectedIndex, 9, "scroll to 9");
+	        evt.target.start();
+	    }
+	});
+    c.on("onscrollto", function(){
+		scroll ++;
+		if(scroll == 1){
+			time2 = new Date();
+		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
+			equals(c._selectedIndex, 9, "scroll to 9");
+			mouseenter(c.getElement("element"));
+	        setTimeout(function(){
+	        	mouseleave(c.getElement("element"));
+	        }, 0);
+		}
+		if(scroll == 2){
+			equals(c._selectedIndex, 8, "scroll to 8");
+			c.dispose();
+			var l2 = baidu.event._listeners.length;
+			equals(l2, l1, "The events are un");
+			document.body.removeChild(div);
+			start();
+		}
+	});
+    c.render('one-carousel');
+    time1 = new Date();
+});
+
+test("render, disable", function(){
+	stop();
+	expect(1);
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "one-carousel";
+	var scroll = 0; 
+	var c = new magic.Carousel({
+	    items: citems,
+	    isAutoScroll: false
+	});
+    c.on("onscrollto", function(){
+    	ok(true, "not auto scroll");
+	});
+    c.render('one-carousel');
+    ok(true);
+    c.dispose();
+	document.body.removeChild(div);
+	start();
+});
+
+test("setup,default params", function(){
+	stop();
+	expect(4);
+	enSetup();
+	var scroll = 0; 
+	var options = {
+	    items: citems,
+	    selectedIndex: 7,
+	    onmouseenter: function(evt){
+	        evt.target.stop();
+			equals(c._selectedIndex, 8, "scroll to 8");
+	    },
+	    onmouseleave: function(evt){
+			equals(c._selectedIndex, 8, "scroll to 8");
+	        evt.target.start();
+	    }
+	};
+	var c = magic.setup.carousel('one-carousel', options);
+    c.on("onscrollto", function(){
+		scroll ++;
+		if(scroll == 1){
+			equals(c._selectedIndex, 8, "scroll to 8");
+			mouseenter(c.getElement("element"));
+	        setTimeout(function(){
+	        	mouseleave(c.getElement("element"));
+	        }, 0);
+		}
+		if(scroll == 2){
+			equals(c._selectedIndex, 9, "scroll to 9");
+			c.dispose();
+			document.body.removeChild(baidu.dom.g("one-carousel"));
+			start();
+		}
+	});
+});
+
+test("setup, all params", function(){
+	stop();
+	expect(6);
+	enSetup();
+	var scroll = 0; 
+	var time1 = 0;
+	var time2 = 0;
+	var l1 = baidu.event._listeners.length;
+	var options = {
+	    items: citems,
+	    isCycle: true,
+	    scrollInterval: 100,
+	    direction: 'left',
+	    onmouseenter: function(evt){
+	        evt.target.stop();
+			equals(c._selectedIndex, 9, "scroll to 9");
+	    },
+	    onmouseleave: function(evt){
+			equals(c._selectedIndex, 9, "scroll to 9");
+	        evt.target.start();
+	    }
+	};
+	var c = magic.setup.carousel('one-carousel', options);
+    c.on("onscrollto", function(){
+		scroll ++;
+		if(scroll == 1){
+			time2 = new Date();
+		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
+			equals(c._selectedIndex, 9, "scroll to 9");
+			mouseenter(c.getElement("element"));
+	        setTimeout(function(){
+	        	mouseleave(c.getElement("element"));
+	        }, 0);
+		}
+		if(scroll == 2){
+			equals(c._selectedIndex, 8, "scroll to 8");
+			c.dispose();
+			var l2 = baidu.event._listeners.length;
+			equals(l2, l1, "The events are un");
+			document.body.removeChild(baidu.dom.g("one-carousel"));
+			start();
+		}
+	});
+    time1 = new Date();
+});
+
+test("setup, disable", function(){
+	stop();
+	expect(1);
+	enSetup();
+	var scroll = 0; 
+	var options = {
+	    items: citems,
+	    isAutoScroll: false
+	};
+	var c = magic.setup.carousel('one-carousel', options);
+    c.on("onscrollto", function(){
+    	ok(true, "not auto scroll");
+	});
+    ok(true);
+    c.dispose();
+    document.body.removeChild(baidu.dom.g("one-carousel"));
+	start();
 });
