@@ -146,6 +146,9 @@ void function(){
         me._items = opt.items || [];//数据内容项
         me._dataIds = [];
         me._datas = {};//Item对象
+        me.on('onscrollto', function(){
+            me._scrolling = false;
+        });
         me.on('onload', function(evt){
             var axis = me._axis[me._options.orientation],
                 selectedIndex = me._selectedIndex,
@@ -162,9 +165,9 @@ void function(){
                 baidu.dom.children(me.getElement('element')),
                 function(ele, index){
                     var item = new Item({content: ele});
-//                    !me._items[count] && (me._items[count] = {content: ele.innerHTML});
                     me._dataIds.push(item.guid);
                     me._datas[item.guid] = item;
+                    baidu.dom[selectedIndex == index ? 'addClass' : 'removeClass'](ele, 'tang-carousel-item-selected');
                 }
             );
             offset = me._dataIds.length - opt.pageSize + focusRange.min;
@@ -178,9 +181,6 @@ void function(){
                 baidu.event.un(me.getElement('element'), 'click', handler);
                 baidu.event.un(me.getElement('element'), 'mouseover', handler);
                 baidu.event.un(me.getElement('element'), 'mouseout', handler);
-            });
-            me.on('onscrollto', function(){
-                me._scrolling = false;
             });
         });
         

@@ -46,7 +46,7 @@ magic.Carousel = baidu.lang.createClass(function(options){
             array = [];
         for(var i = 0; i < len; i++){
             array.push(baidu.string.format(me.tplItem, {
-                'class': 'tang-carousel-item' + (i == me._selectedIndex ? ' tang-carousel-item-selected' : ''),
+                'class': 'tang-carousel-item',
                 content: me._items[i].content
             }));
         }

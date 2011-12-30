@@ -27,12 +27,12 @@
  */
 magic.Tab = baidu.lang.createClass(function(options) {
     var me = this;
-    me.options = baidu.object.extend({
+    me._options = baidu.object.extend({
         toggleEvent: 'click',
         toggleDelay: 0,
         selectedIndex: 0
     }, options);
-    me._selectedIndex = me.options.selectedIndex;
+    me._selectedIndex = me._options.selectedIndex;
     me._items = options.items || [];
 }, {
     type: 'magic.Tab',
