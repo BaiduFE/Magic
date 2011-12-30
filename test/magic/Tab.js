@@ -15,9 +15,9 @@ test("render, default param", function(){
 	        ]
 	    });
 		tab.render('div1');
-		equals(tab.options.toggleEvent, 'click', "The toggleEvent is right");
-		equals(tab.options.toggleDelay, 0, "The toggleDelay is right");
-		equals(tab.options.selectedIndex, 0, "The selectedIndex is right");
+		equals(tab._options.toggleEvent, 'click', "The toggleEvent is right");
+		equals(tab._options.toggleDelay, 0, "The toggleDelay is right");
+		equals(tab._options.selectedIndex, 0, "The selectedIndex is right");
 		equals(tab._selectedIndex, 0, "The _selectedIndex is right");
 		equals($("li a span", tab.getElement("title")).text(), "项目一项目二项目三", "The title is right");
 		equals($("div", tab.getElement("body")).text(), "hello world~1hello world~2hello world~3", "The title is right");
@@ -44,9 +44,9 @@ test("render, all param", function(){
         ]
     });
 	tab.render('div1');
-	equals(tab.options.toggleEvent, 'mouseover', "The toggleEvent is right");
-	equals(tab.options.toggleDelay, 1000, "The toggleDelay is right");
-	equals(tab.options.selectedIndex, 2, "The selectedIndex is right");
+	equals(tab._options.toggleEvent, 'mouseover', "The toggleEvent is right");
+	equals(tab._options.toggleDelay, 1000, "The toggleDelay is right");
+	equals(tab._options.selectedIndex, 2, "The selectedIndex is right");
 	equals(tab._selectedIndex, 2, "The _selectedIndex is right");
 	equals($("li a span", tab.getElement("title")).text(), "项目一项目二项目三", "The title is right");
 	equals($("div", tab.getElement("body")).text(), "hello world~1hello world~2hello world~3", "The title is right");
