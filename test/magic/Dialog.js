@@ -245,7 +245,7 @@ test("center, auto width & height", function(){
 	expect(4);
 	stop();
 	ua.frameExt(function(w, f){
-		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);;
 		var div = w.document.createElement("div");
 		w.document.body.appendChild(div);
 		div.id = "one-dialog";
@@ -336,7 +336,7 @@ test("focus", function(){
 		})
 		dialog2.render("dialog-2");
 		ok(dialog2.getElement().style["zIndex"] > dialog1.getElement().style["zIndex"], "The z-index is right");
-		dialog1.focus();
+		dialog1.focus();	
 		ok(dialog2.getElement().style["zIndex"] < dialog1.getElement().style["zIndex"], "The z-index is right");
 		dialog2.focus();
 		ok(dialog2.getElement().style["zIndex"] > dialog1.getElement().style["zIndex"], "The z-index is right");		

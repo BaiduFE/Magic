@@ -4,7 +4,7 @@ module("magic.setup.dialog");
 	enSetup = function(w,id){
 		var w = w || window;
 		var id = id || 'one-dialog';
-		var html = '<div id="' + id + '" class="tang-ui tang-dialog" tang-param="draggable: true;" style="position: absolute;">'
+		var html = '<div id="' + id + '" class="tang-ui tang-dialog" tang-param="draggable: true;height:300;width:400" style="position: absolute;">'
 			+'<div class="tang-background">'
 			+'<div class="tang-background-inner"></div>'
 			+'</div>'
@@ -257,10 +257,10 @@ test("center, auto width & height", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, 200, "The left is right");
-		equals(dialog.top, 200, "The top is right");
-		equals(dialog.getElement().style.left, "200px", "The left is right");
-		equals(dialog.getElement().style.top, "200px", "The top is right");
+		equals(dialog.left, 50, "The left is right");
+		equals(dialog.top, 100, "The top is right");
+		equals(dialog.getElement().style.left, "50px", "The left is right");
+		equals(dialog.getElement().style.top, "100px", "The top is right");
 		w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
 		this.finish();
 		document.body.removeChild(f.parentNode);
@@ -343,6 +343,7 @@ test("drag", function(){
 	ua.frameExt(function(w, f){
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 		enSetup(w);
+		w.baidu.dom.g("one-dialog").style.position = "relative";
 		var options = {
 				titleText : '标题',
 				content : '内容'

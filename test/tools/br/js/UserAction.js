@@ -745,7 +745,7 @@ var UserAction = {
 		if (pw.$(fid).length == 0) {
 			/* 添加frame，部分情况下，iframe没有边框，为了可以看到效果，添加一个带边框的div */
 			pw.$(pw.document.body).append('<div id="div' + id + '"></div>');
-			pw.$('div#div' + id).append('<iframe id="' + id + '"></iframe>');
+			pw.$('div#div' + id).append('<iframe id="' + id + '" frameborder="no"></iframe>');
 		}
 		op.onafterstart && op.onafterstart($('iframe#f')[0]);
 		var f = '';
