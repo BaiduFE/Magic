@@ -18,7 +18,8 @@
  */
 magic.setup.pager = function(el, options){
     el = baidu.dom.g(el);
-	var instance = magic.setup(el, magic.Pager);
-	instance.render(el);
-	return instance;
+    var opt = options || {},
+        instance = magic.setup(el, magic.Pager, options);
+    instance.render(el);
+    return instance;
 };
