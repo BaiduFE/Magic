@@ -10,6 +10,8 @@
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.dom.addClass;
+///import baidu.dom.removeClass;
+///import baidu.dom.remove;
 
 
  /**
@@ -83,9 +85,10 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
             startPage = this.totalPage < this.pageCount || this.currentPage < this.currentPagePosition ? 1 : Math.min(this.currentPage - this.currentPagePosition, this.totalPage - this.pageCount + 1),
             //展现结束页
             endPage = Math.min(this.totalPage, startPage + this.pageCount - 1);
+        HTMLString.push('<div id="' + this.getId('main') + '" class="tang-pager-main">');
         //首页，前一页
         if (1 < this.currentPage) {
-            HTMLString.push(this._buildLinkString(0, 'first', this.labelFirst));
+            HTMLString.push(this._buildLinkString(1, 'first', this.labelFirst));
             HTMLString.push(this._buildLinkString(this.currentPage - 1, 'previous', this.labelPrevious));
         }
         //在当前页前面的页码
@@ -103,6 +106,7 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
             HTMLString.push(this._buildLinkString(this.currentPage + 1, 'next', this.labelNext));
             HTMLString.push(this._buildLinkString(this.totalPage, 'last', this.labelLast));
         }
+        HTMLString.push('</div>');
         return HTMLString.join('');
     },
     
@@ -117,6 +121,21 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
         baidu.dom.addClass(this.getElement(), 'tang-pager');
         baidu.dom.insertHTML(container, 'beforeEnd', this.toHTMLString());
         this.fire("onload");
+    },
+    
+    /**
+     * dispose 析构
+     * @public
+     */
+    'dispose' : function() {
+        if(this.disposed) {
+            return;
+        }
+        baidu.dom.removeClass(this.getElement(), 'tang-pager');
+        var elmMain = this.getElement('main');
+        magic.Base.prototype.dispose.call(this);
+        baidu.dom.remove(elmMain);
+        elmMain = null;        
     }
 });
 
