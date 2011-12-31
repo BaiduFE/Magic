@@ -1,7 +1,7 @@
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
- * version: 2.0
+ * version: 0.1
  * date: 2011/11/29
  * author: dron
  */
@@ -82,7 +82,7 @@ magic.control.Dialog = baidu.lang.createClass(
 		   var titleText = this.getElement("titleText");
 		   var buttons = this.getElement("titleButtons");
 		   if(typeof pos.width == "number")
-		    	baidu.dom.setStyle(titleText, "width", pos.width - buttons.clientWidth - 20 + "px");   
+		    	baidu.dom.setStyle(titleText, "width", Math.max(0, pos.width - buttons.clientWidth - 20) + "px");   
 		});
 	}, 
 
@@ -218,7 +218,7 @@ magic.control.Dialog.extend(
 			setStyle(foreground, "width", (this.width = size.width) + "px");
 		if(typeof size.height == "number"){
 			setStyle(foreground, "height", (this.height = size.height) + "px");
-			setStyle(this.getElement("body"), "height", (this.height - this._titleHeight) + "px");
+			setStyle(this.getElement("body"), "height", Math.max(0, this.height - this._titleHeight) + "px");
 		}
 	    /**
 	     * @event resize 发生尺寸更改时触发事件

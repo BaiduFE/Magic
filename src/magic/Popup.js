@@ -2,7 +2,7 @@
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
- * version: 2.0
+ * version: 0.1
  * date: 2011/11/27
  * author: meizz
  */
@@ -13,6 +13,7 @@
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.g;
 ///import baidu.object.extend;
+///import baidu.global.getZIndex;
 
 ///import magic.Background;
 
@@ -57,7 +58,7 @@ baidu.lang.inherits(magic.Popup, magic.control.Popup, "magic.Popup").extend({
 			"<div class='tang-popup ",this.className,"'"
 				," id='",this.getId(),"'"
 				," onclick='window._mz$popup=\"", this.guid, "\"'"
-				," style='position:absolute; display:none; z-index:",baidu.$$.global["popupZIndex"]++,";'>"
+				," style='position:absolute; display:none; z-index:",baidu.global.getZIndex("popup"),";'>"
 				, (this.background = new magic.Background({coverable:true,styleBox:this.styleBox})).toHTMLString()
 				,"<div class='tang-foreground' id='", this.getId("content") ,"'>"
 			,"</div></div>"
@@ -65,7 +66,3 @@ baidu.lang.inherits(magic.Popup, magic.control.Popup, "magic.Popup").extend({
 	}
 });
 
-(function(global){
-	// 所有的popup的z-index统一管理，基数从50000开始
-	global["popupZIndex"] = global["popupZIndex"] || 50000;
-})(baidu.$$.global);

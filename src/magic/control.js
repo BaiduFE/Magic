@@ -4,7 +4,7 @@
  *
  * namespace: magic.control
  * author: meizz
- * version: 2.0.0
+ * version: 0.1
  * date: 2011/11/28
  */
 
