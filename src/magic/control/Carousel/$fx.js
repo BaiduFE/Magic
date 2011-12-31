@@ -18,9 +18,7 @@
  * @author linlingyu
  */
 baidu.lang.register(magic.control.Carousel, function(options){
-    var me = this,
-        opt = me._options,
-        focusRange = opt.focusRange;
+    var me = this;
     me._options = baidu.object.extend({
         enableFx: true,
         scrollFx: baidu.fx.scrollTo
@@ -49,13 +47,15 @@ baidu.lang.register(magic.control.Carousel, function(options){
             
             onafterfinish: function(evt){
                 var timeLine = evt.target,
-                    index = timeLine.index;
+                    index = timeLine.index,
+                    focusRange = me._options.focusRange;
                 me._toggle(index);
                 me._clear(index, (timeLine.direction == 'prev') ? focusRange.min : focusRange.max);
                 me._resize();
                 me.fire('onscrollto', {direction: timeLine.direction});
             }
     }, me._options.scrollFxOptions);
+    
     if(!me._options.enableFx){return;}
     me.on('onbeforescroll', function(evt){
         evt.returnValue = false;
