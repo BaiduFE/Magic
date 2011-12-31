@@ -3,8 +3,8 @@
  * Copyright 2009 Baidu Inc. All rights reserved.
  * 
  * path: baidu/lang/Class.js
- * author: meizz, erik
- * version: 2.0
+ * author: meizz
+ * version: 0.1
  * date: 2011/11/24
  */
 

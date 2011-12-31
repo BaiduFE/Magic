@@ -2,7 +2,7 @@
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
- * version: 2.0
+ * version: 0.1
  * create: 2011/12/18
  * author: meizz
  */

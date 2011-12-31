@@ -26,3 +26,9 @@ if(typeof magic != "function"){
     	// TODO: 
     };
 }
+
+magic.resourcePath = "";
+magic.skinName = "default";
+
+/msie 6/.test(navigator.userAgent) && 
+document.execCommand("BackgroundImageCache", false, true);

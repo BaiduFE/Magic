@@ -2,7 +2,7 @@
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
- * version: 2.0
+ * version: 0.1
  * date: 2011/11/27
  * author: meizz
  */
@@ -15,6 +15,8 @@
 ///import baidu.dom.g;
 ///import baidu.dom.setPixel;
 ///import baidu.object.extend;
+///import baidu.global.set;
+///import baidu.global.get;
 
 ///import baidu.event.on;
 ///import baidu.event.un;
@@ -83,7 +85,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 			&& me.hide();
 	}
 
-	var list = baidu.$$.global["popupList"];
+	var list = baidu.global.get("popupList");
 	me.on("show", function(){
 		me.reposition();
 		list[me.guid] = me;
@@ -124,7 +126,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 
 		if (position) {
 			me.top = position.top + me.offsetY + me._host.offsetHeight;
-			me.left= position.left;
+			me.left= position.left+ me.offsetX;
 		}
 		me.setPosition([me.left, me.top]);
 	}
@@ -145,13 +147,13 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	}
 });
 
-(function(global){
-	global["popupList"]   = global["popupList"] || {};
+(function(){
+	var list = baidu.global.set("popupList", {}, true);
 
 	function autoHide() {
 		var mz = window._mz$popup;
-		for (var guid in global.popupList) {
-			var pop = global.popupList[guid];
+		for (var guid in list) {
+			var pop = list[guid];
 			guid!=mz && pop.autoHide && pop.hide();
 		}
 		window._mz$popup = false;
@@ -161,7 +163,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	baidu.event.on(window, "onresize", autoHide);
 	baidu.event.on(window, "onscroll", autoHide);
 	baidu.event.on(document,"onclick", autoHide);
-})(baidu.$$.global);
+})();
 
 // [TODO]	popup 的DOM元素重复使用
 // [TODO]	popup 支持多级嵌套
