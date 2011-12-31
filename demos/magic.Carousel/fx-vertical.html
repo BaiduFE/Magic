@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Carousel 组件 fx动画插件 示例</title>
+<link rel="stylesheet" type="text/css" href="demo.css">
+<link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel-vertical.css'/>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx"></script>
+
+<style type='text/css'>
+.tang-carousel {
+    width: 140px;
+    height: 644px;
+}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>fx动画插件</strong> 示例</h1>
+    <p>滚动动画默认情况是启动的，如果不需要动画效果，可以通过在options参数中加入 enableFx 取值 false 来去掉动画效果。</p>
+    <p>可以通过 scrollFxOption 来指定动画的时间，如var options = {scrollFxOptions: {duration: 1000}}</p>
+</div>
+
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+    <div class='tang-carousel-container'>
+        <ul class='tang-carousel-element'>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='item/image156[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image166[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image170[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image175[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image203[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image209[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image236[1].gif'/></li>
+            <li class='tang-carousel-item'><img src='item/image241[1].gif'/></li>
+        </ul>
+    </div>
+    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+</div>
+</body>
+<script type='text/javascript'>
+var c = magic.setup.carousel('one-carousel', {
+	orientation: 'vertical',
+    scrollFxOptions: {
+        duration: 1000
+    }
+});
+</script>
+</html>

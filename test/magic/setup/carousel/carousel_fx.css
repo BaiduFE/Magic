@@ -1,0 +1,108 @@
+/* tang-ui mini reset, version: 0.9 */
+.tang-ui dl, .tang-ui dt, .tang-ui dd, .tang-ui ul, .tang-ui ol, .tang-ui li, .tang-ui input{
+	margin: 0;
+	padding: 0;
+}
+.tang-ui table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.tang-ui img{
+	border: 0;
+}
+.tang-ui li{
+	list-style: none;
+}
+.tang-ui th{
+	text-align: left;
+}
+.tang-ui input, .tang-ui textarea, .tang-ui select{
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	*font-size: 100%;
+}
+
+/* tang-ui commons */
+.tang-ui{
+	
+}
+
+.tang-ui .tang-background{
+	position: absolute; 
+	z-index: -1; 
+	top: 0; left: 0; 
+	width: 100%; height: 100%; 
+}
+
+.tang-ui .tang-foreground{
+	
+}
+.tang-carousel {
+    background: #f4f4f4;
+}
+.tang-carousel-container {
+    position: relative;/*must*/
+    float:left;
+    width: 426px;
+    height: 142px;
+    overflow: hidden;
+}
+.tang-carousel-container .tang-carousel-element {
+    height: 142px;
+}
+.tang-carousel-container .tang-carousel-element .tang-carousel-item {
+    float: left;
+    display: inline;
+    width: 120px;
+    height: 120px;
+    padding: 5px;
+    margin:5px;
+    border:solid 1px
+}
+.tang-carousel-container .tang-carousel-element .tang-carousel-item-selected {
+    border:solid 1px red
+}
+
+/*btn*/
+.tang-carousel-btn {
+    float:left;
+    margin-top: 45px;
+    width: 42px;
+    height: 42px;
+    background: url(carousel-btn.png) no-repeat;
+}
+
+
+a.tang-carousel-btn-prev:link,
+a.tang-carousel-btn-prev:visited {background-position: 0px 0px;}
+a.tang-carousel-btn-next:link,
+a.tang-carousel-btn-next:visited {background-position: -42px 0px;}
+a.tang-carousel-btn-prev:hover {
+    background-position: 0px -42px;
+    background-color: #0084ff;
+}
+a.tang-carousel-btn-next:hover {
+    background-position: -42px -42px;
+    background-color: #0084ff;
+}
+
+
+a.tang-carousel-btn-prev-disabled:link,
+a.tang-carousel-btn-prev-disabled:visited,
+a.tang-carousel-btn-prev-disabled:hover,
+a.tang-carousel-btn-prev-disabled:active {
+    background-position: 0px -84px;
+}
+
+a.tang-carousel-btn-next-disabled:link,
+a.tang-carousel-btn-next-disabled:visited,
+a.tang-carousel-btn-next-disabled:hover,
+a.tang-carousel-btn-next-disabled:active {
+    background-position: -42px -84px;
+}
+
+
+.cssloaded{
+	width: 20px
+}
