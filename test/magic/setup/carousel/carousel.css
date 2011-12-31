@@ -1,3 +1,11 @@
+.tang-ui dl, .tang-ui dt, .tang-ui dd, .tang-ui ul, .tang-ui ol, .tang-ui li, .tang-ui input{
+	margin: 0;
+	padding: 0;
+}
+.tang-ui li{
+	list-style: none;
+}
+
 .tang-carousel {
     background: #f4f4f4;
 }
