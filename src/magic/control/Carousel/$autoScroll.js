@@ -34,19 +34,15 @@ baidu.lang.register(magic.control.Carousel, function(options){
     if(!me._options.isAutoScroll){return;}
     key = me._getDirection(me._options.direction);
     opt = me._options;
-    opt.onmouseenter && me.on('onmouseenter', opt.onmouseenter);
-    opt.onmouseleave && me.on('onmouseleave', opt.onmouseleave);
     me.on('onload', function(evt){
         var handler = baidu.fn.bind('_onMouseEventHandler', me);
-        baidu.event.on(me.getElement(), 'mouseenter', handler);
-        baidu.event.on(me.getElement(), 'mouseleave', handler);
+        baidu.event.on(me.getElement('element'), 'mouseenter', handler);
+        baidu.event.on(me.getElement('element'), 'mouseleave', handler);
         me.on('ondispose', function(){
-            baidu.event.un(me.getElement(), 'mouseenter', handler);
-            baidu.event.un(me.getElement(), 'mouseleave', handler);
+            baidu.event.un(me.getElement('element'), 'mouseenter', handler);
+            baidu.event.un(me.getElement('element'), 'mouseleave', handler);
         });
-        setTimeout(function(){
-            me.start();
-        }, me._options.scrollInterval);
+        me.start();
     });
     me.on('onscrollto', function(){
         if(!me._autoScrolling){return;}
@@ -85,10 +81,11 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * 启动自动滚动
      */
     start: function(){
-        var me = this,
-            direction = me._getDirection(me._options.direction);
+        var me = this;
         me._autoScrolling = true;
-        me[direction]();
+        me._autoScrollTimeout = setTimeout(function(){
+            me[me._getDirection(me._options.direction)]();
+        }, me._options.scrollInterval);
     },
     
     /**

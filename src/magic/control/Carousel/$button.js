@@ -6,7 +6,7 @@
 ///import baidu.lang.register;
 ///import magic.control.Carousel;
 ///import baidu.fn.bind;
-///import baidu.dom.query;
+///import magic._query;
 ///import baidu.event.on;
 ///import baidu.event.un;
 ///import baidu.object.extend;
@@ -41,7 +41,7 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     
     me.on('onload', function(evt){
-        var query = baidu.dom.query,
+        var query = magic._query,
             prevHandler = baidu.fn.bind('_onButtonClick', me, 'prev');
             nextHandler = baidu.fn.bind('_onButtonClick', me, 'next');
         me.mappingDom('prev', query('.tang-carousel-btn-prev', me.getElement())[0]).

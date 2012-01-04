@@ -7,7 +7,8 @@
 ///import magic.control;
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
-///import baidu.dom.query;
+///import magic._query;
+///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.getAncestorByClass;
@@ -30,23 +31,23 @@
 magic.control.Tab = baidu.lang.createClass(function(options) {
     var me = this,
         handler = baidu.fn.bind('_toggleHandler', me);
-    me.options = baidu.object.extend({
+    me._options = baidu.object.extend({
         toggleEvent: 'click',
         toggleDelay: 0,
         selectedIndex: 0
     }, options);
-    me._selectedIndex = me.options.selectedIndex;
+    me._selectedIndex = me._options.selectedIndex;
     me.on('onload', function(evt) {
         var container = me.getElement(),
-            query = baidu.dom.query;
+            query = magic._query;
         me.mappingDom('title', query('.tang-title', container)[0]).
         mappingDom('body', query('.tang-body', container)[0]);
         baidu.event.on(me.getElement('title'),
-            me.options.toggleEvent,
+            me._options.toggleEvent,
             handler);
         me.on('ondispose', function(){
             baidu.event.un(me.getElement('title'),
-            me.options.toggleEvent,
+            me._options.toggleEvent,
             handler);
         });
         me.focus(me._selectedIndex);
@@ -70,7 +71,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
             target = baidu.event.getTarget(evt);//当是mouseover延时时候ie6会取不到对象
         function handler() {
             var el = baidu.dom.getAncestorByClass(target, 'tang-title-item'),
-                titles = baidu.dom.query('.tang-title-item', me.getElement('title')),
+                titles = baidu.dom.children(me.getElement('title')),
                 len = titles.length,
                 index = 0;
             if (!el) {return;}
@@ -82,9 +83,9 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
             }
             me._selectedIndex != index && me.focus(index);
         }
-        if (/^(on)?mouseover$/i.test(me.options.toggleEvent)) {
+        if (/^(on)?mouseover$/i.test(me._options.toggleEvent)) {
             clearTimeout(me._timeOut);
-            me._timeOut = setTimeout(handler, me.options.toggleDelay);
+            me._timeOut = setTimeout(handler, me._options.toggleDelay);
         }else {
             handler();
         }
@@ -97,8 +98,8 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
     focus: function(index) {
         var me = this,
             query = baidu.dom.query,
-            titles = query('.tang-title-item', me.getElement('title')),
-            bodies = query('.tang-body-item', me.getElement('body'));
+            titles = baidu.dom.children(me.getElement('title')),
+            bodies = baidu.dom.children(me.getElement('body'));
         baidu.dom.removeClass(titles[me._selectedIndex], 'tang-title-item-selected');
         baidu.dom.removeClass(bodies[me._selectedIndex], 'tang-body-item-selected');
         me._selectedIndex = index;
