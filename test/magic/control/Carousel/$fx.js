@@ -39,7 +39,7 @@ module("magic.control.Carousel.$fx");
 test("render", function(){
 	stop();
 	expect(9);
-	ua.importsrc("magic.carousel,magic.setup.carousel,magic.control.carousel.$fx", function(){
+	ua.importsrc("magic.Carousel,magic.setup.carousel,magic.control.carousel.$fx", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
