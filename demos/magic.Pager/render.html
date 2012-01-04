@@ -49,12 +49,13 @@ var testCase = (function(){
 		baidu.dom.insertHTML(document.body, 'beforeEnd', html);
 		var pager = new magic.Pager(current, total, options);
 		pager.render('pager' + num);
+		return pager;
 		
 	}
 	
 	return {
 		'create' : function(title, current, total, options) {
-			create(title, current, total, options);
+			 return create(title, current, total, options);
 		}
 	}
 })();
@@ -104,6 +105,9 @@ testCase.create('第5页，一共20页，每页显示5个页码，当前页是�
 	'pageCount' : 5,
 	'currentPagePosition' : 0
 });
+
+var c = testCase.create('第5页，一共20页，析构！', 5, 20);
+c.dispose();
 </script>
 <!-- 对话框组件 End -->
 
