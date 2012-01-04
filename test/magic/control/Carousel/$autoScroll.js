@@ -53,7 +53,7 @@ module("magic.control.Carousel.$antoscroll");
 test("render,default params", function(){
 	stop();
 	expect(4);
-	ua.importsrc("magic.carousel,magic.setup.carousel,magic.control.carousel.$autoScroll", function(){
+	ua.importsrc("magic.Carousel,magic.setup.carousel,magic.control.carousel.$autoScroll", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
