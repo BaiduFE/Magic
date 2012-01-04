@@ -6,7 +6,6 @@
 ///import baidu.lang.register;
 ///import magic.Carousel;
 ///import baidu.array.each;
-///import baidu.dom.query;
 ///import magic.control.Carousel.$button;
 
 /**
@@ -28,8 +27,7 @@ baidu.lang.register(magic.Carousel, function(options){
     }, options.buttonLabel);
     if(!me._options.showButton){return;}
     me.on('ondomready', function(evt){
-        var query = baidu.dom.query,
-            container = me.getElement();
+        var container = me.getElement();
         baidu.dom.insertHTML(container, 'afterBegin', baidu.string.format(tplButton, {
             'class': 'tang-carousel-btn-prev',
             content: me._options.buttonLabel.prev

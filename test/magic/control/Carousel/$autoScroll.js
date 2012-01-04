@@ -61,16 +61,16 @@ test("render,default params", function(){
 			var scroll = 0; 
 			var c = new magic.Carousel({
 			    items: citems,
-			    selectedIndex: 7,
-			    onmouseenter: function(evt){
-			        evt.target.stop();
-					equals(c._selectedIndex, 8, "scroll to 8");
-			    },
-			    onmouseleave: function(evt){
-					equals(c._selectedIndex, 8, "scroll to 8");
-			        evt.target.start();
-			    }
+			    selectedIndex: 7
 			});
+			c.on("onmouseenter", function(evt){
+		        evt.target.stop();
+				equals(c._selectedIndex, 8, "scroll to 8");
+		    });
+		    c.on("onmouseleave", function(evt){
+				equals(c._selectedIndex, 8, "scroll to 8");
+		        evt.target.start();
+		    });
 		    c.on("onscrollto", function(){
 				scroll ++;
 				if(scroll == 1){
@@ -106,16 +106,16 @@ test("render,all params", function(){
 	    items: citems,
 	    isCycle: true,
 	    scrollInterval: 100,
-	    direction: 'left',
-	    onmouseenter: function(evt){
-	        evt.target.stop();
-			equals(c._selectedIndex, 9, "scroll to 9");
-	    },
-	    onmouseleave: function(evt){
-			equals(c._selectedIndex, 9, "scroll to 9");
-	        evt.target.start();
-	    }
+	    direction: 'left'
 	});
+	c.on("onmouseenter", function(evt){
+        evt.target.stop();
+		equals(c._selectedIndex, 9, "scroll to 9");
+    });
+    c.on("onmouseleave", function(evt){
+		equals(c._selectedIndex, 9, "scroll to 9");
+        evt.target.start();
+    });
     c.on("onscrollto", function(){
 		scroll ++;
 		if(scroll == 1){
@@ -168,17 +168,17 @@ test("setup,default params", function(){
 	var scroll = 0; 
 	var options = {
 	    items: citems,
-	    selectedIndex: 7,
-	    onmouseenter: function(evt){
-	        evt.target.stop();
-			equals(c._selectedIndex, 8, "scroll to 8");
-	    },
-	    onmouseleave: function(evt){
-			equals(c._selectedIndex, 8, "scroll to 8");
-	        evt.target.start();
-	    }
+	    selectedIndex: 7
 	};
 	var c = magic.setup.carousel('one-carousel', options);
+	c.on("onmouseenter", function(evt){
+        evt.target.stop();
+		equals(c._selectedIndex, 8, "scroll to 8");
+    });
+    c.on("onmouseleave", function(evt){
+		equals(c._selectedIndex, 8, "scroll to 8");
+        evt.target.start();
+    });
     c.on("onscrollto", function(){
 		scroll ++;
 		if(scroll == 1){
@@ -209,17 +209,17 @@ test("setup, all params", function(){
 	    items: citems,
 	    isCycle: true,
 	    scrollInterval: 100,
-	    direction: 'left',
-	    onmouseenter: function(evt){
-	        evt.target.stop();
-			equals(c._selectedIndex, 9, "scroll to 9");
-	    },
-	    onmouseleave: function(evt){
-			equals(c._selectedIndex, 9, "scroll to 9");
-	        evt.target.start();
-	    }
+	    direction: 'left'
 	};
 	var c = magic.setup.carousel('one-carousel', options);
+	c.on("onmouseenter", function(evt){
+        evt.target.stop();
+		equals(c._selectedIndex, 9, "scroll to 9");
+    });
+    c.on("onmouseleave", function(evt){
+		equals(c._selectedIndex, 9, "scroll to 9");
+        evt.target.start();
+    });
     c.on("onscrollto", function(){
 		scroll ++;
 		if(scroll == 1){

@@ -42,15 +42,13 @@
 var c = magic.setup.carousel('one-carousel', {
 	orientation: 'vertical',
 	direction:'down',
-    isCycle: true,
-    onmouseenter: function(evt){
-        //evt.DOMEvent
-        evt.target.stop();
-    },
-    
-    onmouseleave: function(evt){
-        evt.target.start();
-    }
+    isCycle: true
+});
+c.on('onmouseenter', function(evt){
+    evt.target.stop();
+});
+c.on('onmouseleave', function(evt){
+    evt.target.start();
 });
 </script>
 </html>
