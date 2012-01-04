@@ -39,7 +39,7 @@ module("magic.control.Carousel.$fx");
 test("render", function(){
 	stop();
 	expect(9);
-	ua.importsrc("magic.Carousel,magic.setup.carousel,magic.control.carousel.$fx", function(){
+	ua.importsrc("magic.Carousel,magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -97,7 +97,7 @@ test("render", function(){
 		    time1 = new Date();
 		    c.focus(3);
 		});
-	}, "magic.setup.carousel");
+	}, "magic.Carousel", "magic.control.carousel.$fx");
 });
 
 test("render, disable", function(){
