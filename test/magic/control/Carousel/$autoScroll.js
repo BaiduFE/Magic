@@ -89,7 +89,7 @@ test("render,default params", function(){
 			});
 		    c.render('one-carousel');
 		});
-	}, "magic.Carousel", "magic.control.carousel.$autoScroll");
+	}, "magic.Carousel", "magic.control.Carousel.$autoScroll");
 });
 
 test("render,all params", function(){
