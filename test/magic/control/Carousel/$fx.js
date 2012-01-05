@@ -97,7 +97,7 @@ test("render", function(){
 		    time1 = new Date();
 		    c.focus(3);
 		});
-	}, "magic.Carousel", "magic.control.carousel.$fx");
+	}, "magic.Carousel", "magic.control.Carousel.$fx");
 });
 
 test("render, disable", function(){
