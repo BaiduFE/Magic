@@ -53,7 +53,7 @@ module("magic.control.Carousel.$antoscroll");
 test("render,default params", function(){
 	stop();
 	expect(4);
-	ua.importsrc("magic.carousel,magic.setup.carousel,magic.control.carousel.$autoScroll", function(){
+	ua.importsrc("magic.Carousel,magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -89,12 +89,12 @@ test("render,default params", function(){
 			});
 		    c.render('one-carousel');
 		});
-	}, "magic.setup.carousel");
+	}, "magic.Carousel", "magic.control.Carousel.$autoScroll");
 });
 
 test("render,all params", function(){
 	stop();
-	expect(6);
+	expect(7);
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
@@ -119,8 +119,6 @@ test("render,all params", function(){
     c.on("onscrollto", function(){
 		scroll ++;
 		if(scroll == 1){
-			time2 = new Date();
-		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
 			equals(c._selectedIndex, 9, "scroll to 9");
 			mouseenter(c.getElement("element"));
 	        setTimeout(function(){
@@ -129,6 +127,12 @@ test("render,all params", function(){
 		}
 		if(scroll == 2){
 			equals(c._selectedIndex, 8, "scroll to 8");
+		    time1 = new Date();
+		}
+		if(scroll == 3){
+			time2 = new Date();
+		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
+			equals(c._selectedIndex, 7, "scroll to 7");
 			c.dispose();
 			var l2 = baidu.event._listeners.length;
 			equals(l2, l1, "The events are un");
@@ -137,7 +141,6 @@ test("render,all params", function(){
 		}
 	});
     c.render('one-carousel');
-    time1 = new Date();
 });
 
 test("render, disable", function(){
@@ -199,7 +202,7 @@ test("setup,default params", function(){
 
 test("setup, all params", function(){
 	stop();
-	expect(6);
+	expect(7);
 	enSetup();
 	var scroll = 0; 
 	var time1 = 0;
@@ -223,8 +226,6 @@ test("setup, all params", function(){
     c.on("onscrollto", function(){
 		scroll ++;
 		if(scroll == 1){
-			time2 = new Date();
-		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
 			equals(c._selectedIndex, 9, "scroll to 9");
 			mouseenter(c.getElement("element"));
 	        setTimeout(function(){
@@ -233,6 +234,12 @@ test("setup, all params", function(){
 		}
 		if(scroll == 2){
 			equals(c._selectedIndex, 8, "scroll to 8");
+		    time1 = new Date();
+		}
+		if(scroll == 3){
+			time2 = new Date();
+		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
+			equals(c._selectedIndex, 7, "scroll to 7");
 			c.dispose();
 			var l2 = baidu.event._listeners.length;
 			equals(l2, l1, "The events are un");
@@ -240,7 +247,6 @@ test("setup, all params", function(){
 			start();
 		}
 	});
-    time1 = new Date();
 });
 
 test("setup, disable", function(){

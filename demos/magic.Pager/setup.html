@@ -44,10 +44,16 @@
 	<dt class="pager-title">第10页，一共20页，&lt;&lt;，&lt;，&gt;，&gt;&gt;，href模版是http://www.baidu.com/s?wd=1&pn=#{pageNum}，新窗口</dt>
 	<dd><div id="pager2" tang-param="currentPage:10;totalPage:20;labelFirst:&lt;&lt;;labelPrevious:&lt;;labelNext:&gt;;labelLast:&gt;&gt;;tplURL:http://www.baidu.com/s?wd=1&pn=#{pageNum};isNewWindow:true"></div></dd>
 </dl>
+<dl class="pager-container">
+	<dt class="pager-title">第10页，一共20页，dispose!</dt>
+	<dd><div id="pager3" tang-param="currentPage:10;totalPage:20"></div></dd>
+</dl>
 <script type="text/javascript">
 	var pager0 = magic.setup.pager("pager0");
 	var pager1 = magic.setup.pager("pager1");
 	var pager2 = magic.setup.pager("pager2");
+	var pager3 = magic.setup.pager("pager3");
+	pager3.dispose();
 </script>
 <!-- 对话框组件 End -->
 
