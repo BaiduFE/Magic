@@ -2,7 +2,7 @@
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
- * version: 0.1
+ * version: 2.0
  * date: 2011/12/12
  * author: zhaochengyang
  */
@@ -14,6 +14,7 @@
 ///import baidu.dom.setStyle;
 ///import baidu.dom.contains;
 ///import baidu.dom.setAttr;
+///import baidu.event.on;
 ///import baidu.event.stop;
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
@@ -466,7 +467,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 
     /**
-     * 把某个词放到input框中
+     * 把某个条目放到input框中
      * @public
      * @param {String} index 条目索引.
      */
@@ -554,7 +555,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	 */
 	getData: function(key){},
 	
-	/*
+	/**
      * 缓存一组suggestion数据
      * @public
      * @param {String} query 查找的关键字
