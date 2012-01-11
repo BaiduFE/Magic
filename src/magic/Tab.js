@@ -16,8 +16,9 @@
 /**
  * Tab选项卡组件
  * @class
+ * @name magic.Tab
  * @superClass magic.control.Tab
- * @grammar new magic.Tab(el, optioins)
+ * @grammar new magic.Tab(optioins)
  * @param {Object} options 选项.
  * @config {Array} items 数据项，格式如：[{title: 'text-0', content: 'content-0'}, {title: 'text-1', content: 'content-1'}...]
  * @config {String} toggleEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click

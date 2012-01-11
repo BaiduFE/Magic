@@ -15,6 +15,7 @@
 /**
  * Carousel图片滚动组件的控制器
  * @class
+ * @name magic.Carousel
  * @superClass magic.control.Carousel
  * @grammar new magic.control.Carousel(optioins)
  * @param {Object} options 选项.
@@ -25,6 +26,7 @@
  * @config {Number} pageSize 描述一页显示多少个滚动项，默认值是3
  * @config {Boolean} isCycle 是否支持循环滚动，默认不支持
  * @config {Number} flip 描述每次调用prev或next方法时一次滚动过多少个项，默认是滚动1项
+ * @plugin button 为滚动组件添加控制按钮插件
  * @return {magic.control.Carousel} Carousel实例.
  * @author linlingyu
  */
