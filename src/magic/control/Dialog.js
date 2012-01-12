@@ -123,6 +123,11 @@ magic.control.Dialog.extend(
 	 */
 	hide: function(){
 		// TODO: 如果 beforehide 返回 false，则停止 hide 动作，需要写一个 demo
+        /**
+         * 当关闭窗口前触发，如果事件回调函数返回假，则阻止关闭窗口动作
+         * @name magic.control.Dialog#beforehide
+         * @event 
+         */
 		if(this.fire("beforehide") === false)
 		    return this;
 		this._isShown = false;
@@ -130,8 +135,10 @@ magic.control.Dialog.extend(
 	     
 	    // TODO: 写事件的 jsdoc
 	    /**
-	   	 * @event hide 隐藏后触发事件
-	   	 */
+         * 当关闭窗口后触发
+         * @name magic.control.Dialog#hide
+         * @event 
+         */
 	    this.fire("hide");
 	},
 
@@ -200,7 +207,11 @@ magic.control.Dialog.extend(
 	focus: function(){
 		baidu.dom.setStyle(this.getElement(), "zIndex", 
 			this.zIndex = baidu.global.getZIndex("dialog", 5));
-		// TODO: 写事件的 jsdoc 文件
+		/**
+         * 窗口获得焦点时触发
+         * @name magic.control.Dialog#focus
+         * @event 
+         */
 		this.fire("focus");
 	},
 
@@ -220,9 +231,14 @@ magic.control.Dialog.extend(
 			setStyle(foreground, "height", (this.height = size.height) + "px");
 			setStyle(this.getElement("body"), "height", Math.max(0, this.height - this._titleHeight) + "px");
 		}
-	    /**
-	     * @event resize 发生尺寸更改时触发事件
-	     */
+        /**
+         * 窗体改变大小时触发
+         * @name magic.control.Dialog#resize
+         * @event 
+         * @param {Object} size 新的尺寸信息
+         * @config {Number} size.width 宽度
+         * @config {Number} size.height 高度
+         */
 	    this.fire("resize", size);
 	},
 
@@ -241,8 +257,13 @@ magic.control.Dialog.extend(
 	    if(typeof pos.top == "number")
 	    	setStyle(this.getElement(), "top", (this.top = pos.top) + "px");
 	    /**
-	     * @event move 对话框移动位置时触发事件
-	     */
+         * 窗体移动时触发
+         * @name magic.control.Dialog#move
+         * @event 
+         * @param {Object} post 新的位置信息
+         * @config {Number} size.left 左边距
+         * @config {Number} size.top 上边距
+         */
 	    this.fire("move", pos);
 	},
 
