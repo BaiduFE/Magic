@@ -20,6 +20,7 @@
 /**
  * Tab组件的控制器
  * @class
+ * @name magic.control.Tab
  * @superClass magic.Base
  * @grammar new magic.control.Tab(optioins)
  * @param {Object} options 选项.
@@ -102,10 +103,12 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
             bodies = baidu.dom.children(me.getElement('body'));
         baidu.dom.removeClass(titles[me._selectedIndex], 'tang-title-item-selected');
         baidu.dom.removeClass(bodies[me._selectedIndex], 'tang-body-item-selected');
+//        me.fire('onblur', {index: me._selectedIndex});
         me._selectedIndex = index;
         baidu.dom.addClass(titles[index], 'tang-title-item-selected');
         baidu.dom.addClass(bodies[index], 'tang-body-item-selected');
         me.dispatchEvent('onfocus', {index: me._selectedIndex});
+//        me.fire('onfocus', {index: me._selectedIndex});
     },
 
     /**
