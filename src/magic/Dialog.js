@@ -34,6 +34,7 @@
  * @config {Number} options.height Dialog 的高度，缺省为 300
  * @config {Number} options.left Dialog 的左边距，可选
  * @config {Number} options.top Dialog 的上边距，可选
+ * @return {magic.control.Dialog} magic.control.Dialog 实例
  * @superClass magic.control.Dialog
  */
 magic.Dialog = baidu.lang.createClass(function(options){
