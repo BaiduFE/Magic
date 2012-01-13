@@ -30,6 +30,7 @@
 ///import baidu.dom.contains;
 ///import baidu.dom.getAncestorByClass;
 
+
 void function(){
     /**
      * Item类，单个滚动项对象
@@ -184,7 +185,9 @@ void function(){
     }, {
         type: 'magic.control.Carousel',
         superClass: magic.Base
-    }).extend({
+    }).extend(
+	/** @lends magic.control.Carousel.prototype */
+	{
         _axis: {
             horizontal: {size: 'width',  offsetPos: 'offsetLeft', offsetSize: 'offsetWidth',  scrollPos: 'scrollLeft'},
             vertical:   {size: 'height', offsetPos: 'offsetTop',  offsetSize: 'offsetHeight', scrollPos: 'scrollTop'}

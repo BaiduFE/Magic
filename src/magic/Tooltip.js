@@ -31,7 +31,7 @@
 /**
  * 遮罩层
  *
- * @namespace magic.Tooltip
+ * @class magic.Tooltip
  * @author meizz
 
  * @param	{JSON}			options 	参数设置

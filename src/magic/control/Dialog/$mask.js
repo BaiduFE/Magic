@@ -10,7 +10,7 @@
 
 /**
  * 对话框遮罩插件
- * @name magic.control.Dialog.Dialog$mask;
+ * @name magic.control.Dialog.$mask;
  * @addon magic.control.Dialog;
  */
 
@@ -40,7 +40,8 @@ baidu.lang.register(magic.control.Dialog,
 		/**
 		 * 渲染 mask 层（如果开启 mask 选项，主程序会自动 renderMask）
 		 * @function
-		 * @addon magic.control.Dialog.Dialog$mask;
+		 * @name magic.control.Dialog.$mask.renderMask
+		 * @addon magic.control.Dialog.$mask
 		 * @return {This} 实例本身
 		 */
 		renderMask: function(){
@@ -57,7 +58,8 @@ baidu.lang.register(magic.control.Dialog,
 		/**
 		 * 显示 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
 		 * @function
-		 * @addon magic.control.Dialog.Dialog$mask;
+		 * @name magic.control.Dialog.$mask.showMask
+		 * @addon magic.control.Dialog.$mask
 		 * @return {This} 实例本身
 		 */
 		showMask: function(){
@@ -68,7 +70,8 @@ baidu.lang.register(magic.control.Dialog,
 		/**
 		 * 隐藏 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
 		 * @function
-		 * @addon magic.control.Dialog.Dialog$mask;
+		 * @name magic.control.Dialog.$mask.hideMask
+		 * @addon magic.control.Dialog.$mask
 		 * @return {[type]}
 		 */
 		hideMask: function(){

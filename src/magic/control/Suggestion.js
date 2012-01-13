@@ -838,7 +838,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     
     /**
      * 获得 Suggestion组件结构里的 HtmlElement对象
-     * @name magic.control.Suggestion.getElement
+     * @name magic.control.Suggestion#getElement
      * @function
      * @param {String} name 可选的值包括：input(输入框)|suggestion(suggestion部分的容器)
      * @return {HtmlElement} 得到的 HtmlElement 对象
