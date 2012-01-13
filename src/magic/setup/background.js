@@ -13,10 +13,15 @@
 ///import baidu.dom.getCurrentStyle;
 
 /**
- * 由HTML反向创建 background
- *
- * @namespace magic.setup.background
+ * 在页面已有 html 结构的基础上创建 background 组件
+ * @function magic.setup.background
+ * @param {dom-id|HTMLElement} el 容器对象
+ * @grammar new magic.Background(el, options)
+ * @param   {Object}    options             
+ * @config	{Boolean}	options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
+ * @return {magic.control.background} magic.control.background 实例
  */
+
 magic.setup.background = function(el, options){
 	var opt = options || {};
 
