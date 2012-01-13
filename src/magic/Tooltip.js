@@ -35,7 +35,7 @@
  * @author meizz
 
  * @param	{JSON}			options 	参数设置
- * @config	{Boolean}		coverable	[r/w]对<select>、<object>、Flash 是否采取遮盖处理？
+ * @config	{Boolean}		coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
  * @config	{String}		bgColor 	[r/w]遮罩层背景色
  * @config  {Number}		opacity 	[r/w]背景层透明度，取值 0-1
  * @config  {HTMLElement}	container 	[r/w]遮罩层的容器，默认为 document.body
