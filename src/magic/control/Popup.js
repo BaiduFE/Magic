@@ -25,9 +25,8 @@
  * 弹出窗的窗体
  * 此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
  *
- * @namespace magic.Popup
- * @author meizz
-
+ * @class 
+ * @grammar new magic.control.Popup(optioins)
  * @param	{JSON}		options 	参数设置
  * @config	{Boolean}	autoHide 	 [r/w]是否自动隐藏
  * @config  {Boolean}	visible 	 [r]弹出层当前是否显示？
@@ -39,6 +38,7 @@
  * @config  {Number|String}	left	[r]弹出层的定位点 200|200px|50%|12em|12cm
  * @config  {Number|String}	width 	[r/w]弹出层的宽度，默认值 auto
  * @config  {Number|String}	height 	[r/w]弹出层的高度，默认值 auto
+ * @author meizz
  */
 magic.control.Popup = baidu.lang.createClass(function(options){
 	var me = this;
