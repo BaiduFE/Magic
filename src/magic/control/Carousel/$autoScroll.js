@@ -14,7 +14,7 @@
 
 /**
  * 为滚动组件增加自动滚动功能
- * @name magic.Carousel.$autoScroll
+ * @name magic.control.Carousel.$autoScroll
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
  * @config {Boolean} isAutoScroll 是否支持自动滚动，默认支持

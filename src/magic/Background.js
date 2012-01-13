@@ -20,16 +20,15 @@
 ///import baidu.dom.getCurrentStyle;
 
 /**
- * 创造一个背景层，可以在这个层上用CSS构造出阴影、圆角、渐变透明的效果
- *
- * 提供一组可外调的CSS：
- * tang-background
- * tang-background-inner
- *
- * @namespace magic.Background
+ * 创造一个背景层，可以在这个层上用CSS构造出阴影、圆角、渐变透明的效果；提供一组可外调的CSS：tang-background、tang-background-inner
  * @author meizz
- * @config	{Boolean}	coverable	添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖<select>、Flash等
- * @config	{Boolean}	styleBox	是否使用九宫格方案，可以使用更复杂的背景图策略
+ * @class
+ * @name    magic.Background
+ * @grammar new magic.Background(options)
+ * @param   {Object}    options             
+ * @config	{Boolean}	options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
+ * @plugin  styleBox    使按钮支持capture
+ * @superClass magic.Base
  */
 magic.Background = baidu.lang.createClass(function(options){
 	var opt = options || {}
@@ -55,7 +54,11 @@ magic.Background = baidu.lang.createClass(function(options){
 	type : "magic.Background"
 	,superClass : magic.Base
 })
-.extend({
+.extend(
+/**
+ *  @lends magic.Background.prototype
+ */
+{
 	/**
 	 * 将背景图层附着到DOM元素上
 	 * @param	{HTMLElement}	container 	被附加背景层的DOM元素
@@ -130,3 +133,4 @@ magic.Background = baidu.lang.createClass(function(options){
 
 // 20111214	meizz	添加<iframe>达到在IE6下遮挡<select>和Flash的效果
 // 20111215 meizz	添加一个透明的DIV层，阻止鼠标事件“穿透”图层
+// 20120105 xzh	    修改注释
