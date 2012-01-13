@@ -127,15 +127,21 @@ magic.control.Dialog.extend(
      * @return {This} 实例本身
      */
     hide: function(){
-        // TODO: 如果 beforehide 返回 false，则停止 hide 动作，需要写一个 demo
+        /**
+         * 当即将关闭窗口时触发，如果事件回调函数返回值为 false，则阻止关闭窗口
+         * @name magic.control.Dialog#onbeforehide
+         * @event 
+         */
         if(this.fire("beforehide") === false)
             return this;
         this._isShown = false;
         this.getElement().style.display = "none";
          
         // TODO: 写事件的 jsdoc
-        /*
-         * @event hide 隐藏后触发事件
+        /**
+         * 当关闭窗口时触发
+         * @name magic.control.Dialog#onbeforehide
+         * @event 
          */
         this.fire("hide");
     },
@@ -196,7 +202,11 @@ magic.control.Dialog.extend(
     focus: function(){
         baidu.dom.setStyle(this.getElement(), "zIndex", 
             this.zIndex = baidu.global.getZIndex("dialog", 5));
-        // TODO: 写事件的 jsdoc 文件
+        /**
+         * 当窗口获得焦点时触发
+         * @name magic.control.Dialog#focus
+         * @event 
+         */
         this.fire("focus");
     },
 
@@ -217,7 +227,12 @@ magic.control.Dialog.extend(
             setStyle(this.getElement("body"), "height", Math.max(0, this.height - this._titleHeight) + "px");
         }
         /**
-         * @event resize 发生尺寸更改时触发事件
+         * 当窗口发生尺寸修改时触发
+         * @name magic.control.Dialog#onresize
+         * @param {Object} size 尺寸信息
+         * @config {Number} size.width 宽度
+         * @config {Number} size.height 高度
+         * @event 
          */
         this.fire("resize", size);
     },
@@ -237,7 +252,12 @@ magic.control.Dialog.extend(
         if(typeof pos.top == "number")
             setStyle(this.getElement(), "top", (this.top = pos.top) + "px");
         /**
-         * @event move 对话框移动位置时触发事件
+         * 当窗口发生位置移动时触发
+         * @name magic.control.Dialog#onmove
+         * @param {Object} pos 尺寸信息
+         * @config {Number} pos.left 左边距
+         * @config {Number} pos.top 右边距
+         * @event 
          */
         this.fire("move", pos);
     },
