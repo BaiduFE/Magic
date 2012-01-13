@@ -12,6 +12,8 @@
  * 对话框遮罩插件
  * @name magic.control.Dialog.$mask;
  * @addon magic.control.Dialog;
+ * @param {Object} options 选项
+ * @config {Boolean} options.mask 是否显示遮罩
  */
 
 baidu.lang.register(magic.control.Dialog, 
