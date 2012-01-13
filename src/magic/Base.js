@@ -15,7 +15,7 @@
 ///import baidu.lang.isString;
 
 /**
- * UI基类，所有的UI都应该从这个类中派生出去
+ * UI 基类，所有的 UI 都应该从这个类中派生出去
  * @name magic.Base
  * @grammar magic.Base
  * @class

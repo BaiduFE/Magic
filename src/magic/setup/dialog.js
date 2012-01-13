@@ -15,8 +15,7 @@
 ///import magic._query;
 
 /**
- * 由HTML反向创建 Tab
- *
+ * 在页面已有 html 结构的基础上创建 dialog 组件
  * @function magic.setup.dialog
  * @param {Object} options 控制选项
  * @config {Boolean} options.titleText 对话框的标题内容，可选
@@ -26,7 +25,7 @@
  * @config {Number} options.left Dialog 的左边距，可选
  * @config {Number} options.top Dialog 的上边距，可选
  * @return {magic.control.Dialog} magic.control.Dialog 实例
- * @author meizz, dron
+ * @author dron
  */
 
 magic.setup.dialog = function(el, options){
