@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../../demos/magic.Dialog/demo.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Dialog.css">
-<script type="text/javascript" src="../../src/import.php?f=magic.setup.dialog,magic.control.Dialog.$mask,baidu.swf.create"></script>
+<script type="text/javascript" src="../../src/import.php?f=magic.Dialog,magic.setup.dialog,magic.control.Dialog.$mask,baidu.swf.create"></script>
 <title>Dialog 组件 mask 插件示例</title>
 </head>
 <body>
@@ -32,40 +32,16 @@
 	<div id="flashContainer1"></div>
     <div id="flashContainer2"></div>
     <div id="flashContainer3"></div>
+	
 </div>
 
-<!-- 对话框组件 Start -->
-<div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true; mask: true;">
-	<div class="tang-background">
-		<div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
-	</div>
-	<div class="tang-foreground">
-		<div class="tang-title">
-			<div class="buttons">
-				<a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
-			</div>
-			<span>对话框标题</span>
-		</div>
-		<div class="tang-body">
-			<div class="bars"><!-- bars 为各种条，可以任意添加 -->
-				<div class="bar"></div>
-				<div class="bar"></div>
-			</div>
-			<div class="content">对话框内容</div>
-			<div class="bars"><!-- bars 为各种条，可以任意添加 -->
-				<div class="bar"></div>
-				<div class="bar"></div>
-			</div>
-		</div>
-	</div>
-</div>
 <script type="text/javascript">
-	var dialog = magic.setup.dialog("one-dialog");
+var dialog;
+/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
+ baidu.dom.ready(function(){
+
 	
-	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
-</script>
-<!-- 对话框组件 End -->
-<script>
+ 
      baidu.swf.create({
          id: "flash1",
          url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
@@ -89,6 +65,16 @@
          height:90,
          wmode:'opaque'
      }, "flashContainer3");
- </script>
+	dialog = new magic.Dialog({
+		draggable: true,
+		titleText: "对话框二",
+		content: "我是一个由 render 模式创建的对话框", // 这里可以是 html 内容或直接是 dom 对象的引用
+		width: 400,
+		height: 300,
+		mask:true
+	});
+	dialog.render();
+})
+</script>
 </body>
 </html>

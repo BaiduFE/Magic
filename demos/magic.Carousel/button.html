@@ -3,20 +3,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Carousel 组件 button 插件示例</title>
-<link rel="stylesheet" type="text/css" href="demo.css">
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
-<script type="text/javascript" src="../../src/import.js"></script>
-<script type="text/javascript">
-	Import('magic.Carousel');
-    Import('magic.Carousel.$button');
-    Import('magic.control.Carousel.$fx');
-</script>
+<script type='text/javascript' src='../../src/import.php?f=magic.Carousel,magic.Carousel.$button'></script>
+
 <style type='text/css'>
 .tang-carousel {
     width: 644px;
     height: 140px;
 }
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
 </style>
 </head>
 <body>
@@ -28,26 +27,29 @@
 
 
 <div id='one-carousel'></div>
-</body>
 <script type='text/javascript'>
-var c = new magic.Carousel({
+baidu.dom.ready(function(){
+    var c = new magic.Carousel({
     pageSize: 4,
     selectedIndex: 0,
     items: [
-        {content: '<img src="item/image156[1].gif"/>'},
-        {content: '<img src="item/image166[1].gif"/>'},
-        {content: '<img src="item/image170[1].gif"/>'},
-        {content: '<img src="item/image175[1].gif"/>'},
-        {content: '<img src="item/image203[1].gif"/>'},
-        {content: '<img src="item/image209[1].gif"/>'},
-        {content: '<img src="item/image236[1].gif"/>'},
-        {content: '<img src="item/image241[1].gif"/>'},
-        {content: '<img src="item/image252[1].gif"/>'},
-        {content: '<img src="item/image254[1].gif"/>'},
-        {content: '<img src="item/image371[1].gif"/>'},
-        {content: '<img src="item/image374[1].gif"/>'}
+        {content: '<img src="../../demos/magic.Carousel/item/0.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/1.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/2.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/3.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/4.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/5.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/6.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/7.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/8.png"/>'},
+        {content: '<img src="../../demos/magic.Carousel/item/9.png"/>'}
     ]
 });
     c.render('one-carousel');
+});
+
+
 </script>
+</body>
+
 </html>

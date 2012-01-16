@@ -14,10 +14,14 @@
 ///import baidu.lang.createClass;
 
 /**
- * 将所有 Layer 基类
- *
- * @class magic.control.Layer
+ * Layer 基类
+ * @grammar new magic.control.Layer(options)
+ * @superClass magic.Base
  * @author meizz
+ * @param {Object} options 选项参数
+ * @config {Object} options.width 宽度，默认为auto
+ * @config {Object} options.heighg 高度，默认为auto
+ * @class magic.control.Layer
  */
 magic.control.Layer = baidu.lang.createClass(function(setting){
     this.width = "auto";
@@ -56,7 +60,7 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 	/** 
      * 通用设置高度
 	 * @function
-	 * @param {Number} height 宽度数字
+	 * @param {Number} height 高度数字
 	 */
     ,setHeight :  function(height) {
         baidu.dom.setPixel(this.getElement(), "height",(this.height=height));

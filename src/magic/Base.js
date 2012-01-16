@@ -15,11 +15,10 @@
 ///import baidu.lang.isString;
 
 /**
- * UI 基类，所有的 UI 都应该从这个类中派生出去
+ * UI基类，所有的UI都应该从这个类中派生出去
  * @name magic.Base
- * @grammar magic.Base
+ * @grammar new magic.Base()
  * @class
- * @return {magic.Base}
  * @author meizz
  */
 magic.Base = function(){

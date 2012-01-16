@@ -22,11 +22,10 @@
  * @class
  * @name magic.control.Tab
  * @superClass magic.Base
- * @grammar new magic.control.Tab(optioins)
+ * @grammar new magic.control.Tab(options)
  * @param {Object} options 选项.
  * @config {String} toggleEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click
  * @config {Number} selectedIndex 默认选项卡的打开项，默认值是0
- * @return {magic.control.Tab} Tab实例.
  * @author meizz, linlingyu
  */
 magic.control.Tab = baidu.lang.createClass(function(options) {
@@ -91,7 +90,14 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
             handler();
         }
     },
-
+    
+    /**
+     * 当焦点发生改变时触发该事件
+     * @name magic.control.Tab#onfocus
+     * @event 
+     * @param {baidu.lang.Event} evt 事件参数
+     * @config {Number} index 切换后的焦点索引
+     */
     /**
      * 切换到某个选项卡
      * @param {Number} index 选项卡的索引，初始值是0.
@@ -107,8 +113,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
         me._selectedIndex = index;
         baidu.dom.addClass(titles[index], 'tang-title-item-selected');
         baidu.dom.addClass(bodies[index], 'tang-body-item-selected');
-        me.dispatchEvent('onfocus', {index: me._selectedIndex});
-//        me.fire('onfocus', {index: me._selectedIndex});
+        me.fire('onfocus', {index: me._selectedIndex});
     },
 
     /**

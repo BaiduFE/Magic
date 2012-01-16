@@ -26,7 +26,7 @@
 /**
  * 模拟对话框类，用于建立一个实例
  * @class 模拟对话框类
- * @grammar new magic.Dialog(el, options);
+ * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
  * @config {Boolean} options.titleText 对话框的标题内容，可选
  * @config {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选

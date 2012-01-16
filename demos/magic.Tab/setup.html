@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Tangram-UI 示例</title>
-<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<meta name="description" content="magic.Tab 组件 setup 示例" />
+<title>magic.Tab 组件 setup 示例</title><link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tab.css"/>
 <script type="text/javascript" src="../../src/import.php?f=magic.setup.tab"></script>
 <style type="text/css">
@@ -26,6 +26,12 @@
 	font-size : 13px;
 	padding : 0;
 	margin : 5px;
+}
+.tab-container .tang-tab ul,
+.tab-container .tang-tab ul li {
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
 }
 </style>
 </head>
@@ -76,9 +82,11 @@
 	    </div>
 	</dd>
 </dl>
-</body>
 <script type="text/javascript">
-    var tab0 = magic.setup.tab('tab0');
-    var tab1 = magic.setup.tab('tab1');
+baidu.dom.ready(function(){
+    var tab0 = magic.setup.tab('tab0'),
+        tab1 = magic.setup.tab('tab1');
+});
 </script>
+</body>
 </html>

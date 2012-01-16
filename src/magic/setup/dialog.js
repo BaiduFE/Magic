@@ -17,6 +17,8 @@
 /**
  * 在页面已有 html 结构的基础上创建 dialog 组件
  * @function magic.setup.dialog
+ * @grammar magic.setup.dialog(el,options)
+ * @param {String|HTMLElement} el 容器，ID或者HTML元素
  * @param {Object} options 控制选项
  * @config {Boolean} options.titleText 对话框的标题内容，可选
  * @config {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选

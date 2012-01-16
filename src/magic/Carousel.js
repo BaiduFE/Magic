@@ -16,7 +16,7 @@
  * Carousel图片滚动组件的控制器
  * @class
  * @superClass magic.control.Carousel
- * @grammar new magic.control.Carousel(optioins)
+ * @grammar new magic.Carousel(options)
  * @param {Object} options 选项.
  * @config {Array} items 描述每个滚动项的字符数据，格式：[{content: 'text-0'}, {content: 'text-2'}, {content: 'text-3'}...].
  * @config {Number} orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.

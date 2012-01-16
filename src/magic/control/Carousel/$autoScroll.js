@@ -53,7 +53,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
         clearTimeout(me._autoScrollTimeout);
     });
     
-}, {
+}, 
+/** @lends magic.control.Carousel.prototype */
+{
     /**
      * 根据参数传入的方向转化为对应的调用方法
      * @param {String} direction 方向，取值：up|right|down|left
@@ -69,13 +71,15 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * 当鼠标移入可视区时触发
      * @name magic.control.Carousel.$autoScroll#onmouseenter
      * @event
-     * @param {Event} DOMEvent 取得当时触发的浏览器事件对象
+     * @param {baidu.lang.Event} evt 事件参数
+     * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
      */
     /**
      * 当鼠标移出可视区时触发
      * @name magic.control.Carousel.$autoScroll#onmouseleave
      * @event
-     * @param {Event} DOMEvent 取得当时触发的浏览器事件对象
+     * @param {baidu.lang.Event} evt 事件参数
+     * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
      */
     /**
      * 处理鼠标移入移出滚动滚动区域时的触发事件
