@@ -24,7 +24,7 @@ module("magic.setup.suggestion");
 })();
 
 test('default params', function(){
-	expect(55);
+	expect(54);
 	stop();
 	ua.importsrc("baidu.ajax.request", function(){
 		ua.loadcss(upath + "suggestion/suggestion.css", function(){
@@ -146,8 +146,7 @@ test('default params', function(){
 		        	}
 		        },
 		        onconfirm: function(e, item){
-		        	equals(item.index, 0, "The confirm index is right");
-		        	equals(item.data.value, "a+1value", "The confirm data is right");
+		        	equals(item.data, "a+1", "The confirm data is right");
 		        },
 		        onhide: function(){
 		        	ok(!isShown(this.getElement("suggestion")), "hide");
@@ -173,7 +172,7 @@ test('default params', function(){
 });
 
 test("all params", function(){
-	expect(31);
+	expect(30);
 	stop();
 	enSetup();
 	var highlight = 0;
@@ -265,8 +264,7 @@ test("all params", function(){
     		equals(item.data.value, "北海3value", "The pick data is right");
         },
         onconfirm: function(e, item){
-        	equals(item.index, 2, "The confirm index is right");
-        	equals(item.data.value, "北海3value", "The confirm data is right");
+        	equals(item.data, "北海3", "The confirm data is right");
         },
         onhide: function(){
         	ok(!isShown(this.getElement("suggestion")), "hide");
