@@ -24,7 +24,7 @@
  * Dialog 组件的控制器
  * @class
  * @superClass magic.control.Layer
- * @grammar new magic.control.Dialog(optioins)
+ * @grammar new magic.control.Dialog(options)
  * @param {Object} options 选项
  * @config {Number} options.width Dialog 的宽度，缺省为 400
  * @config {Number} options.height Dialog 的高度，缺省为 300

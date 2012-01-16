@@ -18,11 +18,12 @@
 ///import magic.Background;
 
 /**
- * 弹出窗的窗体，此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
+ * 弹出窗的窗体
  *
  * @class magic.Popup
  * @author meizz
-
+ * @superClass magic.control.Popup
+ * @grammar new magic.Popup(options)
  * @param	{Object}		options 	参数设置
  * @config	{Boolean}	autoHide 	 [r/w]是否自动隐藏
  * @config  {Boolean}	visible 	 [r]弹出层当前是否显示？

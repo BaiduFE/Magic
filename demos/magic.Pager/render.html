@@ -27,7 +27,7 @@
 	magic.resourcePath = "../../resources";
 </script>
 
-<div class="demo">
+<div id="demo" class="demo">
 	<h1>Pager 组件 <strong>render</strong> 模式示例</h1>
 </div>
 
@@ -46,7 +46,7 @@ var testCase = (function(){
 		html += '<dt class="pager-title">' + title + '</dt>';
 		html += '<dd><div id="pager' + num + '"></div></dd>'
 		html += '</dl>';
-		baidu.dom.insertHTML(document.body, 'beforeEnd', html);
+		baidu.dom.insertHTML('demo', 'beforeEnd', html);
 		var pager = new magic.Pager(current, total, options);
 		pager.render('pager' + num);
 		return pager;

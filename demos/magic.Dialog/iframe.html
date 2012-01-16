@@ -26,6 +26,8 @@
 
 <!-- 对话框组件 Start -->
 <script type="text/javascript">
+ baidu.dom.ready(function(){
+
 	var dialog = new magic.Dialog({
 		draggable: true,
 		titleText: "百度一下，你就知道",
@@ -40,6 +42,7 @@
 		iframe.setAttribute("src", "http://www.baidu.com");
 
 	dialog.setContent(iframe);
+})
 </script>
 <!-- 对话框组件 End -->
 

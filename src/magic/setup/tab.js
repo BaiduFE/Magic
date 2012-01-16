@@ -11,12 +11,12 @@
 /**
  * 由HTML反向创建 Tab
  * @function
- * @grammar magic.setup.Tab(el, optioins)
+ * @grammar magic.setup.tab(el, options)
  * @param {String|HTMLElement} el 一个包含Tab所需结构的容器对象.
  * @param {Object} options 选项.
  * @config {String} toggleEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click
  * @config {Number} selectedIndex 默认选项卡的打开项，默认值是0
- * @return {magic.Tab} Tab实例.
+ * @return {magic.control.Tab} Tab实例.
  * @author meizz, linlingyu
  */
 magic.setup.tab = function(el, options) {

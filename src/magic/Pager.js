@@ -46,7 +46,6 @@
  * @param {String} options.tplLabelNormal 普通页码显示模版，默认为#{pageNum}
  * @param {String} options.tplLabelCurrent 当前页码的显示模版，默认为#{pageNum}。
  * @param {Boolean} options.isNewWindow 是否新窗口打开链接，默认为false。
- * @return {magic.Pager} Pager实例
  */
 magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
     this.currentPage = currentPage;

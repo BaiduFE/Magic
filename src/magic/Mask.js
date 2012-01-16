@@ -27,7 +27,8 @@
  *
  * @class magic.Mask
  * @author meizz, dron
-
+ * @grammar new magic.Mask(options)
+ * @superClass  magic.control.Layer
  * @param	{JSON}			options 	参数设置
  * @config	{Boolean}		coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
  * @config	{String}		bgColor 	[r/w]遮罩层背景色

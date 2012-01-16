@@ -22,37 +22,47 @@
 	magic.resourcePath = "../../resources";
 </script>
 
-<div class="demo">
+<div class="demo" >
 	<h1>Dialog 组件多<strong>对话框并存</strong>示例</h1>
 	<p>Dialog 组件允许多个对话框并存，并且可以 setup 和 render 并存。</p>
+	
+		
+	<!-- 对话框组件 Start -->
+	<div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true;">
+		<div class="tang-background">
+			<div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
+		</div>
+		<div class="tang-foreground">
+			<div class="tang-title">
+				<div class="buttons">
+					<a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
+				</div>
+				<span>对话框一</span>
+			</div>
+			<div class="tang-body">
+				<div class="bars"><!-- bars 为各种条，可以任意添加 -->
+					<div class="bar"></div>
+					<div class="bar"></div>
+				</div>
+				<div class="content">我是一个由 setup 模式创建的对话框</div>
+				<div class="bars"><!-- bars 为各种条，可以任意添加 -->
+					<div class="bar"></div>
+					<div class="bar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- render对话框组件 Start -->
+	<div id="demo-render">
+	</div>
+	
 </div>
 
-<!-- 对话框组件 Start -->
-<div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true;">
-	<div class="tang-background">
-		<div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
-	</div>
-	<div class="tang-foreground">
-		<div class="tang-title">
-			<div class="buttons">
-				<a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
-			</div>
-			<span>对话框一</span>
-		</div>
-		<div class="tang-body">
-			<div class="bars"><!-- bars 为各种条，可以任意添加 -->
-				<div class="bar"></div>
-				<div class="bar"></div>
-			</div>
-			<div class="content">我是一个由 setup 模式创建的对话框</div>
-			<div class="bars"><!-- bars 为各种条，可以任意添加 -->
-				<div class="bar"></div>
-				<div class="bar"></div>
-			</div>
-		</div>
-	</div>
-</div>
+
 <script type="text/javascript">
+ baidu.dom.ready(function(){
+
 	// setup 一个对话框
 	var dialog1 = magic.setup.dialog("one-dialog");
 
@@ -66,7 +76,8 @@
 		width: 400,
 		height: 300
 	});
-	dialog2.render();
+	dialog2.render("demo-render");
+})
 </script>
 <!-- 对话框组件 End -->
 

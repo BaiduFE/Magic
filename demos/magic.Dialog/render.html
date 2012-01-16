@@ -30,7 +30,7 @@
 <div id="one-dialog">
 </div>
 <script type="text/javascript">
-	
+ baidu.dom.ready(function(){
 	var dialog = new magic.Dialog({
 		draggable: true,
 		titleText: "对话框标题",
@@ -41,7 +41,7 @@
 		height: 300
 	});
 	dialog.render("one-dialog"); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
-
+})
 	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
 </script>
 <!-- 对话框组件 End -->

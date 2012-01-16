@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="description" content="magic.Tab 示例" />
-<title>Tangram-UI 示例</title>
+<meta name="description" content="magic.Tab 组件 render 示例" />
+<title>magic.Tab 组件 render 示例</title>
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tab.css">
 <script type="text/javascript" src="../../src/import.php?f=magic.Tab,baidu.dom.insertHTML"></script>
@@ -28,13 +28,23 @@
 	padding : 0;
 	margin : 5px;
 }
+.try-main .tang-tab ul,
+.try-main .tang-tab ul li {
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
+}
 </style>
 </head>
 <body>
 	<h1>Tab render模式demo</h1>
-</body>
+    <div id='tab0'></div>
+    <div id='tab1'></div>
+    <div id='tab2'></div>
+    
 <script type='text/javascript'>
-	var testCase = (function(){
+baidu.dom.ready(function(){
+    var testCase = (function(){
 		var caseNum = 0;
 		function create(title, options) {
 			var html = '',
@@ -43,7 +53,7 @@
 			html += '<dt class="tab-title">' + title + '</dt>';
 			html += '<dd id="tab' + num + '"></dd>';
 			html += '</dl>';
-			baidu.dom.insertHTML(document.body, 'beforeEnd', html);
+			baidu.dom.insertHTML('tab' + num, 'beforeEnd', html);
 			
 			var instance = new magic.Tab(options);
 			instance.render('tab' + num);
@@ -88,8 +98,10 @@
             {title: '项目七', content: 'hello world~7'},
             {title: '项目八', content: 'hello world~8'},
             {title: '项目九', content: 'hello world~9'},
-            {title: '项目十', content: 'hello world~10'},
+            {title: '项目十', content: 'hello world~10'}
         ]
     });
+});
 </script>
+</body>
 </html>
