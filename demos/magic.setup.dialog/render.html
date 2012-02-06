@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Dialog 组件 render 模式示例" />
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Dialog/demo.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Dialog.css">
+<script type="text/javascript" src="../../src/import.php?f=magic.Dialog"></script>
+<title>Dialog 组件 render 模式示例</title>
+</head>
+<body>
+
+<style type="text/css">
+	#one-dialog .tang-body{ font-size: 12px; }
+</style>
+
+<script type="text/javascript">
+	/* 这里指定 resources 目录相对于当前页面的地址 */
+	magic.resourcePath = "../../resources";
+</script>
+
+<div class="demo">
+	<h1>Dialog 组件 <strong>render</strong> 模式示例</h1>
+	<p>render 模式的好处在于不需要预先布好 HTML 结构，完全由 js 来创建。对于前期不需要事先看到 dialog 界面的业务逻辑适用。</p>
+	<p>调用 dialog.render(el) 时，可以不指定 el，如要这样做，Dialog 会默认在 body 内尾部创建一个容器。</p>
+	<p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
+</div>
+
+<!-- 对话框组件 Start -->
+<div id="one-dialog">
+</div>
+<script type="text/javascript">
+ baidu.dom.ready(function(){
+	var dialog = new magic.Dialog({
+		draggable: true,
+		titleText: "对话框标题",
+		content: "对话框内容", // 这里可以是 html 内容或直接是 dom 对象的引用
+		left: 80,
+		top: 140,
+		width: 400,
+		height: 300
+	});
+	dialog.render("one-dialog"); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
+})
+	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
+</script>
+<!-- 对话框组件 End -->
+
+</body>
+</html>

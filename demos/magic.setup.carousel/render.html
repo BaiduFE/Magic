@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Carousel 组件 render 示例</title>
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
+<script type="text/javascript" src="../../src/import.php?f=magic.Carousel,magic.Carousel.$button"></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>render</strong> 示例</h1>
+</div>
+
+
+<div id='one-carousel'></div>
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var c = new magic.Carousel({
+        pageSize: 4,
+        selectedIndex: 0,
+        items: [
+            {content: '<img src="../../demos/magic.Carousel/item/0.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/1.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/2.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/3.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/4.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/5.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/6.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/7.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/8.png"/>'},
+            {content: '<img src="../../demos/magic.Carousel/item/9.png"/>'}
+        ]
+    });
+        c.render('one-carousel');
+});
+</script>
+</body>
+</html>

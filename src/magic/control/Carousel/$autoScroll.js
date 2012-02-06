@@ -54,7 +54,6 @@ baidu.lang.register(magic.control.Carousel, function(options){
     });
     
 }, 
-/** @lends magic.control.Carousel.prototype */
 {
     /**
      * 根据参数传入的方向转化为对应的调用方法
@@ -95,6 +94,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     /**
      * 启动自动滚动
+     * @name magic.control.Carousel.$autoScroll#start
+	 * @addon magic.control.Carousel.$autoScroll
+     * @function
      */
     start: function(){
         var me = this;
@@ -106,6 +108,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     /**
      * 停止自动滚动
+     * @name magic.control.Carousel.$autoScroll#stop
+	 * @addon magic.control.Carousel.$autoScroll
+     * @function
      */
     stop: function(){
         var me = this;
