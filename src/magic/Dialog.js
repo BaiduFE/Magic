@@ -26,7 +26,7 @@
 /**
  * 模拟对话框类，用于建立一个实例
  * @class 模拟对话框类
- * @grammar var dialog = new magic.Dialog(el, options);
+ * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
  * @config {Boolean} options.titleText 对话框的标题内容，可选
  * @config {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
@@ -34,7 +34,8 @@
  * @config {Number} options.height Dialog 的高度，缺省为 300
  * @config {Number} options.left Dialog 的左边距，可选
  * @config {Number} options.top Dialog 的上边距，可选
- * @extends {magic.control.Layer} magic.control.Dialog
+ * @return {magic.control.Dialog} magic.control.Dialog 实例
+ * @superClass magic.control.Dialog
  */
 magic.Dialog = baidu.lang.createClass(function(options){
 
@@ -56,7 +57,9 @@ magic.Dialog = baidu.lang.createClass(function(options){
 }, { type: "magic.Dialog", superClass : magic.control.Dialog });
 
 
-magic.Dialog.extend({
+magic.Dialog.extend(
+/** @lends magic.Dialog.prototype */
+{
 	/**
 	 * 渲染对话框
 	 * @param  {[type]} el [description]

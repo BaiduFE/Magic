@@ -14,14 +14,12 @@
 
 /**
  * 为滚动组件增加自动滚动功能
- * @name magic.Carousel.$autoScroll
+ * @name magic.control.Carousel.$autoScroll
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
  * @config {Boolean} isAutoScroll 是否支持自动滚动，默认支持
  * @config {Number} scrollInterval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
  * @config {String} direction 取值，up|right|down|left 描述组件的滚动方向
- * @event {Functoin} onmouseenter 当鼠标移入可视区时触发，function(evt){}，evt.DOMEvent取得触发事件时的浏览器事件对象.
- * @event {Functoin} onmouseleave 当鼠标移出可视区时触发，参数同onmouseenter.
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this, key, opt;
@@ -55,7 +53,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
         clearTimeout(me._autoScrollTimeout);
     });
     
-}, {
+}, 
+/** @lends magic.control.Carousel.prototype */
+{
     /**
      * 根据参数传入的方向转化为对应的调用方法
      * @param {String} direction 方向，取值：up|right|down|left
@@ -68,7 +68,23 @@ baidu.lang.register(magic.control.Carousel, function(options){
     },
     
     /**
-     * 
+     * 当鼠标移入可视区时触发
+     * @name magic.control.Carousel.$autoScroll#onmouseenter
+     * @event
+     * @param {baidu.lang.Event} evt 事件参数
+     * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+     */
+    /**
+     * 当鼠标移出可视区时触发
+     * @name magic.control.Carousel.$autoScroll#onmouseleave
+     * @event
+     * @param {baidu.lang.Event} evt 事件参数
+     * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+     */
+    /**
+     * 处理鼠标移入移出滚动滚动区域时的触发事件
+     * @private
+     * @param {Event} 事件触发时产生的浏览器事件 
      */
     _onMouseEventHandler: function(evt){
         var me = this,

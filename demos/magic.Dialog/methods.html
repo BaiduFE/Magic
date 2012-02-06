@@ -5,8 +5,8 @@
 <link rel="stylesheet" type="text/css" href="../../demos/magic.Dialog/demo.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Dialog.css">
-<script type="text/javascript" src="../../src/import.php?f=baidu.string.format,baidu.dom.g,magic.Dialog"></script>
-<script type="text/javascript" src="demo.js"></script>
+<script type="text/javascript" src="../../src/import.php?f=baidu.string.format,baidu.dom.g,baidu.dom.ready,magic.Dialog"></script>
+<script type="text/javascript" src="../../demos/magic.Dialog/demo.js"></script>
 <title>Dialog 组件 methods 的使用示例</title>
 </head>
 <body>
@@ -72,7 +72,7 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><span>str = </span><span><textarea class="textArea" id="strContent" />测试内容</textarea></span></td>
+				<td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="测试内容" /></span></td>
 				<td><input cmd="dialog.setContent('#{strContent}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
 			</tr>
 			<tr>
@@ -132,8 +132,10 @@
 
 <!-- 对话框组件 Start -->
 <script type="text/javascript">
-	
-	var dialog = new magic.Dialog({
+var dialog;
+ baidu.dom.ready(function(){
+
+	 dialog = new magic.Dialog({
 		draggable: true,
 		titleText: "对话框标题",
 		content: "对话框内容", // 这里可以是 html 内容或直接是 dom 对象的引用
@@ -143,7 +145,7 @@
 		height: 300
 	});
 	dialog.render(); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
-
+})
 	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
 </script>
 <!-- 对话框组件 End -->

@@ -23,15 +23,14 @@
 
 /**
  * 弹出窗的窗体
- * 此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
  *
- * @namespace magic.Popup
- * @author meizz
-
+ * @class 
+ * @grammar new magic.control.Popup(options)
+ * @superClass magic.control.Layer
  * @param	{JSON}		options 	参数设置
- * @config	{Boolean}	autoHide 	[r/w]是否自动隐藏
- * @config  {Boolean}	visible 	[r]弹出层当前是否显示？
- * @config  {Boolean}	hideOnEscape[r/w]在用户按[ESC]键时是否隐藏当前弹出层
+ * @config	{Boolean}	autoHide 	 [r/w]是否自动隐藏
+ * @config  {Boolean}	visible 	 [r]弹出层当前是否显示？
+ * @config  {Boolean}	hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
  * @config	{String}	className 	[r/w]用户可以指定一个样式名
  * @config  {Number}	offsetX 	[r/w]定位时的偏移量，X方向
  * @config  {Number}	offsetY 	[r/w]定位时的偏移量，Y方向
@@ -39,6 +38,7 @@
  * @config  {Number|String}	left	[r]弹出层的定位点 200|200px|50%|12em|12cm
  * @config  {Number|String}	width 	[r/w]弹出层的宽度，默认值 auto
  * @config  {Number|String}	height 	[r/w]弹出层的高度，默认值 auto
+ * @author meizz
  */
 magic.control.Popup = baidu.lang.createClass(function(options){
 	var me = this;
@@ -60,6 +60,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 
 	/**
 	 * 将弹出层与某个DOM元素进行展现的位置绑定
+	 * @name magic.control.Popup#attach
 	 * @param	{HTMLElement}	el 		被绑定的元素
 	 * @param	{JSON}			options 展现的时候一个参数设置
 	 * @config  {Number}		offsetX 定位时的偏移量，X方向
@@ -107,7 +108,9 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	superClass: magic.control.Layer
 	, type:"magic.control.Popup"
 })
-.extend({
+.extend(
+/** @lends magic.control.Popup.prototype */
+{
 	/**
 	 * 向弹出层写入内容，支持HTML
 	 * @param	{String}	content 将要写入的内容
@@ -139,9 +142,15 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 		this.setTop(position.top || position[1]);
 		this.setLeft(position.left||position[0]);
 	}
+	/** 设置对象Top偏移
+	 * @param {Number} top 偏移数值
+	 */
 	,setTop : function(top) {
 		baidu.dom.setPixel(this.getElement(), "top", (this.top=top));
 	}
+	/** 设置对象Left偏移
+	 * @param {Number} left 偏移数值
+	 */
 	,setLeft : function(left) {
 		baidu.dom.setPixel(this.getElement(), "left",(this.left=left));
 	}
@@ -164,6 +173,5 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	baidu.event.on(window, "onscroll", autoHide);
 	baidu.event.on(document,"onclick", autoHide);
 })();
-
 // [TODO]	popup 的DOM元素重复使用
 // [TODO]	popup 支持多级嵌套

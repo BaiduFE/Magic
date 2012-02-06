@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
@@ -22,7 +22,7 @@
  * @config {String}   prependHTML      写在下拉框列表前面的html
  * @config {String}   appendHTML       写在下拉框列表后面的html
  * @config {Boolean}  holdHighLight    鼠标移出待选项区域后，是否保持条目的高亮状态
- * @return {magic.control.suggestion} Suggestion实例.
+ * @return {magic.control.Suggestion} Suggestion实例.
  * @author meizz, zhaochengyang
  */
 magic.setup.suggestion = function(el, options){

@@ -25,11 +25,12 @@
 /**
  * 遮罩层
  *
- * @namespace magic.Mask
+ * @class magic.Mask
  * @author meizz, dron
-
+ * @grammar new magic.Mask(options)
+ * @superClass  magic.control.Layer
  * @param	{JSON}			options 	参数设置
- * @config	{Boolean}		coverable	[r/w]对<select>、<object>、Flash 是否采取遮盖处理？
+ * @config	{Boolean}		coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
  * @config	{String}		bgColor 	[r/w]遮罩层背景色
  * @config  {Number}		opacity 	[r/w]背景层透明度，取值 0-1
  * @config  {HTMLElement}	container 	[r/w]遮罩层的容器，默认为 document.body
@@ -74,7 +75,12 @@ magic.Mask = function(options){
 	});
 
 };
-baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend({
+baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
+/** @lends magic.Mask.prototype */
+{
+	/** 生成HTML字符串
+	 * @private
+	 */
 	toHTMLString : function(){
 		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:absolute; display:none;'>"
 			+(baidu.browser.ie < 7 ? "<iframe frameborder='0' style='"

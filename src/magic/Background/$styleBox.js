@@ -18,8 +18,10 @@
  * 提供一组可外调的CSS：
  * tang-background
  * tang-background-inner
- *
- * @namespace magic.Background.$styleBox
+ * @name magic.Background.$styleBox
+ * @addon  magic.Background
+ * @param  {Object}  options       options参数.
+ * @config {Boolean} styleBox     是否使用九宫格方案，可以使用更复杂的背景图策略
  * @author meizz
  */
 baidu.lang.register(magic.Background, function(opt){

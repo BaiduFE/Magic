@@ -3,19 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Carousel 组件 setup 示例</title>
-<link rel="stylesheet" type="text/css" href="demo.css">
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
 <link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
-<script type="text/javascript" src="../../src/import.js"></script>
-<script type="text/javascript">
-	Import('magic.setup.carousel');
-    Import('magic.control.Carousel.$button');
-</script>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button"></script>
 <style type='text/css'>
 .tang-carousel {
     width: 644px;
     height: 140px;
 }
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
 </style>
 </head>
 <body>
@@ -27,20 +26,22 @@
     <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
-            <li class='tang-carousel-item tang-carousel-item-selected'><img src='item/image156[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image166[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image170[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image175[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image203[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image209[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image236[1].gif'/></li>
-            <li class='tang-carousel-item'><img src='item/image241[1].gif'/></li>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/magic.Carousel/item/0.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/1.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/2.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/3.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/4.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/5.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/6.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/7.png'/></li>
         </ul>
     </div>
     <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
 </div>
-</body>
 <script type='text/javascript'>
-var c = magic.setup.carousel('one-carousel', {});
+baidu.dom.ready(function(){
+    var c = magic.setup.carousel('one-carousel', {});
+});
 </script>
+</body>
 </html>

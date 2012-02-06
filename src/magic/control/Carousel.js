@@ -30,6 +30,7 @@
 ///import baidu.dom.contains;
 ///import baidu.dom.getAncestorByClass;
 
+
 void function(){
     /**
      * Item类，单个滚动项对象
@@ -107,8 +108,9 @@ void function(){
 /**
  * Carousel图片滚动组件的控制器
  * @class
+ * @name magic.control.Carousel
  * @superClass magic.Base
- * @grammar new magic.control.Carousel(optioins)
+ * @grammar new magic.control.Carousel(options)
  * @param {Object} options 选项.
  * @config {Number} orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.
  * @config {Number} selectedIndex 默认选项卡的打开项，默认值是0.
@@ -116,11 +118,9 @@ void function(){
  * @config {Number} pageSize 描述一页显示多少个滚动项，默认值是3
  * @config {Boolean} isCycle 是否支持循环滚动，默认不支持
  * @config {Number} flip 描述每次调用prev或next方法时一次滚动过多少个项，默认是滚动1项
- * @event {Function} onitemclick 鼠标点击单个滚动项时触发，例：function(evt){evt.target.focus(evt.index);}，evt参数是触发是产生的事件对象，通过evt.DOMEvent可以取得当时触发的浏览器对象，通过evt.index取得触发时该滚动项的索引值
- * @event {Function} onitemmouseover 鼠标划入单个滚动项时触发，参数同onitemclick
- * @event {Function} onitemmouseout 鼠标划出单个滚动项时触发，参数同onitemclick
- * @event {Function} onscrollto 当一个滚动结束时触发，例：function(evt){alert(evt.direction)}，通过evt.direction可以取得当次的滚动方向，取值prev或是next
- * @return {magic.control.Carousel} Carousel实例.
+ * @plugin button 为滚动组件添加控制按钮插件
+ * @plugin fx 为滚动组件增加动画滚动功能
+ * @plugin autoScroll 为滚动组件增加自动滚动功能
  * @author linlingyu
  */
     magic.control.Carousel = baidu.lang.createClass(function(options){
@@ -184,12 +184,38 @@ void function(){
     }, {
         type: 'magic.control.Carousel',
         superClass: magic.Base
-    }).extend({
+    }).extend(
+	/** @lends magic.control.Carousel.prototype */
+	{
         _axis: {
             horizontal: {size: 'width',  offsetPos: 'offsetLeft', offsetSize: 'offsetWidth',  scrollPos: 'scrollLeft'},
             vertical:   {size: 'height', offsetPos: 'offsetTop',  offsetSize: 'offsetHeight', scrollPos: 'scrollTop'}
         },
         
+        /**
+         * 鼠标点击单个滚动项时触发
+         * @name magic.control.Carousel#onitemclick
+         * @event 
+         * @param {baidu.lang.Event} evt 事件参数
+         * @config {Number} index 取得触发时该滚动项的索引值
+         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         */
+        /**
+         * 鼠标划入单个滚动项时触发
+         * @name magic.control.Carousel#onitemmouseover
+         * @event 
+         * @param {baidu.lang.Event} evt 事件参数
+         * @config {Number} index 取得触发时该滚动项的索引值
+         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         */
+        /**
+         * 鼠标划出单个滚动项时触发
+         * @name magic.control.Carousel#onitemmouseout
+         * @event 
+         * @param {baidu.lang.Event} evt 事件参数
+         * @config {Number} index 取得触发时该滚动项的索引值
+         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         */
         /**
          * 用于处理滚动项的鼠标划过，鼠标移出，鼠标点击事件，该事件以代理方式挂在所有滚动项的外层
          * @private
@@ -297,6 +323,13 @@ void function(){
             baidu.dom.addClass(me._dataIds[index], 'tang-carousel-item-selected');
         },
         
+        /**
+         * 当一个滚动结束时触发
+         * @name magic.control.Carousel#onscrollto
+         * @event 
+         * @param {baidu.lang.Event} evt 事件参数
+         * @config {String} direction 可以取得当次的滚动方向，取值prev或是next
+         */
         /**
          * 从当前项依据指定方向滚动到index指定的项.
          * @private

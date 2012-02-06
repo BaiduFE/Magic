@@ -12,7 +12,7 @@
 ///import baidu.event.on;
 
 /**
- * 各种UI组件反向创建 的模块集合
+ * 各种UI组件反向创建的模块集合
  * @namespace magic.setup
  */
 (function(){

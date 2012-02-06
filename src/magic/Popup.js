@@ -19,15 +19,15 @@
 
 /**
  * 弹出窗的窗体
- * 此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
  *
- * @namespace magic.Popup
+ * @class magic.Popup
  * @author meizz
-
- * @param	{JSON}		options 	参数设置
- * @config	{Boolean}	autoHide 	[r/w]是否自动隐藏
- * @config  {Boolean}	visible 	[r]弹出层当前是否显示？
- * @config  {Boolean}	hideOnEscape[r/w]在用户按[ESC]键时是否隐藏当前弹出层
+ * @superClass magic.control.Popup
+ * @grammar new magic.Popup(options)
+ * @param	{Object}		options 	参数设置
+ * @config	{Boolean}	autoHide 	 [r/w]是否自动隐藏
+ * @config  {Boolean}	visible 	 [r]弹出层当前是否显示？
+ * @config  {Boolean}	hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
  * @config	{String}	className 	[r/w]用户可以指定一个样式名
  * @config  {Number}	offsetX 	[r/w]定位时的偏移量，X方向
  * @config  {Number}	offsetY 	[r/w]定位时的偏移量，Y方向
@@ -49,7 +49,9 @@ magic.Popup = function(options){
 	var html = me.toHTMLString();
 	baidu.dom.insertHTML(me.container, "afterbegin", html);
 };
-baidu.lang.inherits(magic.Popup, magic.control.Popup, "magic.Popup").extend({
+baidu.lang.inherits(magic.Popup, magic.control.Popup, "magic.Popup").extend(
+/** @lends magic.Popup.prototype */
+{
 	/**
 	 * 生成控件对应的 HTMLString
 	 */
