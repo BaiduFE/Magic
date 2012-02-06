@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Tangram-UI 示例</title>
+<meta name="description" content="suggestion 组件 setup模式示例" />
+<title>suggestion 组件 setup模式示例</title>
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Suggestion.css'/>
 <script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.dom.query,baidu.dom.getAttr"></script>
@@ -10,7 +11,9 @@
 	// Import("baidu.setup.suggestion");
 </script>
 <style type='text/css'>
-
+    div.article table th, td {
+        border: none;
+    }
     .console {
         border: 1px solid #e1e1e1;
         margin: 10px;
@@ -46,6 +49,9 @@
         </select>
         </form>
     </div>
+    <div id="J_console" class="console">
+        
+    </div>
     <script type="text/javascript">
         var suggestionInited = false, s;
 
@@ -55,7 +61,7 @@
             holdHighLight: false,
             getData: function(key){
                 var me = this;
-                baidu.ajax.request("./service.php?key=" + encodeURIComponent(key), {
+                baidu.ajax.request("../../demos/magic.setup.suggestion/service.php?key=" + encodeURIComponent(key), {
                     'method': 'GET',
                     'timeout': 2000,
                     'onsuccess': function(xhr, response){
@@ -89,7 +95,8 @@
         };
         
         baidu.g("form").onsubmit = function(){
-            console.log("提交表单"); //TODO alert
+            var value = baidu.g("tang-suggestion-input").value
+            baidu.g("J_console").innerHTML = "触发表单提交事件，提交的值为：" + value;
             return false;
         }
         

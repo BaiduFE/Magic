@@ -60,7 +60,6 @@ baidu.lang.register(magic.control.Carousel, function(options){
         isLimit();
     });
 }, 
-/** @lends magic.control.Carousel.prototype */
 {
     _isLimit: function(type){
         var me = this,
@@ -82,6 +81,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     /**
      * 是否已经滚动到首项
+     * @name magic.control.Carousel.$button#isFirst
+     * @function
      */
     isFirst: function(){
         return this._isLimit('prev');
@@ -89,6 +90,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     /**
      * 是否已经滚动到末项
+     * @name magic.control.Carousel.$button#isLast
+     * @function
      */
     isLast: function(){
         return this._isLimit('next');
