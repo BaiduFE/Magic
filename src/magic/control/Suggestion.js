@@ -62,7 +62,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                 if(!query && me.isShowing()){
                     me.hide();
                 }else if(query != me.oldInputValue){
-                    me.fire("onneeddata", query);
+                    query && me.fire("onneeddata", query);
                     me.oldInputValue = query;
                 }
             }, 100);
@@ -146,10 +146,10 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             //没有数据就去取数据
             me.getData(query);
         }else {
-            //有数据就直接显示
+            //有数据就直接显示，（需要排除缓存的数据为空数组的情况）
             me.currentData = dataCache[query];
             me.currentQuery = query;
-            me.show();
+            (me.currentData.length > 0) ? me.show() : me.hide();
         }
     });
     
@@ -159,7 +159,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         if(query == me.getInputValue()){
             me.currentData = _data;
             me.currentQuery = query;
-            me.show();
+            (data.length > 0) ? me.show() : me.hide();   //返回的数组为空则不显示suggestion
         }
     });
     
@@ -838,7 +838,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     
     /**
      * 获得 Suggestion组件结构里的 HtmlElement对象
-     * @name magic.control.Suggestion.getElement
+     * @name magic.control.Suggestion#getElement
      * @function
      * @param {String} name 可选的值包括：input(输入框)|suggestion(suggestion部分的容器)
      * @return {HtmlElement} 得到的 HtmlElement 对象
