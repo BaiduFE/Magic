@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Carousel 组件 vertical 示例</title>
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
+<link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel-vertical.css'/>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.carousel,magic.Carousel.$button,magic.control.Carousel.$fx"></script>
+<script type='text/javascript' src='../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$fx,magic.control.Carousel.$button'></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 140px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>vertical</strong> 示例</h1>
+    <p>当设置 orientation 参数为 vertical 时，表示需要一个竖向的滚动组件。</p>
+</div>
+
+    
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+    <div class='tang-carousel-container'>
+        <ul class='tang-carousel-element'>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/magic.Carousel/item/0.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/1.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/2.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/3.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/4.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/5.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/6.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/7.png'/></li>
+        </ul>
+    </div>
+    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+</div>
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var c = magic.setup.carousel('one-carousel', {
+        orientation: 'vertical'
+    });
+});
+</script>
+</body>
+
+</html>

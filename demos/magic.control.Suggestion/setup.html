@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Tangram-UI 示例</title>
+<meta name="description" content="suggestion 组件 setup模式示例" />
+<title>suggestion 组件 setup模式示例</title>
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Suggestion.css'/>
 <script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.dom.query,baidu.dom.getAttr"></script>
@@ -69,7 +70,7 @@
             holdHighLight: false,
             getData: function(key){
                 var me = this;
-                baidu.ajax.request("./service.php?key=" + encodeURIComponent(key), {
+                baidu.ajax.request("../../demos/magic.setup.suggestion/service.php?key=" + encodeURIComponent(key), {
                     'method': 'GET',
                     'timeout': 2000,
                     'onsuccess': function(xhr, response){

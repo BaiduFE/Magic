@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Carousel 组件 scrollto事件 示例</title>
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
+<link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
+<script type="text/javascript" src="../../src/import.php?f=magic.setup.carousel,magic.Carousel.$button,magic.control.Carousel.$fx"></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+
+.dotted {
+    width: 644px;
+    background: #f4f4f4;
+}
+
+.dotted .dotted-container {
+    width: 112px;
+    height: 20px;
+    margin: 0 auto;
+    padding: 0px;
+    list-style: none;
+}
+.dotted .dotted-container li{
+    list-style: none;
+    cursor: pointer;
+    margin: 2px;
+    float: left;
+    width: 8px;
+    height: 8px;
+    background: url(../../resources/default/baidu.ui.Carousel/dotted.png);
+}
+.dotted .dotted-container .item-selected {
+    background-position: -8px 0px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>scrollto事件</strong> 示例</h1>
+</div>
+
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+    <div class='tang-carousel-container'>
+        <ul class='tang-carousel-element'>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/magic.Carousel/item/0.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/1.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/2.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/3.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/4.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/5.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/6.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/7.png'/></li>
+        </ul>
+    </div>
+    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+</div>
+<div class='tang-ui dotted'>
+    <ul id='dotted' class='dotted-container'>
+        <li class='item-selected'></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<script type='text/javascript'>
+function onClickHandler(evt){
+    var ul = baidu.dom.g('dotted'),
+        target = baidu.event.getTarget(evt),
+        index;
+    if (!baidu.dom.contains(ul, target)) {return;}
+    index = baidu.array.indexOf(baidu.dom.children(ul), target);
+    carousel.focus(index);
+}
+
+baidu.dom.ready(function(){
+    var ul = baidu.dom.g('dotted'),
+        child = baidu.dom.children(ul),
+        selectedIndex = 0;
+    baidu.event.on(ul, 'click', onClickHandler);
+    var c = magic.setup.carousel('one-carousel', {
+        isCycle: true
+    });
+    c.on('scrollto', function(evt){
+        var index = evt.target.getCurrentIndex();
+            baidu.dom.removeClass(child[selectedIndex], 'item-selected');
+            baidu.dom.addClass(child[index], 'item-selected');
+            selectedIndex = index;
+    });
+    window.carousel = c;
+});
+</script>
+</body>
+</html>
