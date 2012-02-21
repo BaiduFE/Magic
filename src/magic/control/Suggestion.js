@@ -59,7 +59,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             timer = setInterval(function(){
                 var query = input_el.value;
                 if(!query && me.isShowing()){
-                    me.hide();
+                    me._hide();
                 }else if(query != me.oldInputValue){
                     query && me.fire("onneeddata", query);
                     me.oldInputValue = query;
@@ -141,23 +141,23 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     me.on('onneeddata', function(ev, query) {
         var dataCache = me.dataCache;
+        me.currentQuery = query;
         if (typeof dataCache[query] == 'undefined') {
             //没有数据就去取数据
             me.getData(query);
         }else {
             //有数据就直接显示，（需要排除缓存的数据为空数组的情况）
             me.currentData = dataCache[query];
-            me.currentQuery = query;
             (me.currentData.length > 0) ? me.show() : me.hide();
         }
     });
     
     
     me.on("ongetdata", function(ev, query, data){
+        me.selectedIndex = -1;
         var _data = me.cacheData(query, data);
         if(query == me.getInputValue()){
             me.currentData = _data;
-            me.currentQuery = query;
             (data.length > 0) ? me.show() : me.hide();   //返回的数组为空则不显示suggestion
         }
     });
@@ -781,8 +781,12 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             var direction = "up";
             e = e || window.event;
             switch (e.keyCode) {
-                case 9:     //tab
                 case 27:    //esc
+                    me.getElement("input").value = me.currentQuery;
+                    me.oldInputValue = me.currentQuery;
+                    me._hide();
+                    break;
+                case 9:     //tab
                     me.hide();
                     break;
                 case 13:    //回车，默认为表单提交
@@ -812,7 +816,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                     upDownArrowHandler(direction);
                     break;
                 default:
-                   me.selectedIndex = -1;
+                    break;
             }
         };
     },
