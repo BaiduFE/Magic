@@ -209,8 +209,8 @@ test("render, all param, currentPagePosition=currentPage", function(){
 	equals(pager1.getElement("main").childNodes[2].tagName.toLowerCase(), "a", "The common page is right");
 	equals(pager1.getElement("main").childNodes[2].href, location.href + "?1", "The common page is right");
 	equals(pager1.getElement("main").childNodes[2].innerHTML, "1", "The common page is right");
-	equals(pager1.getElement("main").childNodes[7].tagName.toLowerCase(), "span", "The current page is right");
-	equals(pager1.getElement("main").childNodes[7].innerHTML, "5", "The current page is right");
+	equals(pager1.getElement("main").childNodes[6].tagName.toLowerCase(), "span", "The current page is right");
+	equals(pager1.getElement("main").childNodes[6].innerHTML, "5", "The current page is right");
 	pager1.dispose();
 	document.body.removeChild(div1);
 });
