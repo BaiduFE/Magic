@@ -18,14 +18,14 @@
 ///import baidu.page.getScrollLeft;
 
 /**
- * TOOLTIP
- *
- * @namespace magic.Tooltip
- * @author meizz
- *
+ * Tooltip提示组件
+ * @class
+ * @superClass magic.control.Popup
+ * @name magic.Tooltip
+ * @grammar new magic.Tooltip(options)
+ * 
  * @param {JSON} options 参数设置
  * @config {Boolean} autoHide [r/w]是否自动隐藏
- * @config {Boolean} visible [r]弹出层当前是否显示？
  * @config {Boolean} smartPosition [r/w]弹出层会根据屏幕可视区域的大小自动向下或向上翻转
  * @config {Boolean} disposeOnHide [r/w]在 hide 方法执行的时候自动析构
  * @config {Boolean} hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
@@ -37,9 +37,8 @@
  * @config {Number|String} height [r/w]弹出层的高度，默认值 auto
  *
  * @config {String} align [r/w]箭头所处 左中右 的位置 left|center right
- * @config {String} bgColor [r/w]遮罩层背景色
- * @config {Number} opacity [r/w]背景层透明度，取值 0-1
  * @config {HTMLElement} container [r/w]遮罩层的容器，默认为 document.body
+ * @author meizz
  */
 (function(){
     magic.Tooltip = baidu.lang.createClass(function(options){
@@ -60,12 +59,20 @@
     }, {
         type : "magic.Tooltip"
         ,superClass : magic.control.Popup
-    }).extend({
+    }).extend(
+/** @lends magic.Tooltip.prototype */
+    {
+        /**
+         * 渲染Tooltip到container指定的容器中，默认是document.body
+         */
         render:function(){
             this.setSize([this.width, this.height]);
             this.show();
         }
-
+        /**
+         * 初始化Tooltip
+         * @private
+         */
         ,_init_tooltip : function(){
             var me = this;
             
