@@ -2,12 +2,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>magic.Tooltip Demo</title>
+<meta name="description" content="Tooltip 组件 render示例" />
+<title>Tooltip 组件 render示例</title>
 <link rel="stylesheet" type="text/css" href="../../demos/magic.Tooltip/demo.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Popup.css">
 <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip.css">
+<style type="text/css" media="screen">
+.tang-background table tr td {border: none;}
+</style>
 <script type="text/javascript" src='../../src/import.php?f=baidu.dom.ready,magic.Tooltip'></script>
 </head>
 <body>
@@ -18,8 +22,8 @@
 <script type="text/javascript" charset="utf-8">
 baidu.dom.ready(function(){
     var tooltip = new magic.Tooltip({
-        left: 100,
-        top: 100,
+        left: 300,
+        top: 400,
         content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
         smartPosition: true
     });
