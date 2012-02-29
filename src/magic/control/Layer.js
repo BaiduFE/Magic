@@ -15,6 +15,7 @@
 
 /**
  * 所有 Layer 基类
+ * @class
  * @grammar new magic.control.Layer(options)
  * @superClass magic.Base
  * @author meizz
