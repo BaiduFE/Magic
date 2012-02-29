@@ -50,7 +50,10 @@ magic.Mask = function(options){
 	me.width = me.height = "100%";
 
 	baidu.dom.insertHTML(me.container, "afterbegin", me.toHTMLString());
-
+    
+    /**
+     * @private
+     */
 	function resize(){
 		if (me.container == document.body) {
 			var ls = me.getElement().style;
