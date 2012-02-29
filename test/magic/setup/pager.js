@@ -195,7 +195,7 @@ test("setup, all param, currentPagePosition=currentPage", function(){
 	div1.id = "div1";
 	$(div1).attr("tang-param","currentPage:5;totalPage:10");
 	var options = {
-		currentPagePosition:5,
+		currentPagePosition:5
 	};
 	var pager1 = magic.setup.pager("div1", options);
 	equals(pager1.currentPage, 5, "The currentPage is right");
