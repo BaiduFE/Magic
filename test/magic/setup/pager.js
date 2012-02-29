@@ -188,3 +188,34 @@ test("setup, all param, spacial", function(){
 	equals($(".tang-pager-main").length, 0, "dom clear");
 	document.body.removeChild(div1);
 });
+
+test("setup, all param, currentPagePosition=currentPage", function(){
+	var div1 = document.createElement("div");
+	document.body.appendChild(div1);
+	div1.id = "div1";
+	$(div1).attr("tang-param","currentPage:5;totalPage:10");
+	var options = {
+		currentPagePosition:5,
+	};
+	var pager1 = magic.setup.pager("div1", options);
+	equals(pager1.currentPage, 5, "The currentPage is right");
+	equals(pager1.totalPage, 10, "The totalPage is right");
+	equals(pager1.pageCount, 10, "The pageCount is right");
+	equals(pager1.currentPagePosition, 5, "The currentPagePosition is right");
+	equals(pager1.getElement("main").childNodes.length, 14, "The total page is right");
+	equals(pager1.getElement("main").childNodes[0].tagName.toLowerCase(), "a", "The first page is right");
+	equals(pager1.getElement("main").childNodes[0].href, location.href + "?1", "The first page is right");
+	equals(pager1.getElement("main").childNodes[0].innerHTML, "首页", "The first page is right");
+	equals(pager1.getElement("main").childNodes[1].tagName.toLowerCase(), "a", "The pre page is right");
+	equals(pager1.getElement("main").childNodes[1].href, location.href + "?4", "The pre page is right");
+	equals(pager1.getElement("main").childNodes[1].innerHTML, "上一页", "The pre page is right");
+	equals(pager1.getElement("main").childNodes[2].tagName.toLowerCase(), "a", "The common page is right");
+	equals(pager1.getElement("main").childNodes[2].href, location.href + "?1", "The common page is right");
+	equals(pager1.getElement("main").childNodes[2].innerHTML, "1", "The common page is right");
+	equals(pager1.getElement("main").childNodes[6].tagName.toLowerCase(), "span", "The current page is right");
+	equals(pager1.getElement("main").childNodes[6].innerHTML, "5", "The current page is right");
+	pager1.dispose();
+	equals(pager1.disposed, true, "disposed");
+	equals($(".tang-pager-main").length, 0, "dom clear");
+	document.body.removeChild(div1);
+});
