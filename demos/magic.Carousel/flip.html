@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
 <link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
-<script type='text/javascript' src='../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx'></script>
 <style type='text/css'>
 .tang-carousel {
     width: 644px;
@@ -23,7 +23,7 @@
     <p>flip用于描述每次滚动过多少个项，默认是每次滚动1项</p>
 </div>
 
-<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 1;'>
     <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
@@ -41,7 +41,7 @@
 <script type='text/javascript'>
 baidu.dom.ready(function(){
     var c = magic.setup.carousel('one-carousel', {
-        focusRange: {min: 0, max: 0},
+        focusRange: {min: 1, max: 1},
         isCycle: true,
         flip: 4//翻页
     });

@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
 <link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
-<script type='text/javascript' src='../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx'></script>
 <style type='text/css'>
 .tang-carousel {
     width: 644px;
@@ -20,7 +20,8 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>event</strong> 示例</h1>
-    <p>carousel 内核程序支持三个事件分别是onitemclick，onitemouseover，onitemmouseout，onscrollto，例如：var options = {onitemclick: function(evt){}}，从evt参数中，可以通过evt.DOMEvent来取得触发事件时的浏览器事件对象，通过evt.index来取得触发事件时的目标滚动项。</p>
+    <p>carousel 内核程序支持三个事件分别是onitemclick，onitemouseover，onitemmouseout，onscrollto，注册事件例如：carousel.on('onitemclick', function(evt){}); 从evt参数中，可以通过evt.DOMEvent来取得触发事件时的浏览器事件对象，通过evt.index来取得触发事件时的目标滚动项。</p>
+    <p>该范例注册了onitemclick事件，请在范例中点击某个滚动项来弹出对话框测试事件：</p>
 </div>
 
 <div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
