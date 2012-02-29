@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>magic.Tooltip Demo</title>
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Tooltip/demo.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Popup.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip.css">
+<script type="text/javascript" src='../../src/import.php?f=baidu.dom.ready,magic.Tooltip'></script>
+</head>
+<body>
+<div class='demo'>
+    <h1>Tooltip 组件 <strong>focus</strong> 示例</h1>
+    <br/><br/><br/><br/><br/>
+    使文本域得到焦点或失去焦点来控制tooltip：
+    <input type="text" id="myinput"/>
+</div>
+<script type="text/javascript" charset="utf-8">
+baidu.dom.ready(function(){
+    var input = baidu.dom.g('myinput'),
+        tooltip = new magic.Tooltip({
+            content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
+            disposeOnHide: false,
+            smartPosition: true
+        });
+        tooltip.attach('myinput');
+    
+    baidu.on(input, 'focus', function(){tooltip.show()});
+    baidu.on(input, 'blur', function(){tooltip.hide()});
+});
+</script>
+</body>
+</html>

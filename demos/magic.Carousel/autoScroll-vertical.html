@@ -6,12 +6,12 @@
 <link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
 <link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
 <link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel-vertical.css'/>
-<script type="text/javascript" src="../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx,magic.control.Carousel.$autoScroll"></script>
+<script type="text/javascript" src="../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$fx,magic.control.Carousel.$autoScroll"></script>
 
 <style type='text/css'>
 .tang-carousel {
     width: 140px;
-    height: 644px;
+    height: 560px;
 }
 .tang-carousel .tang-carousel-container ul,
 .tang-carousel .tang-carousel-container ul li,
@@ -26,7 +26,6 @@
 </div>
 
 <div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
-    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
             <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/magic.Carousel/item/0.png'/></li>
@@ -38,7 +37,6 @@
             <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/6.png'/></li>
         </ul>
     </div>
-    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
 </div>
 <script type='text/javascript'>
 baidu.dom.ready(function(){

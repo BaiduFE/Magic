@@ -14,7 +14,7 @@
 ///import baidu.lang.createClass;
 
 /**
- * Layer 基类
+ * 所有 Layer 基类
  * @grammar new magic.control.Layer(options)
  * @superClass magic.Base
  * @author meizz
@@ -22,6 +22,7 @@
  * @config {Object} options.width 宽度，默认为auto
  * @config {Object} options.heighg 高度，默认为auto
  * @class magic.control.Layer
+ * @author meizz
  */
 magic.control.Layer = baidu.lang.createClass(function(setting){
     this.width = "auto";
@@ -37,14 +38,17 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 {
     /** 通用展现方法 */
     show : function(){
-        this.fire("onbeforeshow") && (this.getElement().style.display = "");
-        // this.setSize([this.width, this.height]);
-        this.fire("onshow");
+        if (this.fire("onbeforeshow")) {
+            this.getElement().style.display = "";
+            this.fire("onshow");
+        }
     }
 	/** 通用隐藏方法 */
     ,hide :  function(){
-        this.fire("onbeforehide") && (this.getElement().style.display = "none");
-        this.fire("onhide");
+        if (this.fire("onbeforehide")) {
+            this.getElement().style.display = "none";
+            this.fire("onhide");
+        }
     }
 
 
@@ -60,7 +64,7 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 	/** 
      * 通用设置高度
 	 * @function
-	 * @param {Number} height 高度数字
+	 * @param {Number} height 宽度数字
 	 */
     ,setHeight :  function(height) {
         baidu.dom.setPixel(this.getElement(), "height",(this.height=height));

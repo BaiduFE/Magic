@@ -16,7 +16,7 @@
     padding: 10px;
 }
 .tang-carousel-container .tang-carousel-element .tang-carousel-item-selected {
-    background: white;
+    background: skyblue;
 }
 
 /*btn*/
@@ -25,7 +25,7 @@
     width: 62px;
     height: 42px;
     margin: 0 auto;
-    background: url(baidu.ui.Carousel/carousel-vertical-btn.png) no-repeat;
+    background: url(magic.Carousel/carousel-vertical-btn.png) no-repeat;
 }
 
 

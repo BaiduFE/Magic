@@ -2,43 +2,46 @@
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
- * version: 0.1
+ * version: 2.0
  * date: 2011/11/27
  * author: meizz
  */
 
 ///import magic.control.Layer;
-///import baidu.lang.createClass;
+
+///import baidu.event.on;
+///import baidu.event.un;
 ///import baidu.event.getKeyCode;
 ///import baidu.event.stopPropagation;
+///import baidu.lang.createClass;
 ///import baidu.dom.getPosition;
 ///import baidu.dom.g;
 ///import baidu.dom.setPixel;
 ///import baidu.object.extend;
 ///import baidu.global.set;
 ///import baidu.global.get;
-
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.page.getViewHeight;
+///import baidu.page.getScrollTop;
 
 /**
  * 弹出窗的窗体
+ * 此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
  *
- * @class 
- * @grammar new magic.control.Popup(options)
- * @superClass magic.control.Layer
+ * @namespace magic.Popup
+ * @author meizz
+ *
  * @param	{JSON}		options 	参数设置
- * @config	{Boolean}	autoHide 	 [r/w]是否自动隐藏
- * @config  {Boolean}	visible 	 [r]弹出层当前是否显示？
- * @config  {Boolean}	hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
- * @config	{String}	className 	[r/w]用户可以指定一个样式名
+ * @config	{Boolean}	autoHide 	[r/w]是否自动隐藏
+ * @config  {Boolean}	visible 	[r]弹出层当前是否显示？
+ * @config  {Boolean}	smartPosition	[r/w]弹出层会根据屏幕可视区域的大小自动向下或向上翻转
+ * @config  {Boolean}	disposeOnHide	[r/w]在 hide 方法执行的时候自动析构
+ * @config  {Boolean}	hideOnEscape[r/w]在用户按[ESC]键时是否隐藏当前弹出层
  * @config  {Number}	offsetX 	[r/w]定位时的偏移量，X方向
  * @config  {Number}	offsetY 	[r/w]定位时的偏移量，Y方向
  * @config  {Number|String}	top 	[r]弹出层的定位点
  * @config  {Number|String}	left	[r]弹出层的定位点 200|200px|50%|12em|12cm
  * @config  {Number|String}	width 	[r/w]弹出层的宽度，默认值 auto
  * @config  {Number|String}	height 	[r/w]弹出层的高度，默认值 auto
- * @author meizz
  */
 magic.control.Popup = baidu.lang.createClass(function(options){
 	var me = this;
@@ -46,18 +49,31 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	me.visible = false;
 	me.autoHide = true;
 	me.hideOnEscape = true;
+	me.disposeOnHide = false;
+	me.smartPosition = false;
 
-	me.className = "";
 	me.offsetX = 0;
 	me.offsetY = 0;
-	me.styleBox= false;
 
 	baidu.object.extend(this, options||{});
 	
-
+	// [private]
 	me._parent = null;	// 可以多级 popup 嵌套
 	me._host = null;	// 被绑定的DOM对象，作为定位
 
+	me._init_control_popup();
+}, {
+	superClass: magic.control.Layer
+	, type:"magic.control.Popup"
+})
+.extend({
+	/**
+	 * 向弹出层写入内容，支持HTML
+	 * @param	{String}	content 将要写入的内容
+	 */
+	setContent : function(content){
+		this.getElement("content").innerHTML = content;
+	}
 	/**
 	 * 将弹出层与某个DOM元素进行展现的位置绑定
 	 * @name magic.control.Popup#attach
@@ -68,55 +84,13 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	 * @config  {Number|String}	width 	弹出层的宽度，默认值 auto；200|200px|50%|12em|12cm
 	 * @config  {Number|String}	height 	弹出层的高度，默认值 auto
 	 */
-	me.attach = function(el, options) {
+	,attach : function(el, options) {
 		if(el = baidu.dom.g(el)) {
 			baidu.object.extend(this, options||{});
 
 			this._host = el;
 			this.show();
 		}
-	}
-
-	function click(){window._mz$popup = me.guid;}
-	function resize(){me.reposition();}
-	function escape(e){
-		baidu.event.getKeyCode(e || window.event) == 27
-			&& me.hideOnEscape
-			&& me.autoHide
-			&& me.hide();
-	}
-
-	var list = baidu.global.get("popupList");
-	me.on("show", function(){
-		me.reposition();
-		list[me.guid] = me;
-		window._mz$popup=me.guid;
-		me._host && baidu.event.on(me._host, "onclick", click);
-		baidu.event.on(window, "onresize", resize);
-		baidu.event.on(document, "onkeyup", escape);
-		me.visible = true;
-	});
-	me.on("hide", function(){
-		me.visible = false;
-		delete list[me.guid];
-		me._host && baidu.event.un(me._host, "onclick", click);
-		baidu.event.un(window, "onresize", resize);
-		baidu.event.un(document, "onkeyup", escape);
-	});
-
-}, {
-	superClass: magic.control.Layer
-	, type:"magic.control.Popup"
-})
-.extend(
-/** @lends magic.control.Popup.prototype */
-{
-	/**
-	 * 向弹出层写入内容，支持HTML
-	 * @param	{String}	content 将要写入的内容
-	 */
-	setContent : function(content){
-		this.getElement("content").innerHTML = content;
 	}
 	
 	/**
@@ -130,7 +104,20 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 		if (position) {
 			me.top = position.top + me.offsetY + me._host.offsetHeight;
 			me.left= position.left+ me.offsetX;
+			// 20120116 meizz
+			me._resupinate = false;	// 向上翻转的
+			if(me.smartPosition) {
+				var oh = me.getElement().offsetHeight;	// popup.offsetHeight
+				var ph = baidu.page.getViewHeight();	// 浏览器可视区域高
+				var st = baidu.page.getScrollTop();		// 浏览器滚动条位置 Y
+				var up = position.top-me.offsetY-oh;	// popup向上翻时的 top 值
+				if(me.top+oh > st+ph && up > st && up < st+ph) {
+					me.top = position.top-me.offsetY-oh;
+					me._resupinate = true;
+				}
+			}
 		}
+		me.fire("reposition");
 		me.setPosition([me.left, me.top]);
 	}
 
@@ -154,24 +141,69 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 	,setLeft : function(left) {
 		baidu.dom.setPixel(this.getElement(), "left",(this.left=left));
 	}
+	,_init_control_popup : function(){
+		var me = this;
+		function resize(){me.reposition();}
+		function escape(e){
+			baidu.event.getKeyCode(window.event || e) == 27
+				&& me.hideOnEscape
+				&& me.autoHide
+				&& me.hide();
+		}
+		function protect(){
+			var pp = me;
+			do {prot[pp.guid] = true;}
+			while(pp = pp._parent);
+		}
+
+		var list = baidu.global.get("popupList");
+		var prot = baidu.global.get("popupProtect");
+		me.on("show", function(){
+			me.reposition();
+			// 这句延迟是为了el.click->show()，doc.click->hide()导致popup不能显示的问题
+			setTimeout(function(){me.guid && (list[me.guid] = true);}, 1);
+			me._host && baidu.event.on(me._host, "onclick", protect);
+			baidu.event.on(me.getElement(), "onclick", protect);
+			baidu.event.on(window, "onresize", resize);
+			baidu.event.on(document, "onkeyup", escape);
+			me.width!="auto" && me.setWidth(me.width);
+			me.height!="auto" && me.setHeight(me.height);
+			me.visible = true;
+		});
+		
+		function hide(val){
+		    me.visible = false;
+			delete list[me.guid];
+			me._host && baidu.event.un(me._host, "onclick", protect);
+			baidu.event.un(me.getElement(), "onclick", protect);
+			baidu.event.un(window, "onresize", resize);
+			baidu.event.un(document, "onkeyup", escape);
+			val && me.dispose();
+//			me.disposeOnHide && me.dispose();
+		}
+		
+		me.on('hide', function(){hide(me.disposeOnHide)});
+		me.on('dispose', function(){hide(false)});
+	}
 });
 
+// 页面全局管理 popup，自动隐藏
 (function(){
 	var list = baidu.global.set("popupList", {}, true);
+	var protect = baidu.global.set("popupProtect", {}, true);
 
-	function autoHide() {
-		var mz = window._mz$popup;
+	function hide() {
 		for (var guid in list) {
-			var pop = list[guid];
-			guid!=mz && pop.autoHide && pop.hide();
+			var pop = baiduInstance(guid);
+			!protect[guid] && pop.autoHide && pop.hide();
 		}
-		window._mz$popup = false;
+		for (var guid in protect) delete protect[guid];
 	}
 
-	//baidu.event.on(window, "onblur", autoHide);
-	baidu.event.on(window, "onresize", autoHide);
-	baidu.event.on(window, "onscroll", autoHide);
-	baidu.event.on(document,"onclick", autoHide);
+	//baidu.event.on(window, "onblur", hide);
+	baidu.event.on(window, "onresize", hide);
+	baidu.event.on(window, "onscroll", hide);
+	baidu.event.on(document,"onclick", hide);
 })();
-// [TODO]	popup 的DOM元素重复使用
-// [TODO]	popup 支持多级嵌套
+
+// 20120114 meizz 支持多级嵌套，通过 _parent 指向到父级 popup
