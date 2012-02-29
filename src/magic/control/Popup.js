@@ -35,7 +35,7 @@
  * @config  {Boolean}    visible     [r]弹出层当前是否显示？
  * @config  {Boolean}    smartPosition    [r/w]弹出层会根据屏幕可视区域的大小自动向下或向上翻转
  * @config  {Boolean}    disposeOnHide    [r/w]在 hide 方法执行的时候自动析构
- * @config  {Boolean}    hideOnEscape[r/w]在用户按[ESC]键时是否隐藏当前弹出层
+ * @config  {Boolean}    hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
  * @config  {Number}     offsetX     [r/w]定位时的偏移量，X方向
  * @config  {Number}     offsetY     [r/w]定位时的偏移量，Y方向
  * @config  {Number|String}    top     [r]弹出层的定位点
