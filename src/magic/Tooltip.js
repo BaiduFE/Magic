@@ -36,7 +36,7 @@
  * @config {Number|String} width [r/w]弹出层的宽度，默认值 auto
  * @config {Number|String} height [r/w]弹出层的高度，默认值 auto
  *
- * @config {String} align [r/w]箭头所处 左中右 的位置 left|center right
+ * @config {String} align [r/w]箭头所处 左中右 的位置 left|center|right
  * @config {HTMLElement} container [r/w]遮罩层的容器，默认为 document.body
  * @author meizz
  */

@@ -20,8 +20,8 @@
  * @superClass magic.Base
  * @author meizz
  * @param {Object} options 选项参数
- * @config {Object} options.width 宽度，默认为auto
- * @config {Object} options.heighg 高度，默认为auto
+ * @config {Object} width 宽度，默认为auto
+ * @config {Object} height 高度，默认为auto
  * @class magic.control.Layer
  * @author meizz
  */
@@ -65,7 +65,7 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 	/** 
      * 通用设置高度
 	 * @function
-	 * @param {Number} height 宽度数字
+	 * @param {Number} height 高度数字
 	 */
     ,setHeight :  function(height) {
         baidu.dom.setPixel(this.getElement(), "height",(this.height=height));
