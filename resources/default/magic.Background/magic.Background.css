@@ -8,10 +8,10 @@
 .tang-background .right__{width:12px;}
 
 /* 放入背景图 */
-.tang-background .corner__{background:transparent url(magic.Background/corner.png) no-repeat;}
-.tang-background .vertical__{background:transparent url(magic.Background/vertical.png) repeat-x;}
-.tang-background .horizontal__{background:transparent url(magic.Background/horizontal.png) repeat-y;}
-.tang-background .midland__{background-image:url(magic.Background/midland.png);}
+.tang-background .corner__{background:transparent url(corner.png) no-repeat;}
+.tang-background .vertical__{background:transparent url(vertical.png) repeat-x;}
+.tang-background .horizontal__{background:transparent url(horizontal.png) repeat-y;}
+.tang-background .midland__{background-image:url(midland.png);}
 
 .tang-background .top__ .left__{background-position:top left;}
 .tang-background .top__ .center__{background-position:top left;}
@@ -23,7 +23,7 @@
 .tang-background .bottom__ .right__{background-position:bottom right;}
 /* 针对低端浏览器（IE6）使用gif代替png，优雅降级 */
 .gif__{}
-.tang-background .gif__ .corner__{background-image:url(magic.Background/corner.gif);}
-.tang-background .gif__ .vertical__{background-image:url(magic.Background/vertical.gif);}
-.tang-background .gif__ .horizontal__{background-image:url(magic.Background/horizontal.gif);}
-.tang-background .gif__ .midland__{background-image:url(magic.Background/midland.gif);}
+.tang-background .gif__ .corner__{background-image:url(corner.gif);}
+.tang-background .gif__ .vertical__{background-image:url(vertical.gif);}
+.tang-background .gif__ .horizontal__{background-image:url(horizontal.gif);}
+.tang-background .gif__ .midland__{background-image:url(midland.gif);}
