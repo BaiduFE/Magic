@@ -41,7 +41,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     
     baidu.object.extend(this, options||{});
     
-    me.dataCache = {},      //本地缓存suggestion数据
+    me.dataCache = {};      //本地缓存suggestion数据
 	me.enableIndexs = [];   //包含enable的item的数组
 	me.selectedIndex = -1;  //指当前选中的item的索引在enableIndexs数组中的索引
     me.currentQuery = '';   //currentQuery保存当前suggestion对应的query，用于在某些情况下还原input中的值
@@ -202,8 +202,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @public
      */
     render: function(){
-        var me = this;
-            popup = new magic.Popup({"autoHide": false, "autoTurn": false});
+        var me = this,
+            popup = new magic.Popup({"autoHide": false, "autoTurn": false, 'disposeOnHide': false});
         popupContainer = popup.getElement();
         baidu.dom.addClass(popupContainer, "tang-suggestion-popup");
         
@@ -782,10 +782,6 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             e = e || window.event;
             switch (e.keyCode) {
                 case 27:    //esc
-                    me.getElement("input").value = me.currentQuery;
-                    me.oldInputValue = me.currentQuery;
-                    me._hide();
-                    break;
                 case 9:     //tab
                     me.hide();
                     break;
@@ -831,9 +827,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             return;
         }
         if(me.suggestion){
-            document.body.removeChild(me.getElement("suggestion"));
-            me.suggestion.fire("hide");
             me.suggestion.dispose();
+            me.hide();
         }
         magic.Base.prototype.dispose.call(me);
         
