@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Tooltip 组件 attach示例" />
+<title>Tooltip 组件 attach示例</title>
+<link rel="stylesheet" type="text/css" href="./demo.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.Background/magic.Background.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.Popup/magic.control.Popup.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.Tooltip/magic.control.Tooltip.css">
+<style type="text/css" media="screen">
+.tang-background table tr td {border: none;}
+</style>
+<script type="text/javascript" src='../../../src/import.php?f=baidu.dom.ready,magic.Tooltip'></script>
+</head>
+<body>
+<div class='demo'>
+    <h1>Tooltip 组件 <strong>attach</strong> 示例</h1>
+    <p>通过attach方法来和某个dom元素进行绑定，使tooltip指示到该元素</p>
+    <a id='mylink' href='http://www.baidu.com'>百度</a>
+    <br/><br/><br/><br/>
+</div>
+<script type="text/javascript" charset="utf-8">
+baidu.dom.ready(function(){
+    var tooltip = new magic.Tooltip({
+        content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
+        smartPosition: true
+    });
+    tooltip.attach('mylink');
+});
+</script>
+</body>
+</html>
