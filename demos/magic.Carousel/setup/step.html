@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Carousel 组件 flip 示例" />
+<title>Carousel 组件 flip 示例</title>
+<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
+<link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
+<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel.css'/>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx'></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>flip</strong> 示例</h1>
+    <p>flip用于描述每次滚动过多少个项，默认是每次滚动1项</p>
+</div>
+
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 1;'>
+    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+    <div class='tang-carousel-container'>
+        <ul class='tang-carousel-element'>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/magic.Carousel/item/0.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/1.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/2.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/3.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/4.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/5.png'/></li>
+            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/6.png'/></li>
+        </ul>
+    </div>
+    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+</div>
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var c = magic.setup.carousel('one-carousel', {
+        focusRange: {min: 1, max: 1},
+        isCycle: true,
+        flip: 4//翻页
+    });
+});
+</script>
+</body>
+
+</html>

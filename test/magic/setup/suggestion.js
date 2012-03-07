@@ -153,7 +153,7 @@ test('default params', function(){
 		        	this.on("ondispose", function(){//不能在ondispose中写，因为ondispose在代码解绑监听函数之前运行，那时还有一些监听函数没有解绑
 		        		var l2 = baidu.event._listeners.length;
 			        	equals(l2, l1, "The events are un");
-			        	equals(this.getElement("suggestion"), null, "The dom is clear");
+			        	equals(this.getElement("suggestion").style.display, "none", "The dom is hide");
 			        	document.body.removeChild(div);
 			        	start();
 		        	})
@@ -296,7 +296,7 @@ test("getData & show & render", function(){
             	equals(this.currentData.length, 5, "The currentData is right");
             	equals(this.currentData[0].content, "a+1", "The currentData is right");
             	equals(this.currentQuery, "a", "The currentQuery is right")
-            	equals(this.getElement("suggestion").className, "tang-popup  tang-suggestion-popup", "The class is right");
+            	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
             	equals(this.selectedIndex, -1, "The selectedIndex is right");
             	$("input").attr("value", "b");
@@ -307,7 +307,7 @@ test("getData & show & render", function(){
             	equals(this.currentData.length, 2, "The currentData is right");
             	equals(this.currentData[0].content, "b+1", "The currentData is right");
             	equals(this.currentQuery, "b", "The currentQuery is right")
-            	equals(this.getElement("suggestion").className, "tang-popup  tang-suggestion-popup", "The class is right");
+            	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
             	equals(this.selectedIndex, -1, "The selectedIndex is right");
             	$("input").attr("value", "a");
@@ -318,7 +318,7 @@ test("getData & show & render", function(){
             	equals(this.currentData.length, 5, "The currentData is right");
             	equals(this.currentData[0].content, "a+1", "The currentData is right");
             	equals(this.currentQuery, "a", "The currentQuery is right")
-            	equals(this.getElement("suggestion").className, "tang-popup  tang-suggestion-popup", "The class is right");
+            	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
             	equals(this.selectedIndex, -1, "The selectedIndex is right");
             	this.dispose();
@@ -786,7 +786,7 @@ test("getElement", function(){
         onshow: function(){
         	equals(this.getElement("").id, "tang-suggestion-input", "The getElement()is right");
         	equals(this.getElement("input").id, "tang-suggestion-input", "The getElement()is right");
-        	equals(this.getElement("suggestion").className, "tang-popup  tang-suggestion-popup", "The getElement()is right");
+        	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The getElement()is right");
         	this.dispose();
 	       	document.body.removeChild(div);
 	       	start();

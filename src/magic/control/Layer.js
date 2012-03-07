@@ -14,14 +14,16 @@
 ///import baidu.lang.createClass;
 
 /**
- * Layer 基类
+ * 所有 Layer 基类
+ * @class
  * @grammar new magic.control.Layer(options)
  * @superClass magic.Base
  * @author meizz
  * @param {Object} options 选项参数
- * @config {Object} options.width 宽度，默认为auto
- * @config {Object} options.heighg 高度，默认为auto
+ * @config {Object} width 宽度，默认为auto
+ * @config {Object} height 高度，默认为auto
  * @class magic.control.Layer
+ * @author meizz
  */
 magic.control.Layer = baidu.lang.createClass(function(setting){
     this.width = "auto";
@@ -37,14 +39,17 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 {
     /** 通用展现方法 */
     show : function(){
-        this.fire("onbeforeshow") && (this.getElement().style.display = "");
-        // this.setSize([this.width, this.height]);
-        this.fire("onshow");
+        if (this.fire("onbeforeshow")) {
+            this.getElement().style.display = "";
+            this.fire("onshow");
+        }
     }
 	/** 通用隐藏方法 */
     ,hide :  function(){
-        this.fire("onbeforehide") && (this.getElement().style.display = "none");
-        this.fire("onhide");
+        if (this.fire("onbeforehide")) {
+            this.getElement().style.display = "none";
+            this.fire("onhide");
+        }
     }
 
 

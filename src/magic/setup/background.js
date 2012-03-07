@@ -17,7 +17,7 @@
  * @function magic.setup.background
  * @param {dom-id|HTMLElement} el 容器对象
  * @grammar magic.setup.background(el, options)
- * @param   {Object}    options             
+ * @param   {Object}    options 参数设置
  * @config	{Boolean}	options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
  * @return {magic.Background} magic.Background 实例
  */

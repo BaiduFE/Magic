@@ -98,7 +98,7 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
         var pageNum,
             HTMLString = [],
             //展现起始页
-            startPage = this.totalPage < this.pageCount || this.currentPage < this.currentPagePosition ? 1 : Math.min(this.currentPage - this.currentPagePosition, this.totalPage - this.pageCount + 1),
+            startPage = this.totalPage < this.pageCount || this.currentPage <= this.currentPagePosition ? 1 : Math.min(this.currentPage - this.currentPagePosition, this.totalPage - this.pageCount + 1),
             //展现结束页
             endPage = Math.min(this.totalPage, startPage + this.pageCount - 1);
         HTMLString.push('<div id="' + this.getId('main') + '" class="tang-pager-main">');

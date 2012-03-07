@@ -25,7 +25,7 @@
  * @class
  * @name    magic.Background
  * @grammar new magic.Background(options)
- * @param   {Object}    options             
+ * @param   {Object}    options 参数设置
  * @config	{Boolean}	options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
  * @plugin  styleBox    使按钮支持capture
  * @superClass magic.Base
@@ -45,7 +45,7 @@ magic.Background = baidu.lang.createClass(function(options){
 	// 针对IE浏览器需要用一个定时器来维持高宽的正确性
 	var bb = baidu.browser;
 	bb.ie < 7 && (me._coverDom = "<iframe frameborder='0' style='"+ _cssText +"' src='about:blank'></iframe>");
-	if (bb.ie && (!bb.isStrict || bb.ie < 7)) {
+	if (bb.ie && (!bb.isStrict || bb.ie < 8)) {
 		me.size  = [0,0];
 		me.timer = setInterval(function(){me._forIE()}, 80);
 	}
@@ -109,24 +109,38 @@ magic.Background = baidu.lang.createClass(function(options){
 
 	/*
 	 * 在IE浏览器某些CSS盒模型下解析不正确，需要用此脚本调整
+	 * @private
 	 */
 	,_forIE : function(){
-		if (this.layer || ((this.layer = this.getElement()) && this.layer.offsetHeight)) {
+		if (this.guid && this.layer || ((this.layer = this.getElement()) && this.layer.offsetHeight)) {
 			var bgl = this.layer;
-			var box = this.container || bgl.parentNode
-				,bs = box.style
-				,bt = parseInt(bs.borderTopWidth) || 0
-				,br = parseInt(bs.borderRightWidth) || 0
-				,bb = parseInt(bs.borderBottomWidth) || 0
-				,bl = parseInt(bs.borderLeftWidth) || 0
+			var box = this.container || bgl.parentNode;
+			// 在 dispose 后取不到 parentNode 会报错 20120207
+			if (box && box.style) {
+				var  bs = box.style
+					,bt = parseInt(bs.borderTopWidth) || 0
+					,br = parseInt(bs.borderRightWidth) || 0
+					,bb = parseInt(bs.borderBottomWidth) || 0
+					,bl = parseInt(bs.borderLeftWidth) || 0
 
-				,w = box.offsetWidth  - br - bl
-				,h = box.offsetHeight - bt - bb;
+					,w = box.offsetWidth  - br - bl
+					,h = box.offsetHeight - bt - bb;
 
-			if (this.size[0] != w || this.size[1] != h) {
-				bgl.style.width = (this.size[0] = w) + "px";
-				bgl.style.height= (this.size[1] = h) + "px";
-			}
+				if (this.size[0] != w || this.size[1] != h) {
+					bgl.style.width = (this.size[0] = w) + "px";
+					bgl.style.height= (this.size[1] = h) + "px";
+				}
+
+	            // 20120207 meizz 针对IE对于Table行高分配不公的处理
+	            if (this.styleBox && this.table || (this.table = this.getElement("table"))) {
+	                var h0, h1, h2;
+	                h0 = h0 || parseInt(baidu.dom.getCurrentStyle(this.table.rows[0], "height"));
+	                h2 = h2 || parseInt(baidu.dom.getCurrentStyle(this.table.rows[2], "height"));
+	                this.table.rows[0].style.height = h0 +"px";
+	                this.table.rows[2].style.height = h2 +"px";
+	                this.table.rows[1].style.height = (this.layer.offsetHeight - h0 - h2) +"px";
+	            }
+	        }
 		}
 	}
 });

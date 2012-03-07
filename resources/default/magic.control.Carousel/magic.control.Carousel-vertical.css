@@ -3,17 +3,20 @@
 }
 .tang-carousel-container {
     position: relative;/*must*/
+    width: 140px;
+    height: 560px;
     overflow: hidden;
 }
 .tang-carousel-container .tang-carousel-element {
+    width: 140px;
 }
 .tang-carousel-container .tang-carousel-element .tang-carousel-item {
-    border:solid 1px;
-    margin:1px;
-    pading: 1px;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
 }
 .tang-carousel-container .tang-carousel-element .tang-carousel-item-selected {
-      border:solid 1px red
+    background: skyblue;
 }
 
 /*btn*/
@@ -22,7 +25,7 @@
     width: 62px;
     height: 42px;
     margin: 0 auto;
-    background: url(carousel-vertical-btn.png) no-repeat;
+    background: url(magic.Carousel/carousel-vertical-btn.png) no-repeat;
 }
 
 
@@ -53,6 +56,4 @@ a.tang-carousel-btn-next-disabled:hover,
 a.tang-carousel-btn-next-disabled:active {
     background-position: -124px -42px;
 }
-.cssloaded{
-	width: 20px
-}
+
