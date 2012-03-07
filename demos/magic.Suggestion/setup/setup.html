@@ -4,9 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="suggestion 组件 setup模式示例" />
 <title>suggestion 组件 setup模式示例</title>
-<link rel="stylesheet" type="text/css" href="../../resources/default/common.css">
-<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Suggestion.css'/>
-<script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.dom.query,baidu.dom.getAttr"></script>
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel='stylesheet' type='text/css' href='../../../resources/default/magic.control.Suggestion/magic.control.Suggestion.css'/>
+<script type="text/javascript" src="../../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.dom.query,baidu.dom.getAttr"></script>
 <script type="text/javascript">
 	// Import("baidu.setup.suggestion");
 </script>
@@ -70,14 +70,12 @@
             holdHighLight: false,
             getData: function(key){
                 var me = this;
-                baidu.ajax.request("../../demos/magic.setup.suggestion/service.php?key=" + encodeURIComponent(key), {
+                baidu.ajax.request("./service.php?key=" + encodeURIComponent(key), {
                     'method': 'GET',
                     'timeout': 2000,
                     'onsuccess': function(xhr, response){
                         var a = eval(response);
-                        for(var i = 0; i<a.length; i++){
-                            a[i] = baidu.string.encodeHTML(a[i]);
-                        }
+                        //Attention: 如果返回值可能包含实体字符，如：<、>等，需要先用encodeHTML转义
                         if(a.length == 0){
                             baidu.g("J_console").innerHTML = "该搜索关键字:" + key + "没有提示";
                         }else{
