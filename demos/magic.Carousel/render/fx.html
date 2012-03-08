@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="description" content="Carousel 组件 button 插件示例" />
-<title>Carousel 组件 button 插件示例</title>
-<link rel="stylesheet" type="text/css" href="../../../demos/magic.Carousel/demo.css">
-<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<meta name="description" content="Carousel 组件 fx动画插件 示例" />
+<title>Carousel 组件 fx动画插件 示例</title>
+<link rel="stylesheet" type="text/css" href="../../../demos/magic.Carousel/demo.css"/>
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css"/>
 <link rel='stylesheet' type='text/css' href='../../../resources/default/magic.control.Carousel/magic.control.Carousel.css'/>
-<script type='text/javascript' src='../../../src/import.php?f=baidu.dom.ready,magic.Carousel.$button'></script>
+<script type="text/javascript" src="../../../src/import.php?f=baidu.dom.ready,magic.Carousel,magic.Carousel.$button,magic.control.Carousel.$fx"></script>
 <style type='text/css'>
 .tang-carousel {
     width: 644px;
@@ -20,18 +20,17 @@
 </head>
 <body>
 <div class='demo'>
-    <h1>Carousel 组件 <strong>button插件</strong> 示例</h1>
-    <p>button插件是在carousel的两边加上翻滚按钮提供翻页，默认情况下插件加载时加入按钮，可以通过options参数的showButton设置值为false来去掉按钮。</p>
-    <p>在render模式下，可以通过options参数的buttonLabel: {prev: '左翻页', next: '右翻页'}的方式来为按钮增加标签。</p>
+    <h1>Carousel 组件 <strong>fx动画插件</strong> 示例</h1>
+    <p>滚动动画默认情况是启动的，如果不需要动画效果，可以通过在options参数中加入 enableFx 取值 false 来去掉动画效果。</p>
+    <p>可以通过 scrollFxOption 来指定动画的时间，如var options = {scrollFxOptions: {duration: 1000}}</p>
 </div>
-
-
 <div id='one-carousel'></div>
 <script type='text/javascript'>
 baidu.dom.ready(function(){
     var c = new magic.Carousel({
         pageSize: 4,
         selectedIndex: 0,
+        isCycle: true,
         items: [
             {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
@@ -40,12 +39,14 @@ baidu.dom.ready(function(){
             {content: '<img src="../../../demos/magic.Carousel/item/4.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/5.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/6.png"/>'}
-        ]
+        ],
+        
+        scrollFxOptions: {
+            duration: 1000
+        }
     });
     c.render('one-carousel');
 });
-
-
 </script>
 </body>
 
