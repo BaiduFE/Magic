@@ -5,13 +5,13 @@
 .tang-dialog .tang-background-inner{
 	width: 100%; height: 100%;
 	margin: 5px auto auto 4px;
-	background: url(common/shadow.png) no-repeat right bottom;
+	background: url(../common/shadow.png) no-repeat right bottom;
 	_margin-top: 4px;
-	_background: url(common/shadow.gif) no-repeat right bottom;
+	_background: url(../common/shadow.gif) no-repeat right bottom;
 }
 
 .tang-dialog .tang-title{
-	background: url(magic.Dialog/dialog.png);
+	background: url(dialog.png);
 	border: 1px solid #606060;
 	border-width: 1px 1px 0 1px;
 }
@@ -25,7 +25,7 @@
 	width: 29px;
 	height: 29px;
 	outline: none;
-	background: transparent url(magic.Dialog/btns.gif) no-repeat;
+	background: transparent url(btns.gif) no-repeat;
 }
 
 .tang-dialog .tang-title a.close-btn{
