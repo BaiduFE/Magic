@@ -4,11 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Carousel 组件 autoScroll插件 示例" />
 <title>Carousel 组件 autoScroll插件 示例</title>
-<link rel="stylesheet" type="text/css" href="../../demos/magic.Carousel/demo.css">
-<link rel="stylesheet" type="text/css" href='../../resources/default/common.css'>
-<link rel='stylesheet' type='text/css' href='../../resources/default/magic.Carousel-vertical.css'/>
-<script type="text/javascript" src="../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$fx,magic.control.Carousel.$autoScroll"></script>
-
+<link rel="stylesheet" type="text/css" href="../../../demos/magic.Carousel/demo.css"/>
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css"/>
+<link rel='stylesheet' type='text/css' href='../../../resources/default/magic.control.Carousel/magic.control.Carousel-vertical.css'/>
+<script type="text/javascript" src="../../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$fx,magic.control.Carousel.$autoScroll"></script>
 <style type='text/css'>
 .tang-carousel {
     width: 140px;
@@ -29,17 +28,19 @@
 <div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
-            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/magic.Carousel/item/0.png'/></li>
-            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/1.png'/></li>
-            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/2.png'/></li>
-            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/3.png'/></li>
-            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/4.png'/></li>
-            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/5.png'/></li>
-            <li class='tang-carousel-item'><img src='../../demos/magic.Carousel/item/6.png'/></li>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../../demos/magic.Carousel/item/0.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/1.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/2.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/3.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/4.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/5.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/6.png'/></li>
         </ul>
     </div>
 </div>
+
 <script type='text/javascript'>
+
 baidu.dom.ready(function(){
     var c = magic.setup.carousel('one-carousel', {
     	orientation: 'vertical',
@@ -53,6 +54,7 @@ baidu.dom.ready(function(){
         evt.target.start();
     });
 });
+
 </script>
 </body>
 </html>
