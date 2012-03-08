@@ -5,7 +5,7 @@
     height: 28px;
     clear: both;
     overflow : hidden;
-    background: url(magic.Tab/tab-dotted.png) repeat-x 0px bottom;
+    background: url(./tab-dotted.png) repeat-x 0px bottom;
 }
 
 
@@ -23,13 +23,13 @@
     color: #303030;
     line-height: 28px;
     padding-left: 3px;
-    background: url(magic.Tab/tab-title-item.png) no-repeat 0px -28px;
+    background: url(./tab-title-item.png) no-repeat 0px -28px;
     text-decoration: none;
     outline: none;
 }
 .tang-tab .tang-title .tang-title-item a span {
     display: block;
-    background: url(magic.Tab/tab-title-item.png) no-repeat right -112px;
+    background: url(./tab-title-item.png) no-repeat right -112px;
     padding: 0px 12px 0px 10px;
     text-align: center;
 }
