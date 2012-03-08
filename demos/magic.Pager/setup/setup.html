@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Pager 组件 render 模式示例" />
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.Pager/magic.control.Pager.css">
+<script type="text/javascript" src="../../../src/import.php?f=magic.setup.pager"></script>
+<title>Pager 组件 setup 模式示例</title>
+</head>
+<body>
+
+<style type="text/css">
+	.pager-container {
+		margin-bottom : 20px;
+	}
+	
+	.pager-container .pager-title {
+		font-weight : bold;
+		font-size : 13px;
+		padding : 0;
+		margin : 5px;
+	}
+</style>
+
+<script type="text/javascript">
+	/* 这里指定 resources 目录相对于当前页面的地址 */
+	magic.resourcePath = "../../resources";
+</script>
+
+<div class="demo">
+	<h1>Pager 组件 <strong>setup</strong> 模式示例</h1>
+</div>
+
+<!-- 对话框组件 Start -->
+<dl class="pager-container">
+	<dt class="pager-title">第10页，一共20页</dt>
+	<dd><div id="pager0" tang-param="currentPage:10;totalPage:20"></div></dd>
+</dl>
+<dl class="pager-container">
+	<dt class="pager-title">第10页，一共20页，一页显示5个页码，当前页在第三个。</dt>
+	<dd><div id="pager1" tang-param="currentPage:10;totalPage:20;pageCount:5;currentPagePosition:2"></div></dd>
+</dl>
+<dl class="pager-container">
+	<dt class="pager-title">第10页，一共20页，&lt;&lt;，&lt;，&gt;，&gt;&gt;，href模版是http://www.baidu.com/s?wd=1&pn=#{pageNum}，新窗口</dt>
+	<dd><div id="pager2" tang-param="currentPage:10;totalPage:20;labelFirst:&lt;&lt;;labelPrevious:&lt;;labelNext:&gt;;labelLast:&gt;&gt;;tplURL:http://www.baidu.com/s?wd=1&pn=#{pageNum};isNewWindow:true"></div></dd>
+</dl>
+<script type="text/javascript">
+	var pager0 = magic.setup.pager("pager0");
+	var pager1 = magic.setup.pager("pager1");
+	var pager2 = magic.setup.pager("pager2");
+</script>
+<!-- 对话框组件 End -->
+
+</body>
+</html>
