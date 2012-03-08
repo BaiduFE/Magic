@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Suggestion默认皮肤样式
  */
 .tang-suggestion {
@@ -12,7 +12,7 @@
     padding-top: 6px;
     padding-bottom: 2px;
     width: 534px;
-    background: url('./magic.Suggestion/suggestion-input-bg.gif') no-repeat 0 0 #FFF;
+    background: url('./suggestion-input-bg.gif') no-repeat 0 0 #FFF;
     font-family: Arial, '宋体';
     font-size: 14px;
     color: #000;
