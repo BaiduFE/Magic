@@ -12,7 +12,7 @@
 ///import baidu.dom.setStyle;
 ///import baidu.object.extend;
 ///import baidu.array.each;
-///import baidu.fn.bind
+///import baidu.fn.bind;
 
 
 /**
