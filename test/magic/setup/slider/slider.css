@@ -1,0 +1,33 @@
+/** slider */
+.tang-slider{position:relative;display:inline-block;vertical-align:middle;}
+.tang-slider-vtl{width:18px;height:200px;}
+.tang-slider-htl{width:200px;height:16px;}
+.tang-slider .inner-table{border:0;vertical-align:middle;width:100%;height:100%;}
+.tang-slider .inner-layer{border:1px solid #759DC0;position:relative;}
+.tang-slider-vtl .inner-layer{width:4px;margin:0 auto;height:198px;}
+.tang-slider-htl .inner-layer{height:4px;}
+
+
+/** 游标 */
+.tang-slider .knob{position:absolute;display:block;height:16px;font-size:0;width:18px;outline:none;background-image:url("sliderThumbs.png");}
+.tang-slider .knob-vtl{background-position:-307px 0;}
+.tang-slider .knob-vtl:hover{background-position:-325px 0;}
+.tang-slider .knob-htl{background-position:-18px 0;}
+.tang-slider .knob-htl:hover{background-position:-36px 0;}
+
+/** 进度条 */
+.tang-slider .process{background:#ABD6FF;position:absolute;font-size:0;}
+.tang-slider .process-vtl{width:4px;height:8px;}
+.tang-slider .process-htl{height:4px;width:9px;}
+.tang-slider-htl .process-forward{left:0;top:0;}
+.tang-slider-vtl .process-forward{left:0;top:0;}
+.tang-slider-htl .process-backward{right:0;top:0;}
+.tang-slider-vtl .process-backward{left:0;bottom:0;}
+
+/** 遮罩 */
+.tang-slider .mask{position:absolute;left:0;top:0;width:100%;height:100%;z-index:100;display:none;background-color: #8e8e8e;opacity:0.8;
+filter:alpha(opacity=80);}
+
+.cssloaded{
+	width: 20px
+}
