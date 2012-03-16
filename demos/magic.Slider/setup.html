@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
+    <title>setup Magic</title>
+    <style type="text/css">
+        .view{margin:20px 20px 10px;width:200px;float:left;}
+        .wrap{width:200px;margin:10px auto;font-size:12px;}
+    </style>
+    <link rel="stylesheet" href="../../resources/default/magic.control.Slider/magic.Slider.css"/>
+    <script src="../../src/import.php?f=magic.Slider,magic.setup.slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
+</head>
+<body>
+    <div id="view1" class="view">
+        <div class="wrap">
+            <p>精确度：0</p>
+            <button onclick="s1.enable();">启用</button>
+            <button onclick="s1.disable();">禁用</button>
+            <p>animate: <input type="checkbox" name="" value="yes" onclick="s1['switch'] = this.checked?'on':'off';"></p>
+        </div>
+        <div id="s1" class="tang-ui tang-slider tang-slider-vtl" style="">
+            <div class="tang-background" style="position:absolute; top:0px; left:0px;width:100%;height:100%;z-index:-9; -webkit-user-select:none; -moz-user-select:none;" onselectstart="return false">
+                <div class="tang-background-inner" style="width:100%;height:100%;">
+                    <table class="inner-table" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="inner-corner"><div class="corner1"></dv></td></tr>
+                            <tr><td class="inner-content">
+                                <div class="inner-layer"><div class="process process-vtl process-forward"></div></div>
+                            </td></tr>
+                            <tr><td class="inner-corner"><div class="corner2"></div></td></tr>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+            <a href="javascript:;" class="knob knob-vtl knob-forward"></a>
+        </div>
+    </div>
+
+    <div id="view2" class="view">
+        <div class="wrap">
+            <p>精确度：0.5</p>
+            <button onclick="s2.enable();">启用</button>
+            <button onclick="s2.disable();">禁用</button>
+            <p>animate: <input type="checkbox" name="" value="yes" onclick="s2['switch'] = this.checked?'on':'off';"></p>
+        </div>
+        <div id="s2" class="tang-ui tang-slider tang-slider-vtl" style="">
+            <div class="tang-background" style="position:absolute; top:0px; left:0px;width:100%;height:100%;z-index:-9; -webkit-user-select:none; -moz-user-select:none;" onselectstart="return false">
+                <div class="tang-background-inner" style="width:100%;height:100%;">
+                    <table class="inner-table" cellspacing="0" cellpadding="0">
+                        <tbody><tr>
+                            <td class="inner-corner"><div class="corner1-backward"></dv></td></tr>
+                            <tr><td class="inner-content">
+                                <div class="inner-layer"><div class="process process-vtl process-backward"></div></div>
+                            </td></tr>
+                            <tr><td class="inner-corner"><div class="corner2-backward"></div></td></tr>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+            <a href="javascript:;" class="knob knob-vtl knob-backward"></a>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var s1 = magic.setup.slider('s1', {'switch': 'off', orientation: 'vertical', direction: 'forward',
+            cache:'yes', onchange:function(v){
+                
+            }}); 
+
+        var s2 = magic.setup.slider('s2', {'switch': 'off', accuracy: 0.5, orientation: 'vertical', direction: 'backward',cache:'yes',onchange:function(v){
+
+            }}); 
+
+        s1.setCache(1);
+        s2.setCache(1);
+
+    </script>
+
+</body>
+</html>
