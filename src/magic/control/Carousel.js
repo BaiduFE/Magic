@@ -14,9 +14,6 @@
 ///import baidu.event.on;
 ///import baidu.event.un;
 ///import baidu.event.getTarget;
-///import baidu.event._eventFilter._crossElementBoundary;
-///import baidu.event._eventFilter.mouseenter;
-///import baidu.event._eventFilter.mouseleave;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
 ///import magic._query;
@@ -57,7 +54,7 @@ void function(){
     /**
      * 渲染滚动项到指定的容器
      * @param {Object} target 指定渲染容器
-     * @param {Object} direction 指定在容器的首位插入或是末位插入滚动项，取值prev或next
+     * @param {Object} direction 指定在容器的首位插入或是末位插入滚动项，取值：forward|backward
      */
     Item.prototype.render = function(target, direction){
         if(this._element){return;}
@@ -67,7 +64,7 @@ void function(){
             tagName = child[0] ? child[0].tagName : 'li',
             template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>';
         baidu.dom.insertHTML(target,
-            direction == 'prev' ? 'afterBegin' : 'beforeEnd',
+            direction == 'forward' ? 'beforeEnd' : 'afterBegin',
             baidu.string.format(template, {
                 rsid: me.guid,
                 'class': 'tang-carousel-item' + (opt.empty ? ' tang-carousel-item-empty' : ''),
@@ -78,13 +75,13 @@ void function(){
     /**
      * 将已经存在或是末曾渲染的滚动项插入到指定位置
      * @param {Object} target 指定接受插入的容器
-     * @param {Object} direction 指定在容器的首位插入或是末位插入滚动项，取值prev或next
+     * @param {Object} direction 指定在容器的首位插入或是末位插入滚动项，取值：forward|backward
      */
     Item.prototype.insert = function(target, direction){
         var me = this;
         if(me._element){
-            direction == 'prev' ? target.insertBefore(me._element, target.firstChild)
-                : target.appendChild(me._element);
+            direction == 'forward' ? target.appendChild(me._element)
+                : target.insertBefore(me._element, target.firstChild)
         }else{
             me.render(target, direction);
         }
@@ -113,11 +110,11 @@ void function(){
  * @grammar new magic.control.Carousel(options)
  * @param {Object} options 选项.
  * @config {Number} orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.
- * @config {Number} selectedIndex 默认选项卡的打开项，默认值是0.
+ * @config {Number} originalIndex 默认选项卡的聚焦项，默认值是0.
  * @config {Object} focusRange 描述焦点的滚动范围，最小值从0开始，格式：{min: 0, max: 4}
- * @config {Number} pageSize 描述一页显示多少个滚动项，默认值是3
- * @config {Boolean} isCycle 是否支持循环滚动，默认不支持
- * @config {Number} flip 描述每次调用prev或next方法时一次滚动过多少个项，默认是滚动1项
+ * @config {Number} viewSize 描述一页显示多少个滚动项，默认值是3
+ * @config {Boolean} isLoop 是否支持循环滚动，默认不支持
+ * @config {Number} step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认是滚动1项
  * @plugin button 为滚动组件添加控制按钮插件
  * @plugin fx 为滚动组件增加动画滚动功能
  * @plugin autoScroll 为滚动组件增加自动滚动功能
@@ -128,27 +125,25 @@ void function(){
             focusRange = options.focusRange,
             opt;
         me._options = baidu.object.extend({
-            pageSize: 3,
-            flip: 1,//修改成数值
-            focusRange: {min: 0, max: options.pageSize - 1 || 2},
+            viewSize: 3,
+            step: 1,//修改成数值
+            focusRange: {min: 0, max: options.viewSize - 1 || 2},
             orientation: 'horizontal',//horizontal|vertical
-            selectedIndex: 0,
-            isCycle: false
+            originalIndex: 0,
+            isLoop: false
         }, options);
         opt = me._options;
         //
-        me._selectedIndex = opt.selectedIndex;
+        me._selectedIndex = opt.originalIndex;
         focusRange && (opt.focusRange = {//fix focusRange
             min: Math.max(0, focusRange.min),
-            max: Math.min(opt.pageSize - 1, focusRange.max)
+            max: Math.min(opt.viewSize - 1, focusRange.max)
         });
         //
         me._items = opt.items || [];//数据内容项
         me._dataIds = [];
         me._datas = {};//Item对象
-        me.on('onscrollto', function(){
-            me._scrolling = false;
-        });
+        me.on('onfocus', function(){me._scrolling = false;});
         me.on('onload', function(evt){
             var axis = me._axis[me._options.orientation],
                 selectedIndex = me._selectedIndex,
@@ -194,7 +189,7 @@ void function(){
         
         /**
          * 鼠标点击单个滚动项时触发
-         * @name magic.control.Carousel#onitemclick
+         * @name magic.control.Carousel#onclickitem
          * @event 
          * @param {baidu.lang.Event} evt 事件参数
          * @config {Number} index 取得触发时该滚动项的索引值
@@ -202,7 +197,7 @@ void function(){
          */
         /**
          * 鼠标划入单个滚动项时触发
-         * @name magic.control.Carousel#onitemmouseover
+         * @name magic.control.Carousel#onmouseoveritem
          * @event 
          * @param {baidu.lang.Event} evt 事件参数
          * @config {Number} index 取得触发时该滚动项的索引值
@@ -210,7 +205,7 @@ void function(){
          */
         /**
          * 鼠标划出单个滚动项时触发
-         * @name magic.control.Carousel#onitemmouseout
+         * @name magic.control.Carousel#onmouseoutitem
          * @event 
          * @param {baidu.lang.Event} evt 事件参数
          * @config {Number} index 取得触发时该滚动项的索引值
@@ -229,7 +224,7 @@ void function(){
                 target = baidu.event.getTarget(evt);
             if(!baidu.dom.contains(me.getElement('element'), target)){return;}
             target = baidu.dom.getAncestorByClass(target, 'tang-carousel-item') || target;
-            me.fire('onitem' + type, {DOMEvent: evt, index: baidu.array.indexOf(me._dataIds, target.id)});
+            me.fire('on' + type + 'item', {DOMEvent: evt, index: baidu.array.indexOf(me._dataIds, target.id)});
         },
         
         //private
@@ -282,7 +277,7 @@ void function(){
             var me = this,
                 axis = me._axis[me._options.orientation],
                 opt = me._options,
-                pageSize = opt.pageSize,
+                viewSize = opt.viewSize,
                 focusRange = opt.focusRange,
                 totalCount = me._dataIds.length,
                 child = baidu.dom.children(me.getElement('element')),
@@ -290,11 +285,11 @@ void function(){
                     me._getItem(index).getElement());
             if(isLimit){
                 index - focusRange.min < 0 && (offset = index);
-                index + opt.pageSize - focusRange.max > totalCount
-                    && (offset = opt.pageSize - totalCount + index);
+                index + viewSize - focusRange.max > totalCount
+                    && (offset = viewSize - totalCount + index);
             }
             baidu.array.each(child, function(item, index){
-                (index < posIndex - offset || index > posIndex + me._options.pageSize - offset - 1)
+                (index < posIndex - offset || index > posIndex + viewSize - offset - 1)
                     && baidu.dom.remove(item);
             });
             me.getElement('container')[axis.scrollPos] = 0;//init
@@ -325,16 +320,16 @@ void function(){
         
         /**
          * 当一个滚动结束时触发
-         * @name magic.control.Carousel#onscrollto
+         * @name magic.control.Carousel#onfocus
          * @event 
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {String} direction 可以取得当次的滚动方向，取值prev或是next
+         * @config {String} direction 可以取得当次的滚动方向，取值：forward|backward
          */
         /**
          * 从当前项依据指定方向滚动到index指定的项.
          * @private
          * @param {Number} index 滚动项的索引
-         * @param {String} direction 可选，滚动方向，取值：prev或是next
+         * @param {String} direction 可选，滚动方向，取值：forward|backward
          */
         _scrollTo: function(index, direction){
             var me = this,
@@ -342,23 +337,22 @@ void function(){
                 focusRange = opt.focusRange,
                 selectedIndex = me._selectedIndex,
                 axis = me._axis[opt.orientation],
-                direction = direction || (index > selectedIndex ? 'next' : 'prev'),
-                vector = direction == 'prev',
+                direction = direction || (index > selectedIndex ? 'forward' : 'backward'),
+                vector = direction.toLowerCase() == 'forward',
                 container = me.getElement('container'),
                 element = me.getElement('element'),
                 bound = me._getItemBound(),
                 target = baidu.dom.g(me._getItem(index).guid),
                 totalCount = me._dataIds.length,
                 child = baidu.dom.children(element),
-                posIndex = baidu.array.indexOf(child, me._getItem(selectedIndex).getElement()),
-                len = ((vector ? -1 : 1) * (index - selectedIndex) + totalCount) % totalCount 
-                    + (vector ? focusRange.min : opt.pageSize - focusRange.max - 1)
-                    - (vector ? posIndex : child.length - posIndex - 1),//((vector ? -1 : 1) * y - x + len) % len
+                posIndex = baidu.array.indexOf(child, me._getItem(selectedIndex).getElement()),//当前焦点在viewSize中的位置
+                len = ((vector ? 1 : -1) * (index - selectedIndex) + totalCount) % totalCount
+                    + (vector ? opt.viewSize - focusRange.max - 1 : focusRange.min)
+                    - (vector ? child.length - posIndex - 1 : posIndex),//((vector ? -1 : 1) * y - x + len) % len.
                 empty = [],
                 count, ele, distance, insertItem, entry;
-                //
             if(index == selectedIndex
-                || me._dataIds.length <= opt.pageSize
+                || me._dataIds.length <= opt.viewSize
                 || me._scrolling){//exit
                 return;
             }
@@ -366,8 +360,8 @@ void function(){
             if(!target || target[axis.offsetPos] < focusRange.min * bound.bound
                 || target[axis.offsetPos] - bound.marginPrev > focusRange.max * bound.bound){//need move
                 for(var i = 0; i < len; i++){
-                    count = (selectedIndex + (vector ? -posIndex : child.length - posIndex - 1)
-                        + (vector ? -1 : 1) * (i + 1) + totalCount) % totalCount;
+                    count = (selectedIndex + (vector ? child.length - posIndex - 1 : -posIndex)
+                        + (vector ? 1 : -1) * (i + 1) + totalCount) % totalCount;
                     ele = baidu.dom.g(me._dataIds[count]);
                     insertItem = ele ? new Item({empty: true}) : me._getItem(count);
                     insertItem.insert(element, direction);
@@ -375,62 +369,62 @@ void function(){
                     ele && empty.push({empty: insertItem.getElement(), item: ele});
                 }
                 me._resize();
-                vector && (container[axis.scrollPos] += bound.bound * len);
+                !vector && (container[axis.scrollPos] += bound.bound * len);
                 //
-                if(me.fire('onbeforescroll', {index: index, distance: (vector ? -1 : 1) * bound.bound * len, empty: empty})){
+                if(me.fire('onbeforescroll', {index: index, distance: (vector ? 1 : -1) * bound.bound * len, empty: empty})){
                     me._toggle(index);
                     while(empty.length > 0){//clear empty
                         entry = empty.shift();
                         element.replaceChild(entry.item, entry.empty);
                         baidu.dom.remove(entry.empty);
                     }
-                    me._clear(index, vector ? focusRange.min : focusRange.max);
+                    me._clear(index, focusRange[vector ? 'max' : 'min']);
                     me._resize();
-                    me.fire('onscrollto', {direction: direction});
+                    me.fire('onfocus', {direction: direction});
                 }
             }else{//keep
                 me._toggle(index);
-                me.fire('onscrollto', {direction: direction});
+                me.fire('onfocus', {direction: direction});
             }
         },
         
         /**
-         * prev，next方法的通用基础处理方法.
+         * focusPrev，focusNext方法的通用基础处理方法.
          * @private
-         * @param {String} type 方向，取值：prev或是next
+         * @param {String} type 方向，取值：forward|backward
          */
         _basicFlip: function(type){
             var me = this,
                 opt = me._options,
                 focusRange = opt.focusRange,
-                vector = type == 'prev' ? -1 : 1,
+                vector = (type == 'forward') ? 1 : -1,
                 selectedIndex = me._selectedIndex,
                 totalCount = me._dataIds.length,
-                index = opt.isCycle ?
-                    (selectedIndex + vector * opt.flip + totalCount) % totalCount
-                    : Math.min(totalCount - 1 - (opt.pageSize - 1 - focusRange.max), Math.max(0 + focusRange.min , selectedIndex + vector * opt.flip));
+                index = opt.isLoop ?
+                    (selectedIndex + vector * opt.step + totalCount) % totalCount
+                    : Math.min(totalCount - 1 - (opt.viewSize - 1 - focusRange.max), Math.max(0 + focusRange.min , selectedIndex + vector * opt.step));
             me._scrollTo(index, type);
         },
         
         //public
         /**
-         * 以flip为单位翻到上一项
+         * 以step为单位翻到上一项
          */
-        prev: function(){
-            this._basicFlip('prev');
+        focusPrev: function(){
+            this._basicFlip('backward');
         },
         
         /**
-         * 以flip为单位翻到下一项
+         * 以step为单位翻到下一项
          */
-        next: function(){
-            this._basicFlip('next');
+        focusNext: function(){
+            this._basicFlip('forward');
         },
         
         /**
          * 根据方向从当前项聚焦到index指定的项
          * @param {Number} index 滚动项的索引
-         * @param {String} direction 可选，滚动方向，取值：prev或是next
+         * @param {String} direction 可选，滚动方向，取值：forward|backward
          */
         focus: function(index, direction){
             var index = Math.min(Math.max(0, index), this._dataIds.length - 1);

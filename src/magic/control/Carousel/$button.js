@@ -19,18 +19,16 @@
  * @name magic.control.Carousel.$button
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
- * @config {Boolean} showButton 是否显示按钮，默认显示
+ * @config {Boolean} button.enable 是否显示按钮，默认显示
  * @author linlingyu
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this;
-    me._options = baidu.object.extend({
-        showButton: true
-    }, me._options);
-    
-    if(!me._options.showButton){return;}
-    
-    function isLimit(){
+    me._options.button = baidu.object.extend({
+        enable: true
+    }, me._options.button);
+    if(!me._options.button.enable){return;}
+    function toggle(){
         var prev = me.getElement('prev'),
             next = me.getElement('next');
         baidu.dom[me.isFirst() ? 'addClass' : 'removeClass'](prev, 'tang-carousel-btn-prev-disabled');
@@ -38,12 +36,10 @@ baidu.lang.register(magic.control.Carousel, function(options){
         baidu.dom[!me.isFirst() ? 'addClass' : 'removeClass'](prev, 'tang-carousel-btn-prev');
         baidu.dom[!me.isLast() ? 'addClass' : 'removeClass'](next, 'tang-carousel-btn-next');
     }
-    
-    
     me.on('onload', function(evt){
         var query = magic._query,
-            prevHandler = baidu.fn.bind('_onButtonClick', me, 'prev');
-            nextHandler = baidu.fn.bind('_onButtonClick', me, 'next');
+            prevHandler = baidu.fn.bind('_onButtonClick', me, 'backward');
+            nextHandler = baidu.fn.bind('_onButtonClick', me, 'forward');
         me.mappingDom('prev', query('.tang-carousel-btn-prev', me.getElement())[0]).
         mappingDom('next', query('.tang-carousel-btn-next', me.getElement())[0]);
         //
@@ -53,47 +49,54 @@ baidu.lang.register(magic.control.Carousel, function(options){
             baidu.event.un(me.getElement('prev'), 'click', prevHandler);
             baidu.event.un(me.getElement('next'), 'click', nextHandler);
         });
-        isLimit();
+        toggle();
     });
     //
-    me.on('onscrollto', function(evt){
-        isLimit();
+    me.on('onfocus', function(evt){
+        toggle();
     });
 }, 
 {
-    _isLimit: function(type){
+    /**
+     * @private
+     */
+    _onButtonClick: function(direction, evt){
+        var me = this;
+        if(direction == 'forward' ? me.isLast() : me.isFirst()){return;}
+        me._basicFlip(direction);
+    },
+    
+    /**
+     * @private
+     */
+    _isLimit: function(direction){
         var me = this,
             opt = me._options,
             focusRange = opt.focusRange,
             selectedIndex = me._selectedIndex,
-            val = false;
-        if(opt.isCycle){return val;}
-        val = (type == 'prev')? selectedIndex <= focusRange.min
-            : selectedIndex >= me.getTotalCount() - 1 - (opt.pageSize - 1 - focusRange.max);
-        return val;
+            val = (direction == 'forward') ? selectedIndex >= me.getTotalCount() - 1 - (opt.viewSize - 1 - focusRange.max)
+                : selectedIndex <= focusRange.min;
+        return opt.isLoop ? false : val;
     },
     
-    _onButtonClick: function(type, evt){
-        var me = this;
-        if(type == 'prev' ? me.isFirst() : me.isLast()){return;}
-        me[type]();
-    },
     
     /**
      * 是否已经滚动到首项
      * @name magic.control.Carousel.$button#isFirst
      * @function
+     * @return {Boolean} 当已经滚动到首项时返回true，否则返回false
      */
     isFirst: function(){
-        return this._isLimit('prev');
+        return this._isLimit('backward');
     },
     
     /**
      * 是否已经滚动到末项
      * @name magic.control.Carousel.$button#isLast
      * @function
+     * @return {Boolean} 当已经滚动到末项时返回true，否则返回false
      */
     isLast: function(){
-        return this._isLimit('next');
+        return this._isLimit('forward');
     }
 });

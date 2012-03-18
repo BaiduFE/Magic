@@ -12,66 +12,48 @@
  * @name magic.control.Carousel.$fx
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
- * @config {Boolean} enableFx 是否支持动画插件
- * @config {Function} scrollFx 描述组件的动画执行过程，默认是baidu.fx.scrollTo
- * @config {Object} scrollFxOptions 执行动画过程所需要的参数
+ * @config {Boolean} button.enable 是否支持动画插件
+ * @config {Number} button.duration 执行一次动画的时间，默认值是500（毫秒）
+ * @config {Number} button.interval 动画脉冲间隔时间，默认值是16（毫秒）
  * @author linlingyu
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this;
-    me._options = baidu.object.extend({
-        enableFx: true,
-        scrollFx: baidu.fx.scrollTo
-    }, me._options);
-    me._options.scrollFxOptions = baidu.object.extend({
-        duration: 500,
-            onbeforeupdate: function(evt){
-                var axis = me._axis[me._options.orientation],
-                    timeLine = evt.target,
-                    container = timeLine.element,
-                    empty = timeLine.empty,
-                    vector = timeLine.direction == 'prev',
-                    entry, parentNode, cloneNode;
-                if(empty.length <= 0){return;}
-                entry = empty[0];
-                if(vector ? entry.empty[axis.offsetPos] + entry.empty[axis.offsetSize] - container[axis.scrollPos] >= 0
-                    : entry.empty[axis.offsetPos] - container[axis.scrollPos] <= container[axis.offsetSize]){
-                    parentNode = entry.empty.parentNode;
-                    cloneNode = entry.empty.cloneNode(true);
-                    parentNode.replaceChild(cloneNode, entry.empty);
-                    parentNode.replaceChild(entry.empty, entry.item);
-                    parentNode.replaceChild(entry.item, cloneNode);
-                    empty.shift();
-                }
-            },
-            
-            onafterfinish: function(evt){
-                var timeLine = evt.target,
-                    index = timeLine.index,
-                    focusRange = me._options.focusRange;
-                me._toggle(index);
-                me._clear(index, (timeLine.direction == 'prev') ? focusRange.min : focusRange.max);
-                me._resize();
-                me.fire('onscrollto', {direction: timeLine.direction});
-            }
-    }, me._options.scrollFxOptions);
-    
-    if(!me._options.enableFx){return;}
+    me._options.fx = baidu.object.extend({
+        enable: true
+    }, me._options.fx);
+    if(!me._options.fx.enable){return;}
     me.on('onbeforescroll', function(evt){
         evt.returnValue = false;
         if (baidu.fx.current(me.getElement('container'))) {return;}
         var opt = me._options,
-            axis = me._axis[me._options.orientation],
+            axis = me._axis[opt.orientation],
             orie = opt.orientation == 'horizontal',
             container = me.getElement('container'),
-            val = container[axis.scrollPos] + evt.distance;
-        opt.scrollFxOptions = baidu.object.extend(opt.scrollFxOptions, {
-            index: evt.index,
-            direction: evt.distance < 0 ? 'prev' : 'next',
-            empty: evt.empty
-        });
-        me._options.scrollFx(me.getElement('container'),
-            {x: orie ? val : 0, y: orie ? 0 : val},
-            opt.scrollFxOptions);
+            val = container[axis.scrollPos] + evt.distance,
+            fxOptions = baidu.object.extend({
+                onbeforeupdate: function(){
+                    if(evt.empty.length <= 0){return;}
+                    var entry = evt.empty[0], parentNode, cloneNode;
+                    if(evt.distance < 0 ? entry.empty[axis.offsetPos] + entry.empty[axis.offsetSize] - container[axis.scrollPos] >= 0
+                        : entry.empty[axis.offsetPos] - container[axis.scrollPos] <= container[axis.offsetSize]){
+                        parentNode = entry.empty.parentNode;
+                        cloneNode = entry.empty.cloneNode(true);
+                        parentNode.replaceChild(cloneNode, entry.empty);
+                        parentNode.replaceChild(entry.empty, entry.item);
+                        parentNode.replaceChild(entry.item, cloneNode);
+                        evt.empty.shift();
+                    }
+                },
+                
+                onafterfinish: function(){
+                    me._toggle(evt.index);
+                    me._clear(evt.index, opt.focusRange[evt.distance < 0 ? 'min' : 'max']);
+                    me._resize();
+                    me.fire('onfocus', {direction: evt.distance > 0 ? 'forward' : 'backward'});
+                }
+            }, opt.fx);
+        //
+        baidu.fx.scrollTo(container, {x: orie ? val : 0, y: orie ? 0 : val}, fxOptions);
     });
 });
