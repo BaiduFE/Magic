@@ -15,9 +15,9 @@
  * @name magic.control.Carousel.$autoScroll
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
- * @config {Boolean} button.enable 是否支持自动滚动，默认支持
- * @config {Number} button.interval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
- * @config {String} button.direction 取值，forward|backward 描述组件的滚动方向
+ * @config {Boolean} autoScroll.enable 是否支持自动滚动，默认支持
+ * @config {Number} autoScroll.interval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
+ * @config {String} autoScroll.direction 取值，forward|backward 描述组件的滚动方向
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this, autoScroll;
@@ -76,7 +76,7 @@ baidu.lang.register(magic.control.Carousel, function(options){
     },
     
     /**
-     * 启动自动滚动
+     * 启动滚动
      * @name magic.control.Carousel.$autoScroll#start
 	 * @addon magic.control.Carousel.$autoScroll
      * @function
@@ -85,13 +85,14 @@ baidu.lang.register(magic.control.Carousel, function(options){
         var me = this,
             autoScroll = me._options.autoScroll;
         autoScroll._autoScrolling = true;
+        clearTimeout(autoScroll._autoScrollTimeout);
         autoScroll._autoScrollTimeout = setTimeout(function(){
             me._basicFlip(autoScroll.direction);
         }, autoScroll.interval);
     },
     
     /**
-     * 停止自动滚动
+     * 停止滚动
      * @name magic.control.Carousel.$autoScroll#stop
 	 * @addon magic.control.Carousel.$autoScroll
      * @function

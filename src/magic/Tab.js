@@ -45,6 +45,7 @@ magic.Tab = baidu.lang.createClass(function(options) {
 
     /**
      * 将Tab选项卡的所有数据转化为对应的HTML字符串.
+     * @private
      */
     toHTMLString: function() {
         var me = this,

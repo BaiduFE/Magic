@@ -103,7 +103,7 @@ void function(){
     
     
 /**
- * Carousel图片滚动组件的控制器
+ * Carousel图片滚动组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
  * @class
  * @name magic.control.Carousel
  * @superClass magic.Base
@@ -111,8 +111,8 @@ void function(){
  * @param {Object} options 选项.
  * @config {Number} orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.
  * @config {Number} originalIndex 默认选项卡的聚焦项，默认值是0.
- * @config {Object} focusRange 描述焦点的滚动范围，最小值从0开始，格式：{min: 0, max: 4}
  * @config {Number} viewSize 描述一页显示多少个滚动项，默认值是3
+ * @config {Object} focusRange 描述焦点在viewSize参数中的滚动范围，最小值从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发滚动动作.
  * @config {Boolean} isLoop 是否支持循环滚动，默认不支持
  * @config {Number} step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认是滚动1项
  * @plugin button 为滚动组件添加控制按钮插件
@@ -219,12 +219,14 @@ void function(){
         _onEventHandler: function(evt){
             var me = this,
                 opt = me._options,
-                type = evt.type.toLowerCase(),
                 element = me.getElement('element'),
                 target = baidu.event.getTarget(evt);
             if(!baidu.dom.contains(me.getElement('element'), target)){return;}
             target = baidu.dom.getAncestorByClass(target, 'tang-carousel-item') || target;
-            me.fire('on' + type + 'item', {DOMEvent: evt, index: baidu.array.indexOf(me._dataIds, target.id)});
+            me.fire('on' + evt.type.toLowerCase() + 'item', {
+                DOMEvent: evt,
+                index: baidu.array.indexOf(me._dataIds, target.id)
+            });
         },
         
         //private

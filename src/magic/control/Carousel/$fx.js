@@ -12,9 +12,9 @@
  * @name magic.control.Carousel.$fx
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
- * @config {Boolean} button.enable 是否支持动画插件
- * @config {Number} button.duration 执行一次动画的时间，默认值是500（毫秒）
- * @config {Number} button.interval 动画脉冲间隔时间，默认值是16（毫秒）
+ * @config {Boolean} fx.enable 是否支持动画插件
+ * @config {Number} fx.duration 执行一次动画的时间，默认值是500（毫秒）
+ * @config {Number} fx.interval 动画脉冲间隔时间，默认值是16（毫秒）
  * @author linlingyu
  */
 baidu.lang.register(magic.control.Carousel, function(options){

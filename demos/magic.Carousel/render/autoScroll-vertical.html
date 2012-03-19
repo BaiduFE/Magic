@@ -21,7 +21,7 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>autoScroll插件</strong> 示例</h1>
-    <p>autoScroll可以使组件自动滚动，默认情况下打开，可以通参数isAutoScroll设置false来关闭，通过scrollInterval参数来设置每次滚动间的时间间隔，默认是1000毫秒，通过direction来设置自动滚动的滚动方向，取值分别是up|right|down|left中的任意一个，注意配合orientation来使用</p>
+    <p>autoScroll可以使组件自动滚动，默认情况下打开，可以通参数autoScroll.enable设置false来关闭，通过autoScroll.nterval参数来设置每次滚动间的时间间隔，默认是1000毫秒，通过autoScroll.direction来设置自动滚动的滚动方向，取值forward|backward中的任意一个，注意配合orientation来使用</p>
     <p>自动滚动事件，提供onmouseenter和onmouseleave来处理鼠标移入移出可视范围时的处理，可以通过在事件中调用start和stop方法来控制自动滚动的启动和停止。</p>
 </div>
 <div id='one-carousel'></div>
@@ -29,11 +29,10 @@
 
 baidu.dom.ready(function(){
     var c = new magic.Carousel({
-        pageSize: 4,
-        selectedIndex: 0,
+        viewSize: 4,
+        originalIndex: 0,
     	orientation: 'vertical',
-    	direction:'down',
-        isCycle: true,
+        isLoop: true,
         items: [
             {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
@@ -42,7 +41,10 @@ baidu.dom.ready(function(){
             {content: '<img src="../../../demos/magic.Carousel/item/4.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/5.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/6.png"/>'}
-        ]
+        ],
+        autoScroll: {
+            direction: 'backward'
+        }
     });
     c.render('one-carousel');
     c.on('onmouseenter', function(evt){

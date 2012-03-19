@@ -21,17 +21,16 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>focusRange</strong> 示例</h1>
-    <p>focusRange用来描述在carousel可视区域内，焦点能够滚动的区域，区域起始位是从0开始，格式：{min: 1, max: 2}</p>
+    <p>focusRange用来描述在carousel可视区域内，焦点能够滚动的区域，区域起始位是从0开始，格式：{min: 1, max: 2}，当焦点超出了focusRange范围后就会触发滚动动作. </p>
 </div>
 <div id='one-carousel'></div>
 <script type='text/javascript'>
 baidu.dom.ready(function(){
     var c = new magic.Carousel({
-        pageSize: 4,
-        selectedIndex: 1,
-        isCycle: true,
+        viewSize: 4,
+        originalIndex: 1,
         focusRange: {min: 1, max: 2},
-        isCycle: true,
+        isLoop: true,
         items: [
             {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
