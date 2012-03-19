@@ -81,6 +81,12 @@
                         }else{
                             baidu.g("J_console").innerHTML = "";
                         }
+                        for(var i=0; i<a.length; i++){
+                            a[i] = {
+                                'value': a[i],
+                                'content': a[i].replace("北海", "<b>北海</b>")
+                            };
+                        }
                         me.receiveData(key, a);
                     }
                 });

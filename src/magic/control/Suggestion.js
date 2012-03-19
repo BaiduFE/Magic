@@ -564,10 +564,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         //Attention: 对返回值中可能包含的实体字符，如：<、>等，使用encodeHTML转义
         for (; i < len; i++) {
             if (typeof data[i].value != 'undefined') {
-                _data.push({
-                    'value': data[i].value,
-                    'content': baidu.string.encodeHTML(data[i].value)
-                });
+                _data.push(data[i]);
             }else {
                 _data.push({
                     'value': data[i],

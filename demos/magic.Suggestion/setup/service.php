@@ -5,7 +5,7 @@
         // sleep(1);
     }
     if($key != 'd')
-        echo "[{value:'$key+1value<>'},{value:'北海2value'},{value:'北海3value'},{value:'北海4value',disable:true},{value:'北海5value'}]";
+        echo "['$key+1value<>', '北海2value', '北海3value', '北海4value', '北海5value']";
     else 
         echo '["<input>\'\"","<>","<input> \'\"test it","<input/>"]';
 ?>
