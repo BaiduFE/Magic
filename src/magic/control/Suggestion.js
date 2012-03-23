@@ -19,6 +19,7 @@
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
 ///import baidu.string.format;
+///import baidu.string.encodeHTML;
 ///import magic.Popup;
 ///import magic.Base;
 ///import magic.control;
@@ -105,7 +106,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     });
     
     //监听suggestion的render事件，suggestion在第一次请求数据时渲染
-    me.on("onrender", function(){
+    me.on("onload", function(){
         var input_el = me.getElement("input"),
             suggestion_el = me.getElement("suggestion"),
             windowBlurHandler = function(){
@@ -412,10 +413,10 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 
     /**
      * 选择某个item，即高亮并上框某个item
-     * @public
+     * @private
      * @param {String} selectedIndex 需要高亮的item的索引在enableIndexs数组中的索引
      */
-    focus: function(selectedIndex){
+    _focus: function(selectedIndex){
         var enableIndexs = this.enableIndexs;
         this.pick(enableIndexs[selectedIndex]);
         this.highLight(enableIndexs[selectedIndex]);
@@ -450,7 +451,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          */
         me.fire('onhighlight', {
             'index': index,
-            'data': me.getDataByIndex(index).value
+            'value': me.getDataByIndex(index).value
         });
     },
     
@@ -478,7 +479,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
              */
             me.fire('onclearhighlight', {
                 index: index,
-                data: me.getDataByIndex(index).value
+                value: me.getDataByIndex(index).value
             });
         }
     },
@@ -503,7 +504,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          */
         if(me.fire('onbeforepick', {
                 'index': index,
-                'data': returnData})
+                'value': returnData.value})
         ){
             me.getElement("input").value = returnData.value;
             me.oldInputValue = returnData.value;
@@ -518,7 +519,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          */
             me.fire('onpick', {
                 'index': index,
-                'data': returnData
+                'value': returnData.value
             });
         }
 	},
@@ -541,10 +542,12 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * 提交某个item时触发
          * @name magic.control.Suggestion#onconfirm
          * @event 
-         * @param {Object} data 该item对应的值
+         * @param {Number} index item的索引
+         * @param {Object} value 该item对应的value值
          */
         me.fire('onconfirm', {
-            'data': me.getDataByIndex(index).value
+            'index': index,
+            'value': me.getDataByIndex(index).value
         });
         me._hide();
     },
@@ -584,7 +587,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	getData: function(query){},
 
     /**
-     * 取suggestion数据的方法
+     * 取到数据后调用该方法
      * @public
      * @param {String} query 搜索关键字
      * @param {Array} data 返回的数据
@@ -664,7 +667,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          */
         me.fire('onmouseoutitem', {
             'index': index,
-            'data': me.getDataByIndex(index).value
+            'value': me.getDataByIndex(index).value
         });
     },
 	
@@ -687,7 +690,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          */
         me.fire('onmousedownitem', {
             'index': index,
-            'data': me.getDataByIndex(index).value
+            'value': me.getDataByIndex(index).value
         });
     },
 	
@@ -710,7 +713,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          */
         me.fire('onmouseclick', {
             'index': index,
-            'data': me.getDataByIndex(index).value
+            'value': me.getDataByIndex(index).value
         });
 
         me.confirm(index);
@@ -761,7 +764,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                     case -1:
                         me.clearHighLight();
                         selectedIndex = enableIndexs.length - 1;
-                        me.focus(selectedIndex);
+                        me._focus(selectedIndex);
                         break;
                     case 0:
                         selectedIndex = -1;
@@ -771,14 +774,14 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                         break;
                     default:
                         selectedIndex--;
-                        me.focus(selectedIndex);
+                        me._focus(selectedIndex);
                         break;
                 }
             }else {
                 switch (selectedIndex) {
                     case -1:
                         selectedIndex = 0;
-                        me.focus(selectedIndex);
+                        me._focus(selectedIndex);
                         break;
                     case enableIndexs.length - 1:
                         selectedIndex = -1;
@@ -788,7 +791,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                         break;
                     default:
                         selectedIndex++;
-                        me.focus(selectedIndex);
+                        me._focus(selectedIndex);
                         break;
                 }
             }
