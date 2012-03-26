@@ -106,7 +106,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     });
     
     //监听suggestion的render事件，suggestion在第一次请求数据时渲染
-    me.on("onload", function(){
+    me.on("onrender", function(){
         var input_el = me.getElement("input"),
             suggestion_el = me.getElement("suggestion"),
             windowBlurHandler = function(){
@@ -210,7 +210,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @name magic.control.Suggestion#onrender
          * @event 
          */
-        me.fire("onload");
+        me.fire("onrender");
         
         return popupContainer;
     },
