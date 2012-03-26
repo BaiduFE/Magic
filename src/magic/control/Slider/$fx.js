@@ -12,59 +12,66 @@
  * @name magic.control.Slider.$fx
  * @addon magic.control.Slider
  * @param {Object} options config参数.
+ * @config      {Boolean}           enable            是否开启动画效果，true || false, 默认为false
+ * @config      {Number}            duration          动画持续时间
+ * @config      {Function}          onfxstart         function(){}，动画开始
+ * @config      {Function}          onfx              function(){}，动画进行中
+ * @config      {Function}          onfxstop          function(){}，动画结束
  * @author qiaoyue
  */
 baidu.lang.register(magic.control.Slider, function(options){
     
     
 }, {
+
     /**
-     * 进度条移动
-     * @private
+     * 设置组件的值，带有动画效果
+     * @param  {float}   value    要设置的值
+     * @return {}        none
      */
-    _fxProcessMove: function(process, pos, fn){
+    setFxValue: function(value){
         var me = this,
-            pos = parseInt(pos) < me._constValue ? me._constValue : parseInt(pos),
-            _accuracyKey = me._accuracyKey,
-            _processValue = parseInt(baidu.dom.getStyle(process, _accuracyKey)),
-            d_value = Math.abs(_processValue - pos),
-            directtion, fx;
+            info = this.info,
+            _accuracyKey = info._accuracyKey,
+            value = value || info.currentValue || 0,
+            pos = info[_accuracyKey] * value;
 
-        direction = _processValue / pos > 1 ? -1 : 1;
+        if(me._oppsite){
+            pos = info[_accuracyKey] * me._accSub(1, value);
+        }
 
-        fx = baidu.fx.create(process, baidu.object.extend({
-            duration: this.duration || 300,
-            initialize : function() {
-                this.protect(_accuracyKey);
-            },
-
-            transition : function(percent) {return 1 - Math.pow(1 - percent, 2);},
-
-            render : function(schedule) {
-                process.style[_accuracyKey]  = (_processValue + direction * d_value * schedule) + "px";
-            }
-            
-        }, {onafterfinish: fn}), "animate");
-
-        return fx.launch();
+        // 伪造一个event对象
+        me._setPosition({target: null, noAccuracy: true}, pos);
+        info.currentValue = value;    
     },
 
     /**
-     * 游标移动
+     * 动画移动
      * @private
      */
-    _fxKnobMove: function(knob, pos, fn){
+    _fxMove: function(knob, process, pos, fn){
         // 如果没执行动画，也要执行fn～但只有执行了动画才会传入pos参数
         var me = this,
-            pos = parseInt(pos),
-            pointer = me.orientation == 'vertical' ? [0, pos] : [pos, 0];
+            info = me.info,
+            opt = info.fx,
+            _knobKey = info._knobKey,
+            _accuracyKey = info._accuracyKey,
+            pos = parseFloat(me._getKnobPos(pos)),
+            pointer = info._isVertical ? [0, pos] : [pos, 0];
 
+        me._setCurrentValue(pos);
+        
         baidu.fx.moveTo(knob, pointer, {
-            duration: me.duration || 300,
-            onbeforestart: me.onfxstart,
-            onafterupdate: me.onfx,
+            duration: opt.duration || 500,
+            onbeforestart: opt.onfxstart,
+            onafterupdate: function(){
+                var pos = me._getProcessPos(me._getRealPos(knob, _knobKey));
+                baidu.dom.setStyle(process, _accuracyKey, pos);
+                opt.onfx && opt.onfx.call(this, arguments);
+            },
             onafterfinish: function(){
-                me.onfxstop && me.onfxstop(arguments);
+                opt.onfxstop && opt.onfxstop.call(this, arguments);
+                me._reset(pos);
                 fn && fn(pos);
             }
         }) || (fn && fn());

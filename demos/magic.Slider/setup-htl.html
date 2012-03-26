@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
+    <title>setup模式--水平</title>
+    <style type="text/css">
+        .view{margin:20px 20px 10px;width:60%;}
+        .wrap{margin:10px auto;font-size:12px;}
+    </style>
+    <link rel="stylesheet" href="../../resources/default/magic.control.Slider/magic.Slider.css"/>
+    <script src="../../src/import.php?f=magic.Slider,magic.setup.slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
+</head>
+<body>
+    <div id="view1" class="view">
+        <div class="wrap">
+            <p>精确度：0</p>
+            <button onclick="s1.enable();">启用</button>
+            <button onclick="s1.disable();">禁用</button>
+            <p>animate: <input type="checkbox" name="" value="yes" onclick="s1.info.fx.enable = this.checked;"></p>
+        </div>
+        <div id="s1" class="tang-ui tang-slider tang-slider-htl" style="">
+            <div class="tang-view">
+                <div class="tang-content">
+                    <div class="tang-corner tang-start"></div>
+                    <div class="tang-corner tang-last"></div>
+                    <div class="tang-inner"><div class="tang-process tang-process-forward"></div></div>
+                </div>
+                <a href="javascript:;" class="tang-knob"></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="view2" class="view">
+        <div class="wrap">
+            <p>精确度：0</p>
+            <button onclick="s2.enable();">启用</button>
+            <button onclick="s2.disable();">禁用</button>
+            <p>animate: <input type="checkbox" name="" value="yes" onclick="s2.info.fx.enable = this.checked;"></p>
+        </div>
+        <div id="s2" class="tang-ui tang-slider tang-slider-htl" style="">
+            <div class="tang-view">
+                <div class="tang-content">
+                    <div class="tang-corner tang-start-backward"></div>
+                    <div class="tang-corner tang-last-backward"></div>
+                    <div class="tang-inner"><div class="tang-process tang-process-backward"></div></div>
+                </div>
+                <a href="javascript:;" class="tang-knob"></a>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var s1 = magic.setup.slider('s1', {orientation: 'horizonal', direction: 'forward', fx:{enable: false}, cache:{enable:true},
+            onchange:function(v){
+                
+            }}); 
+
+        var s2 = magic.setup.slider('s2', {orientation: 'horizonal', direction: 'backward', fx:{enable: false}, cache:{enable:true},
+            onchange:function(v){
+
+            }}); 
+
+        s1.setCache(0.5);
+        s1.setRange(0.5);
+        s2.setCache(1);
+    </script>
+
+</body>
+</html>

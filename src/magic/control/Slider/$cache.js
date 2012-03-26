@@ -14,23 +14,18 @@
  * @name magic.control.Slider.$cache
  * @addon magic.control.Slider
  * @param {Object} options config参数.
+ * @config      {Boolean}       enable             是否使用缓存条，true || false
  * @author qiaoyue
  */
 baidu.lang.register(magic.control.Slider, function(options){
-    var me = this;
-    me.cache == 'yes' && me.on("load", function(){
+    var me = this,
+        info = me.info;
+    info.cache.enable && me.on("load", function(){
         var inner = me.getElement('inner'),
-            _accuracyKey = me._accuracyKey,
-            val = 'offset' + _accuracyKey.replace(/([a-z])([a-z]*)/, function($1, $2, $3){
-                return $2.toUpperCase() + $3;
-            }),
-            offset = me[_accuracyKey] - inner[val];
-            cacheClass = me._oppsite ? 'cache-backward' : 'cache-forward',
+            _accuracyKey = info._accuracyKey,
+            cacheClass = info._oppsite ? 'tang-cache-backward' : 'tang-cache-forward',
             id = me.getId('cache'),
-            html = '<div class="inner-cache #{cacheClass}">'
-                 + '<div class="cache-corner corner1"></div>'
-                 + '<div id="#{id}" class="cache-content"></div>'
-                 + '<div class="cache-corner corner2"></div>';
+            html = info._oppsite ? '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-start"></div>' : '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-last"></div>';
 
         baidu.dom.insertHTML(inner, 'afterBegin', baidu.string.format(html ,{
             id: id,
@@ -46,9 +41,19 @@ baidu.lang.register(magic.control.Slider, function(options){
      */
     setCache: function(value){
         var me = this,
+            info = me.info,
             cache = me.getElement('cache'),
-            pos = value * me._range[1];
+            cachePos = value * info._limit,
+            cachePercent = me._cachePercent(cachePos);
+ 
+        baidu.dom.setStyle(cache, info._accuracyKey, me._cachePercent(cachePos));
+    },
 
-        baidu.dom.setStyle(cache, me._accuracyKey, pos + 'px');
+    /**
+     * 缓存百分比
+     * @private
+     */
+    _cachePercent: function(pos){
+        return pos / this.info._limit * 100 + '%';
     }
 });
