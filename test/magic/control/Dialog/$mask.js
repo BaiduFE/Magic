@@ -50,7 +50,9 @@ test("render, default params", function(){
 			var dialog = new w.magic.Dialog({
 				titleText : '标题',
 				content : cdiv,
-				mask : true
+				mask : {
+					enable: true
+				}
 			});
 			dialog.on("load", function(){
 				ok(this.mask, "The mask shows");
@@ -99,7 +101,7 @@ test("render, default params", function(){
 	});
 });
 
-test("render, params", function(){
+test("render, default mask params", function(){
 	expect(26);
 	stop();
 	ua.frameExt(function(w, f){
@@ -121,7 +123,9 @@ test("render, params", function(){
 				top : 50,
 				height : 50,
 				width : 50,
-				mask : true
+				mask : {
+					enable: true
+				}
 			});
 			dialog.on("load", function(){
 				ok(this.mask, "The mask shows");
@@ -170,6 +174,57 @@ test("render, params", function(){
 	});
 })
 
+test("render, params", function(){
+	expect(12);
+	stop();
+	ua.frameExt(function(w, f){
+		var me = this;
+		ua.importsrc("magic.Dialog", function(){
+			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			var div = w.document.createElement("div");
+			w.document.body.appendChild(div);
+			div.id = "one-dialog";
+			div.style.position = "absolute";
+			$(div).css('backgroundColor', 'green');
+			var cdiv = w.document.createElement("div");
+			cdiv.id = "cdiv";
+			$(cdiv).html("dialog内容");
+			var dialog = new w.magic.Dialog({
+				titleText : '标题',
+				content : cdiv,
+				left : 50,
+				top : 50,
+				height : 50,
+				width : 50,
+				mask : {
+					enable: true,
+					opacity : 0.5,
+					bgColor: "#fff"
+				}
+			});
+			dialog.render("one-dialog");
+			ok(dialog.mask, "The mask shows");
+			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
+			equals(dialog._mask.bgColor, "#fff", "The bgColor is right");
+			equals(dialog._mask.opacity, "0.5", "The opacity is right");
+			equals(dialog._mask.height, "500", "The height is right");
+			equals(dialog._mask.width, "500", "The width is right");
+			equals(dialog._mask.getElement().style.zIndex, "1004", "The zIndex is right");
+			if(ua.browser.ie)
+				equals(dialog._mask.getElement().style.backgroundColor, "#fff", "The bgColor is right");
+			else
+				equals(dialog._mask.getElement().style.backgroundColor, "rgb(255, 255, 255)", "The bgColor is right");
+			equals(dialog._mask.getElement().style.opacity, "0.5", "The opacity is right");
+			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
+			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
+			equals(dialog._mask.getElement().style.display, "", "The display is right");
+			w.document.body.removeChild(div);
+			me.finish();
+			document.body.removeChild(f.parentNode);
+		}, "magic.Dialog", "magic.control.Dialog.$mask", w);
+	});
+})
+
 test("setup, default params", function(){
 	expect(14);
 	stop();
@@ -184,7 +239,9 @@ test("setup, default params", function(){
 			var options = {
 					titleText : '标题',
 					content : cdiv,
-					mask : true
+					mask : {
+						enable: true
+					}
 			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
 			ok(dialog.mask, "The mask shows");
@@ -214,7 +271,7 @@ test("setup, default params", function(){
 	});
 })
 
-test("setup, default params", function(){
+test("setup, default mask params", function(){
 	expect(14);
 	stop();
 	ua.frameExt(function(w, f){
@@ -232,7 +289,9 @@ test("setup, default params", function(){
 					top : 50,
 					height : 50,
 					width : 50,
-					mask : true
+					mask : {
+						enable: true
+					}
 			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
 			ok(dialog.mask, "The mask shows");
@@ -255,6 +314,53 @@ test("setup, default params", function(){
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
+			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			me.finish();
+			document.body.removeChild(f.parentNode);
+		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
+	});
+})
+
+test("render, params", function(){
+	expect(12);
+	stop();
+	ua.frameExt(function(w, f){
+		var me = this;
+		ua.importsrc("magic.setup.dialog", function(){
+			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			enSetup(w);
+			var cdiv = w.document.createElement("div");
+			cdiv.id = "cdiv";
+			$(cdiv).html("dialog内容");
+			var options = {
+				titleText : '标题',
+				content : cdiv,
+				left : 50,
+				top : 50,
+				height : 50,
+				width : 50,
+				mask : {
+					enable: true,
+					opacity : 0.5,
+					bgColor: "#fff"
+				}
+			};
+			var dialog = w.magic.setup.dialog("one-dialog", options);
+			ok(dialog.mask, "The mask shows");
+			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
+			equals(dialog._mask.bgColor, "#fff", "The bgColor is right");
+			equals(dialog._mask.opacity, "0.5", "The opacity is right");
+			equals(dialog._mask.height, "500", "The height is right");
+			equals(dialog._mask.width, "500", "The width is right");
+			equals(dialog._mask.getElement().style.zIndex, "1004", "The zIndex is right");
+			if(ua.browser.ie)
+				equals(dialog._mask.getElement().style.backgroundColor, "#fff", "The bgColor is right");
+			else
+				equals(dialog._mask.getElement().style.backgroundColor, "rgb(255, 255, 255)", "The bgColor is right");
+			equals(dialog._mask.getElement().style.opacity, "0.5", "The opacity is right");
+			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
+			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
+			equals(dialog._mask.getElement().style.display, "", "The display is right");
 			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
 			me.finish();
 			document.body.removeChild(f.parentNode);
