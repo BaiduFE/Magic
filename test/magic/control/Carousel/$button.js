@@ -29,6 +29,7 @@ test("enable", function(){
 	ua.importsrc("magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel.css", function(){
 			enSetup();
+			var l1 = baidu.event._listeners.length;
 			var options = {
 			};
 		    var c = magic.setup.carousel('one-carousel', options);
@@ -52,15 +53,18 @@ test("enable", function(){
 		    c.focus(8);
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-		    c.next();
+		    c.focusNext();
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next-disabled", "The right button is right");
 		    c.focus(1);
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-		    c.prev();
+		    c.focusPrev();
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
+		    c.dispose();
+		    var l2 = baidu.event._listeners.length;
+		    equals(l2, l1, "The events are un");
 		    document.body.removeChild(baidu.dom.g("one-carousel"));
 		    start();
 		});
@@ -87,7 +91,7 @@ test("click", function(){
     document.body.removeChild(baidu.dom.g("one-carousel"));
 });
 
-test("click， vertical", function(){
+test("click, vertical", function(){
 	stop();
 	ua.loadcss(upath + "../../setup/carousel/carousel-vertical.css", function(){
 		enSetup();

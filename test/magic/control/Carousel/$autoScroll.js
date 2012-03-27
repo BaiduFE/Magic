@@ -29,7 +29,7 @@ module("magic.control.Carousel.$antoscroll");
 	}
 	enSetup = function(){
 		var html = "<div id='one-carousel' class='tang-ui tang-carousel'>"
-			+"<a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'>left</a>"
+			+"<a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>"
 		    +"<div class='tang-carousel-container'>"
 	        +"<ul class='tang-carousel-element'>"
             +"<li class='tang-carousel-item'>text0</li>"
@@ -44,7 +44,7 @@ module("magic.control.Carousel.$antoscroll");
 		    +"<li class='tang-carousel-item'>text9</li>"
 	        +"</ul>"
 		    +"</div>"
-		    +"<a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'>right</a>"
+		    +"<a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>"
 		    +"</div>";
 		$(document.body).append(html);
 	}
@@ -53,7 +53,7 @@ module("magic.control.Carousel.$antoscroll");
 test("render,default params", function(){
 	stop();
 	expect(4);
-	ua.importsrc("magic.Carousel,magic.setup.carousel", function(){
+	ua.importsrc("magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -61,7 +61,7 @@ test("render,default params", function(){
 			var scroll = 0; 
 			var c = new magic.Carousel({
 			    items: citems,
-			    selectedIndex: 7
+			    originalIndex: 7
 			});
 			c.on("onmouseenter", function(evt){
 		        evt.target.stop();
@@ -71,7 +71,7 @@ test("render,default params", function(){
 				equals(c._selectedIndex, 8, "scroll to 8");
 		        evt.target.start();
 		    });
-		    c.on("onscrollto", function(){
+		    c.on("onfocus", function(){
 				scroll ++;
 				if(scroll == 1){
 					equals(c._selectedIndex, 8, "scroll to 8");
@@ -104,9 +104,11 @@ test("render,all params", function(){
 	var l1 = baidu.event._listeners.length;
 	var c = new magic.Carousel({
 	    items: citems,
-	    isCycle: true,
-	    scrollInterval: 100,
-	    direction: 'left'
+	    isLoop: true,
+	    autoScroll: {
+	    	interval:100,
+	    	direction: 'backward'
+	    }
 	});
 	c.on("onmouseenter", function(evt){
         evt.target.stop();
@@ -116,7 +118,7 @@ test("render,all params", function(){
 		equals(c._selectedIndex, 9, "scroll to 9");
         evt.target.start();
     });
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
 		scroll ++;
 		if(scroll == 1){
 			equals(c._selectedIndex, 9, "scroll to 9");
@@ -143,6 +145,40 @@ test("render,all params", function(){
     c.render('one-carousel');
 });
 
+test("render, button", function(){
+	stop();
+	expect(1);
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "one-carousel";
+	var scroll = 0; 
+	var time1 = 0;
+	var time2 = 0;
+	var c = new magic.Carousel({
+	    items: citems,
+	    autoScroll: {
+	    	interval:100
+	    }
+	});
+	c.on("onfocus", function(){
+		scroll ++;
+		if(scroll == 1){
+			ua.click(c.getElement().childNodes[2]);
+		}
+		if(scroll == 3){
+			time1 = new Date();
+		}
+		if(scroll == 4){
+			time2 = new Date();
+			ok(Math.abs((time2 - time1) - 100) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
+		    c.dispose();
+			document.body.removeChild(div);
+			start();
+		}
+	});
+    c.render('one-carousel');
+});
+
 test("render, disable", function(){
 	stop();
 	expect(1);
@@ -152,9 +188,11 @@ test("render, disable", function(){
 	var scroll = 0; 
 	var c = new magic.Carousel({
 	    items: citems,
-	    isAutoScroll: false
+	    autoScroll: {
+	    	enable: false
+	    }
 	});
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
     	ok(true, "not auto scroll");
 	});
     c.render('one-carousel');
@@ -171,7 +209,7 @@ test("setup,default params", function(){
 	var scroll = 0; 
 	var options = {
 	    items: citems,
-	    selectedIndex: 7
+	    originalIndex: 7
 	};
 	var c = magic.setup.carousel('one-carousel', options);
 	c.on("onmouseenter", function(evt){
@@ -182,7 +220,7 @@ test("setup,default params", function(){
 		equals(c._selectedIndex, 8, "scroll to 8");
         evt.target.start();
     });
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
 		scroll ++;
 		if(scroll == 1){
 			equals(c._selectedIndex, 8, "scroll to 8");
@@ -210,9 +248,11 @@ test("setup, all params", function(){
 	var l1 = baidu.event._listeners.length;
 	var options = {
 	    items: citems,
-	    isCycle: true,
-	    scrollInterval: 100,
-	    direction: 'left'
+	    isLoop: true,
+	    autoScroll: {
+	    	interval: 100,
+	    	direction: 'backward'
+	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
 	c.on("onmouseenter", function(evt){
@@ -223,7 +263,7 @@ test("setup, all params", function(){
 		equals(c._selectedIndex, 9, "scroll to 9");
         evt.target.start();
     });
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
 		scroll ++;
 		if(scroll == 1){
 			equals(c._selectedIndex, 9, "scroll to 9");
@@ -249,6 +289,38 @@ test("setup, all params", function(){
 	});
 });
 
+test("setup, button", function(){
+	stop();
+	expect(1);
+	enSetup();
+	var scroll = 0; 
+	var time1 = 0;
+	var time2 = 0;
+	var options = {
+	    items: citems,
+	    autoScroll: {
+	    	interval:100
+	    }
+	};
+	var c = magic.setup.carousel('one-carousel', options);
+	c.on("onfocus", function(){
+		scroll ++;
+		if(scroll == 1){
+			ua.click(c.getElement().childNodes[2]);
+		}
+		if(scroll == 3){
+			time1 = new Date();
+		}
+		if(scroll == 4){
+			time2 = new Date();
+			ok(Math.abs((time2 - time1) - 100) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
+			c.dispose();
+			document.body.removeChild(baidu.dom.g("one-carousel"));
+			start();
+		}
+	});
+});
+
 test("setup, disable", function(){
 	stop();
 	expect(1);
@@ -256,10 +328,12 @@ test("setup, disable", function(){
 	var scroll = 0; 
 	var options = {
 	    items: citems,
-	    isAutoScroll: false
+	    autoScroll: {
+	    	enable: false
+	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
     	ok(true, "not auto scroll");
 	});
     ok(true);

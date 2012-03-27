@@ -2,8 +2,6 @@
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  */
-
-
 ///import baidu.lang.register;
 ///import magic.control.Carousel;
 ///import baidu.fn.bind;
@@ -17,21 +15,21 @@
  * @name magic.control.Carousel.$autoScroll
  * @addon magic.control.Carousel
  * @param {Object} options config参数.
- * @config {Boolean} isAutoScroll 是否支持自动滚动，默认支持
- * @config {Number} scrollInterval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
- * @config {String} direction 取值，up|right|down|left 描述组件的滚动方向
+ * @config {Boolean} autoScroll.enable 是否支持自动滚动，默认支持
+ * @config {Number} autoScroll.interval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
+ * @config {String} autoScroll.direction 取值，forward|backward 描述组件的滚动方向
  */
 baidu.lang.register(magic.control.Carousel, function(options){
-    var me = this, key, opt;
-    me._autoScrolling = true;
-    me._options = baidu.object.extend({
-        isAutoScroll: true,
-        scrollInterval: 1000,
-        direction: 'right'//up|right|down|left 描述组件的滚动方向
-    }, me._options);
-    if(!me._options.isAutoScroll){return;}
-    key = me._getDirection(me._options.direction);
-    opt = me._options;
+    var me = this, autoScroll;
+    me._options.autoScroll = baidu.object.extend({
+        enable: true,
+        interval: 1000,
+        direction: 'forward'// forward|backward 描述组件的滚动方向
+    }, me._options.autoScroll);
+    autoScroll = me._options.autoScroll;
+    if(!autoScroll.enable){return;}
+    autoScroll._autoScrolling = true;
+    autoScroll.direction = autoScroll.direction.toLowerCase();//sweet?
     me.on('onload', function(evt){
         var handler = baidu.fn.bind('_onMouseEventHandler', me);
         baidu.event.on(me.getElement('element'), 'mouseenter', handler);
@@ -42,30 +40,15 @@ baidu.lang.register(magic.control.Carousel, function(options){
         });
         me.start();
     });
-    me.on('onscrollto', function(){
-        if(!me._autoScrolling){return;}
-        var opt = me._options;
-        me._autoScrollTimeout = setTimeout(function(){
-            me[me._getDirection(opt.direction)]();
-        }, opt.scrollInterval);
+    me.on('onfocus', function(evt){
+        if(!autoScroll._autoScrolling){return;}
+        evt.target.start();
     });
     me.on('ondispose', function(evt){
-        clearTimeout(me._autoScrollTimeout);
+        evt.target.stop();
     });
-    
 }, 
-{
-    /**
-     * 根据参数传入的方向转化为对应的调用方法
-     * @param {String} direction 方向，取值：up|right|down|left
-     * @private
-     */
-    _getDirection: function(direction){
-        var me = this,
-            keys = {up: 'prev', right: 'next', down: 'next', left: 'prev'};
-        return keys[direction.toLowerCase()];
-    },
-    
+{   
     /**
      * 当鼠标移入可视区时触发
      * @name magic.control.Carousel.$autoScroll#onmouseenter
@@ -93,28 +76,31 @@ baidu.lang.register(magic.control.Carousel, function(options){
     },
     
     /**
-     * 启动自动滚动
+     * 启动滚动
      * @name magic.control.Carousel.$autoScroll#start
 	 * @addon magic.control.Carousel.$autoScroll
      * @function
      */
     start: function(){
-        var me = this;
-        me._autoScrolling = true;
-        me._autoScrollTimeout = setTimeout(function(){
-            me[me._getDirection(me._options.direction)]();
-        }, me._options.scrollInterval);
+        var me = this,
+            autoScroll = me._options.autoScroll;
+        autoScroll._autoScrolling = true;
+        clearTimeout(autoScroll._autoScrollTimeout);
+        autoScroll._autoScrollTimeout = setTimeout(function(){
+            me._basicFlip(autoScroll.direction);
+        }, autoScroll.interval);
     },
     
     /**
-     * 停止自动滚动
+     * 停止滚动
      * @name magic.control.Carousel.$autoScroll#stop
 	 * @addon magic.control.Carousel.$autoScroll
      * @function
      */
     stop: function(){
-        var me = this;
-        clearTimeout(me._autoScrollTimeout);
-        me._autoScrolling = false;
+        var me = this,
+            autoScroll = me._options.autoScroll;
+        clearTimeout(autoScroll._autoScrollTimeout);
+        autoScroll._autoScrolling = false;
     }
 });

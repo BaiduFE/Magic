@@ -39,16 +39,29 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
      */
     getElement : function(id) {
         return document.getElementById(this.getId(id));
-    }
+    },
+
+    /**
+     * 取得所有 ui 模块对应的 dom element 对象
+     * @return {Object} 取得对象的集合
+     */
+    getElements: function(){
+        var result = {};
+        var _ids = this._ids;
+        for(var key in _ids)
+            result[key] = this.getElement(key);
+        return result;
+    },
 
     /**
      * 取得一个页面唯一的 id
      * @param   {String}    key     该ID对应的关键字(可选参数)
      * @return  {String}            页面唯一的 id，可以作为DOM元素的id
      */
-    ,getId : function(key) {
+    getId : function(key) {
         key = baidu.lang.isString(key) ? key : "";
-        return this._ids[key] || this._eid + key;
+        // 2012-3-23: 使 _ids 存入所以可能被建立映射的 key
+        return this._ids[key] || (this._ids[key] = this._eid + key);
     }
 
     /**
@@ -60,7 +73,7 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
         if (baidu.lang.isString(dom)) {
             this._ids[key] = dom;
         } else if (dom && dom.nodeType) {
-            dom.id ? this._ids[key] = dom.id : dom.id=this.getId(key);
+            dom.id ? this._ids[key] = dom.id : dom.id = this.getId(key);
         }
         return this;
     }

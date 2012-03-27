@@ -21,17 +21,17 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>step</strong> 示例</h1>
-    <p>flip用于描述每次滚动过多少个项，默认是每次滚动1项</p>
+    <p>step用于描述每次滚动过多少个项，默认是每次滚动1项</p>
 </div>
 <div id='one-carousel'></div>
 <script type='text/javascript'>
 baidu.dom.ready(function(){
     var c = new magic.Carousel({
-        pageSize: 4,
-        selectedIndex: 1,
+        viewSize: 4,
+        originalIndex: 1,
         focusRange: {min: 1, max: 1},
-        isCycle: true,
-        flip: 4,//翻页
+        isLoop: true,
+        step: 4,//翻页
         items: [
             {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
