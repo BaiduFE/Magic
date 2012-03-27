@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     header("Content-Type:application/javascript");
     $key = $_GET["key"];
     if($key == 'a'){
