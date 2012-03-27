@@ -23,11 +23,13 @@
  * @author linlingyu
  */
 baidu.lang.register(magic.control.Carousel, function(options){
-    var me = this;
+    var me = this, prevHandler, nextHandler;
     me._options.button = baidu.object.extend({
         enable: true
     }, me._options.button);
     if(!me._options.button.enable){return;}
+    prevHandler = baidu.fn.bind('_onButtonClick', me, 'backward');
+    nextHandler = baidu.fn.bind('_onButtonClick', me, 'forward');
     function toggle(){
         var prev = me.getElement('prev'),
             next = me.getElement('next');
@@ -37,23 +39,22 @@ baidu.lang.register(magic.control.Carousel, function(options){
         baidu.dom[!me.isLast() ? 'addClass' : 'removeClass'](next, 'tang-carousel-btn-next');
     }
     me.on('onload', function(evt){
-        var query = magic._query,
-            prevHandler = baidu.fn.bind('_onButtonClick', me, 'backward');
-            nextHandler = baidu.fn.bind('_onButtonClick', me, 'forward');
+        var query = magic._query;
         me.mappingDom('prev', query('.tang-carousel-btn-prev', me.getElement())[0]).
         mappingDom('next', query('.tang-carousel-btn-next', me.getElement())[0]);
         //
         baidu.event.on(me.getElement('prev'), 'click', prevHandler);
         baidu.event.on(me.getElement('next'), 'click', nextHandler);
-        me.on('ondispose', function(){
-            baidu.event.un(me.getElement('prev'), 'click', prevHandler);
-            baidu.event.un(me.getElement('next'), 'click', nextHandler);
-        });
         toggle();
     });
     //
-    me.on('onfocus', function(evt){
+    me.on('onfocus', function(){
         toggle();
+    });
+    //
+    me.on('ondispose', function(){
+        baidu.event.un(me.getElement('prev'), 'click', prevHandler);
+        baidu.event.un(me.getElement('next'), 'click', nextHandler);
     });
 }, 
 {
