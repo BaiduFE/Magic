@@ -23,51 +23,51 @@ test("vertical", function(){
 		div.id = "one-carousel";
 		var c = new magic.Carousel({
 			orientation: 'vertical',
-			pageSize: 4,
-			selectedIndex: 5,
+			viewSize: 4,
+			originalIndex: 5,
 			focusRange : {min: 1, max: 2},
-			isCycle: true,
-			flip: 2,
+			isLoop: true,
+			step: 2,
 		    items: citems
 		});
 	    c.render('one-carousel');
 	    equals(c._selectedIndex, 5, "The default index is right");
 	    equals(c._options.orientation, "vertical", "The orientation is right");
-	    equals(c._options.pageSize, 4, "The pageSize is right");
-	    equals(c._options.selectedIndex, 5, "The selectedIndex is right");
+	    equals(c._options.viewSize, 4, "The viewSize is right");
+	    equals(c._options.originalIndex, 5, "The selectedIndex is right");
 	    equals(c._options.focusRange.min , 1, "The focusRange is right");
 	    equals(c._options.focusRange.max , 2, "The focusRange is right");
-	    equals(c._options.isCycle, true, "The isCycle is right");
-	    equals(c._options.flip, 2, "The flip is right");
-	    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	    equals(c._options.isLoop, true, "The isLoop is right");
+	    equals(c._options.step, 2, "The step is right");
+	    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 		equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");//selectedIndex大于item数目的一半时，位于focusRange的max位置
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text5", "The item is right");
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text6", "The item is right");
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text5", "The selectedIndex is right");
 	    c.focus(7);
-	    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 		equals(c.getElement("element").childNodes[0].innerHTML,  "text5", "The item is right");
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text6", "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text7", "The item is right");
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text8", "The item is right");
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text7", "The selectedIndex is right");
-	    c.focus(8, 'prev');
-	    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	    c.focus(8, 'backward');
+	    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 		equals(c.getElement("element").childNodes[0].innerHTML,  "text7", "The item is right");
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text8", "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text9", "The item is right");
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text0", "The item is right");
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text8", "The selectedIndex is right");   
-	    c.prev();
-	    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	    c.focusPrev();
+	    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 		equals(c.getElement("element").childNodes[0].innerHTML,  "text5", "The item is right");
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text6", "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text7", "The item is right");
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text8", "The item is right");
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text6", "The selectedIndex is right");   
-	    c.next();
-	    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	    c.focusNext();
+	    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 		equals(c.getElement("element").childNodes[0].innerHTML,  "text6", "The item is right");
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text7", "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text8", "The item is right");
@@ -90,13 +90,13 @@ test("default params", function(){
 	    c.render('one-carousel');
 	    equals(c._selectedIndex, 0, "The default index is right");
 	    equals(c._options.orientation, "horizontal", "The orientation is right");
-	    equals(c._options.pageSize, 3, "The pageSize is right");
-	    equals(c._options.selectedIndex, 0, "The selectedIndex is right");
+	    equals(c._options.viewSize, 3, "The viewSize is right");
+	    equals(c._options.originalIndex, 0, "The selectedIndex is right");
 	    equals(c._options.focusRange.min , 0, "The focusRange is right");
 	    equals(c._options.focusRange.max , 2, "The focusRange is right");
-	    equals(c._options.isCycle, false, "The isCycle is right");
-	    equals(c._options.flip, 1, "The flip is right");
-	    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+	    equals(c._options.isLoop, false, "The isLoop is right");
+	    equals(c._options.step, 1, "The step is right");
+	    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 		equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
@@ -114,23 +114,23 @@ test("all params", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 		orientation: 'vertical',
-		pageSize: 4,
-		selectedIndex: 5,
+		viewSize: 4,
+		originalIndex: 5,
 		focusRange : {min: 1, max: 2},
-		isCycle: true,
-		flip: 2,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     equals(c._selectedIndex, 5, "The default index is right");
     equals(c._options.orientation, "vertical", "The orientation is right");
-    equals(c._options.pageSize, 4, "The pageSize is right");
-    equals(c._options.selectedIndex, 5, "The selectedIndex is right");
+    equals(c._options.viewSize, 4, "The viewSize is right");
+    equals(c._options.originalIndex, 5, "The selectedIndex is right");
     equals(c._options.focusRange.min , 1, "The focusRange is right");
     equals(c._options.focusRange.max , 2, "The focusRange is right");
-    equals(c._options.isCycle, true, "The isCycle is right");
-    equals(c._options.flip, 2, "The flip is right");
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    equals(c._options.isLoop, true, "The isLoop is right");
+    equals(c._options.step, 2, "The step is right");
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text5", "The item is right");
@@ -144,22 +144,22 @@ test("all params, special selectedIndex", function(){
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-		pageSize: 4,
-		selectedIndex: 9,
-		isCycle: true,
-		flip: 2,
+		viewSize: 4,
+		originalIndex: 9,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     equals(c._selectedIndex, 9, "The default index is right");
     equals(c._options.orientation, "horizontal", "The orientation is right");
-    equals(c._options.pageSize, 4, "The pageSize is right");
-    equals(c._options.selectedIndex, 9, "The selectedIndex is right");
+    equals(c._options.viewSize, 4, "The viewSize is right");
+    equals(c._options.originalIndex, 9, "The selectedIndex is right");
     equals(c._options.focusRange.min , 0, "The focusRange is right");
     equals(c._options.focusRange.max , 3, "The focusRange is right");
-    equals(c._options.isCycle, true, "The isCycle is right");
-    equals(c._options.flip, 2, "The flip is right");
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    equals(c._options.isLoop, true, "The isLoop is right");
+    equals(c._options.step, 2, "The step is right");
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text6", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text7", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text8", "The item is right");
@@ -173,22 +173,22 @@ test("all params, special selectedIndex & focusRange", function(){
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-		pageSize: 4,
-		selectedIndex: 4,
-		isCycle: true,
-		flip: 2,
+		viewSize: 4,
+		originalIndex: 4,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     equals(c._selectedIndex, 4, "The default index is right");
     equals(c._options.orientation, "horizontal", "The orientation is right");
-    equals(c._options.pageSize, 4, "The pageSize is right");
-    equals(c._options.selectedIndex, 4, "The selectedIndex is right");
+    equals(c._options.viewSize, 4, "The viewSize is right");
+    equals(c._options.originalIndex, 4, "The selectedIndex is right");
     equals(c._options.focusRange.min , 0, "The focusRange is right");
     equals(c._options.focusRange.max , 3, "The focusRange is right");
-    equals(c._options.isCycle, true, "The isCycle is right");
-    equals(c._options.flip, 2, "The flip is right");
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    equals(c._options.isLoop, true, "The isLoop is right");
+    equals(c._options.step, 2, "The step is right");
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text4", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text5", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text6", "The item is right");
@@ -208,20 +208,20 @@ test("next, default params", function(){
     c.render('one-carousel');
     for(var i = 0; i < 11; i ++){
     	if(i < 10){
-    		equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    		equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text" + Math.max(i - 2, 0), "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text" + (Math.max(i - 2, 0) + 1), "The item is right");
     		equals(c.getElement("element").childNodes[2].innerHTML,  "text" + (Math.max(i - 2, 0) + 2), "The item is right");
     		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + i, "The selectedIndex is right");
     	}
     	else{
-    		equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    		equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text7", "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text8", "The item is right");
     		equals(c.getElement("element").childNodes[2].innerHTML,  "text9", "The item is right");
     		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
     	}
-    	c.next();
+    	c.focusNext();
      }
     document.body.removeChild(div);
 });
@@ -233,16 +233,16 @@ test("next, all params", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 		orientation: 'vertical',
-		pageSize: 4,
-		selectedIndex: 4,
+		viewSize: 4,
+		originalIndex: 4,
 		focusRange : {min: 1, max: 3},
-		isCycle: true,
-		flip: 2,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     for(var i = 0; i < 6; i ++){
-    	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
     	if(i == 0){
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
@@ -256,27 +256,27 @@ test("next, all params", function(){
     		equals(c.getElement("element").childNodes[3].innerHTML,  "text" + (((i * 2 + 4) % 10 - 0) + 10) % 10, "The item is right");
     	}
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i * 2 + 4) % 10, "The selectedIndex is right");
-    	c.next();
+    	c.focusNext();
      }
     document.body.removeChild(div);
 });
 
-test("next, flip more than focusRange", function(){
+test("next, step more than focusRange", function(){
 	expect(36);
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-		pageSize: 4,
-		selectedIndex: 4,
+		viewSize: 4,
+		originalIndex: 4,
 		focusRange : {min: 1, max: 2},
-		isCycle: true,
-		flip: 2,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     for(var i = 0; i < 6; i ++){
-    	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
     	if(i == 0){
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
@@ -290,27 +290,27 @@ test("next, flip more than focusRange", function(){
     		equals(c.getElement("element").childNodes[3].innerHTML,  "text" + (((i * 2 + 4) % 10 + 1) + 10) % 10, "The item is right");
     	}
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i * 2 + 4) % 10, "The selectedIndex is right");
-    	c.next();
+    	c.focusNext();
      }
     document.body.removeChild(div);
 });
 
-test("next, flip less than focusRange", function(){
+test("next, step less than focusRange", function(){
 	expect(36);
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-		pageSize: 4,
-		selectedIndex: 4,
+		viewSize: 4,
+		originalIndex: 4,
 		focusRange : {min: 1, max: 3},
-		isCycle: true,
-		flip: 1,
+		isLoop: true,
+		step: 1,
 	    items: citems
 	});
     c.render('one-carousel');
     for(var i = 0; i < 6; i ++){
-    	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
     	if(i < 3){
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
@@ -324,7 +324,7 @@ test("next, flip less than focusRange", function(){
     		equals(c.getElement("element").childNodes[3].innerHTML,  "text" + (i + 4), "The item is right");
     	}
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i + 4) % 10, "The selectedIndex is right");
-    	c.next();
+    	c.focusNext();
      }
     document.body.removeChild(div);
 });
@@ -336,25 +336,25 @@ test("prev, default params", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 	    items: citems,
-		selectedIndex: 4
+		originalIndex: 4
 	});
     c.render('one-carousel');
     for(var i = 4; i > -2; i --){
     	if(i > -1){
-    		equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    		equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text" + i, "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text" + (i + 1), "The item is right");
     		equals(c.getElement("element").childNodes[2].innerHTML,  "text" + (i + 2), "The item is right");
     		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + i, "The selectedIndex is right");
     	}
     	else{
-    		equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    		equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
     		equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
     		equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
     		equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
     		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
     	}
-    	c.prev();
+    	c.focusPrev();
      }
     document.body.removeChild(div);
 });
@@ -366,22 +366,22 @@ test("prev, all params", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 		orientation: 'vertical',
-		pageSize: 4,
-		selectedIndex: 4,
+		viewSize: 4,
+		originalIndex: 4,
 		focusRange : {min: 1, max: 3},
-		isCycle: true,
-		flip: 2,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     for(var i = 4; i > -2; i --){
-    	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
     	equals(c.getElement("element").childNodes[0].innerHTML,  "text" + (i * 2 + 5) % 10, "The item is right");
 		equals(c.getElement("element").childNodes[1].innerHTML,  "text" + (i * 2 + 6) % 10, "The item is right");
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text" + (i * 2 + 7) % 10, "The item is right");
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text" + (i * 2 + 8) % 10, "The item is right");
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i * 2 + 6) % 10, "The selectedIndex is right");
-    	c.prev();
+    	c.focusPrev();
      }
     document.body.removeChild(div);
 });
@@ -396,37 +396,37 @@ test("focus, default params", function(){
 	});
     c.render('one-carousel');
     c.focus(0);
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
 	c.focus(1);
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
 	c.focus(2);
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text2", "The selectedIndex is right");
 	c.focus(5);
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text5", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text5", "The selectedIndex is right");
-	c.focus(0, 'next');
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+	c.focus(0, 'forward');
+    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text8", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text9", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text0", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
-	c.focus(1, 'prev');
-    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
+	c.focus(1, 'backward');
+    equals(c.getElement("element").childNodes.length, 3, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text3", "The item is right");
@@ -440,51 +440,51 @@ test("focus, all params", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 		orientation: 'vertical',
-		pageSize: 4,
-		selectedIndex: 4,
+		viewSize: 4,
+		originalIndex: 4,
 		focusRange : {min: 1, max: 2},
-		isCycle: true,
-		flip: 2,
+		isLoop: true,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     c.focus(4);
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text5", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text6", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text4", "The selectedIndex is right");
 	c.focus(5);
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text3", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text4", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text5", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text6", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text5", "The selectedIndex is right");
 	c.focus(6);
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text4", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text5", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text6", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text7", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text6", "The selectedIndex is right");
 	c.focus(9);
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text7", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text8", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text9", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text0", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
-	c.focus(0, 'next');
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	c.focus(0, 'forward');
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text8", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text9", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text0", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text1", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
-	c.focus(1, 'prev');
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	c.focus(1, 'backward');
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
@@ -493,42 +493,42 @@ test("focus, all params", function(){
 	document.body.removeChild(div);
 });
 
-test("focus, next, prev, isCycle=false", function(){
+test("focus, next, prev, isLoop=false", function(){
 	expect(30);
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-		pageSize: 4,
+		viewSize: 4,
 		focusRange : {min: 1, max: 2},
-		isCycle: false,
-		flip: 2,
+		isLoop: false,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
     c.focus(7);
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text5", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text6", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text7", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text8", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text7", "The selectedIndex is right");
-    c.next();
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    c.focusNext();
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text6", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text7", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text8", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text9", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text8", "The selectedIndex is right");
     c.focus(2);
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text3", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text4", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text2", "The selectedIndex is right");
-    c.prev();
-    equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+    c.focusPrev();
+    equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text0", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text1", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
@@ -536,14 +536,14 @@ test("focus, next, prev, isCycle=false", function(){
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
     c.dispose();
     var c = new magic.Carousel({
-		pageSize: 4,
-		selectedIndex: 9,
+		viewSize: 4,
+		originalIndex: 9,
 		focusRange : {min: 1, max: 2},
-		flip: 2,
+		step: 2,
 	    items: citems
 	});
     c.render('one-carousel');
-	equals(c.getElement("element").childNodes.length, 4, "The pageSize is right");
+	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
 	equals(c.getElement("element").childNodes[0].innerHTML,  "text6", "The item is right");
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text7", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text8", "The item is right");
@@ -562,23 +562,23 @@ test("events & dispose", function(){
 	    items: citems
 	});
     c.render('one-carousel');
-    c.on("onscrollto", function(e, d){
-    	equals(d.direction, "prev", "The onscrollto is right");
+    c.on("onfocus", function(e, d){
+    	equals(d.direction, "backward", "The onfocus is right");
     });
-    c.on("onitemclick", function(){
-    	ok(true, "onitemclick");
+    c.on("onclickitem", function(){
+    	ok(true, "onclickitem");
     });
-    c.on("onitemmouseover", function(){
-    	ok(true, "onitemmouseover");
+    c.on("onmouseoveritem", function(){
+    	ok(true, "onmouseoveritem");
     });
-    c.on("onitemmouseout", function(){
-    	ok(true, "onitemmouseout");
+    c.on("onmouseoutitem", function(){
+    	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
     	var l2 = baidu.event._listeners.length;
     	equals(l2, l1, "The events are un");
     });
-    c.focus(8, 'prev');
+    c.focus(8, 'backward');
     ua.click(c.getElement("element").childNodes[0]);
     ua.mouseout(c.getElement("element").childNodes[0]);
     c.dispose();
