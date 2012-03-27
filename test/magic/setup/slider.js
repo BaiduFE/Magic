@@ -185,7 +185,7 @@ test("setup, getValue&setValue, backward", function(){
 
 test("setup, events&dispose", function(){
 	stop();
-	expect(8);
+	expect(9);
 	enSetupH();
 	var l1 = baidu.event._listeners.length;
 	var slider = new magic.setup.slider("s1", {

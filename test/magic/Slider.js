@@ -152,7 +152,7 @@ test("render, getValue&setValue, backward", function(){
 
 test("render, events&dispose", function(){
 	stop();
-	expect(8);
+	expect(9);
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "div1";
