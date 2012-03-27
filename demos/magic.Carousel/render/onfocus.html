@@ -75,9 +75,9 @@ baidu.dom.ready(function(){
         selectedIndex = 0;
     baidu.event.on(ul, 'click', onClickHandler);
     var c = new magic.Carousel({
-        pageSize: 4,
-        selectedIndex: 0,
-        isCycle: true,
+        viewSize: 4,
+        originalIndex: 0,
+        isLoop: true,
         items: [
             {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
             {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
@@ -89,7 +89,7 @@ baidu.dom.ready(function(){
         ]
     });
     c.render('one-carousel');
-    c.on('scrollto', function(evt){
+    c.on('onfocus', function(evt){
         var index = evt.target.getCurrentIndex();
             baidu.dom.removeClass(child[selectedIndex], 'item-selected');
             baidu.dom.addClass(child[index], 'item-selected');

@@ -10,6 +10,7 @@
 ///import baidu.lang.createClass;
 ///import baidu.event.on;
 ///import baidu.event.un;
+///import baidu.fn.bind;
 ///import baidu.dom.drag;
 ///import baidu.dom.setStyle;
 ///import baidu.string.encodeHTML;
@@ -70,9 +71,15 @@ magic.control.Dialog = baidu.lang.createClass(
             // 定义拖拽事件
             if(this.draggable){
                 var title = this.getElement("title"), dragFn;
-                baidu.event.on(title, "mousedown", dragFn = function(){
-                    baidu.dom.drag(container);
-                });
+                var bind = baidu.fn.bind;
+                title.className += " tang-title-dragable";
+                baidu.event.on(title, "mousedown", dragFn = bind(function(){
+                    baidu.dom.drag(container, {
+                        ondragstart: bind(function(){ this.fire("dragstart"); }, this),
+                        ondrag: bind(function(){ this.fire("drag"); }, this),
+                        ondragend: bind(function(){ this.fire("dragstop"); }, this)
+                    });
+                }, this));
                 this.disposeProcess.unshift(function(){
                     baidu.event.un(title, "mousedown", dragFn);
                 });
@@ -101,26 +108,26 @@ magic.control.Dialog.extend(
      * 查询对话框是否处于显示状态
      * @return {Boolean}
      */
-    isShown: function(){
+    isShowing: function(){
         return this._isShown;
     },
 
-    /**
-     * 显示对话框
-	 * @name magic.control.Dialog#show
-     * @function
-     * @return {This} 实例本身
-     */
-    // show: function(){
-    //     this.getElement().style.display = "block";
-    //     this._isShown = true;
+  //   /**
+  //    * 显示对话框
+	 // * @name magic.control.Dialog#show
+  //    * @function
+  //    * @return {This} 实例本身
+  //    */
+  //   show: function(){
+  //       this.getElement().style.display = "block";
+  //       this._isShown = true;
 
-    //    // TODO: 写事件 jsdoc 文件
-    //        /**
-    //         * @event show 显示后触发事件
-    //         */  
-    //     this.fire("show");
-    // },
+  //      // TODO: 写事件 jsdoc 文件
+  //          /**
+  //           * @event show 显示后触发事件
+  //           */  
+  //       this.fire("show");
+  //   },
 
     /**
      * 隐藏对话框
@@ -150,7 +157,7 @@ magic.control.Dialog.extend(
      * @param {String} title 对话框标是文本内容
      * @return {This} 实例本身
      */
-    setTitle: function(title){
+    setTitleText: function(title){
         var titleText = this.getElement("titleText");
           titleText.innerHTML = baidu.string.encodeHTML(title) || "&nbsp;";
           return this;
@@ -159,40 +166,50 @@ magic.control.Dialog.extend(
     /**
      * 设置对话框内容
      * @param {HTMLElement|id|dom} content 用于做为对话框内容的节点或字符串 id
+     * @param {string} contentType 内容类型，可选参数有 element|html|text|frame，分别表示传入的内容类型为 dom 对象、html 字符、文本或 iframe 地址，content 参数的数据类型由 contentType 决定，两个参数配合使用，contentType 参数如果不传或非以上四种情况，一律当 html 处理
      * @return {This} 实例本身
      */
-    setContent: function(content){
+    setContent: function(content, contentType){
         var contentEl = this.getElement("content");
-           var lastDom, target, parent;
-           if(lastDom = this._lastDom){
-               parent = lastDom.parent;
-               if(lastDom.content === content)
-                   return this;
-               if(lastDom.target){ // 原还位置
-                   parent.insertBefore(lastDom.content, lastDom.target);
-               }else{
-                   parent.appendChild(lastDom.content);
-               }
-               this._lastDom = null;
+
+        var lastDom, target, parent;
+        if(lastDom = this._lastDom){
+           parent = lastDom.parent;
+           if(lastDom.content === content)
+               return this;
+           if(lastDom.target){ // 原还位置
+               parent.insertBefore(lastDom.content, lastDom.target);
+           }else{
+               parent.appendChild(lastDom.content);
            }
-           if(typeof content == "string"){
-               contentEl.innerHTML = baidu.string.encodeHTML(content);
-               baidu.dom.removeClass(contentEl, "contentFrame");
-           }else if(typeof content == "object" && content.nodeType){
-               if(parent = content.parentNode){ // 做标记
+           this._lastDom = null;
+        }
+
+        switch(contentType){
+            case "text":
+                contentEl.innerHTML = baidu.string.encodeHTML(content);
+                baidu.dom.removeClass(contentEl, "contentFrame");
+                break;
+            case "element":
+                if(parent = content.parentNode){ // 做标记
                     parent.insertBefore(target = document.createTextNode(""), content);
-                this._lastDom = { content: content, parent: content.parentNode, target: target };                    
-               }
-               contentEl.innerHTML = "";
-               if(content.nodeName.toUpperCase() == "IFRAME"){
-                   contentEl.innerHTML = "<iframe frameborder='no' src='" + content.getAttribute("src") + "'></iframe>";
-                   baidu.dom.hasClass(contentEl, "contentFrame") || 
-                       baidu.dom.addClass(contentEl, "contentFrame");
-               }else{
-                   contentEl.appendChild(content);
-               }
-           }
-           return this;
+                    this._lastDom = { content: content, parent: content.parentNode, target: target };                    
+                }
+                contentEl.innerHTML = "";
+                contentEl.appendChild(content);         
+                break;            
+            case "frame":
+                contentEl.innerHTML = "<iframe frameborder='no' src='" + content + "'></iframe>";
+                baidu.dom.hasClass(contentEl, "contentFrame") || 
+                    baidu.dom.addClass(contentEl, "contentFrame");        
+                break;
+            default:
+                contentEl.innerHTML = content;
+                baidu.dom.removeClass(contentEl, "contentFrame");
+                break;
+        }
+
+        return this;
     },
 
     /**
@@ -212,9 +229,9 @@ magic.control.Dialog.extend(
 
     /**
      * 设置对话框尺寸
-     * @param {Object} size 尺寸描述对象
-     * @config {Number} size.width  对话框的宽
-     * @config {Number} size.height 对话框的高
+     * @param {Object} size 尺寸描述对象，必须至少有 width/height 中的一个
+     * @config {Number} size.width  对话框的宽，单位 px
+     * @config {Number} size.height 对话框的高，单位 px
      * @return {This} 实例本身
      */
     setSize: function(size){
@@ -238,10 +255,21 @@ magic.control.Dialog.extend(
     },
 
     /**
+     * 获取对话框尺寸
+     * @return {Object} 返回值形如 { width: 100, height: 100 }，单位 px
+     */
+    getSize: function(){
+        return {
+            width: this.width,
+            height: this.height
+        }
+    },
+
+    /**
      * 设置对话框的位置
-     * @param {Object} pos 位置描述对象
-     * @config {Number} pos.left 对话框左边框到 body 左侧的距离
-     * @config {Number} pos.top 对话框上边框到 body 上侧的距离
+     * @param {Object} pos 位置描述对象，必须至少有 left/top 中的一个
+     * @config {Number} pos.left 对话框左边框到 body 左侧的距离，单位 px
+     * @config {Number} pos.top 对话框上边框到 body 上侧的距离，单位 px
      * @return {This} 实例本身
      */
     setPosition: function(pos){
@@ -260,6 +288,17 @@ magic.control.Dialog.extend(
          * @event 
          */
         this.fire("move", pos);
+    },
+
+    /**
+     * 获取对话框的位置
+     * @return {Object} 返回值形如 { left: 100, top: 100 }，单位 px
+     */
+    getPosition: function(){
+        return {
+            left: this.left,
+            top: this.top
+        }
     },
 
     /**

@@ -21,19 +21,14 @@
  * @grammar new magic.Tab(options)
  * @param {Object} options 选项.
  * @config {Array} items 数据项，格式如：[{title: 'text-0', content: 'content-0'}, {title: 'text-1', content: 'content-1'}...]
- * @config {String} toggleEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click
- * @config {Number} selectedIndex 默认选项卡的打开项，默认值是0
+ * @config {String} selectEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click
+ * @config {Number} selectDelay 当selectEvent是mouseover时，选项卡之间切换的延迟时间，以毫秒为单位，默认值是0.
+ * @config {Number} originalIndex 默认选项卡的打开项，默认值是0
  * @return {magic.control.Tab} Tab实例.
  * @author linlingyu
  */
 magic.Tab = baidu.lang.createClass(function(options) {
     var me = this;
-    me._options = baidu.object.extend({
-        toggleEvent: 'click',
-        toggleDelay: 0,
-        selectedIndex: 0
-    }, options);
-    me._selectedIndex = me._options.selectedIndex;
     me._items = options.items || [];
 }, {
     type: 'magic.Tab',
@@ -50,6 +45,7 @@ magic.Tab = baidu.lang.createClass(function(options) {
 
     /**
      * 将Tab选项卡的所有数据转化为对应的HTML字符串.
+     * @private
      */
     toHTMLString: function() {
         var me = this,
