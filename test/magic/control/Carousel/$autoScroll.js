@@ -155,7 +155,10 @@ test("render, button", function(){
 	var time1 = 0;
 	var time2 = 0;
 	var c = new magic.Carousel({
-	    items: citems
+	    items: citems,
+	    autoScroll: {
+	    	interval:100
+	    }
 	});
 	c.on("onfocus", function(){
 		scroll ++;
@@ -167,7 +170,7 @@ test("render, button", function(){
 		}
 		if(scroll == 4){
 			time2 = new Date();
-			ok(Math.abs((time2 - time1) - 1000) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
+			ok(Math.abs((time2 - time1) - 100) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
 		    c.dispose();
 			document.body.removeChild(div);
 			start();
@@ -294,7 +297,10 @@ test("setup, button", function(){
 	var time1 = 0;
 	var time2 = 0;
 	var options = {
-	    items: citems
+	    items: citems,
+	    autoScroll: {
+	    	interval:100
+	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
 	c.on("onfocus", function(){
@@ -307,7 +313,7 @@ test("setup, button", function(){
 		}
 		if(scroll == 4){
 			time2 = new Date();
-			ok(Math.abs((time2 - time1) - 1000) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
+			ok(Math.abs((time2 - time1) - 100) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
 			c.dispose();
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();
