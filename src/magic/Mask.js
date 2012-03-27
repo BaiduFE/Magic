@@ -18,9 +18,9 @@
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
 
-///import baidu.browser.ie;
 ///import baidu.event.on;
 ///import baidu.event.un;
+///import baidu.browser.safari;
 
 /**
  * 遮罩层
@@ -49,6 +49,7 @@ magic.Mask = function(options){
 
 	me.width = me.height = "100%";
 
+	var sf = baidu.browser.safari;
 	baidu.dom.insertHTML(me.container, "afterbegin", me.toHTMLString());
     
     /**
@@ -63,6 +64,18 @@ magic.Mask = function(options){
 		}
 	}
 
+    /**
+     * @private
+     */
+	function showObjects(bool){
+	    var objects = document.getElementsByTagName("object");
+	    var v = bool ? "visible" : "hidden";
+	    for(var i = 0, o, l = objects.length; i < l; i ++){
+	    	o = objects[i];
+	    	o.style.visibility = v;
+	    }
+	}
+
 	me.on("show", function(){
 		resize();
 		baidu.event.on(window, "onresize", resize);
@@ -71,10 +84,12 @@ magic.Mask = function(options){
 		es.zIndex = me.zIndex;
 		es.filter = "alpha(opacity=" + me.opacity * 100 + ")";
 		es.backgroundColor = me.bgColor;
+		sf && showObjects(false);
 	});
 
 	me.on("hide", function(){
 		baidu.event.un(window, "onresize", resize);
+		sf && showObjects(true);
 	});
 
 };
@@ -86,9 +101,9 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
 	 */
 	toHTMLString : function(){
 		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:absolute; display:none;'>"
-			+(baidu.browser.ie < 7 ? "<iframe frameborder='0' style='"
+			+("<iframe frameborder='0' style='"
 			+"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
 			+"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "
-			+"src='about:blank'></iframe>" : "") +"</div>";
+			+"src='about:blank'></iframe><div style='position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1;'>&nbsp;</div>") +"</div>";
 	}
 });

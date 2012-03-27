@@ -75,9 +75,9 @@ magic.setup.dialog = function(el, options){
 	instance.show();
 
 	if(opt.titleText)
-		instance.setTitle(opt.titleText);
+		instance.setTitleText(opt.titleText);
 	if(opt.content)
-		instance.setContent(opt.content);
+		instance.setContent(opt.content, opt.contentType || "html");
 			
 	return instance;
 };

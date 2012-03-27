@@ -16,6 +16,10 @@
 	border-width: 1px 1px 0 1px;
 }
 
+.tang-dialog .tang-title-dragable{
+	cursor: move;
+}
+
 .tang-dialog .tang-title .buttons{
 	float: right;
 }
@@ -41,7 +45,6 @@
 	color: #fff;
 	font-size: 14px;
 	font-weight: 700;
-	cursor: default;
 	padding-left: 10px;
 	width: auto;
 	height: 29px;
