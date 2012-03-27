@@ -41,13 +41,13 @@ test('default params', function(){
 		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).top, baidu.dom.getPosition(this.getElement("input")).top + input.offsetHeight - 1, "The offsetX is right");
 		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).left, baidu.dom.getPosition(this.getElement("input")).left, "The offsetY is right");
 		        	equals(this.getElement("suggestion").offsetWidth, input.offsetWidth, "The Width is right");
-
+		        	
 		        	equals(this.getDataByIndex(0).value, "a+1value", "The value is right");
 		        	equals(this.getDataByIndex(1).value, "北海2value", "The value is right");
 		        	equals(this.getDataByIndex(2).value, "北海3value", "The value is right");
 		        	equals(this.getDataByIndex(3).value, "北海4value", "The value is right");
 		        	equals(this.getDataByIndex(4).value, "北海5", "The value is right");
-
+		        	
 		        	setTimeout(function(){
 		        		ua.keydown(input, {
 							keyCode : 40
@@ -84,7 +84,7 @@ test('default params', function(){
 			        		equals(getCurrentItem(s), "北海5", "The hightlight item is right");
 			        		equals($(input).attr("value"), "北海5", "The input value is right");
 			        		equals(this.selectedIndex, 3, "The selected index is right");
-
+			        		
 			        		$(this._getItemDom(0)).mouseover();
 			        		break;
 			        	case 5:
@@ -109,7 +109,7 @@ test('default params', function(){
 		        onmouseoveritem : function(e, item){
 		        	equals(item.index, 0, "The mouseoutitem index is right");
 		        	equals(item.data.value, "a+1value", "The mouseoutitem data is right");
-
+		        	
 		        	$(this._getItemDom(0)).click();  
 		        },
 		        onpick: function(e, item){
@@ -160,7 +160,7 @@ test('default params', function(){
 		        	this.dispose();
 		        },
 		        ondispose: function(){
-
+		        	
 		        }
 		    };
 			var l1 = baidu.event._listeners.length;
