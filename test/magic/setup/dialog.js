@@ -426,3 +426,24 @@ test("getElement", function(){
 		start();
 	});
 });
+
+//case 15
+test("getElements", function(){
+	stop();
+	expect(1);
+	enSetup();
+	var options = {
+			titleText : 'title',
+			content : 'content',
+			height : 100,
+			width : 100
+	};
+	var dialog = magic.setup.dialog("one-dialog", options);
+	var num=0;
+	for(var i in dialog.getElements()){
+		num++;
+	}
+	equals(num, 8, "The getElements() is right");
+	document.body.removeChild(baidu.dom.g("one-dialog"));
+	start();
+});
