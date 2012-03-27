@@ -45,7 +45,7 @@ test("default params", function(){
 	equals(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
 	equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
-	equals(dialog.getElement("title").className, "tang-title", "The draggable is right");
+	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
 	equals(dialog.getElement("body").className, "tang-body", "The body is right");
 	document.body.removeChild(baidu.dom.g("one-dialog"));
 });
@@ -69,12 +69,12 @@ test("default params, title & content, html", function(){
 	expect(2);
 	enSetup();
 	var options = {
-			titleText : '<span>标题</span>',
-			content : '<span>dialog内容</span>'
+		titleText : '<span>标题</span>',
+		content : '<span>dialog内容</span>'
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
-	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
+	equals(dialog.getElement("content").innerHTML.toLowerCase(), "<span>dialog内容</span>", "The content is right");
 	document.body.removeChild(baidu.dom.g("one-dialog"));
 });
 
@@ -87,7 +87,8 @@ test("default params, title & content, dom", function(){
 	enSetup();
 	var options = {
 			titleText : '<span>标题</span>',
-			content : cdiv
+			content : cdiv,
+			contentType: "element"
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
@@ -105,6 +106,7 @@ test("all params", function(){
 	var options = {
 			titleText : '标题',
 			content : cdiv,
+			contentType: "element",
 			left : 10,
 			top : 20,
 			height : 200,
@@ -127,7 +129,7 @@ test("all params", function(){
 });
 
 // case 6
-test("hide & isShown", function(){
+test("hide & isShowing", function(){
 	expect(6);
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
@@ -155,18 +157,18 @@ test("hide & isShown", function(){
 	dialog.on("hide", function(){
 		if(beforehide == 2){
 			equals(dialog.getElement().style.display, "none", "The dialog hides");
-			equals(dialog.isShown(), false, "The dialog hides");
+			equals(dialog.isShowing(), false, "The dialog hides");
 		}
 	})
 	equals(dialog.getElement().style.display, "", "The dialog shows");
-	equals(dialog.isShown(), true, "The dialog shows");
+	equals(dialog.isShowing(), true, "The dialog shows");
 	dialog.hide();
 	document.body.removeChild(baidu.dom.g("one-dialog"));
 });
 
 // case 7
-test("setTitle & setContent, text, html, dom", function(){
-	expect(10);
+test("setTitleText & setContent, text, html, dom", function(){
+	expect(12);
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
 	$(cdiv).html("dialog内容div");
@@ -174,19 +176,28 @@ test("setTitle & setContent, text, html, dom", function(){
 	var dialog = magic.setup.dialog("one-dialog");
 	equals(dialog.getElement("titleText").innerHTML, "对话框标题", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "对话框内容", "The content is right");
-	dialog.setTitle("标题");
-	dialog.setContent("dialog内容");
+	
+	dialog.setTitleText("标题");
+	dialog.setContent("dialog内容", "text");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "dialog内容", "The content is right");
-	dialog.setTitle("<span>标题</span>");
-	dialog.setContent("<span>dialog内容</span>");
+	
+	dialog.setTitleText("<span>标题</span>");
+	dialog.setContent("<span>dialog内容</span>", "text");
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
-	dialog.setTitle("标题");
-	dialog.setContent(cdiv);
+	
+	dialog.setContent("<span>dialog内容</span>"); //默认html
+	equals(dialog.getElement("content").innerHTML.toLowerCase(), "<span>dialog内容</span>", "The content is right");
+	
+	dialog.setContent(upath + "dialog/test.html", "frame");
+	equals(dialog.getElement("content").childNodes[0].tagName.toLowerCase(), "iframe", "The content is right");
+	
+	dialog.setTitleText("标题");
+	dialog.setContent(cdiv, "element");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
-	dialog.setTitle("");
+	dialog.setTitleText("");
 	dialog.setContent("");
 	equals(dialog.getElement("titleText").innerHTML, "&nbsp;", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "", "The content is right");
@@ -194,50 +205,80 @@ test("setTitle & setContent, text, html, dom", function(){
 });
 
 // case 8
-test("setSize", function(){
-	expect(6);
+test("setSize & getSize", function(){
+	expect(14);
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
 	$(cdiv).html("dialog内容");
 	enSetup();
+	var resize = 0;
 	var options = {
 			titleText : '标题',
 			content : cdiv
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	dialog.on("resize", function(e, size){
-		equals(size.width, 50, "The x is right");
-		equals(size.height, 100, "The y is right");
-		equals(dialog.height, 100, "The height is right");
-		equals(dialog.width, 50, "The width is right");
-		equals(dialog.getElement().offsetHeight, "100", "The height is right");
-		equals(dialog.getElement().offsetWidth, "50", "The width is right");
+		resize ++;
+		if(resize == 1){
+			equals(size.width, 50, "The x is right");
+			equals(size.height, 100, "The y is right");
+			equals(dialog.height, 100, "The height is right");
+			equals(dialog.width, 50, "The width is right");
+			equals(dialog.getElement().offsetHeight, "100", "The height is right");
+			equals(dialog.getElement().offsetWidth, "50", "The width is right");
+		}
+		if(resize == 2){
+			equals(size.width, undefined, "The x is right");
+			equals(size.height, 70, "The y is right");
+			equals(dialog.height, 70, "The height is right");
+			equals(dialog.width, 50, "The width is right");
+			equals(dialog.getElement().offsetHeight, "70", "The height is right");
+			equals(dialog.getElement().offsetWidth, "50", "The width is right");
+		}
 	});
 	dialog.setSize({ width: 50, height: 100 });
+	dialog.setSize({ height: 70 });
+	equals(dialog.getSize().width, 50, "The getSize() is right");
+	equals(dialog.getSize().height, 70, "The getSize() is right");
 	document.body.removeChild(baidu.dom.g("one-dialog"));
 });
 
 // case 9
-test("setPosition", function(){
-	expect(6);
+test("setPosition & getPosition", function(){
+	expect(14);
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
 	$(cdiv).html("dialog内容");
 	enSetup();
+	var move = 0;
 	var options = {
 			titleText : '标题',
 			content : cdiv
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	dialog.on("move", function(e, pos){
-		equals(pos.left, 50, "The x is right");
-		equals(pos.top, 100, "The y is right");
-		equals(dialog.left, 50, "The left is right");
-		equals(dialog.top, 100, "The top is right");
-		equals(dialog.getElement().style.left, "50px", "The left is right");
-		equals(dialog.getElement().style.top, "100px", "The top is right");
+		move ++;
+		if(move == 1){
+			equals(pos.left, 50, "The x is right");
+			equals(pos.top, 100, "The y is right");
+			equals(dialog.left, 50, "The left is right");
+			equals(dialog.top, 100, "The top is right");
+			equals(dialog.getElement().style.left, "50px", "The left is right");
+			equals(dialog.getElement().style.top, "100px", "The top is right");
+		}
+		if(move == 2){
+			equals(pos.left, 70, "The x is right");
+			equals(pos.top, undefined, "The y is right");
+			equals(dialog.left, 70, "The left is right");
+			equals(dialog.top, 100, "The top is right");
+			equals(dialog.getElement().style.left, "70px", "The left is right");
+			equals(dialog.getElement().style.top, "100px", "The top is right");
+		}
 	});
 	dialog.setPosition({ left: 50, top: 100 });
+	dialog.setPosition({left:70});
+	equals(dialog.getPosition().left, 70, "The getPosition() is right");
+	equals(dialog.getPosition().top, 100, "The getPosition() is right");
 	document.body.removeChild(baidu.dom.g("one-dialog"));
 });
 
@@ -384,4 +425,25 @@ test("getElement", function(){
 		document.body.removeChild(baidu.dom.g("one-dialog"));
 		start();
 	});
+});
+
+//case 15
+test("getElements", function(){
+	stop();
+	expect(1);
+	enSetup();
+	var options = {
+			titleText : 'title',
+			content : 'content',
+			height : 100,
+			width : 100
+	};
+	var dialog = magic.setup.dialog("one-dialog", options);
+	var num=0;
+	for(var i in dialog.getElements()){
+		num++;
+	}
+	equals(num, 8, "The getElements() is right");
+	document.body.removeChild(baidu.dom.g("one-dialog"));
+	start();
 });

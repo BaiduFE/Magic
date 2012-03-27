@@ -1,4 +1,4 @@
-﻿module("magic.setup.suggestion");
+module("magic.setup.suggestion");
 
 (function(){
 	enSetup = function(){
@@ -13,9 +13,11 @@
 	};
 	getContentByKey = function(key){
 		if(key == "a")
-			var content = "[{value:'a+1value',content:'a+1'},{value:'北海2value',content:'北海2'},{value:'北海3value',content:'北海3',disable:false},{value:'北海4value',content:'北海4',disable:true}, '北海5']";
+			var content = "[{value:'a+1',content:'<b>a+1</b>'},{value:'北海2',content:'<b>北海2</b>'},{value:'北海3',content:'<b>北海3</b>',disable:false},{value:'北海4',content:'<b>北海4</b>',disable:true}, {value:'北海5',content:'<b>北海5</b>'}]";
 		if(key == "b")
-			var content = "[{value:'b+1value',content:'b+1'},{value:'北海6value',content:'北海6'}]";
+			var content = "[{value:'b+1',content:'<b>b+1</b>'},{value:'北海6',content:'<b>北海6</b>'}]";
+		if(key == "c")
+			var content = "['<input>']";
 		return eval(content);
 	}
 	getCurrentItem = function(s){
@@ -24,7 +26,7 @@
 })();
 
 test('default params', function(){
-	expect(54);
+	expect(55);
 	stop();
 	ua.importsrc("baidu.ajax.request", function(){
 		ua.loadcss(upath + "suggestion/suggestion.css", function(){
@@ -35,17 +37,17 @@ test('default params', function(){
 			var options = {
 				getData: function(key){
 			        var me = this;
-			        me.fire("ongetdata", key, getContentByKey(key));
+			        me.receiveData(key, getContentByKey(key));
 			    },
 		        onshow: function(){
 		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).top, baidu.dom.getPosition(this.getElement("input")).top + input.offsetHeight - 1, "The offsetX is right");
 		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).left, baidu.dom.getPosition(this.getElement("input")).left, "The offsetY is right");
 		        	equals(this.getElement("suggestion").offsetWidth, input.offsetWidth, "The Width is right");
 		        	
-		        	equals(this.getDataByIndex(0).value, "a+1value", "The value is right");
-		        	equals(this.getDataByIndex(1).value, "北海2value", "The value is right");
-		        	equals(this.getDataByIndex(2).value, "北海3value", "The value is right");
-		        	equals(this.getDataByIndex(3).value, "北海4value", "The value is right");
+		        	equals(this.getDataByIndex(0).value, "a+1", "The value is right");
+		        	equals(this.getDataByIndex(1).value, "北海2", "The value is right");
+		        	equals(this.getDataByIndex(2).value, "北海3", "The value is right");
+		        	equals(this.getDataByIndex(3).value, "北海4", "The value is right");
 		        	equals(this.getDataByIndex(4).value, "北海5", "The value is right");
 		        	
 		        	setTimeout(function(){
@@ -59,28 +61,28 @@ test('default params', function(){
 		        	switch(highlight){
 			        	case 1:
 			        		equals(item.index, 0, "The highlight index is right");
-				        	equals(item.data.value, "a+1value", "The highlight data is right");
+				        	equals(item.value, "a+1", "The highlight data is right");
 			        		equals(getCurrentItem(s), "a+1", "The hightlight item is right");
 			        		equals($(input).attr("value"), "a+1", "The input value is right");
 			        		equals(this.selectedIndex, 0, "The selected index is right");
 			        		break;
 			        	case 2:
 			        		equals(item.index, 1, "The highlight index is right");
-				        	equals(item.data.value, "北海2value", "The highlight data is right");
+				        	equals(item.value, "北海2", "The highlight data is right");
 			        		equals(getCurrentItem(s), "北海2", "The hightlight item is right");
 			        		equals($(input).attr("value"), "北海2", "The input value is right");
 			        		equals(this.selectedIndex, 1, "The selected index is right");
 			        		break;
 			        	case 3:
 			        		equals(item.index, 2, "The highlight index is right");
-				        	equals(item.data.value, "北海3value", "The highlight data is right");
+				        	equals(item.value, "北海3", "The highlight data is right");
 			        		equals(getCurrentItem(s), "北海3", "The hightlight item is right");
 			        		equals($(input).attr("value"), "北海3", "The input value is right");
 			        		equals(this.selectedIndex, 2, "The selected index is right");
 			        		break;
 			        	case 4:
 			        		equals(item.index, 4, "The highlight index is right");
-				        	equals(item.data.value, "北海5", "The highlight data is right");
+				        	equals(item.value, "北海5", "The highlight data is right");
 			        		equals(getCurrentItem(s), "北海5", "The hightlight item is right");
 			        		equals($(input).attr("value"), "北海5", "The input value is right");
 			        		equals(this.selectedIndex, 3, "The selected index is right");
@@ -89,7 +91,7 @@ test('default params', function(){
 			        		break;
 			        	case 5:
 			        		equals(item.index, 0, "The highlight index is right");
-				        	equals(item.data.value, "a+1value", "The highlight data is right");
+				        	equals(item.value, "a+1", "The highlight data is right");
 			        		equals(getCurrentItem(s), "a+1", "The hightlight item is right");
 			        		equals($(input).attr("value"), "北海5", "The input value is right");//鼠标移到item上，输入框内容不随之变化
 			        		equals(this.selectedIndex, 0, "The selected index is right");		
@@ -108,7 +110,7 @@ test('default params', function(){
 		        },
 		        onmouseoveritem : function(e, item){
 		        	equals(item.index, 0, "The mouseoutitem index is right");
-		        	equals(item.data.value, "a+1value", "The mouseoutitem data is right");
+		        	equals(item.value, "a+1", "The mouseoutitem data is right");
 		        	
 		        	$(this._getItemDom(0)).click();  
 		        },
@@ -118,27 +120,27 @@ test('default params', function(){
 		        	case 1:
 		        		equals($(input).attr("value"), "a+1", "The input value is right");
 		        		equals(item.index, 0, "The pick index is right");
-			        	equals(item.data.value, "a+1value", "The pick data is right");
+			        	equals(item.value, "a+1", "The pick data is right");
 		        		break;
 		        	case 2:
 		        		equals($(input).attr("value"), "北海2", "The input value is right");
 		        		equals(item.index, 1, "The pick index is right");
-			        	equals(item.data.value, "北海2value", "The pick data is right");
+			        	equals(item.value, "北海2", "The pick data is right");
 		        		break;
 		        	case 3:
 		        		equals($(input).attr("value"), "北海3", "The input value is right");
 		        		equals(item.index, 2, "The pick index is right");
-		        		equals(item.data.value, "北海3value", "The pick data is right");
+		        		equals(item.value, "北海3", "The pick data is right");
 		        		break;
 		        	case 4:
 		        		equals($(input).attr("value"), "北海5", "The input value is right");
 		        		equals(item.index, 4, "The pick index is right");
-			        	equals(item.data.value, "北海5", "The pick data is right");
+			        	equals(item.value, "北海5", "The pick data is right");
 		        		break;
 		        	case 5:
 		        		equals($(input).attr("value"), "a+1", "The input value is right");//鼠标点击后，输入框内容变化
 		        		equals(item.index, 0, "The pick index is right");
-			        	equals(item.data.value, "a+1value", "The pick data is right");
+			        	equals(item.value, "a+1", "The pick data is right");
 		        		break;
 		        	default:
 		        		ok(true);
@@ -146,7 +148,8 @@ test('default params', function(){
 		        	}
 		        },
 		        onconfirm: function(e, item){
-		        	equals(item.data, "a+1", "The confirm data is right");
+		        	equals(item.index, 0, "The confirm index is right");
+		        	equals(item.value, "a+1", "The confirm data is right");
 		        },
 		        onhide: function(){
 		        	ok(!isShown(this.getElement("suggestion")), "hide");
@@ -172,7 +175,7 @@ test('default params', function(){
 });
 
 test("all params", function(){
-	expect(30);
+	expect(31);
 	stop();
 	enSetup();
 	var highlight = 0;
@@ -180,7 +183,7 @@ test("all params", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         offset:{
         	'offsetX' : 200,
@@ -205,7 +208,7 @@ test("all params", function(){
     		
     		if(highlight == 1){
     			equals(item.index, 0, "The highlight index is right");
-            	equals(item.data.value, "a+1value", "The highlight data is right");
+            	equals(item.value, "a+1", "The highlight data is right");
         		equals(getCurrentItem(s), "a+1", "The hightlight item is right");
         		equals($(input).attr("value"), "a", "The input value is right");//鼠标mouseover，input框中内容没有更改
         		equals(this.selectedIndex, 0, "The selected index is right");
@@ -213,7 +216,7 @@ test("all params", function(){
     		
     		if(highlight == 2){
     			equals(item.index, 2, "The highlight index is right");
-            	equals(item.data.value, "北海3value", "The highlight data is right");
+            	equals(item.value, "北海3", "The highlight data is right");
         		equals(getCurrentItem(s), "北海3", "The hightlight item is right");
         		equals($(input).attr("value"), "a", "The input value is right");//鼠标mouseover，input框中内容没有更改
         		equals(this.selectedIndex, 2, "The selected index is right");
@@ -224,11 +227,11 @@ test("all params", function(){
         	mouseover ++;
         	if(mouseover == 1){
         		equals(item.index, 0, "The mouseoveritem index is right");
-            	equals(item.data.value, "a+1value", "The mouseoveritem data is right");
+            	equals(item.value, "a+1", "The mouseoveritem data is right");
         	}
         	if(mouseover == 2){
         		equals(item.index, 2, "The mouseoveritem index is right");
-            	equals(item.data.value, "北海3value", "The mouseoveritem data is right");
+            	equals(item.value, "北海3", "The mouseoveritem data is right");
         	}
         	
     		if(mouseover == 1)
@@ -242,7 +245,7 @@ test("all params", function(){
         },
         onmouseoutitem: function(e, item){
         	equals(item.index, 0, "The mouseoutitem index is right");
-        	equals(item.data.value, "a+1value", "The mouseoutitem data is right");
+        	equals(item.value, "a+1", "The mouseoutitem data is right");
         	equals(getCurrentItem(s), "a+1", "The hightlight item is right");//鼠标移出后，highlight依然存在
         	
         	setTimeout(function(){
@@ -251,20 +254,21 @@ test("all params", function(){
         },
         onmouseclick: function(e,item){
         	equals(item.index, 2, "The mouseclick index is right");
-        	equals(item.data.value, "北海3value", "The mouseclick data is right");
+        	equals(item.value, "北海3", "The mouseclick data is right");
         },
         onbeforepick:function(e, item){
         	equals($(input).attr("value"), "a", "The input value is right");//触发onbeforepick的时候，input的值还没有改变
     		equals(item.index, 2, "The beforepick index is right");
-    		equals(item.data.value, "北海3value", "The beforepick data is right");
+    		equals(item.value, "北海3", "The beforepick data is right");
         },
         onpick: function(e, item){
         	equals($(input).attr("value"), "北海3", "The input value is right");
     		equals(item.index, 2, "The pick index is right");
-    		equals(item.data.value, "北海3value", "The pick data is right");
+    		equals(item.value, "北海3", "The pick data is right");
         },
         onconfirm: function(e, item){
-        	equals(item.data, "北海3", "The confirm data is right");
+        	equals(item.index, 2, "The confirm index is right");
+        	equals(item.value, "北海3", "The confirm data is right");
         },
         onhide: function(){
         	ok(!isShown(this.getElement("suggestion")), "hide");
@@ -279,22 +283,28 @@ test("all params", function(){
 });
 
 test("getData & show & render", function(){
-	expect(24);
+	expect(26);
 	stop();
 	enSetup();
 	var show = 0;
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
+	    },
+	    onload: function(){
+	    	ok(true, "The onload is fired");
+	    },
+	    onrender: function(){
+	    	ok(true, "The onrender is fired");
 	    },
         onshow: function(){
         	show ++;
         	if(show == 1){
         		equals(this.dataCache.a.length, 5, "The dataCache is right");
-            	equals(this.dataCache.a[0].content, "a+1", "The dataCache is right");
+            	equals(this.dataCache.a[0].value, "a+1", "The dataCache is right");
             	equals(this.currentData.length, 5, "The currentData is right");
-            	equals(this.currentData[0].content, "a+1", "The currentData is right");
+            	equals(this.currentData[0].value, "a+1", "The currentData is right");
             	equals(this.currentQuery, "a", "The currentQuery is right")
             	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
@@ -303,9 +313,9 @@ test("getData & show & render", function(){
         	}
         	if(show == 2){
         		equals(this.dataCache.b.length, 2, "The dataCache is right");
-            	equals(this.dataCache.b[0].content, "b+1", "The dataCache is right");
+            	equals(this.dataCache.b[0].value, "b+1", "The dataCache is right");
             	equals(this.currentData.length, 2, "The currentData is right");
-            	equals(this.currentData[0].content, "b+1", "The currentData is right");
+            	equals(this.currentData[0].value, "b+1", "The currentData is right");
             	equals(this.currentQuery, "b", "The currentQuery is right")
             	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
@@ -314,9 +324,9 @@ test("getData & show & render", function(){
         	}
         	if(show == 3){
         		equals(this.dataCache.a.length, 5, "The dataCache is right");
-            	equals(this.dataCache.a[0].content, "a+1", "The dataCache is right");
+            	equals(this.dataCache.a[0].value, "a+1", "The dataCache is right");
             	equals(this.currentData.length, 5, "The currentData is right");
-            	equals(this.currentData[0].content, "a+1", "The currentData is right");
+            	equals(this.currentData[0].value, "a+1", "The currentData is right");
             	equals(this.currentQuery, "a", "The currentQuery is right")
             	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
@@ -341,7 +351,7 @@ test("hide", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	show++;
@@ -392,23 +402,26 @@ test("hide", function(){
 });
 
 test("highLight & clearHighLight", function(){
-	expect(10);
+	expect(16);
 	stop();
 	enSetup();
 	var highlight = 0;
+	var clearhighlight = 0;
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
         		s.highLight(0);
         	}, 0);
         },
-        onhighlight: function(){
+        onhighlight: function(e, data){
         	highlight++;
         	if(highlight == 1){
+        		equals(data.index, 0, "The index param is right");
+        		equals(data.value, "a+1", "The value param is right");
         		equals(getCurrentItem(s), "a+1", "The hightlight item is right");
         		equals(this.selectedIndex, 0, "The selectedIndex is right");
         		setTimeout(function(){
@@ -433,7 +446,16 @@ test("highLight & clearHighLight", function(){
             	start();
         	}
         },
-        onclearhighlight: function(){//调用highlight4次，实际触发onhighlight2次，调用clearhighlight2次
+        onclearhighlight: function(e, data){//调用highlight4次，实际触发onhighlight2次，调用clearhighlight2次
+        	clearhighlight++;
+        	if(clearhighlight == 1){
+        		equals(data.index, 0, "The index param is right");
+        		equals(data.value, "a+1", "The value param is right");
+        	}
+        	if(clearhighlight == 2){
+        		equals(data.index, 1, "The index param is right");
+        		equals(data.value, "北海2", "The value param is right");
+        	}
         	equals(getCurrentItem(s), "", "The onclearhighlight item is right");
     		equals(this.selectedIndex, -1, "The selectedIndex is right");
         }
@@ -444,7 +466,7 @@ test("highLight & clearHighLight", function(){
 });
 
 test("pick", function(){
-	expect(4);
+	expect(8);
 	stop();
 	enSetup();
 	var show = 0;
@@ -452,18 +474,22 @@ test("pick", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
             	s.pick(1);
         	} ,0);
         },
-        onbeforepick: function(){
+        onbeforepick: function(e, data){
+        	equals(data.index, 1, "The index param is right");
+    		equals(data.value, "北海2", "The value param is right");
         	equals($(input).attr("value"), "a", "The input value is right");
 	   		equals(this.oldInputValue, "a", "The oldInputValue is right");
         },
-        onpick: function(){
+        onpick: function(e, data){
+        	equals(data.index, 1, "The index param is right");
+    		equals(data.value, "北海2", "The value param is right");
         	equals($(input).attr("value"), "北海2", "The input value is right");
         	equals(this.oldInputValue, "北海2", "The oldInputValue is right");
 	   		this.dispose();
@@ -477,7 +503,7 @@ test("pick", function(){
 });
 
 test("confirm", function(){
-	expect(3);
+	expect(5);
 	stop();
 	enSetup();
 	var show = 0;
@@ -485,12 +511,14 @@ test("confirm", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	this.confirm(1);
         },
-        onconfirm: function(){
+        onconfirm: function(e, data){
+        	equals(data.index, 1, "The index param is right");
+    		equals(data.value, "北海2", "The value param is right");
         	equals($(input).attr("value"), "北海2", "The input value is right");
         	equals(this.oldInputValue, "北海2", "The oldInputValue is right");
         },
@@ -507,7 +535,7 @@ test("confirm", function(){
 });
 
 test("mouse event pick", function(){
-	expect(16);
+	expect(25);
 	stop();
 	enSetup();
 	var show = 0;
@@ -515,16 +543,18 @@ test("mouse event pick", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
         		ua.mouseover(s._getItemDom(0));
         	}, 0);
         },
-        onmouseoveritem: function(e, item){
+        onmouseoveritem: function(e, data){
         	mouseover ++;
         	if(mouseover == 1){
+        		equals(data.index, 0, "The index param is right");
+        		equals(data.value, "a+1", "The value param is right");
         		equals($(input).attr("value"), "a", "The input value is right");
         		equals(this.oldInputValue, "a", "The oldInputValue is right");
         		equals(this.selectedIndex, 0, "The selectedIndex is right");
@@ -533,6 +563,8 @@ test("mouse event pick", function(){
             	}, 0);
         	}
         	if(mouseover == 2){
+        		equals(data.index, 1, "The index param is right");
+        		equals(data.value, "北海2", "The value param is right");
         		equals($(input).attr("value"), "a", "The input value is right");
         		equals(this.oldInputValue, "a", "The oldInputValue is right");
         		equals(this.selectedIndex, 1, "The selectedIndex is right");
@@ -541,6 +573,8 @@ test("mouse event pick", function(){
             	}, 0);
         	}
         	if(mouseover == 3){
+        		equals(data.index, 3, "The index param is right");//即使是disable，也如实返回
+        		equals(data.value, "北海4", "The value param is right");
         		equals($(input).attr("value"), "a", "The input value is right");
         		equals(this.oldInputValue, "a", "The oldInputValue is right");
         		equals(this.selectedIndex, 1, "The selectedIndex is right");
@@ -550,6 +584,8 @@ test("mouse event pick", function(){
 
         	}
         	if(mouseover == 4){
+        		equals(data.index, 2, "The index param is right");
+        		equals(data.value, "北海3", "The value param is right");
         		equals($(input).attr("value"), "a", "The input value is right");
         		equals(this.oldInputValue, "a", "The oldInputValue is right");
         		equals(this.selectedIndex, 2, "The selectedIndex is right");
@@ -558,8 +594,9 @@ test("mouse event pick", function(){
             	}, 0);
         	}
         },
-        onmouseoutitem: function(){
-        	ok(true);
+        onmouseoutitem: function(e, data){
+        	equals(data.index, 1, "The index param is right");
+    		equals(data.value, "北海2", "The value param is right");
         	setTimeout(function(){
         		ua.mouseover(s._getItemDom(2));
         	}, 0);
@@ -582,12 +619,12 @@ test("mouse event,hide", function(){
 	expect(9);
 	stop();
 	enSetup();
-	var show = 0;
+	var show = 0;	
 	var mouseover = 0;
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
@@ -636,7 +673,7 @@ test("key event,enter", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
@@ -699,7 +736,7 @@ test("key event,esc", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
@@ -740,7 +777,7 @@ test("key event,tab", function(){
 	var options = {
 		getData: function(key){
 	        var me = this;
-	        me.fire("ongetdata", key, getContentByKey(key));
+	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
         	setTimeout(function(){
@@ -781,7 +818,7 @@ test("getElement", function(){
 	var options = {
         getData: function(key){
             var me = this;
-            me.fire("ongetdata", key, getContentByKey(key));
+            me.receiveData(key, getContentByKey(key));
         },
         onshow: function(){
         	equals(this.getElement("").id, "tang-suggestion-input", "The getElement()is right");
@@ -795,4 +832,26 @@ test("getElement", function(){
 	var s = magic.setup.suggestion('tang-suggestion-input', options);
 	$("input").focus();
 	$("input").attr("value", "a");
+});
+
+test("encode", function(){
+	expect(2);
+	stop();
+	enSetup();
+	var options = {
+        getData: function(key){
+            var me = this;
+            me.receiveData(key, getContentByKey(key));
+        },
+        onshow: function(){
+        	equals(this.getDataByIndex(0).value, "<input>", "The value is right");
+        	equals(this.getDataByIndex(0).content, "&lt;input&gt;", "The value is right");
+        	this.dispose();
+	       	document.body.removeChild(div);
+	       	start();
+        }
+	}
+	var s = magic.setup.suggestion('tang-suggestion-input', options);
+	$("input").focus();
+	$("input").attr("value", "c");
 });

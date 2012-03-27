@@ -21,9 +21,12 @@ test("enable", function(){
 		var div = document.createElement("div");
 		document.body.appendChild(div);
 		div.id = "one-carousel";
+		var l1 = baidu.event._listeners.length;
 		var c = new magic.Carousel({
 		    items: citems,
-		    buttonLabel: {prev: 'left', next: 'right'}
+		    button: {
+		    	buttonLabel: {prev: 'left', next: 'right'}
+		    }
 		});
 	    c.render('one-carousel');
 	    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
@@ -46,15 +49,18 @@ test("enable", function(){
 	    c.focus(8);
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-	    c.next();
+	    c.focusNext();
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next-disabled", "The right button is right");
 	    c.focus(1);
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-	    c.prev();
+	    c.focusPrev();
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
+	    c.dispose();
+	    var l2 = baidu.event._listeners.length;
+	    equals(l2, l1, "The events are un");
 	    document.body.removeChild(div);
 	    start();
 	});
@@ -66,7 +72,9 @@ test("click", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 	    items: citems,
-	    buttonLabel: {prev: 'left', next: 'right'}
+	    button: {
+	    	buttonLabel: {prev: 'left', next: 'right'}
+	    }
 	});
     c.render('one-carousel');
     ua.click(c.getElement().childNodes[2]);
@@ -80,6 +88,7 @@ test("click", function(){
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
     ua.click(c.getElement().childNodes[2]);
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
+    c.dispose();
     document.body.removeChild(div);
 });
 
@@ -89,7 +98,9 @@ test("disable", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 	    items: citems,
-	    showButton : false
+	    button:{
+	    	enable : false
+	    }
 	});
     c.render('one-carousel');
     equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
@@ -98,10 +109,11 @@ test("disable", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
     equals(c.getElement().childNodes.length, 1, "No buttons");
+    c.dispose();
     document.body.removeChild(div);
 });
 
-test("click， vertical", function(){
+test("click, vertical", function(){
 	stop();
 	ua.loadcss(upath + "../setup/carousel/carousel-vertical.css", function(){
 		var div = document.createElement("div");
@@ -110,7 +122,9 @@ test("click， vertical", function(){
 		var c = new magic.Carousel({
 			orientation: 'vertical',
 		    items: citems,
-		    buttonLabel: {prev: 'left', next: 'right'}
+		    button:{
+		    	buttonLabel: {prev: 'left', next: 'right'}
+		    }
 		});
 	    c.render('one-carousel');
 	    ua.click(c.getElement().childNodes[2]);
@@ -124,6 +138,7 @@ test("click， vertical", function(){
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
 	    ua.click(c.getElement().childNodes[2]);
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
+	    c.dispose();
 	    document.body.removeChild(div);
 	    start();
 	});

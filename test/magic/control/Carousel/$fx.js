@@ -52,16 +52,18 @@ test("render", function(){
 			var l1 = baidu.event._listeners.length;
 			var c = new magic.Carousel({
 			    items: citems,
-			    scrollFxOptions: {duration:100}
+			    fx: {
+			    	duration:100
+			    }
 			});
-		    c.on("onscrollto", function(){
+		    c.on("onfocus", function(){
 				scroll ++;
 				if(scroll == 1){
 				    time2 = new Date();
 				    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
 					equals(c._selectedIndex, 3, "Scroll to 3");
 					setTimeout(function(){
-						c.next();
+						c.focusNext();
 					}, 0);
 				}
 				if(scroll == 2){
@@ -77,7 +79,7 @@ test("render", function(){
 				    ok(time4 - time3 >= 100 && time4 - time3 < 500, "The duration is right");
 					equals(c._selectedIndex, 1, "Scroll to 1");
 					setTimeout(function(){
-						c.prev();
+						c.focusPrev();
 					}, 0);
 				}
 				if(scroll == 4){
@@ -111,9 +113,11 @@ test("render, disable", function(){
 	var time2 = 0;
 	var c = new magic.Carousel({
 	    items: citems,
-	    enableFx: false
+	    fx: {
+	    	enable: false
+	    }
 	});
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
     	 time2 = new Date();
 	     ok(time2 - time1 < 500, "The duration is right");
 		 equals(c._selectedIndex, 3, "Scroll to 3");
@@ -137,18 +141,20 @@ test("setup", function(){
 	enSetup();
 	var options = {
 	    items: citems,
-	    scrollFxOptions: {duration:100}
+	    fx: {
+	    	duration:100
+	    }
 	};
 	var l1 = baidu.event._listeners.length;
 	var c = magic.setup.carousel('one-carousel', options);
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
 		scroll ++;
 		if(scroll == 1){
 		    time2 = new Date();
 		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
 			equals(c._selectedIndex, 3, "Scroll to 3");
 			setTimeout(function(){
-				c.next();
+				c.focusNext();
 			}, 0);
 		}
 		if(scroll == 2){
@@ -164,7 +170,7 @@ test("setup", function(){
 		    ok(time4 - time3 >= 100 && time4 - time3 < 500, "The duration is right");
 			equals(c._selectedIndex, 1, "Scroll to 1");
 			setTimeout(function(){
-				c.prev();
+				c.focusPrev();
 			}, 0);
 		}
 		if(scroll == 4){
@@ -193,10 +199,12 @@ test("setup, disable", function(){
 	enSetup();
 	var options = {
 	    items: citems,
-	    enableFx: false
+	    fx: {
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
-    c.on("onscrollto", function(){
+    c.on("onfocus", function(){
    	 time2 = new Date();
 	     ok(time2 - time1 < 500, "The duration is right");
 		 equals(c._selectedIndex, 3, "Scroll to 3");
