@@ -58,24 +58,6 @@ magic.Pager = baidu.lang.createClass(function(options) {
     this.tplLabelCurrent = '#{pageNum}';
     baidu.object.extend(this, options);
     this.currentPage = Math.max(this.currentPage, 1);
-    this.pageData = [];
-    
-    this.on('load', function() {
-        var links = me.getElement().getElementsByTagName('A'),
-            i;
-        for(i = links.length; i--;) {
-            baidu.event.on(links[i], 'click', (function(index) {
-                return function(e) {
-                    var turnPage = me.pageData[index];
-                    me._update(turnPage);
-                    me.fire('pagechange', {
-                        'pageNum' : turnPage,
-                        'DOMEvent' : e
-                    });
-                }
-            })(i));
-        }
-    });
 }, {
     type:"magic.Pager"
     ,superClass : magic.Base
@@ -84,28 +66,31 @@ magic.Pager = baidu.lang.createClass(function(options) {
 {
     
     /**
-     * 创建一个单独的a链接，并将这个链接的页码push到pageData。
+     * 创建一个单独的a链接。
      * @private 私有方法
      * @param {String} className 页码样式，会在前面加上"tang-pager-"
      * @param {String} innerHTML 链接中的innerHTML
      * @return {String} 拼装后的链接HTMLString
      */
     '_buildLink' : function(pageNum, className, innerHTML) {
-        this.pageData.push(pageNum);
-        return '<a href="' + baidu.string.format(this.tplURL, {'pageNum' : pageNum}) + '" class="tang-pager-' + className + '">'+ innerHTML + '</a>';
+        return '<a onclick="return baiduInstance(\'' + this.guid + '\').update(' + pageNum + ')" href="' + baidu.string.format(this.tplURL, {'pageNum' : pageNum}) + '" class="tang-pager-' + className + '">'+ innerHTML + '</a>';
     },
     
     /**
      * 更新页码条
-     * @private 私有方法
+     * @public 不暴露给使用者，但却是公有的方法。
      * @param {Number} currentPage 当前页。
+     * @return {Boolean} 是否阻止浏览器的默认行为。
      */
-    '_update' : function(currentPage) {
+    'update' : function(currentPage) {
+        var returnValue = this.fire('pagechange', {
+            'pageNum' : currentPage
+        })
         this.currentPage = currentPage;
         var container = this.getElement();
         container.innerHTML = '';
-        this.pageData.length = 0;
         this.render(this.getElement());
+        return returnValue;
     },
     
     /**
@@ -172,12 +157,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
             return;
         }
         var container = this.getElement(),
-            main = this.getElement('main'),
-            links = container.getElementsByTagName('A'),
-            i;
-        for(i = links.length; i--;) {
-            baidu.event.un(links[i], 'click');
-        }
+            main = this.getElement('main');
         baidu.dom.removeClass(container, 'tang-pager');
         magic.Base.prototype.dispose.call(this);
         baidu.dom.remove(main);

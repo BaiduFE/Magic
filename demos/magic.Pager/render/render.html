@@ -60,13 +60,14 @@ var testCase = (function(){
 	}
 })();
 
-testCase.create('只有1页', {'currentPage' : 1, 'totalPage' : 1});
+//testCase.create('只有1页', {'currentPage' : 1, 'totalPage' : 1});
 var pager0 = testCase.create('第1页，一共8页，点击翻页时，会alert出点击的页码。', {'currentPage' : 1, 'totalPage' : 8});
-pager0.on('pagechange', function(event){
+pager0.on('pagechange', function(event) {
 	alert(event.pageNum);
-	baidu.event.preventDefault(event.DOMEvent);
+	baidu.event.preventDefault(event);
 	
 });
+
 var pager1 = testCase.create('第1页，一共20页，点击翻页会新窗口打开百度搜索结果页，pn=页码*10', {'currentPage' : 1, 'totalPage' : 20});
 pager1.on('pagechange', function(event) {
 	window.open('http://www.baidu.com/s?wd=apple&pn=' + (event.pageNum - 1) * 10);

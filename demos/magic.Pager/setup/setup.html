@@ -33,7 +33,7 @@
 
 <!-- 对话框组件 Start -->
 <dl class="pager-container">
-	<dt class="pager-title">第10页，一共20页</dt>
+	<dt class="pager-title">第10页，一共20页，阻止浏览器的默认行为。</dt>
 	<dd><div id="pager0" tang-param="currentPage:10;totalPage:20"></div></dd>
 </dl>
 <dl class="pager-container">
@@ -50,6 +50,9 @@
 </dl>
 <script type="text/javascript">
 	var pager0 = magic.setup.pager("pager0");
+	pager0.on('pagechange', function(event) {
+		event.returnValue = false;
+	});
 	var pager1 = magic.setup.pager("pager1");
 	var pager2 = magic.setup.pager("pager2");
 	var pager3 = magic.setup.pager("pager3");
