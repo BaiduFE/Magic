@@ -48,7 +48,7 @@
     <h1>Carousel 组件 <strong>onfocus事件</strong> 示例</h1>
 </div>
 
-<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='viewSize:4; originalIndex: 0;'>
     <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
@@ -90,9 +90,9 @@ baidu.dom.ready(function(){
         selectedIndex = 0;
     baidu.event.on(ul, 'click', onClickHandler);
     var c = magic.setup.carousel('one-carousel', {
-        isCycle: true
+        isLoop: true
     });
-    c.on('scrollto', function(evt){
+    c.on('onfocus', function(evt){
         var index = evt.target.getCurrentIndex();
             baidu.dom.removeClass(child[selectedIndex], 'item-selected');
             baidu.dom.addClass(child[index], 'item-selected');

@@ -22,9 +22,9 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>button插件</strong> 示例</h1>
-    <p>button插件是在carousel的两边加上翻滚按钮提供翻页，默认情况下插件加载时加入按钮，可以通过options参数的showButton设置值为false来去掉按钮。</p>
+    <p>button插件是在carousel的两边加上翻滚按钮提供翻页，默认情况下插件加载时加入按钮，可以通过options参数的button.enable设置值为false来去掉按钮。</p>
 </div>
-<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='viewSize:4; originalIndex: 0;'>
     <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
@@ -41,7 +41,11 @@
 </div>
 <script type='text/javascript'>
 baidu.dom.ready(function(){
-    var c = magic.setup.carousel('one-carousel', {});
+    var c = magic.setup.carousel('one-carousel', {
+        button: {
+            enable: true
+        }
+    });
 });
 </script>
 </body>

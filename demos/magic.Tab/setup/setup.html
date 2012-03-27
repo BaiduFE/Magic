@@ -40,7 +40,7 @@
 <h1>Tab setup模式demo</h1>
 <dl class="tab-container">
 	<dt class="tab-title">普通的三个tab</dt>
-	<dd id="tab0" class="tang-ui tang-tab" tang-param="selectedIndex: 0;">
+	<dd id="tab0" class="tang-ui tang-tab" tang-param="originalIndex: 0;">
 	    <ul class="tang-title">
 	        <li class="tang-title-item">
 	            <a href="#" onclick="return false;" hidefocus="true"><span>项目一</span></a>
@@ -62,7 +62,7 @@
 
 <dl class="tab-container">
 	<dt class="tab-title">三个tab，mouseover时切换，且延时500ms，默认选中第二个。</dt>
-	<dd id="tab1" class="tang-ui tang-tab" tang-param="selectedIndex:1;toggleEvent:mouseover;toggleDelay:500">
+	<dd id="tab1" class="tang-ui tang-tab" tang-param="originalIndex:1;selectEvent:mouseover;selectDelay:500">
 	    <ul class="tang-title">
 	        <li class="tang-title-item">
 	            <a href="#" onclick="return false;" hidefocus="true"><span>项目一</span></a>
@@ -87,6 +87,9 @@
 baidu.dom.ready(function(){
     var tab0 = magic.setup.tab('tab0'),
         tab1 = magic.setup.tab('tab1');
+    window.tab0 = tab0;
+    window.tab1 = tab1;
+    
 });
 </script>
 </body>
