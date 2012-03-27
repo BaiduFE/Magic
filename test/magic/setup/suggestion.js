@@ -1,4 +1,4 @@
-﻿module("magic.setup.suggestion");
+module("magic.setup.suggestion");
 
 (function(){
 	enSetup = function(){
