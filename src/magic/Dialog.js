@@ -30,6 +30,7 @@
  * @param {Object} options 控制选项
  * @config {Boolean} options.titleText 对话框的标题内容，可选
  * @config {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
+ * @config {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html
  * @config {Number} options.width Dialog 的宽度，缺省为 400
  * @config {Number} options.height Dialog 的高度，缺省为 300
  * @config {Number} options.left Dialog 的左边距，可选
@@ -43,7 +44,8 @@ magic.Dialog = baidu.lang.createClass(function(options){
 		width: 400,
 		height: 300,
 		left: 0,
-		top: 0
+		top: 0,
+		contentType: "html"
 	};
 	
 	baidu.object.extend(defaultOptions, options || {});
@@ -62,8 +64,7 @@ magic.Dialog.extend(
 {
 	/**
 	 * 渲染对话框
-	 * @param  {[type]} el [description]
-	 * @return {[type]}
+	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
 	 */
     render: function(el){
     	el = baidu.dom.g(el);
@@ -118,7 +119,7 @@ magic.Dialog.template = [
 	"<div class='tang-foreground' id='#{foregroundId}'>",
 		"<div class='tang-title' id='#{titleId}'>",
 			"<div class='buttons' id='#{titleButtonsId}'>",
-				"<a id='#{closeBtnId}' class='close-btn' href='' onclick='return false;'></a>",
+				"<a id='#{closeBtnId}' class='close-btn' href='' onmousedown='event.stopPropagation && event.stopPropagation(); event.cancelBubble = true; return false;' onclick='return false;'></a>",
 			"</div>",
 			"<span id='#{titleTextId}'>#{title}</span>",
 		"</div>",

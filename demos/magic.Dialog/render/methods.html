@@ -32,8 +32,8 @@
 			<!-- item start -->
 			<tr>
 				<td>查询显示状态</td>
-				<td>dialog.<strong>isShown</strong>();</td>
-				<td><input cmd="alert(dialog.isShown());" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+				<td>dialog.<strong>isShowing</strong>();</td>
+				<td><input cmd="alert(dialog.isShowing());" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
 			</tr>
 			<!-- item end -->
 
@@ -56,36 +56,61 @@
 			<!-- item start -->
 			<tr>
 				<td rowspan="2">设置标题</td>
-				<td>dialog.<strong>setTitle</strong>( <em>str</em> );</td>
-				<td rowspan="2"><input cmd="dialog.setTitle('#{title}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+				<td>dialog.<strong>setTitleText</strong>( <em>str</em> );</td>
+				<td rowspan="2"><input cmd="dialog.setTitleText('#{title}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
 			</tr>
 			<tr>
 				<td><span>str = </span><span><input class="textInput" value="测试标题" id="title" /></span></td>
 			</tr>
 			<!-- item end -->
 
-
 			<!-- item start -->
 			<tr>
-				<td rowspan="4">设置内容</td>
-				<td>dialog.<strong>setContent</strong>( <em>str</em> | <em>dom</em> );</td>
+				<td rowspan="2">设置内容(文本)</td>
+				<td>dialog.<strong>setContent</strong>( <em>str</em>, "text" );</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="测试内容" /></span></td>
-				<td><input cmd="dialog.setContent('#{strContent}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+				<td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>" /></span></td>
+				<td><input cmd="dialog.setContent('#{strContent}','text');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+			</tr>		
+			<!-- item end -->
+
+			<!-- item start -->
+			<tr>
+				<td rowspan="2">设置内容(html)</td>
+				<td>dialog.<strong>setContent</strong>( <em>html</em>, "html" );</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td><span>dom = </span><span>baidu.dom.g("hello")</span></td>
-				<td><input cmd="dialog.setContent(baidu.dom.g('hello'));" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+				<td><span>html = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>" /></span></td>
+				<td><input cmd="dialog.setContent('#{strContent}','html');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+			</tr>		
+			<!-- item end -->
+
+			<!-- item start -->
+			<tr>
+				<td rowspan="3">设置内容(element)</td>
+				<td>dialog.<strong>setContent</strong>( <em>element</em>, "element" );</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td><span>dom = </span><span>baidu.dom.g("world")</span></td>
-				<td><input cmd="dialog.setContent(baidu.dom.g('world'));" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+				<td><span>element = </span><span>baidu.dom.g("hello")</span></td>
+				<td><input cmd="dialog.setContent(baidu.dom.g('hello'),'element');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+			</tr>
+			<tr>
+				<td><span>element = </span><span>baidu.dom.g("world")</span></td>
+				<td><input cmd="dialog.setContent(baidu.dom.g('world'),'element');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
 			</tr>			
 			<!-- item end -->
 
-
+			<!-- item start -->
+			<tr>
+				<td>设置内容(frame)</td>
+				<td>dialog.<strong>setContent</strong>( <em>url</em>, "frame" );</td>
+				<td><a href="?a=show&p=magic.Dialog&n=render-iframe">见示例</a></td>
+			</tr>	
+			<!-- item end -->
 
 			<!-- item start -->
 			<tr>
@@ -146,7 +171,7 @@ var dialog;
 	});
 	dialog.render(); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
 })
-	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
+	/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitleText(xxx) */
 </script>
 <!-- 对话框组件 End -->
 
