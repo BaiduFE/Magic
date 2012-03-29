@@ -12,6 +12,9 @@
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.remove;
+///import baidu.event.on;
+///import baidu.event.un;
+///import baidu.event.preventDefault;
 
 
  /**
@@ -20,50 +23,40 @@
  * 展示的效果可参考：<br>
  * 首页 上一页 5 6 7 8 <b>9</b> 10 11 12 13 14 下一页 尾页<br>
  * 页码条展示的页码个数遵循如下原则：<br>
- * 1，若总页数（totalPage）比页码数（pageCount）少，则忽略页码数（pageCount）。<br>
- * 2，若总页数（totalPage）和当前页位置（currentPagePosition）出现冲突，则忽略当前页位置（currentPagePosition）。<br>
+ * 1，若总页数（totalPage）比页码数（viewSize）少，则忽略页码数（viewSize）。<br>
+ * 2，若总页数（totalPage）和当前页位置（currentPagePos）出现冲突，则忽略当前页位置（currentPagePos）。<br>
  * 3，当前页是第一页时，不出现首页和上一页的链接；当前页是最后一页时，不出现下一页和尾页的链接。<br>
- * 构造函数支持两种语法，分别为：<br>
- * new magic.Pager(currentPage, totalPage[, options])<br>
- * new magic.Pager(options)<br>
- * 推荐使用第一种
  * @author 夏登平 (xiadengping@baidu.com)
  * @class
- * @grammar new magic.Pager(currentPage, totalPage[, options])
+ * @grammar new magic.Pager(options)
  * @superClass magic.Base
- * @param {Number} currentPage 当前页，若使用第一种构造方式，options中不用再传次参数。
- * @param {Number} totalPage 总页数，若使用第一种构造方式，options中不用再传次参数。
  * @param {Object} [options] 更新选项，若选项值不符合规则，则此次更新不予更新任何选项
  * @param {Number} options.currentPage 当前页，使用第二种构造方式时使用。
  * @param {Number} options.totalPage 总页数，使用第二种构造方式时使用。
- * @param {Number} options.pageCount 页码数，默认显示多少个页面的链接（不包括“首页”等特殊链接），默认值10。
- * @param {Number} options.currentPagePosition 当前页位置，当前页面链接在页面链接列表中的默认位置，必须小于页码数，默认值4。
+ * @param {Number} options.viewSize 页码数，默认显示多少个页面的链接（不包括“首页”等特殊链接），默认值10。
+ * @param {Number} options.currentPagePos 当前页位置，当前页面链接在页面链接列表中的默认位置，必须小于页码数，默认值4。
  * @param {String} options.labelFirst 首页链接显示的内容，默认为“首页”。
- * @param {String} options.labelPrevious 上一页链接显示的内容，默认为“上一页”。
+ * @param {String} options.labelPrev 上一页链接显示的内容，默认为“上一页”。
  * @param {String} options.labelNext 下一页链接显示的内容，默认为“下一页”。
  * @param {String} options.labelLast 尾页链接显示的内容，默认为“尾页”。
- * @param {String} options.tplURL 链接显示模版，默认为 location.href + '?#{pageNum}'。
  * @param {String} options.tplLabelNormal 普通页码显示模版，默认为#{pageNum}
  * @param {String} options.tplLabelCurrent 当前页码的显示模版，默认为#{pageNum}。
- * @param {Boolean} options.isNewWindow 是否新窗口打开链接，默认为false。
+ * @return {magic.Pager} Pager实例
  */
-magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
-    this.currentPage = currentPage;
-    this.totalPage = totalPage;
-    this.pageCount = 10;
-    this.currentPagePosition = 4;
+magic.Pager = baidu.lang.createClass(function(options) {
+    var me = this;
+    this.currentPage = 1;
+    this.totalPage = 1;
+    this.viewSize = 10;
+    this.currentPagePos = 4;
     this.labelFirst = '首页';
-    this.labelPrevious = '上一页';
+    this.labelPrev = '上一页';
     this.labelNext = '下一页';
     this.labelLast = '尾页';
-    this.tplURL = location.href + '?#{pageNum}';
+    this.tplURL = '##{pageNum}'
     this.tplLabelNormal = '#{pageNum}';
     this.tplLabelCurrent = '#{pageNum}';
-    this.isNewWindow = false;
     baidu.object.extend(this, options);
-    if (typeof arguments[0] == 'object') {
-        baidu.object.extend(this, arguments[0]);
-    }
     this.currentPage = Math.max(this.currentPage, 1);
 }, {
     type:"magic.Pager"
@@ -73,54 +66,65 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
 {
     
     /**
-     * 创建一个单独的a链接
+     * 创建一个单独的a链接。
      * @private 私有方法
-     * @param {Number} pageNumInHref 在链接中拼接的页码
      * @param {String} className 页码样式，会在前面加上"tang-pager-"
      * @param {String} innerHTML 链接中的innerHTML
      * @return {String} 拼装后的链接HTMLString
      */
-    '_buildLinkString' : function(pageNumInHref, className, innerHTML) {
-        return '<a href="' + baidu.string.format(this.tplURL, {'pageNum' : pageNumInHref}) + '"'
-            + ' class="tang-pager-' + className + '"'
-            + (this.isNewWindow ? ' target="_blank"' : '')
-            + '>'+ innerHTML + '</a>';
+    '_buildLink' : function(pageNum, className, innerHTML) {
+        return '<a onclick="return baiduInstance(\'' + this.guid + '\').update(' + pageNum + ')" href="' + baidu.string.format(this.tplURL, {'pageNum' : pageNum}) + '" class="tang-pager-' + className + '">'+ innerHTML + '</a>';
+    },
+    
+    /**
+     * 更新页码条
+     * @public 不暴露给使用者，但却是公有的方法。
+     * @param {Number} currentPage 当前页。
+     * @return {Boolean} 是否阻止浏览器的默认行为。
+     */
+    'update' : function(currentPage) {
+        var returnValue = this.fire('pagechange', {
+            'pageNum' : currentPage
+        })
+        this.currentPage = currentPage;
+        var container = this.getElement();
+        container.innerHTML = '';
+        this.render(this.getElement());
+        return returnValue;
     },
     
     /**
      * 生成HTMLString
-     * @name magic.Pager#toHTMLString
-     * @function
-     * @public
+     * @private
      * @return {String} 控件的HTMLString
      */
-    'toHTMLString' :  function(){
+    '_toHTMLString' :  function() {
         var pageNum,
             HTMLString = [],
             //展现起始页
-            startPage = this.totalPage < this.pageCount || this.currentPage <= this.currentPagePosition ? 1 : Math.min(this.currentPage - this.currentPagePosition, this.totalPage - this.pageCount + 1),
+            startPage = this.totalPage < this.viewSize || this.currentPage <= this.currentPagePos ? 1 : Math.min(this.currentPage - this.currentPagePos, this.totalPage - this.viewSize + 1),
             //展现结束页
-            endPage = Math.min(this.totalPage, startPage + this.pageCount - 1);
+            endPage = Math.min(this.totalPage, startPage + this.viewSize - 1);
         HTMLString.push('<div id="' + this.getId('main') + '" class="tang-pager-main">');
         //首页，前一页
         if (1 < this.currentPage) {
-            HTMLString.push(this._buildLinkString(1, 'first', this.labelFirst));
-            HTMLString.push(this._buildLinkString(this.currentPage - 1, 'previous', this.labelPrevious));
+            HTMLString.push(this._buildLink(1, 'first', this.labelFirst));
+            HTMLString.push(this._buildLink(this.currentPage - 1, 'previous', this.labelPrev));
         }
         //在当前页前面的页码
         for (pageNum = startPage; pageNum < this.currentPage; pageNum++) {
-            HTMLString.push(this._buildLinkString(pageNum, 'normal', baidu.string.format(this.tplLabelNormal, {'pageNum' : pageNum})));
+            HTMLString.push(this._buildLink(pageNum, 'normal', baidu.string.format(this.tplLabelNormal, {'pageNum' : pageNum})));
         }
         //当前页
         HTMLString.push('<span class="tang-pager-current">' + baidu.string.format(this.tplLabelCurrent, {'pageNum' : this.currentPage}) + '</span>');
         //在当前页后面的页码
         for (pageNum = this.currentPage + 1; pageNum <= endPage; pageNum++) {
-            HTMLString.push(this._buildLinkString(pageNum, 'normal', baidu.string.format(this.tplLabelNormal, {'pageNum' : pageNum})));
+            HTMLString.push(this._buildLink(pageNum, 'normal', baidu.string.format(this.tplLabelNormal, {'pageNum' : pageNum})));
         }
         //下一页，尾页
         if (endPage > this.currentPage) {
-            HTMLString.push(this._buildLinkString(this.currentPage + 1, 'next', this.labelNext));
-            HTMLString.push(this._buildLinkString(this.totalPage, 'last', this.labelLast));
+            HTMLString.push(this._buildLink(this.currentPage + 1, 'next', this.labelNext));
+            HTMLString.push(this._buildLink(this.totalPage, 'last', this.labelLast));
         }
         HTMLString.push('</div>');
         return HTMLString.join('');
@@ -134,11 +138,12 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
      * @param {String|HTMLElement} target 渲染的容器，默认为document.body。
      */
     'render' :  function(target) {
-        this.mappingDom('', target || document.body);
-        var container = this.getElement();
-        baidu.dom.addClass(this.getElement(), 'tang-pager');
-        baidu.dom.insertHTML(container, 'beforeEnd', this.toHTMLString());
-        this.fire("onload");
+        if (!this.getElement()) {
+            this.mappingDom('', target || document.body);
+        }
+        baidu.dom.addClass(target, 'tang-pager');
+        baidu.dom.insertHTML(target, 'beforeEnd', this._toHTMLString());
+        this.fire("load");
     },
     
     /**
@@ -151,13 +156,14 @@ magic.Pager = baidu.lang.createClass(function(currentPage, totalPage, options) {
         if(this.disposed) {
             return;
         }
-        baidu.dom.removeClass(this.getElement(), 'tang-pager');
-        var elmMain = this.getElement('main');
+        var container = this.getElement(),
+            main = this.getElement('main');
+        baidu.dom.removeClass(container, 'tang-pager');
         magic.Base.prototype.dispose.call(this);
-        baidu.dom.remove(elmMain);
-        elmMain = null;        
+        baidu.dom.remove(main);
+        container = main = null;
     }
 });
 
-// baidu.lang.register(magic.Pager, function(){}); // totalCount/pageCount
+// baidu.lang.register(magic.Pager, function(){}); // totalCount/viewSize
 // 以后添加那种只有上、下、第一、最后、goto的模式
