@@ -14,12 +14,12 @@
  * @name magic.control.Slider.$cache
  * @addon magic.control.Slider
  * @param {Object} options config参数.
- * @config      {Boolean}       enable             是否使用缓存条，true || false
+ * @config      {Boolean}       fx.enable             是否使用缓存条，true || false
  * @author qiaoyue
  */
 baidu.lang.register(magic.control.Slider, function(options){
     var me = this,
-        info = me.info;
+        info = me._info;
     info.cache.enable && me.on("load", function(){
         var inner = me.getElement('inner'),
             _accuracyKey = info._accuracyKey,
@@ -41,11 +41,12 @@ baidu.lang.register(magic.control.Slider, function(options){
      */
     setCache: function(value){
         var me = this,
-            info = me.info,
+            info = me._info,
             cache = me.getElement('cache'),
             cachePos = value * info._limit,
             cachePercent = me._cachePercent(cachePos);
  
+        value == 0 ? baidu.dom.setStyle(cache, 'overflow', 'hidden') : baidu.dom.setStyle(cache, 'overflow', '');
         baidu.dom.setStyle(cache, info._accuracyKey, me._cachePercent(cachePos));
     },
 
@@ -54,6 +55,6 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @private
      */
     _cachePercent: function(pos){
-        return pos / this.info._limit * 100 + '%';
+        return pos / this._info._limit * 100 + '%';
     }
 });

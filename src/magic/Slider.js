@@ -50,7 +50,7 @@ magic.Slider.extend({
         el || document.body.appendChild(el = document.createElement("div"));
 
     	var me = this,
-            info = me.info,
+            info = me._info,
             processClass = 'tang-process-' + info.direction,
             cornerClass = info._oppsite ? '-backward' : '',
     		template = baidu.string.format(magic.Slider.template, {

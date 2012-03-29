@@ -12,11 +12,11 @@
  * @name magic.control.Slider.$fx
  * @addon magic.control.Slider
  * @param {Object} options config参数.
- * @config      {Boolean}           enable            是否开启动画效果，true || false, 默认为false
- * @config      {Number}            duration          动画持续时间
- * @config      {Function}          onfxstart         function(){}，动画开始
- * @config      {Function}          onfx              function(){}，动画进行中
- * @config      {Function}          onfxstop          function(){}，动画结束
+ * @config      {Boolean}           fx.enable            是否开启动画效果，true || false, 默认为false
+ * @config      {Number}            fx.duration          动画持续时间
+ * @config      {Function}          fx.onfxstart         function(){}，动画开始
+ * @config      {Function}          fx.onfx              function(){}，动画进行中
+ * @config      {Function}          fx.onfxstop          function(){}，动画结束
  * @author qiaoyue
  */
 baidu.lang.register(magic.control.Slider, function(options){
@@ -31,7 +31,7 @@ baidu.lang.register(magic.control.Slider, function(options){
      */
     setFxValue: function(value){
         var me = this,
-            info = this.info,
+            info = me._info,
             _accuracyKey = info._accuracyKey,
             value = value || info.currentValue || 0,
             pos = info[_accuracyKey] * value;
@@ -52,7 +52,7 @@ baidu.lang.register(magic.control.Slider, function(options){
     _fxMove: function(knob, process, pos, fn){
         // 如果没执行动画，也要执行fn～但只有执行了动画才会传入pos参数
         var me = this,
-            info = me.info,
+            info = me._info,
             opt = info.fx,
             _knobKey = info._knobKey,
             _accuracyKey = info._accuracyKey,

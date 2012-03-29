@@ -14,6 +14,7 @@
 ///import baidu.object.extend;
 ///import baidu.array.each;
 ///import baidu.fn.bind;
+///import baidu.dom.getPosition;
 
 
 /**
@@ -34,13 +35,13 @@
  * @author      qiaoyue
  */
 magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options){
-    var defaultOptions = {
-        accuracy: 0,
-        _status: 'enable'
-    }, me = this,
-    info = me.info = baidu.object.extend(defaultOptions, options);
+    var me = this,
+        info = me._info = baidu.object.extend({
+            accuracy: 0,
+            _status: 'enable'
+        }, options), vertical;
 
-    var vertical = info._isVertical = info.orientation == 'vertical';
+    vertical = info._isVertical = info.orientation == 'vertical';
 
     info.direction == 'backward' && (info._oppsite = true);
 
@@ -101,7 +102,7 @@ magic.control.Slider.extend({
      * @return {}   none
      */
     disable: function(){
-        this.info._status = 'disabled';
+        this._info._status = 'disabled';
     },
 
     /**
@@ -110,7 +111,7 @@ magic.control.Slider.extend({
      * @return {}   none
      */
     enable: function(){
-        this.info._status = 'enable';
+        this._info._status = 'enable';
     },
 
     /**
@@ -120,7 +121,7 @@ magic.control.Slider.extend({
      */
     setValue: function(value){
         var me = this,
-            info = me.info,
+            info = me._info,
             _accuracyKey = info._accuracyKey,
             value = value || info.currentValue || 0,
             pos = info[_accuracyKey] * value;
@@ -140,7 +141,7 @@ magic.control.Slider.extend({
      * @return {float}    value    组件当前值
      */
     getValue: function(){
-        return this.info.currentValue;
+        return this._info.currentValue;
     },
 
     /**
@@ -150,7 +151,7 @@ magic.control.Slider.extend({
      */
     setRange: function(value){
         var me = this,
-            info = me.info,
+            info = me._info,
             max = info[info._accuracyKey],
             r = value * max;
 
@@ -191,7 +192,7 @@ magic.control.Slider.extend({
      */
     _startDrag: function(evt){
         var me = this,
-            info = me.info,
+            info = me._info,
             knob  = me.getElement('knob'),
             process = me.getElement('process'),
             accuracy = info.accuracy,
@@ -214,6 +215,7 @@ magic.control.Slider.extend({
        
         if(evt.target != knob || me._isMoving) return;
 
+        me._recover();
         baidu.dom.drag(knob, {range: rect, fix: [info._knobKey, offset], 
             ondragstart: function(){
                 info.onslidestart && info.onslidestart.call(this, arguments);
@@ -243,7 +245,7 @@ magic.control.Slider.extend({
      */
     _resize: function(){
         var me = this,
-            info = me.info,
+            info = me._info,
             percent = info._percent || 1,
             inner = me.getElement('inner'),
             view = me.getElement('view'), max;
@@ -268,7 +270,7 @@ magic.control.Slider.extend({
      */
     _recover: function(){
         var me = this,
-            info = me.info,
+            info = me._info,
             knob = me.getElement('knob'),
             process = me.getElement('process'),
             _accuracyKey = info._accuracyKey,
@@ -288,7 +290,7 @@ magic.control.Slider.extend({
      */
     _reset: function(pos){
         var me = this,
-            info = me.info,
+            info = me._info,
             knob = me.getElement('knob'),
             process = me.getElement('process');
 
@@ -303,7 +305,7 @@ magic.control.Slider.extend({
      * @private
      */
     _knobPercent: function(pos){
-        var info = this.info;
+        var info = this._info;
         return parseFloat(pos) / info[info._accuracyKey] * 100 + '%';
 
     },
@@ -313,7 +315,7 @@ magic.control.Slider.extend({
      * @private
      */
     _processPercent: function(pos){
-        return parseFloat(pos) / this.info._limit * 100 + '%';
+        return parseFloat(pos) / this._info._limit * 100 + '%';
 
     },
 
@@ -331,7 +333,7 @@ magic.control.Slider.extend({
      */
     _getProcessPos: function(pos){
         var me = this,
-            info = me.info,
+            info = me._info,
             range = info._range,
             limit = info._limit,
             pos = parseFloat(pos) - info._const;
@@ -357,7 +359,7 @@ magic.control.Slider.extend({
      */
     _getKnobPos: function(pos){
         var pos = parseFloat(pos),
-            info = this.info,
+            info = this._info,
             range = info._range;
 
         if(info._oppsite){
@@ -378,7 +380,7 @@ magic.control.Slider.extend({
             xy = baidu.page.getMousePosition(),
             page = baidu.dom.getPosition(view);
 
-        if(this.info._mouseKey == 'x'){
+        if(this._info._mouseKey == 'x'){
             return xy.x - page.left;
         }else{
             return xy.y - page.top;
@@ -391,7 +393,7 @@ magic.control.Slider.extend({
      */
     _move: function(knob, process, pos){
         var me = this,
-            info = me.info,
+            info = me._info,
             range = info._range,
             mousePos = me._getKnobPos(pos),
             processPos = me._getProcessPos(pos);
@@ -406,7 +408,7 @@ magic.control.Slider.extend({
      * @private
      */
     _setCurrentValue: function(pos){
-        var info = this.info;
+        var info = this._info;
         info.currentValue = parseFloat(pos) / info[info._accuracyKey];
     },
 
@@ -416,7 +418,7 @@ magic.control.Slider.extend({
      */
     _slide: function(pos, fn, inneral){
         var me = this,
-            info = me.info,
+            info = me._info,
             knob = me.getElement('knob'),
             process = me.getElement('process');
 
@@ -435,7 +437,7 @@ magic.control.Slider.extend({
      */
     _setPosition: function(evt, pos, undefined){
        var me = this,
-           info = me.info,
+           info = me._info,
            knob = me.getElement('knob'),
            process = me.getElement('process'),
            noAccuracy = evt.noAccuracy || !info.accuracy,
@@ -458,7 +460,7 @@ magic.control.Slider.extend({
      */
     _useAdsorbr: function(pos, fn, inneral){
         var me = this,
-            info = me.info,
+            info = me._info,
             pos = parseFloat(pos) || 0,
             range = info._range,
             accuracyZone = info._accuracyZone.slice(0),
@@ -491,7 +493,7 @@ magic.control.Slider.extend({
      * @private
      */
     _setAccuracy: function(ratio){
-        var info = this.info,
+        var info = this._info,
             range = info._range,
             _accuracyKey = info._accuracyKey,
             factor = ratio * info[_accuracyKey],
@@ -527,7 +529,7 @@ magic.control.Slider.extend({
         evt.preventDefault(); // 阻止默认行为
         me._resize(); // 重新设置范围
 
-        if(me.info._status == 'enable'){
+        if(me._info._status == 'enable'){
             if(evt.target == knob && evt.type == 'mousedown'){
                 me._startDrag(evt);
             }else if(evt.type == 'mousedown'){
