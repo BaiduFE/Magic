@@ -21,11 +21,11 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>fx动画插件</strong> 示例</h1>
-    <p>滚动动画默认情况是启动的，如果不需要动画效果，可以通过在options参数中加入 enableFx 取值 false 来去掉动画效果。</p>
-    <p>可以通过 scrollFxOption 来指定动画的时间，如var options = {scrollFxOptions: {duration: 1000}}</p>
+    <p>滚动动画默认情况是启动的，如果不需要动画效果，可以通过在options参数中加入 fx.enable 取值 false 来去掉动画效果。</p>
+    <p>可以通过 fx.duration 来指定一次滚动动画的总时间（默认值：500毫秒），可以通过fx.interval来指定每一帧的时间（默认值：16毫秒），如var options = {fx: {duration: 1000, interval: 20}}</p>
 </div>
 
-<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='viewSize:4; originalIndex: 0;'>
     <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
@@ -43,8 +43,10 @@
 <script type='text/javascript'>
 baidu.dom.ready(function(){
     var c = magic.setup.carousel('one-carousel', {
-        scrollFxOptions: {
-            duration: 1000
+        fx: {
+            enable: true,
+            duration: 1000,
+            interval: 20
         }
     });
 });

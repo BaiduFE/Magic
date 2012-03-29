@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
 <script type="text/javascript" src="../../../src/import.php?f=baidu.dom.ready,magic.Dialog"></script>
-<title>Dialog 组件与 iframe 结合示例</title>
+<title>Dialog 组件 frame 类型内容示例</title>
 </head>
 <body>
 
@@ -20,8 +20,8 @@
 </script>
 
 <div class="demo">
-	<h1>Dialog 组件<strong>与 iframe 结合</strong>示例</h1>
-	<p>setContent 方法直接给一个 iframe 时，iframe 的边框会没掉，并且宽高会被 resize 成与对话框内容层一样。</p>
+	<h1>Dialog 组件 <strong>frame</strong> 类型内容示例</h1>
+	<p>setContent 方法第二个参数 contentType 如果取值为 frame，则认为 content 参数是一个 url 地址。</p>
 </div>
 
 <!-- 对话框组件 Start -->
@@ -38,10 +38,7 @@
 	});
 	dialog.render();
 
-	var iframe = document.createElement("iframe");
-		iframe.setAttribute("src", "http://www.baidu.com");
-
-	dialog.setContent(iframe);
+	dialog.setContent("http://www.baidu.com", "frame");
 })
 </script>
 <!-- 对话框组件 End -->

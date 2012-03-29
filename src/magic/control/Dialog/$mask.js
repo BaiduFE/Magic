@@ -13,13 +13,14 @@
  * @name magic.control.Dialog.$mask
  * @addon magic.control.Dialog
  * @param  {Object}  options 选项
- * @config {Boolean}  mask 是否显示遮罩
+ * @config {Object}  mask 插件选项
+ * @config {Boolean} mask.enable 遮罩的开关，缺省为 false
+ * @config {String} mask.bgColor 遮罩景色，缺省为 #000
+ * @config {Number} mask.opacity 遮罩不透明度，缺省为 0.15
  */
 baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
-	    this.mask = !! options.mask;
-
-	    if(this.mask){
+	    if(this.mask && this.mask.enable){
 	    	this.renderMask();
 
 		    this.on("load", function(){
@@ -38,7 +39,7 @@ baidu.lang.register(magic.control.Dialog,
 	},
 
 	/* methods */ {
-		/**
+		/*
 		 * 渲染 mask 层（如果开启 mask 选项，主程序会自动 renderMask）
 		 * @function
 		 * @name magic.control.Dialog.$mask.renderMask
@@ -49,14 +50,14 @@ baidu.lang.register(magic.control.Dialog,
 		    if(this._mask)
 		        return this;
 		    this._mask = new magic.Mask({
-		    	opacity: .15,
-		    	bgColor: "#000",
+		    	opacity: this.mask.opacity || .15,
+		    	bgColor: this.mask.bgColor || "#000",
 		    	zIndex: this.zIndex - 1
 		    });
 		    return this;
 		},
 
-		/**
+		/*
 		 * 显示 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
 		 * @function
 		 * @name magic.control.Dialog.$mask.showMask
@@ -68,7 +69,7 @@ baidu.lang.register(magic.control.Dialog,
 		    return this;
 		},
 
-		/**
+		/*
 		 * 隐藏 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
 		 * @function
 		 * @name magic.control.Dialog.$mask.hideMask

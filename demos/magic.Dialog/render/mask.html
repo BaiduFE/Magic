@@ -32,12 +32,12 @@
 	<div id="flashContainer1"></div>
     <div id="flashContainer2"></div>
     <div id="flashContainer3"></div>
-	
+	<div>这里的文字用于测试占位。</div>
 </div>
 
 <script type="text/javascript">
 var dialog;
-/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitle() */
+/* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitleText(xxx) */
  baidu.dom.ready(function(){
 
 	
@@ -71,7 +71,9 @@ var dialog;
 		content: "我是一个由 render 模式创建的对话框", // 这里可以是 html 内容或直接是 dom 对象的引用
 		width: 400,
 		height: 300,
-		mask:true
+		mask: {
+			enable: true
+		}
 	});
 	dialog.render();
 })

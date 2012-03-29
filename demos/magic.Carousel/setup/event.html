@@ -21,11 +21,11 @@
 <body>
 <div class='demo'>
     <h1>Carousel 组件 <strong>event</strong> 示例</h1>
-    <p>carousel 内核程序支持三个事件分别是onitemclick，onitemouseover，onitemmouseout，onscrollto，注册事件例如：carousel.on('onitemclick', function(evt){}); 从evt参数中，可以通过evt.DOMEvent来取得触发事件时的浏览器事件对象，通过evt.index来取得触发事件时的目标滚动项。</p>
-    <p>该范例注册了onitemclick事件，请在范例中点击某个滚动项来弹出对话框测试事件：</p>
+    <p>carousel 内核程序支持四个事件分别是onclickitem，onmouseoveritem，onmouseoutitem，onfocus，注册事件例如：carousel.on('onclickitem', function(evt){}); 从evt参数中，可以通过evt.DOMEvent来取得触发事件时的浏览器事件对象，通过evt.index来取得触发事件时的目标滚动项。</p>
+    <p>该范例注册了onclickitem事件，请在范例中点击某个滚动项来弹出对话框测试事件：</p>
 </div>
 
-<div id='one-carousel' class='tang-ui tang-carousel' tang-param='pageSize:4; selectedIndex: 0;'>
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='viewSize:4; originalIndex: 0;'>
     <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
     <div class='tang-carousel-container'>
         <ul class='tang-carousel-element'>
@@ -43,9 +43,9 @@
 <script type='text/javascript'>
 baidu.dom.ready(function(){
     var c = magic.setup.carousel('one-carousel', {
-        isCycle: true
+        isLoop: true
     });
-    c.on('onitemclick', function(evt){
+    c.on('onclickitem', function(evt){
         alert(evt.index);
     });
 });
