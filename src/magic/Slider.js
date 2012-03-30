@@ -46,30 +46,38 @@ magic.Slider.extend({
 	 * @return none
 	 */
     render: function(el){
+        var me = this;
     	el = baidu.dom.g(el);
-        el || document.body.appendChild(el = document.createElement("div"));
+        el || document.body.appendChild(el = document.createElement("div"));  	
+        if(/tang-slider/.test(el.className)) return;
 
-    	var me = this,
+        baidu.dom.addClass(el, 'tang-ui tang-slider tang-slider-' + me._info._suffix);
+        el.innerHTML = me.toHTMLString();
+        me.mappingDom("", el);
+
+        me.fire("load");
+
+    },
+
+    /** 生成HTML字符串
+     * @private
+     */
+    toHTMLString: function(){
+        var me = this,
             info = me._info,
             processClass = 'tang-process-' + info.direction,
             cornerClass = info._oppsite ? '-backward' : '',
-    		template = baidu.string.format(magic.Slider.template, {
+            template = baidu.string.format(magic.Slider.template, {
                 id: me.getId(),
                 viewId: me.getId('view'),
                 innerId: me.getId('inner'),
                 cornerClass: cornerClass,
-	        	processId: me.getId("process"),
-	        	processClass: processClass,
-	        	knobId: me.getId("knob")
+                processId: me.getId("process"),
+                processClass: processClass,
+                knobId: me.getId("knob")
         });
-    	
-        baidu.dom.addClass(el, 'tang-ui tang-slider tang-slider-' + info._suffix);
-    	me.mappingDom("", el);
 
-        el.innerHTML = template;
-
-        me.fire("load");
-
+        return template;
     },
 
     /**

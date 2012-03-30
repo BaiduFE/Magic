@@ -39,9 +39,8 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
         info = me._info = baidu.object.extend({
             accuracy: 0,
             _status: 'enable'
-        }, options), vertical;
-
-    vertical = info._isVertical = info.orientation == 'vertical';
+        }, options), 
+        vertical = info._isVertical = info.orientation == 'vertical';
 
     info.direction == 'backward' && (info._oppsite = true);
 
@@ -59,10 +58,11 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
             inner = me.getElement('inner'),
             eventsList = ['mousedown', 'click'],
             eventHandler = baidu.fn.bind(me._eventControl, me),
-            _accuracyKey = info._accuracyKey,
-            val = info._val = 'offset' + _accuracyKey.replace(/([a-z])([a-z]*)/, function($1, $2, $3){
-                return $2.toUpperCase() + $3;
-            });
+            _accuracyKey = info._accuracyKey;
+        
+        info._val = 'offset' + _accuracyKey.replace(/([a-z])([a-z]*)/, function($1, $2, $3){
+            return $2.toUpperCase() + $3;
+        });
 
         info.width = view.clientWidth;
         info.height = view.clientHeight;
@@ -422,10 +422,7 @@ magic.control.Slider.extend({
             knob = me.getElement('knob'),
             process = me.getElement('process');
 
-        if(info.fx.enable && me._fxMove && !inneral){
-            me._recover();
-            me._fxMove(knob, process, pos, fn);
-        }else{
+        if(me.fire('startFx', {knob: knob, process: process, pos: pos, fn: fn})){
             me._move(knob, process, pos);
             fn && fn();
         }

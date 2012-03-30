@@ -20,16 +20,26 @@
  * @author qiaoyue
  */
 baidu.lang.register(magic.control.Slider, function(options){
-    
+    var me = this,
+        fx = me._info.fx;
+
+    me.on('startFx', function(evt){
+        if(fx && fx.enable){
+            me._recover();
+            me._fxMove(evt.knob, evt.process, evt.pos, evt.fn);
+            evt.returnValue = false;
+        }
+    });
     
 }, {
 
     /**
-     * 设置组件的值，带有动画效果
-     * @param  {float}   value    要设置的值
-     * @return {}        none
+     * 设置组件的值
+     * @param  {float}     value    要设置的值
+     * @param  {boolean}   noFx     不使用动画，true || false 默认会使用
+     * @return {}          none
      */
-    setFxValue: function(value){
+    setValue: function(value, noFx){
         var me = this,
             info = me._info,
             _accuracyKey = info._accuracyKey,
@@ -41,7 +51,7 @@ baidu.lang.register(magic.control.Slider, function(options){
         }
 
         // 伪造一个event对象
-        me._setPosition({target: null, noAccuracy: true}, pos);
+        me._setPosition({target: null, noAccuracy: true, noFx: noFx}, pos);
         info.currentValue = value;    
     },
 

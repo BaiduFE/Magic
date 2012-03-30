@@ -21,8 +21,7 @@
  */
 
 magic.setup.slider = function(el, options){
-    el = baidu.dom.g(el);
-    var me = magic.setup(el, magic.control.Slider, options),
+    var me = magic.setup(baidu.dom.g(el), magic.control.Slider, options),
         query = magic._query,
         container = me.getElement();
 

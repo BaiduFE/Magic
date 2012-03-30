@@ -20,7 +20,7 @@
 baidu.lang.register(magic.control.Slider, function(options){
     var me = this,
         info = me._info;
-    info.cache.enable && me.on("load", function(){
+    info.cache && info.cache.enable && me.on("load", function(){
         var inner = me.getElement('inner'),
             _accuracyKey = info._accuracyKey,
             cacheClass = info._oppsite ? 'tang-cache-backward' : 'tang-cache-forward',
