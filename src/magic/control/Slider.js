@@ -50,8 +50,6 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
         _mouseKey: vertical? 'y' : 'x',
         _accuracyKey: vertical? 'height' : 'width'
     });
-
-    info.currentValue = info.currentValue || 0;
     
     me.on("load", function(){
         var view = me.getElement('view'),
@@ -87,7 +85,7 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
         me._setAccuracy(info.accuracy);
 
         // 初始化slider值
-        me.setValue();
+        me.setValue(info.currentValue);
 
     });
 
