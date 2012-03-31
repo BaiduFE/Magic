@@ -123,7 +123,7 @@ magic.control.Slider.extend({
         var me = this,
             info = me._info,
             _accuracyKey = info._accuracyKey,
-            value = value || info.currentValue || 0,
+            value = value || 0,
             pos = info[_accuracyKey] * value;
 
         if(info._oppsite){

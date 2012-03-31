@@ -43,10 +43,10 @@ baidu.lang.register(magic.control.Slider, function(options){
         var me = this,
             info = me._info,
             _accuracyKey = info._accuracyKey,
-            value = value || info.currentValue || 0,
+            value = value || 0,
             pos = info[_accuracyKey] * value;
 
-        if(me._oppsite){
+        if(info._oppsite){
             pos = info[_accuracyKey] * me._accSub(1, value);
         }
 
