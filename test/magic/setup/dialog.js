@@ -56,11 +56,12 @@ test("default params, title & content, text", function(){
 	enSetup();
 	var options = {
 		titleText : '标题',
-		content : 'dialog内容'
+		content : '<span>dialog内容</span>',
+		contentType : 'text'
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
-	equals(dialog.getElement("content").innerHTML, "dialog内容", "The content is right");
+	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
 	document.body.removeChild(baidu.dom.g("one-dialog"));
 });
 
@@ -139,6 +140,7 @@ test("hide & isShowing", function(){
 	var options = {
 			titleText : '标题',
 			content : cdiv,
+			contentType: "element",
 			left : 10,
 			top : 20,
 			height : 30,
@@ -214,7 +216,8 @@ test("setSize & getSize", function(){
 	var resize = 0;
 	var options = {
 			titleText : '标题',
-			content : cdiv
+			content : cdiv,
+			contentType: "element"
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	dialog.on("resize", function(e, size){
@@ -253,7 +256,8 @@ test("setPosition & getPosition", function(){
 	var move = 0;
 	var options = {
 			titleText : '标题',
-			content : cdiv
+			content : cdiv,
+			contentType: "element"
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
 	dialog.on("move", function(e, pos){
@@ -294,7 +298,8 @@ test("center, auto width & height", function(){
 		$(cdiv).html("dialog内容");
 		var options = {
 			titleText : '标题',
-			content : cdiv
+			content : cdiv,
+			contentType: "element"
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
@@ -321,6 +326,7 @@ test("center", function(){
 		var options = {
 				titleText : '标题',
 				content : cdiv,
+				contentType: "element",
 				height : 300,
 				width : 300
 		};

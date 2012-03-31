@@ -30,11 +30,12 @@ test("default params, title & content, text", function(){
 	div.id = "one-dialog";
 	var dialog = new magic.Dialog({
 		titleText : '标题',
-		content : 'dialog内容'
+		content : '<span>dialog内容</span>',
+		contentType : 'text'
 	});
 	dialog.render("one-dialog");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
-	equals(dialog.getElement("content").innerHTML, "dialog内容", "The content is right");
+	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
 	document.body.removeChild(div);
 });
 
@@ -50,7 +51,7 @@ test("default params, title & content, html", function(){
 	});
 	dialog.render("one-dialog");
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
-	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
+	equals(dialog.getElement("content").innerHTML, "<span>dialog内容</span>", "The content is right");
 	document.body.removeChild(div);
 });
 
