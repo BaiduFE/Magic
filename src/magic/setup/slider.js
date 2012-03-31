@@ -1,3 +1,9 @@
+/*
+ * Tangram
+ * Copyright 2011 Baidu Inc. All rights reserved.
+ */
+ 
+
 ///import magic.setup;
 ///import baidu.dom.g;
 ///import magic.control.Slider;
