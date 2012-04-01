@@ -1,32 +1,69 @@
 /** slider */
-.tang-slider{position:relative;display:inline-block;vertical-align:middle;}
-.tang-slider-vtl{width:18px;height:200px;}
-.tang-slider-htl{width:200px;height:16px;}
-.tang-slider .inner-table{border:0;vertical-align:middle;width:100%;height:100%;}
-.tang-slider .inner-layer{border:1px solid #759DC0;position:relative;}
-.tang-slider-vtl .inner-layer{width:4px;margin:0 auto;height:198px;}
-.tang-slider-htl .inner-layer{height:4px;}
+.tang-slider{font-size:0;position:relative;}
+.tang-slider .tang-inner{position:relative;}
 
+.tang-slider-htl{width:100%;}
+.tang-slider-htl .tang-view{margin:0 11px;height:20px;padding-top:1px;position:relative;}
+.tang-slider-htl .tang-content{position:relative;height:8px;top:50%;margin-top:-4px;padding:0 9px;}
+.tang-slider-htl .tang-inner{height:8px;background:url("slider-h-bg.png") repeat-x left top;}
+
+.tang-slider-vtl{height:100%;}
+.tang-slider-vtl .tang-view{position:absolute;top:11px;bottom:11px;width:21px;*height:100%;*mz:expression(document.compatMode=="CSS1Compat"&&(this.style.height=this.parentNode.clientHeight-parseInt(this.currentStyle.top)-parseInt(this.currentStyle.bottom)+"px"));}
+.tang-slider-vtl .tang-content{position:absolute;left:50%;margin-left:-4px;width:8px;top:0;bottom:0;height:100%;}
+.tang-slider-vtl .tang-inner{width:8px;position:absolute;top:9px;bottom:9px;background:url("slider-v-bg.png") repeat-y left top;*height:100%;*mz:expression(document.compatMode=="CSS1Compat"&&(this.style.height=this.parentNode.clientHeight-parseInt(this.currentStyle.top)-parseInt(this.currentStyle.bottom) +"px"));}
+
+
+/** 边角 */
+.tang-slider-htl .tang-corner{height:8px;width:9px;position:absolute;background-image:url("slider-h-corner.png");}
+.tang-slider-htl .tang-start{background-position:left top;left:0;top:0;}
+.tang-slider-htl .tang-last{background-position:-9px top;float:right;right:0;top:0;}
+.tang-slider-htl .tang-start-backward{background-position:left -8px;left:0;top:0;}
+.tang-slider-htl .tang-last-backward{background-position:-9px -8px;right:0;top:0;}
+
+.tang-slider-vtl .tang-corner {height:9px;width:8px;position:absolute;background-image:url("slider-v-corner.png");}
+.tang-slider-vtl .tang-start{background-position:-8px top;left:0;top:0;}
+.tang-slider-vtl .tang-last{background-position:-8px -9px;left:0;bottom:0;}
+.tang-slider-vtl .tang-start-backward{background-position:left top;left:0;top:0;}
+.tang-slider-vtl .tang-last-backward{background-position:left -9px;left:0;bottom:0;}
 
 /** 游标 */
-.tang-slider .knob{position:absolute;display:block;height:16px;font-size:0;width:18px;outline:none;background-image:url("sliderThumbs.png");}
-.tang-slider .knob-vtl{background-position:-307px 0;}
-.tang-slider .knob-vtl:hover{background-position:-325px 0;}
-.tang-slider .knob-htl{background-position:-18px 0;}
-.tang-slider .knob-htl:hover{background-position:-36px 0;}
+.tang-slider .tang-knob{position:absolute;display:block;height:21px;width:21px;outline:none;z-index:10;}
+
+.tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-h-knob.png");}
+.tang-slider-htl .tang-knob:hover{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-h-knobHover.png");}
+.tang-slider-htl .tang-knob:active{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-h-knobHover.png");}
+
+.tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-v-knob.png");}
+.tang-slider-vtl .tang-knob:hover{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-v-knobHover.png");}
+.tang-slider-vtl .tang-knob:active{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-v-knobHover.png");}
 
 /** 进度条 */
-.tang-slider .process{background:#ABD6FF;position:absolute;font-size:0;}
-.tang-slider .process-vtl{width:4px;height:8px;}
-.tang-slider .process-htl{height:4px;width:9px;}
-.tang-slider-htl .process-forward{left:0;top:0;}
-.tang-slider-vtl .process-forward{left:0;top:0;}
-.tang-slider-htl .process-backward{right:0;top:0;}
-.tang-slider-vtl .process-backward{left:0;bottom:0;}
+.tang-slider .tang-process{position:absolute;z-index:6;overflow:hidden;}
 
-/** 遮罩 */
-.tang-slider .mask{position:absolute;left:0;top:0;width:100%;height:100%;z-index:100;display:none;background-color: #8e8e8e;opacity:0.8;
-filter:alpha(opacity=80);}
+.tang-slider-htl .tang-process{height:8px;width:0px;background:url("slider-h-bg1.png") repeat-x left top;}
+.tang-slider-htl .tang-process-forward{left:0;top:0;}
+.tang-slider-htl .tang-process-backward{right:0;_right:-1px;top:0;}
+
+.tang-slider-vtl .tang-process{width:8px;height:8px;background:url("slider-v-bg1.png") repeat-y left top;}
+.tang-slider-vtl .tang-process-forward{left:0;top:0;}
+.tang-slider-vtl .tang-process-backward{left:0;bottom:0;}
+
+/** 缓存条 */
+.tang-slider .tang-cache{position:absolute;}
+
+.tang-slider-htl .tang-cache-corner{width:9px;height:6px;background-image:url("cache-h-corner.png");position:absolute;}
+.tang-slider-htl .tang-cache{height:6px;background:url("cache-h-bg.png") repeat-x left top;}
+.tang-slider-htl .tang-cache-forward{left:0;top:1px;}
+.tang-slider-htl .tang-cache-backward{right:0;top:1px;_right:-1px;}
+.tang-slider-htl .tang-cache-last{background-position:right top;top:0;right:-8px;z-index:5;}
+.tang-slider-htl .tang-cache-backward .tang-cache-start{top:0;left:-8px;z-index:5;}
+
+.tang-slider-vtl .tang-cache-corner{width:6px;height:9px;background-image:url("cache-v-corner.png");position:absolute;}
+.tang-slider-vtl .tang-cache{width:6px;background:url("cache-v-bg.png") repeat-y left top;}
+.tang-slider-vtl .tang-cache-forward{left:1px;top:0;}
+.tang-slider-vtl .tang-cache-backward{left:1px;bottom:0;}
+.tang-slider-vtl .tang-cache-last{background-position:right top;bottom:-8px;left:0;z-index:5;}
+.tang-slider-vtl .tang-cache-backward .tang-cache-start{background-position:left top;top:-8px;left:0;z-index:5;}
 
 .cssloaded{
 	width: 20px
