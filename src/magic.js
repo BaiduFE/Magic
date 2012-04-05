@@ -30,5 +30,5 @@ if(typeof magic != "function"){
 magic.resourcePath = "";
 magic.skinName = "default";
 
-/msie 6/.test(navigator.userAgent) && 
+/msie 6/i.test(navigator.userAgent) && 
 document.execCommand("BackgroundImageCache", false, true);

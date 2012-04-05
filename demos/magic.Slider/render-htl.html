@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
-    <title>render Magic</title>
+    <title>render模式--水平</title>
     <style type="text/css">
-        .view{margin:20px 20px 10px;width:200px;float:left;}
-        .wrap{width:200px;margin:10px auto;font-size:12px;}
+        .view{margin:20px 20px 10px;width:60%;}
+        .wrap{margin:10px auto;font-size:12px;}
     </style>
     <link rel="stylesheet" href="../../resources/default/magic.control.Slider/magic.Slider.css"/>
     <script src="../../src/import.php?f=magic.Slider,magic.setup.slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
@@ -16,7 +16,7 @@
             <p>精确度：0</p>
             <button onclick="s1.enable();">启用</button>
             <button onclick="s1.disable();">禁用</button>
-            <p>animate: <input type="checkbox" value="yes" onclick="s1['switch'] = this.checked?'on':'off';"></p>
+            <p>animate: <input type="checkbox" value="yes" onclick="s1._info.fx.enable = this.checked;"></p>
         </div>
         <div id="s1"></div>
     </div>
@@ -26,31 +26,22 @@
             <p>精确度：0.25</p>
             <button onclick="s2.enable();">启用</button>
             <button onclick="s2.disable();">禁用</button>
-            <p>animate: <input type="checkbox" value="yes" onclick="s2['switch'] = this.checked?'on':'off';"></p>
+            <p>animate: <input type="checkbox" value="yes" onclick="s2._info.fx.enable = this.checked;"></p>
         </div>
         <div id="s2"></div>
     </div>
     
     <script type="text/javascript">
-        var s1 = new magic.Slider({'switch':'off', orientation:'horizonal', direction:'forward', 
-            cache:'yes'}); 
+        var s1 = new magic.Slider({orientation:'horizonal', direction:'forward', fx:{enable: false}, cache:{enable:true}}); 
 
-        var s2 = new magic.Slider({'switch':'off', accuracy:0.25, duration:500, orientation:'horizonal',direction: 'backward', cache:'yes', onchange:function(v){
-                
-            }}); 
+        var s2 = new magic.Slider({accuracy:0.25, orientation:'horizonal', direction:'backward', fx:{enable: false}, cache:{enable:true}}); 
        
         s1.render('s1');
         s2.render('s2');
 
-        var n = 0,
-            timeId = setInterval(function(){
-                if(++n > 100){
-                    clearInterval(timeId);
-                    return;
-                }
-                s1.setCache(n / 100);
-                s2.setCache(n / 100);
-            }, 16);
+        s1.setCache(0.5);
+        s1.setRange(0.5);
+        s2.setCache(1);
     </script>
 
 </body>
