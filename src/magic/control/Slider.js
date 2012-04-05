@@ -442,8 +442,8 @@ magic.control.Slider.extend({
             };
 
         pos == undefined && (pos = me._getMousePos()); // 没有传值，计算鼠标位置
-        if(evt.target === knob || me._isMoving) return;
-
+        if(evt.target === knob) return;
+        
         me._isMoving = true;
         noAccuracy ? me._slide(pos, callback, evt.noFx) : me._useAdsorbr(pos, callback, evt.noFx);
             

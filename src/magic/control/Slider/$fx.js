@@ -25,6 +25,7 @@ baidu.lang.register(magic.control.Slider, function(options){
 
     me.on('startFx', function(evt){
         if(fx && fx.enable){
+            me._fx && me._fx.end();
             me._recover();
             me._fxMove(evt.knob, evt.process, evt.pos, evt.fn);
             evt.returnValue = false;
@@ -71,8 +72,8 @@ baidu.lang.register(magic.control.Slider, function(options){
 
         me._setCurrentValue(pos);
         
-        baidu.fx.moveTo(knob, pointer, {
-            duration: opt.duration || 500,
+        me._fx = baidu.fx.moveTo(knob, pointer, {
+            duration: opt.duration || 200,
             onbeforestart: opt.onfxstart,
             onafterupdate: function(){
                 var pos = me._getProcessPos(me._getRealPos(knob, _knobKey));
@@ -83,7 +84,8 @@ baidu.lang.register(magic.control.Slider, function(options){
                 opt.onfxstop && opt.onfxstop.call(this, arguments);
                 me._reset(pos);
                 fn && fn(pos);
+                delete me._fx;
             }
-        }) || (fn && fn());
+        }) || fn && fn();
     }
 });
