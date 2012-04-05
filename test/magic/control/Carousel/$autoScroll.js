@@ -133,7 +133,7 @@ test("render,all params", function(){
 		}
 		if(scroll == 3){
 			time2 = new Date();
-		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
+		    ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
 			c.dispose();
 			var l2 = baidu.event._listeners.length;
@@ -170,7 +170,7 @@ test("render, button", function(){
 		}
 		if(scroll == 4){
 			time2 = new Date();
-			ok(time2 - time1 >=100 || Math.abs((time2 - time1) - 100) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
+			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
 		    c.dispose();
 			document.body.removeChild(div);
 			start();
@@ -278,7 +278,7 @@ test("setup, all params", function(){
 		}
 		if(scroll == 3){
 			time2 = new Date();
-		    ok(time2 - time1 >= 100 && time2 - time1 < 500, "The duration is right");
+			ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
 			c.dispose();
 			var l2 = baidu.event._listeners.length;
@@ -313,7 +313,7 @@ test("setup, button", function(){
 		}
 		if(scroll == 4){
 			time2 = new Date();
-			ok(time2 - time1 >=100 || Math.abs((time2 - time1) - 100) < 5, "The setInterval is right");//autoScroll的轮训没有因为点击按钮滚动而乱掉
+			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
 			c.dispose();
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();

@@ -1,4 +1,4 @@
-module("magic.Slider");
+module("magic.control.Slider.$fx");
 
 (function(){
 	
@@ -6,21 +6,16 @@ module("magic.Slider");
 		div = document.createElement("div");
 		document.body.appendChild(div);
 		div.id = "div1";
+		$(div).css("height", "222px");
 		var html = '<div id="s1" class="tang-ui tang-slider tang-slider-vtl" style="">'
-			+ '<div class="tang-background" style="position:absolute; top:0px; left:0px;width:100%;height:100%;z-index:-9; -webkit-user-select:none; -moz-user-select:none;" onselectstart="return false">'
-			+ '<div class="tang-background-inner" style="width:100%;height:100%;">'
-			+ '<table class="inner-table" cellspacing="0" cellpadding="0">'
-            + '<tbody><tr>'
-            + '<td height="9" class="inner-corner"><div class="corner1"></dv></td></tr>'
-            + '<tr><td height="182">'
-            + '<div class="inner-layer"><div class="process process-vtl process-forward"></div></div>'
-            + '</td></tr>'
-            + '<tr><td height="9" class="inner-corner"><div class="corner2"></div></td></tr>'
-            + '</tr>'
-            + '</tbody></table>'
+            + '<div class="tang-view">'
+            + '<div class="tang-content">'
+            + '<div class="tang-corner tang-start"></div>'
+            + '<div class="tang-corner tang-last"></div>'
+            + '<div class="tang-inner"><div class="tang-process tang-process-forward"></div></div>'
             + '</div>'
+            + '<a href="javascript:;" class="tang-knob"></a>'
             + '</div>'
-            + '<a href="javascript:;" class="knob knob-vtl knob-forward"></a>'
             + '</div>';
 	    $(div).append(html);
 	};
@@ -29,21 +24,16 @@ module("magic.Slider");
 		div = document.createElement("div");
 		document.body.appendChild(div);
 		div.id = "div1";
+		$(div).css("width", "222px");
 		var html = '<div id="s1" class="tang-ui tang-slider tang-slider-htl" style="">'
-			+ '<div class="tang-background" style="position:absolute; top:0px; left:0px;width:100%;height:100%;z-index:-9; -webkit-user-select:none; -moz-user-select:none;" onselectstart="return false">'
-			+ '<div class="tang-background-inner" style="width:100%;height:100%;">'
-			+ '<table class="inner-table" cellspacing="0" cellpadding="0">'
-            + '<tbody><tr>'
-            + '<td height="4" class="inner-corner"><div class="corner1"></dv></td></tr>'
-            + '<tr><td height="4">'
-            + '<div class="inner-layer"><div class="process process-htl process-forward"></div></div>'
-            + '</td></tr>'
-            + '<tr><td height="4" class="inner-corner"><div class="corner2"></div></td></tr>'
-            + '</tr>'
-            + '</tbody></table>'
+            + '<div class="tang-view">'
+            + '<div class="tang-content">'
+            + '<div class="tang-corner tang-start"></div>'
+            + '<div class="tang-corner tang-last"></div>'
+            + '<div class="tang-inner"><div class="tang-process tang-process-forward"></div></div>'
             + '</div>'
+            + '<a href="javascript:;" class="tang-knob"></a>'
             + '</div>'
-            + '<a href="javascript:;" class="knob knob-htl knob-forward"></a>'
             + '</div>';
 	    $(div).append(html);
 	};
@@ -57,32 +47,35 @@ test("render, default params&events", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
 			div.id = "div1";
+			$(div).css("width", "222px");
 			var num = 0;
 			var l1 = baidu.event._listeners.length;
 			var slider = new magic.Slider({
-				'switch': 'on',
-				onfxstart: function(){
-					ok(true, "The onfxstart is fire");
-				},
-				onfx: function(){
-					num ++;
-					if(num == 1)
-						ok(true, "The onfx is fire");
-				},
-				onfxstop: function(){
-					ok(true, "The onfxstop is fire");
+				fx:{
+					enable: true,
+					onfxstart: function(){
+						ok(true, "The onfxstart is fire");
+					},
+					onfx: function(){
+						num ++;
+						if(num == 1)
+							ok(true, "The onfx is fire");
+					},
+					onfxstop: function(){
+						ok(true, "The onfxstop is fire");
+					}
 				}
 			});
 			slider.render('div1');
 
 			setTimeout(function(){
-				ua.mousemove(slider.getElement(), {
-					clientX : baidu.dom.getPosition(slider.getElement("")).left + 38,
-					clientY : baidu.dom.getPosition(slider.getElement("")).top
+				ua.mousemove(slider.getElement("view"), {
+					clientX : baidu.dom.getPosition(slider.getElement("view")).left + 38,
+					clientY : baidu.dom.getPosition(slider.getElement("view")).top
 				});
-				ua.mousedown(slider.getElement());
+				ua.mousedown(slider.getElement("view"));
 				setTimeout(function(){
-					equals(baidu.dom.getPosition(slider.getElement("knob")).left, baidu.dom.getPosition(slider.getElement("")).left + 38 - 9, "The position of The knob is right");
+					equals(baidu.dom.getPosition(slider.getElement("knob")).left, baidu.dom.getPosition(slider.getElement("view")).left + 38 - 11, "The position of The knob is right");
 					slider.dispose();
 					var l2 = baidu.event._listeners.length;
 					equals(l2, l1, "The events are un");
@@ -99,21 +92,24 @@ test("render, orientation&accuracy&duration", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "div1";
+	$(div).css("height", "222px");
 	var slider = new magic.Slider({
-		'switch': 'on',
 		orientation: 'vertical',
 		accuracy: 0.1,
-		duration: 100
+		fx:{
+			enable: true,
+			duration: 100
+		}
 	});
 	slider.render('div1');
 	setTimeout(function(){
-		ua.mousemove(slider.getElement(), {
-			clientX : baidu.dom.getPosition(slider.getElement("")).left,
-			clientY : baidu.dom.getPosition(slider.getElement("")).top + 42
+		ua.mousemove(slider.getElement("view"), {
+			clientX : baidu.dom.getPosition(slider.getElement("view")).left,
+			clientY : baidu.dom.getPosition(slider.getElement("view")).top + 42
 		});
-		ua.mousedown(slider.getElement());
+		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
-			equals(baidu.dom.getPosition(slider.getElement("knob")).top, baidu.dom.getPosition(slider.getElement("")).top + 40 - 8, "The position of The knob is right");
+			equals(baidu.dom.getPosition(slider.getElement("knob")).top, baidu.dom.getPosition(slider.getElement("view")).top + 40 - 11, "The position of The knob is right");
 			slider.dispose();
 			start();
 		}, 150);
@@ -127,27 +123,29 @@ test("setup, default params&events", function(){
 	var num = 0;
 	var l1 = baidu.event._listeners.length;
 	var slider = new magic.setup.slider("s1", {
-		'switch': 'on',
-		onfxstart: function(){
-			ok(true, "The onfxstart is fire");
-		},
-		onfx: function(){
-			num ++;
-			if(num == 1)
-				ok(true, "The onfx is fire");
-		},
-		onfxstop: function(){
-			ok(true, "The onfxstop is fire");
+		fx: {
+			enable: true,
+			onfxstart: function(){
+				ok(true, "The onfxstart is fire");
+			},
+			onfx: function(){
+				num ++;
+				if(num == 1)
+					ok(true, "The onfx is fire");
+			},
+			onfxstop: function(){
+				ok(true, "The onfxstop is fire");
+			}
 		}
 	});
 	setTimeout(function(){
-		ua.mousemove(slider.getElement(), {
-			clientX : baidu.dom.getPosition(slider.getElement("")).left + 42,
-			clientY : baidu.dom.getPosition(slider.getElement("")).top
+		ua.mousemove(slider.getElement("view"), {
+			clientX : baidu.dom.getPosition(slider.getElement("view")).left + 42,
+			clientY : baidu.dom.getPosition(slider.getElement("view")).top
 		});
-		ua.mousedown(slider.getElement());
+		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
-			equals(baidu.dom.getPosition(slider.getElement("knob")).left, baidu.dom.getPosition(slider.getElement("")).left + 42 - 9, "The position of The knob is right");
+			equals(baidu.dom.getPosition(slider.getElement("knob")).left, baidu.dom.getPosition(slider.getElement("view")).left + 42 - 11, "The position of The knob is right");
 			slider.dispose();
 			var l2 = baidu.event._listeners.length;
 			equals(l2, l1, "The events are un");
@@ -162,19 +160,21 @@ test("setup, orientation&accuracy&duration", function(){
 	expect(1);
 	enSetupV();
 	var slider = new magic.setup.slider("s1", {
-		'switch': 'on',
 		orientation: 'vertical',
 		accuracy: 0.1,
-		duration: 100
+		fx:{
+			enable: true,
+			duration: 100
+		}
 	});
 	setTimeout(function(){
-		ua.mousemove(slider.getElement(), {
-			clientX : baidu.dom.getPosition(slider.getElement("")).left,
-			clientY : baidu.dom.getPosition(slider.getElement("")).top + 42
+		ua.mousemove(slider.getElement("view"), {
+			clientX : baidu.dom.getPosition(slider.getElement("view")).left,
+			clientY : baidu.dom.getPosition(slider.getElement("view")).top + 42
 		});
-		ua.mousedown(slider.getElement());
+		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
-			equals(baidu.dom.getPosition(slider.getElement("knob")).top, baidu.dom.getPosition(slider.getElement("")).top + 40 - 8, "The position of The knob is right");
+			equals(baidu.dom.getPosition(slider.getElement("knob")).top, baidu.dom.getPosition(slider.getElement("view")).top + 40 - 11, "The position of The knob is right");
 			slider.dispose();
 			document.body.removeChild(div);
 			start();
