@@ -302,6 +302,8 @@ test("render, setRange, backward", function(){
 test("render, events&dispose", function(){
 	stop();
 	expect(8);
+	var slide = 0;
+	var change = 0;
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "div1";
@@ -309,17 +311,18 @@ test("render, events&dispose", function(){
 	var l1 = baidu.event._listeners.length;
 	var slider = new magic.Slider({
 		accuracy: 0.1,
-		onload: function(){
-			ok(true, "Th onload is fire");
-		},
 		onchange:function(){
-			ok(true, "The onchange is fire");
+			change ++;
+			if(change <= 2)    //会触发多次onchange
+				ok(true, "The onchange is fire");
 		},
 		onslidestart: function(){
 			ok(true, "The onslidestart is fire");
 		},
 		onslide: function(){
-			ok(true, "The onslide is fire");
+			slide ++;
+			if(slide <= 1)    //会触发多次onchange
+				ok(true, "The onslide is fire");
 		},
 		onslidestop: function(){
 			ok(true, "The onslidestop is fire");
