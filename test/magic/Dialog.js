@@ -51,7 +51,7 @@ test("default params, title & content, html", function(){
 	});
 	dialog.render("one-dialog");
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
-	equals(dialog.getElement("content").innerHTML, "<span>dialog内容</span>", "The content is right");
+	equals(dialog.getElement("content").innerHTML.toLowerCase(), "<span>dialog内容</span>", "The content is right");
 	document.body.removeChild(div);
 });
 
@@ -66,7 +66,8 @@ test("default params, title & content, dom", function(){
 	$(cdiv).html("dialog内容");
 	var dialog = new magic.Dialog({
 		titleText : '<span>标题</span>',
-		content : cdiv
+		content : cdiv,
+		contentType: "element"
 	});
 	dialog.render("one-dialog");
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
@@ -87,6 +88,7 @@ test("all params", function(){
 	var dialog = new magic.Dialog({
 		titleText : '标题',
 		content : cdiv,
+		contentType: "element",
 		left : 10,
 		top : 20,
 		height : 200,
