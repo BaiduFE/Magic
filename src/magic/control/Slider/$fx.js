@@ -56,19 +56,19 @@ baidu.lang.register(magic.control.Slider, function(options){
 
     /**
      * 动画开始触发
-     * @name magic.control.Slider#onfxstart
+     * @name magic.control.Slider.$fx#onfxstart
      * @event 
      * @param   {baidu.lang.Event}   evt        事件参数
      */
     /**
      * 动画中触发
-     * @name magic.control.Slider#onfx
+     * @name magic.control.Slider.$fx#onfx
      * @event 
      * @param   {baidu.lang.Event}   evt        事件参数
      */
     /**
      * 动画结束触发
-     * @name magic.control.Slider#onfxstop
+     * @name magic.control.Slider.$fx#onfxstop
      * @event 
      * @param   {baidu.lang.Event}   evt        事件参数
      */
