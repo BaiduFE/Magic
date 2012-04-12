@@ -409,8 +409,8 @@ test("drag", function(){
 				w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
 				me.finish();
 				document.body.removeChild(f.parentNode);
-			}, 100);
-		}, 10);
+			}, 200);
+		}, 20);
 	})	
 });
 
