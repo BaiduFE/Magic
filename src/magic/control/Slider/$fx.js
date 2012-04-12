@@ -14,9 +14,6 @@
  * @param {Object} options config参数.
  * @config      {Boolean}           fx.enable            是否开启动画效果，true || false, 默认为false
  * @config      {Number}            fx.duration          动画持续时间
- * @config      {Function}          fx.onfxstart         function(){}，动画开始
- * @config      {Function}          fx.onfx              function(){}，动画进行中
- * @config      {Function}          fx.onfxstop          function(){}，动画结束
  * @author qiaoyue
  */
 baidu.lang.register(magic.control.Slider, function(options){
@@ -56,6 +53,25 @@ baidu.lang.register(magic.control.Slider, function(options){
         info.currentValue = value;    
     },
 
+
+    /**
+     * 动画开始触发
+     * @name magic.control.Slider#onfxstart
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     */
+    /**
+     * 动画中触发
+     * @name magic.control.Slider#onfx
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     */
+    /**
+     * 动画结束触发
+     * @name magic.control.Slider#onfxstop
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     */
     /**
      * 动画移动
      * @private
@@ -74,14 +90,16 @@ baidu.lang.register(magic.control.Slider, function(options){
         
         me._fx = baidu.fx.moveTo(knob, pointer, {
             duration: opt.duration || 200,
-            onbeforestart: opt.onfxstart,
+            onbeforestart: function(){
+                me.fire('onfxstart');
+            },
             onafterupdate: function(){
                 var pos = me._getProcessPos(me._getRealPos(knob, _knobKey));
                 baidu.dom.setStyle(process, _accuracyKey, pos);
-                opt.onfx && opt.onfx.call(this, arguments);
+                me.fire('onfx');
             },
             onafterfinish: function(){
-                opt.onfxstop && opt.onfxstop.call(this, arguments);
+                me.fire('onfxstop');
                 me._reset(pos);
                 fn && fn(pos);
                 delete me._fx;
