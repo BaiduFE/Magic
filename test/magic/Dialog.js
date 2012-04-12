@@ -413,8 +413,8 @@ test("drag", function(){
 				w.document.body.removeChild(div);
 				me.finish();
 				document.body.removeChild(f.parentNode);
-			}, 100);
-		}, 10);
+			}, 200);
+		}, 20);
 	})	
 });
 

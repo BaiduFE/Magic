@@ -306,23 +306,23 @@ test("setup, events&dispose", function(){
 	var change = 0;
 	var l1 = baidu.event._listeners.length;
 	var slider = new magic.setup.slider("s1", {
-		accuracy: 0.1,
-		onchange:function(){
-			change ++;
-			if(change <= 2)    //会触发多次onchange
-				ok(true, "The onchange is fire");
-		},
-		onslidestart: function(){
-			ok(true, "The onslidestart is fire");
-		},
-		onslide: function(){
-			slide ++;
-			if(slide <= 1)    //会触发多次onchange
-				ok(true, "The onslide is fire");
-		},
-		onslidestop: function(){
-			ok(true, "The onslidestop is fire");
-		}
+		accuracy: 0.1
+	});
+	slider.on("onchange", function(){
+		change ++;
+		if(change <= 2)    //会触发多次onchange
+			ok(true, "The onchange is fire");
+	});
+	slider.on("onslidestart", function(){
+		ok(true, "The onslidestart is fire");
+	});
+	slider.on("onslide", function(){
+		slide ++;
+		if(slide <= 1)    //会触发多次onchange
+			ok(true, "The onslide is fire");
+	});
+	slider.on("onslidestop", function(){
+		ok(true, "The onslidestop is fire");
 	});
 	ua.mousemove(slider.getElement("knob"), {
 		clientX : baidu.dom.getPosition(slider.getElement("view")).left,
