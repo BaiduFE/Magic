@@ -399,18 +399,20 @@ test("drag", function(){
 		});
 		dialog.render("one-dialog");
 		ua.mousedown(dialog.getElement("title"));
-		ua.mousemove(dialog.getElement("title"), {
-			clientX : 50,
-			clientY : 50
-		});
 		var me = this;
 		setTimeout(function(){
-			equals(dialog.getElement().style.left, "50px", "The left is right");
-			equals(dialog.getElement().style.top, "50px", "The top is right");
-			w.document.body.removeChild(div);
-			me.finish();
-			document.body.removeChild(f.parentNode);
-		}, 100);
+			ua.mousemove(dialog.getElement("title"), {
+				clientX : 50,
+				clientY : 50
+			});
+			setTimeout(function(){
+				equals(dialog.getElement().style.left, "50px", "The left is right");
+				equals(dialog.getElement().style.top, "50px", "The top is right");
+				w.document.body.removeChild(div);
+				me.finish();
+				document.body.removeChild(f.parentNode);
+			}, 100);
+		}, 10);
 	})	
 });
 
