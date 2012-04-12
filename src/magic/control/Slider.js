@@ -93,7 +93,6 @@ magic.control.Slider.extend({
 
     /**
      * 禁用组件
-     * @param  {}   none
      * @return {}   none
      */
     disable: function(){
@@ -102,7 +101,6 @@ magic.control.Slider.extend({
 
     /**
      * 启用组件
-     * @param  {}   none
      * @return {}   none
      */
     enable: function(){
@@ -132,7 +130,6 @@ magic.control.Slider.extend({
 
     /**
      * 获取组件的值
-     * @param  {}         none
      * @return {float}    value    组件当前值
      */
     getValue: function(){
@@ -141,7 +138,7 @@ magic.control.Slider.extend({
 
     /**
      * 设置范围
-     * @param  {float}    value    组件最大值
+     * @param  {float}    value    设置组件的取值范围(0-1)
      * @return {}         none
      */
     setRange: function(value){

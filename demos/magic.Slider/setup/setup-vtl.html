@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="../../../resources/default/magic.control.Slider/magic.Slider.css"/>
     <script src="../../../src/import.php?f=baidu.dom.ready,magic.Slider,magic.setup.slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
     <style type="text/css">
-        html, body{height:100%;}
+        html, body, .demo{height:100%;}
         .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
         .wrap{width:200px;margin:10px auto;font-size:12px;}
     </style>
 </head>
 <body>
     <div class="demo">
+        <h1>Slider 组件 <strong>setup</strong> 模式示例</h1>
         <div id="view1" class="view">
             <div class="wrap">
                 <p>精确度：0</p>
@@ -70,6 +71,9 @@
             s1.setRange(0.5);
             s2.setCache(1);
             s2.setValue(0.5);
+
+            window.s1 = s1;
+            window.s2 = s2;
         });
     </script>
 
