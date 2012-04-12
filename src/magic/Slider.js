@@ -25,7 +25,6 @@
  * @config      {String}                  direction         决定从哪一端开始移动，'forwrad' || 'backward'
  * @config      {Float}                   accuracy          精确度，0-1之间的小数
  * @config      {Number}                  currentValue      Slider的初始值，即游标初始位置
- * @config      {Function}                load              时间线函数
  * @author      qiaoyue
  */
 magic.Slider = baidu.lang.createClass(function(options){

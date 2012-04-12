@@ -29,24 +29,24 @@
 /** 游标 */
 .tang-slider .tang-knob{position:absolute;display:block;height:21px;width:21px;outline:none;z-index:10;}
 
-.tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-h-knob.png");}
-.tang-slider-htl .tang-knob:hover{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-h-knobHover.png");}
-.tang-slider-htl .tang-knob:active{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-h-knobHover.png");}
+.tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knob.png");}
+.tang-slider-htl .tang-knob:hover{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+.tang-slider-htl .tang-knob:active{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
 
-.tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-v-knob.png");}
-.tang-slider-vtl .tang-knob:hover{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-v-knobHover.png");}
-.tang-slider-vtl .tang-knob:active{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/tangram/magic/resources/default/magic.control.Slider/slider-v-knobHover.png");}
+.tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knob.png");}
+.tang-slider-vtl .tang-knob:hover{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+.tang-slider-vtl .tang-knob:active{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
 
 /** 进度条 */
 .tang-slider .tang-process{position:absolute;z-index:6;overflow:hidden;}
 
 .tang-slider-htl .tang-process{height:8px;width:0px;background:url("slider-h-bg1.png") repeat-x left top;}
 .tang-slider-htl .tang-process-forward{left:0;top:0;}
-.tang-slider-htl .tang-process-backward{right:0;_right:-1px;top:0;}
+.tang-slider-htl .tang-process-backward{right:0;top:0;_right:-1px;}
 
 .tang-slider-vtl .tang-process{width:8px;height:8px;background:url("slider-v-bg1.png") repeat-y left top;}
 .tang-slider-vtl .tang-process-forward{left:0;top:0;}
-.tang-slider-vtl .tang-process-backward{left:0;bottom:0;}
+.tang-slider-vtl .tang-process-backward{left:0;bottom:0;_bottom:-1px;}
 
 /** 缓存条 */
 .tang-slider .tang-cache{position:absolute;}
@@ -61,7 +61,7 @@
 .tang-slider-vtl .tang-cache-corner{width:6px;height:9px;background-image:url("cache-v-corner.png");position:absolute;}
 .tang-slider-vtl .tang-cache{width:6px;background:url("cache-v-bg.png") repeat-y left top;}
 .tang-slider-vtl .tang-cache-forward{left:1px;top:0;}
-.tang-slider-vtl .tang-cache-backward{left:1px;bottom:0;}
+.tang-slider-vtl .tang-cache-backward{left:1px;bottom:0;_bottom:-1px;}
 .tang-slider-vtl .tang-cache-last{background-position:right top;bottom:-8px;left:0;z-index:5;}
 .tang-slider-vtl .tang-cache-backward .tang-cache-start{background-position:left top;top:-8px;left:0;z-index:5;}
 
