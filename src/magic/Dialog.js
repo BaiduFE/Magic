@@ -72,13 +72,13 @@ magic.Dialog.extend(
     	var template = magic.Dialog.template.join("");
         baidu.dom.addClass(el, "tang-ui tang-dialog");
 
-        var content = "";
-        if(typeof this.content == "string")
-            content = this.content;
+        // var content = "";
+        // if(typeof this.content == "string")
+        //     content = this.content;
 
         baidu.dom.insertHTML(el, "beforeEnd", baidu.string.format(template, {
         	title: baidu.string.encodeHTML(this.titleText || "") || "&nbsp;",
-        	content: baidu.string.encodeHTML(content) || "",
+        	content: "",
         	titleId: this.getId("title"),
         	titleTextId: this.getId("titleText"),
         	titleButtonsId: this.getId("titleButtons"),
@@ -98,8 +98,9 @@ magic.Dialog.extend(
 
 		this.setSize(this);
 		this.setPosition(this.left, this.top);
-		if(this.content && this.content.nodeType)
-		    this.getElement("content").appendChild(this.content);
+
+		if(this.content)
+		    this.setContent(this.content, this.contentType);
 		
         this.fire("load");
         this.show();
