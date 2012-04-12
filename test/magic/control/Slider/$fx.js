@@ -52,19 +52,19 @@ test("render, default params&events", function(){
 			var l1 = baidu.event._listeners.length;
 			var slider = new magic.Slider({
 				fx:{
-					enable: true,
-					onfxstart: function(){
-						ok(true, "The onfxstart is fire");
-					},
-					onfx: function(){
-						num ++;
-						if(num == 1)
-							ok(true, "The onfx is fire");
-					},
-					onfxstop: function(){
-						ok(true, "The onfxstop is fire");
-					}
+					enable: true
 				}
+			});
+			slider.on("onfxstart", function(){
+				ok(true, "The onfxstart is fire");
+			});
+			slider.on("onfx", function(){
+				num ++;
+				if(num == 1)
+					ok(true, "The onfx is fire");
+			});
+			slider.on("onfxstop", function(){
+				ok(true, "The onfxstop is fire");
 			});
 			slider.render('div1');
 
@@ -124,19 +124,19 @@ test("setup, default params&events", function(){
 	var l1 = baidu.event._listeners.length;
 	var slider = new magic.setup.slider("s1", {
 		fx: {
-			enable: true,
-			onfxstart: function(){
-				ok(true, "The onfxstart is fire");
-			},
-			onfx: function(){
-				num ++;
-				if(num == 1)
-					ok(true, "The onfx is fire");
-			},
-			onfxstop: function(){
-				ok(true, "The onfxstop is fire");
-			}
+			enable: true
 		}
+	});
+	slider.on("onfxstart", function(){
+		ok(true, "The onfxstart is fire");
+	});
+	slider.on("onfx", function(){
+		num ++;
+		if(num == 1)
+			ok(true, "The onfx is fire");
+	});
+	slider.on("onfxstop", function(){
+		ok(true, "The onfxstop is fire");
 	});
 	setTimeout(function(){
 		ua.mousemove(slider.getElement("view"), {

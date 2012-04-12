@@ -310,23 +310,23 @@ test("render, events&dispose", function(){
 	$(div).css("width", "222px");
 	var l1 = baidu.event._listeners.length;
 	var slider = new magic.Slider({
-		accuracy: 0.1,
-		onchange:function(){
-			change ++;
-			if(change <= 2)    //会触发多次onchange
-				ok(true, "The onchange is fire");
-		},
-		onslidestart: function(){
-			ok(true, "The onslidestart is fire");
-		},
-		onslide: function(){
-			slide ++;
-			if(slide <= 1)    //会触发多次onchange
-				ok(true, "The onslide is fire");
-		},
-		onslidestop: function(){
-			ok(true, "The onslidestop is fire");
-		}
+		accuracy: 0.1
+	});
+	slider.on("onchange", function(){
+		change ++;
+		if(change <= 2)    //会触发多次onchange
+			ok(true, "The onchange is fire");
+	});
+	slider.on("onslidestart", function(){
+		ok(true, "The onslidestart is fire");
+	});
+	slider.on("onslide", function(){
+		slide ++;
+		if(slide <= 1)    //会触发多次onchange
+			ok(true, "The onslide is fire");
+	});
+	slider.on("onslidestop", function(){
+		ok(true, "The onslidestop is fire");
 	});
 	slider.render('div1');
 	ua.mousemove(slider.getElement("view"), {
