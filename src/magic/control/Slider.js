@@ -27,11 +27,8 @@
  * @config      {String}                  direction         决定从哪一端开始移动，'forwrad' || 'backward'
  * @config      {Float}                   accuracy          精确度，0-1之间的小数
  * @config      {Number}                  currentValue      Slider的初始值，即游标初始位置
- * @config      {Function}                load              时间线函数
- * @config      {Function}                onchange          function(){}，dang数值变化时触发
- * @config      {Function}                onslidestart      function(){}，开始拖拽游标
- * @config      {Function}                onslide           function(){}，拖拽游标滑动
- * @config      {Function}                onslidestop       function(){}，拖拽游标结束
+ * @plugin      fx                        为Slider组件增加动画滚动功能
+ * @plugin      cache                     为Slider组件增加缓存进度功能
  * @author      qiaoyue
  */
 magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options){
