@@ -216,7 +216,7 @@ magic.control.Slider.extend({
         me._recover();
         baidu.dom.drag(knob, {range: rect, fix: [info._knobKey, offset], 
             ondragstart: function(){
-                info.onslidestart && info.onslidestart.call(this, arguments);
+                me.fire('onslidestart');
             },
 
             ondrag: function(){
@@ -224,15 +224,15 @@ magic.control.Slider.extend({
                 baidu.dom.setStyle(process, info._accuracyKey, me._getProcessPos(pos));
                 me._setCurrentValue(pos);
 
-                info.onslide && info.onslide.call(this, arguments);
-                info.onchange && info.onchange.call(this, info.currentValue);
+                me.fire('onslide');
+                me.fire('onchange', {value: info.currentValue});
             },
 
             ondragend: function(knob, op, pos){
                 pos = pos[info._knobKey];
                 me._reset(pos);
                 accuracy && me._useAdsorbr(pos);
-                info.onslidestop && info.onslidestop.call(this, arguments);
+                me.fire('onslidestop');
             }
         });
     },
@@ -438,7 +438,7 @@ magic.control.Slider.extend({
            noAccuracy = evt.noAccuracy || !info.accuracy,
            callback = function(pos){
                 me._isMoving = false;
-                info.onchange && info.onchange.call(me, info.currentValue);           
+                me.fire('onchange', {value: info.currentValue});        
             };
 
         pos == undefined && (pos = me._getMousePos()); // 没有传值，计算鼠标位置
@@ -511,6 +511,31 @@ magic.control.Slider.extend({
         info._accuracyZone = accuracyZone.concat(info[_accuracyKey]);
     },
 
+    /**
+     * 拖动开始触发
+     * @name magic.control.Slider#onslidestart
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     */
+    /**
+     * 拖动中触发
+     * @name magic.control.Slider#onslide
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     */
+    /**
+     * 拖动结束触发
+     * @name magic.control.Slider#onslidestop
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     */
+    /**
+     * 当组件值发生改变时触发
+     * @name magic.control.Slider#onchange
+     * @event 
+     * @param   {baidu.lang.Event}   evt        事件参数
+     * @config  {Number}             value      组件当前值
+     */
     /**
      * 事件控制器
      * @private

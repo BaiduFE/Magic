@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
+    <meta name="description" content="Slider组件 setup模式 竖直示例" />
+    <title>Slider组件 setup模式 竖直示例</title>
+    <link rel="stylesheet" href="../../../resources/default/magic.control.Slider/magic.Slider.css"/>
+    <script src="../../../src/import.php?f=magic.Slider,magic.setup.slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
+    <style type="text/css">
+        html, body{height:100%;}
+        .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+        .wrap{width:200px;margin:10px auto;font-size:12px;}
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <div id="view1" class="view">
+            <div class="wrap">
+                <p>精确度：0</p>
+                <button onclick="s1.enable();">启用</button>
+                <button onclick="s1.disable();">禁用</button>
+                <p>animate: <input type="checkbox" name="" value="yes" onclick="s1._info.fx.enable = this.checked;"></p>
+            </div>
+            <div id="s1" class="tang-ui tang-slider tang-slider-vtl" style="">
+                <div class="tang-view">
+                    <div class="tang-content">
+                        <div class="tang-corner tang-start"></div>
+                        <div class="tang-corner tang-last"></div>
+                        <div class="tang-inner"><div class="tang-process tang-process-forward"></div></div>
+                    </div>
+                    <a href="javascript:;" class="tang-knob"></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="view2" class="view">
+            <div class="wrap">
+                <p>精确度：0</p>
+                <button onclick="s2.enable();">启用</button>
+                <button onclick="s2.disable();">禁用</button>
+                <p>animate: <input type="checkbox" name="" value="yes" onclick="s2._info.fx.enable = this.checked;"></p>
+            </div>
+            <div id="s2" class="tang-ui tang-slider tang-slider-vtl" style="">
+                <div class="tang-view">
+                    <div class="tang-content">
+                        <div class="tang-corner tang-start-backward"></div>
+                        <div class="tang-corner tang-last-backward"></div>
+                        <div class="tang-inner"><div class="tang-process tang-process-backward"></div></div>
+                    </div>
+                    <a href="javascript:;" class="tang-knob"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var s1 = magic.setup.slider('s1', {orientation: 'vertical', direction: 'forward', fx:{enable: false}, cache:{enable:true},
+            onchange:function(v){
+                
+            }}); 
+
+        var s2 = magic.setup.slider('s2', {accuracy: 0, orientation: 'vertical', direction: 'backward', fx:{enable: false}, cache:{enable:true},
+            onchange:function(v){
+
+            }}); 
+
+        s1.setCache(0.5);
+        s1.setRange(0.5);
+        s2.setCache(1);
+        s2.setValue(0.5);
+    </script>
+
+</body>
+</html>
