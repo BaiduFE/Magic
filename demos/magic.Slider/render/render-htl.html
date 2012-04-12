@@ -4,8 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
     <meta name="description" content="Slider组件 render模式 水平示例" />
     <title>Slider组件 render模式 水平示例</title>
+    <link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css"/>
     <link rel="stylesheet" href="../../../resources/default/magic.control.Slider/magic.Slider.css"/>
-    <script src="../../../src/import.php?f=magic.Slider,magic.setup.slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
+    <script src="../../../src/import.php?f=baidu.dom.ready,magic.Slider,magic.control.slider.$fx,magic.control.slider.$cache" type="text/javascript"></script>
     <style type="text/css">
         .view{margin:20px 20px 10px;width:60%;}
         .wrap{margin:10px auto;font-size:12px;}
@@ -34,16 +35,18 @@
         </div>
     </div>
     <script type="text/javascript">
-        var s1 = new magic.Slider({orientation:'horizonal', direction:'forward', fx:{enable: false}, cache:{enable:true}}); 
+        baidu.dom.ready(function(){
+            var s1 = new magic.Slider({orientation:'horizonal', direction:'forward', fx:{enable: false}, cache:{enable:true}}); 
 
-        var s2 = new magic.Slider({accuracy:0.25, orientation:'horizonal', direction:'backward', fx:{enable: false}, cache:{enable:true}}); 
-       
-        s1.render('s1');
-        s2.render('s2');
-
-        s1.setCache(0.5);
-        s1.setRange(0.5);
-        s2.setCache(1);
+            var s2 = new magic.Slider({accuracy:0.25, orientation:'horizonal', direction:'backward', fx:{enable: false}, cache:{enable:true}}); 
+           
+            s1.render('s1');
+            s2.render('s2');
+    
+            s1.setCache(0.5);
+            s1.setRange(0.5);
+            s2.setCache(1);
+        });
     </script>
 
 </body>
