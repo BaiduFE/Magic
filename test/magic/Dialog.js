@@ -414,7 +414,7 @@ test("drag", function(){
 				me.finish();
 				document.body.removeChild(f.parentNode);
 			}, 200);
-		}, 20);
+		}, 50);
 	})	
 });
 
