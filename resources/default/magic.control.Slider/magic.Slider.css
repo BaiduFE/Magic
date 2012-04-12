@@ -29,13 +29,13 @@
 /** 游标 */
 .tang-slider .tang-knob{position:absolute;display:block;height:21px;width:21px;outline:none;z-index:10;}
 
-.tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knob.png");}
-.tang-slider-htl .tang-knob:hover{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
-.tang-slider-htl .tang-knob:active{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+.tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("slider-h-knob.png") no-repeat left top;/*_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knob.png");*/}
+.tang-slider-htl .tang-knob:hover{background-image:url("slider-h-knobHover.png");/*_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");*/}
+.tang-slider-htl .tang-knob:active{background-image:url("slider-h-knobHover.png");/*_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");*/}
 
-.tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knob.png");}
-.tang-slider-vtl .tang-knob:hover{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
-.tang-slider-vtl .tang-knob:active{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+.tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("slider-v-knob.png") no-repeat left top;/*_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knob.png");*/}
+.tang-slider-vtl .tang-knob:hover{background-image:url("slider-v-knobHover.png");/*_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");*/}
+.tang-slider-vtl .tang-knob:active{background-image:url("slider-v-knobHover.png");/*_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");*/}
 
 /** 进度条 */
 .tang-slider .tang-process{position:absolute;z-index:6;overflow:hidden;}
