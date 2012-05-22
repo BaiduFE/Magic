@@ -250,6 +250,7 @@ test("render, all param, currentPagePos=currentPage", function(){
 });
 
 test("render, pagechange event", function(){
+	expect(2);
 	var div1 = document.createElement("div");
 	document.body.appendChild(div1);
 	div1.id = "div1";
@@ -260,7 +261,6 @@ test("render, pagechange event", function(){
 	});
 	pager1.on("pagechange", function(e, data){
 		equals(data.pageNum, 2, "The pageNum is right");
-		equals(data.DOMEvent.type, "click", "The DOMEvent is right");
 	})
 	pager1.render('div1');
 	ua.click(pager1.getElement("main").childNodes[1]);
