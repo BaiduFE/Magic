@@ -68,7 +68,7 @@
         <script type="text/javascript" charset="utf-8">
             var ca1 = new magic.Calendar({
                 weekStart: 'sun',
-                initDate: new Date('2012/05/08'),
+                initDate: new Date('2012/05/30'),
                 highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                 disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
             });
@@ -81,12 +81,17 @@
                 weekStart: 'wed',
                 highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                 disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
-                language: 'en-US'
+                language: 'en-US',
+                title: {
+                    enable: false
+                }
             });
             ca2.render("J_calendar2");
             ca2.on("selectdate", function(e){
                 baidu.dom.g("J_input2").value = ca2._formatDate(e.date);
             });
+            
+            
         </script>
     </body>
 </html>

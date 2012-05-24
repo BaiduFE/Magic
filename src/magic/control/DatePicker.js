@@ -32,10 +32,10 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	var me = this;
 	
 	me.language = options.language || "zh-CN";
-    me.format = me.format || baidu.i18n.cultures[me.language].calendar.dateFormat || 'yyyy-MM-dd';
+    me.format = options.format || baidu.i18n.cultures[me.language].calendar.dateFormat || 'yyyy-MM-dd';
     me.popupOption = baidu.object.merge({"autoHide": false, "autoTurn": false, 'disposeOnHide': false}, options.popupOptions);
     me.calendarOption = baidu.object.merge({}, options.calendarOptions);
-    
+    me.calendarOption.language = me.language;
     
 },{
 	type: "magic.control.DatePicker",
@@ -61,7 +61,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 		me.calendar.on("selectdate", function(e){
 	    	//格式化日期
 	    	input.value = baidu.date.format(e.date, me.format);
-	    	popup.hide();
+	    	me.hide();
 	    });
 	    
 	    function focusHandler(){
@@ -114,7 +114,8 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 
 		me.calendar.setDate(me._getInputDate() || new Date());
 		me.popup.attach(me.input, {
-			'offsetY': -1
+			'offsetY': me.popupOption.offsetY || -1,
+			'offsetX': me.popupOption.offsetY || 0
 		});
 		
 		/**

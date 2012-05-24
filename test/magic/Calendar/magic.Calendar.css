@@ -117,3 +117,7 @@
     background: url(./bg.png) no-repeat right -61px;
     padding-right: 12px;
 }
+
+.cssloaded{
+    width: 20px
+}

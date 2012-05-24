@@ -16,6 +16,7 @@
 ///import baidu.i18n.cultures.zh-CN;
 ///import baidu.i18n.date;
 ///import baidu.lang.isDate;
+///import baidu.date.format;
 ///import baidu.event.on;
 ///import baidu.event.un;
 ///import baidu.event.preventDefault;
@@ -36,28 +37,26 @@
  * @superClass magic.control.Calendar
  */
 magic.Calendar = baidu.lang.createClass(function(options){
+    var me = this;
     
-    //默认配置
-    var defaultOptions = {
+    me._options = baidu.object.extend({
         weekStart: 'sun',
         initDate: new Date(),
         highlightDates: [],
         disabledDates: [],
         language: 'zh-CN'
-    };
+    }, options || {});
     
-    baidu.object.extend(defaultOptions, options || {});
-    baidu.object.extend(this, defaultOptions);
     
     //当前日期表所显示的日期
     //使用new Date重新实例化，避免引用
-    this.currentDate = new Date(this.initDate);
+    me.currentDate = new Date(me._options.initDate);
 
      //存储选中的日期
-    this.selectedDate = new Date(this.initDate);
+    me.selectedDate = new Date(me._options.initDate);
 
     //当前日历显示周一到周日的顺序
-    this.dayNames = [];
+    me.dayNames = [];
 
 }, { type: "magic.Calendar", superClass : magic.Base });
 
@@ -178,9 +177,9 @@ magic.Calendar.extend(
             year = date.getFullYear(),
             month = date.getMonth() + 1;
             
-        me.titleEl.innerHTML = baidu.format(baidu.i18n.cultures[me.language].calendar.titleNames, {
+        me.titleEl.innerHTML = baidu.format(baidu.i18n.cultures[me._options.language].calendar.titleNames, {
             "yyyy": year,
-            'MM': baidu.i18n.cultures[me.language].calendar.monthNamesShort[month-1]
+            'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]
         });
     },
 
@@ -223,9 +222,14 @@ magic.Calendar.extend(
         var me = this,
             preBtn = me.preBtn,
             nextBtn = me.nextBtn,
-            mousedownrespond = false;
+            mousedownrespond = false,
+            preBtnClickHandler,
+            nextBtnClickHandler,
+            preBtnMouseHandler,
+            nextBtnMouseHandler,
+            documentHandler;
 
-        baidu.on(preBtn, 'click', function(){
+        baidu.on(preBtn, 'click', preBtnClickHandler = function(){
             !mousedownrespond && me.preMonth();
             mousedownrespond = false;
             /**
@@ -235,7 +239,7 @@ magic.Calendar.extend(
              */
             me.fire("premonth");
         });
-        baidu.on(nextBtn, 'click', function(){
+        baidu.on(nextBtn, 'click', nextBtnClickHandler = function(){
             !mousedownrespond && me.nextMonth();
             mousedownrespond = false;
             /**
@@ -266,18 +270,26 @@ magic.Calendar.extend(
             timer = null;
         };
         
-        baidu.on(preBtn, 'mousedown', function(){
+        baidu.on(preBtn, 'mousedown', preBtnMouseHandler = function(){
             mouseDownHandler('pre');
         });
 
-        baidu.on(nextBtn, 'mousedown', function(){
+        baidu.on(nextBtn, 'mousedown', nextBtnMouseHandler = function(){
             mouseDownHandler('next');
         });
         
-        baidu.on(document, 'mouseup', function(){
+        baidu.on(document, 'mouseup', documentHandler = function(){
             if(me.disposed) return;
             
             timer && mouseUpHandler();
+        });
+        
+        me.on("dispose", function(){
+            baidu.un(preBtn, 'click', preBtnClickHandler);
+            baidu.un(nextBtn, 'click', nextBtnClickHandler);
+            baidu.un(preBtn, 'mousedown', preBtnMouseHandler);
+            baidu.un(nextBtn, 'mousedown', nextBtnMouseHandler);
+            baidu.un(document, 'mouseup', documentHandler);
         });
           
     },
@@ -291,9 +303,9 @@ magic.Calendar.extend(
             dayNames = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
             dayName,
             theadString = [];
-            weekStart = me.weekStart.toLowerCase();
+            weekStart = me._options.weekStart.toLowerCase();
             index = baidu.array.indexOf(dayNames, weekStart),
-            i18nCalendar = baidu.i18n.cultures[me.language].calendar.dayNames,
+            i18nCalendar = baidu.i18n.cultures[me._options.language].calendar.dayNames,
             i = 0;
 
         theadString.push('<thead class="' + me._getClass("weekdays") + '"><tr>');
@@ -353,11 +365,11 @@ magic.Calendar.extend(
                     classname += ' ' + me._getClass("today");
                 }
                 //是否是高亮日期
-                if(me._datesContains(me.highlightDates, date)){
+                if(me._datesContains(me._options.highlightDates, date)){
                     classname += ' ' + me._getClass("highlight");
                 }
                 //是否是不可用日期
-                if(me._datesContains(me.disabledDates, date)){
+                if(me._datesContains(me._options.disabledDates, date)){
                     classname += ' ' + me._getClass("disable");
                 }
                 //是否是已选择的日期
@@ -447,9 +459,10 @@ magic.Calendar.extend(
             tbodyEl = baidu.dom.g(me._getId("table")).getElementsByTagName("tbody")[0],
             target,
             dateStr,
-            _selectedEl;
+            _selectedEl,
+            clickHandler;
 
-        baidu.on(tbodyEl, "click", function(e){
+        baidu.on(tbodyEl, "click", clickHandler = function(e){
             target = baidu.event.getTarget(e);
             if(target.tagName.toUpperCase() != "TD"){
                 return;
@@ -457,7 +470,7 @@ magic.Calendar.extend(
 
             dateStr = target.getAttribute('date');
             //判断日期是否处于不可用状态
-            if(me._datesContains(me.disabledDates, new Date(dateStr))){
+            if(me._datesContains(me._options.disabledDates, new Date(dateStr))){
                 return;
             }
 
@@ -482,6 +495,10 @@ magic.Calendar.extend(
                 'date': new Date(dateStr)
             });
         });
+        
+        me.on("dispose", function(){
+            baidu.un(tbodyEl, "click", clickHandler);
+        });
 
     },
 
@@ -491,7 +508,8 @@ magic.Calendar.extend(
     _addkeystrokesListener: function(){
         var me = this,
             listenerAdded = false,
-            calendarEl = baidu.dom.g(me._getId());
+            calendarEl = baidu.dom.g(me._getId()),
+            clickHandler;
 
         function keystrokesHandler(e){
             e = e || window.event;
@@ -520,7 +538,7 @@ magic.Calendar.extend(
             }
         }
 
-        baidu.on(document, "click", function(e){
+        baidu.on(document, "click", clickHandler = function(e){
             
             if(me.disposed) return;
             
@@ -535,18 +553,25 @@ magic.Calendar.extend(
                 baidu.on(document, "keydown", keystrokesHandler);
                 listenerAdded = true;
             }
-                
+        });
+        
+        me.on("dispose", function(){
+            baidu.un(document, "click", clickHandler);
         });
 
     },
 
     /**
      * 判断两个日期是否是同一天
-     * TODO: 单独做测试用例
      * @param {Date} d1 日期1
      * @param {Date} d2 日期2
      */
     _datesEqual: function(d1, d2){
+        
+        if(!baidu.lang.isDate(d1) || !baidu.lang.isDate(d2)){
+            return;
+        }
+        
         var year1 = d1.getFullYear(),
             month1 = d1.getMonth(),
             date1 = d1.getDate(),
@@ -560,7 +585,6 @@ magic.Calendar.extend(
 
     /**
      * 判断某日期是否在日期数组中
-     * TODO: 单独做测试用例
      * @param {Array} dates 日期数组
      * @param {Date} source 需要检查的日期
      */
@@ -578,20 +602,13 @@ magic.Calendar.extend(
                     return true;
                 }
             }else{
-                // if(item.start){
-                //     flag = (source.getTime() >= item.start.getTime() || me._datesEqual(source, item.start));
-                // }
+                if(item.end){
+                   item.end = new Date(baidu.date.format(item.end, "yyyy/MM/dd") + " 23:59:59"); //将结束时间调整为该天的23点59分59秒
+                }
 
-                // if(item.end){
-                //     flag = flag && (source.getTime() <= item.end.getTime() || me._datesEqual(source, item.end));
-                // }
-
-                // if(flag){
-                //     return true;
-                // }
-
-                return (!item.start || source.getTime() >= item.start.getTime()) &&
-                        (!item.end || source.getTime() <= item.end.getTime());
+                if((!item.start || source.getTime() >= item.start.getTime()) && (!item.end || source.getTime() <= item.end.getTime())){
+                    return true;
+                }
             }
         }
 
@@ -608,6 +625,7 @@ magic.Calendar.extend(
 
         me.currentDate.setFullYear(year);
 
+        me.currentDate.setDate(1);  //必须首先将日设置成1号，否则从1月30日或者3月30日向2月份跳转时会出错
         month = month === undefined ? me.currentDate.getMonth() : month - 1;
         me.currentDate.setMonth(month);
 
@@ -619,7 +637,7 @@ magic.Calendar.extend(
      * @return {Date} 当前选中的日期
      */
     getDate: function(){
-        return new Date(this.currentDate);
+        return new Date(this.selectedDate);
     },
     
     /**
@@ -629,9 +647,13 @@ magic.Calendar.extend(
     setDate: function(date){
         var me = this,
             _date = new Date(date);
+            
+        if(!baidu.lang.isDate(date)){
+            return;
+        }
 
         //判断日期是否处于不可用状态
-        if(me._datesContains(me.disabledDates, _date)){
+        if(me._datesContains(me._options.disabledDates, _date)){
             return;
         }
 
@@ -718,7 +740,6 @@ magic.Calendar.extend(
         }
         me.container.removeChild(baidu.dom.g(me._getId()));
         magic.Base.prototype.dispose.call(me);
-        
     }
     
     /**
