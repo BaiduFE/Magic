@@ -78,12 +78,12 @@
             });
             
             var ca2 = new magic.Calendar({
-                weekStart: 'wed',
+                weekStart: 'sat',
                 highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                 disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
                 language: 'en-US',
                 title: {
-                    enable: false
+                    enable: true
                 }
             });
             ca2.render("J_calendar2");

@@ -14,6 +14,7 @@
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.i18n.cultures.zh-CN;
+///import baidu.i18n.cultures.en-US;
 ///import baidu.i18n.date;
 ///import baidu.lang.isDate;
 ///import baidu.date.format;
