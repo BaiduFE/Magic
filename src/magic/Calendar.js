@@ -48,6 +48,10 @@ magic.Calendar = baidu.lang.createClass(function(options){
         language: 'zh-CN'
     }, options || {});
     
+    if(!options.initDate){
+        me._options.initDate = baidu.i18n.date.toLocaleDate(new Date());
+    }
+    
     
     //当前日期表所显示的日期
     //使用new Date重新实例化，避免引用
