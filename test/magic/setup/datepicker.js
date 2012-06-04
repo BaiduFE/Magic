@@ -194,9 +194,9 @@ test('日历的显示和隐藏', function(){
         setTimeout(function(){
             equals(dp.popup.getElement("").style.display, '', "click日历显示");
 
-            input.blur();
+            dp.hide();
             setTimeout(function(){
-                equals(dp.popup.getElement("").style.display, 'none', "blur日历隐藏");
+                equals(dp.popup.getElement("").style.display, 'none', "日历隐藏");
                 start();
                 dp.dispose();
                 document.body.removeChild(input);
@@ -222,6 +222,8 @@ test("在calendar显示的状态下改变input中的值", function(){
     }
     equals(formatDate(dp.calendar.selectedDate), '2012/05/06', "input值改变成有效日期字符串时，Calendar的当前选中日期也改变");
     
+    
+    var currentDate = dp.calendar.selectedDate;
     input.value="fdafdsafd";
     if (!("oninput" in document.body)) {
         
@@ -229,7 +231,7 @@ test("在calendar显示的状态下改变input中的值", function(){
         input.oninput();
     }
     
-    equals(formatDate(dp.calendar.selectedDate), formatDate(new Date()), "input值改变成无效日期字符串时，Calendar的当前选中日期不改变");
+    equals(formatDate(dp.calendar.selectedDate), formatDate(new Date(currentDate)), "input值改变成无效日期字符串时，Calendar的当前选中日期不改变");
     dp.dispose();
     document.body.removeChild(input);
 });

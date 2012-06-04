@@ -67,9 +67,6 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	    function focusHandler(){
             me.show();
         }
-        function blurHandler(){
-            me.hide();
-        }
         
         function documentClickHandler(e){
             var target = baidu.event.getTarget(e);
@@ -80,7 +77,6 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	    
 	    baidu.on(input, "click", focusHandler);
 	    baidu.on(input, "focus", focusHandler);
-        baidu.on(input, "blur", blurHandler);
 	    
 	    //input的值改变的时候，日历自动调整日期
 	    if (!("oninput" in document.body)) {
@@ -92,8 +88,8 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         }
         input.oninput = function() {
             if(me.disposed) return;
-            //TODO 是否应该跳转到该月份??
-            me.calendar.setDate(me._getInputDate() || new Date());
+           
+            me._getInputDate() && me.calendar.setDate(me._getInputDate());
         }
         
 	    baidu.on(document, "click", documentClickHandler);
@@ -102,7 +98,6 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	    me.on("dispose", function(){
 	        baidu.un(input, "click", focusHandler);
             baidu.un(input, "focus", focusHandler);
-            baidu.un(input, "blur", blurHandler);
             baidu.un(document, "click", documentClickHandler);
         });
 	    
@@ -115,7 +110,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * 显示日历
      */
     show: function(){
-		var me = this;
+		var me = this,
 			date = new Date();
 
 		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || new Date());
@@ -137,6 +132,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      */
     hide: function(){
 		var me = this;
+		
 		me.popup.hide();
 		
 		/**
@@ -158,6 +154,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
             count = patrn.length,
             i = 0,
             regExp;
+            
         for(; i < count; i++){
             regExp = patrn[i].exec(me.format);
             key[i] = regExp ? regExp.index : null;

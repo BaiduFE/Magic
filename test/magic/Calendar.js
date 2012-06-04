@@ -110,7 +110,7 @@ test('默认参数', function(){
             var dateStr = baidu.dom.getAttr(selectedDateTD, "date");
             equals(dateStr, baidu.date.format(new Date(), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
             
-            equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;5月', '测试title是否使用中文格式显示');
+            equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;' + ((new Date()).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
 
             var disableDateTD = baidu.dom.q('tang-calendar-disable');
             equals(disableDateTD.length, 0, "不存在不可用的日期");

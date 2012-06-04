@@ -14,7 +14,6 @@
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.i18n.cultures.zh-CN;
-///import baidu.i18n.cultures.en-US;
 ///import baidu.i18n.date;
 ///import baidu.lang.isDate;
 ///import baidu.date.format;
@@ -83,8 +82,9 @@ magic.Calendar.extend(
      * @param {HTMLElement | String} el 指定容器
      */
     render: function(el){
-        var me = this,
-            container = me.container || (me.container = baidu.g(el));
+        var me = this;
+        
+        me.container = baidu.g(el);
 
         //渲染日历骨架
         me._renderSkeleton();
@@ -307,8 +307,8 @@ magic.Calendar.extend(
         var me = this,
             dayNames = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
             dayName,
-            theadString = [];
-            weekStart = me._options.weekStart.toLowerCase();
+            theadString = [],
+            weekStart = me._options.weekStart.toLowerCase(),
             index = baidu.array.indexOf(dayNames, weekStart),
             i18nCalendar = baidu.i18n.cultures[me._options.language].calendar.dayNames,
             i = 0;
@@ -401,7 +401,7 @@ magic.Calendar.extend(
     },
 
     /**
-     * 格式化日期，将给定日期格式化成2012-05-06
+     * 格式化日期，将给定日期格式化成2012/05/06
      */
     _formatDate: function(d){
         var year = d.getFullYear(),
@@ -415,7 +415,7 @@ magic.Calendar.extend(
     },
 
     /**
-     * 监听mouseover事件
+     * 响应mouseover事件
      */
     _mouseoverHandler: function(e){
         var me = this,
@@ -436,7 +436,7 @@ magic.Calendar.extend(
     },
 
     /**
-     * 监听mouseout事件
+     * 响应mouseout事件
      */
     _mouseoutHandler: function(e){
         var me = this,
@@ -599,6 +599,10 @@ magic.Calendar.extend(
             len = dates.length,
             item,
             flag = true;
+            
+        if(!baidu.lang.isDate(source)){
+            return;
+        }
 
         for(; i<len; i++){
             item = dates[i];

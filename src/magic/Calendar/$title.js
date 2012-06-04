@@ -25,7 +25,7 @@ baidu.lang.register(magic.Calendar, function(){
     
     if(!me._options.title.enable){return;}
     
-    //日历渲染完成后，给标题添加点击事件
+    //标题渲染完成后，添加点击事件
     me.on("titlerender", function(){
         var yearbtn = baidu.dom.g(me._getId("year")),
             monthbtn = baidu.dom.g(me._getId("month")),
@@ -76,7 +76,7 @@ baidu.lang.register(magic.Calendar, function(){
     /**
      * title部分年份和月份的span元素的模板
      */
-    me.tplTitle = '<span id="#{id}" class="#{class}" style="cursor:pointer;">#{text}</span>',
+    me.tplTitle = '<span id="#{id}" class="#{class}" style="cursor:pointer;">#{text}</span>';
     
     /**
      * 绘制日历标题
@@ -92,7 +92,7 @@ baidu.lang.register(magic.Calendar, function(){
         //根据i18n的title字符串，解析出年份和月份的先后顺序，然后生成HTML
         var i18ntitle = baidu.i18n.cultures[me._options.language].calendar.titleNames;
         i18ntitle = i18ntitle.split("&nbsp;");
-        if(/y/.test(i18ntitle[0])){
+        if(/y/.test(i18ntitle[0])){  //中文
             yearStr = baidu.format(i18ntitle[0], {"yyyy": year});
             monthStr = baidu.format(i18ntitle[1], {'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]});
             this.titleEl.innerHTML = baidu.format(me.tplTitle, {
@@ -104,7 +104,7 @@ baidu.lang.register(magic.Calendar, function(){
                                     "class": me._getClass("month"),
                                     "text": monthStr
                                 }) + monthselect;
-        }else{
+        }else{  //英文
             yearStr = baidu.format(i18ntitle[1], {"yyyy": year});
             monthStr = baidu.format(i18ntitle[0], {'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]});
             this.titleEl.innerHTML = baidu.format(me.tplTitle, {
@@ -119,5 +119,5 @@ baidu.lang.register(magic.Calendar, function(){
         }
         
         me.fire("titlerender");
-    }
+    };
 }, {});
