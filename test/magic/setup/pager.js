@@ -239,6 +239,7 @@ test("setup, all param, currentPagePos=currentPage", function(){
 });
 
 test("setup, pagechange event & dispose", function(){
+	expect(2);
 	var div1 = document.createElement("div");
 	document.body.appendChild(div1);
 	div1.id = "div1";
@@ -249,7 +250,6 @@ test("setup, pagechange event & dispose", function(){
 	});
 	pager1.on("pagechange", function(e, data){
 		equals(data.pageNum, 2, "The pageNum is right");
-		equals(data.DOMEvent.type, "click", "The DOMEvent is right");
 	})
 	ua.click(pager1.getElement("main").childNodes[1]);
 	var l2 = baidu.event._listeners.length;
