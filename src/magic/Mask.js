@@ -13,15 +13,14 @@
 
 ///import baidu.object.extend;
 ///import baidu.dom.insertHTML;
-///import baidu.page.getViewWidth;
-///import baidu.page.getViewHeight;
+///import baidu.page.getWidth;
+///import baidu.page.getHeight;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
 
 ///import baidu.event.on;
 ///import baidu.event.un;
 ///import baidu.browser.safari;
-///import baidu.browser.ie;
 
 /**
  * 遮罩层
@@ -48,14 +47,10 @@ magic.Mask = function(options){
 
 	baidu.object.extend(me, options || {});
 
-	var sf = baidu.browser.safari,
-        ie = baidu.browser.ie;
-        
+	me.width = me.height = "100%";
+
+	var sf = baidu.browser.safari;
 	baidu.dom.insertHTML(me.container, "afterbegin", me.toHTMLString());
-    
-    if(ie == 6){
-        me.getElement().style.position = "absolute";
-    }
     
     /**
      * @private
@@ -63,22 +58,8 @@ magic.Mask = function(options){
 	function resize(){
 		if (me.container == document.body) {
 			var ls = me.getElement().style;
-                
 			ls.display = "none";
-			me.setSize([baidu.page.getViewWidth(), baidu.page.getViewHeight()]);
-			ls.display = "";
-		}
-	}
-	
-	/**
-     * @private
-     */
-	function scroll(){
-		if (me.container == document.body) {
-			var ls = me.getElement().style;
-			ls.display = "none";
-			ls.top = baidu.page.getScrollTop()  + "px";
-			ls.left = baidu.page.getScrollLeft() + "px";
+			me.setSize([baidu.page.getWidth(), baidu.page.getHeight()]);
 			ls.display = "";
 		}
 	}
@@ -97,9 +78,7 @@ magic.Mask = function(options){
 
 	me.on("show", function(){
 		resize();
-		ie == 6 && scroll();
 		baidu.event.on(window, "onresize", resize);
-		ie == 6 && baidu.event.on(window, "onscroll", scroll);
 		var es = me.getElement().style;
 		es.opacity = me.opacity;
 		es.zIndex = me.zIndex;
@@ -110,7 +89,6 @@ magic.Mask = function(options){
 
 	me.on("hide", function(){
 		baidu.event.un(window, "onresize", resize);
-		ie == 6 && baidu.event.un(window, "onscroll", scroll);
 		sf && showObjects(true);
 	});
 
@@ -122,7 +100,7 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
 	 * @private
 	 */
 	toHTMLString : function(){
-		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
+		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:absolute; display:none;'>"
 			+("<iframe frameborder='0' style='"
 			+"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
 			+"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "
