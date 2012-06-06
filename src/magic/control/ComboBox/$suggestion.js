@@ -9,7 +9,7 @@
 
 (function(){
     
-var Timer = baidu.lang.createClass(function(options){
+var Timer = baidu.lang.createClass(function(options) {
     var me = this;
     me._options = baidu.object.extend({
         'circleTime' : 10,
@@ -20,17 +20,18 @@ var Timer = baidu.lang.createClass(function(options){
         }
     }, options);
     
-    me.previous = '';
+    me.previous = null;
     me.now = '';
     me.fireTimer = 0;
     me.timer = 0;
-    me.focusValue = me._options.originValue;
+    me.originValue = me._options.originValue;
+    me.focusValue = null;
     
 }).extend({
-    
+
     '_compare' : function(me) {
         me.now = me._options.getValue();
-        if(me.now == me.previous && me.now != me._options.originValue && me.focusValue != me.now) {
+        if (me.now == me.previous && me.focusValue != me.now && me.now != me.originValue) {
             if (me.fireTimer == 0) {
                 me.fireTimer = setTimeout(function() {
                     me.fire('fire', {
@@ -41,12 +42,10 @@ var Timer = baidu.lang.createClass(function(options){
         } else {
             clearTimeout(me.fireTimer);
             me.fireTimer = 0;
-            if (me.now == '' && me.previous != '' && me.now != me.focusValue) {
-                me.fire('fire', {
-                    'value' : ''
-                })
-            }
             me.previous = me.now;
+            if (me.now != me.originValue) {
+                me.originValue = null;
+            }
         }
     },
         
@@ -120,8 +119,7 @@ baidu.lang.register(magic.control.ComboBox, function(options) {
         return baidu.array.filter(this._options.items, function(item, index) {
             return (item.content.indexOf(key) != -1);
         });        
-    },
-  
+    }
 });    
 })();
 

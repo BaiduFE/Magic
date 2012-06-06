@@ -25,14 +25,19 @@
  * @return {magic.ComboBox} ComboBox实例
  */
 magic.ComboBox = baidu.lang.createClass(function(options) {
-    this._options = baidu.object.extend({
-        'items' : [],
-        'originIndex' : -1,
-        'readonly' : false,
-        'viewSize' : 5,
-        'disabled' : false,
-        'width' : '100%'
-    }, options);
+    
+    /* 解决在IE6、7下input的宽度问题
+     * 当前的input宽度需要自适应，还有10px的padding-left
+     * 通过将input的box-size设为border-box，可以减少大部分浏览器的差异
+     * 详见 http://fe.baidu.com/doc/duoyi/note/input_height.text 对此有任何疑问请联系多益 (wuduoyi@baidu.com)
+     * 由于box-size对于IE6、7是无效的，所以针对IE6、7需要用JS来控制宽度。
+     * by 夏登平 (xiadengping@baidu.com)
+     */
+    // if (baidu.browser.ie < 8) {
+        // this.on('load', function() {
+            // this.getElement('input').style.width = (this.getElement('container').clientWidth - 30) + 'px';
+        // });
+    // }
 }, {
     'type' : 'magic.ComboBox',
     'superClass' : magic.control.ComboBox
@@ -49,11 +54,13 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
             i = 0,
             length = items.length;
         HTMLString.push('<div id="' + this.getId('container') + '" class="magic-combobox">');
-        HTMLString.push('<div id="' + this.getId('input-container') + '" class="magic-combobox-input-container">');
-        HTMLString.push('<a href="#" id="' + this.getId('arrow') + '" class="magic-combobox-arrow" onclick="return false"></a>');
+        HTMLString.push('<div id="' + this.getId('input-container') + '" class="magic-combobox-input-container clearfix">');
         HTMLString.push('<div class="magic-combobox-input-outter">');
+        HTMLString.push('<div class="magic-combobox-input-inner">');
         HTMLString.push('<input id="' + this.getId('input') + '" class="magic-combobox-input"' + (this._options.readonly ? 'readonly' : '') + '>');
-        HTMLString.push('</div>');        
+        HTMLString.push('</div>');
+        HTMLString.push('</div>');
+        HTMLString.push('<a href="#" id="' + this.getId('arrow') + '" class="magic-combobox-arrow" onclick="return false"></a>');         
         HTMLString.push('</div>');
         HTMLString.push('</div>');
         return HTMLString.join('');
@@ -95,6 +102,9 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
             return;
         }
         var container = this.getElement('container');
+        if (this.select) {
+            this.select.style.display = '';
+        }
         magic.control.ComboBox.prototype.dispose.call(this);
         baidu.dom.remove(container);
         container = main = null;

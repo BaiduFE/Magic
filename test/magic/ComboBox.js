@@ -1,19 +1,24 @@
 module("magic.ComboBox");
 
 test("render, default param", function(){
-	var div1 = document.createElement("div");
-	document.body.appendChild(div1);
-	div1.id = "div1";
-	var combobox1 = new magic.ComboBox();
-	combobox1.render('div1');
-	equals(combobox1._options.items.length, 0, "The items is right");
-	equals(combobox1._options.originIndex, -1, "The originIndex is right");
-	equals(combobox1._options.viewSize, 5, "The viewSize is right");
-	equals(combobox1._options.readonly, false, "The readonly is right");
-	equals(combobox1._options.disabled, false, "The disabled is right");
-	equals(combobox1._options.width, '100%', "The width is right");
+    stop();
+    ua.loadcss(upath + 'setup/combobox/combobox.css', function() {
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var combobox1 = new magic.ComboBox();
+    combobox1.render('div1');
+    equals(combobox1._options.items.length, 0, "The items is right");
+    equals(combobox1._options.originIndex, -1, "The originIndex is right");
+    equals(combobox1._options.viewSize, 5, "The viewSize is right");
+    equals(combobox1._options.readonly, false, "The readonly is right");
+    equals(combobox1._options.disabled, false, "The disabled is right");
+    equals(combobox1._options.width, '100%', "The width is right");
     combobox1.dispose();
-	document.body.removeChild(div1);
+    document.body.removeChild(div1);
+    start();        
+    });
+
 });
 
 test("render, all param", function(){
@@ -55,30 +60,35 @@ test("render, all param", function(){
 	document.body.removeChild(div1);
 });
 
-test("render, render", function(){
-    var div1 = document.createElement("div");
-    document.body.appendChild(div1);
-    div1.id = "div1";
-    var combobox1 = new magic.ComboBox({
-        items : [{
-            'value' : 'f', 'content' : '女'
-        }, {
-            'value' : 'm', 'content' : '男'
-        }]
-    });
-    combobox1.render('div1');
-    //equals(true, baidu.dom.contains(div1, combobox1.getElement('container')), 'position of combobox is right.')
-    combobox1.dispose();
-    document.body.removeChild(div1);
+//3
+test("render, render", function() {
+    stop();
+    ua.importsrc('baidu.dom.contains', function() {
+        var div1 = document.createElement("div");
+        document.body.appendChild(div1);
+        div1.id = "div1";
+        var combobox1 = new magic.ComboBox({
+            items : [{
+                'value' : 'f', 'content' : '女'
+            }, {
+                'value' : 'm', 'content' : '男'
+            }]
+        });
+        combobox1.render('div1');
+        equals(true, baidu.dom.contains(div1, combobox1.getElement('container')), 'position of combobox is right.')
+        combobox1.dispose();
+        document.body.removeChild(div1);
+        start();
+    }, 'baidu.dom.contains', 'magic.ComboBox');
 });
 
+
+//4
 test("render, events", function() {
     expect(30);
 	var div1 = document.createElement("div");
 	document.body.appendChild(div1);
 	div1.id = "div1";
-	var blurBtn = document.createElement('INPUT');
-	document.body.appendChild(blurBtn);
 	var highlight = pick = change = 0;
 	
 	var l1 = baidu.event._listeners.length;
@@ -199,40 +209,47 @@ test("render, events", function() {
 	document.body.removeChild(div1);
 });
 
+
+//5
 test('render event beforeshow beforehide', function() {
-    var div1 = document.createElement("div");
-    document.body.appendChild(div1);
-    div1.id = "div1";
-    var combobox1 = new magic.ComboBox({
-        items : [{
-            'value' : 0, 'content' : '女'
-        }, {
-            'value' : 1, 'content' : '男'
-        }]
-    });
-    function f1(e) {
-        equals('beforeshow', 'beforeshow', "The beforeshow Event is right");
-        e.returnValue = false;
-    }
-    function f2(e) {
-        equals('beforehide', 'beforehide', "The beforehide Event is right");
-        e.returnValue = false;
-    }
-    combobox1.on("beforeshow", f1);
-    combobox1.on("beforehide", f2);
-    combobox1.render('div1');
-    ua.click(combobox1.getElement('arrow'));
-    equals(combobox1.menu.visible, false, "The beforeshow Event prevent show event is right");
-    //combobox1.un("beforeshow", f1);
-    ua.click(combobox1.getElement('arrow'));
-    equals(combobox1.menu.visible, true, "showing is right");
-    ua.click($('li', combobox1.getElement('menu'))[0]);
-    equals(combobox1.menu.visible, true, "The beforehide Event prevent hide event is right");
-    //combobox1.un("beforeshow", f2);
-    ua.click($('li', combobox1.getElement('menu'))[0]);
-    equals(combobox1.menu.visible, false, "hiding is right");
-    combobox1.dispose();
-    document.body.removeChild(div1);    
+    stop();
+    ua.importsrc('baidu.lang.Class.$removeEventListener', function() {
+        var div1 = document.createElement("div");
+        document.body.appendChild(div1);
+        div1.id = "div1";
+        var combobox1 = new magic.ComboBox({
+            items : [{
+                'value' : 0, 'content' : '女'
+            }, {
+                'value' : 1, 'content' : '男'
+            }]
+        });
+        function f1(e) {
+            equals('beforeshow', 'beforeshow', "The beforeshow Event is right");
+            e.returnValue = false;
+        }
+        function f2(e) {
+            equals('beforehide', 'beforehide', "The beforehide Event is right");
+            e.returnValue = false;
+        }
+        combobox1.on("beforeshow", f1);
+        combobox1.on("beforehide", f2);
+        combobox1.render('div1');
+        ua.click(combobox1.getElement('arrow'));
+        equals(combobox1.menu.visible, false, "The beforeshow Event prevent show event is right");
+        combobox1.un("beforeshow", f1);
+        ua.click(combobox1.getElement('arrow'));
+        equals(combobox1.menu.visible, true, "showing is right");
+        ua.click($('li', combobox1.getElement('menu'))[0]);
+        equals(combobox1.menu.visible, true, "The beforehide Event prevent hide event is right");
+        combobox1.un("beforehide", f2);
+        ua.click($('li', combobox1.getElement('menu'))[0]);
+        equals(combobox1.menu.visible, false, "hiding is right");
+        combobox1.dispose();
+        document.body.removeChild(div1);
+        start();           
+    }, 'baidu.lang.Class.$removeEventListener', 'magic.ComboBox');
+ 
 });
 
 test("render, getValue", function(){
@@ -479,11 +496,11 @@ test("render, enable", function(){
         }, {
             'value' : 'm', 'content' : '男'
         }],
-        disable : true
+        disabled : true
     });
     combobox1.render('div1');
     combobox1.enable();
-    equals(baidu.dom.hasClass(combobox1.getElement('main'), 'magic-combobox-disable'), false, "The enable style is right");
+    equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), false, "The enable style is right");
     equals(combobox1.getElement('input').disabled, false, "input enable right");
     equals(combobox1.disabled, false, "instance.disabled is right.");
     combobox1.dispose();
@@ -509,26 +526,31 @@ test("render, setWidth", function(){
     document.body.removeChild(div1);
 });
 
-test("render, dispose", function(){
-    var div1 = document.createElement("div");
-    document.body.appendChild(div1);
-    div1.id = "div1";
-    var combobox1 = new magic.ComboBox({
-        items : [{
-            'value' : 'f', 'content' : '女'
-        }, {
-            'value' : 'm', 'content' : '男'
-        }]
-    });
-    combobox1.render('div1');
-    var comboid = combobox1.guid,
-        popid = combobox1.menu.guid;
-    equals(true, !!baiduInstance(popid), 'popup is created.');
-    equals(0, magic.control.ComboBox.instanceArray.indexOf(comboid), 'guid is added in global array.')
-    combobox1.dispose();
-    equals(undefined, baiduInstance(popid), 'popup is disposed.');
-    equals(-1, magic.control.ComboBox.instanceArray.indexOf(popid), 'guid is removed from global array.')
-    document.body.removeChild(div1);
+test("render, dispose", function() {
+    stop();
+    ua.importsrc('baidu.array.indexOf', function() {
+        var div1 = document.createElement("div");
+        document.body.appendChild(div1);
+        div1.id = "div1";
+        var combobox1 = new magic.ComboBox({
+            items : [{
+                'value' : 'f', 'content' : '女'
+            }, {
+                'value' : 'm', 'content' : '男'
+            }]
+        });
+        combobox1.render('div1');
+        var comboid = combobox1.guid,
+            popid = combobox1.menu.guid;
+        equals(true, !!baiduInstance(popid), 'popup is created.');
+        equals(0, baidu.array.indexOf(magic.control.ComboBox.instanceArray, comboid), 'guid is added in global array.')
+        combobox1.dispose();
+        equals(undefined, baiduInstance(popid), 'popup is disposed.');
+        equals(-1, baidu.array.indexOf(magic.control.ComboBox.instanceArray, comboid), 'guid is removed from global array.')
+        document.body.removeChild(div1);
+        start();
+    }, 'baidu.array.indexOf', 'magic.ComboBox');
+
 });
 
 test("render, keyboard action", function(){
@@ -637,12 +659,14 @@ test("render, mouse action in readonly = false combobox", function(){
     ua.click($('li', combobox1.getElement('menu'))[1]);
     ua.click(combobox1.getElement('arrow'));
     equals(combobox1.menu.visible, true, "The menu is showing is right");
-    var btn = document.createElement('INPUT');
-    document.body.appendChild(btn)
-    ua.click(btn);
-    equals(combobox1.menu.visible, false, "the menu dosn't show is right");
-    combobox1.dispose();
-    document.body.removeChild(div1);
+    stop();
+    setTimeout(function() {
+        ua.click(document);
+        equals(combobox1.menu.visible, false, "the menu dosn't show is right");
+        combobox1.dispose();
+        document.body.removeChild(div1);
+        start();
+    }, 50);
 });
 
 test("render, viewSize", function(){
@@ -670,8 +694,9 @@ test("render, viewSize", function(){
     });
     combobox1.render('div1');
     combobox1.menu.show();
-    var singleHeight = $('li', combobox1.getElement('menu'))[0].clientHeight;
-    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 3, 'when the number of items is more than viewSize, only viewSize of the items will be show, and there will be scroll.');
+    var single = $('li', combobox1.getElement('menu'))[0];
+    var singleHeight = Math.max(single.offsetHeight, single.offsetHeight);
+    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 3 + 1, 'when the number of items is more than viewSize, only viewSize of the items will be show, and there will be scroll.');
     combobox1.menu.hide();
     combobox1.reload([{
         'value' : 'f', 'content' : '女'
@@ -679,7 +704,7 @@ test("render, viewSize", function(){
         'value' : 'm', 'content' : '男'
     }]);
     combobox1.menu.show();
-    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 2, 'If number of items is less than viewSize, the viewSize is useless.')
+    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 2 + 1, 'If number of items is less than viewSize, the viewSize is useless.')
     combobox1.dispose();
     document.body.removeChild(div1);
 });

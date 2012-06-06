@@ -27,14 +27,19 @@ test('default params', function() {
         combobox1.render('div1');
         equals(combobox1._options.suggestion.enable, true, "The enable is right");
         combobox1.getElement('input').value = 'abc';
-        equals($('li', combobox1.getElement('menu')).length, 3, "The menu is right");
-        combobox1.dispose();
-        document.body.removeChild(div1);
-        start();          
+        setTimeout(function() {
+            equals(combobox1.menu.visible, true, "The menu is right");
+            equals($('li', combobox1.getElement('menu')).length, 3, "The menu is right");
+            combobox1.dispose();
+            document.body.removeChild(div1);
+            start();             
+        }, 200);
+         
     }, 'magic.ComboBox', 'magic.control.ComboBox.$suggestion');
 });
-/*
+
 test('params', function() {
+    stop();
     var div1 = document.createElement("div");
     document.body.appendChild(div1);
     div1.id = "div1";
@@ -62,16 +67,19 @@ test('params', function() {
     combobox1.render('div1');
     equals(combobox1._options.suggestion.enable, false, "The enable is right");
     combobox1.getElement('input').value = 'abc';
-    equals(combobox1.menu.visible, false, "The menu is right");
-    equals($('li', combobox1.getElement('menu')).length, 5, "The menu is right");
-    combobox1.dispose();
-    document.body.removeChild(div1);    
+    setTimeout(function() {
+        equals(combobox1.menu.visible, false, "The menu is right");
+        equals($('li', combobox1.getElement('menu')).length, 5, "The menu is right");
+        combobox1.dispose();
+        document.body.removeChild(div1);
+        start();
+    }, 200)
+  
 });
 
 
 test('suggstion function', function() {
     stop();
-    expect(55);
     var div1 = document.createElement("div");
     document.body.appendChild(div1);
     div1.id = "div1";
@@ -91,13 +99,10 @@ test('suggstion function', function() {
         },{
             'value' : 4,
             'content' : 'abcde'
-        }],
-        suggestion : {
-            enable : false
-        }
+        }]
     });
     combobox1.render('div1');
-    
+        
     combobox1.getElement('input').value = 'a';
     setTimeout(function() {
         equals(combobox1.menu.visible, true, 'suggestion auto show');
@@ -106,23 +111,25 @@ test('suggstion function', function() {
             keyCode : 40
         });
         setTimeout(function(){
-            quals(combobox1.menu.visible, true, 'suggestion is showing');
+            equals(combobox1.menu.visible, true, 'suggestion is showing');
             equals($('li', combobox1.getElement('menu')).length, 5, '5 items displayed');
             combobox1.getElement('input').value = 'abc';
             setTimeout(function(){
-                quals(combobox1.menu.visible, true, 'suggestion is showing');
+                equals(combobox1.menu.visible, true, 'suggestion is showing');
                 equals($('li', combobox1.getElement('menu')).length, 3, '3 items displayed');
                 combobox1.getElement('input').value = '';
                 setTimeout(function(){
-                    quals(combobox1.menu.visible, true, 'suggestion is still showing');
+                    equals(combobox1.menu.visible, true, 'suggestion is still showing');
                     equals($('li', combobox1.getElement('menu')).length, 5, '5 items displayed');
                     combobox1.getElement('input').value = '';
                     setTimeout(function(){
-                        quals(combobox1.menu.visible, true, 'suggestion is still showing');
+                        equals(combobox1.menu.visible, true, 'suggestion is still showing');
                         equals($('li', combobox1.getElement('menu')).length, 5, '5 items displayed');
                         combobox1.getElement('input').value = 'f';
                         setTimeout(function(){
-                            quals(combobox1.menu.visible, false, 'suggestion is hiding');
+                            equals(combobox1.menu.visible, false, 'suggestion is hiding');
+                            combobox1.dispose();
+                            document.body.removeChild(div1);
                             start();                           
                         }, 200)                        
                     }, 200);                    
@@ -131,4 +138,3 @@ test('suggstion function', function() {
         }, 200);
     }, 200);
 });
-*/

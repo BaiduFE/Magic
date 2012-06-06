@@ -11,8 +11,11 @@
 ///import baidu.array.each;
 ///import baidu.dom.g;
 ///import baidu.dom.getAttr;
+///import baidu.dom.insertHTML;
+///import baidu.dom.remove;
 ///import magic.ComboBox;
 
+(function() {
 /**
  * 由HTML反向创建 Suggestion
  * @function
@@ -32,41 +35,58 @@ magic.setup.combobox = function(el, options) {
     var el = baidu.dom.g(el),
         optData = parseSelectOptions(el),
         newItemOpt = null;
-    baidu.object.extend(options, optData);
-    baidu.object.extend(options, {
-        'width' : el.clientWidth + 10
+    baidu.object.extend(optData, {
+        'width' : el.offsetWidth + 10,
+        'disabled' : el.disabled
     });
-	var instance = magic.setup(el, magic.ComboBox, options);
-	el.style.display = 'none';
-	instance.render(el, 'afterEnd');
-	instance.on('change', function(event) {
-	    if (event.from == 'confirm') {
-	        el.options[event.result.index].selected = true;
-	    } else if (event.from == 'blur') {
-	        var content = this.getElement('input').value;
-	        if (!newItemOpt) {
-	            newItemOpt = document.createElement('OPTION');
-	            newItemOpt.selected = true;
-	            el.add(newItemOpt);
-	        }
-	        newItemOpt.value = newItemOpt.text = content;
-	    }
-	    
-	});
-	
-	return instance;
+    options = baidu.object.extend(optData, options);
+    var instance = magic.setup(el, magic.ComboBox, options);
+    
+    baidu.dom.insertHTML(el, 'beforeBegin', '<span id="' + instance.guid + '-host" class="magic-combobox-host"></span>');
+    
+    var host = baidu.dom.g(instance.guid + '-host');
+    host.appendChild(el);
+    instance.select = el;
+    el.style.width = (el.offsetWidth + 15) + 'px';
+    el.style.visibility = 'hidden';
+    instance.render(host, 'afterBegin');
+    baidu.dom.addClass(instance.getElement('container'), 'magic-combobox-container-setup');
+    instance.on('change', function(event) {
+        if (event.from == 'confirm') {
+            el.options[event.result.index].selected = true;
+        } else if (event.from == 'blur') {
+            var content = this.getElement('input').value;
+            if (!newItemOpt) {
+                newItemOpt = document.createElement('OPTION');
+                newItemOpt.selected = true;
+                el.add(newItemOpt);
+            }
+            newItemOpt.value = newItemOpt.text = content;
+        }
+        
+    });
+    
+    return instance;
 };
 
 function parseSelectOptions(selectNode) {
     var items = [],
-    optionNodes = selectNode.options;
+        originIndex = -1,
+        optionNodes = selectNode.options;
     baidu.array.each(optionNodes, function(item, index) {
         items.push({
             'value' : item.value,
             'content' : item.text
         });
+        if (item.selected) {
+            originIndex = index;
+        }
     });
     return {
-        'items' : items
+        'items' : items,
+        'originIndex' : originIndex
     }
 }
+    
+})();
+

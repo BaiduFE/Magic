@@ -66,7 +66,7 @@ var testCase = (function(){
 		html += '<textarea rows="3" cols="40">[{"value":10,"content":"选项11"},{"value":11,"content":"选项12"}]</textarea>';
 		html += '<input type="button" value="reload">';
 		html += '</div>'
-		html += '<div class="combobox-log" id="combobox-log' + num + '"></div>'
+		html += '<div class="combobox-log" id="combobox-log' + num + '" style="position:absolute"></div>'
 		html += '</dd>';
 		html += '</dl>';
 		html += '<div style="clear:both"></div>';
@@ -120,6 +120,7 @@ var testCase = (function(){
 	}
 })();
 
+
 var combobox0 = testCase.create('普通的ComboBox，宽度200px，三个选项，可编辑。', {
 	'items' : [
 		{'value' : 0, 'content' : '选项1'},
@@ -130,6 +131,11 @@ var combobox0 = testCase.create('普通的ComboBox，宽度200px，三个选项�
 	'suggestion' : {
 		'enable' : true
 	}
+});
+
+combobox0.on('show', function() {
+	this.log('show');
+	this.log(this.menu.visible);
 });
 
 combobox0.on('change', function() {

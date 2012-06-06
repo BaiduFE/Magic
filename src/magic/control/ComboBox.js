@@ -20,6 +20,7 @@
 ///import baidu.event.getTarget;
 ///import baidu.array.remove;
 ///import baidu.object.extend;
+///import baidu.browser.firefox;
 
 /**
  * 组合框，由一个文本输入控件和一个下拉菜单组成。
@@ -71,7 +72,11 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         //});
         me.menu._host = me.getElement('input-container');
         me.menu.offsetX = -1;
-        me.menu.offsetY = 1;
+        if (baidu.browser.firefox) {
+            me.menu.offsetY = 2;
+        } else {
+            me.menu.offsetY = 1;
+        }
         me.menu.width = me.getElement('input-container').clientWidth;
         //me.menu.hide();
         // delete baidu.global.get("popupList")[me.menu.guid];
@@ -156,6 +161,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             while (target.tagName != 'LI') {
                 target = target.parentNode;
             }
+
             me.$highlight(target);
         });
        
@@ -207,8 +213,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
         
     '_setViewSize' : function() {
-        baidu.dom.setStyle(this.getElement('menu'), 'height', 'auto');
-        var viewHeight = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu'))[0].clientHeight * this._options.viewSize,
+        baidu.dom.setStyle(this.getElement('menu'), 'height', '');
+        var viewHeight = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu'))[0].offsetHeight * this._options.viewSize,
             clientHeight = this.getElement('menu').clientHeight,
             realHeight = clientHeight > viewHeight ? viewHeight : clientHeight;
         baidu.dom.setStyle(this.getElement('menu'), 'height', realHeight + 'px');        
@@ -227,7 +233,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         var upKeyCode = 38,
             downKeyCode = 40,
             enterKeyCode = 13,
-            elmMenuItems = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu'));
+            elmMenuItems = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu')),
             length = elmMenuItems.length;
         
         if (e.keyCode == enterKeyCode) {
@@ -345,7 +351,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     'setByValue' : function(value) {
-        for (data = this._options.items, length = data.length; length--;) {
+        for (var data = this._options.items, length = data.length; length--;) {
             if (data[length].value == value) {
                 this.selectValue = value;
                 this.getElement('input').value = data[length].content;
@@ -418,7 +424,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         if (this.disabled) {
             var me = this;
             //修改样式
-            baidu.dom.removeClass(this.getElement('main'), 'magic-combobox-disable');
+            baidu.dom.removeClass(this.getElement('container'), 'magic-combobox-disable');
             //设置input为disable = false
             this.getElement('input').disabled = false;
             me.disabled = false;
