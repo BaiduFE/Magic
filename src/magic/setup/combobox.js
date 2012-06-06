@@ -1,10 +1,6 @@
 /*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
- * 
- * version: 2.0
- * date: 2011/11/28
- * author: zhaochengyang
  */
 
 ///import magic.setup;
@@ -17,18 +13,19 @@
 
 (function() {
 /**
- * 由HTML反向创建 Suggestion
+ * 由原生select反向创建 ComboBox
  * @function
- * @grammar magic.setup.suggestion(el, options)
- * @param {String|HTMLElement} el suggestion对应的input输入框ID或者dom元素
+ * @grammar magic.setup.combobox(node, options)
+ * @param {String|HTMLElement} node 原生select的id或者dom元素
  * @param {Object} options 选项
- * @config {Object}   offset           suggestion相对于输入框的偏移量，传入的参数中可包括offsetX、 offsetY、width三个值（在CSS中使用margin同样可以定位）。
- * @config {Function} getData          在需要获取数据的时候会调用此函数来获取数据，传入的参数query是用户在输入框中输入的数据。在获取到数据后，需要触发ongetdata事件，并传入参数，例如me.fire("ongetdata", query, returnValue);
- * @config {String}   prependHTML      写在下拉框列表前面的html
- * @config {String}   appendHTML       写在下拉框列表后面的html
- * @config {Boolean}  holdHighLight    鼠标移出待选项区域后，是否保持条目的高亮状态
- * @return {magic.control.Suggestion} Suggestion实例.
- * @author meizz, zhaochengyang
+ * @config {Array<Object>} items ComboBox下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]，默认[]。
+ * @config {Number} viewSize 拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
+ * @config {Boolean} readonly 输入框是否可以编辑输入，默认true。
+ * @config {Boolean} disabled ComboBox是否处于禁用状态，默认false。
+ * @config {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
+ * @config {Number|String} width ComboBox的宽度，默认100%。
+ * @return {magic.ComboBox} ComboBox实例.
+ * @author 夏登平(xiadengping@baidu.com)
  */
 magic.setup.combobox = function(el, options) {
     options = options || {};

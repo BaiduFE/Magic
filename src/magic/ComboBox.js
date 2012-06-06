@@ -15,29 +15,23 @@
 
 
  /**
- * todo
+ * 组合框，由一个文本输入控件和一个下拉菜单组成。
  * @author 夏登平 (xiadengping@baidu.com)
  * @class
  * @grammar new magic.ComboBox(options)
- * @superClass magic.Base
- * @param {Object} [options] 更新选项，若选项值不符合规则，则此次更新不予更新任何选项
- * @param {Number} options.items 当选择数据的数组
- * @return {magic.ComboBox} ComboBox实例
+ * @superClass magic.control.ComboBox
+ * @param {String|HTMLElement} node 原生select的id或者dom元素
+ * @param {Object} options 选项
+ * @config {Array<Object>} items ComboBox下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]，默认[]。
+ * @config {Number} viewSize 拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
+ * @config {Boolean} readonly 输入框是否可以编辑输入，默认true。
+ * @config {Boolean} disabled ComboBox是否处于禁用状态，默认false。
+ * @config {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
+ * @config {Number|String} width ComboBox的宽度，默认100%。
+ * @return {magic.ComboBox} ComboBox实例.
  */
 magic.ComboBox = baidu.lang.createClass(function(options) {
-    
-    /* 解决在IE6、7下input的宽度问题
-     * 当前的input宽度需要自适应，还有10px的padding-left
-     * 通过将input的box-size设为border-box，可以减少大部分浏览器的差异
-     * 详见 http://fe.baidu.com/doc/duoyi/note/input_height.text 对此有任何疑问请联系多益 (wuduoyi@baidu.com)
-     * 由于box-size对于IE6、7是无效的，所以针对IE6、7需要用JS来控制宽度。
-     * by 夏登平 (xiadengping@baidu.com)
-     */
-    // if (baidu.browser.ie < 8) {
-        // this.on('load', function() {
-            // this.getElement('input').style.width = (this.getElement('container').clientWidth - 30) + 'px';
-        // });
-    // }
+    //do nothing
 }, {
     'type' : 'magic.ComboBox',
     'superClass' : magic.control.ComboBox

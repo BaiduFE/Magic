@@ -28,12 +28,14 @@
  * @name magic.control.ComboBox
  * @superClass magic.Base
  * @grammar new magic.control.ComboBox(options)
- * @param {Object} options 选项.
- * @param {Array} options.items 下拉菜单数据列表，每项是一个obj，包含value和content两项，默认值[]。例：[{'value':0,'content':'女'},{'value':1,'content':'男'}]
- * @param {Number} options.originIndex 初始选中的索引，默认值-1。
- * @param {Boolean} options.readonly 输入框是否可以编辑，默认值false。
- * @param {Number} options.viewSize 下拉菜单最多展现的结果数，超出则出现纵向滚动条。
- * @param {Boolean} options.disabled 
+ * @param {String|HTMLElement} node 原生select的id或者dom元素
+ * @param {Object} options 选项
+ * @config {Array<Object>} items ComboBox下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]，默认[]。
+ * @config {Number} viewSize 拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
+ * @config {Boolean} readonly 输入框是否可以编辑输入，默认true。
+ * @config {Boolean} disabled ComboBox是否处于禁用状态，默认false。
+ * @config {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
+ * @config {Number|String} width ComboBox的宽度，默认100%。
  * @author 夏登平 xiadengping@baidu.com
  */
 magic.control.ComboBox = baidu.lang.createClass(function(options) {
