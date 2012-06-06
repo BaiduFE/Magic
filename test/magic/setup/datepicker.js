@@ -51,7 +51,7 @@ function getListenersOnInput(inputEl){
 
 
 test('默认参数、show接口、show自定义事件、hide自定义事件', function(){
-    expect(7);
+    expect(8);
     stop();
     ua.importsrc('baidu.dom.q,baidu.date.format', function() {
         ua.loadcss(upath + "../Calendar/magic.Calendar.css", function(){
@@ -67,6 +67,8 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
             
             dp.on('show', function(){
                 ok(true, "自定义事件show被触发");
+                
+                same(dp.calendar.currentDate, new Date(2012, 04, 06), "input中有值时，初始化后当前显示的日期为2012年5月");
                 
                 equals(dp.popup.getElement("").style.display, '', "测试日历已显示");
                 
@@ -102,7 +104,7 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
 
 
 test('自定义参数', function(){
-    expect(5);
+    expect(6);
     stop();
     var input = document.createElement('input');
     input.id = 'input_test';
@@ -121,7 +123,7 @@ test('自定义参数', function(){
     });
     
     dp.on('show', function(){
-
+        same(dp.calendar.currentDate, new Date(2012, 05, 06), "input中无值时，初始化后当前显示的日期为2012年6月");
         same(dp.calendar._options.initDate, new Date(2012, 05, 06), "initDate为2012年6月6日");
         
         var dpTop = dp.popup.getElement("").style.top,
@@ -147,7 +149,7 @@ test('自定义参数', function(){
 
 
 test('hide接口、dispose', function(){
-    expect(4);
+    expect(5);
     var input = document.createElement('input');
     input.id = 'input_test';
     document.body.appendChild(input);
@@ -156,6 +158,11 @@ test('hide接口、dispose', function(){
     
     var dp = magic.setup.datePicker(input, {});
     var popup = dp.popup.getElement("content");
+    
+    dp.on("show", function(){
+        equals(dp.calendar.currentDate.toString(), (new Date()).toString(), "input中无值、没有设置initDate时，初始化后当前显示的日期为当前系统日期");
+        dp.hide();
+    });
     
     dp.on("hide", function(){
         equals(dp.popup.getElement("").style.display, 'none', "测试日历已隐藏");
@@ -171,7 +178,7 @@ test('hide接口、dispose', function(){
     });
 
     dp.show();
-    dp.hide();
+    
     
 });
 

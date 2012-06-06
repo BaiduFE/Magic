@@ -185,6 +185,22 @@ test('自定义参数', function(){
     })
 });
 
+test("自定义参数1", function(){
+    expect(1);
+    var container = document.createElement("div");
+    document.body.appendChild(container);
+    
+    var ca = new magic.Calendar({
+        language: 'en-US'
+    });
+    ca.render(container);
+    
+    equals(ca.currentDate.toString(), baidu.i18n.date.toLocaleDate(new Date()).toString(), "英文状态，不设置initDate时，初始化日期为当前系统时间国际化后的日期");
+    
+    ca.dispose();
+    document.body.removeChild(container);
+});
+
 
 
 test("测试接口", function(){
