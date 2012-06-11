@@ -48,14 +48,20 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         'disabled' : false,
         'width' : '100%'
     }, options);
-
+    
+    //选中的值
     me.selectValue = '';
+    //当前高亮的选项索引
     me.highlightIndex = -1;
-    me.timer = null;
+    //下拉菜单使用的popup弹出层
     me.menu = new magic.Popup();
+    //当前是否处于focus状态
     me.isFocus = false;
+    //当前是否处于禁用状态
     me.disabled = this._options.disabled;
+    //临时值，用来储存当按键盘上下时，搜索框的原始值。
     me.tempValue = '';
+    //当前是否处于键盘上线选中的状态，和me.tempValue配合使用。
     me.menufocusing = false;
     
     //向一个全局的array里记录每个实例，在实现blur的功能时需要遍历这个数组
@@ -63,48 +69,58 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         magic.control.ComboBox.instanceArray = [];
     }
     magic.control.ComboBox.instanceArray.push(me.guid);
-        
+    
+    //load事件做如下事情：    
     me.on('load', function() {
+        //设置combobox宽度
         me.setWidth(me._options.width);
-         //设置下拉层
-        //me.menu.attach(me.getElement('input-container'), {
-        //    'width' : me.getElement('input-container').clientWidth + 'px',
-        //    'offsetX' : -1,
-        //    'offsetY' : 1
-        //});
+        /**
+         * 设置popup
+         * 原本的设计是调用popup.attach()，但由于该函数会自动执行show()，再关闭会导致popup中setTimeout置标志位错误。
+         * 所以暂时不使用popup.attach()。
+         * @todo
+         * 修改popup.attach()逻辑。
+         * me.menu.attach(me.getElement('input-container'), {
+         *    'width' : me.getElement('input-container').clientWidth + 'px',
+         *    'offsetX' : -1,
+         *    'offsetY' : 1
+         * });
+         */
+        //begin popup.attach的主要功能搬过来
         me.menu._host = me.getElement('input-container');
         me.menu.offsetX = -1;
+        //消除ff的差异
         if (baidu.browser.firefox) {
             me.menu.offsetY = 2;
         } else {
             me.menu.offsetY = 1;
         }
         me.menu.width = me.getElement('input-container').clientWidth;
-        //me.menu.hide();
-        // delete baidu.global.get("popupList")[me.menu.guid];
+        //end popup.attach的主要功能搬过来
+        
+        //插入下拉菜单的壳
         me.menu.setContent(me._menuContainerToHTMLString());
         
+        //渲染下拉菜单数据
         this._renderMenu();
         
+        //将popup的show和hide的事件链接
         me.menu.on('show', function() {
             me.fire('show');
         });
-
         me.menu.on('beforeshow', function(e) {
             e.returnValue = me.fire('beforeshow');
         });
-        
         me.menu.on('beforehide', function(e) {
             e.returnValue = me.fire('beforehide');
         });
-        
         me.menu.on('hide', function() {
             me.fire('hide');
         });
         
-        //自定义事件focus和blur
-        //focus是根据input的原生focus事件来触发
-        //blur是纯靠点击combobox外的区域来触发
+        //全局变量 magic.control.ComboBox.globalActive
+        //用于combobox的focus和blur
+        //click和keydown触发
         baidu.event.on(me.getElement('input-container'), 'keydown', function() {
             !me.disabled && (magic.control.ComboBox.globalActive = me.guid);
         });
@@ -292,9 +308,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
      
     '$pick' : function(elmItem) {
+        var result = this._getResult(elmItem);
         if(this.fire('beforepick')) {
-            var result = this._getResult(elmItem);
-
             this.getElement('input').value = result.content;
             this.fire('pick', {'result' : result});
         }
@@ -453,6 +468,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         baidu.event.un(this.getElement('menu'), 'click');
         baidu.event.un(this.getElement('menu'), 'mouseover');
         baidu.event.un(this.getElement('menu'), 'mouseout');
+        this.menu.hide();
         this.menu.dispose();
         baidu.array.remove(magic.control.ComboBox.instanceArray, this.guid);
         magic.Base.prototype.dispose.call(this);

@@ -3,7 +3,6 @@
  * Copyright 2011 Baidu Inc. All rights reserved.
  */
 
-//依赖包
 ///import magic.control.ComboBox;
 ///import baidu.lang.createClass;
 ///import baidu.dom.insertHTML;
@@ -12,7 +11,6 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.remove;
 ///import baidu.array.each;
-
 
  /**
  * 组合框，由一个文本输入控件和一个下拉菜单组成。
@@ -39,14 +37,12 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
 /** @lends magic.Pager.prototype */    
 {        
     /**
-     * 生成HTMLString
+     * 输入框部分生成HTMLString
      * @private
-     * @return {String} 控件的HTMLString
+     * @return {String} 输入框部分生成的HTMLString
      */
-    '$toHTMLString' :  function(items) {
-        var HTMLString = [],
-            i = 0,
-            length = items.length;
+    '$toHTMLString' :  function() {
+        var HTMLString = [];
         HTMLString.push('<div id="' + this.getId('container') + '" class="magic-combobox">');
         HTMLString.push('<div id="' + this.getId('input-container') + '" class="magic-combobox-input-container clearfix">');
         HTMLString.push('<div class="magic-combobox-input-outter">');
@@ -60,10 +56,20 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         return HTMLString.join('');
     },
     
+    /**
+     * 下拉菜单的壳子生成HTMLString
+     * @private
+     * @return {String} 下拉菜单的壳子生成的HTMLString
+     */
     '_menuContainerToHTMLString' : function() {
         return '<ul id="' + this.getId('menu') + '" class="magic-combobox-menu"></ul>';
     },
     
+    /**
+     * 下拉菜单数据生成HTMLString
+     * @private
+     * @return {String} 下拉菜单数据生成的HTMLString
+     */
     '$menuContentToHTMLString' : function(items) {
         var HTMLString = [];
         baidu.array.each(items, function(item, index) {
@@ -78,6 +84,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      * @public
      * @function
      * @param {String|HTMLElement} target 渲染的容器，默认为document.body。
+     * @param {String} position 渲染的位置，可以是beforeBegin, afterBegin, beforeEnd, afterEnd，默认beforeEnd。
      */
     'render' :  function(target, position) {
         position = position || 'beforeEnd';
@@ -87,7 +94,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
     
     /**
      * dispose 析构
-     * @name magic.Pager#dispose
+     * @name magic.ComboBox#dispose
      * @public
      * @function
      */
@@ -104,6 +111,3 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         container = main = null;
     }
 });
-
-// baidu.lang.register(magic.Pager, function(){}); // totalCount/viewSize
-// 以后添加那种只有上、下、第一、最后、goto的模式

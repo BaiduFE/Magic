@@ -46,6 +46,9 @@ var Timer = baidu.lang.createClass(function(options) {
             if (me.now != me.originValue) {
                 me.originValue = null;
             }
+            if (me.now != me.focusValue) {
+                me.focusValue = null;
+            }
         }
     },
         
