@@ -26,7 +26,8 @@ test("render, default param", function(){
     equals(combobox1._options.disabled, false, "The disabled is right");
     equals(combobox1.getElement('input').disabled, false, "The disabled displayed is right");
     equals(combobox1._options.width, '100%', "The width is right");
-    equals(combobox1.getElement('container').offsetWidth - 2, combobox1.getElement('container').parentNode.offsetWidth, "The width displayed is right");
+    var offset = (baidu.browser.ie == 6 ? 0 : -2);
+    equals(combobox1.getElement('container').offsetWidth + offset, combobox1.getElement('container').parentNode.offsetWidth, "The width displayed is right");
     combobox1.dispose();
     document.body.removeChild(div1);
     start();        

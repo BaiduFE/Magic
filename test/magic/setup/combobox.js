@@ -12,7 +12,7 @@ test('setup, init from select', function() {
         var width = s.offsetWidth;
         var cb = magic.setup.combobox(s);
         equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).left - pos.left) <= 2, true, 'left error in 2px is right.');
-        equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).top - pos.top) <= 2, true, 'top error in 2px is right.');
+        equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).top - pos.top) <= 5, true, 'top error in 5px is right.');
         equals(Math.abs(cb.getElement('container').offsetWidth - width - 12) <= 2, true, 'width error in 2px is right.');
         equals($("li", cb.getElement("menu")).text(), "女男", "The content of menu is right");
         equals(baidu.dom.getAttr($("li", cb.getElement("menu"))[0], 'data-value'), "f", "The value of menu is right");
@@ -34,7 +34,7 @@ test('setup, init from select selected item is the second item', function() {
         readonly : true
     });
     equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).left - pos.left) <= 2, true, 'left error in 2px is right.');
-    equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).top - pos.top) <= 2, true, 'top error in 2px is right.');
+    equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).top - pos.top) <= 5, true, 'top error in 5px is right.');
     equals(Math.abs(cb.getElement('container').offsetWidth - width - 12) <= 2, true, 'width error in 2px is right.');
     equals($("li", cb.getElement("menu")).text(), "女男", "The content of menu is right");
     equals(baidu.dom.getAttr($("li", cb.getElement("menu"))[0], 'data-value'), "f", "The value of menu is right");

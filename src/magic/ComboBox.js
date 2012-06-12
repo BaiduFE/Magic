@@ -102,12 +102,19 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         if(this.disposed) {
             return;
         }
-        var container = this.getElement('container');
         if (this.select) {
-            this.select.style.display = '';
+            var elm = this.select,
+                host = elm.parentNode;
         }
+        var container = this.getElement('container');
         magic.control.ComboBox.prototype.dispose.call(this);
         baidu.dom.remove(container);
+        if (elm) {
+            host.parentNode.insertBefore(elm, host);
+            baidu.dom.remove(host);
+            elm.style.visibility = '';
+            elm.style.width = '';            
+        }
         container = main = null;
     }
 });
