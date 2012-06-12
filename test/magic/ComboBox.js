@@ -517,7 +517,7 @@ test("render, reset originIndex=1", function(){
     document.body.removeChild(div1);
 });
 
-test("render, reset originIndex=-1", function(){
+test("render, reset originIndex=-1 readonly=false", function(){
     var div1 = document.createElement("div");
     document.body.appendChild(div1);
     div1.id = "div1";
@@ -534,6 +534,28 @@ test("render, reset originIndex=-1", function(){
     combobox1.reset();
     equals(combobox1.getElement('input').value, '', "input value is right.");
     equals(combobox1.getValue(), '', "getValue() is right.");
+    combobox1.dispose();
+    document.body.removeChild(div1);
+});
+
+test("render, reset originIndex=-1 readonly=true", function(){
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var combobox1 = new magic.ComboBox({
+        items : [{
+            'value' : 'f', 'content' : '女'
+        }, {
+            'value' : 'm', 'content' : '男'
+        }],
+        originIndex : -1,
+        readonly : true
+    });
+    combobox1.render('div1');
+    combobox1.getElement('input').value = 'abx';
+    combobox1.reset();
+    equals(combobox1.getElement('input').value, '女', "input value is right.");
+    equals(combobox1.getValue(), 'f', "getValue() is right.");
     combobox1.dispose();
     document.body.removeChild(div1);
 });
@@ -774,7 +796,7 @@ test("render, mouse action in readonly = false combobox", function(){
     equals(combobox1.menu.visible, false, "the menu dosn't show is right");
     ua.click(combobox1.getElement('arrow'));
     equals(combobox1.menu.visible, true, "The menu is showing is right");
-    equals($('li', combobox1.getElement('menu')).length, 2, 'all the items are showing')
+    equals($('li', combobox1.getElement('menu')).length, 2, 'all the items are showing');
     ua.mouseover($('li', combobox1.getElement('menu'))[0]);
     ua.mouseover($('li', combobox1.getElement('menu'))[1]);
     ua.click($('li', combobox1.getElement('menu'))[1]);
