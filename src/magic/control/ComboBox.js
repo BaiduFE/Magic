@@ -128,7 +128,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             !me.disabled && (magic.control.ComboBox.globalActive = me.guid);
         });
         
-        //如果可编辑，为下拉箭头绑定click事件，为input绑定键盘事件，反之为搜索框和箭头整体绑定click事件
+        //如果readonly为false，为下拉箭头绑定click事件，为input绑定键盘事件，
+        //反之为搜索框和箭头整体绑定click事件
         if (!me._options.readonly) {
             baidu.event.on(me.getElement('arrow'), 'click', function() {
                 !me.disabled && me.menu.show();
@@ -152,7 +153,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         //设置初始值
         me._initInput();
 
-
+        //为下拉菜单绑定click事件
+        //采用事件代理的方式
         baidu.event.on(this.getElement('menu'), 'click', function(e) {
             magic.control.ComboBox.globalActive = me.guid;
             var target = baidu.event.getTarget(e);
@@ -169,6 +171,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             });
         });
         
+        //为下拉菜单绑定mouseover事件
+        //采用事件代理的方式        
         baidu.event.on(this.getElement('menu'), 'mouseover', function(e) {
             me.$clearHighlight();
             var target = baidu.event.getTarget(e);
@@ -217,7 +221,10 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * @lends magic.control.Tab.prototype
      */
 {    
-
+    /**
+     * 初始化输入框的值
+     * @private 
+     */
     '_initInput' : function() {
         var index = this._options.originIndex;
         if (this._options.readonly && index == -1) {
@@ -229,7 +236,11 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             this.selectValue = this.getElement('input').value = '';
         }        
     },
-        
+    
+    /**
+     * 设置下拉菜单的最大高度
+     * @private 
+     */    
     '_setViewSize' : function() {
         baidu.dom.setStyle(this.getElement('menu'), 'height', '');
         var viewHeight = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu'))[0].offsetHeight * this._options.viewSize,
@@ -247,6 +258,11 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
 
     },
     
+    /**
+     * 键盘事件
+     * @private
+     * @param {DomEvent} e 
+     */
     '_keydownHandler' : function(e) {
         var upKeyCode = 38,
             downKeyCode = 40,
@@ -288,6 +304,12 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
     },
     
+    /**
+     * 获取下拉菜单中某个选项的文字、值和索引
+     * @private
+     * @param {Node} 选项的dom节点
+     * @return {Object} obj.value值， obj.content文字，obj.index索引。 
+     */
     '_getResult' : function(elmItem) {
         return {
             'value' : baidu.dom.getAttr(elmItem, 'data-value'),
@@ -296,6 +318,12 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         };
     },
     
+    /**
+     * 根据文字获得选项的值，若找不到返回null。
+     * @private
+     * @param {String} content 选项的内容
+     * @return {Number|Boolean|String|null} 选项的值。 
+     */
     '_getValue' : function(content) {
         var items = this._options.items,
             length = items.length;
@@ -306,7 +334,15 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
         return null;
     },
-     
+    
+    /**
+     * 将下拉菜单中的某项的文字放入输入框中。
+     * @function
+     * @name magic.control.ComboBox#$pick
+     * @public
+     * @developer 开发者方法
+     * @param {Node} elmItem 待操作的dom节点
+     */       
     '$pick' : function(elmItem) {
         var result = this._getResult(elmItem);
         if(this.fire('beforepick')) {
@@ -316,13 +352,33 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         return result;
     },
     
+    /**
+     * 选中下拉菜单中的某个选项
+     * 将该选项高亮，并将其文字放入输入框中。
+     * 键盘按上下键时调用
+     * @function
+     * @name magic.control.ComboBox#$menufocus
+     * @public
+     * @developer 开发者方法
+     * @param {Node} elmItem 待选中的dom节点
+     */       
     '$menufocus' : function(elmItem) {
         this.$highlight(elmItem);
         var result = this.$pick(elmItem);
         this.fire('menufocus', {'result' : result});
         return result;
     },
-    
+
+    /**
+     * 确认下拉菜单中的某个选项
+     * 将该选项的文字放入输入框中并关闭下拉菜单
+     * 鼠标点击下拉菜单中的某项，或者键盘按回车键时调用
+     * @function
+     * @name magic.control.ComboBox#$confirm
+     * @public
+     * @developer 开发者方法
+     * @param {Node} elmItem 待确认的dom节点
+     */        
     '$confirm' : function(elmItem) {
         var result = this.$pick(elmItem);
         this.menu.hide();
@@ -338,6 +394,14 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         return result;
     },
     
+    /**
+     * 高亮下拉菜单中的某个选项
+     * @function
+     * @name magic.control.ComboBox#$highlight
+     * @public
+     * @developer 开发者方法
+     * @param {Node} elmItem 待高亮的dom节点
+     */    
     '$highlight' : function(elmItem) {
         baidu.dom.addClass(elmItem, 'magic-combobox-menu-item-hover');
         var index = baidu.dom.getAttr(elmItem, 'data-index');
@@ -346,6 +410,13 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         });
     },
     
+    /**
+     * 清除下拉菜单中所有选项的高亮状态
+     * @function
+     * @name magic.control.ComboBox#$clearHighlight
+     * @public
+     * @developer 开发者方法
+     */
     '$clearHighlight' : function() {
         var elmMenuItems = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu')),
             length = elmMenuItems.length;
@@ -354,10 +425,24 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
     },
     
+    /**
+     * 获得选中项的值，若输入框的中的值不在下拉菜单中，则返回输入框中的值。
+     * @function
+     * @name magic.control.ComboBox#getValue
+     * @public
+     * @return {Number} ComboBox的值 
+     */
     'getValue' : function() {
         return this.selectValue || this._getValue(this.getElement('input').value) || this.getElement('input').value;
     },
     
+    /**
+     * 获得选中项的索引值，若输入框的中的值不在下拉菜单中，则返回-1.
+     * @function
+     * @name magic.control.ComboBox#getSelectIndex
+     * @public
+     * @return {Number} 索引值 
+     */
     'getSelectIndex' : function() {
         for (var data = this._options.items, length = data.length; length--;) {
             if (data[length].value == this.selectValue) {
@@ -367,6 +452,13 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         return -1;
     },
     
+    /**
+     * 根据选中项的值设置ComboBox
+     * @function
+     * @name magic.control.ComboBox#setByValue
+     * @public
+     * @param {String|Number|Boolean} value 选中项的值。
+     */    
     'setByValue' : function(value) {
         for (var data = this._options.items, length = data.length; length--;) {
             if (data[length].value == value) {
@@ -377,6 +469,14 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
     },
     
+    /**
+     * 根据选中项的索引值设置ComboBox
+     * @function
+     * @name magic.control.ComboBox#$setByIndex
+     * @public
+     * @developer 开发者方法
+     * @param {Number} index 选中项的索引值。
+     */
     '$setByIndex' : function(index) {
         var item = this._options.items[index] || this._options.items[0];
         this.getElement('input').value = item.content;
@@ -384,7 +484,10 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 
+     * 使ComboBox获得焦点
+     * @function
+     * @name magic.control.ComboBox#focus
+     * @public
      */
     'focus' : function() {
         if (!this.isFocus) {
@@ -392,6 +495,12 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
     },
     
+    /**
+     * 使ComboBox失去焦点
+     * @function
+     * @name magic.control.ComboBox#blur
+     * @public 
+     */
     'blur' : function() {
         if (this.isFocus) {
             //触发change事件
@@ -407,24 +516,37 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
     },
     
+    /**
+     * 将ComboBox重置
+     * @function
+     * @name magic.control.ComboBox#reset
+     * @public 
+     */
     'reset' : function() {
         this._initInput();
     },
     
     /**
-     * reload只刷新数据， 
+     * 为ComboBox载入新的下拉菜单数据
+     * @function
+     * @name magic.control.ComboBox#reload
+     * @public
+     * @param {Array<Object>} data 下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]
      */
     'reload' : function(data) {
         this._options.items = data;
         this._renderMenu();
         this._initInput();
-        //this.selectValue = null;
         this.highlightIndex = -1;
         this.fire('reload');
     },
     
     /**
+     * 设置ComboBox为不可用状态
      * 做2件事：修改样式， 设置input为disable。
+     * @function
+     * @name magic.control.ComboBox#disable
+     * @public
      */
     'disable' : function() {
         if (!this.disabled) {
@@ -437,6 +559,12 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         }
     },
     
+    /**
+     * 设置ComboBox为可用状态
+     * @function
+     * @name magic.control.ComboBox#enable
+     * @public 
+     */
     'enable' : function() {
         if (this.disabled) {
             var me = this;
@@ -452,6 +580,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     /** 
      * 通用设置宽度
      * @function
+     * @name magic.control.ComboBox#setWidth
+     * @public
      * @param {Number} width 宽度数字
      */
     'setWidth' :  function(width) {
@@ -459,6 +589,13 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         this.menu.setWidth(width);
     },
     
+    /**
+     * dispose 析构
+     * @function
+     * @name magic.control.ComboBox#dispose
+     * @public
+     *  
+     */
     'dispose' : function() {
         baidu.event.un(this.getElement('input-container'), 'click');
         baidu.event.un(this.getElement('input-container'), 'keydown');
@@ -477,8 +614,14 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
 
 (function(){
     
+//全局变量 magic.control.ComboBox.globalActive
+//用于combobox的focus和blur
+//click和keydown触发    
 magic.control.ComboBox.globalActive = null;
 
+/*
+ * 聚焦和失去焦点全局控制
+ */
 function activeController() {
     var guid = magic.control.ComboBox.globalActive;
     if (guid != null) {

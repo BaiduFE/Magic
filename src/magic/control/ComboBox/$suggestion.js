@@ -9,6 +9,17 @@
 
 (function(){
     
+ /**
+ * 轮询计时器，用来实现ComboBox的suggestion功能
+ * @author 夏登平 (xiadengping@baidu.com)
+ * @class
+ * @param {Object} options 选项
+ * @config {Number} circleTime 轮询的最小时间差，单位毫秒，默认10。
+ * @config {Number} waitingTime 等待改变的时间，若在这个时间内输入内容改变则重新等待，单位毫秒，默认100.
+ * @config {String} originValue 初始的输入内容，默认''。
+ * @config {Function} getValue 或者输入的方法，默认为一个返回null的函数。
+ * @return {Timer} Timer实例。
+ */    
 var Timer = baidu.lang.createClass(function(options) {
     var me = this;
     me._options = baidu.object.extend({
