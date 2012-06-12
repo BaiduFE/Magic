@@ -30,6 +30,9 @@ var Timer = baidu.lang.createClass(function(options) {
 }).extend({
 
     '_compare' : function(me) {
+        if (!this.timer) {
+            return;
+        }
         me.now = me._options.getValue();
         if (me.now == me.previous && me.focusValue != me.now && me.now != me.originValue) {
             if (me.fireTimer == 0) {
@@ -61,6 +64,7 @@ var Timer = baidu.lang.createClass(function(options) {
     
     'stop' : function() {
         clearInterval(this.timer);
+        this.timer = null;
     }
 });
 
@@ -112,7 +116,6 @@ baidu.lang.register(magic.control.ComboBox, function(options) {
     this.on('dispose', function(e) {
         if (me.timer) {
             me.timer.stop();
-            me.timer = null;
         }
     })
 
