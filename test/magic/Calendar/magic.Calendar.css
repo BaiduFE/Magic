@@ -1,0 +1,123 @@
+/**
+ * Calendar默认皮肤样式
+ */
+.tang-calendar {
+    font-family: Arial, '宋体';
+    font-size: 12px;
+    width: 230px;
+    position: relative;
+    background-color: #FFF;
+}
+
+.tang-calendar-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    line-height: 30px;
+    _height: 30px;
+    background: url(./bg.png) repeat-x 0 0 #BFBFBF;
+    _background-position: 0 2px;
+    border: 1px solid #979797;
+    border-width: 1px 1px 0px;
+}
+
+.tang-calendar-prebtn,
+.tang-calendar-nextbtn {
+    position: absolute;
+    top: 7px;
+    left: 5px;
+    height: 15px;
+    width: 15px;
+    background: url(./bg.png) no-repeat -15px -29px #BFBFBF;
+    cursor: pointer;
+}
+.tang-calendar-nextbtn {
+    right: 5px;
+    left: auto;
+    background-position: -15px -44px;
+}
+.tang-calendar-prebtn:hover {
+    background-position: 0 -29px;
+}
+.tang-calendar-nextbtn:hover {
+    background-position: 0 -44px;
+}
+
+.tang-calendar-table {
+    border: 1px solid #A9A9A9;
+    border-width: 0px 1px 1px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+}
+.tang-calendar-table table {
+    height: 100%;
+    width: 100%;
+}
+.tang-calendar-table table thead {
+    border-collapse: collapse;/*不加这句 thead无法设置边框样式*/
+}
+.tang-calendar-table td {
+    text-align: center;
+}
+.tang-calendar-table tbody td {
+    cursor: pointer;
+    border: 4px solid #FFF;/*给一个白色的边框，否则在给tb设置边框的时候会抖动*/
+    color: #000;
+}
+.tang-calendar-weekdays {
+    background-color: #F3F3F3;
+    color: #333;
+    font-weight: bold;
+    border: 1px solid #FFF;
+    border-width: 1px 1px 0px;
+}
+.tang-calendar-weekdays tr {
+    height: 30px;
+    *height: 21px;
+}
+
+/* 非当前月份的日期 */
+.tang-calendar-table tbody td.tang-calendar-premonth,
+.tang-calendar-table tbody td.tang-calendar-nextmonth {
+    color: #999;
+    background-color: #FFF;
+}
+
+/* 不可用的日期 */
+.tang-calendar-table tbody td.tang-calendar-disable {
+    color: #CCC;
+    background-color: #FFF;
+}
+/* 高亮的日期 */
+.tang-calendar-table tbody td.tang-calendar-highlight {
+    background-color: #1F69FF;
+    color: #FFF;
+}
+/* 当前选中的日期 */
+.tang-calendar-table tbody td.tang-calendar-selected {
+    background-color: #FFF;
+    color: #C00;
+}
+/* 鼠标悬停的日期 */
+.tang-calendar-table tbody td.tang-calendar-hover {
+    background-color: #E94949;
+    color: #FFF;
+}
+
+
+
+
+/**
+ *     插件部分的样式
+ */
+.tang-calendar-year,
+.tang-calendar-month {
+    background: url(./bg.png) no-repeat right -61px;
+    padding-right: 12px;
+}
+
+.cssloaded{
+    width: 20px
+}
