@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="ComboBox 组件 render 模式示例" />
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.ComboBox/magic.control.ComboBox.css">
+<script type="text/javascript" src="../../../src/import.php?f=baidu.json.stringify,baidu.json.parse,baidu.dom.g,baidu.dom.insertHTML,baidu.event.preventDefault,magic.ComboBox,magic.control.ComboBox.$suggestion"></script>
+<title>ComboBox 组件 render 模式示例</title>
+<style type="text/css">
+.combobox-container {
+	margin-bottom : 20px;
+}
+
+.combobox-container .combobox-title {
+	font-weight : bold;
+	font-size : 13px;
+	padding : 0;
+	margin : 5px;
+}
+
+.combobox-container .combobox-content .combobox-data,
+.combobox-container .combobox-content .combobox-log{
+	font-size : 12px;
+	margin : 10px 0;
+}
+</style>
+</head>
+<body>
+
+
+
+<script type="text/javascript">
+	/* 这里指定 resources 目录相对于当前页面的地址 */
+	magic.resourcePath = "../../resources";
+</script>
+
+<div id="demo" class="demo">
+	<h1>combobox 组件 <strong>render</strong> 模式示例</h1>
+</div>
+
+<!-- 对话框组件 Start -->
+
+<script type="text/javascript">
+
+var testCase = (function(){
+	var caseNum = 0;
+	
+	function create(title, options) {
+		var html = '',
+			num = caseNum++;
+		options = options || {};
+		html += '<dl class="combobox-container">';
+		html += '<dt class="combobox-title">' + title + '</dt>';
+		html += '<dd class="combobox-content">';
+		html += '<div class="combobox-data">' + baidu.json.stringify(options) + '</div>';
+		html += '<div class="combobox-body" id="combobox' + num + '"></div>';
+		html += '<div class="combobox-action" id="combobox-action' + num + '">';
+		html += '<input type="button" value="getValue">';
+		html += '<input type="button" value="getSelect">';
+		html += '<input type="button" value="disable">';
+		html += '<input type="button" value="enable">';
+		html += '<input type="button" value="focus">';
+		html += '<input type="button" value="blur">';
+		html += '<input type="button" value="reset">';
+		html += '<textarea rows="3" cols="40">[{"value":10,"content":"选项11"},{"value":11,"content":"选项12"}]</textarea>';
+		html += '<input type="button" value="reload">';
+		html += '</div>'
+		html += '<div class="combobox-log" id="combobox-log' + num + '" style="position:absolute"></div>'
+		html += '</dd>';
+		html += '</dl>';
+		html += '<div style="clear:both"></div>';
+		baidu.dom.insertHTML('demo', 'beforeEnd', html);
+		var combobox = new magic.ComboBox(options);
+		combobox.render('combobox' + num);
+		
+		combobox.log = function(content) {
+			baidu.g('combobox-log' + num).innerHTML += content + '<br>';
+		}
+		
+		var i = 0;
+		
+		var btns = baidu.g('combobox-action' + num).getElementsByTagName('INPUT');
+		btns[i++].onclick = function() {
+			combobox.log('getValue : ' + combobox.getValue());
+		}
+		btns[i++].onclick = function() {
+			combobox.log('getSelectIndex: ' + combobox.getSelectIndex());
+		}
+		btns[i++].onclick = function() {
+			combobox.disable();
+		}
+		btns[i++].onclick = function() {
+			combobox.enable();
+		}
+		btns[i++].onclick = function() {
+			setTimeout(function(){
+				combobox.focus();
+			}, 0);
+		}
+		btns[i++].onclick = function() {
+			combobox.blur();
+		}
+		btns[i++].onclick = function() {
+			combobox.reset();
+		}
+		btns[i++].onclick = function() {
+			var dataStr = baidu.g('combobox-action' + num).getElementsByTagName('TEXTAREA')[0].value,
+			data = baidu.json.parse(dataStr);
+			combobox.reload(data);
+		}
+		return combobox;
+		
+	}
+	
+	return {
+		'create' : function(title, options) {
+			 return create(title, options);
+		}
+	}
+})();
+
+
+var combobox0 = testCase.create('普通的ComboBox，宽度200px，三个选项，可编辑。', {
+	'items' : [
+		{'value' : 0, 'content' : '选项1'},
+		{'value' : 1, 'content' : '选项2'},
+		{'value' : 2, 'content' : '选项3'}
+	],
+	'width' : 200,
+	'suggestion' : {
+		'enable' : true
+	}
+});
+
+combobox0.on('show', function() {
+	this.log('show');
+	this.log(this.menu.visible);
+});
+
+combobox0.on('change', function() {
+	this.log('change');
+});
+
+combobox0.on('show', function() {
+	this.log('show');
+});
+
+combobox0.on('hide', function() {
+	this.log('hide');
+});
+
+combobox0.on('focus', function() {
+	this.log('focus');
+});
+
+combobox0.on('blur', function() {
+	this.log('blur');
+});
+combobox0.on('highlight', function(e) {
+	this.log('highlight index=' + e.index);
+});
+combobox0.on('pick', function(e) {
+	this.log('pick ' + baidu.json.stringify(e.result));
+});
+combobox0.on('menufocus', function(e) {
+	this.log('menufocus ' + baidu.json.stringify(e.result));
+});
+combobox0.on('confirm', function(e) {
+	this.log('confirm ' + baidu.json.stringify(e.result));
+});
+
+var combobox1 = testCase.create('宽度500px，8个选项，显示区域3个，初始选中第3个，不可编辑。', {
+	'items' : [
+		{'value' : 0, 'content' : '选项1'},
+		{'value' : 1, 'content' : '选项2'},
+		{'value' : 2, 'content' : '选项3'},
+		{'value' : 3, 'content' : '选项4'},
+		{'value' : 4, 'content' : '选项5'},
+		{'value' : 5, 'content' : '选项6'},
+		{'value' : 6, 'content' : '选项7'},
+		{'value' : 7, 'content' : '选项8'}
+	],
+	'width' : 500,
+	'viewSize' : 3,
+	'originIndex' : 2,
+	'readonly' : true
+});
+
+var combobox2 = testCase.create('disable的ComboBox，初始选中第3个，宽度200px。', {
+	'items' : [
+		{'value' : 0, 'content' : '选项1'},
+		{'value' : 1, 'content' : '选项2'},
+		{'value' : 2, 'content' : '选项3'}
+	],
+	'width' : 200,
+	'originIndex' : 2,
+	'disabled' : true
+});
+
+var combobox3 = testCase.create('一个空的ComboBox');
+
+var combobox4 = testCase.create('一个空的ComboBox, dispose!');
+combobox4.dispose();
+
+</script>
+<!-- 对话框组件 End -->
+
+</body>
+</html>

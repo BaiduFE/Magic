@@ -168,9 +168,9 @@ test("getElement", function(){
         ]
     });
 	tab.render('div1');
-	equals(tab.getElement("").id, "div1",　"The getElement si right");
-	equals(tab.getElement("title").className, "tang-title",　"The getElement si right");
-	equals(tab.getElement("body").className, "tang-body",　"The getElement si right");
+	equals(tab.getElement("").id, "div1", "The getElement si right");
+	equals(tab.getElement("title").className, "tang-title", "The getElement si right");
+	equals(tab.getElement("body").className, "tang-body", "The getElement si right");
 	tab.dispose();
 	document.body.removeChild(div);
 });
