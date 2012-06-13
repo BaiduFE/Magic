@@ -65,7 +65,10 @@ var Timer = baidu.lang.createClass(function(options) {
             }
         }
     },
-        
+    
+    /**
+     * 计时器开始 
+     */    
     'start' : function() {
         var me = this;
         me.timer = setInterval(function() {
@@ -73,12 +76,24 @@ var Timer = baidu.lang.createClass(function(options) {
         }, me._options.circleTime);            
     },
     
+    /**
+     * 计时器结束 
+     */
     'stop' : function() {
         clearInterval(this.timer);
         this.timer = null;
     }
 });
 
+/**
+ * ComboBox的suggestion功能插件
+ * @name magic.control.ComboBox.$suggestion
+ * @addon magic.control.ComboBox
+ * @param {Object} options 选项
+ * @config {Boolean} enable 开关
+ * @author 夏登平 xiadengping@baidu.com
+ *  
+ */
 baidu.lang.register(magic.control.ComboBox, function(options) {
     
     var me = this;
@@ -131,7 +146,12 @@ baidu.lang.register(magic.control.ComboBox, function(options) {
     })
 
 },{
-    
+    /**
+     * 根据关键字过滤下拉菜单数据
+     * @private
+     * @param {String} key 关键字
+     * @return {Array<Object>} 过滤后的数据
+     */
     '_getMenuData' : function(key) {
         return baidu.array.filter(this._options.items, function(item, index) {
             return (item.content.indexOf(key) != -1);

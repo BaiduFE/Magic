@@ -66,6 +66,11 @@ magic.setup.combobox = function(el, options) {
     return instance;
 };
 
+/**
+ * 从select中提取数据 
+ * @param {Node} selectNode
+ * @return {Object} 数据对象
+ */
 function parseSelectOptions(selectNode) {
     var items = [],
         originIndex = -1,
