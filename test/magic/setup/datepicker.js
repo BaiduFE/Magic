@@ -192,7 +192,9 @@ test('日历的显示和隐藏', function(){
     document.body.appendChild(input);
     
     var dp = magic.setup.datePicker(input, {});
-
+    window.blur();
+    window.focus();
+    input.blur();
     input.focus();
     setTimeout(function(){
         equals(dp.popup.getElement("").style.display, '', "focus日历显示");
