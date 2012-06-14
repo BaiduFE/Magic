@@ -18,10 +18,9 @@
  * @class
  * @grammar new magic.ComboBox(options)
  * @superClass magic.control.ComboBox
- * @param {String|HTMLElement} node 原生select的id或者dom元素
  * @param {Object} options 选项
  * @config {Array<Object>} items ComboBox下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]，默认[]。
- * @config {Number} viewSize 拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
+ * @config {Number} viewSize 下拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
  * @config {Boolean} readonly 输入框是否可以编辑输入，默认true。
  * @config {Boolean} disabled ComboBox是否处于禁用状态，默认false。
  * @config {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
@@ -89,6 +88,12 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
     'render' :  function(target, position) {
         position = position || 'beforeEnd';
         baidu.dom.insertHTML(target, position, this.$toHTMLString(this._options.items));
+        /**
+         * ComboBox渲染后触发 
+         * @event
+         * @name magic.ComboBox#onload
+         * @param {baidu.lang.Event} evt 事件参数 
+         */
         this.fire("load");
     },
     
@@ -107,6 +112,13 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
                 host = elm.parentNode;
         }
         var container = this.getElement('container');
+        /**
+         * ComboBox析构后触发 
+         * @event
+         * @name magic.ComboBox#ondispose
+         * @param {baidu.lang.Event} evt 事件参数 
+         * @todo ondispose触发的时机，并不是在整个combobox析构之后，而是在数据析构后，dom删除之前。
+         */
         magic.control.ComboBox.prototype.dispose.call(this);
         baidu.dom.remove(container);
         if (elm) {
