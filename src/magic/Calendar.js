@@ -34,7 +34,7 @@
  * @config {Array} [options.disabledDates] 不可用的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]
  * @config {String} [options.language] 日历语言，默认'zh-CN'
  * @return {magic.control.Calendar} magic.control.Calendar 实例
- * @superClass magic.control.Calendar
+ * @superClass magic.Base
  */
 magic.Calendar = baidu.lang.createClass(function(options){
     var me = this;
