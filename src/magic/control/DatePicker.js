@@ -148,27 +148,30 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      */
     _getInputDate: function(){
         var me = this,
+            dateValue = me.input.value,
             patrn = [/yyyy|yy/, /M{1,2}/, /d{1,2}/],//只支持到年月日的格式化，需要时分秒的请扩展此数组
-            key = [],
-            val = {},
-            count = patrn.length,
-            i = 0,
-            regExp;
-            
-        for(; i < count; i++){
-            regExp = patrn[i].exec(me.format);
-            key[i] = regExp ? regExp.index : null;
+            len = patrn.length,
+            date = [],
+            regExp,
+            index,
+            _return;
+
+        if(!dateValue){return;}
+        for(var i = 0; i < len; i++){
+            if(regExp = patrn[i].exec(me.format)){
+                index = regExp.index;
+                date[i] = dateValue.substring(index, index + regExp[0].length);
+            }
         }
-        me.input.value.replace(/\d{1,4}/g, function(mc, index){
-            val[index] = mc;
-        });
-        for(i = 0; i < key.length; i++){
-            key[i] = val[key[i]];
-            if(!key[i]){return;}
-        }
-        return new Date(key[0], key[1] - 1, key[2]);//需要时分秒的则扩展参数
+        
+        _return = new Date(date[0], date[1] - 1, date[2]);  //需要时分秒的则扩展参数
+        if(baidu.lang.isDate(_return))
+            return _return;
+        else
+            return ;
     },
 
+   
     /**
      * 析构函数
      * @public
