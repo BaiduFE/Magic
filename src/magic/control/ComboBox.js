@@ -556,6 +556,10 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             if (data[length].value == value) {
                 this.selectValue = value;
                 this.getElement('input').value = data[length].content;
+                //在setup模式下，需要修改原始select的值。by Dengping
+                if (this.select) {
+                    this.select.options[length].selected = true;
+                }
                 break;
             }
         }
@@ -573,6 +577,10 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         var item = this._options.items[index] || this._options.items[0];
         this.getElement('input').value = item.content;
         this.selectValue = item.value;
+        //在setup模式下，需要修改原始select的值。by Dengping
+        if (this.select) {
+            this.select.options[index].selected = true;
+        }
     },
     
     /**
@@ -629,6 +637,11 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      */
     'reset' : function() {
         this._initInput();
+        //在setup模式下，原生select也需要reset。By Dengping
+        if (this.select) {
+            var index = this._options.originIndex == -1 ? 0 : this._options.originIndex;
+            this.select.options[index].selected = true;
+        }
     },
     
     /**
@@ -649,7 +662,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
          * @name magic.control.ComboBox#onrelad
          * @param {baidu.lang.Event} evt 事件参数 
          */
-        this.fire('reload');
+        this.fire('reload', {
+            'data' : data
+        });
     },
     
     /**
