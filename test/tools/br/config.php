@@ -35,6 +35,7 @@ class Config{
 	 */
 	public static $SOURCE_PATH = array("../../../src/",
 		"../../../../Tangram-base/src/",
+	    "../../../../Tangram-component/src/",
 		"../../../../tangram/src/"
 		);
 
