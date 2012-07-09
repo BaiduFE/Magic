@@ -71,7 +71,7 @@ magic.setup.combobox = function(el, options) {
         for (; i < length; i ++) {
             var elmOption = document.createElement('OPTION');
             elmOption.value = data[i].value;
-            elmOption.text = data[i].text;
+            elmOption.text = data[i].content;
             el.add(elmOption);
         }
     });

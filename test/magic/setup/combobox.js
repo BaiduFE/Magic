@@ -817,6 +817,14 @@ test("render, viewSize", function(){
     document.body.removeChild(div1);
 });
 
+function getSelectedText(s) {
+    for (var l = s.options.length; l --;) {
+        if (s.options[l].selected) {
+            return s.options[l].text;
+        }
+    }    
+}
+
 test("setup, setByValue should change origin select's value.", function(){
     var div1 = document.createElement("div");
     document.body.appendChild(div1);
@@ -825,10 +833,13 @@ test("setup, setByValue should change origin select's value.", function(){
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     equals(s.value, 'beijing', 'test origin select\'s value should be "beijing".');
+    equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.setByValue('shanghai');
     equals(s.value, 'shanghai', 'test origin select\'s value should change to "shanghai".');
+    equals(getSelectedText(s), '上海', 'test origin select\'s text should change to "上海".');
     combobox1.reset();
     equals(s.value, 'beijing', 'test origin select\'s value should reset to "beijing".');
+    equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.dispose();
     document.body.removeChild(div1);
 });
@@ -841,10 +852,13 @@ test("setup, setByIndex should change origin select's value.", function(){
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     equals(s.value, 'beijing', 'test origin select\'s value should be "beijing".');
+    equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.$setByIndex(1);
     equals(s.value, 'shanghai', 'test origin select\'s value should change to "shanghai".');
+    equals(getSelectedText(s), '上海', 'test origin select\'s text should change to "上海".');
     combobox1.reset();
     equals(s.value, 'beijing', 'test origin select\'s value should reset to "beijing".');
+    equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.dispose();
     document.body.removeChild(div1);
 });
@@ -857,14 +871,17 @@ test("setup, ComboBox reload action should reload origin select too.", function(
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     equals(s.value, 'beijing', 'test origin select\'s value should be "beijing".');
+    equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.reload([{
         'value' : 'f', 'content' : '女'
     }, {
         'value' : 'm', 'content' : '男'
     }]);
     equals(s.value, 'f', 'test origin select\'s value should be "f".');
+    equals(getSelectedText(s), '女', 'test origin select\'s text should be "女".');
     combobox1.setByValue('m');
     equals(s.value, 'm', 'test origin select\'s value should change to "m".');
+    equals(getSelectedText(s), '男', 'test origin select\'s text should be "男".');
     combobox1.dispose();
     document.body.removeChild(div1);
 });
