@@ -305,32 +305,49 @@ test("center, auto width & height", function(){
 
 // case 11
 test("center", function(){
-	expect(4);
-	stop();
-	ua.frameExt(function(w, f){
-		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
-		var div = w.document.createElement("div");
-		w.document.body.appendChild(div);
-		div.id = "one-dialog";
-		var cdiv = w.document.createElement("div");
-		cdiv.id = "cdiv";
-		$(cdiv).html("dialog内容");
-		var dialog = new w.magic.Dialog({
-			titleText : '标题',
-			content : cdiv,
-			height : 100,
-			width : 100
-		});
-		dialog.render("one-dialog");
-		dialog.center();
-		equals(dialog.left, 200, "The left is right");
-		equals(dialog.top, 200, "The top is right");
-		equals(dialog.getElement().style.left, "200px", "The left is right");
-		equals(dialog.getElement().style.top, "200px", "The top is right");
-		w.document.body.removeChild(div);
-		this.finish();
-		document.body.removeChild(f.parentNode);
-	})	
+    expect(8);
+    stop();
+    ua.frameExt(function(w, f){
+        var me = this;
+        ua.loadcss(upath + "setup/dialog/demo.css", function(){
+        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500).css('margin',0).css('padding',0).css('border',0);
+        var div = w.document.createElement("div");
+        w.document.body.appendChild(div);
+        div.id = "one-dialog";
+        var cdiv = w.document.createElement("div");
+        cdiv.id = "cdiv";
+        $(cdiv).html("dialog内容");
+        var dialog = new w.magic.Dialog({
+            titleText : '标题',
+            content : cdiv,
+            height : 100,
+            width : 100
+        });
+        dialog.render("one-dialog");
+        dialog.center();
+        equals(dialog.left, 200, "The left is right");
+        equals(dialog.top, 200, "The top is right");
+        equals(dialog.getElement().style.left, "200px", "The left is right");
+        equals(dialog.getElement().style.top, "200px", "The top is right");     
+        
+        var largeDiv = w.document.createElement('div');
+        w.document.body.appendChild(largeDiv);
+        largeDiv.style.position = 'absolute';
+        largeDiv.style.top = largeDiv.style.left = 0;
+        largeDiv.style.width = largeDiv.style.height = '2000px';
+        w.document.body.scrollTop = w.document.body.scrollLeft = 2000;
+        var diff = (w.document.documentElement.scrollTop || w.document.body.scrollTop) - 1500;
+        dialog.center();
+        equals(dialog.left, 1700 + Math.floor(diff / 2), "The left is right");
+        equals(dialog.top, 1700 + Math.floor(diff / 2), "The top is right");
+        equals(dialog.getElement().style.left, 1700 + Math.floor(diff / 2) + "px", "The left is right");
+        equals(dialog.getElement().style.top, 1700 + Math.floor(diff / 2) + "px", "The top is right");
+        
+        w.document.body.removeChild(div);
+        me.finish();
+        document.body.removeChild(f.parentNode);
+        }, w);
+    })  
 });
 
 // case 12

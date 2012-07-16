@@ -53,7 +53,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
     this.labelPrev = '上一页';
     this.labelNext = '下一页';
     this.labelLast = '尾页';
-    this.tplURL = '##{pageNum}'
+    this.tplURL = '##{pageNum}';
     this.tplLabelNormal = '#{pageNum}';
     this.tplLabelCurrent = '#{pageNum}';
     baidu.object.extend(this, options);
@@ -73,32 +73,44 @@ magic.Pager = baidu.lang.createClass(function(options) {
      * @return {String} 拼装后的链接HTMLString
      */
     '_buildLink' : function(pageNum, className, innerHTML) {
-        return '<a onclick="return baiduInstance(\'' + this.guid + '\').update(' + pageNum + ')" href="' + baidu.string.format(this.tplURL, {'pageNum' : pageNum}) + '" class="tang-pager-' + className + '">'+ innerHTML + '</a>';
+        return '<a onclick="return baiduInstance(\'' + this.guid + '\').$update(' + pageNum + ')" href="' + baidu.string.format(this.tplURL, {'pageNum' : pageNum}) + '" class="tang-pager-' + className + '">'+ innerHTML + '</a>';
     },
     
     /**
      * 更新页码条
      * @public 不暴露给使用者，但却是公有的方法。
+     * @developer 开发者方法
+     * @function
+     * @name magic.Pager#$update
      * @param {Number} currentPage 当前页。
      * @return {Boolean} 是否阻止浏览器的默认行为。
      */
-    'update' : function(currentPage) {
-        var returnValue = this.fire('pagechange', {
-            'pageNum' : currentPage
-        })
+    '$update' : function(currentPage) {
         this.currentPage = currentPage;
         var container = this.getElement();
         container.innerHTML = '';
         this.render(this.getElement());
-        return returnValue;
+       /**
+        * 页码变换后触发
+        * @name magic.Pager#onpagechange
+        * @event 
+        * @param {baidu.lang.Event} evt 事件参数
+        * @config {Boolean} evt.returnValue 返回false时，会阻止<a>的浏览器默认href跳转。
+        */
+        return this.fire('pagechange', {
+            'pageNum' : currentPage
+        });
     },
     
     /**
      * 生成HTMLString
-     * @private
+     * @function
+     * @public
+     * @developer 开发者方法
+     * @name magic.Pager#$toHTMLString
      * @return {String} 控件的HTMLString
      */
-    '_toHTMLString' :  function() {
+    '$toHTMLString' :  function() {
         var pageNum,
             HTMLString = [],
             //展现起始页
@@ -142,7 +154,13 @@ magic.Pager = baidu.lang.createClass(function(options) {
             this.mappingDom('', target || document.body);
         }
         baidu.dom.addClass(target, 'tang-pager');
-        baidu.dom.insertHTML(target, 'beforeEnd', this._toHTMLString());
+        baidu.dom.insertHTML(target, 'beforeEnd', this.$toHTMLString());
+       /**
+        * Pager渲染后触发
+        * @name magic.Pager#onload
+        * @event 
+        * @param {baidu.lang.Event} evt 事件参数
+        */
         this.fire("load");
     },
     
@@ -159,6 +177,12 @@ magic.Pager = baidu.lang.createClass(function(options) {
         var container = this.getElement(),
             main = this.getElement('main');
         baidu.dom.removeClass(container, 'tang-pager');
+       /**
+        * Pager析构后触发
+        * @name magic.Pager#ondispose
+        * @event 
+        * @param {baidu.lang.Event} evt 事件参数
+        */
         magic.Base.prototype.dispose.call(this);
         baidu.dom.remove(main);
         container = main = null;
