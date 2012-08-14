@@ -34,7 +34,7 @@ class Config{
 	 * @var ArrayIterator::String
 	 */
 	public static $SOURCE_PATH = array("../../../src/",
-		"../../../../Tangram2/src/",
+		"../../../../Tangram-base/src/",
 	    "../../../../Tangram-component/src/",
 		"../../../../tangram/src/"
 		);
