@@ -68,13 +68,15 @@ test("render, all param", function(){
 	equals(combobox1._options.readonly, true, "_options.readonly is right");
 	equals(combobox1._options.disabled, false, "_options.disabled is right");
 	equals(combobox1._options.width, '200', "_options.width is right");
+
 	equals((function(){
 	    var res = '';
-	    for (var i in combobox1._options.items) {
-	        res += combobox1._options.items[i].content;
-	    }
+        for (var i=0;i<combobox1._options.items.length;i++) {
+            res += combobox1._options.items[i].content;
+        }
 	    return res;
-	})(), "北京上海广州天津重庆", "_options.items is right");
+	
+    })(), "北京上海广州天津重庆", "_options.items is right");
 	
 	equals(combobox1.getElement('input').value, '上海', "The item of originIndex displayed in input.");
     equals($("li", combobox1.getElement("menu")).text(), "北京上海广州天津重庆", "The content of menu is right");
