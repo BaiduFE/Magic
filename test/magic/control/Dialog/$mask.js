@@ -54,13 +54,25 @@ test("render, default params", function(){
 					enable: true
 				}
 			});
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			dialog.on("load", function(){
 				ok(this.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "100%", "The height is right");
-				equals(this._mask.width, "100%", "The width is right");
+				equals(this._mask.height, "auto", "The height is right");
+				equals(this._mask.width, "auto", "The width is right");
 				equals(this._mask.getElement().style.zIndex, "", "The zIndex is right"); // show 的时候才有
 				equals(this._mask.getElement().style.backgroundColor, "", "The bgColor is right"); // show 的时候才有
 				if(ua.browser.ie)
@@ -80,10 +92,10 @@ test("render, default params", function(){
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "500", "The height is right"); 
-				equals(this._mask.width, "500", "The width is right"); 
+				equals(this._mask.height, getViewHeight(), "The height is right"); 
+				equals(this._mask.width, getViewWidth(), "The width is right"); 
 				equals(this._mask.getElement().style.zIndex, 1004, "The zIndex is right");
-				if(ua.browser.ie)
+				if(ua.browser.ie && ua.browser.ie < 9)
 					equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 				else
 					equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
@@ -132,8 +144,8 @@ test("render, default mask params", function(){
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "100%", "The height is right");
-				equals(this._mask.width, "100%", "The width is right");
+				equals(this._mask.height, "auto", "The height is right");
+				equals(this._mask.width, "auto", "The width is right");
 				equals(this._mask.getElement().style.zIndex, "", "The zIndex is right");
 				equals(this._mask.getElement().style.backgroundColor, "", "The bgColor is right");
 				if(ua.browser.ie)
@@ -156,7 +168,7 @@ test("render, default mask params", function(){
 				equals(this._mask.height, "500", "The height is right");
 				equals(this._mask.width, "500", "The width is right");
 				equals(this._mask.getElement().style.zIndex, "1004", "The zIndex is right");
-				if(ua.browser.ie)
+				if(ua.browser.ie && ua.browser.ie < 9)
 					equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 				else
 					equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
@@ -210,7 +222,7 @@ test("render, params", function(){
 			equals(dialog._mask.height, "500", "The height is right");
 			equals(dialog._mask.width, "500", "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, "1004", "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#fff", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(255, 255, 255)", "The bgColor is right");
@@ -251,7 +263,7 @@ test("setup, default params", function(){
 			equals(dialog._mask.height, "500", "The height is right");
 			equals(dialog._mask.width, "500", "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, 1004, "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
@@ -301,7 +313,7 @@ test("setup, default mask params", function(){
 			equals(dialog._mask.height, "500", "The height is right");
 			equals(dialog._mask.width, "500", "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, 1004, "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
@@ -353,7 +365,7 @@ test("render, params", function(){
 			equals(dialog._mask.height, "500", "The height is right");
 			equals(dialog._mask.width, "500", "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, "1004", "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#fff", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(255, 255, 255)", "The bgColor is right");

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  * version: 0.1
@@ -13,6 +13,7 @@
 ///import baidu.fn.bind;
 ///import baidu.dom.drag;
 ///import baidu.dom.setStyle;
+///import baidu.dom.q;
 ///import baidu.string.encodeHTML;
 ///import baidu.object.extend;
 ///import baidu.browser.isStrict;
@@ -20,8 +21,8 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.hasClass;
 ///import baidu.global.getZIndex;
-///import baidu.page.getScrollTop;
-///import baidu.page.getScrollLeft;
+///import baidu.page.getWidth;
+///import baidu.page.getHeight;
 
 /**
  * Dialog 组件的控制器
@@ -74,12 +75,67 @@ magic.control.Dialog = baidu.lang.createClass(
             if(this.draggable){
                 var title = this.getElement("title"), dragFn;
                 var bind = baidu.fn.bind;
+                var me = this;
+                var container_parent = container.parentNode;
+                var parent_position = baidu.dom.getPosition(container_parent);
                 title.className += " tang-title-dragable";
+
+                var getRange = {
+                    'top': function(){
+                        var parent_border_top = baidu.dom.getStyle(container_parent, "borderTopWidth");
+
+                        if(!/px/.test(parent_border_top)){
+                            parent_border_top = 0;
+                        }else{
+                            parent_border_top = parseInt(parent_border_top);
+                        }
+
+                        if(container_parent == document.body){
+                            return 0 - parent_border_top;
+                        }else{
+                            return 0 - (parent_position.top + parent_border_top);
+                        }
+                    },
+                    'right': function(){
+                        //TODO 如果没有background层，会报错
+                        var background_inner = baidu.dom.q("tang-background-inner", container)[0];
+                        var background_inner_ml = baidu.dom.getStyle(background_inner, "marginLeft") == "auto" ? background_inner.offsetLeft + "px" : baidu.dom.getStyle(background_inner, "marginLeft");
+                        return baidu.page.getWidth() + getRange['left']() - parseInt(background_inner_ml);
+                    },
+                    'bottom': function(){
+                        var background_inner = baidu.dom.q("tang-background-inner", container)[0];
+                        var background_inner_mt = baidu.dom.getStyle(background_inner, "marginTop") == "auto" ? background_inner.offsetTop + "px" : baidu.dom.getStyle(background_inner, "marginTop");
+                        return baidu.page.getHeight() + getRange['top']() - parseInt(background_inner_mt);
+                    },
+                    'left': function(){
+                        var parent_border_left = baidu.dom.getStyle(container_parent, "borderLeftWidth");
+
+                        if(!/px/.test(parent_border_left)){
+                            parent_border_left = 0;
+                        }else{
+                            parent_border_left = parseInt(parent_border_left);
+                        }
+
+                        if(container_parent == document.body){
+                            return 0 - parent_border_left;
+                        }else{
+                            return 0 - (parent_position.top + parent_border_left);
+                        }
+                    }
+                };
+
                 baidu.event.on(title, "mousedown", dragFn = bind(function(){
                     baidu.dom.drag(container, {
                         ondragstart: bind(function(){ this.fire("dragstart"); }, this),
                         ondrag: bind(function(){ this.fire("drag"); }, this),
-                        ondragend: bind(function(){ this.fire("dragstop"); }, this)
+                        ondragend: bind(function(){ this.fire("dragstop"); }, this),
+                        range: [
+                            getRange['top'](),
+                            getRange['right'](),
+                            getRange['bottom'](),
+                            getRange['left']()
+                        ]
+                        
                     });
                 }, this));
                 this.disposeProcess.unshift(function(){
@@ -310,11 +366,8 @@ magic.control.Dialog.extend(
         var body = document[baidu.browser.isStrict ? "documentElement" : "body"];
         var bodyWidth = body.clientWidth;
         var bodyHeight = body.clientHeight;
-        //在Chrome下，document.documentElement.scrollTop取值为0，所以改用已经做过兼容的baidu.page.getScrollTop()。
-        //scrollLeft同上
-        //fixed by Dengping
-        var left = (((bodyWidth - this.width) / 2) | 0) + baidu.page.getScrollLeft();
-        var top = (((bodyHeight - this.height) / 2) | 0) + baidu.page.getScrollTop();
+        var left = (((bodyWidth - this.width) / 2) | 0) + body.scrollLeft;
+        var top = (((bodyHeight - this.height) / 2) | 0) + body.scrollTop;
         this.setPosition({ left: left, top: top });
     },
 

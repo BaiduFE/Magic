@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * author: zhaochengyang
@@ -366,7 +366,7 @@ magic.Calendar.extend(
                     classname += ' ' + me._getClass("weekend");
                 }
                 //是否当天
-                if(me._datesEqual(new Date(), date)){
+                if(me._datesEqual(baidu.i18n.date.toLocaleDate(new Date()), date)){
                     classname += ' ' + me._getClass("today");
                 }
                 //是否是高亮日期

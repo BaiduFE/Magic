@@ -57,9 +57,9 @@ magic.setup.dialog = function(el, options){
 	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
 	if(typeof instance.left == "undefined")
-	   	instance.left = 0;
+		instance.left = baidu.dom.getStyle(container, "left") == "auto" ? 0 : baidu.dom.getStyle(container, "left");
 	if(typeof instance.top == "undefined")
-		instance.top = 0;
+		instance.top = baidu.dom.getStyle(container, "top") == "auto" ? 0 : baidu.dom.getStyle(container, "top");
 
 	if(typeof instance.width != "number")
 		instance.width = container.clientWidth;
