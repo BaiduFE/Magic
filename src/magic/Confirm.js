@@ -33,7 +33,7 @@
     function createMask(){
         var ie = baidu.browser.ie;
         var mask = document.createElement('div');
-        mask.className = 'tang-confirm-mask';
+        mask.className = 'tang-mask';
         ie == 6 && baidu.dom.setStyle(mask, 'position', 'absolute');
         baidu.dom.setStyle(mask, "zIndex", baidu.global.getZIndex("dialog", -5));
 

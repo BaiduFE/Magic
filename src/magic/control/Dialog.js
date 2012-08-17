@@ -23,6 +23,8 @@
 ///import baidu.global.getZIndex;
 ///import baidu.page.getWidth;
 ///import baidu.page.getHeight;
+///import baidu.page.getScrollTop;
+///import baidu.page.getScrollLeft
 
 /**
  * Dialog 组件的控制器
@@ -366,8 +368,12 @@ magic.control.Dialog.extend(
         var body = document[baidu.browser.isStrict ? "documentElement" : "body"];
         var bodyWidth = body.clientWidth;
         var bodyHeight = body.clientHeight;
-        var left = (((bodyWidth - this.width) / 2) | 0) + body.scrollLeft;
-        var top = (((bodyHeight - this.height) / 2) | 0) + body.scrollTop;
+        //在Chrome下，document.documentElement.scrollTop取值为0，所以改用已经做过兼容的baidu.page.getScrollTop()。
+        //scrollLeft同上
+        //fixed by Dengping
+        var left = (((bodyWidth - this.width) / 2) | 0) + baidu.page.getScrollLeft();
+        var top = (((bodyHeight - this.height) / 2) | 0) + baidu.page.getScrollTop();
+        
         this.setPosition({ left: left, top: top });
     },
 

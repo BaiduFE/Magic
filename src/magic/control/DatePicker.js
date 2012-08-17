@@ -10,6 +10,7 @@
 ///import baidu.dom.contains;
 ///import baidu.date.format;
 ///import baidu.object.merge;
+///import baidu.i18n.date;
 ///import magic.control;
 ///import magic.Base;
 ///import magic.Popup;
@@ -113,7 +114,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 		var me = this,
 			date = new Date();
 
-		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || new Date());
+		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || baidu.i18n.date.toLocaleDate(new Date()));
 		me.popup.attach(me.input, {
 			'offsetY': me.popupOption.offsetY || -1,
 			'offsetX': me.popupOption.offsetY || 0

@@ -28,6 +28,7 @@
             var datepicker1 = new magic.setup.datePicker('J_input_1', {
             	'format': 'yyyy/MM/dd',
             	'calendarOptions': {
+                    'initDate': new Date(),
             	    'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                     'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
             	}

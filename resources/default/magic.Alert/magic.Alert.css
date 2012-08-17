@@ -12,7 +12,7 @@
     height: 30px;
     width: 90px;    
 }
-.tang-alert-mask {
+.tang-mask {
     position: fixed;
     top:0;
     left:0;
