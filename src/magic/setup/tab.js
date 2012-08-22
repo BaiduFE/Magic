@@ -5,7 +5,6 @@
 
 ///import magic.setup;
 ///import magic.control.Tab;
-///import baidu.dom.g;
 
 
 /**
@@ -21,7 +20,7 @@
  * @author meizz, linlingyu
  */
 magic.setup.tab = function(el, options) {
-    var instance = magic.setup(baidu.dom.g(el), magic.control.Tab, options);
+    var instance = magic.setup(baidu.dom('#'+el).get(0), magic.control.Tab, options);
     instance.fire('onload');
     return instance;
 };
