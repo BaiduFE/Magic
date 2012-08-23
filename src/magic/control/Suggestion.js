@@ -14,6 +14,7 @@
 ///import baidu.dom.setStyle;
 ///import baidu.dom.contains;
 ///import baidu.dom.setAttr;
+///import baidu.dom.attr;
 ///import baidu.event.on;
 ///import baidu.event.stop;
 ///import baidu.lang.createClass;
@@ -85,8 +86,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                 me.upDownArrowTimer = null;
             }
         };
-        baidu.event.on(input_el, "onkeydown", _keydownHandler);
-        baidu.event.on(input_el, "onkeyup", _keyupHandler);
+        baidu.dom(input_el).on("keydown", _keydownHandler);
+        baidu.dom(input_el).on("keyup", _keyupHandler);
         
         //解决某些输入法输入过程中会将字符上框的问题
         me.on("onmousedownitem", function(){
@@ -99,8 +100,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         
         //dispose时移除事件监听
         me.on('ondispose', function(){
-            baidu.event.un(input_el, "onkeydown", _keydownHandler);
-            baidu.event.un(input_el, "onkeyup", _keyupHandler);
+            baidu.dom(input_el).off("keydown", _keydownHandler);
+            baidu.dom(input_el).off("keyup", _keyupHandler);
             clearInterval(timer);
         });
     });
@@ -125,13 +126,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                 me.hide();
             };
 
-        baidu.event.on(window, 'blur', windowBlurHandler);
-        baidu.event.on(document, "onclick", documentClickHandler);
+        baidu.dom(window).on('blur', windowBlurHandler);
+        baidu.dom(document).on("click", documentClickHandler);
         
         //dispose时移除事件监听
         me.on('ondispose', function(){
-            baidu.event.un(window, 'blur', windowBlurHandler);
-            baidu.event.un(document, 'onclick', documentClickHandler);
+            baidu.dom(window).off('blur', windowBlurHandler);
+            baidu.dom(document).off('click', documentClickHandler);
         });
         
     });
@@ -197,13 +198,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         var me = this,
             popup = new magic.Popup({"autoHide": false, "autoTurn": false, 'disposeOnHide': false});
         popupContainer = popup.getElement();
-        baidu.dom.addClass(popupContainer, "tang-suggestion-popup");
+        baidu.dom(popupContainer).addClass("tang-suggestion-popup");
         
         me.mappingDom("suggestion", popupContainer);
         
         me.suggestion = popup;  //指向suggestion的popup实例
         
-        baidu.dom.setAttr(me.getElement("input"), "autocomplete", "false");
+        baidu.dom(me.getElement("input")).attr("autocomplete", "false");
         
         /**
          * 渲染suggestion容器时触发
@@ -222,7 +223,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     isShowing: function(){
         var me = this,
             suggestion = me.getElement("suggestion");
-        return suggestion && baidu.dom.getStyle(suggestion, "display") != "none";
+        return suggestion && baidu.dom(suggestion).css('display') != "none";
     },
     
     /**
@@ -250,10 +251,9 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             "offsetY": (me.offset && me.offset.offsetY) || -1
         });
         //设置suggestion的宽度
-        baidu.dom.setStyle(suggestion_el, "width", parseInt(customWidth) + "px");
-        
+        baidu.dom(suggestion_el).css("width", parseInt(customWidth) + 'px');
         //显示suggestion
-        baidu.dom.setStyle(suggestion_el, "display", "block");
+        baidu.dom(suggestion_el).css("display", "block");
         
         //将selectedIndex重置为-1
         me.selectedIndex = -1;
@@ -300,7 +300,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     _hide: function(){
         var me = this,
             suggestion = me.getElement("suggestion");
-        baidu.dom.setStyle(suggestion, "display", "none");
+        baidu.dom(suggestion).setStyle("display", "none");
         
         //重置selectedIndex
         me.selectedIndex = -1;
@@ -388,7 +388,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     _isEnable: function(index){
         var me = this;
-        return baidu.array.contains(me.enableIndexs, index);
+        return baidu.array(me.enableIndexs).contains(index);
     },
     
     /**
@@ -398,7 +398,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @return {HTMLElement}
      */
     _getItemDom: function(index){
-        return baidu.g(this.getId('item' + index));
+        return baidu.dom('#'+this.getId('item' + index)).get(0);
     },
     
     /**
@@ -437,10 +437,10 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         me.selectedIndex >= 0 && me.clearHighLight();
         
         item = me._getItemDom(index);
-        baidu.addClass(item, 'tang-suggestion-current');
+        baidu.dom(item).addClass('tang-suggestion-current');
         
         //修改索引
-        me.selectedIndex = baidu.array.indexOf(enableIndexs, index);
+        me.selectedIndex = baidu.array(enableIndexs).indexOf(index);
         
         /**
          * 高亮某个item时触发
@@ -467,7 +467,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         index = me.enableIndexs[selectedIndex];
         if (selectedIndex >= 0) {
             item = me._getItemDom(index);
-            baidu.removeClass(item, me._getClass('current'));
+            baidu.dom(item).removeClass(me._getClass('current'));
             me.selectedIndex = -1;
             
             /**
@@ -625,11 +625,12 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     _mouseOver: function(e, index) {
         var me = this;
-        baidu.event.stop(e || window.event);
+        e = baidu.event(e);
+        e.stopPropagation();
         
         if(me._isEnable(index)){
             me.highLight(index);
-            me.selectedIndex = baidu.array.indexOf(me.enableIndexs, index);
+            me.selectedIndex = baidu.array(me.enableIndexs).indexOf(index);
         }
         
         /**
@@ -653,7 +654,9 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     _mouseOut: function(e, index) {
         var me = this;
-        baidu.event.stop(e || window.event);
+        e = baidu.event(e);
+        e.stopPropagation();
+        
         if(!me.holdHighLight){
             me._isEnable(index) && me.clearHighLight();
         }
@@ -679,7 +682,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     _mouseDown: function(e, index){
         var me = this;
-        baidu.event.stop(e || window.event);
+        e = baidu.event(e);
+        e.stopPropagation();
         
         /**
          * 鼠标选中某个item时触发
@@ -702,7 +706,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     _mouseClick: function(e, index) {
         var me = this;
-        baidu.event.stop(e || window.event);
+        e = baidu.event(e);
+        e.stopPropagation();
 
         /**
          * 鼠标点击某个item时触发
@@ -799,14 +804,14 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         }
         return function(e) {
             var direction = "up";
-            e = e || window.event;
             switch (e.keyCode) {
                 case 27:    //esc
                 case 9:     //tab
                     me.hide();
                     break;
                 case 13:    //回车，默认为表单提交
-                    baidu.event.stop(e);
+                    e.preventDefault();
+                    e.stopPropagation();
                     //当前有选中的item且holdHighLight打开
                     if(me.selectedIndex >= 0 && me.holdHighLight){
                         me.confirm(me.enableIndexs[me.selectedIndex]);
@@ -828,7 +833,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                 case 40:    //向下
                     direction = "down";
                 case 38:    //向上
-                    baidu.event.stop(e);
+                    e.preventDefault();
+                    e.stopPropagation();
                     upDownArrowHandler(direction);
                     break;
                 default:
