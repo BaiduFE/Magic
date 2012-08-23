@@ -10,13 +10,8 @@
 ///import baidu.array.contains;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.getStyle;
-///import baidu.dom.setStyle;
 ///import baidu.dom.contains;
-///import baidu.dom.setAttr;
 ///import baidu.dom.attr;
-///import baidu.event.on;
-///import baidu.event.stop;
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
 ///import baidu.string.format;
@@ -300,7 +295,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     _hide: function(){
         var me = this,
             suggestion = me.getElement("suggestion");
-        baidu.dom(suggestion).setStyle("display", "none");
+        baidu.dom(suggestion).css("display", "none");
         
         //重置selectedIndex
         me.selectedIndex = -1;

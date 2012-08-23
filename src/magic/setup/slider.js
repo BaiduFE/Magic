@@ -5,7 +5,6 @@
  
 
 ///import magic.setup;
-///import baidu.dom.g;
 ///import magic.control.Slider;
 ///import magic._query;
 
@@ -22,7 +21,7 @@
  */
 
 magic.setup.slider = function(el, options){
-    var me = magic.setup(baidu.dom.g(el), magic.control.Slider, options),
+    var me = magic.setup(baidu.dom('#'+el).get(0), magic.control.Slider, options),
         query = magic._query,
         container = me.getElement();
 

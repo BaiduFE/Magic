@@ -6,7 +6,7 @@
 ///import baidu.lang.register;
 ///import magic.control.Slider;
 ///import baidu.dom.insertHTML;
-///import baidu.dom.setStyle;
+///import baidu.dom.css;
 ///import baidu.string.format;
 
 /**
@@ -27,7 +27,7 @@ baidu.lang.register(magic.control.Slider, function(options){
             id = me.getId('cache'),
             html = info._oppsite ? '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-start"></div>' : '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-last"></div>';
 
-        baidu.dom.insertHTML(inner, 'afterBegin', baidu.string.format(html ,{
+        baidu.dom(inner).insertHTML('afterBegin', baidu.string.format(html ,{
             id: id,
             cacheClass: cacheClass
         }));
@@ -46,8 +46,8 @@ baidu.lang.register(magic.control.Slider, function(options){
             cachePos = value * info._limit,
             cachePercent = me._cachePercent(cachePos);
  
-        value == 0 ? baidu.dom.setStyle(cache, 'overflow', 'hidden') : baidu.dom.setStyle(cache, 'overflow', '');
-        baidu.dom.setStyle(cache, info._accuracyKey, me._cachePercent(cachePos));
+        value == 0 ? baidu.dom(cache).css('overflow', 'hidden') : baidu.dom(cache).css('overflow', '');
+        baidu.dom(cache).css(info._accuracyKey, me._cachePercent(cachePos));
     },
 
     /**
