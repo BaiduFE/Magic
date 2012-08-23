@@ -276,7 +276,7 @@ test("setup, default params", function(){
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
-			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			w.document.body.removeChild(w.baidu("#one-dialog"));
 			me.finish();
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
@@ -326,7 +326,7 @@ test("setup, default mask params", function(){
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
-			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			w.document.body.removeChild(w.baidu("#one-dialog"));
 			me.finish();
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
@@ -373,7 +373,7 @@ test("render, params", function(){
 			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
 			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
-			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			w.document.body.removeChild(w.baidu("#one-dialog"));
 			me.finish();
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);

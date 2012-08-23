@@ -5,7 +5,6 @@
 	<title>magic.Confirm</title>
 	<link type="text/css" rel="stylesheet" href="shCoreDefault.css"/>
 	<link type="text/css" rel="stylesheet" href="../../../resources/default/magic.control.Dialog/magic.control.Dialog.css"/>
-    <link type="text/css" rel="stylesheet" href="../../../resources/default/magic.Confirm/magic.Confirm.css"/>
     <script type="text/javascript" src="shCore.js"></script>
     <script type="text/javascript" src="shBrushJScript.js"></script>
     <script type="text/javascript" src="../../../src/import.php?f=magic.Dialog"></script>
@@ -91,4 +90,44 @@
     };
 </script>
 
+<pre class="brush: js;">
+            magic.Confirm({
+                'content': '内容',
+                'titleText': '标题',
+                'ok': {
+                    'label': '是',
+                    'callback': function(){
+                        alert('ok');
+                    }
+                },
+                'cancel': {
+                    'label': '否',
+                    'callback': function(){
+                        alert('cancel');
+                    }
+                }
+            });
+</pre>
+<p><button id="J_code9">运行</button></p>
+<script type="text/javascript">
+    document.getElementById("J_code9").onclick = function(){
+        magic.Confirm({
+                'content': '内容',
+                'titleText': '标题',
+                'ok': {
+                    'label': '是',
+                    'callback': function(){
+                        alert('ok');
+                    }
+                },
+                'cancel': {
+                    'label': '否',
+                    'callback': function(){
+                        alert('cancel');
+                    }
+                }
+            });
+    };
+</script>
+<textarea></textarea>
 </html>

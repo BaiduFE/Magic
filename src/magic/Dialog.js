@@ -15,10 +15,10 @@
 ///import baidu.dom.insertHTML;
 ///import baidu.string.format;
 ///import baidu.string.encodeHTML;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.un;
 ///import baidu.fn.bind;
-///import baidu.dom.g;
+///import baidu.dom;
 ///import magic.Background;
 ///import baidu.object.extend;
 ///import baidu.object.isPlain;
@@ -28,9 +28,10 @@
 ///import baidu.page.getViewWidth;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
-///import baidu.dom.setStyle;
+///import baidu.dom.css;
 ///import baidu.browser.ie;
 ///import baidu.global.getZIndex;
+///import baidu.type;
 
 /**
  * 模拟对话框类，用于建立一个实例
@@ -76,16 +77,19 @@ magic.Dialog.extend(
 	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
 	 */
     render: function(el){
-    	el = baidu.dom.g(el);
+        if(baidu.type(el) === "string"){
+            el = '#' + el;
+        }
+    	el = baidu(el)[0];
     	el || document.body.appendChild(el = document.createElement("div"));
     	var template = magic.Dialog.template.join("");
-        baidu.dom.addClass(el, "tang-ui tang-dialog");
+        baidu(el).addClass("tang-ui tang-dialog");
 
         // var content = "";
         // if(typeof this.content == "string")
         //     content = this.content;
 
-        baidu.dom.insertHTML(el, "beforeEnd", baidu.string.format(template, {
+        baidu(el).insertHTML("beforeEnd", baidu.string.format(template, {
         	title: baidu.string.encodeHTML(this.titleText || "") || "&nbsp;",
         	content: "",
         	titleId: this.getId("title"),
@@ -103,7 +107,7 @@ magic.Dialog.extend(
 
 		this._titleHeight = this.getElement("title").offsetHeight || 30;
 
-		baidu.event.on(this.getElement("closeBtn"), "click", this._closeBtnFn = baidu.fn.bind(this.hide, this));
+		baidu(this.getElement("closeBtn")).on("click", this._closeBtnFn = baidu.fn.bind(this.hide, this));
 
 		this.setSize(this);
 		this.setPosition(this.left, this.top);
@@ -116,10 +120,10 @@ magic.Dialog.extend(
 
         this.disposeProcess.push(
         	function(){
-        		baidu.event.un(this.getElement("closeBtn"), "click", this._closeBtnFn);
+        		baidu(this.getElement("closeBtn")).off("click", this._closeBtnFn);
         		this._background.dispose();
         		el.innerHTML = "";
-        	    baidu.dom.addClass(el, "tang-ui tang-dialog");
+        	    baidu(el).addClass("tang-ui tang-dialog");
         	}
         );
     }
@@ -153,36 +157,36 @@ magic.Dialog.template = [
         var ie = baidu.browser.ie;
         var mask = document.createElement('div');
         mask.className = 'tang-mask';
-        ie == 6 && baidu.dom.setStyle(mask, 'position', 'absolute');
-        baidu.dom.setStyle(mask, "zIndex", baidu.global.getZIndex("dialog", -5));
+        ie == 6 && baidu(mask).css('position', 'absolute');
+        baidu(mask).css("zIndex", baidu.global.getZIndex("dialog", -5));
         
 
         document.body.appendChild(mask);
 
         function resize(){
             mask.style.display = 'none';
-            baidu.dom.setStyle(mask, 'height', baidu.page.getViewHeight() + 'px');
-            baidu.dom.setStyle(mask, 'width', baidu.page.getViewWidth() + 'px');
+            baidu(mask).css('height', baidu.page.getViewHeight() + 'px');
+            baidu(mask).css('width', baidu.page.getViewWidth() + 'px');
             mask.style.display = '';
         }
 
         function position(){
             mask.style.display = 'none';
-            baidu.dom.setStyle(mask, 'top', baidu.page.getScrollTop() + 'px');
-            baidu.dom.setStyle(mask, 'left', baidu.page.getScrollLeft() + 'px');
+            baidu(mask).css('top', baidu.page.getScrollTop() + 'px');
+            baidu(mask).css('left', baidu.page.getScrollLeft() + 'px');
             mask.style.display = '';
         }
 
         resize();
         ie == 6 && position();
 
-        baidu.on(window, 'onresize', resize);
+        baidu(window).on('resize', resize);
         disposeProcess.push(function(){
-            baidu.un(window, 'onresize', resize);
+            baidu(window).off('resize', resize);
         });
-        ie == 6 && baidu.on(window, "onscroll", position);
+        ie == 6 && baidu(window).on("scroll", position);
         ie == 6 && disposeProcess.push(function(){
-            baidu.un(window, 'onscroll', position);
+            baidu(window).off('scroll', position);
         });
 
         disposeProcess.push(function(){
@@ -194,7 +198,9 @@ magic.Dialog.template = [
      * 模拟alert
      * @grammar magic.Alert()
      * @param {Object} options 控制选项
-     * @config {Number} options.top Dialog 的上边距，可选
+     * @config {String} options.content Alert的内容
+     * @config {String} options.titleText Alert的标题
+     * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      */
     magic.Dialog.Alert = function(){
         
@@ -206,7 +212,7 @@ magic.Dialog.template = [
             ok: baidu.fn.blank
     	};
         var customOptions = {},
-            ok_button_label, ok_button_callback, okclickFn;
+            ok_button_label, ok_button_callback, okclickFn, closeclickFn, keyFn;
         
         //将参数列表转化为配置项
         if(!baidu.object.isPlain(arguments[0])){
@@ -230,19 +236,58 @@ magic.Dialog.template = [
         var instance = new magic.Dialog(defaultOptions);
         instance.render();
         instance.center();
-        var alert_el = baidu.g(instance.getId());
-        baidu.dom.insertHTML(instance.getId("body"), 'beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button></p>');   
+        
+        var alert_el = baidu('#' + instance.getId());
+        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button></p>');   
 
-        baidu.on(baidu.g(instance.getId('ok-button')), 'click', okclickFn = function(){
+        //确定按钮
+        baidu('#' + instance.getId('ok-button')).on('click', okclickFn = function(){
                     dispose();
                     ok_button_callback.call(instance);
                 });
+        disposeProcess.push(function(){
+            baidu('#' + instance.getId('ok-button')).off('click', okclickFn);
+        });
+        //关闭按钮
+        baidu(instance.getElement('closeBtn')).on('click', closeclickFn = function(){
+                    dispose();
+                    ok_button_callback.call(instance);
+                });
+        disposeProcess.push(function(){
+            baidu(instance.getElement('closeBtn')).off('click', closeclickFn);
+        });
+
+        //键盘快捷键
+        baidu(document).on("keydown", keyFn = function(e){
+            e = e || window.event;
+            switch (e.keyCode) {
+                case 27:    //esc
+                    okclickFn();
+                    break;
+                case 13:    //enter
+                    e.preventDefault();
+                    e.stopPropagation();
+                    okclickFn();
+                    break;
+                default:
+                    break;
+            }
+        });
+        disposeProcess.push(function(){
+            baidu(document).off("keydown", keyFn);
+        });
+
 
         disposeProcess.push(function(){
-            baidu.un(baidu.g(instance.getId('ok-button')), 'click', okclickFn);
-            document.body.removeChild(alert_el);
+            instance.dispose();
+        });
+
+        disposeProcess.push(function(){
+            document.body.removeChild(alert_el[0]);
         });
         createMask();
+
+        return instance;
     };
     magic.Alert = magic.Dialog.Alert;
 
@@ -251,7 +296,10 @@ magic.Dialog.template = [
      * 模拟confirm
      * @grammar magic.Confirm()
      * @param {Object} options 控制选项
-     * @config {Number} options.top Dialog 的上边距，可选
+     * @config {String} options.content Confirm的内容
+     * @config {String} options.titleText Confirm的标题
+     * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
+     * @config {Object} options.cancel 取消按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      */
     magic.Dialog.Confirm = function(){
         
@@ -265,7 +313,8 @@ magic.Dialog.template = [
     	};
         var customOptions = {},
             ok_button_label, ok_button_callback, okclickFn,
-            cancel_button_label, cancel_button_callback, cancelclickFn;
+            cancel_button_label, cancel_button_callback, cancelclickFn,
+            closeclickFn, keyFn;
         
         //将参数列表转化为配置项
         if(!baidu.object.isPlain(arguments[0])){
@@ -298,28 +347,63 @@ magic.Dialog.template = [
         var instance = new magic.Dialog(defaultOptions);
         instance.render();
         instance.center();
-        var confirm_el = baidu.g(instance.getId());
-        baidu.dom.insertHTML(instance.getId("body"), 'beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button><button id="' + instance.getId('cancel-button') + '">' + cancel_button_label + '</button></p>');   
         
-        baidu.on(baidu.g(instance.getId('ok-button')), 'click', okclickFn = function(){
+        var confirm_el = baidu('#' + instance.getId());
+        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button><button id="' + instance.getId('cancel-button') + '">' + cancel_button_label + '</button></p>');   
+        
+        //确定按钮
+        baidu('#' + instance.getId('ok-button')).on('click', okclickFn = function(){
                     dispose();
                     ok_button_callback.call(instance);
                 });
-        baidu.on(baidu.g(instance.getId('cancel-button')), 'click', cancelclickFn = function(){
+        disposeProcess.push(function(){
+            baidu('#' + instance.getId('ok-button')).off('click', okclickFn);
+        });
+        //取消按钮
+        baidu('#' + instance.getId('cancel-button')).on('click', cancelclickFn = function(){
                     dispose();
                     cancel_button_callback.call(instance);
                 });
+        disposeProcess.push(function(){
+            baidu('#' + instance.getId('cancel-button')).off('click', cancelclickFn);
+        });
+        //关闭按钮
+        baidu(instance.getElement('closeBtn')).on('click', closeclickFn = function(){
+                    dispose();
+                    cancel_button_callback.call(instance);
+                });
+        disposeProcess.push(function(){
+            baidu(instance.getElement('closeBtn')).off('click', closeclickFn);
+        });
+        //键盘快捷键
+        baidu(document).on("keydown", keyFn = function(e){
+            e = e || window.event;
+            switch (e.keyCode) {
+                case 27:    //esc
+                    cancelclickFn();
+                    break;
+                case 13:    //enter
+                    e.preventDefault();
+                    e.stopPropagation();
+                    okclickFn();
+                    break;
+                default:
+                    break;
+            }
+        });
+        disposeProcess.push(function(){
+            baidu(document).off("keydown", keyFn);
+        });
         
         disposeProcess.push(function(){
-            baidu.un(baidu.g(instance.getId('ok-button')), 'click', okclickFn);
+            instance.dispose();
         });
         disposeProcess.push(function(){
-            baidu.un(baidu.g(instance.getId('ok-button')), 'click', cancelclickFn);
-        });
-        disposeProcess.push(function(){
-            document.body.removeChild(confirm_el);
+            document.body.removeChild(confirm_el[0]);
         });
         createMask();
+
+        return instance;
     };
     magic.Confirm = magic.Dialog.Confirm;
 })();

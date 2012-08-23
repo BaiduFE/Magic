@@ -8,12 +8,13 @@
 
 ///import magic.control.Layer;
 ///import baidu.lang.createClass;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.fn.bind;
 ///import baidu.dom.drag;
-///import baidu.dom.setStyle;
-///import baidu.dom.q;
+///import baidu.dom.css;
+///import baidu.dom.position;
+///import baidu.dom;
 ///import baidu.string.encodeHTML;
 ///import baidu.object.extend;
 ///import baidu.browser.isStrict;
@@ -24,7 +25,7 @@
 ///import baidu.page.getWidth;
 ///import baidu.page.getHeight;
 ///import baidu.page.getScrollTop;
-///import baidu.page.getScrollLeft
+///import baidu.page.getScrollLeft;
 
 /**
  * Dialog 组件的控制器
@@ -68,9 +69,9 @@ magic.control.Dialog = baidu.lang.createClass(
 
             // 处理聚焦
             var focusFn = function(){ me.focus(); };
-            baidu.event.on(container, "mousedown", focusFn);
+            baidu(container).on("mousedown", focusFn);
             this.disposeProcess.unshift(function(){
-                baidu.event.un(container, "mousedown", focusFn);
+                baidu(container).off("mousedown", focusFn);
             });
 
             // 定义拖拽事件
@@ -79,12 +80,12 @@ magic.control.Dialog = baidu.lang.createClass(
                 var bind = baidu.fn.bind;
                 var me = this;
                 var container_parent = container.parentNode;
-                var parent_position = baidu.dom.getPosition(container_parent);
+                var parent_position = baidu(container_parent).position();
                 title.className += " tang-title-dragable";
 
                 var getRange = {
                     'top': function(){
-                        var parent_border_top = baidu.dom.getStyle(container_parent, "borderTopWidth");
+                        var parent_border_top = baidu(container_parent).css("borderTopWidth");
 
                         if(!/px/.test(parent_border_top)){
                             parent_border_top = 0;
@@ -100,17 +101,17 @@ magic.control.Dialog = baidu.lang.createClass(
                     },
                     'right': function(){
                         //TODO 如果没有background层，会报错
-                        var background_inner = baidu.dom.q("tang-background-inner", container)[0];
-                        var background_inner_ml = baidu.dom.getStyle(background_inner, "marginLeft") == "auto" ? background_inner.offsetLeft + "px" : baidu.dom.getStyle(background_inner, "marginLeft");
+                        var background_inner = baidu(".tang-background-inner", container)[0];
+                        var background_inner_ml = baidu(background_inner).css("marginLeft") == "auto" ? background_inner.offsetLeft + "px" : baidu(background_inner).css("marginLeft");
                         return baidu.page.getWidth() + getRange['left']() - parseInt(background_inner_ml);
                     },
                     'bottom': function(){
-                        var background_inner = baidu.dom.q("tang-background-inner", container)[0];
-                        var background_inner_mt = baidu.dom.getStyle(background_inner, "marginTop") == "auto" ? background_inner.offsetTop + "px" : baidu.dom.getStyle(background_inner, "marginTop");
+                        var background_inner = baidu(".tang-background-inner", container)[0];
+                        var background_inner_mt = baidu(background_inner).css("marginTop") == "auto" ? background_inner.offsetTop + "px" : baidu(background_inner).css("marginTop");
                         return baidu.page.getHeight() + getRange['top']() - parseInt(background_inner_mt);
                     },
                     'left': function(){
-                        var parent_border_left = baidu.dom.getStyle(container_parent, "borderLeftWidth");
+                        var parent_border_left = baidu(container_parent).css("borderLeftWidth");
 
                         if(!/px/.test(parent_border_left)){
                             parent_border_left = 0;
@@ -126,7 +127,7 @@ magic.control.Dialog = baidu.lang.createClass(
                     }
                 };
 
-                baidu.event.on(title, "mousedown", dragFn = bind(function(){
+                baidu(title).on("mousedown", dragFn = bind(function(){
                     baidu.dom.drag(container, {
                         ondragstart: bind(function(){ this.fire("dragstart"); }, this),
                         ondrag: bind(function(){ this.fire("drag"); }, this),
@@ -141,7 +142,7 @@ magic.control.Dialog = baidu.lang.createClass(
                     });
                 }, this));
                 this.disposeProcess.unshift(function(){
-                    baidu.event.un(title, "mousedown", dragFn);
+                    baidu(title).off("mousedown", dragFn);
                 });
             }
         });
@@ -150,13 +151,13 @@ magic.control.Dialog = baidu.lang.createClass(
            var titleText = this.getElement("titleText");
            var buttons = this.getElement("titleButtons");
            if(typeof pos.width == "number")
-                baidu.dom.setStyle(titleText, "width", Math.max(0, pos.width - buttons.clientWidth - 20) + "px");   
+                baidu(titleText).css("width", Math.max(0, pos.width - buttons.clientWidth - 20) + "px");   
         });
     }, 
 
     /* createClass config */ { 
         type: "magic.control.Dialog",
-        superClass: magic.control.Layer
+        superClass: magic.Base
     });
 
 magic.control.Dialog.extend(
@@ -172,22 +173,30 @@ magic.control.Dialog.extend(
         return this._isShown;
     },
 
-  //   /**
-  //    * 显示对话框
-	 // * @name magic.control.Dialog#show
-  //    * @function
-  //    * @return {This} 实例本身
-  //    */
-  //   show: function(){
-  //       this.getElement().style.display = "block";
-  //       this._isShown = true;
+    /**
+     * 显示对话框
+	 * @name magic.control.Dialog#show
+     * @function
+     * @return {This} 实例本身
+     */
+    show: function(){
+        /**
+         * 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
+         * @name magic.control.Dialog#onbeforeshow
+         * @event 
+         */
+        if(this.fire("beforeshow") === false)
+            return this;
+        this.getElement().style.display = "";
+        this._isShown = true;
 
-  //      // TODO: 写事件 jsdoc 文件
-  //          /**
-  //           * @event show 显示后触发事件
-  //           */  
-  //       this.fire("show");
-  //   },
+           /**
+            * 当窗口显示后触发
+            * @name magic.control.Dialog#onshow
+            * @event
+            */  
+        this.fire("show");
+    },
 
     /**
      * 隐藏对话框
@@ -204,10 +213,9 @@ magic.control.Dialog.extend(
         this._isShown = false;
         this.getElement().style.display = "none";
          
-        // TODO: 写事件的 jsdoc
         /**
          * 当关闭窗口时触发
-         * @name magic.control.Dialog#onbeforehide
+         * @name magic.control.Dialog#hide
          * @event 
          */
         this.fire("hide");
@@ -248,7 +256,7 @@ magic.control.Dialog.extend(
         switch(contentType){
             case "text":
                 contentEl.innerHTML = baidu.string.encodeHTML(content);
-                baidu.dom.removeClass(contentEl, "contentFrame");
+                baidu(contentEl).removeClass("contentFrame");
                 break;
             case "element":
                 if(parent = content.parentNode){ // 做标记
@@ -260,12 +268,12 @@ magic.control.Dialog.extend(
                 break;            
             case "frame":
                 contentEl.innerHTML = "<iframe frameborder='no' src='" + content + "'></iframe>";
-                baidu.dom.hasClass(contentEl, "contentFrame") || 
-                    baidu.dom.addClass(contentEl, "contentFrame");        
+                baidu(contentEl).hasClass("contentFrame") || 
+                    baidu(contentEl).addClass("contentFrame");        
                 break;
             default:
                 contentEl.innerHTML = content;
-                baidu.dom.removeClass(contentEl, "contentFrame");
+                baidu(contentEl).removeClass("contentFrame");
                 break;
         }
 
@@ -277,7 +285,7 @@ magic.control.Dialog.extend(
      * @return {This} 实例本身
      */
     focus: function(){
-        baidu.dom.setStyle(this.getElement(), "zIndex", 
+        baidu(this.getElement()).css("zIndex", 
             this.zIndex = baidu.global.getZIndex("dialog", 5));
         /**
          * 当窗口获得焦点时触发
@@ -295,13 +303,12 @@ magic.control.Dialog.extend(
      * @return {This} 实例本身
      */
     setSize: function(size){
-        var setStyle = baidu.dom.setStyle;
         var foreground = this.getElement("foreground");
         if(typeof size.width == "number")
-            setStyle(foreground, "width", (this.width = size.width) + "px");
+            baidu(foreground).css("width", (this.width = size.width) + "px");
         if(typeof size.height == "number"){
-            setStyle(foreground, "height", (this.height = size.height) + "px");
-            setStyle(this.getElement("body"), "height", Math.max(0, this.height - this._titleHeight) + "px");
+            baidu(foreground).css("height", (this.height = size.height) + "px");
+            baidu(this.getElement("body")).css("height", Math.max(0, this.height - this._titleHeight) + "px");
         }
         /**
          * 当窗口发生尺寸修改时触发
@@ -333,12 +340,11 @@ magic.control.Dialog.extend(
      * @return {This} 实例本身
      */
     setPosition: function(pos){
-        var setStyle = baidu.dom.setStyle;
 
         if(typeof pos.left == "number")
-            setStyle(this.getElement(), "left", (this.left = pos.left) + "px");
+            baidu(this.getElement()).css("left", (this.left = pos.left) + "px");
         if(typeof pos.top == "number")
-            setStyle(this.getElement(), "top", (this.top = pos.top) + "px");
+            baidu(this.getElement()).css("top", (this.top = pos.top) + "px");
         /**
          * 当窗口发生位置移动时触发
          * @name magic.control.Dialog#onmove
@@ -373,7 +379,6 @@ magic.control.Dialog.extend(
         //fixed by Dengping
         var left = (((bodyWidth - this.width) / 2) | 0) + baidu.page.getScrollLeft();
         var top = (((bodyHeight - this.height) / 2) | 0) + baidu.page.getScrollTop();
-        
         this.setPosition({ left: left, top: top });
     },
 

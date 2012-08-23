@@ -47,7 +47,7 @@ test("default params", function(){
 	equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
 	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
 	equals(dialog.getElement("body").className, "tang-body", "The body is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 2
@@ -62,7 +62,7 @@ test("default params, title & content, text", function(){
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 3
@@ -76,7 +76,7 @@ test("default params, title & content, html", function(){
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML.toLowerCase(), "<span>dialog内容</span>", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 4
@@ -94,7 +94,7 @@ test("default params, title & content, dom", function(){
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 5
@@ -126,7 +126,7 @@ test("all params", function(){
 	equals(dialog.draggable, false, "The draggable is right");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 6
@@ -165,7 +165,7 @@ test("hide & isShowing", function(){
 	equals(dialog.getElement().style.display, "", "The dialog shows");
 	equals(dialog.isShowing(), true, "The dialog shows");
 	dialog.hide();
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 7
@@ -203,7 +203,7 @@ test("setTitleText & setContent, text, html, dom", function(){
 	dialog.setContent("");
 	equals(dialog.getElement("titleText").innerHTML, "&nbsp;", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 8
@@ -243,7 +243,7 @@ test("setSize & getSize", function(){
 	dialog.setSize({ height: 70 });
 	equals(dialog.getSize().width, 50, "The getSize() is right");
 	equals(dialog.getSize().height, 70, "The getSize() is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 9
@@ -283,7 +283,7 @@ test("setPosition & getPosition", function(){
 	dialog.setPosition({left:70});
 	equals(dialog.getPosition().left, 70, "The getPosition() is right");
 	equals(dialog.getPosition().top, 100, "The getPosition() is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 });
 
 // case 10
@@ -307,7 +307,7 @@ test("center, auto width & height", function(){
 		equals(dialog.top, 100, "The top is right");
 		equals(dialog.getElement().style.left, "50px", "The left is right");
 		equals(dialog.getElement().style.top, "100px", "The top is right");
-		w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+		w.document.body.removeChild(w.baidu("one-dialog"));
 		this.finish();
 		document.body.removeChild(f.parentNode);
 	})	
@@ -351,7 +351,7 @@ test("center", function(){
         equals(dialog.getElement().style.top, 1600 + Math.floor(diff / 2) + "px", "The top is right");
 
 		
-		w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+		w.document.body.removeChild(w.baidu("one-dialog"));
 		this.finish();
 		document.body.removeChild(f.parentNode);
 	})	
@@ -392,7 +392,7 @@ test("focus", function(){
 		ok(dialog2.getElement().style["zIndex"] < dialog1.getElement().style["zIndex"], "The z-index is right");
 		dialog2.focus();
 		ok(dialog2.getElement().style["zIndex"] > dialog1.getElement().style["zIndex"], "The z-index is right");		
-		w.document.body.removeChild(w.baidu.dom.g("dialog-1"));
+		w.document.body.removeChild(w.baidu("#dialog-1"));
 		this.finish();
 		document.body.removeChild(f.parentNode);
 	})	
@@ -405,7 +405,7 @@ test("drag", function(){
 	ua.frameExt(function(w, f){
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 		enSetup(w);
-		w.baidu.dom.g("one-dialog").style.position = "relative";
+		w.baidu("one-dialog").style.position = "relative";
 		var options = {
 				titleText : '标题',
 				content : '内容'
@@ -421,7 +421,7 @@ test("drag", function(){
 			setTimeout(function(){
 				equals(dialog.getElement().style.left, "50px", "The left is right");
 				equals(dialog.getElement().style.top, "50px", "The top is right");
-				w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+				w.document.body.removeChild(w.baidu("one-dialog"));
 				me.finish();
 				document.body.removeChild(f.parentNode);
 			}, 200);
@@ -445,7 +445,7 @@ test("getElement", function(){
 		equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
 		equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
 		equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
-		document.body.removeChild(baidu.dom.g("one-dialog"));
+		document.body.removeChild(baidu("one-dialog"));
 		start();
 	});
 });
@@ -467,6 +467,6 @@ test("getElements", function(){
 		num++;
 	}
 	equals(num, 8, "The getElements() is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("one-dialog"));
 	start();
 });

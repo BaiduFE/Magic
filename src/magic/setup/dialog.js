@@ -8,11 +8,12 @@
  */
 
 ///import magic.setup;
-///import baidu.dom.g;
+///import baidu.dom;
 ///import magic.control.Dialog;
 ///import magic.Background;
 ///import magic.setup.background;
 ///import magic._query;
+///import baidu.type;
 
 /**
  * 在页面已有 html 结构的基础上创建 dialog 组件
@@ -31,7 +32,10 @@
  */
 
 magic.setup.dialog = function(el, options){
-	el = baidu.dom.g(el);
+	if(baidu.type(el) === "string"){
+        el = '#' + el;
+    }
+	el = baidu(el);
 	var opt = options || {};
 	var instance = magic.setup(el, magic.control.Dialog, opt);
 	var query = magic._query;
@@ -57,9 +61,9 @@ magic.setup.dialog = function(el, options){
 	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
 	if(typeof instance.left == "undefined")
-		instance.left = baidu.dom.getStyle(container, "left") == "auto" ? 0 : baidu.dom.getStyle(container, "left");
+		instance.left = baidu(container).css("left") == "auto" ? 0 : baidu(container).css("left");
 	if(typeof instance.top == "undefined")
-		instance.top = baidu.dom.getStyle(container, "top") == "auto" ? 0 : baidu.dom.getStyle(container, "top");
+		instance.top = baidu(container).css("top") == "auto" ? 0 : baidu(container).css("top");
 
 	if(typeof instance.width != "number")
 		instance.width = container.clientWidth;
