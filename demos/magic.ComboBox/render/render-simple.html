@@ -5,7 +5,7 @@
 <meta name="description" content="ComboBox 组件 render 模式示例" />
 <link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.ComboBox/magic.control.ComboBox.css">
-<script type="text/javascript" src="../../../src/import.php?f=baidu.dom.ready,baidu.json.stringify,baidu.dom.g,magic.ComboBox,magic.control.ComboBox.$suggestion"></script>
+<script type="text/javascript" src="../../../src/import.php?f=baidu,baidu.json.stringify,magic.ComboBox,magic.control.ComboBox.$suggestion"></script>
 <title>ComboBox 组件 render 模式示例</title>
 <style type="text/css">
 .demo dt, .demo dl, .demo dd, .demo pre {
@@ -87,7 +87,7 @@ combobox.render('main');
 <script type="text/javascript">
 
 function log(content) {
-	baidu.g('logs').innerHTML += content + '<br>';
+	baidu('logs').innerHTML += content + '<br>';
 }
 
 var combobox = new magic.ComboBox({
@@ -98,7 +98,7 @@ var combobox = new magic.ComboBox({
 	],
 	width : 200
 });
-combobox.render('cb-main');
+combobox.render('#cb-main');
 combobox.on('show', function() {
 	log('show');
 });
@@ -131,10 +131,10 @@ combobox.on('confirm', function(e) {
 	log('confirm ' + baidu.json.stringify(e.result));
 });
 
-baidu.dom.ready(function() {
+baidu(function() {
 	var i = 0;
 	
-	var btns = baidu.g('actions').getElementsByTagName('INPUT');
+	var btns = baidu('#actions input');
 	btns[i++].onclick = function() {
 		log('getValue : ' + combobox.getValue());
 	}

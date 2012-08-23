@@ -141,8 +141,8 @@ test("render, render", function() {
         combobox1.menu.show();
         var menu = combobox1.getElement('menu');
         equals(baidu.dom.getPosition(container).left, baidu.dom.getPosition(menu).left, 'left');
-        var offset = baidu.browser.firefox ? 3 : 2;
-        equals(baidu.dom.getPosition(container).top + container.clientHeight + offset, baidu.dom.getPosition(menu).top, 'top');
+        var offset =  -1;
+        equals(baidu.dom.getPosition(container).top + container.offsetHeight + offset, baidu.dom.getPosition(menu).top, 'top');
         combobox1.dispose();
         document.body.removeChild(div1);
         start();

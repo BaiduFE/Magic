@@ -5,7 +5,6 @@
 
 ///import magic.setup;
 ///import baidu.array.each;
-///import baidu.dom.g;
 ///import baidu.dom.getAttr;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.remove;
@@ -41,13 +40,13 @@ magic.setup.combobox = function(el, options) {
     
     baidu.dom.insertHTML(el, 'beforeBegin', '<span id="' + instance.guid + '-host" class="magic-combobox-host"></span>');
     
-    var host = baidu.dom.g(instance.guid + '-host');
-    host.appendChild(el);
+    var host = baidu('#' + instance.guid + '-host');
+    host.append(el);
     instance.select = el;
     el.style.width = (el.offsetWidth + 15) + 'px';
     el.style.visibility = 'hidden';
     instance.render(host, 'afterBegin');
-    baidu.dom.addClass(instance.getElement('container'), 'magic-combobox-container-setup');
+    baidu(instance.getElement('container')).addClass('magic-combobox-container-setup');
     instance.on('change', function(event) {
         if (event.from == 'confirm') {
             el.options[event.result.index].selected = true;
@@ -91,7 +90,7 @@ function parseSelectOptions(selectNode) {
     var items = [],
         originIndex = -1,
         optionNodes = selectNode.options;
-    baidu.array.each(optionNodes, function(item, index) {
+    baidu.each(optionNodes, function(item, index) {
         items.push({
             'value' : item.value,
             'content' : item.text

@@ -153,7 +153,7 @@ baidu.lang.register(magic.control.ComboBox, function(options) {
      * @return {Array<Object>} 过滤后的数据
      */
     '_getMenuData' : function(key) {
-        return baidu.array.filter(this._options.items, function(item, index) {
+        return baidu.array(this._options.items).filter(function(item, index) {
             return (item.content.indexOf(key) != -1);
         });        
     }
