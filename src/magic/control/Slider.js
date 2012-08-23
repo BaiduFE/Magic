@@ -8,9 +8,6 @@
 ///import baidu.lang.createClass;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.get;
 ///import baidu.dom.drag;
 ///import baidu.dom.css;
 ///import baidu.object.extend;
@@ -540,7 +537,6 @@ magic.control.Slider.extend({
             knob = me.getElement('knob'),
             process = me.getElement('process');
 
-        evt = baidu.event.get(evt);
         evt.preventDefault(); // 阻止默认行为
         me._resize(); // 重新设置范围
 
