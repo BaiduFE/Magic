@@ -35,7 +35,7 @@ magic.setup.dialog = function(el, options){
 	if(baidu.type(el) === "string"){
         el = '#' + el;
     }
-	el = baidu(el);
+	el = baidu(el)[0];
 	var opt = options || {};
 	var instance = magic.setup(el, magic.control.Dialog, opt);
 	var query = magic._query;
