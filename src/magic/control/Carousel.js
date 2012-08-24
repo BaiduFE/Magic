@@ -14,7 +14,6 @@
 ///import baidu.makeArray;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
-///import magic._query;
 ///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
@@ -147,10 +146,9 @@ void function(){
                 selectedIndex = me._selectedIndex,
                 opt = me._options,
                 focusRange = opt.focusRange,
-                query = magic._query,
                 handler = baidu.fn.bind('_onEventHandler', me);
-            me.mappingDom('container', query('.tang-carousel-container', me.getElement())[0]).
-            mappingDom('element', query('.tang-carousel-element', me.getElement())[0]);
+            me.mappingDom('container', baidu('.tang-carousel-container', me.getElement())[0]).
+            mappingDom('element', baidu('.tang-carousel-element', me.getElement())[0]);
             //data
             baidu.dom(baidu.dom(me.getElement('element')).children()).each(function(index, ele){
             	var item = new Item({content: ele});

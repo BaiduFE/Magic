@@ -6,7 +6,6 @@
 ///import baidu.lang.register;
 ///import magic.control.Carousel;
 ///import baidu.fn.bind;
-///import magic._query;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
 ///import baidu.object.extend;
@@ -39,9 +38,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
         baidu.dom(next)[!me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next');
     }
     me.on('onload', function(evt){
-        var query = magic._query;
-        me.mappingDom('prev', query('.tang-carousel-btn-prev', me.getElement())[0]).
-        mappingDom('next', query('.tang-carousel-btn-next', me.getElement())[0]);
+        me.mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
+        mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
         //
         baidu.dom(me.getElement('prev')).on('click', prevHandler);
         baidu.dom(me.getElement('next')).on('click', nextHandler);

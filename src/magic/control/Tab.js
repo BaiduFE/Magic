@@ -7,7 +7,6 @@
 ///import magic.control;
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
-///import magic._query;
 ///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
@@ -37,10 +36,9 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
     }, options);
     me._selectedIndex = me._options.originalIndex;
     me.on('onload', function(evt) {
-        var container = me.getElement(),
-            query = magic._query;
-        me.mappingDom('title', query('.tang-title', container)[0]).
-        mappingDom('body', query('.tang-body', container)[0]);
+        var container = me.getElement();
+        me.mappingDom('title', baidu('.tang-title', container)[0]).
+        mappingDom('body', baidu('.tang-body', container)[0]);
         baidu.dom(me.getElement('title')).on(me._options.selectEvent, handler);
         me.on('ondispose', function(){
             baidu.dom(me.getElement('title')).off(me._options.selectEvent, handler);

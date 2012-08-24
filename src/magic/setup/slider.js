@@ -6,7 +6,6 @@
 
 ///import magic.setup;
 ///import magic.control.Slider;
-///import magic._query;
 
 /**
  * 在页面已有 html 结构的基础上创建 Slider 组件
@@ -22,13 +21,12 @@
 
 magic.setup.slider = function(el, options){
     var me = magic.setup(baidu.dom('#'+el).get(0), magic.control.Slider, options),
-        query = magic._query,
         container = me.getElement();
 
-    me.mappingDom('view', query('.tang-view', container)[0]);
-    me.mappingDom('knob', query('.tang-knob', container)[0]);
-    me.mappingDom('process', query('.tang-process', container)[0]);
-    me.mappingDom('inner', query('.tang-inner', container)[0]);
+    me.mappingDom('view', baidu('.tang-view', container)[0]);
+    me.mappingDom('knob', baidu('.tang-knob', container)[0]);
+    me.mappingDom('process', baidu('.tang-process', container)[0]);
+    me.mappingDom('inner', baidu('.tang-inner', container)[0]);
 
     me.fire("load");
     return me;
