@@ -6,7 +6,7 @@
 
 ///import baidu.lang.createClass;
 ///import baidu.array.indexOf;
-///import baidu.dom.g;
+///import baidu.dom;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.addClass;
 ///import baidu.dom.contains;
@@ -17,10 +17,8 @@
 ///import baidu.i18n.date;
 ///import baidu.lang.isDate;
 ///import baidu.date.format;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.preventDefault;
-///import baidu.event.getTarget;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import magic.Base;
 
 /**
@@ -79,7 +77,10 @@ magic.Calendar.extend(
     render: function(el){
         var me = this;
         
-        me.container = baidu.g(el);
+        if(baidu.type(el) === "string"){
+            el = '#' + el;
+        }
+        me.container = baidu(el)[0];
 
         //渲染日历骨架
         me._renderSkeleton();
@@ -151,7 +152,7 @@ magic.Calendar.extend(
         var me = this,
             container = me.container;
         
-        baidu.dom.insertHTML(container, 'beforeEnd', baidu.format(me.tplSkeleton, {
+        baidu(container).insertHTML('beforeEnd', baidu.format(me.tplSkeleton, {
             calendarId: me._getId(),
             calendarClass: me._getClass(),
             titleId: me._getId('title'),
@@ -160,10 +161,10 @@ magic.Calendar.extend(
             tableClass: me._getClass('table')
         }));
         
-        me.titleEl = baidu.g(me._getId('title'));
-        me.tableEl = baidu.g(me._getId('table'));
+        me.titleEl = baidu('#' + me._getId('title'))[0];
+        me.tableEl = baidu('#' + me._getId('table'))[0];
 
-        me.mappingDom('calendar', baidu.g(me._getId()));
+        me.mappingDom('calendar', baidu('#' + me._getId())[0]);
         me.mappingDom('title', me.titleEl);
         me.mappingDom('table', me.tableEl);
     },
@@ -198,7 +199,7 @@ magic.Calendar.extend(
      */
     _renderNavBtn: function(){
         var me = this,
-            calendarEl = baidu.g(me._getId()),
+            calendarEl = baidu('#' + me._getId())[0],
             preBtn = document.createElement("div"),
             nextBtn = document.createElement("div");
             
@@ -229,7 +230,7 @@ magic.Calendar.extend(
             nextBtnMouseHandler,
             documentHandler;
 
-        baidu.on(preBtn, 'click', preBtnClickHandler = function(){
+        baidu(preBtn).on('click', preBtnClickHandler = function(){
             !mousedownrespond && me.preMonth();
             mousedownrespond = false;
             /**
@@ -239,7 +240,7 @@ magic.Calendar.extend(
              */
             me.fire("premonth");
         });
-        baidu.on(nextBtn, 'click', nextBtnClickHandler = function(){
+        baidu(nextBtn).on('click', nextBtnClickHandler = function(){
             !mousedownrespond && me.nextMonth();
             mousedownrespond = false;
             /**
@@ -270,26 +271,26 @@ magic.Calendar.extend(
             timer = null;
         };
         
-        baidu.on(preBtn, 'mousedown', preBtnMouseHandler = function(){
+        baidu(preBtn).on('mousedown', preBtnMouseHandler = function(){
             mouseDownHandler('pre');
         });
 
-        baidu.on(nextBtn, 'mousedown', nextBtnMouseHandler = function(){
+        baidu(nextBtn).on('mousedown', nextBtnMouseHandler = function(){
             mouseDownHandler('next');
         });
         
-        baidu.on(document, 'mouseup', documentHandler = function(){
+        baidu(document).on('mouseup', documentHandler = function(){
             if(me.disposed) return;
             
             timer && mouseUpHandler();
         });
         
         me.on("dispose", function(){
-            baidu.un(preBtn, 'click', preBtnClickHandler);
-            baidu.un(nextBtn, 'click', nextBtnClickHandler);
-            baidu.un(preBtn, 'mousedown', preBtnMouseHandler);
-            baidu.un(nextBtn, 'mousedown', nextBtnMouseHandler);
-            baidu.un(document, 'mouseup', documentHandler);
+            baidu(preBtn).off('click', preBtnClickHandler);
+            baidu(nextBtn).off('click', nextBtnClickHandler);
+            baidu(preBtn).off('mousedown', preBtnMouseHandler);
+            baidu(nextBtn).off('mousedown', nextBtnMouseHandler);
+            baidu(document).off('mouseup', documentHandler);
         });
           
     },
@@ -416,8 +417,8 @@ magic.Calendar.extend(
         var me = this,
             target;
 
-        target = baidu.event.getTarget(e);
-        baidu.dom.addClass(target, me._getClass("hover"));
+        target = e.target;
+        baidu(target).addClass(me._getClass("hover"));
 
         /**
          * 鼠标移动到某个td上时触发
@@ -437,8 +438,8 @@ magic.Calendar.extend(
         var me = this,
             target;
 
-        target = baidu.event.getTarget(e);
-        baidu.dom.removeClass(target, me._getClass("hover"));
+        target = e.target;
+        baidu(target).removeClass(me._getClass("hover"));
 
         /**
          * 鼠标移出某个td时触发
@@ -456,14 +457,14 @@ magic.Calendar.extend(
      */
     _bindTable: function(){
         var me = this,
-            tbodyEl = baidu.dom.g(me._getId("table")).getElementsByTagName("tbody")[0],
+            tbodyEl = baidu('#' + me._getId("table"))[0].getElementsByTagName("tbody")[0],
             target,
             dateStr,
             _selectedEl,
             clickHandler;
 
-        baidu.on(tbodyEl, "click", clickHandler = function(e){
-            target = baidu.event.getTarget(e);
+        baidu(tbodyEl).on("click", clickHandler = function(e){
+            target = e.target;
             if(target.tagName.toUpperCase() != "TD"){
                 return;
             }
@@ -474,14 +475,14 @@ magic.Calendar.extend(
                 return;
             }
 
-            _selectedEl = baidu.dom.g(me._getId("selected"));
+            _selectedEl = baidu('#' + me._getId("selected"))[0];
             if(_selectedEl){
                 _selectedEl.id = '';
-                baidu.dom.removeClass(_selectedEl, me._getClass("selected"));
+                baidu(_selectedEl).removeClass(me._getClass("selected"));
             }
             
             target.id = me._getId("selected");
-            baidu.dom.addClass(target, me._getClass("selected"));
+            baidu(target).addClass(me._getClass("selected"));
 
             me.selectedDate = new Date(dateStr);
 
@@ -497,7 +498,7 @@ magic.Calendar.extend(
         });
         
         me.on("dispose", function(){
-            baidu.un(tbodyEl, "click", clickHandler);
+            baidu(tbodyEl).off("click", clickHandler);
         });
 
     },
@@ -508,12 +509,12 @@ magic.Calendar.extend(
     _addkeystrokesListener: function(){
         var me = this,
             listenerAdded = false,
-            calendarEl = baidu.dom.g(me._getId()),
+            calendarEl = baidu('#' + me._getId())[0],
             clickHandler;
 
         function keystrokesHandler(e){
             e = e || window.event;
-            baidu.event.preventDefault(e);
+            e.preventDefault();
             switch (e.keyCode) {
                 case 33:    //Page Up键
                     me.preMonth();
@@ -538,25 +539,25 @@ magic.Calendar.extend(
             }
         }
 
-        baidu.on(document, "click", clickHandler = function(e){
+        baidu(document).on("click", clickHandler = function(e){
             
             if(me.disposed) return;
             
-            var target = baidu.event.getTarget(e);
+            var target = e.target;
             
             if(!(baidu.dom.contains(calendarEl, target) || target == calendarEl)){
-                baidu.un(document, "keydown", keystrokesHandler);
+                baidu(document).off("keydown", keystrokesHandler);
                 listenerAdded = false;
             }else{
                 if(listenerAdded)
                     return;
-                baidu.on(document, "keydown", keystrokesHandler);
+                baidu(document).on("keydown", keystrokesHandler);
                 listenerAdded = true;
             }
         });
         
         me.on("dispose", function(){
-            baidu.un(document, "click", clickHandler);
+            baidu(document).off("click", clickHandler);
         });
 
     },
@@ -742,7 +743,7 @@ magic.Calendar.extend(
         if(me.disposed){
             return;
         }
-        me.container.removeChild(baidu.dom.g(me._getId()));
+        me.container.removeChild(baidu('#' + me._getId())[0]);
         magic.Base.prototype.dispose.call(me);
     }
     

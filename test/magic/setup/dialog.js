@@ -431,6 +431,39 @@ test("drag", function(){
 });
 
 // case 14
+test("drag", function(){
+	expect(2);
+	stop();
+	ua.frameExt(function(w, f){
+		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 800).css("width", 800);
+		enSetup(w);
+		w.baidu("#one-dialog")[0].style.position = "relative";
+		w.baidu("#one-dialog")[0].style.width = '400px';
+		w.baidu("#one-dialog")[0].style.height = '400px';
+		var options = {
+				titleText : '标题',
+				content : '内容'
+		};
+		var dialog = w.magic.setup.dialog("one-dialog", options);
+		ua.mousedown(dialog.getElement("title"));
+		var me = this;
+		setTimeout(function(){
+			ua.mousemove(dialog.getElement("title"), {
+				clientX : 500,
+				clientY : 500
+			});
+			setTimeout(function(){
+				equals(dialog.getElement().style.left, "400px", "The left is right");
+				equals(dialog.getElement().style.top, "400px", "The top is right");
+				w.document.body.removeChild(w.baidu("#one-dialog")[0]);
+				me.finish();
+				document.body.removeChild(f.parentNode);
+			}, 200);
+		}, 50);
+	})	
+});
+
+// case 14
 test("getElement", function(){
 	stop();
 	expect(3);

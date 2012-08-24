@@ -41,7 +41,7 @@ var colorHex = function(s){
             return numHex.toUpperCase();
         }
     }else{
-        return that.toUpperCase();    
+        return that.toUpperCase();
     }
 }
 

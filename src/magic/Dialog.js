@@ -16,7 +16,7 @@
 ///import baidu.string.format;
 ///import baidu.string.encodeHTML;
 ///import baidu.dom.on;
-///import baidu.dom.un;
+///import baidu.dom.off;
 ///import baidu.fn.bind;
 ///import baidu.dom;
 ///import magic.Background;

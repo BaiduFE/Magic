@@ -433,7 +433,45 @@ test("drag", function(){
 				document.body.removeChild(f.parentNode);
 			}, 200);
 		}, 50);
-	})	
+	});
+});
+
+//case 14
+test("drag range", function(){
+	expect(2);
+	stop();
+	ua.frameExt(function(w, f){
+		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 800).css("width", 800);
+		var div = w.document.createElement("div");
+		w.document.body.appendChild(div);
+		div.id = "one-dialog";
+		div.style.width = '400px';
+		div.style.height = '400px';
+		var cdiv = w.document.createElement("div");
+		cdiv.id = "cdiv";
+		$(cdiv).html("dialog内容");
+		var move = 0;
+		var dialog = new w.magic.Dialog({
+			titleText : '标题',
+			content : cdiv
+		});
+		dialog.render("one-dialog");
+		ua.mousedown(dialog.getElement("title"));
+		var me = this;
+		setTimeout(function(){
+			ua.mousemove(dialog.getElement("title"), {
+				clientX : 500,
+				clientY : 500
+			});
+			setTimeout(function(){
+				equals(dialog.getElement().style.left, "400px", "The left is right");
+				equals(dialog.getElement().style.top, "400px", "The top is right");
+				w.document.body.removeChild(div);
+				me.finish();
+				document.body.removeChild(f.parentNode);
+			}, 200);
+		}, 50);
+	});
 });
 
 // case 14

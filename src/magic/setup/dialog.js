@@ -38,7 +38,6 @@ magic.setup.dialog = function(el, options){
 	el = baidu(el)[0];
 	var opt = options || {};
 	var instance = magic.setup(el, magic.control.Dialog, opt);
-	var query = magic._query;
 
 	var container = instance.getElement();
 
@@ -50,14 +49,14 @@ magic.setup.dialog = function(el, options){
 		}
 	}
 
-	instance.mappingDom("title", query(".tang-title", container)[0]);
-	instance.mappingDom("titleText", query("span", instance.getElement("title"))[0]);
-	instance.mappingDom("titleButtons", query(".buttons", instance.getElement("title"))[0]);
-	instance.mappingDom("body", query(".tang-body", container)[0]);
-	instance.mappingDom("content", query(".content", instance.getElement("body"))[0]);
-	instance.mappingDom("closeBtn", query(".close-btn", instance.getElement("title"))[0]);
-	instance.mappingDom("foreground", query(".tang-foreground", container)[0]);
-	// instance.mappingDom("background", query(".tang-background", container)[0]);
+	instance.mappingDom("title", baidu(".tang-title", container)[0]);
+	instance.mappingDom("titleText", baidu("span", instance.getElement("title"))[0]);
+	instance.mappingDom("titleButtons", baidu(".buttons", instance.getElement("title"))[0]);
+	instance.mappingDom("body", baidu(".tang-body", container)[0]);
+	instance.mappingDom("content", baidu(".content", instance.getElement("body"))[0]);
+	instance.mappingDom("closeBtn", baidu(".close-btn", instance.getElement("title"))[0]);
+	instance.mappingDom("foreground", baidu(".tang-foreground", container)[0]);
+	// instance.mappingDom("background", baidu(".tang-background", container)[0]);
 	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
 	if(typeof instance.left == "undefined")
