@@ -64,7 +64,7 @@ function importTangram($files, $returnFile = true){
                 $MATCHED[] = $file;
                 $matches = array();
                 //去掉注释
-                $content = trim(preg_replace("/\/\*(.*?)\*\//ies", "", $content));
+                $content = trim(preg_replace("/\/\*(.*?)\*\//ies", "", $content))."\n";
                 $output .= preg_replace("/\/\/\/import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importTangram('\\1')", $content);
             }
         }
