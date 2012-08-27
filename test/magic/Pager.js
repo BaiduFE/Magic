@@ -248,13 +248,13 @@ test("render, all param, currentPagePos=currentPage", function(){
 	pager1.dispose();
 	document.body.removeChild(div1);
 });
-/*
+
 test("render, pagechange event", function(){
 	expect(2);
 	var div1 = document.createElement("div");
 	document.body.appendChild(div1);
 	div1.id = "div1";
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var pager1 = new magic.Pager({
 		currentPage: 1,
 		totalPage: 10
@@ -264,9 +264,8 @@ test("render, pagechange event", function(){
 	})
 	pager1.render('div1');
 	ua.click(pager1.getElement("main").childNodes[1]);
-	var l2 = baidu.event._listeners.length;
+	var l2 = baidu.dom._eventBase._getEventsLength();
 	pager1.dispose();
 	equals(l2, l1, "The events are un");
 	document.body.removeChild(div1);
 });
-*/

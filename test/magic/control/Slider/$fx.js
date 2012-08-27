@@ -41,7 +41,7 @@ module("magic.control.Slider.$fx");
 
 test("render, default params&events", function(){
 	stop();
-	expect(4);
+	expect(5);
 	ua.importsrc("magic.Slider,magic.setup.slider", function(){
 		ua.loadcss(upath + "../../setup/slider/slider.css", function(){
 			var div = document.createElement("div");
@@ -49,7 +49,7 @@ test("render, default params&events", function(){
 			div.id = "div1";
 			$(div).css("width", "222px");
 			var num = 0;
-			// var l1 = baidu.event._listeners.length;
+			var l1 = baidu.dom._eventBase._getEventsLength();
 			var slider = new magic.Slider({
 				fx:{
 					enable: true
@@ -77,8 +77,8 @@ test("render, default params&events", function(){
 				setTimeout(function(){
 					equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 38 - 11, "The position of The knob is right");
 					slider.dispose();
-					// var l2 = baidu.event._listeners.length;
-					// equals(l2, l1, "The events are un");
+					var l2 = baidu.dom._eventBase._getEventsLength();
+					equals(l2, l1, "The events are un");
 					start();
 				}, 600);
 			}, 600);
@@ -118,10 +118,10 @@ test("render, orientation&accuracy&duration", function(){
 
 test("setup, default params&events", function(){
 	stop();
-    expect(4);
+    expect(5);
 	enSetupH();
 	var num = 0;
-	// var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var slider = new magic.setup.slider("s1", {
 		fx: {
 			enable: true
@@ -147,8 +147,8 @@ test("setup, default params&events", function(){
 		setTimeout(function(){
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 42 - 11, "The position of The knob is right");
 			slider.dispose();
-			// var l2 = baidu.event._listeners.length;
-			// equals(l2, l1, "The events are un");
+			var l2 = baidu.dom._eventBase._getEventsLength();
+			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
 			start();
 		}, 600);

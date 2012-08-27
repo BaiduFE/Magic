@@ -300,11 +300,11 @@ test("setup, setRange, backward", function(){
 
 test("setup, events&dispose", function(){
 	stop();
-	expect(7);
+	expect(8);
 	enSetupH();
 	var slide = 0;
 	var change = 0;
-	// var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var slider = new magic.setup.slider("s1", {
 		accuracy: 0.1
 	});
@@ -338,9 +338,9 @@ test("setup, events&dispose", function(){
 			ua.mouseup(slider.getElement("knob"));
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
 			slider.dispose();
-			// var l2 = baidu.event._listeners.length;
+			var l2 = baidu.dom._eventBase._getEventsLength();
 			equals(div.childNodes.length, 1, "The dom is not clear");
-			// equals(l2, l1, "The events are un");
+			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
 			start();
 		}, 100);
