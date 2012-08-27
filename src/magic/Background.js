@@ -10,11 +10,9 @@
 
 ///import magic.Base;
 ///import baidu.lang.createClass;
-
 ///import baidu.browser.ie;
 ///import baidu.browser.isStrict;
-
-///import baidu.dom.g;
+///import baidu.dom.css;
 ///import baidu.dom.hasClass;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.getCurrentStyle;
@@ -64,13 +62,12 @@ magic.Background = baidu.lang.createClass(function(options){
 	 * @param	{HTMLElement}	container 	被附加背景层的DOM元素
 	 */
 	render : function(container) {
-		var box = baidu.dom.g(container);
+		var box = baidu.dom(container).get(0);
 
 		box != document.body
-			&& baidu.dom.getCurrentStyle(box, "position")=="static"
+			&& baidu.dom(box).css('position')=="static"
 			&& (box.style.position="relative");
-
-		baidu.dom.insertHTML(box, "afterbegin", this.toHTMLString());
+		baidu.dom(box).insertHTML("afterbegin", this.toHTMLString());
 	},
 
 	/**
@@ -134,8 +131,8 @@ magic.Background = baidu.lang.createClass(function(options){
 	            // 20120207 meizz 针对IE对于Table行高分配不公的处理
 	            if (this.styleBox && this.table || (this.table = this.getElement("table"))) {
 	                var h0, h1, h2;
-	                h0 = h0 || parseInt(baidu.dom.getCurrentStyle(this.table.rows[0], "height"));
-	                h2 = h2 || parseInt(baidu.dom.getCurrentStyle(this.table.rows[2], "height"));
+	                h0 = h0 || parseInt(baidu.dom(this.table.rows[0]).getCurrentStyle("height"));
+	                h2 = h2 || parseInt(baidu.dom(this.table.rows[2]).getCurrentStyle("height"));
 	                this.table.rows[0].style.height = h0 +"px";
 	                this.table.rows[2].style.height = h2 +"px";
 	                this.table.rows[1].style.height = (this.layer.offsetHeight - h0 - h2) +"px";
