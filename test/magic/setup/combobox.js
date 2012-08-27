@@ -160,7 +160,7 @@ test("render, all param", function(){
         'disabled' : false,
         'width' : 200
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
     equals(combobox1._options.originIndex, 1, "_options.originIndex is right");
     equals(combobox1._options.viewSize, 3, "_options.viewSize is right");
     equals(combobox1._options.readonly, true, "_options.readonly is right");
@@ -168,7 +168,7 @@ test("render, all param", function(){
     equals(combobox1._options.width, '200', "_options.width is right");
     equals((function(){
         var res = '';
-        for (var i in combobox1._options.items) {
+        for (var i=0, l=combobox1._options.items.length; i<l; i++) {
             res += combobox1._options.items[i].content;
         }
         return res;
@@ -192,7 +192,7 @@ test("render, events", function() {
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var l1 = baidu.event._listeners.length;
+    var l1 = baidu.dom._eventBase._getEventsLength();
     var combobox1 = magic.setup.combobox(s);
     var highlight = pick = change = 0;
     
@@ -270,7 +270,7 @@ test("render, events", function() {
     });
     combobox1.on("dispose", function(e, data){
         equals('dispose', 'dispose', "The dispose Event is right");
-        var l2 = baidu.event._listeners.length;
+        var l2 = baidu.dom._eventBase._getEventsLength();
         equals(l2, l1, "The events are un");
     });     
    
@@ -448,7 +448,7 @@ test("render, focus", function(){
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     var focus = 0;
-    combobox1.render('div1');
+    combobox1.render('#div1');
     combobox1.on('focus', function() {
         focus ++;
         switch (focus) {
@@ -479,7 +479,7 @@ test("render, blur", function(){
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     var blur = 0;
-    combobox1.render('div1');
+    combobox1.render('#div1');
     combobox1.on('blur', function() {
         blur ++;
         switch (blur) {
@@ -625,7 +625,7 @@ test("render, setWidth", function(){
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
-    combobox1.render('div1');
+    combobox1.render('#div1');
     combobox1.setWidth(200);
     equals(combobox1.getElement('container').clientWidth, 200, 'width of input container is right');
     ua.click(combobox1.getElement('arrow'));
@@ -812,7 +812,7 @@ test("render, viewSize", function(){
         'value' : 'm', 'content' : '男'
     }]);
     combobox1.menu.show();
-    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 2 + 1, 'If number of items is less than viewSize, the viewSize is useless.')
+    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 2 + 2, 'If number of items is less than viewSize, the viewSize is useless.')
     combobox1.dispose();
     document.body.removeChild(div1);
 });

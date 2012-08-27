@@ -13,7 +13,7 @@ test("render, default param", function(){
             'value' : 'm', 'content' : '男'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     equals(combobox1._options.items.length, 2, "The items is right");
     combobox1.menu.show();
     equals(combobox1.getElement('menu').getElementsByTagName('LI').length, 2, "The items displayed is right");
@@ -28,6 +28,7 @@ test("render, default param", function(){
     equals(combobox1._options.width, '100%', "The width is right");
     var offset = (baidu.browser.ie == 6 ? 0 : -2);
     equals(combobox1.getElement('container').offsetWidth + offset, combobox1.getElement('container').parentNode.offsetWidth, "The width displayed is right");
+    
     combobox1.dispose();
     document.body.removeChild(div1);
     start();        
@@ -62,7 +63,7 @@ test("render, all param", function(){
 		'disabled' : false,
 		'width' : 200
 	});
-	combobox1.render('div1');
+	combobox1.render(div1);
 	equals(combobox1._options.originIndex, 1, "_options.originIndex is right");
 	equals(combobox1._options.viewSize, 3, "_options.viewSize is right");
 	equals(combobox1._options.readonly, true, "_options.readonly is right");
@@ -112,7 +113,7 @@ test("render, readonly", function(){
         }],
         'readonly' : true
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     equals(combobox1.getElement('input').value, '北京', "The item of originIndex displayed in input.");
     combobox1.dispose();
     document.body.removeChild(div1);
@@ -132,7 +133,7 @@ test("render, render", function() {
                 'value' : 'm', 'content' : '男'
             }]
         });
-        combobox1.render('div1');
+        combobox1.render(div1);
         
         var container = combobox1.getElement('container');
         equals(true, baidu.dom.contains(div1, container), 'position of combobox is right.');
@@ -149,7 +150,6 @@ test("render, render", function() {
     }, 'baidu.dom.contains', 'magic.ComboBox');
 });
 
-
 //4
 test("render, events", function() {
     expect(32);
@@ -157,8 +157,7 @@ test("render, events", function() {
 	document.body.appendChild(div1);
 	div1.id = "div1";
 	var highlight = pick = change = 0;
-	
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var combobox1 = new magic.ComboBox({
 		items : [{
 		    'value' : 'f', 'content' : '女'
@@ -243,10 +242,10 @@ test("render, events", function() {
     });
     combobox1.on("dispose", function(e, data){
         equals('dispose', 'dispose', "The dispose Event is right");
-        var l2 = baidu.event._listeners.length;
+        var l2 = baidu.dom._eventBase._getEventsLength();
         equals(l2, l1, "The events are un");
     }); 	
-	combobox1.render('div1');
+	combobox1.render(div1);
 	
 	ua.click(combobox1.getElement("arrow"));
 	ua.click(combobox1.getElement('input'));
@@ -311,7 +310,7 @@ test('render event beforeshow beforehide', function() {
             equals('hide', 'hide', 'hide event fired');
         });
                 
-        combobox1.render('div1');
+        combobox1.render(div1);
         ua.click(combobox1.getElement('arrow'));
         equals(combobox1.menu.visible, false, "The beforeshow Event prevent show event is right");
         combobox1.un("beforeshow", f1);
@@ -350,7 +349,7 @@ test('render event beforepick', function() {
     combobox1.on("pick", function(e) {
         equals(e.result.value, 0, 'result.value of pick event.');
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     ua.click(combobox1.getElement('arrow'));
     ua.click($('li', combobox1.getElement('menu'))[0]);
     equals(combobox1.getElement('input').value, '', "The beforepick Event prevent pick event is right");
@@ -373,7 +372,7 @@ test("render, getValue", function(){
             'value' : 1, 'content' : '男'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     var input = combobox1.getElement('input');
     ua.click(input);
     $(input).attr('value', 'abc');
@@ -398,7 +397,7 @@ test("render, getSelectIndex", function(){
             'value' : 'm', 'content' : '男'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     var input = combobox1.getElement('input');
     ua.click(input);
     $(input).attr('value', 'abc');
@@ -421,7 +420,7 @@ test("render, setByValue", function(){
             'value' : 'm', 'content' : '男'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.setByValue('m');
     var input = combobox1.getElement('input');
     equals(combobox1.getElement('input').value, '男', "setByValue(), the value in the inputbox is right.");
@@ -444,7 +443,7 @@ test("render, focus", function() {
         }]
     });
     var focus = 0;
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.on('focus', function() {
         focus ++;
         switch (focus) {
@@ -478,7 +477,7 @@ test("render, blur", function(){
         }]
     });
     var blur = 0;
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.on('blur', function() {
         blur ++;
         switch (blur) {
@@ -511,7 +510,7 @@ test("render, reset originIndex=1", function(){
         }],
         originIndex : 1
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.getElement('input').value = 'abx';
     combobox1.reset();
     equals(combobox1.getElement('input').value, '男', "input value is right.");
@@ -532,7 +531,7 @@ test("render, reset originIndex=-1 readonly=false", function(){
         }],
         originIndex : -1
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.getElement('input').value = 'abx';
     combobox1.reset();
     equals(combobox1.getElement('input').value, '', "input value is right.");
@@ -554,7 +553,7 @@ test("render, reset originIndex=-1 readonly=true", function(){
         originIndex : -1,
         readonly : true
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.getElement('input').value = 'abx';
     combobox1.reset();
     equals(combobox1.getElement('input').value, '女', "input value is right.");
@@ -591,7 +590,7 @@ test("render, reload", function(){
         'value' : 'chongqing',
         'content' : '重庆'
     }];
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.reload(reloadData);
     equals(combobox1._options.items[0].value, "beijing", "The _options.items is right");
     equals($("li", combobox1.getElement("menu")).text(), "北京上海广州天津重庆", "menu is right");
@@ -611,7 +610,7 @@ test("render, disable", function(){
             'value' : 'm', 'content' : '男'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.disable();
     equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), true, "The disable style is right");
     equals(combobox1.getElement('input').disabled, true, "input disabled right");
@@ -632,7 +631,7 @@ test("render, enable", function(){
         }],
         disabled : true
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.enable();
     equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), false, "The enable style is right");
     equals(combobox1.getElement('input').disabled, false, "input enable right");
@@ -652,7 +651,7 @@ test("render, setWidth", function(){
             'value' : 'm', 'content' : '男'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.setWidth(200);
     equals(combobox1.getElement('container').clientWidth, 200, 'width of input container is right');
     ua.click(combobox1.getElement('arrow'));
@@ -674,7 +673,7 @@ test("render, dispose", function() {
                 'value' : 'm', 'content' : '男'
             }]
         });
-        combobox1.render('div1');
+        combobox1.render(div1);
         var comboid = combobox1.guid,
             popguid = combobox1.menu.guid,
             popdomid = combobox1.menu.getId(),
@@ -729,7 +728,7 @@ test("render, keyboard action", function(){
         equals(e.result.value, 'm', 'enter keydown right');
         equals(this.menu.visible, false, 'menu is hiding');
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     var input = combobox1.getElement('input');
     input.value = 'abc';
     ua.click(input);
@@ -794,7 +793,7 @@ test("render, mouse action in readonly = false combobox", function(){
     combobox1.on('blur', function() {
         equals(1, 1, 'blur!!');
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     ua.click(combobox1.getElement('input'));
     equals(combobox1.menu.visible, false, "the menu dosn't show is right");
     ua.click(combobox1.getElement('arrow'));
@@ -827,7 +826,7 @@ test('render mouse action in readonly = true combobox', function() {
         }],
         readonly : true
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     ua.click(combobox1.getElement('input'));
     equals(combobox1.menu.visible, true, "the menu is showing");
     equals($('li', combobox1.getElement('menu')).length, 2, 'all the items are showing');
@@ -858,7 +857,7 @@ test("render, viewSize", function(){
         }],
         viewSize : 3
     });
-    combobox1.render('div1');
+    combobox1.render(div1);
     combobox1.menu.show();
     var single = $('li', combobox1.getElement('menu'))[0];
     var singleHeight = Math.max(single.offsetHeight, single.offsetHeight);
@@ -870,7 +869,7 @@ test("render, viewSize", function(){
         'value' : 'm', 'content' : '男'
     }]);
     combobox1.menu.show();
-    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 2 + 1, 'If number of items is less than viewSize, the viewSize is useless.')
+    equals(combobox1.getElement('menu').offsetHeight, singleHeight * 2 + 2, 'If number of items is less than viewSize, the viewSize is useless.')
     combobox1.dispose();
     document.body.removeChild(div1);
 });

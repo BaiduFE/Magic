@@ -25,7 +25,7 @@ test('default params', function() {
                     'content' : 'abcde'
                 }]
             });
-            combobox1.render('div1');
+            combobox1.render('#div1');
             equals(combobox1._options.suggestion.enable, true, "The enable is right");
             combobox1.getElement('input').value = 'abc';
             setTimeout(function() {
@@ -39,6 +39,7 @@ test('default params', function() {
         }, 'magic.ComboBox', 'magic.control.ComboBox.$suggestion');
     });
 });
+
 
 test('params', function() {
     stop();
@@ -66,7 +67,7 @@ test('params', function() {
             enable : false
         }
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
     equals(combobox1._options.suggestion.enable, false, "The enable is right");
     combobox1.getElement('input').value = 'abc';
     setTimeout(function() {
@@ -103,7 +104,7 @@ test('suggstion basic action change value of input', function() {
             'content' : 'abcde'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
         
     combobox1.getElement('input').value = 'a';
     setTimeout(function() {
@@ -164,7 +165,7 @@ test('suggstion change value of input + keyboard action', function() {
             'content' : '选项5'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
     combobox1.getElement('input').value = '选项';
     setTimeout(function() {
         equals(combobox1.menu.visible, true, 'suggestion auto show');

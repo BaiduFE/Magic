@@ -8,6 +8,7 @@
 ///import magic.Popup;
 ///import baidu.lang.createClass;
 ///import baidu.dom.css;
+///import baidu.dom.styleFixer;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.attr;
@@ -276,9 +277,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     '_setViewSize' : function() {
         baidu(this.getElement('menu')).css('height', '');
         var viewHeight = baidu('.magic-combobox-menu-item', this.getElement('menu'))[0].offsetHeight * this._options.viewSize,
-            clientHeight = this.getElement('menu').clientHeight,
+            clientHeight = this.getElement('menu').offsetHeight,
             realHeight = clientHeight > viewHeight ? viewHeight : clientHeight;
-        baidu(this.getElement('menu')).css('height', realHeight + 'px');        
+        baidu(this.getElement('menu')).css('height', realHeight);        
     },
     
     '_renderMenu' : function(data) {
@@ -700,8 +701,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      */
     'setWidth' :  function(width) {
         this.width = width;
-        baidu(this.getElement('container')).css('width', width + 'px');
-        this.menu.setWidth(width);
+        baidu(this.getElement('container')).css('width', width);
+        this.menu.setWidth(this.getElement('container').offsetWidth);
     },
     
     /**
