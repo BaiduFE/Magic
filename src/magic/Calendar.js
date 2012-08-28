@@ -19,6 +19,7 @@
 ///import baidu.date.format;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
+///import baidu.event;
 ///import magic.Base;
 
 /**
@@ -417,7 +418,7 @@ magic.Calendar.extend(
         var me = this,
             target;
 
-        target = e.target;
+        target = baidu.event(e).target;
         baidu(target).addClass(me._getClass("hover"));
 
         /**
@@ -438,7 +439,7 @@ magic.Calendar.extend(
         var me = this,
             target;
 
-        target = e.target;
+        target = baidu.event(e).target;
         baidu(target).removeClass(me._getClass("hover"));
 
         /**

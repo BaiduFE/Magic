@@ -33,8 +33,8 @@ module("magic.setup.dialog");
 })();
 
 // case 1
-test("default params", function(){
-	expect(10);
+test("default params, default position", function(){
+	expect(14);
 	enSetup();
 	var dialog = magic.setup.dialog("one-dialog");
 	equals(dialog.draggable, true, "The draggable is right");
@@ -48,6 +48,15 @@ test("default params", function(){
 	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
 	equals(dialog.getElement("body").className, "tang-body", "The body is right");
 	document.body.removeChild(baidu("#one-dialog")[0]);
+
+	//页面容器已经设置样式的情况
+	enSetup();
+	$('#one-dialog').css('left', '80px').css('top', '60px');
+	var dialog = magic.setup.dialog("one-dialog");
+	equals(dialog.left, '80px', "The left is right");
+	equals(dialog.top, '60px', "The top is right");
+	equals($('#one-dialog').css('left'), '80px', "The left is right");
+	equals($('#one-dialog').css('top'), '60px', "The top is right");
 });
 
 // case 2

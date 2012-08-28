@@ -527,7 +527,7 @@ test('magic.Alert', function(){
     stop();
     ua.importsrc("baidu.ajax.request", function(){
             var called = false;
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -560,11 +560,11 @@ test('magic.Alert', function(){
             ok(called == true, '确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -580,11 +580,11 @@ test('magic.Alert', function(){
             ok(called == true, '点击关闭按钮，确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试键盘响应：esc
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -601,11 +601,11 @@ test('magic.Alert', function(){
             
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试键盘响应：enter
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -621,7 +621,7 @@ test('magic.Alert', function(){
             ok(called == true, '按下Enter键，确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             start();
@@ -653,7 +653,7 @@ test('magic.Confirm', function(){
     ua.importsrc("baidu.ajax.request", function(){
             var okcalled = false;
             var cancelcalled = false;
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -692,12 +692,12 @@ test('magic.Confirm', function(){
             ok(okcalled == true, '确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
 
             //测试取消按钮
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -718,11 +718,11 @@ test('magic.Confirm', function(){
             ok(cancelcalled == true, '取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -743,11 +743,11 @@ test('magic.Confirm', function(){
             ok(cancelcalled == true, '点击关闭按钮，取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -768,11 +768,11 @@ test('magic.Confirm', function(){
             ok(cancelcalled == true, '按下ESC键，取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.event._listeners.length;
+            var l1 = baidu.dom._eventBase._getEventsLength();
             var instance = magic.Confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -793,7 +793,7 @@ test('magic.Confirm', function(){
             ok(cancelcalled == true, '按下Enter键，取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.event._listeners.length;
+            var l2 = baidu.dom._eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             start();
@@ -818,4 +818,80 @@ test('magic.Confirm 英文环境', function(){
        	start();
        	ua.click(baidu('#' + instance.getId('ok-button'))[0]);
     });
+});
+
+
+// case 20
+test("test mask", function(){
+    expect(8);
+    stop();
+    ua.frameExt(function(w, f){
+        var me = this;
+        ua.loadcss(upath + "setup/dialog/demo.css", function(){
+	        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500).css('margin',0).css('padding',0).css('border',0);
+	        $(f).attr('allowtransparency', 'true');
+	        $(f).css('background-color', 'transparent');
+	        w.document.body.style.backgroundColor = 'transparent';
+	        w.document.body.style.height = '1000px';	//让iframe出滚动条
+			w.document.body.style.width = '1000px';	//让iframe出滚动条
+	        var instance = w.magic.Alert({
+	            'content': '内容',
+	            'titleText': '标题',
+	            'ok': {
+	                'label': '好',
+	                'callback': function(){
+	                    called = true;
+	                }
+	            }
+	        });
+	        var alert_el = $('.tang-dialog');
+
+	        var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
+
+	        //resize
+			$(f).css("height", 600).css("width", 600);
+			setTimeout(function(){
+				var _mask = w.$('.tang-mask')[0];
+				equals(_mask.style.height, getViewHeight() + "px", "The height is right");
+				equals(_mask.style.width, getViewWidth() + "px", "The width is right");
+				var left = '0px';
+				var top = '0px';
+				equals(w.$(_mask).css('left'), left, "The left is right");
+				equals(w.$(_mask).css('top'), top, "The top is right");
+
+				//scroll
+				w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				// w.scrollBy(200, 200);
+				setTimeout(function(){
+					equals(_mask.style.height, getViewHeight() + "px", "The height is right");
+					equals(_mask.style.width, getViewWidth() + "px", "The width is right");
+
+					if(baidu.browser.ie == 6){
+						var left = '200px';
+						var top = '200px';
+					}else{
+						var left = '0px';
+						var top = '0px';
+					}
+					
+					equals(w.$(_mask).css('left'), left, "The left is right");
+					equals(w.$(_mask).css('top'), top, "The top is right");
+					
+					me.finish();
+					// ua.click(baidu('#' + instance.getId('ok-button'))[0]);
+				}, 50);
+			}, 50);
+        }, w);
+    })  
 });
