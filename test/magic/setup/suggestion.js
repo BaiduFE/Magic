@@ -40,8 +40,8 @@ test('default params', function(){
 			        me.receiveData(key, getContentByKey(key));
 			    },
 		        onshow: function(){
-		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).top, baidu.dom.getPosition(this.getElement("input")).top + input.offsetHeight - 1, "The offsetX is right");
-		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).left, baidu.dom.getPosition(this.getElement("input")).left, "The offsetY is right");
+		        	equals(baidu.dom(this.getElement("suggestion")).offset().top, baidu.dom(this.getElement("input")).offset().top + input.offsetHeight - 1, "The offsetX is right");
+		        	equals(baidu.dom(this.getElement("suggestion")).offset().left, baidu.dom(this.getElement("input")).offset().left, "The offsetY is right");
 		        	equals(this.getElement("suggestion").offsetWidth, input.offsetWidth, "The Width is right");
 		        	
 		        	equals(this.getDataByIndex(0).value, "a+1", "The value is right");
@@ -154,7 +154,7 @@ test('default params', function(){
 		        onhide: function(){
 		        	ok(!isShown(this.getElement("suggestion")), "hide");
 		        	this.on("ondispose", function(){//不能在ondispose中写，因为ondispose在代码解绑监听函数之前运行，那时还有一些监听函数没有解绑
-		        		var l2 = baidu.event._listeners.length;
+		        		var l2 = baidu.dom._eventBase._getEventsLength();
 			        	equals(l2, l1, "The events are un");
 			        	equals(this.getElement("suggestion").style.display, "none", "The dom is hide");
 			        	document.body.removeChild(div);
@@ -166,7 +166,7 @@ test('default params', function(){
 		        	
 		        }
 		    };
-			var l1 = baidu.event._listeners.length;
+			var l1 = baidu.dom._eventBase._getEventsLength();
 			var s = magic.setup.suggestion('tang-suggestion-input', options);
 			$("input").focus();
 			$("input").attr("value", "a");
@@ -195,8 +195,8 @@ test("all params", function(){
         holdHighLight : true,
         onshow: function(){
         	var s = this;
-        	equals(baidu.dom.getPosition(this.getElement("suggestion")).top, baidu.dom.getPosition(this.getElement("input")).top + input.offsetHeight + 200, "The offsetX is right");
-        	equals(baidu.dom.getPosition(this.getElement("suggestion")).left, baidu.dom.getPosition(this.getElement("input")).left + 200, "The offsetY is right");
+        	equals(baidu.dom(this.getElement("suggestion")).offset().top, baidu.dom(this.getElement("input")).offset().top + input.offsetHeight + 200, "The offsetX is right");
+        	equals(baidu.dom(this.getElement("suggestion")).offset().left, baidu.dom(this.getElement("input")).offset().left + 200, "The offsetY is right");
         	equals(this.getElement("suggestion").offsetWidth, 200, "The Width is right");
         	
         	setTimeout(function(){

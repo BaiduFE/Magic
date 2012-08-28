@@ -78,10 +78,10 @@ magic.Tab = baidu.lang.createClass(function(options) {
         var me = this,
             container;
         if (me.getElement()) {return;}//已经渲染过
-        me.mappingDom('', baidu.dom.g(target) || document.body);
+        me.mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
-        baidu.dom.addClass(container, 'tang-ui tang-tab');
-        baidu.dom.insertHTML(container, 'beforeEnd', me.toHTMLString());
+        baidu.dom(container).addClass('tang-ui tang-tab');
+        baidu.dom(container).insertHTML('beforeEnd', me.toHTMLString());
         me.fire('onload');
     },
     
@@ -93,10 +93,10 @@ magic.Tab = baidu.lang.createClass(function(options) {
         if(me.disposed){return;}
         title = me.getElement('title');
         body = me.getElement('body');
-        baidu.dom.removeClass(me.getElement(), 'tang-ui tang-tab');
+        baidu.dom(me.getElement()).removeClass('tang-ui tang-tab');
         magic.Base.prototype.dispose.call(me);
-        baidu.dom.remove(title);
-        baidu.dom.remove(body);
+        baidu.dom(title).remove();
+        baidu.dom(body).remove();
         title = body = null;
     }
 });

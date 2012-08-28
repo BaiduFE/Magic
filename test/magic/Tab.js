@@ -62,7 +62,7 @@ test("select", function(){
 	div.id = "div1";
 	var beforeselect = 0;
 	var select = 0;
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var tab = new magic.Tab({
 		'originalIndex' : 2,
         'items': [
@@ -100,7 +100,7 @@ test("select", function(){
 	equals(tab._selectedIndex, 2, "The _selectedIndex is right");
 	equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~3", "The current tab is right");
 	tab.dispose();
-	var l2 = baidu.event._listeners.length;
+	var l2 = baidu.dom._eventBase._getEventsLength();
 	equals(l2, l1, "The events are un");
 	equals(div.childNodes.length, 0, "The dom is disposed");
 	equals(tab.disposed, true, "The dom is disposed");

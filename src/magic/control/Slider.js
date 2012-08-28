@@ -6,15 +6,14 @@
 ///import magic.Base;
 ///import magic.control;
 ///import baidu.lang.createClass;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.get;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.dom.drag;
-///import baidu.dom.setStyle;
+///import baidu.dom.css;
 ///import baidu.object.extend;
 ///import baidu.array.each;
 ///import baidu.fn.bind;
-///import baidu.dom.getPosition;
+///import baidu.dom.offset;
 
 
 /**
@@ -68,13 +67,13 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
         info._const = (info._range[1] - info._limit) / 2;
 
         baidu.array.each(eventsList, function(type, i){
-            baidu.event.on(view, type, eventHandler);
+            baidu.dom(view).on(type, eventHandler);
         });
 
         // 解除dom events绑定
         me.on('dispose', function(){
             baidu.array.each(eventsList, function(type, i){
-                baidu.event.un(view, type, eventHandler);
+                baidu.dom(view).off(type, eventHandler);
             });
         }) ;
 
@@ -194,7 +193,7 @@ magic.control.Slider.extend({
             extra = knob[info._val],
             range = info._range,
             rect = [],
-            offset = parseInt(baidu.dom.getStyle(knob, 'margin-' + info._knobKey));
+            offset = parseInt(baidu.dom(knob).css('margin-' + info._knobKey));
 
         if(info._isVertical){ // 计算拖拽的范围
             r2 = range[1] + extra;
@@ -215,7 +214,7 @@ magic.control.Slider.extend({
 
             ondrag: function(){
                 var pos = me._getRealPos(knob, info._knobKey);
-                baidu.dom.setStyle(process, info._accuracyKey, me._getProcessPos(pos));
+                baidu.dom(process).css(info._accuracyKey, me._getProcessPos(pos));
                 me._setCurrentValue(pos);
 
                 me.fire('onslide');
@@ -238,7 +237,7 @@ magic.control.Slider.extend({
     _resize: function(){
         var me = this,
             info = me._info,
-            percent = info._percent || 1,
+            percent = Math.min(info._percent, 1),
             inner = me.getElement('inner'),
             view = me.getElement('view'), max;
 
@@ -266,14 +265,13 @@ magic.control.Slider.extend({
             knob = me.getElement('knob'),
             process = me.getElement('process'),
             _accuracyKey = info._accuracyKey,
-            pos1 = baidu.dom.getStyle(knob, info._knobKey),
-            pos2 = baidu.dom.getStyle(process, _accuracyKey);
-
+            pos1 = knob.style[info._knobKey],
+            pos2 = process.style[_accuracyKey];
         if(/px|auto/.test(pos1)) return;
         pos1 = parseFloat(pos1) / 100 * info[_accuracyKey] + 'px';
         pos2 = parseFloat(pos2) / 100 * info._limit + 'px';
-        baidu.dom.setStyle(knob, info._knobKey, pos1);
-        baidu.dom.setStyle(process, _accuracyKey, pos2);;
+        baidu.dom(knob).css(info._knobKey, pos1);
+        baidu.dom(process).css(_accuracyKey, pos2);;
     },
 
     /**
@@ -288,8 +286,8 @@ magic.control.Slider.extend({
 
         if(/%/.test(pos)) return;
 
-        baidu.dom.setStyle(knob, info._knobKey, me._knobPercent(pos));
-        baidu.dom.setStyle(process, info._accuracyKey, me._processPercent(me._getProcessPos(pos)));
+        baidu.dom(knob).css(info._knobKey, me._knobPercent(pos));
+        baidu.dom(process).css(info._accuracyKey, me._processPercent(me._getProcessPos(pos)));
     },
 
     /**
@@ -316,7 +314,7 @@ magic.control.Slider.extend({
      * @private
      */
     _getRealPos: function(elem, key){
-        return baidu.dom.getStyle(elem, key);
+        return elem.style[key];
     },
 
     /**
@@ -370,8 +368,8 @@ magic.control.Slider.extend({
     _getMousePos: function(){
         var view = this.getElement('view'),
             xy = baidu.page.getMousePosition(),
-            page = baidu.dom.getPosition(view);
-
+            page = baidu.dom(view).offset();
+		
         if(this._info._mouseKey == 'x'){
             return xy.x - page.left;
         }else{
@@ -391,8 +389,8 @@ magic.control.Slider.extend({
             processPos = me._getProcessPos(pos);
 
         me._setCurrentValue(mousePos);
-        baidu.dom.setStyle(knob, info._knobKey, me._knobPercent(mousePos));
-        baidu.dom.setStyle(process, info._accuracyKey, me._processPercent(processPos));
+        baidu.dom(knob).css(info._knobKey, me._knobPercent(mousePos));
+        baidu.dom(process).css(info._accuracyKey, me._processPercent(processPos));
     },
 
     /**
@@ -539,7 +537,6 @@ magic.control.Slider.extend({
             knob = me.getElement('knob'),
             process = me.getElement('process');
 
-        evt = baidu.event.get(evt);
         evt.preventDefault(); // 阻止默认行为
         me._resize(); // 重新设置范围
 
@@ -548,6 +545,7 @@ magic.control.Slider.extend({
                 me._startDrag(evt);
             }else if(evt.type == 'mousedown'){
                 me._setPosition(evt);
+                me.fire('onslideclick');
             }
         }
 
