@@ -7,20 +7,15 @@
 ///import magic.control;
 ///import magic.Popup;
 ///import baidu.lang.createClass;
-///import baidu.dom.setStyle;
-///import baidu.dom.q;
+///import baidu.dom.css;
+///import baidu.dom.styleFixer;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.getAttr;
-///import baidu.dom.getText;
-///import baidu.dom.setPixel;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.preventDefault;
-///import baidu.event.getTarget;
+///import baidu.dom.attr;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.array.remove;
 ///import baidu.object.extend;
-///import baidu.browser.firefox;
 
 /**
  * ComboBox组件的控制器。
@@ -82,20 +77,12 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
          * 修改popup.attach()逻辑。
          * me.menu.attach(me.getElement('input-container'), {
          *    'width' : me.getElement('input-container').clientWidth + 'px',
-         *    'offsetX' : -1,
-         *    'offsetY' : 1
+         *    'offsetY' : -1
          * });
          */
         //begin popup.attach的主要功能搬过来
-        me.menu._host = me.getElement('input-container');
-        me.menu.offsetX = -1;
-        //消除ff的差异
-        if (baidu.browser.firefox) {
-            me.menu.offsetY = 2;
-        } else {
-            me.menu.offsetY = 1;
-        }
-        me.menu.width = me.getElement('input-container').clientWidth;
+        me.menu._host = me.getElement('container');
+        me.menu.offsetY = -1;
         //end popup.attach的主要功能搬过来
         
         //插入下拉菜单的壳
@@ -151,32 +138,39 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         //全局变量 magic.control.ComboBox.globalActive
         //用于combobox的focus和blur
         //click和keydown触发
-        baidu.event.on(me.getElement('input-container'), 'keydown', function() {
+        baidu(me.getElement('input-container')).keydown(function() {
             !me.disabled && (magic.control.ComboBox.globalActive = me.guid);
         });
-        baidu.event.on(me.getElement('input-container'), 'click', function() {
+        baidu(me.getElement('input-container')).click(function() {
             !me.disabled && (magic.control.ComboBox.globalActive = me.guid);
         });
         
         //如果readonly为false，为下拉箭头绑定click事件，为input绑定键盘事件，
         //反之为搜索框和箭头整体绑定click事件
         if (!me._options.readonly) {
-            baidu.event.on(me.getElement('arrow'), 'click', function() {
+            baidu(me.getElement('arrow')).click(function() {
+                this.focus();
                 !me.disabled && me.menu.show();
             });
             //绑定键盘事件
-            baidu.event.on(me.getElement('input'), 'keydown', function(e) {
+            baidu(me.getElement('input')).keydown(function(e) {
                 me._keydownHandler(e);
             });
         } else {
-            baidu.event.on(me.getElement('input-container'), 'click', function() {
+            baidu(me.getElement('input-container')).click(function() {
+                me.getElement('arrow').focus();
                 (!me.disabled) && me.menu.show();
             });
-        }   
+        }
+        
+        baidu(me.getElement('arrow')).keydown(function(e) {
+            e.preventDefault();
+            me._keydownHandler(e);
+        });   
 
         //设置disable
         if(me.disabled) {
-            baidu.dom.addClass(me.getElement('container'), 'magic-combobox-disable');
+            baidu(me.getElement('container')).addClass('magic-combobox-disable');
             me.getElement('input').disabled = true;
         }
         
@@ -185,9 +179,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
 
         //为下拉菜单绑定click事件
         //采用事件代理的方式
-        baidu.event.on(this.getElement('menu'), 'click', function(e) {
+        baidu(this.getElement('menu')).click(function(e) {
             magic.control.ComboBox.globalActive = me.guid;
-            var target = baidu.event.getTarget(e);
+            var target = e.target;
             //如果target是li里面的节点，需要找到外层最近的li
             if (target == this) {
                 return;
@@ -212,9 +206,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         
         //为下拉菜单绑定mouseover事件
         //采用事件代理的方式        
-        baidu.event.on(this.getElement('menu'), 'mouseover', function(e) {
+        baidu(this.getElement('menu')).mouseover(function(e) {
             me.$clearHighlight();
-            var target = baidu.event.getTarget(e);
+            var target = e.target;
             //如果target是li里面的节点，需要找到外层最近的li
             if (target == this) {
                 return;
@@ -281,11 +275,11 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * @private 
      */    
     '_setViewSize' : function() {
-        baidu.dom.setStyle(this.getElement('menu'), 'height', '');
-        var viewHeight = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu'))[0].offsetHeight * this._options.viewSize,
-            clientHeight = this.getElement('menu').clientHeight,
+        baidu(this.getElement('menu')).css('height', '');
+        var viewHeight = baidu('.magic-combobox-menu-item', this.getElement('menu'))[0].offsetHeight * this._options.viewSize,
+            clientHeight = this.getElement('menu').offsetHeight,
             realHeight = clientHeight > viewHeight ? viewHeight : clientHeight;
-        baidu.dom.setStyle(this.getElement('menu'), 'height', realHeight + 'px');        
+        baidu(this.getElement('menu')).css('height', realHeight);        
     },
     
     '_renderMenu' : function(data) {
@@ -306,7 +300,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         var upKeyCode = 38,
             downKeyCode = 40,
             enterKeyCode = 13,
-            elmMenuItems = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu')),
+            elmMenuItems = baidu('.magic-combobox-menu-item', this.getElement('menu')),
             length = elmMenuItems.length;
         
         if (e.keyCode == enterKeyCode) {
@@ -330,7 +324,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
                 this.$menufocus(elmMenuItems[this.highlightIndex]);
             }                
         } else if (e.keyCode == upKeyCode) {
-            baidu.event.preventDefault(e);
+            e.preventDefault();
             this.$clearHighlight();
             if (this.highlightIndex == -1) {
                 this.highlightIndex = length;
@@ -351,9 +345,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      */
     '_getResult' : function(elmItem) {
         return {
-            'value' : baidu.dom.getAttr(elmItem, 'data-value'),
-            'index' : baidu.dom.getAttr(elmItem, 'data-index'),
-            'content' : baidu.dom.getText(elmItem)
+            'value' : baidu(elmItem).attr('data-value'),
+            'index' : baidu(elmItem).attr('data-index'),
+            'content' : baidu(elmItem).text()
         };
     },
     
@@ -486,8 +480,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * @param {Node} elmItem 待高亮的dom节点
      */
     '$highlight' : function(elmItem) {
-        baidu.dom.addClass(elmItem, 'magic-combobox-menu-item-hover');
-        var index = baidu.dom.getAttr(elmItem, 'data-index');
+        baidu(elmItem).addClass('magic-combobox-menu-item-hover');
+        var index = baidu(elmItem).attr('data-index');
         /**
          * 高亮下拉菜单中的某个选项后触发
          * @event
@@ -510,11 +504,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * @developer 开发者方法
      */
     '$clearHighlight' : function() {
-        var elmMenuItems = baidu.dom.q('magic-combobox-menu-item', this.getElement('menu')),
-            length = elmMenuItems.length;
-        while (length--) {
-            baidu.dom.removeClass(elmMenuItems[length], 'magic-combobox-menu-item-hover');
-        }
+        var elmMenuItems = baidu('.magic-combobox-menu-item', this.getElement('menu'));
+        elmMenuItems.removeClass('magic-combobox-menu-item-hover');
     },
     
     /**
@@ -677,7 +668,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     'disable' : function() {
         if (!this.disabled) {
             //修改样式
-            baidu.dom.addClass(this.getElement('container'), 'magic-combobox-disable');
+            baidu(this.getElement('container')).addClass('magic-combobox-disable');
             //设置input为disable
             this.getElement('input').disabled = true;
             this.disabled = true;
@@ -693,7 +684,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     'enable' : function() {
         if (this.disabled) {
             //修改样式
-            baidu.dom.removeClass(this.getElement('container'), 'magic-combobox-disable');
+            baidu(this.getElement('container')).removeClass('magic-combobox-disable');
             //设置input为disable = false
             this.getElement('input').disabled = false;
             this.disabled = false;
@@ -709,8 +700,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * @param {Number} width 宽度数字
      */
     'setWidth' :  function(width) {
-        baidu.dom.setPixel(this.getElement('container'), 'width', (this.width = width));
-        this.menu.setWidth(width);
+        this.width = width;
+        baidu(this.getElement('container')).css('width', width);
+        this.menu.setWidth(this.getElement('container').offsetWidth);
     },
     
     /**
@@ -721,17 +713,13 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      *  
      */
     'dispose' : function() {
-        baidu.event.un(this.getElement('input-container'), 'click');
-        baidu.event.un(this.getElement('input-container'), 'keydown');
-        baidu.event.un(this.getElement('input'), 'keydown');
-        baidu.event.un(this.getElement('input'), 'keyup');
-        baidu.event.un(this.getElement('arrow'), 'click');
-        baidu.event.un(this.getElement('menu'), 'click');
-        baidu.event.un(this.getElement('menu'), 'mouseover');
-        baidu.event.un(this.getElement('menu'), 'mouseout');
+        baidu(this.getElement('input-container')).off('click').off('keydown');
+        baidu(this.getElement('input')).off('keydown').off('keyup');
+        baidu(this.getElement('arrow')).off('click').off('keydown');
+        baidu(this.getElement('menu')).off('click').off('mouseover').off('mouseout');
         this.menu.hide();
         this.menu.dispose();
-        baidu.array.remove(magic.control.ComboBox.instanceArray, this.guid);
+        baidu.array(magic.control.ComboBox.instanceArray).remove(this.guid);
         magic.Base.prototype.dispose.call(this);
     }
     
@@ -775,7 +763,6 @@ function activeController() {
     magic.control.ComboBox.globalActive = null;    
 }
 
-baidu.event.on(document, 'click', activeController);
-baidu.event.on(document, 'keydown', activeController); 
+baidu(document).click(activeController).keydown(activeController);
   
 })();

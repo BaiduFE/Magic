@@ -7,6 +7,9 @@
 <script type="text/javascript" src="../../../src/import.php?f=magic.setup.combobox,baidu.dom.g,magic.control.ComboBox.$suggestion"></script>
 <title>ComboBox 组件 setup 模式示例</title>
 <style type="text/css">
+body {
+	font-size : 14px;
+}
 .combobox-container {
 	margin-bottom : 20px;
 }
@@ -85,6 +88,20 @@ createOptions(date, 1, 31, 20);
 		</select>
 	</dd>
 </dl>
+
+<dl class="combobox-container">
+	<dt class="combobox-title">普通的select变成ComboBox,下面有文字。</dt>
+	<dd>
+		<div>这是ComboBox上面的文字</div>
+		<div>性别：
+		<select id="select3" name="sex">
+			<option value="m">男</option>
+			<option value="f">女</option>
+		</select>
+		</div>
+		<div>这是ComboBox下面的文字</div>
+	</dd>
+</dl>
 <script type="text/javascript">
 
 var combobox0 = magic.setup.combobox('select0', {
@@ -111,6 +128,9 @@ var combobox3 = magic.setup.combobox('date', {
 ////////////////////////////////////
 var combobox4 = magic.setup.combobox('select2');
 combobox4.dispose();
+
+////////////////////////////////////
+var combobox4 = magic.setup.combobox('select3');
 
 </script>
 <!-- 对话框组件 End -->

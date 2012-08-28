@@ -6,9 +6,6 @@
 ///import magic.control.ComboBox;
 ///import baidu.lang.createClass;
 ///import baidu.dom.insertHTML;
-///import baidu.dom.addClass;
-///import baidu.dom.hasClass;
-///import baidu.dom.removeClass;
 ///import baidu.dom.remove;
 ///import baidu.array.each;
 
@@ -71,7 +68,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      */
     '$menuContentToHTMLString' : function(items) {
         var HTMLString = [];
-        baidu.array.each(items, function(item, index) {
+        baidu.array(items).each(function(item, index) {
             HTMLString.push('<li data-index="' + index + '" data-value="' + items[index].value + '" class="magic-combobox-menu-item">' + items[index].content + '</li>');
         });
         return HTMLString.join('');
@@ -87,7 +84,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      */
     'render' :  function(target, position) {
         position = position || 'beforeEnd';
-        baidu.dom.insertHTML(target, position, this.$toHTMLString(this._options.items));
+        baidu(target).insertHTML(position, this.$toHTMLString(this._options.items));
         /**
          * ComboBox渲染后触发 
          * @event
@@ -120,10 +117,10 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
          * @todo ondispose触发的时机，并不是在整个combobox析构之后，而是在数据析构后，dom删除之前。
          */
         magic.control.ComboBox.prototype.dispose.call(this);
-        baidu.dom.remove(container);
+        baidu(container).remove();
         if (elm) {
             host.parentNode.insertBefore(elm, host);
-            baidu.dom.remove(host);
+            baidu(host).remove();
             elm.style.visibility = '';
             elm.style.width = '';            
         }
