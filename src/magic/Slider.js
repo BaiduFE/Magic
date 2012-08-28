@@ -12,7 +12,6 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.insertHTML;
 ///import baidu.string.format;
-///import baidu.dom.g;
 ///import baidu.object.extend;
 
 /**
@@ -42,11 +41,11 @@ magic.Slider.extend({
 	 */
     render: function(el){
         var me = this;
-    	el = baidu.dom.g(el);
+    	el = baidu.dom('#'+el).get(0);
         el || document.body.appendChild(el = document.createElement("div"));  	
         if(/tang-slider/.test(el.className)) return;
 
-        baidu.dom.addClass(el, 'tang-ui tang-slider tang-slider-' + me._info._suffix);
+        baidu.dom(el).addClass('tang-ui tang-slider tang-slider-' + me._info._suffix);
         el.innerHTML = me.toHTMLString();
         me.mappingDom("", el);
 
@@ -83,7 +82,7 @@ magic.Slider.extend({
         if(me.disposed){ return; }
         slider = me.getElement('');
         magic.Base.prototype.dispose.call(me);
-        baidu.dom.remove(slider);
+        baidu.dom(slider).remove();
         slider = null;
     }
 });

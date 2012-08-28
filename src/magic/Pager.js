@@ -12,8 +12,8 @@
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.remove;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.event.preventDefault;
 
 
@@ -89,7 +89,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         this.currentPage = currentPage;
         var container = this.getElement();
         container.innerHTML = '';
-        this.render(this.getElement());
+        this.render(this.getId());
        /**
         * 页码变换后触发
         * @name magic.Pager#onpagechange
@@ -153,8 +153,9 @@ magic.Pager = baidu.lang.createClass(function(options) {
         if (!this.getElement()) {
             this.mappingDom('', target || document.body);
         }
-        baidu.dom.addClass(target, 'tang-pager');
-        baidu.dom.insertHTML(target, 'beforeEnd', this.$toHTMLString());
+        target = baidu.dom('#'+target);
+        baidu.dom(target).addClass('tang-pager')
+        					.insertHTML('beforeEnd', this.$toHTMLString());
        /**
         * Pager渲染后触发
         * @name magic.Pager#onload
@@ -176,7 +177,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         }
         var container = this.getElement(),
             main = this.getElement('main');
-        baidu.dom.removeClass(container, 'tang-pager');
+        baidu.dom(container).removeClass('tang-pager');
        /**
         * Pager析构后触发
         * @name magic.Pager#ondispose
@@ -184,7 +185,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         * @param {baidu.lang.Event} evt 事件参数
         */
         magic.Base.prototype.dispose.call(this);
-        baidu.dom.remove(main);
+        baidu.dom(main).remove();
         container = main = null;
     }
 });

@@ -9,7 +9,7 @@
 
 
 ///import magic;
-///import baidu.event.on;
+///import baidu.dom.on;
 
 /**
  * 各种UI组件反向创建的模块集合
@@ -77,7 +77,7 @@
 				var method = json[i].substr(1);
 				// 如果用户已经指定参数，有效
 				method.indexOf("(") < 0 && (method += "()");
-				baidu.event.on(el, i, new Function("baiduInstance('"+guid+"') && baiduInstance('"+guid+"')"+method));
+				baidu.dom(el).on(i, new Function("baiduInstance('"+guid+"') && baiduInstance('"+guid+"')"+method));
 			}
 		}
 	}

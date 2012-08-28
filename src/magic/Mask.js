@@ -18,8 +18,8 @@
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
 
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.browser.safari;
 
 /**
@@ -50,7 +50,7 @@ magic.Mask = function(options){
 	me.width = me.height = "100%";
 
 	var sf = baidu.browser.safari;
-	baidu.dom.insertHTML(me.container, "afterbegin", me.toHTMLString());
+	baidu.dom(me.container).insertHTML("afterbegin", me.toHTMLString());
     
     /**
      * @private
@@ -78,7 +78,7 @@ magic.Mask = function(options){
 
 	me.on("show", function(){
 		resize();
-		baidu.event.on(window, "onresize", resize);
+		baidu.dom(window).on("onresize", resize);
 		var es = me.getElement().style;
 		es.opacity = me.opacity;
 		es.zIndex = me.zIndex;
@@ -88,7 +88,7 @@ magic.Mask = function(options){
 	});
 
 	me.on("hide", function(){
-		baidu.event.un(window, "onresize", resize);
+		baidu.dom(window).off("onresize", resize);
 		sf && showObjects(true);
 	});
 

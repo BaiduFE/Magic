@@ -24,17 +24,19 @@
 
 
 /**
- * 模拟对话框类，用于建立一个实例
- * @class 模拟对话框类
+ * @description 模拟对话框类，用于建立一个实例
+ * @name magic.Dialog
+ * @class
+ * @name magic.Dialog
  * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
- * @config {Boolean} options.titleText 对话框的标题内容，可选
- * @config {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
- * @config {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html
- * @config {Number} options.width Dialog 的宽度，缺省为 400
- * @config {Number} options.height Dialog 的高度，缺省为 300
- * @config {Number} options.left Dialog 的左边距，可选
- * @config {Number} options.top Dialog 的上边距，可选
+ * @param {Boolean} options.titleText 对话框的标题内容，可选 [exp]:[标题]
+ * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选 [exp]:[我是内容区域]
+ * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html [exp]:[element,html,text,frame]
+ * @param {Number} options.width Dialog 的宽度，缺省为 400 [exp]:[500]
+ * @param {Number} options.height Dialog 的高度，缺省为 300 [exp]:[200]
+ * @param {Number} options.left Dialog 的左边距，可选 [exp]:[300]
+ * @param {Number} options.top Dialog 的上边距，可选 [exp]:[200]
  * @return {magic.control.Dialog} magic.control.Dialog 实例
  * @superClass magic.control.Dialog
  */
@@ -63,8 +65,11 @@ magic.Dialog.extend(
 /** @lends magic.Dialog.prototype */
 {
 	/**
-	 * 渲染对话框
-	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
+	 * @description 渲染对话框
+	 * @name magic.Dialog#render
+	 * @function
+	 * @grammar magic.Dialog#render(el)
+	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部 [exp]:['contentId']
 	 */
     render: function(el){
     	el = baidu.dom.g(el);

@@ -24,18 +24,20 @@
 ///import baidu.page.getScrollLeft;
 
 /**
- * Dialog 组件的控制器
+ * @description Dialog 组件的控制器
  * @class
+ * @name magic.control.Dialog
  * @superClass magic.control.Layer
  * @grammar new magic.control.Dialog(options)
  * @param {Object} options 选项
- * @config {Number} options.width Dialog 的宽度，缺省为 400
- * @config {Number} options.height Dialog 的高度，缺省为 300
- * @config {Number} options.left Dialog 的左边距，可选
- * @config {Number} options.top Dialog 的上边距，可选
- * @config {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
+ * @param {Number} options.width Dialog 的宽度，缺省为 400 [exp]:[400]
+ * @param {Number} options.height Dialog 的高度，缺省为 300 [exp]:[300]
+ * @param {Number} options.left Dialog 的左边距，可选 [exp]:[100]
+ * @param {Number} options.top Dialog 的上边距，可选 [exp]:[300]
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true [exp]:[true]
  * @plugin  mask              对话框遮罩插件
  * @author dron
+ * @return {magic.control.Dialog} Dialog实例对象
  */
 magic.control.Dialog = baidu.lang.createClass(
     /* constructor */ function(options){
@@ -107,8 +109,11 @@ magic.control.Dialog.extend(
     /* methods */
 
     /**
-     * 查询对话框是否处于显示状态
-     * @return {Boolean}
+     * @description 查询对话框是否处于显示状态
+     * @name magic.control.Dialog#isShowing
+     * @function
+     * @grammar magic.control.Dialog#isShowing()
+     * @return {Boolean} 对话框是否处于显示状态
      */
     isShowing: function(){
         return this._isShown;
@@ -132,31 +137,38 @@ magic.control.Dialog.extend(
   //   },
 
     /**
-     * 隐藏对话框
+     * @description 隐藏对话框
+     * @name magic.control.Dialog#hide
+     * @function
+     * @grammar magic.control.Dialog#hide()
      * @return {This} 实例本身
      */
     hide: function(){
         /**
-         * 当即将关闭窗口时触发，如果事件回调函数返回值为 false，则阻止关闭窗口
+         * @description 当即将关闭窗口时触发，如果事件回调函数返回值为 false，则阻止关闭窗口
          * @name magic.control.Dialog#onbeforehide
-         * @event 
+         * @event
+         * @grammar magic.control.Dialog#onbeforehide = function(){...}
          */
         if(this.fire("beforehide") === false)
             return this;
         this._isShown = false;
         this.getElement().style.display = "none";
          
-        // TODO: 写事件的 jsdoc
         /**
-         * 当关闭窗口时触发
-         * @name magic.control.Dialog#onbeforehide
-         * @event 
+         * @description 当关闭窗口时触发
+         * @name magic.control.Dialog#onhide
+         * @event
+         * @grammar magic.control.Dialog#onhide = function(){...}
          */
         this.fire("hide");
     },
     /**
-     * 设置对话框标题
-     * @param {String} title 对话框标是文本内容
+     * @description 设置对话框标题
+     * @name magic.control.Dialog#setTitleText
+     * @function
+     * @grammar magic.control.Dialog#setTitleText(title)
+     * @param {String} title 对话框标题文本内容 [exp]:['我的标题']
      * @return {This} 实例本身
      */
     setTitleText: function(title){
@@ -166,9 +178,12 @@ magic.control.Dialog.extend(
     },
 
     /**
-     * 设置对话框内容
-     * @param {HTMLElement|id|dom} content 用于做为对话框内容的节点或字符串 id
-     * @param {string} contentType 内容类型，可选参数有 element|html|text|frame，分别表示传入的内容类型为 dom 对象、html 字符、文本或 iframe 地址，content 参数的数据类型由 contentType 决定，两个参数配合使用，contentType 参数如果不传或非以上四种情况，一律当 html 处理
+     * @description 设置对话框内容
+     * @name magic.control.Dialog#setContent
+     * @function
+     * @grammar magic.control.Dialog#setContent(content, contentType)
+     * @param {HTMLElement|id|dom} content 用于做为对话框内容的节点或字符串 id [exp]:['contentId']
+     * @param {string} contentType 内容类型，可选参数有 element|html|text|frame，分别表示传入的内容类型为 dom 对象、html 字符、文本或 iframe 地址，content 参数的数据类型由 contentType 决定，两个参数配合使用，contentType 参数如果不传或非以上四种情况，一律当 html 处理 [exp]:['element','html','text','frame']
      * @return {This} 实例本身
      */
     setContent: function(content, contentType){
@@ -215,25 +230,31 @@ magic.control.Dialog.extend(
     },
 
     /**
-     * 聚焦对话框
-     * @return {This} 实例本身
+     * @description 聚焦对话框
+     * @name magic.control.Dialog#focus
+     * @function
+     * @grammar magic.control.Dialog#focus()
      */
     focus: function(){
         baidu.dom.setStyle(this.getElement(), "zIndex", 
             this.zIndex = baidu.global.getZIndex("dialog", 5));
         /**
-         * 当窗口获得焦点时触发
-         * @name magic.control.Dialog#focus
+         * @description 当窗口获得焦点时触发
+         * @name magic.control.Dialog#onfocus
          * @event 
+         * @grammar magic.control.Dialog#onfocus = function(){...}
          */
         this.fire("focus");
     },
 
     /**
-     * 设置对话框尺寸
+     * @description 设置对话框尺寸
+     * @name magic.control.Dialog#setSize
+     * @function
+     * @grammar magic.control.Dialog#setSize(size)
      * @param {Object} size 尺寸描述对象，必须至少有 width/height 中的一个
-     * @config {Number} size.width  对话框的宽，单位 px
-     * @config {Number} size.height 对话框的高，单位 px
+     * @param {Number} size.width  对话框的宽，单位 px [exp]:[600]
+     * @param {Number} size.height 对话框的高，单位 px [exp]:[300]
      * @return {This} 实例本身
      */
     setSize: function(size){
@@ -246,18 +267,22 @@ magic.control.Dialog.extend(
             setStyle(this.getElement("body"), "height", Math.max(0, this.height - this._titleHeight) + "px");
         }
         /**
-         * 当窗口发生尺寸修改时触发
+         * @description 当窗口发生尺寸修改时触发
          * @name magic.control.Dialog#onresize
-         * @param {Object} size 尺寸信息
-         * @config {Number} size.width 宽度
-         * @config {Number} size.height 高度
          * @event 
+         * @grammar magic.control.Dialog#onresize = function(evt){...}
+         * @param {Object} evt 事件参数
+         * @param {Number} evt.width 宽度 [exp]:[600]
+         * @param {Number} evt.height 高度 [exp]:[300]
          */
         this.fire("resize", size);
     },
 
     /**
-     * 获取对话框尺寸
+     * @description 获取对话框尺寸
+     * @name magic.control.Dialog#getSize
+     * @function
+     * @grammar magic.control.Dialog#getSize()
      * @return {Object} 返回值形如 { width: 100, height: 100 }，单位 px
      */
     getSize: function(){
@@ -268,10 +293,13 @@ magic.control.Dialog.extend(
     },
 
     /**
-     * 设置对话框的位置
+     * @description 设置对话框的位置
+     * @name magic.control.Dialog#setPosition
+     * @function
+     * @grammar magic.control.Dialog#setPosition(pos)
      * @param {Object} pos 位置描述对象，必须至少有 left/top 中的一个
-     * @config {Number} pos.left 对话框左边框到 body 左侧的距离，单位 px
-     * @config {Number} pos.top 对话框上边框到 body 上侧的距离，单位 px
+     * @param {Number} pos.left 对话框左边框到 body 左侧的距离，单位 px [exp]:[700]
+     * @param {Number} pos.top 对话框上边框到 body 上侧的距离，单位 px [exp]:[200]
      * @return {This} 实例本身
      */
     setPosition: function(pos){
@@ -282,18 +310,22 @@ magic.control.Dialog.extend(
         if(typeof pos.top == "number")
             setStyle(this.getElement(), "top", (this.top = pos.top) + "px");
         /**
-         * 当窗口发生位置移动时触发
+         * @description 当窗口发生位置移动时触发
          * @name magic.control.Dialog#onmove
-         * @param {Object} pos 尺寸信息
-         * @config {Number} pos.left 左边距
-         * @config {Number} pos.top 右边距
          * @event 
+         * @grammar magic.control.Dialog#onmove = function(evt){...}
+         * @param {Object} evt 事件参数
+         * @param {Number} evt.left 左边距
+         * @param {Number} evt.top 右边距
          */
         this.fire("move", pos);
     },
 
     /**
-     * 获取对话框的位置
+     * @description 获取对话框的位置
+     * @name magic.control.Dialog#getPosition
+     * @function
+     * @grammar magic.control.Dialog#getPosition()
      * @return {Object} 返回值形如 { left: 100, top: 100 }，单位 px
      */
     getPosition: function(){
@@ -304,7 +336,10 @@ magic.control.Dialog.extend(
     },
 
     /**
-     * 使对话框居中于浏览器视口显示
+     * @description 使对话框居中于浏览器视口显示
+     * @name magic.control.Dialog#center
+     * @function
+     * @grammar magic.control.Dialog#center()
      */
     center: function(){
         var body = document[baidu.browser.isStrict ? "documentElement" : "body"];
@@ -319,20 +354,14 @@ magic.control.Dialog.extend(
     },
 
     /**
-     * 析构
+     * @description 析构
+     * @name magic.control.Dialog#dispose
+     * @function
+     * @grammar magic.control.Dialog#dispose()
      */
     dispose: function(){
         for(var i = 0, l = this.disposeProcess.length; i < l; i ++)
             this.disposeProcess[i].call(this);
         magic.Base.prototype.dispose.call(this);
     }
-
-
-    /**
-     * 获得 Dialog 组件结构里的 HtmlElement 对象
-     * @name magic.control.Dialog#getElement
-     * @function
-     * @param {String} name 可选的值包括：title(标题栏)|titleText(标题栏文本)|titleButtons(标题标按钮区)|body(主体)|content(主体内容区)|closeBtn(关闭按钮)|foreground(前景层)
-     * @return {HtmlElement} 得到的 HtmlElement 对象
-     */
 });

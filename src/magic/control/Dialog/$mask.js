@@ -9,14 +9,13 @@
 ///import baidu.lang.register;
 
 /**
- * 对话框遮罩插件
+ * @description 对话框遮罩插件
  * @name magic.control.Dialog.$mask
- * @addon magic.control.Dialog
- * @param  {Object}  options 选项
- * @config {Object}  mask 插件选项
- * @config {Boolean} mask.enable 遮罩的开关，缺省为 false
- * @config {String} mask.bgColor 遮罩景色，缺省为 #000
- * @config {Number} mask.opacity 遮罩不透明度，缺省为 0.15
+ * @addon
+ * @param {Object}  mask 插件选项
+ * @param {Boolean} mask.enable 遮罩的开关，缺省为 false [exp]:[false]
+ * @param {String} mask.bgColor 遮罩景色，缺省为 #000 [exp]:['#000']
+ * @param {Number} mask.opacity 遮罩不透明度，缺省为 0.15 [exp]:[0.15]
  */
 baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
@@ -40,10 +39,10 @@ baidu.lang.register(magic.control.Dialog,
 
 	/* methods */ {
 		/*
-		 * 渲染 mask 层（如果开启 mask 选项，主程序会自动 renderMask）
+		 * @description 渲染 mask 层（如果开启 mask 选项，主程序会自动 renderMask）
+		 * @name magic.control.Dialog.$mask#renderMask
 		 * @function
-		 * @name magic.control.Dialog.$mask.renderMask
-		 * @addon magic.control.Dialog.$mask
+		 * @grammar magic.control.Dialog.$mask#renderMask()
 		 * @return {This} 实例本身
 		 */
 		renderMask: function(){
@@ -58,10 +57,10 @@ baidu.lang.register(magic.control.Dialog,
 		},
 
 		/*
-		 * 显示 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		 * @description 显示 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		 * @name magic.control.Dialog.$mask#showMask
 		 * @function
-		 * @name magic.control.Dialog.$mask.showMask
-		 * @addon magic.control.Dialog.$mask
+		 * @grammar magic.control.Dialog.$mask#showMask()
 		 * @return {This} 实例本身
 		 */
 		showMask: function(){
@@ -70,11 +69,11 @@ baidu.lang.register(magic.control.Dialog,
 		},
 
 		/*
-		 * 隐藏 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		 * @description 隐藏 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		 * @name magic.control.Dialog.$mask#hideMask
 		 * @function
-		 * @name magic.control.Dialog.$mask.hideMask
-		 * @addon magic.control.Dialog.$mask
-		 * @return {[type]}
+		 * @grammar magic.control.Dialog.$mask#hideMask()
+		 * @return {This} 实例本身
 		 */
 		hideMask: function(){
 		    this._mask.hide();

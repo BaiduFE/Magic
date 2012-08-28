@@ -9,7 +9,7 @@
 
 ///import magic.Base;
 ///import magic.control;
-///import baidu.dom.setPixel;
+///import baidu.dom.css;
 ///import baidu.object.extend;
 ///import baidu.lang.createClass;
 
@@ -60,7 +60,7 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 	 * @param {Number} width 宽度数字
 	 */
     ,setWidth :  function(width) {
-        baidu.dom.setPixel(this.getElement(), "width", (this.width=width));
+        baidu.dom(this.getElement()).css('width', (this.width=width)+'px');
     }
 	/** 
      * 通用设置高度
@@ -68,7 +68,7 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 	 * @param {Number} height 高度数字
 	 */
     ,setHeight :  function(height) {
-        baidu.dom.setPixel(this.getElement(), "height",(this.height=height));
+        baidu.dom(this.getElement()).css('height', (this.height=height)+'px');
     }
     // size:{width, height}|[width, height]
 	/** 

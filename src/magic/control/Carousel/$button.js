@@ -6,9 +6,8 @@
 ///import baidu.lang.register;
 ///import magic.control.Carousel;
 ///import baidu.fn.bind;
-///import magic._query;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.object.extend;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
@@ -33,18 +32,17 @@ baidu.lang.register(magic.control.Carousel, function(options){
     function toggle(){
         var prev = me.getElement('prev'),
             next = me.getElement('next');
-        baidu.dom[me.isFirst() ? 'addClass' : 'removeClass'](prev, 'tang-carousel-btn-prev-disabled');
-        baidu.dom[me.isLast() ? 'addClass' : 'removeClass'](next, 'tang-carousel-btn-next-disabled');
-        baidu.dom[!me.isFirst() ? 'addClass' : 'removeClass'](prev, 'tang-carousel-btn-prev');
-        baidu.dom[!me.isLast() ? 'addClass' : 'removeClass'](next, 'tang-carousel-btn-next');
+        baidu.dom(prev)[me.isFirst() ? 'addClass' : 'removeClass']('tang-carousel-btn-prev-disabled');
+        baidu.dom(next)[me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next-disabled');
+        baidu.dom(prev)[!me.isFirst() ? 'addClass' : 'removeClass']('tang-carousel-btn-prev');
+        baidu.dom(next)[!me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next');
     }
     me.on('onload', function(evt){
-        var query = magic._query;
-        me.mappingDom('prev', query('.tang-carousel-btn-prev', me.getElement())[0]).
-        mappingDom('next', query('.tang-carousel-btn-next', me.getElement())[0]);
+        me.mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
+        mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
         //
-        baidu.event.on(me.getElement('prev'), 'click', prevHandler);
-        baidu.event.on(me.getElement('next'), 'click', nextHandler);
+        baidu.dom(me.getElement('prev')).on('click', prevHandler);
+        baidu.dom(me.getElement('next')).on('click', nextHandler);
         toggle();
     });
     //
@@ -53,8 +51,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
     });
     //
     me.on('ondispose', function(){
-        baidu.event.un(me.getElement('prev'), 'click', prevHandler);
-        baidu.event.un(me.getElement('next'), 'click', nextHandler);
+    	baidu.dom(me.getElement('prev')).off('click', prevHandler);
+    	baidu.dom(me.getElement('next')).off('click', nextHandler);
     });
 }, 
 {

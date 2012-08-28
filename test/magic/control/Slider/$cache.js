@@ -45,7 +45,7 @@ test("render, enable", function(){
 			div.id = "div1";
 			$(div).css("width", "222px");
 			var num = 0;
-			var l1 = baidu.event._listeners.length;
+			var l1 = baidu.dom._eventBase._getEventsLength();
 			var slider = new magic.Slider({
 				cache:{
 					enable: true
@@ -61,16 +61,16 @@ test("render, enable", function(){
 			equals(slider.getElement("cache").offsetWidth, 382 * 0.5, "The cache is shown and width is right");
 			
 			ua.mousemove(slider.getElement("view"), {
-				clientX : baidu.dom.getPosition(slider.getElement("view")).left + 30,
-				clientY : baidu.dom.getPosition(slider.getElement("view")).top
+				clientX : baidu.dom(slider.getElement("view")).offset().left + 30,
+				clientY : baidu.dom(slider.getElement("view")).offset().top
 			});
 			ua.mousedown(slider.getElement("view"));
 			ua.mouseup(slider.getElement("view"));start();
 			equals(slider.getElement("cache").offsetWidth, 382 * 0.5, "The cache is shown and width is right");
 		
 			ua.mousemove(slider.getElement("view"), {
-				clientX : baidu.dom.getPosition(slider.getElement("view")).left + 350,
-				clientY : baidu.dom.getPosition(slider.getElement("view")).top
+				clientX : baidu.dom(slider.getElement("view")).offset().left + 350,
+				clientY : baidu.dom(slider.getElement("view")).offset().top
 			});
 			ua.mousedown(slider.getElement("view"));
 			ua.mouseup(slider.getElement("view"));start();
@@ -88,7 +88,7 @@ test("render, enable, vertical", function(){
 	div.id = "div1";
 	$(div).css("height", "222px");
 	var num = 0;
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var slider = new magic.Slider({
 		orientation: 'vertical',
 		cache:{
@@ -105,16 +105,16 @@ test("render, enable, vertical", function(){
 	equals(slider.getElement("cache").offsetHeight, 382 * 0.5, "The cache is shown and height is right");
 	
 	ua.mousemove(slider.getElement("view"), {
-		clientX : baidu.dom.getPosition(slider.getElement("view")).left,
-		clientY : baidu.dom.getPosition(slider.getElement("view")).top + 30
+		clientX : baidu.dom(slider.getElement("view")).offset().left,
+		clientY : baidu.dom(slider.getElement("view")).offset().top + 30
 	});
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
 	equals(slider.getElement("cache").offsetHeight, 382 * 0.5, "The cache is shown and height is right");
 
 	ua.mousemove(slider.getElement("view"), {
-		clientX : baidu.dom.getPosition(slider.getElement("view")).left,
-		clientY : baidu.dom.getPosition(slider.getElement("view")).top + 350
+		clientX : baidu.dom(slider.getElement("view")).offset().left,
+		clientY : baidu.dom(slider.getElement("view")).offset().top + 350
 	});
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
@@ -127,7 +127,7 @@ test("setup, default params&events", function(){
     expect(5);
 	enSetupH();
 	var num = 0;
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var slider = new magic.setup.slider("s1", {
 		cache: {
 			enable: true
@@ -142,16 +142,16 @@ test("setup, default params&events", function(){
 	equals(slider.getElement("cache").offsetWidth, 382 * 0.5, "The cache is shown and width is right");
 	
 	ua.mousemove(slider.getElement("view"), {
-		clientX : baidu.dom.getPosition(slider.getElement("view")).left + 30,
-		clientY : baidu.dom.getPosition(slider.getElement("view")).top
+		clientX : baidu.dom(slider.getElement("view")).offset().left + 30,
+		clientY : baidu.dom(slider.getElement("view")).offset().top
 	});
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
 	equals(slider.getElement("cache").offsetWidth, 382 * 0.5, "The cache is shown and width is right");
 
 	ua.mousemove(slider.getElement("view"), {
-		clientX : baidu.dom.getPosition(slider.getElement("view")).left + 350,
-		clientY : baidu.dom.getPosition(slider.getElement("view")).top
+		clientX : baidu.dom(slider.getElement("view")).offset().left + 350,
+		clientY : baidu.dom(slider.getElement("view")).offset().top
 	});
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
@@ -180,16 +180,16 @@ test("setup, orientation&accuracy&duration", function(){
 	equals(slider.getElement("cache").offsetHeight, 382 * 0.5, "The cache is shown and height is right");
 	
 	ua.mousemove(slider.getElement("view"), {
-		clientX : baidu.dom.getPosition(slider.getElement("view")).left,
-		clientY : baidu.dom.getPosition(slider.getElement("view")).top + 30
+		clientX : baidu.dom(slider.getElement("view")).offset().left,
+		clientY : baidu.dom(slider.getElement("view")).offset().top + 30
 	});
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
 	equals(slider.getElement("cache").offsetHeight, 382 * 0.5, "The cache is shown and height is right");
 
 	ua.mousemove(slider.getElement("view"), {
-		clientX : baidu.dom.getPosition(slider.getElement("view")).left,
-		clientY : baidu.dom.getPosition(slider.getElement("view")).top + 350
+		clientX : baidu.dom(slider.getElement("view")).offset().left,
+		clientY : baidu.dom(slider.getElement("view")).offset().top + 350
 	});
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();

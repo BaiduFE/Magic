@@ -5,8 +5,8 @@
 ///import baidu.lang.register;
 ///import magic.control.Carousel;
 ///import baidu.fn.bind;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.event._eventFilter.mouseenter;
 ///import baidu.event._eventFilter.mouseleave;
 
@@ -32,11 +32,11 @@ baidu.lang.register(magic.control.Carousel, function(options){
     autoScroll.direction = autoScroll.direction.toLowerCase();//sweet?
     me.on('onload', function(evt){
         var handler = baidu.fn.bind('_onMouseEventHandler', me);
-        baidu.event.on(me.getElement('element'), 'mouseenter', handler);
-        baidu.event.on(me.getElement('element'), 'mouseleave', handler);
+        baidu.dom(me.getElement('element')).on('mouseenter', handler);
+        baidu.dom(me.getElement('element')).on('mouseleave', handler);
         me.on('ondispose', function(){
-            baidu.event.un(me.getElement('element'), 'mouseenter', handler);
-            baidu.event.un(me.getElement('element'), 'mouseleave', handler);
+        	baidu.dom(me.getElement('element')).off('mouseenter', handler);
+        	baidu.dom(me.getElement('element')).off('mouseleave', handler);
         });
         me.start();
     });

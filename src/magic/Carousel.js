@@ -69,10 +69,10 @@ magic.Carousel = baidu.lang.createClass(function(options){
         var me = this,
             container;
         if (me.getElement()) {return;}//已经渲染过
-        me.mappingDom('', baidu.dom.g(target) || document.body);
+        me.mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
-        baidu.dom.addClass(container, 'tang-ui tang-carousel');
-        baidu.dom.insertHTML(container, 'beforeEnd', me.toHTMLString());
+		baidu.dom(container).addClass('tang-ui tang-carousel')
+							.insertHTML('beforeEnd', me.toHTMLString());
         me.fire('ondomready');
         me.fire('onload');
     },
@@ -83,10 +83,10 @@ magic.Carousel = baidu.lang.createClass(function(options){
     dispose: function(){
         var me = this, container;
         if(me.disposed){return;}
-        baidu.dom.removeClass(me.getElement(), 'tang-ui tang-carousel');
+        baidu.dom(me.getElement()).removeClass('tang-ui tang-carousel');
         container = me.getElement('container');
         magic.Base.prototype.dispose.call(me);
-        baidu.dom.remove(container);
+        baidu.dom(container).remove();
         container = null;
     }
 });

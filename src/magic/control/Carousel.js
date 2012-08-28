@@ -11,21 +11,19 @@
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.fn.bind;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.getTarget;
+///import baidu.makeArray;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
-///import magic._query;
 ///import baidu.dom.children;
-///import baidu.dom.g;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.remove;
-///import baidu.dom.getStyle;
 ///import baidu.dom.contains;
-///import baidu.dom.getAncestorByClass;
+///import baidu.dom.closest;
+///import baidu.dom.css;
+///import baidu.dom.on;
+///import baidu.dom.off;
 
 
 void function(){
@@ -60,17 +58,16 @@ void function(){
         if(this._element){return;}
         var me = this,
             opt = me._options,
-            child = baidu.dom.children(target),
+            child = baidu.dom(target).children(),
             tagName = child[0] ? child[0].tagName : 'li',
             template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>';
-        baidu.dom.insertHTML(target,
-            direction == 'forward' ? 'beforeEnd' : 'afterBegin',
+        baidu.dom(target).insertHTML(direction == 'forward' ? 'beforeEnd' : 'afterBegin',
             baidu.string.format(template, {
                 rsid: me.guid,
                 'class': 'tang-carousel-item' + (opt.empty ? ' tang-carousel-item-empty' : ''),
                 content: opt.empty ? '&nbsp;' : ''
             }));
-        me._element = baidu.dom.g(me.guid);
+        me._element = baidu.dom('#'+me.guid).get(0);
     }
     /**
      * 将已经存在或是末曾渲染的滚动项插入到指定位置
@@ -98,7 +95,7 @@ void function(){
      */
     Item.prototype.getElement = function(){
         var me = this;
-        return me._element || baidu.dom.g(this.guid);
+        return me._element || baidu.dom('#'+this.guid).get(0);
     }
     
     
@@ -149,30 +146,26 @@ void function(){
                 selectedIndex = me._selectedIndex,
                 opt = me._options,
                 focusRange = opt.focusRange,
-                query = magic._query,
                 handler = baidu.fn.bind('_onEventHandler', me);
-            me.mappingDom('container', query('.tang-carousel-container', me.getElement())[0]).
-            mappingDom('element', query('.tang-carousel-element', me.getElement())[0]);
+            me.mappingDom('container', baidu('.tang-carousel-container', me.getElement())[0]).
+            mappingDom('element', baidu('.tang-carousel-element', me.getElement())[0]);
             //data
-            baidu.array.each(//pick data
-                baidu.dom.children(me.getElement('element')),
-                function(ele, index){
-                    var item = new Item({content: ele});
-                    me._dataIds.push(item.guid);
-                    me._datas[item.guid] = item;
-                    baidu.dom[selectedIndex == index ? 'addClass' : 'removeClass'](ele, 'tang-carousel-item-selected');
-                }
-            );
+            baidu.dom(baidu.dom(me.getElement('element')).children()).each(function(index, ele){
+            	var item = new Item({content: ele});
+                me._dataIds.push(item.guid);
+                me._datas[item.guid] = item;
+                baidu.dom(ele)[selectedIndex == index ? 'addClass' : 'removeClass']('tang-carousel-item-selected');
+            });
             me._clear(selectedIndex, focusRange[selectedIndex > (me._dataIds.length - 1) / 2 ? 'max' : 'min'], true);
             me._resize();
             //event
-            baidu.event.on(me.getElement('element'), 'click', handler);
-            baidu.event.on(me.getElement('element'), 'mouseover', handler);
-            baidu.event.on(me.getElement('element'), 'mouseout', handler);
+            baidu.dom(me.getElement('element')).on('click', handler);
+            baidu.dom(me.getElement('element')).on('mouseover', handler);
+            baidu.dom(me.getElement('element')).on('mouseout', handler);
             me.on('ondispose', function(){
-                baidu.event.un(me.getElement('element'), 'click', handler);
-                baidu.event.un(me.getElement('element'), 'mouseover', handler);
-                baidu.event.un(me.getElement('element'), 'mouseout', handler);
+                baidu.dom(me.getElement('element')).off('click', handler);
+                baidu.dom(me.getElement('element')).off('mouseover', handler);
+                baidu.dom(me.getElement('element')).off('mouseout', handler);
             });
         });
         
@@ -220,9 +213,9 @@ void function(){
             var me = this,
                 opt = me._options,
                 element = me.getElement('element'),
-                target = baidu.event.getTarget(evt);
+                target = evt.target;
             if(!baidu.dom.contains(me.getElement('element'), target)){return;}
-            target = baidu.dom.getAncestorByClass(target, 'tang-carousel-item') || target;
+            target = baidu.dom(target).closest('.tang-carousel-item').get(0);
             me.fire('on' + evt.type.toLowerCase() + 'item', {
                 DOMEvent: evt,
                 index: baidu.array.indexOf(me._dataIds, target.id)
@@ -243,11 +236,11 @@ void function(){
                 val = me._bound,
                 child;
             if(!val){
-                child = baidu.dom.children(me.getElement('element'))[0];
+                child = baidu.dom(me.getElement('element')).children().get(0);
                 if(child){
                     val = me._bound = {
-                        marginPrev: parseInt(baidu.dom.getStyle(child, 'margin' + (orie ? 'Left' : 'Top')), 10),
-                        marginNext: parseInt(baidu.dom.getStyle(child, 'margin' + (orie ? 'Right' : 'Bottom')), 10),
+                        marginPrev: parseInt(baidu.dom(child).css('margin' + (orie ? 'Left' : 'Top')), 10),
+                        marginNext: parseInt(baidu.dom(child).css('margin' + (orie ? 'Right' : 'Bottom')), 10),
                         size: child[axis.offsetSize]
                     };
                     val.bound = val.size + (orie ? (val.marginPrev + val.marginNext) : Math.max(val.marginPrev, val.marginNext));
@@ -264,7 +257,7 @@ void function(){
             var me = this,
                 axis = me._axis[me._options.orientation],
                 el = me.getElement('element'),
-                child = baidu.dom.children(el);
+                child = baidu.dom(el).children();
             el.style[axis.size] = child.length * me._getItemBound().bound + 'px';
         },
         
@@ -282,17 +275,17 @@ void function(){
                 viewSize = opt.viewSize,
                 focusRange = opt.focusRange,
                 totalCount = me._dataIds.length,
-                child = baidu.dom.children(me.getElement('element')),
-                posIndex = baidu.array.indexOf(child,
-                    me._getItem(index).getElement());
+                child = baidu.makeArray(baidu.dom(me.getElement('element')).children()),
+                posIndex = baidu.array(child).indexOf(me._getItem(index).getElement());
             if(isLimit){
                 index - focusRange.min < 0 && (offset = index);
                 index + viewSize - focusRange.max > totalCount
                     && (offset = viewSize - totalCount + index);
             }
-            baidu.array.each(child, function(item, index){
-                (index < posIndex - offset || index > posIndex + viewSize - offset - 1)
-                    && baidu.dom.remove(item);
+            
+            baidu.array(child).each(function(item, index){
+            	(index < posIndex - offset || index > posIndex + viewSize - offset - 1)
+                    && baidu.dom(item).remove();
             });
             me.getElement('container')[axis.scrollPos] = 0;//init
         },
@@ -315,9 +308,9 @@ void function(){
          */
         _toggle: function(index){
             var me = this;
-            baidu.dom.removeClass(me._dataIds[me._selectedIndex], 'tang-carousel-item-selected');
+            baidu.dom('#'+me._dataIds[me._selectedIndex]).removeClass('tang-carousel-item-selected');
             me._selectedIndex = index;
-            baidu.dom.addClass(me._dataIds[index], 'tang-carousel-item-selected');
+            baidu.dom('#'+me._dataIds[index]).addClass('tang-carousel-item-selected');
         },
         
         /**
@@ -344,9 +337,9 @@ void function(){
                 container = me.getElement('container'),
                 element = me.getElement('element'),
                 bound = me._getItemBound(),
-                target = baidu.dom.g(me._getItem(index).guid),
+                target = baidu.dom('#'+me._getItem(index).guid).get(0),
                 totalCount = me._dataIds.length,
-                child = baidu.dom.children(element),
+                child = baidu.makeArray(baidu.dom(element).children()),
                 posIndex = baidu.array.indexOf(child, me._getItem(selectedIndex).getElement()),//当前焦点在viewSize中的位置
                 len = ((vector ? 1 : -1) * (index - selectedIndex) + totalCount) % totalCount
                     + (vector ? opt.viewSize - focusRange.max - 1 : focusRange.min)
@@ -364,7 +357,7 @@ void function(){
                 for(var i = 0; i < len; i++){
                     count = (selectedIndex + (vector ? child.length - posIndex - 1 : -posIndex)
                         + (vector ? 1 : -1) * (i + 1) + totalCount) % totalCount;
-                    ele = baidu.dom.g(me._dataIds[count]);
+                    ele = baidu.dom('#'+me._dataIds[count]).get(0);
                     insertItem = ele ? new Item({empty: true}) : me._getItem(count);
                     insertItem.insert(element, direction);
                     insertItem.loadContent();
@@ -378,7 +371,7 @@ void function(){
                     while(empty.length > 0){//clear empty
                         entry = empty.shift();
                         element.replaceChild(entry.item, entry.empty);
-                        baidu.dom.remove(entry.empty);
+                        baidu.dom(entry.empty).remove();
                     }
                     me._clear(index, focusRange[vector ? 'max' : 'min']);
                     me._resize();
