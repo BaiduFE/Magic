@@ -32,6 +32,7 @@ magic.setup.combobox = function(el, options) {
     var el = baidu.dom.g(el),
         optData = parseSelectOptions(el),
         newItemOpt = null;
+    
     baidu.object.extend(optData, {
         'width' : el.offsetWidth + 10,
         'disabled' : el.disabled
@@ -91,7 +92,9 @@ function parseSelectOptions(selectNode) {
     var items = [],
         originIndex = -1,
         optionNodes = selectNode.options;
+
     baidu.array.each(optionNodes, function(item, index) {
+
         items.push({
             'value' : item.value,
             'content' : item.text
