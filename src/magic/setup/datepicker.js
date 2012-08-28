@@ -8,7 +8,8 @@
  */
 
 ///import magic.setup;
-///import baidu.dom.g;
+///import baidu.type;
+///import baidu.dom;
 ///import magic.control.DatePicker;
 
 /**
@@ -25,7 +26,10 @@
  * @author zhaochengyang
  */
 magic.setup.datePicker = function(el, options){
-	var el = baidu.dom.g(el);
+	if(baidu.type(el) === "string"){
+        el = '#' + el;
+    }
+	var el = baidu(el)[0];
 	
 	instance = magic.setup(el, magic.control.DatePicker, options);
 	instance.mappingDom('input', el);

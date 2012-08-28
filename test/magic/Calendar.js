@@ -41,7 +41,7 @@ var colorHex = function(s){
             return numHex.toUpperCase();
         }
     }else{
-        return that.toUpperCase();    
+        return that.toUpperCase();
     }
 }
 
@@ -95,7 +95,7 @@ function compareArray(source, custom){
 test('默认参数', function(){
     expect(12);
     stop();
-    ua.importsrc('baidu.dom.getAttr,baidu.dom.q,baidu.date.format', function() {
+    ua.importsrc('baidu.dom.attr,baidu.date.format', function() {
         ua.loadcss(upath + "./Calendar/magic.Calendar.css", function(){
             var container = document.createElement("div");
             document.body.appendChild(container);
@@ -106,8 +106,8 @@ test('默认参数', function(){
             equals(getWeekNames(ca)[0], '日', "测试每周第一天是否是周日");
             ok(ca._datesEqual(ca.selectedDate, new Date()), "测试当前选中日期是否是当天");
             
-            var selectedDateTD = baidu.dom.q('tang-calendar-selected')[0];
-            var dateStr = baidu.dom.getAttr(selectedDateTD, "date");
+            var selectedDateTD = baidu('.tang-calendar-selected')[0];
+            var dateStr = baidu(selectedDateTD).attr("date");
             equals(dateStr, baidu.date.format(new Date(), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
             
             equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;' + ((new Date()).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
@@ -324,7 +324,7 @@ test("dispose", function(){
     var container = document.createElement("div");
     document.body.appendChild(container);
     
-    var listenerLenth = baidu.event._listeners.length;
+    var listenerLenth = baidu.dom._eventBase._getEventsLength();
     
     var ca = new magic.Calendar({
         weekStart: 'sun',
@@ -338,7 +338,7 @@ test("dispose", function(){
     ca.dispose();
     
     ok(!baidu.dom.g(caID), "日历节点已被移除");
-    equals(baidu.event._listeners.length, listenerLenth, "所有事件已移除");
+    equals(baidu.dom._eventBase._getEventsLength(), listenerLenth, "所有事件已移除");
     
     document.body.removeChild(container);
 });
@@ -427,7 +427,7 @@ test("检查展示", function(){
     var date = new Date();
     ca.go(date.getFullYear(), date.getMonth() + 1);
     var el = baidu.dom.q("tang-calendar-today")[0];
-    equals(baidu.dom.getAttr(el, "date"), baidu.date.format(date, "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
+    equals(baidu.dom.getAttr(el, "date"), baidu.date.format(baidu.i18n.date.toLocaleDate(date), "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
     
     ca.dispose();
     document.body.removeChild(container);

@@ -1,5 +1,4 @@
 module("magic.control.Dialog.$mask");
-
 (function(){
 	enSetup = function(w,id){
 		var w = w || window;
@@ -54,13 +53,25 @@ test("render, default params", function(){
 					enable: true
 				}
 			});
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			dialog.on("load", function(){
 				ok(this.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "100%", "The height is right");
-				equals(this._mask.width, "100%", "The width is right");
+				equals(this._mask.height, "auto", "The height is right");
+				equals(this._mask.width, "auto", "The width is right");
 				equals(this._mask.getElement().style.zIndex, "", "The zIndex is right"); // show 的时候才有
 				equals(this._mask.getElement().style.backgroundColor, "", "The bgColor is right"); // show 的时候才有
 				if(ua.browser.ie)
@@ -80,16 +91,16 @@ test("render, default params", function(){
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "500", "The height is right"); 
-				equals(this._mask.width, "500", "The width is right"); 
+				equals(this._mask.height, getViewHeight(), "The height is right"); 
+				equals(this._mask.width, getViewWidth(), "The width is right"); 
 				equals(this._mask.getElement().style.zIndex, 1004, "The zIndex is right");
-				if(ua.browser.ie)
+				if(ua.browser.ie && ua.browser.ie < 9)
 					equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 				else
 					equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
 				equals(this._mask.getElement().style.opacity, "0.15", "The opacity is right");
-				equals(this._mask.getElement().style.height, "500px", "The height is right");
-				equals(this._mask.getElement().style.width, "500px", "The width is right");
+				equals(this._mask.getElement().style.height, getViewHeight() + 'px', "The height is right");
+				equals(this._mask.getElement().style.width, getViewWidth() + 'px', "The width is right");
 				equals(this._mask.getElement().style.display, "", "The display is right");
 			});
 			dialog.render("one-dialog");
@@ -127,13 +138,25 @@ test("render, default mask params", function(){
 					enable: true
 				}
 			});
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			dialog.on("load", function(){
 				ok(this.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "100%", "The height is right");
-				equals(this._mask.width, "100%", "The width is right");
+				equals(this._mask.height, "auto", "The height is right");
+				equals(this._mask.width, "auto", "The width is right");
 				equals(this._mask.getElement().style.zIndex, "", "The zIndex is right");
 				equals(this._mask.getElement().style.backgroundColor, "", "The bgColor is right");
 				if(ua.browser.ie)
@@ -153,16 +176,16 @@ test("render, default mask params", function(){
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
-				equals(this._mask.height, "500", "The height is right");
-				equals(this._mask.width, "500", "The width is right");
+				equals(this._mask.height, getViewHeight(), "The height is right");
+				equals(this._mask.width, getViewWidth(), "The width is right");
 				equals(this._mask.getElement().style.zIndex, "1004", "The zIndex is right");
-				if(ua.browser.ie)
+				if(ua.browser.ie && ua.browser.ie < 9)
 					equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 				else
 					equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
 				equals(this._mask.getElement().style.opacity, "0.15", "The opacity is right");
-				equals(this._mask.getElement().style.height, "500px", "The height is right");
-				equals(this._mask.getElement().style.width, "500px", "The width is right");
+				equals(this._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+				equals(this._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 				equals(this._mask.getElement().style.display, "", "The display is right");
 			});
 			dialog.render("one-dialog");
@@ -202,21 +225,33 @@ test("render, params", function(){
 					bgColor: "#fff"
 				}
 			});
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			dialog.render("one-dialog");
 			ok(dialog.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#fff", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.5", "The opacity is right");
-			equals(dialog._mask.height, "500", "The height is right");
-			equals(dialog._mask.width, "500", "The width is right");
+			equals(dialog._mask.height, getViewHeight(), "The height is right");
+			equals(dialog._mask.width, getViewWidth(), "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, "1004", "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#fff", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(255, 255, 255)", "The bgColor is right");
 			equals(dialog._mask.getElement().style.opacity, "0.5", "The opacity is right");
-			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
-			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
+			equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
 			w.document.body.removeChild(div);
 			me.finish();
@@ -244,27 +279,39 @@ test("setup, default params", function(){
 					}
 			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			ok(dialog.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#000", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.15", "The opacity is right");
-			equals(dialog._mask.height, "500", "The height is right");
-			equals(dialog._mask.width, "500", "The width is right");
+			equals(dialog._mask.height, getViewHeight(), "The height is right");
+			equals(dialog._mask.width, getViewWidth(), "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, 1004, "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
 			equals(dialog._mask.getElement().style.opacity, "0.15", "The opacity is right");
-			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
-			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
+			equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
 			dialog.on("hide", function(){
 				ok(this.mask, "The mask shows");
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
-			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 			me.finish();
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
@@ -293,28 +340,40 @@ test("setup, default mask params", function(){
 						enable: true
 					}
 			};
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
 			ok(dialog.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#000", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.15", "The opacity is right");
-			equals(dialog._mask.height, "500", "The height is right");
-			equals(dialog._mask.width, "500", "The width is right");
+			equals(dialog._mask.height, getViewHeight(), "The height is right");
+			equals(dialog._mask.width, getViewWidth(), "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, 1004, "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#000", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(0, 0, 0)", "The bgColor is right");
 			equals(dialog._mask.getElement().style.opacity, "0.15", "The opacity is right");
-			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
-			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
+			equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
 			dialog.on("hide", function(){
 				ok(this.mask, "The mask shows");
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
-			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 			me.finish();
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
@@ -345,25 +404,117 @@ test("render, params", function(){
 					bgColor: "#fff"
 				}
 			};
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
 			ok(dialog.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#fff", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.5", "The opacity is right");
-			equals(dialog._mask.height, "500", "The height is right");
-			equals(dialog._mask.width, "500", "The width is right");
+			equals(dialog._mask.height, getViewHeight(), "The height is right");
+			equals(dialog._mask.width, getViewWidth(), "The width is right");
 			equals(dialog._mask.getElement().style.zIndex, "1004", "The zIndex is right");
-			if(ua.browser.ie)
+			if(ua.browser.ie && ua.browser.ie < 9)
 				equals(dialog._mask.getElement().style.backgroundColor, "#fff", "The bgColor is right");
 			else
 				equals(dialog._mask.getElement().style.backgroundColor, "rgb(255, 255, 255)", "The bgColor is right");
 			equals(dialog._mask.getElement().style.opacity, "0.5", "The opacity is right");
-			equals(dialog._mask.getElement().style.height, "500px", "The height is right");
-			equals(dialog._mask.getElement().style.width, "500px", "The width is right");
+			equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
-			w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+			w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 			me.finish();
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
 	});
 })
+
+test("window resize, window scroll", function(){
+	expect(17);
+	stop();
+	ua.frameExt(function(w, f){
+		var me = this;
+		ua.importsrc("magic.setup.dialog", function(){
+			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			enSetup(w);
+			w.document.body.style.height = '1000px';	//让iframe出滚动条
+			w.document.body.style.width = '1000px';	//让iframe出滚动条
+			var cdiv = w.document.createElement("div");
+			cdiv.id = "cdiv";
+			$(cdiv).html("dialog内容");
+			var options = {
+				titleText : '标题',
+				content : cdiv,
+				mask : {
+					enable: true
+				}
+			};
+			var getViewHeight = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientHeight;
+			};
+			var getViewWidth = function () {
+			    var doc = w.document,
+			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+
+			    return client.clientWidth;
+			};
+			var dialog = w.magic.setup.dialog("one-dialog", options);
+			ok(dialog.mask, "The mask shows");
+			equals(dialog._mask.height, getViewHeight(), "The height is right");
+			equals(dialog._mask.width, getViewWidth(), "The width is right");
+			equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
+
+			//resize
+			$(f).css("height", 600).css("width", 600);
+			setTimeout(function(){
+				equals(dialog._mask.height, getViewHeight(), "The height is right");
+				equals(dialog._mask.width, getViewWidth(), "The width is right");
+				equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+				equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
+				var left = '0px';
+				var top = '0px';
+				equals(dialog._mask.getElement().style.left, left, "The left is right");
+				equals(dialog._mask.getElement().style.top, top, "The top is right");
+
+				//scroll
+				w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				setTimeout(function(){
+					equals(dialog._mask.height, getViewHeight(), "The height is right");
+					equals(dialog._mask.width, getViewWidth(), "The width is right");
+					equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
+					equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
+
+					if(baidu.browser.ie == 6){
+						var left = '200px';
+						var top = '200px';
+					}else{
+						var left = '0px';
+						var top = '0px';
+					}
+					
+					equals(dialog._mask.getElement().style.left, left, "The left is right");
+					equals(dialog._mask.getElement().style.top, top, "The top is right");
+					
+					w.document.body.removeChild(w.baidu("#one-dialog")[0]);
+					me.finish();
+					document.body.removeChild(f.parentNode);
+				}, 50);
+			}, 50);
+		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
+	});
+})
+

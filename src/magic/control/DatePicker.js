@@ -10,6 +10,7 @@
 ///import baidu.dom.contains;
 ///import baidu.date.format;
 ///import baidu.object.merge;
+///import baidu.i18n.date;
 ///import magic.control;
 ///import magic.Base;
 ///import magic.Popup;
@@ -70,13 +71,12 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         
         function documentClickHandler(e){
             var target = baidu.event.getTarget(e);
-            if(target != input && !baidu.dom.contains(calendar.getElement("calendar"), target)){
+            if(target != input && !baidu(calendar.getElement("calendar")).contains(target)){
                 me.hide();
             }
         }
 	    
-	    baidu.on(input, "click", focusHandler);
-	    baidu.on(input, "focus", focusHandler);
+	    baidu(input).on("click focus", focusHandler);
 	    
 	    //input的值改变的时候，日历自动调整日期
 	    if (!("oninput" in document.body)) {
@@ -92,13 +92,13 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
             me._getInputDate() && me.calendar.setDate(me._getInputDate());
         }
         
-	    baidu.on(document, "click", documentClickHandler);
+	    baidu(document).on("click", documentClickHandler);
 	    
 	    //dispose时，移除事件监听
 	    me.on("dispose", function(){
-	        baidu.un(input, "click", focusHandler);
-            baidu.un(input, "focus", focusHandler);
-            baidu.un(document, "click", documentClickHandler);
+	        baidu(input).off("click", focusHandler);
+            baidu(input).off("focus", focusHandler);
+            baidu(document).off("click", documentClickHandler);
         });
 	    
 	    
@@ -113,7 +113,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 		var me = this,
 			date = new Date();
 
-		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || new Date());
+		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || baidu.i18n.date.toLocaleDate(new Date()));
 		me.popup.attach(me.input, {
 			'offsetY': me.popupOption.offsetY || -1,
 			'offsetX': me.popupOption.offsetY || 0

@@ -22,7 +22,7 @@
 	magic.resourcePath = "../../resources";
 </script>
 
-<div class="demo">
+<div class="demo" style="height:40000px;">
 	<h1>Dialog 组件 <strong>mask</strong> 插件示例</h1>
 	<p>使用 mask 插件必须在下载 tangram 代码时勾选了“mask”</p>
 	<p>mask 插件提供对话框背后的遮罩层。</p>
@@ -36,6 +36,7 @@
 </div>
 
 <script type="text/javascript">
+// document.compatMode = "CSS1Compat";
 var dialog;
 /* dialog 为 magic.control.Dialog 的实例，可以通过调用 api 对其进行操作，如 dialog.setTitleText(xxx) */
  baidu.dom.ready(function(){
