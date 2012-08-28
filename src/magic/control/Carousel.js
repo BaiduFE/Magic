@@ -100,22 +100,49 @@ void function(){
     
     
 /**
- * Carousel图片滚动组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
+ * @description Carousel图片滚动组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
  * @class
  * @name magic.control.Carousel
  * @superClass magic.Base
  * @grammar new magic.control.Carousel(options)
  * @param {Object} options 选项.
- * @config {Number} orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.
- * @config {Number} originalIndex 默认选项卡的聚焦项，默认值是0.
- * @config {Number} viewSize 描述一页显示多少个滚动项，默认值是3
- * @config {Object} focusRange 描述焦点在viewSize参数中的滚动范围，最小值从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发滚动动作.
- * @config {Boolean} isLoop 是否支持循环滚动，默认不支持
- * @config {Number} step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认是滚动1项
+ * @param {Number} options.orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.
+ * @param {Number} options.originalIndex 默认选项卡的聚焦项，默认值是0.
+ * @param {Number} options.viewSize 描述一页显示多少个滚动项，默认值是3
+ * @param {Object} options.focusRange 描述焦点在viewSize参数中的滚动范围，最小值从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发滚动动作.
+ * @param {Boolean} options.isLoop 是否支持循环滚动，默认不支持
+ * @param {Number} options.step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认是滚动1项
  * @plugin button 为滚动组件添加控制按钮插件
  * @plugin fx 为滚动组件增加动画滚动功能
  * @plugin autoScroll 为滚动组件增加自动滚动功能
  * @author linlingyu
+ * @return {magic.control.Carousel} Carousel实例
+ * @example
+ * for options.orientation,options.isLoop
+ * var carousel = new magic.Carousel({
+ * 		orientation: 'vertical',
+ * 		isLoop: true
+ * });
+ * @example
+ * for options.originalIndex
+ * var carousel = new magic.Carousel({
+ * 		originalIndex: 2,
+ * });
+ * @example
+ * for options.viewSize
+ * var carousel = new magic.Carousel({
+ * 		viewSize: 2,
+ * });
+ * @example
+ * for options.focusRange
+ * var carousel = new magic.Carousel({
+ * 		focusRange: {min: 1, max: 2}
+ * });
+ * @example
+ * for options.step
+ * var carousel = new magic.Carousel({
+ * 		step: 4
+ * });
  */
     magic.control.Carousel = baidu.lang.createClass(function(options){
         var me = this,
@@ -181,31 +208,64 @@ void function(){
         },
         
         /**
-         * 鼠标点击单个滚动项时触发
+         * @description 鼠标点击单个滚动项时触发
          * @name magic.control.Carousel#onclickitem
          * @event 
+         * @grammar magic.control.Carousel#onclickitem = function(evt){...}
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} index 取得触发时该滚动项的索引值
-         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         * @param {Number} evt.index 取得触发时该滚动项的索引值
+         * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.onclickitem = function(evt){
+         * 		// do something...
+         * }
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.on("onclickitem",function(evt){
+         * 		// do something...
+         * });
          */
         /**
-         * 鼠标划入单个滚动项时触发
+         * @description 鼠标划入单个滚动项时触发
          * @name magic.control.Carousel#onmouseoveritem
          * @event 
+         * @grammar magic.control.Carousel#onmouseoveritem = function(evt){...}
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} index 取得触发时该滚动项的索引值
-         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         * @param {Number} evt.index 取得触发时该滚动项的索引值
+         * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.onmouseoveritem = function(evt){
+         * 		// do something...
+         * }
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.on("onmouseoveritem",function(evt){
+         * 		// do something...
+         * });
          */
         /**
-         * 鼠标划出单个滚动项时触发
+         * @description 鼠标划出单个滚动项时触发
          * @name magic.control.Carousel#onmouseoutitem
          * @event 
+         * @grammar magic.control.Carousel#onmouseoutitem = function(evt){...}
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} index 取得触发时该滚动项的索引值
-         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         * @param {Number} evt.index 取得触发时该滚动项的索引值
+         * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.onmouseoveritem = function(evt){
+         * 		// do something...
+         * }
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.on("onmouseoveritem",function(evt){
+         * 		// do something...
+         * });
          */
         /**
-         * 用于处理滚动项的鼠标划过，鼠标移出，鼠标点击事件，该事件以代理方式挂在所有滚动项的外层
+         * @description 用于处理滚动项的鼠标划过，鼠标移出，鼠标点击事件，该事件以代理方式挂在所有滚动项的外层
          * @private
          * @param {DOMEvent} evt 事件触发时的事件对象
          */
@@ -314,11 +374,24 @@ void function(){
         },
         
         /**
-         * 当一个滚动结束时触发
+         * @description 当一个滚动结束时触发
          * @name magic.control.Carousel#onfocus
          * @event 
+         * @grammar magic.control.Carousel#onfocus = function(){...}
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {String} direction 可以取得当次的滚动方向，取值：forward|backward
+         * @param {String} evt.direction 可以取得当次的滚动方向，取值：forward|backward
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.onfocus = function(evt){
+         * 		alert("当次的滚动方向为：" + evt.direction);
+         *		// do something...
+         * }
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.on("onfocus",function(evt){
+         * 		alert("当次的滚动方向为：" + evt.direction);
+         * 		// do something...
+         * });
          */
         /**
          * 从当前项依据指定方向滚动到index指定的项.
@@ -403,23 +476,41 @@ void function(){
         
         //public
         /**
-         * 以step为单位翻到上一项
+         * @description 以step为单位翻到上一项
+         * @name magic.control.Carousel#focusPrev
+         * @function 
+         * @grammar magic.control.Carousel#focusPrev()
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.focusPrev();
          */
         focusPrev: function(){
             this._basicFlip('backward');
         },
         
         /**
-         * 以step为单位翻到下一项
+         * @description 以step为单位翻到下一项
+         * @name magic.control.Carousel#focusNext
+         * @function 
+         * @grammar magic.control.Carousel#focusNext()
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.focusNext();
          */
         focusNext: function(){
             this._basicFlip('forward');
         },
         
         /**
-         * 根据方向从当前项聚焦到index指定的项
+         * @description 根据方向从当前项聚焦到index指定的项
+         * @name magic.control.Carousel#focus
+         * @function 
+         * @grammar magic.control.Carousel#focus(index, direction)
          * @param {Number} index 滚动项的索引
          * @param {String} direction 可选，滚动方向，取值：forward|backward
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.focus(2, "forward");
          */
         focus: function(index, direction){
             var index = Math.min(Math.max(0, index), this._dataIds.length - 1);
@@ -427,23 +518,41 @@ void function(){
         },
         
         /**
-	     * 取得当前得到焦点项在所有数据项中的索引值
+	     * @description 取得当前得到焦点项在所有数据项中的索引值
+	     * @name magic.control.Carousel#getCurrentIndex
+         * @function 
+         * @grammar magic.control.Carousel#getCurrentIndex()
 	     * @return {Number} 索引值.
+	     * @example
+         * var carousel = new magic.Carousel(option);
+         * var currenetIndex = carousel.getCurrentIndex();
 	     */
         getCurrentIndex: function(){
             return this._selectedIndex;
         },
         
         /**
-	     * 取得数据项的总数目
+	     * @description 取得数据项的总数目
+	     * @name magic.control.Carousel#getTotalCount
+         * @function 
+         * @grammar magic.control.Carousel#getTotalCount()
 	     * @return {Number} 总数.
+	     * @example
+         * var carousel = new magic.Carousel(option);
+         * var totalCount = carousel.getTotalCount();	// 总条数
 	     */
         getTotalCount: function(){
             return this._dataIds.length;
         },
         
         /**
-         * 析构
+         * @description 析构
+         * @name magic.control.Carousel#dispose
+         * @function 
+         * @grammar magic.control.Carousel#dispose()
+         * @example
+         * var carousel = new magic.Carousel(option);
+         * carousel.dispose();	// 销毁 carousel
          */
         dispose: function(){
             var me = this;

@@ -14,12 +14,19 @@
 
 
 /**
- * 为滚动组件添加控制按钮插件
+ * @description 为滚动组件添加控制按钮插件
  * @name magic.control.Carousel.$button
- * @addon magic.control.Carousel
- * @param {Object} options config参数.
- * @config {Boolean} button.enable 是否显示按钮，默认显示
+ * @addon
+ * @param {Object} button 插件参数.
+ * @param {Boolean} button.enable 是否显示按钮，默认显示
  * @author linlingyu
+ * @example
+ * for button.enable
+ * var carousel = new magic.Carousel({
+ * 		button: {
+ * 			enable: true,
+ *      }
+ * });
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this, prevHandler, nextHandler;
@@ -80,20 +87,33 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     
     /**
-     * 是否已经滚动到首项
+     * @description 是否已经滚动到首项
      * @name magic.control.Carousel.$button#isFirst
      * @function
+     * @grammar magic.control.Carousel.$button#isFirst()
+     * @function
      * @return {Boolean} 当已经滚动到首项时返回true，否则返回false
+     * @example
+     * var carousel = new magic.Carousel({
+     * 		enable: true
+     * });
+     * carousel.isFirst();	// true OR false
      */
     isFirst: function(){
         return this._isLimit('backward');
     },
-    
     /**
-     * 是否已经滚动到末项
+     * @description 是否已经滚动到末项
      * @name magic.control.Carousel.$button#isLast
      * @function
+     * @grammar magic.control.Carousel.$button#isLast()
+     * @function
      * @return {Boolean} 当已经滚动到末项时返回true，否则返回false
+     * @example
+     * var carousel = new magic.Carousel({
+     * 		enable: true
+     * });
+     * carousel.isLast();	// true OR false
      */
     isLast: function(){
         return this._isLimit('forward');
