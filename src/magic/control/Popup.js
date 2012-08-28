@@ -9,14 +9,11 @@
 
 ///import magic.control.Layer;
 
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.getKeyCode;
-///import baidu.event.stopPropagation;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.lang.createClass;
-///import baidu.dom.getPosition;
-///import baidu.dom.g;
-///import baidu.dom.setPixel;
+///import baidu.dom.offset;
+///import baidu.dom.css;
 ///import baidu.object.extend;
 ///import baidu.global.set;
 ///import baidu.global.get;
@@ -88,7 +85,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @config  {Number|String}    height     弹出层的高度，默认值 auto
      */
     ,attach : function(el, options) {
-        if(el = baidu.dom.g(el)) {
+        if(baidu.dom(el).size()) {
             baidu.object.extend(this, options||{});
 
             this._host = el;
@@ -102,8 +99,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      */
     ,reposition : function(position){
         var me = this;
-        !position && me._host && (position = baidu.dom.getPosition(me._host));
-
+        !position && me._host && (position = baidu.dom(me._host).offset());
         if (position) {
             me.top = position.top + me.offsetY + me._host.offsetHeight;
             me.left= position.left+ me.offsetX;
@@ -136,13 +132,13 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @param {Number} top 偏移数值
      */
     ,setTop : function(top) {
-        baidu.dom.setPixel(this.getElement(), "top", (this.top=top));
+        baidu.dom(this.getElement()).css("top", (this.top=top)+"px");
     }
     /** 设置对象Left偏移
      * @param {Number} left 偏移数值
      */
     ,setLeft : function(left) {
-        baidu.dom.setPixel(this.getElement(), "left",(this.left=left));
+        baidu.dom(this.getElement()).css("left", (this.left=left)+"px");
     }
     /**
      * 初始化popup
@@ -152,7 +148,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
         var me = this;
         function resize(){me.reposition();}
         function escape(e){
-            baidu.event.getKeyCode(window.event || e) == 27
+            	e.keyCode == 27
                 && me.hideOnEscape
                 && me.autoHide
                 && me.hide();
@@ -169,10 +165,10 @@ magic.control.Popup = baidu.lang.createClass(function(options){
             me.reposition();
             // 这句延迟是为了el.click->show()，doc.click->hide()导致popup不能显示的问题
             setTimeout(function(){me.guid && (list[me.guid] = true);}, 1);
-            me._host && baidu.event.on(me._host, "onclick", protect);
-            baidu.event.on(me.getElement(), "onclick", protect);
-            baidu.event.on(window, "onresize", resize);
-            baidu.event.on(document, "onkeyup", escape);
+            me._host && baidu.dom(me._host).on("click", protect);
+            baidu.dom(me.getElement()).on("click", protect);
+            baidu.dom(window).on("resize", resize);
+            baidu.dom(document).on("keyup", escape);
             me.width!="auto" && me.setWidth(me.width);
             me.height!="auto" && me.setHeight(me.height);
             me.visible = true;
@@ -181,10 +177,10 @@ magic.control.Popup = baidu.lang.createClass(function(options){
         function hide(val){
             me.visible = false;
             delete list[me.guid];
-            me._host && baidu.event.un(me._host, "onclick", protect);
-            baidu.event.un(me.getElement(), "onclick", protect);
-            baidu.event.un(window, "onresize", resize);
-            baidu.event.un(document, "onkeyup", escape);
+            me._host && baidu.dom(me._host).off("click", protect);
+            baidu.dom(me.getElement()).off("click", protect);
+            baidu.dom(window).off("resize", resize);
+            baidu.dom(document).off("keyup", escape);
             val && me.dispose();
 //            me.disposeOnHide && me.dispose();
         }
@@ -207,10 +203,9 @@ magic.control.Popup = baidu.lang.createClass(function(options){
         for (var guid in protect) delete protect[guid];
     }
 
-    //baidu.event.on(window, "onblur", hide);
-    baidu.event.on(window, "onresize", hide);
-    baidu.event.on(window, "onscroll", hide);
-    baidu.event.on(document,"onclick", hide);
+    baidu.dom(window).on("resize", hide);
+    baidu.dom(window).on("scroll", hide);
+    baidu.dom(document).on("click", hide);
 })();
 
 // 20120114 meizz 支持多级嵌套，通过 _parent 指向到父级 popup

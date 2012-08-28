@@ -507,7 +507,7 @@ test("focus, next, prev", function(){
 test("events & dispose", function(){
 	expect(6);
 	enSetup();
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var options = {
 	};
     var c = magic.setup.carousel('one-carousel', options);
@@ -524,7 +524,7 @@ test("events & dispose", function(){
     	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
-    	var l2 = baidu.event._listeners.length;
+    	var l2 = baidu.dom._eventBase._getEventsLength();
     	equals(l2, l1, "The events are un");
     });
     c.focus(8, "backward");
@@ -538,7 +538,6 @@ test("events & dispose", function(){
 test("getElement", function(){
 	expect(2);
 	enSetup();
-	var l1 = baidu.event._listeners.length;
 	var options = {
 	};
     var c = magic.setup.carousel('one-carousel', options);
@@ -546,4 +545,3 @@ test("getElement", function(){
     equals(c.getElement("container").className, "tang-carousel-container", "getElement");
     document.body.removeChild(baidu.dom.g("one-carousel"));
 });
-

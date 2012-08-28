@@ -7,16 +7,13 @@
 ///import magic.control;
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
-///import magic._query;
 ///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.getAncestorByClass;
 ///import baidu.fn.bind;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.getTarget;
-
+///import baidu.dom.closest;
+///import baidu.dom.on;
+///import baidu.dom.off;
 /**
  * Tab组件的控制器
  * @class
@@ -39,17 +36,12 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
     }, options);
     me._selectedIndex = me._options.originalIndex;
     me.on('onload', function(evt) {
-        var container = me.getElement(),
-            query = magic._query;
-        me.mappingDom('title', query('.tang-title', container)[0]).
-        mappingDom('body', query('.tang-body', container)[0]);
-        baidu.event.on(me.getElement('title'),
-            me._options.selectEvent,
-            handler);
+        var container = me.getElement();
+        me.mappingDom('title', baidu('.tang-title', container)[0]).
+        mappingDom('body', baidu('.tang-body', container)[0]);
+        baidu.dom(me.getElement('title')).on(me._options.selectEvent, handler);
         me.on('ondispose', function(){
-            baidu.event.un(me.getElement('title'),
-            me._options.selectEvent,
-            handler);
+            baidu.dom(me.getElement('title')).off(me._options.selectEvent, handler);
         });
         me.select(me._selectedIndex);
     });
@@ -67,12 +59,12 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @param {DOMEvent} evt 事件触发时的浏览器事件对象.
      */
     _toggleHandler: function(evt) {
-        if (baidu.event.getTarget(evt).className == 'tang-title') {return;}
+        if (evt.target.className == 'tang-title') {return;}
         var me = this,
-            target = baidu.event.getTarget(evt);//当是mouseover延时时候ie6会取不到对象
+            target = evt.target;//当是mouseover延时时候ie6会取不到对象
         function handler() {
-            var el = baidu.dom.getAncestorByClass(target, 'tang-title-item'),
-                titles = baidu.dom.children(me.getElement('title')),
+            var el = baidu.dom(target).closest('.tang-title-item').get(0),
+                titles = baidu.dom(me.getElement('title')).children(),
                 len = titles.length,
                 index = 0;
             if (!el) {return;}
@@ -112,15 +104,14 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      */
     select: function(index) {
         var me = this,
-            query = baidu.dom.query,
-            titles = baidu.dom.children(me.getElement('title')),
-            bodies = baidu.dom.children(me.getElement('body'));
-        baidu.dom.removeClass(titles[me._selectedIndex], 'tang-title-item-selected');
-        baidu.dom.removeClass(bodies[me._selectedIndex], 'tang-body-item-selected');
-        me.fire('onbeforeselect', {index: me._selectedIndex});
+            titles = baidu.dom(me.getElement('title')).children(),
+            bodies = baidu.dom(me.getElement('body')).children();
+        if(!me.fire('onbeforeselect', {index: me._selectedIndex})){return;}
+        baidu.dom(titles[me._selectedIndex]).removeClass('tang-title-item-selected');
+        baidu.dom(bodies[me._selectedIndex]).removeClass('tang-body-item-selected');
         me._selectedIndex = index;
-        baidu.dom.addClass(titles[index], 'tang-title-item-selected');
-        baidu.dom.addClass(bodies[index], 'tang-body-item-selected');
+        baidu.dom(titles[index]).addClass('tang-title-item-selected');
+        baidu.dom(bodies[index]).addClass('tang-body-item-selected');
         me.fire('onselect', {index: me._selectedIndex});
     },
     
@@ -130,7 +121,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      */
     getCurrentTitle: function(){
         var me = this;
-        return baidu.dom.children(me.getElement('title'))[me._selectedIndex];
+        return baidu.dom(me.getElement('title')).children()[me._selectedIndex];
     },
     
     /**
@@ -139,7 +130,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      */
     getCurrentContent: function(){
         var me = this;
-        return baidu.dom.children(me.getElement('body'))[me._selectedIndex];
+        return baidu.dom(me.getElement('body')).children()[me._selectedIndex];
     },
 
     /**

@@ -31,17 +31,17 @@ baidu.lang.register(magic.Carousel, function(options){
     if(!me._options.button.enable){return;}
     me.on('ondomready', function(evt){
         var container = me.getElement();
-        baidu.dom.insertHTML(container, 'afterBegin', baidu.string.format(tplButton, {
+        baidu.dom(container).insertHTML('afterBegin', baidu.string.format(tplButton, {
             'class': 'tang-carousel-btn-prev',
             content: me._options.button.buttonLabel.prev
         }));
-        baidu.dom.insertHTML(container, 'beforeEnd', baidu.string.format(tplButton, {
+        baidu.dom(container).insertHTML('beforeEnd', baidu.string.format(tplButton, {
             'class': 'tang-carousel-btn-next',
             content: me._options.button.buttonLabel.next
         }));
         me.on('ondispose', function(){
             baidu.array.each(['prev', 'next'], function(item){
-                baidu.dom.remove(me.getElement(item));
+                baidu.dom(me.getElement(item)).remove();
             });
         });
     });

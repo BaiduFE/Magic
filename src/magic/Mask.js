@@ -100,6 +100,7 @@ magic.Mask = function(options){
 		ie == 6 && scroll();
 		baidu.dom(window).on("resize", resize);
 		ie == 6 && baidu.dom(window).on("scroll", scroll);
+
 		var es = me.getElement().style;
 		es.opacity = me.opacity;
 		es.zIndex = me.zIndex;

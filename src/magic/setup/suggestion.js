@@ -8,7 +8,6 @@
  */
 
 ///import magic.setup;
-///import baidu.dom.g;
 ///import magic.control.Suggestion;
 
 /**
@@ -26,7 +25,7 @@
  * @author meizz, zhaochengyang
  */
 magic.setup.suggestion = function(el, options){
-    var el = baidu.dom.g(el),
+    var el = baidu.dom('#'+el).get(0),
 	    instance = magic.setup(el, magic.control.Suggestion, options);
 	instance.mappingDom('input', el);
 	instance.fire('onload');

@@ -11,7 +11,6 @@
 ///import baidu.lang.createClass;
 ///import baidu.lang.inherits;
 ///import baidu.dom.insertHTML;
-///import baidu.dom.g;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.object.extend;
@@ -60,10 +59,10 @@
         me.mappingDom("content", box.getElement("content"));
         box.getElement().style.zIndex = baidu.global.getZIndex("popup");
         me.setContent(me.content);
-        me.className && baidu.dom.addClass(box.getElement(), me.className);
+        me.className && baidu.dom(box.getElement()).addClass(me.className);
 
         me.on("dispose", function(){
-            me.className && baidu.dom.removeClass(box.getElement(), me.className);
+            me.className && baidu.dom(box.getElement()).removeClass(me.className);
             me.setContent("");
             box.busy = false;
         });
@@ -79,7 +78,7 @@
             }
         }
         var box = new magic.Base();
-        baidu.dom.insertHTML(document.body, "afterbegin", [
+        baidu.dom(document.body).insertHTML("afterbegin", [
             "<div class='tang-popup' id='",box.getId(),"' "
             ,"style='position:absolute; display:none;'>"
                 ,(box.background = new magic.Background({coverable:true})).toHTMLString()

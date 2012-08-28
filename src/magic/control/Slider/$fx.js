@@ -6,6 +6,7 @@
 ///import baidu.lang.register;
 ///import magic.control.Slider;
 ///import baidu.fx.moveTo;
+///import baidu.dom.css;
 
 /**
  * 为Slider组件增加动画滚动功能
@@ -95,7 +96,7 @@ baidu.lang.register(magic.control.Slider, function(options){
             },
             onafterupdate: function(){
                 var pos = me._getProcessPos(me._getRealPos(knob, _knobKey));
-                baidu.dom.setStyle(process, _accuracyKey, pos);
+                baidu.dom(process).css(_accuracyKey, pos);
                 me.fire('onfx');
             },
             onafterfinish: function(){

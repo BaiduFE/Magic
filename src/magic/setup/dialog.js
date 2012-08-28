@@ -16,27 +16,33 @@
 ///import baidu.type;
 
 /**
- * 在页面已有 html 结构的基础上创建 dialog 组件
- * @function magic.setup.dialog
- * @grammar magic.setup.dialog(el,options)
- * @param {String|HTMLElement} el 容器，ID或者HTML元素
+ * @description 在页面已有 html 结构的基础上创建 dialog 组件
+ * @name magic.setup.dialog
+ * @function
+ * @grammar  magic.setup.dialog(el,options)
+ * @param {String|HTMLElement} el 容器，ID或者HTML元素 [exp]:['containerId']
  * @param {Object} options 控制选项
- * @config {Boolean} options.titleText 对话框的标题内容，可选
- * @config {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
- * @config {Number} options.width Dialog 的宽度，缺省为 400
- * @config {Number} options.height Dialog 的高度，缺省为 300
- * @config {Number} options.left Dialog 的左边距，可选
- * @config {Number} options.top Dialog 的上边距，可选
+ * @param {Boolean} options.titleText 对话框的标题内容，可选 [exp]:['我的标题']
+ * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选 [exp]:['我是内容']
+ * @param {Number} options.width Dialog 的宽度，缺省为 400 [exp]:[400]
+ * @param {Number} options.height Dialog 的高度，缺省为 300 [exp]:[300]
+ * @param {Number} options.left Dialog 的左边距，可选 [exp]:[200]
+ * @param {Number} options.top Dialog 的上边距，可选 [exp]:[100]
  * @return {magic.control.Dialog} magic.control.Dialog 实例
- * @author dron
  */
-
 magic.setup.dialog = function(el, options){
 	if(baidu.type(el) === "string"){
         el = '#' + el;
     }
 	el = baidu(el)[0];
 	var opt = options || {};
+	/**
+	 *@description dialog 组件 setup 模式的实例对象
+	 *@instace
+	 *@name magic.setup.dialog!
+	 *@superClass magic.control.Dialog
+	 *@return {instace} magic.control.Dialog 实例对象
+	 */
 	var instance = magic.setup(el, magic.control.Dialog, opt);
 
 	var container = instance.getElement();
