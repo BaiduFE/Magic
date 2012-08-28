@@ -237,7 +237,7 @@ magic.control.Slider.extend({
     _resize: function(){
         var me = this,
             info = me._info,
-            percent = Math.min(info._percent, 1),
+            percent = isNaN(Math.min(info._percent, 1)) ? 1 : Math.min(info._percent, 1),
             inner = me.getElement('inner'),
             view = me.getElement('view'), max;
 
