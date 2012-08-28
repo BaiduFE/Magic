@@ -50,16 +50,16 @@ var colorHex = function(s){
  * 检查方法是获取日历表格中的第二行第一个td是否是该月份的一天
  */
 function checkMonth(month){
-    var td = baidu.dom.q("tang-calendar-date")[7];
+    var td = baidu(".tang-calendar-date")[7];
     
-    var dateStr = baidu.dom.getAttr(td, "date");
+    var dateStr = baidu(td).attr("date");
     return (new Date(dateStr)).getMonth()+1 == month;
 }
 
 function checkYear(year){
-    var td = baidu.dom.q("tang-calendar-date")[7];
+    var td = baidu(".tang-calendar-date")[7];
     
-    var dateStr = baidu.dom.getAttr(td, "date");
+    var dateStr = baidu(td).attr("date");
     return (new Date(dateStr)).getFullYear() == year;
 }
 
@@ -110,12 +110,12 @@ test('默认参数', function(){
             var dateStr = baidu(selectedDateTD).attr("date");
             equals(dateStr, baidu.date.format(new Date(), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
             
-            equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;' + ((new Date()).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
+            equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;' + ((new Date()).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
 
-            var disableDateTD = baidu.dom.q('tang-calendar-disable');
+            var disableDateTD = baidu('.tang-calendar-disable');
             equals(disableDateTD.length, 0, "不存在不可用的日期");
 
-            var highlightTD = baidu.dom.q('tang-calendar-highlight');
+            var highlightTD = baidu('.tang-calendar-highlight');
             equals(highlightTD.length, 0, "不存在高亮的日期");
             
             equals(ca._options.weekStart, 'sun', "检查默认参数weekStart");
@@ -160,22 +160,22 @@ test('自定义参数', function(){
 
         ok(ca._datesEqual(ca.currentDate, new Date(2012,04,06)), "检查currentDate");
 
-        var selectedDateTD = baidu.dom.q('tang-calendar-selected')[0];
-        var dateStr = baidu.dom.getAttr(selectedDateTD, "date");
+        var selectedDateTD = baidu('.tang-calendar-selected')[0];
+        var dateStr = baidu(selectedDateTD).attr("date");
         equals(dateStr, baidu.date.format(new Date(2012,04,06), 'yyyy/MM/dd'), "测试当前选中日期是否是2012年5月6日");
-        equals(baidu.dom.g(ca.getElement("title")).innerHTML, 'May&nbsp;2012', '测试title是否使用英文格式显示');
+        equals(baidu(ca.getElement("title"))[0].innerHTML, 'May&nbsp;2012', '测试title是否使用英文格式显示');
         
-        var highlightEls = baidu.dom.q("tang-calendar-highlight");
+        var highlightEls = baidu(".tang-calendar-highlight");
         equals(highlightEls.length, 8, "高亮的日期有8个");
         for(var i=0; i<highlightEls.length; i++){
-            var d = baidu.dom.getAttr(highlightEls[i], 'date');
+            var d = baidu(highlightEls[i]).attr('date');
             ok(ca._datesContains(highlightDates, new Date(d)), d + "为高亮日期");
         }
         
-        var disableEls = baidu.dom.q("tang-calendar-disable");
+        var disableEls = baidu(".tang-calendar-disable");
         equals(disableEls.length, 4, "不可选的日期有4个");
         for(var i=0; i<disableEls.length; i++){
-            var d = baidu.dom.getAttr(disableEls[i], 'date');
+            var d = baidu(disableEls[i]).attr('date');
             ok(ca._datesContains(disabledDates, new Date(d)), d + "为不可选日期");
         }
         
@@ -221,41 +221,41 @@ test("测试接口", function(){
     
     ca.go(2011);
     ok(ca._datesEqual(new Date(2011, 04, 01), ca.currentDate), '当前显示的日历为2011年5月');
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2011年&nbsp;5月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2011年&nbsp;5月', '检查标题');
     ok(checkMonth(5), "当前5月份");
     ok(checkYear(2011), "当前2011年");
 
-    var tdDoms = baidu.dom.q("tang-calendar-date");
-    equals(baidu.dom.getAttr(tdDoms[0], "date"), "2011/05/01", "2011年5月份第一天是5月1日");
+    var tdDoms = baidu(".tang-calendar-date");
+    equals(baidu(tdDoms[0]).attr("date"), "2011/05/01", "2011年5月份第一天是5月1日");
 
-    var highlightEls = baidu.dom.q("tang-calendar-highlight");
+    var highlightEls = baidu(".tang-calendar-highlight");
     equals(highlightEls.length, 0, "高亮的日期有0个");
 
-    var disableEls = baidu.dom.q("tang-calendar-disable");
+    var disableEls = baidu(".tang-calendar-disable");
     equals(disableEls.length, 0, "不可用的日期有0个");
 
-    var selectedEls = baidu.dom.q("tang-calendar-selected");
+    var selectedEls = baidu(".tang-calendar-selected");
     equals(selectedEls.length, 0, "选中的日期有0个");
 
-    equals(baidu.dom.getAttr(tdDoms[tdDoms.length - 1], "date"), "2011/06/04", "2011年5月份最后一天是2011年6月4日");
+    equals(baidu(tdDoms[tdDoms.length - 1]).attr("date"), "2011/06/04", "2011年5月份最后一天是2011年6月4日");
 
     ca.go(2012, 12);
     ok(ca._datesEqual(new Date(2012, 11, 01), ca.currentDate), '当前显示的日历为2012年12月');
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;12月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;12月', '检查标题');
 
-    var tdDoms = baidu.dom.q("tang-calendar-date");
-    equals(baidu.dom.getAttr(tdDoms[0], "date"), "2012/11/25", "2012年12月份第一天是11月25日");
+    var tdDoms = baidu(".tang-calendar-date");
+    equals(baidu(tdDoms[0]).attr("date"), "2012/11/25", "2012年12月份第一天是11月25日");
 
-    var highlightEls = baidu.dom.q("tang-calendar-highlight");
+    var highlightEls = baidu(".tang-calendar-highlight");
     equals(highlightEls.length, 0, "高亮的日期有0个");
 
-    var disableEls = baidu.dom.q("tang-calendar-disable");
+    var disableEls = baidu(".tang-calendar-disable");
     equals(disableEls.length, 0, "不可用的日期有0个");
 
-    var selectedEls = baidu.dom.q("tang-calendar-selected");
+    var selectedEls = baidu(".tang-calendar-selected");
     equals(selectedEls.length, 0, "选中的日期有0个");
 
-    equals(baidu.dom.getAttr(tdDoms[tdDoms.length - 1], "date"), "2013/01/05", "2012年12月份最后一天是2013年1月5日");
+    equals(baidu(tdDoms[tdDoms.length - 1]).attr("date"), "2013/01/05", "2012年12月份最后一天是2013年1月5日");
     
     ok(ca._datesEqual(new Date(2012,04,06), ca.getDate()), "getDate返回2012年5月6日");
     
@@ -268,52 +268,52 @@ test("测试接口", function(){
     ca.setDate(new Date(2012, 08, 09));
     equals(baidu.date.format(ca.getDate(), 'yyyy/MM/dd'), '2012/09/09', "setDate有效日期值后，getDate返回2012年9月9日");
      
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;9月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;9月', '检查标题');
     ok(ca._datesEqual(new Date(2012, 08, 09), ca.currentDate), '检查ca.currentDate属性');
     ok(ca._datesEqual(new Date(2012, 08, 09), ca.selectedDate), '检查ca.selectedDate属性');
 
-    tdDoms = baidu.dom.q("tang-calendar-date");
-    equals(baidu.dom.getAttr(tdDoms[0], "date"), "2012/08/26", "2012年9月份第一天是8月26日");
-    equals(baidu.dom.getAttr(tdDoms[tdDoms.length - 1], "date"), "2012/10/06", "2012年9月份最后一天是10月6日");
+    tdDoms = baidu(".tang-calendar-date");
+    equals(baidu(tdDoms[0]).attr("date"), "2012/08/26", "2012年9月份第一天是8月26日");
+    equals(baidu(tdDoms[tdDoms.length - 1]).attr("date"), "2012/10/06", "2012年9月份最后一天是10月6日");
 
-    selectedEls = baidu.dom.q("tang-calendar-selected");
-    equals(baidu.dom.getAttr(selectedEls[0], "date"), "2012/09/09", "2012年9月9日高亮");
+    selectedEls = baidu(".tang-calendar-selected");
+    equals(baidu(selectedEls[0]).attr("date"), "2012/09/09", "2012年9月9日高亮");
     
     ca.preMonth();
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;8月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;8月', '检查标题');
     ok(checkMonth(8), "当前9月份，preMonth后为8月份");
     
     ca.setDate(new Date("2012/03/30"));
     ca.preMonth();
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;2月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;2月', '检查标题');
     ok(checkMonth(2), "当前3月30日，preMonth后为2月份");
     
     ca.setDate(new Date("2012/01/01"));
     ca.preMonth();
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2011年&nbsp;12月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2011年&nbsp;12月', '检查标题');
     ok(checkMonth(12), "当前2012年1月1日，preMonth后为12月份");
     ok(checkYear(2011), "当前2012年1月1日，preMonth后为2011年");
 
-    selectedEls = baidu.dom.q("tang-calendar-selected");
+    selectedEls = baidu(".tang-calendar-selected");
     equals(selectedEls.length, 0, "2012年1月1日没有显示在当天日历表中，不存在以选择日期");
     
     ca.setDate(new Date("2011/12/30"));
     ca.nextMonth();
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;1月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;1月', '检查标题');
     ok(checkMonth(1), "当前2011年12月30日，nextMonth后为1月份");
     ok(checkYear(2012), "当前2011年12月30日，nextMonth后为2012年");
     
     ca.setDate(new Date("2012/01/30"));
     ca.nextMonth();
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;2月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;2月', '检查标题');
     ok(checkMonth(2), "当前2012年1月30日，nextMonth后为2月份");
     
     ca.setDate(new Date("2012/02/28"));
     ca.nextMonth();
-    equals(baidu.dom.g(ca.getElement("title")).innerHTML, '2012年&nbsp;3月', '检查标题');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;3月', '检查标题');
     ok(checkMonth(3), "当前2012年2月28日，nextMonth后为3月份");
-    selectedEls = baidu.dom.q("tang-calendar-selected");
-    equals(baidu.dom.getAttr(selectedEls[0], "date"), "2012/02/28", "2012年2月28日高亮");
+    selectedEls = baidu(".tang-calendar-selected");
+    equals(baidu(selectedEls[0]).attr("date"), "2012/02/28", "2012年2月28日高亮");
     
     ca.dispose();
     document.body.removeChild(container);
@@ -337,7 +337,7 @@ test("dispose", function(){
     var caID = ca._getId();
     ca.dispose();
     
-    ok(!baidu.dom.g(caID), "日历节点已被移除");
+    ok(baidu('#' + caID).length == 0, "日历节点已被移除");
     equals(baidu.dom._eventBase._getEventsLength(), listenerLenth, "所有事件已移除");
     
     document.body.removeChild(container);
@@ -347,7 +347,7 @@ test("dispose", function(){
 test("基本操作", function(){
     expect(7);
     stop();
-    ua.importsrc('baidu.dom.getStyle', function() {
+    ua.importsrc('baidu.dom.css', function() {
         var container = document.createElement("div");
         document.body.appendChild(container);
         
@@ -359,19 +359,19 @@ test("基本操作", function(){
         });
         ca.render(container);
         
-        var tdDoms = baidu.dom.q("tang-calendar-date");
+        var tdDoms = baidu(".tang-calendar-date");
         ua.mouseover(tdDoms[0]);
-        equals(colorHex(baidu.dom.getStyle(tdDoms[0], "backgroundColor")), "#E94949", "鼠标悬停时，背景颜色为#E94949");
-        equals(colorHex(baidu.dom.getStyle(tdDoms[1], "color")), "#999999", "其他月份日期颜色为#999999");
-        equals(colorHex(baidu.dom.getStyle(tdDoms[6], "color")), "#CCCCCC", "不可选日期的颜色为#CCCCCC");
+        equals(colorHex(baidu(tdDoms[0]).css("backgroundColor")), "#E94949", "鼠标悬停时，背景颜色为#E94949");
+        equals(colorHex(baidu(tdDoms[1]).css("color")), "#999999", "其他月份日期颜色为#999999");
+        equals(colorHex(baidu(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期的颜色为#CCCCCC");
         
         ua.click(tdDoms[0]);
         ua.mouseout(tdDoms[0]);//点击后，将鼠标移到其他地方去，否则该元素为鼠标悬停状态
-        equals(colorHex(baidu.dom.getStyle(tdDoms[0], "color")), "#CC0000", "可选日期被选中时，颜色为CC000");
+        equals(colorHex(baidu(tdDoms[0]).css("color")), "#CC0000", "可选日期被选中时，颜色为CC000");
         
         ua.click(tdDoms[6]);
         ua.mouseout(tdDoms[6]);//点击后，将鼠标移到其他地方去，否则该元素为鼠标悬停状态
-        equals(colorHex(baidu.dom.getStyle(tdDoms[6], "color")), "#CCCCCC", "不可选日期被选中时，颜色依然为#CCCCCC");
+        equals(colorHex(baidu(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期被选中时，颜色依然为#CCCCCC");
         
         ua.click(ca.getElement("premonthbtn"));
         ok(checkMonth(4), "当前2012年5月，preMonth后为4月份");
@@ -401,23 +401,23 @@ test("检查展示", function(){
     ca.render(container);
     
     ca.go(2012, 1);
-    var tdDoms = baidu.dom.q("tang-calendar-date");
-    equals(baidu.dom.getAttr(tdDoms[30], "date"), '2012/01/31', "1月有31号");
+    var tdDoms = baidu(".tang-calendar-date");
+    equals(baidu(tdDoms[30]).attr("date"), '2012/01/31', "1月有31号");
     
     ca.go(2012, 9);
-    var tdDoms = baidu.dom.q("tang-calendar-date");
-    ok(baidu.dom.getAttr(tdDoms[36], "date") != '2012/01/31', "9月没有31号");
+    var tdDoms = baidu(".tang-calendar-date");
+    ok(baidu(tdDoms[36]).attr("date") != '2012/01/31', "9月没有31号");
     
     ca.go(2012, 2);
-    var tdDoms = baidu.dom.q("tang-calendar-date");
-    equals(baidu.dom.getAttr(tdDoms[31], "date"), '2012/02/29', "2012年2月有29号");
+    var tdDoms = baidu(".tang-calendar-date");
+    equals(baidu(tdDoms[31]).attr("date"), '2012/02/29', "2012年2月有29号");
     
     ca.go(2013, 2);
-    var tdDoms = baidu.dom.q("tang-calendar-date");
-    ok(baidu.dom.getAttr(tdDoms[32], "date") != '2013/02/29', "2013年2月没有29号");
+    var tdDoms = baidu(".tang-calendar-date");
+    ok(baidu(tdDoms[32]).attr("date") != '2013/02/29', "2013年2月没有29号");
     
     ca.go(2012, 5);
-    var tdDoms = baidu.dom.q("tang-calendar-date");
+    var tdDoms = baidu(".tang-calendar-date");
     ok(tdDoms[0].className.indexOf('tang-calendar-premonth') >= 0, '4月29日为上个月日期')
     ok(tdDoms[6].className.indexOf('tang-calendar-disable') >= 0, '5月5日为不可选日期')
     ok(tdDoms[6].className.indexOf('tang-calendar-weekend') >= 0, '5月5日为周末')
@@ -426,8 +426,8 @@ test("检查展示", function(){
     
     var date = new Date();
     ca.go(date.getFullYear(), date.getMonth() + 1);
-    var el = baidu.dom.q("tang-calendar-today")[0];
-    equals(baidu.dom.getAttr(el, "date"), baidu.date.format(baidu.i18n.date.toLocaleDate(date), "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
+    var el = baidu(".tang-calendar-today")[0];
+    equals(baidu(el).attr("date"), baidu.date.format(baidu.i18n.date.toLocaleDate(date), "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
     
     ca.dispose();
     document.body.removeChild(container);
@@ -465,7 +465,7 @@ test("自定义事件", function(){
     ca.render(container);
     ua.click(ca.getElement("premonthbtn"));
     ua.click(ca.getElement("nextmonthbtn"));
-    var tdDoms = baidu.dom.q("tang-calendar-date");
+    var tdDoms = baidu(".tang-calendar-date");
     ua.mouseover(tdDoms[0]);
     ua.mouseout(tdDoms[0]);
     ua.click(tdDoms[0]);

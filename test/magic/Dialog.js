@@ -871,8 +871,11 @@ test("test mask", function(){
 				equals(w.$(_mask).css('top'), top, "The top is right");
 
 				//scroll
-				w.document.body.scrollTop = w.document.body.scrollLeft = 200;
-				// w.scrollBy(200, 200);
+				w.onscroll = function(){
+					alert(123);
+				}
+				// w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				w.scrollBy(200, 200);
 				setTimeout(function(){
 					equals(_mask.style.height, getViewHeight() + "px", "The height is right");
 					equals(_mask.style.width, getViewWidth() + "px", "The width is right");

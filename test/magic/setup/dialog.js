@@ -57,6 +57,7 @@ test("default params, default position", function(){
 	equals(dialog.top, '60px', "The top is right");
 	equals($('#one-dialog').css('left'), '80px', "The left is right");
 	equals($('#one-dialog').css('top'), '60px', "The top is right");
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 2
