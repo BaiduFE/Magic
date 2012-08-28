@@ -237,7 +237,7 @@ magic.control.Slider.extend({
     _resize: function(){
         var me = this,
             info = me._info,
-            percent = info._percent || 1,
+            percent = Math.min(info._percent, 1),
             inner = me.getElement('inner'),
             view = me.getElement('view'), max;
 
@@ -545,6 +545,7 @@ magic.control.Slider.extend({
                 me._startDrag(evt);
             }else if(evt.type == 'mousedown'){
                 me._setPosition(evt);
+                me.fire('onslideclick');
             }
         }
 

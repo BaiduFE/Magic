@@ -106,9 +106,9 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
         var me = this,
             titles = baidu.dom(me.getElement('title')).children(),
             bodies = baidu.dom(me.getElement('body')).children();
+        if(!me.fire('onbeforeselect', {index: me._selectedIndex})){return;}
         baidu.dom(titles[me._selectedIndex]).removeClass('tang-title-item-selected');
         baidu.dom(bodies[me._selectedIndex]).removeClass('tang-body-item-selected');
-        me.fire('onbeforeselect', {index: me._selectedIndex});
         me._selectedIndex = index;
         baidu.dom(titles[index]).addClass('tang-title-item-selected');
         baidu.dom(bodies[index]).addClass('tang-body-item-selected');
