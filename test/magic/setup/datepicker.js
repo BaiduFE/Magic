@@ -224,21 +224,13 @@ test("在calendar显示的状态下改变input中的值", function(){
     
     var dp = magic.setup.datePicker(input, {});
     input.value="2012-05-06";
-    if (!("oninput" in document.body)) {
-       
-    }else{
-        input.oninput();
-    }
+    input.oninput();
     equals(formatDate(dp.calendar.selectedDate), '2012/05/06', "input值改变成有效日期字符串时，Calendar的当前选中日期也改变");
     
     
     var currentDate = dp.calendar.selectedDate;
     input.value="fdafdsafd";
-    if (!("oninput" in document.body)) {
-        
-    }else{
-        input.oninput();
-    }
+    input.oninput();
     
     equals(formatDate(dp.calendar.selectedDate), formatDate(new Date(currentDate)), "input值改变成无效日期字符串时，Calendar的当前选中日期不改变");
     dp.dispose();

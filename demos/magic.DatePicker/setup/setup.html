@@ -19,7 +19,6 @@
             <p>测试flash:opaque模式<br />
                 <embed src="http://drmcmm.baidu.com/media/id=PWc3rjTdrj0&amp;gp=402&amp;time=nHn1PWbvPHRvP6.swf" quality="high" width="800" height="90" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" wmode="opaque"></p>
             
-            <p><h4>测试同一页面共用一个datepicker实例</h4></p>
             <p>选择日期：<input type="text" id="J_input_2" /></p>
             <p>测试select控件<select><option>百度</option></select></p>
             <p>测试flash:window模式<br />
@@ -29,6 +28,7 @@
             var datepicker1 = new magic.setup.datePicker('J_input_1', {
             	'format': 'yyyy/MM/dd',
             	'calendarOptions': {
+                    'initDate': new Date(),
             	    'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                     'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
             	}

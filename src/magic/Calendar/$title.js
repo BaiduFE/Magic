@@ -5,7 +5,7 @@
 
 ///import magic.Calendar;
 ///import baidu.lang.register;
-///import baidu.dom.setStyle;
+///import baidu.dom.css;
 
 /**
  * 将年份和月份做成select控件，用户可以直接选择年份和月份
@@ -27,17 +27,17 @@ baidu.lang.register(magic.Calendar, function(){
     
     //标题渲染完成后，添加点击事件
     me.on("titlerender", function(){
-        var yearbtn = baidu.dom.g(me._getId("year")),
-            monthbtn = baidu.dom.g(me._getId("month")),
-            yearselect = baidu.dom.g(me._getId("yearselect")),
-            monthselect = baidu.dom.g(me._getId("monthselect")),
+        var yearbtn = baidu('#' + me._getId("year"))[0],
+            monthbtn = baidu('#' + me._getId("month"))[0],
+            yearselect = baidu('#' + me._getId("yearselect"))[0],
+            monthselect = baidu('#' + me._getId("monthselect"))[0],
             year, option;
         
-        baidu.on(yearbtn, "click", function(){
+        baidu(yearbtn).on("click", function(){
             year = me.currentDate.getFullYear() - 10;
             
-            baidu.setStyle(yearbtn, "display", "none");
-            baidu.setStyle(yearselect, "display", "");
+            baidu(yearbtn).css("display", "none");
+            baidu(yearselect).css("display", "");
             
             while(year <= me.currentDate.getFullYear() + 10){
                 option = document.createElement("option");
@@ -49,9 +49,9 @@ baidu.lang.register(magic.Calendar, function(){
             }
             yearselect.value = me.currentDate.getFullYear();
         });
-        baidu.on(monthbtn, "click", function(){
-            baidu.setStyle(monthbtn, "display", "none");
-            baidu.setStyle(monthselect, "display", "");
+        baidu(monthbtn).on("click", function(){
+            baidu(monthbtn).css("display", "none");
+            baidu(monthselect).css("display", "");
             
             for(var i=1; i<13; i++){
                 option = document.createElement("option");
@@ -63,12 +63,12 @@ baidu.lang.register(magic.Calendar, function(){
             monthselect.value = me.currentDate.getMonth() + 1;
         });
         
-        baidu.on(yearselect, "change", function(e){
-            var value = baidu.event.getTarget(e).value;
+        baidu(yearselect).on("change", function(e){
+            var value = e.target.value;
             me.go(value, me.currentDate.getMonth() + 1);
         });
-        baidu.on(monthselect, "change", function(e){
-            var value = baidu.event.getTarget(e).value;
+        baidu(monthselect).on("change", function(e){
+            var value = e.target.value;
             me.go(me.currentDate.getFullYear(), value);
         });
     });
