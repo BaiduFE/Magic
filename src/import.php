@@ -78,7 +78,7 @@ function getFileContents($filename){
     $path = $PATH;
     array_unshift($path, "./");
 
-    $path = array("../../Magic/src/","../../Tangram-component/src/");
+    //$path = array("../../Magic/src/","../../Tangram-component/src/");
 
     foreach($path as $eachPath){
         if($content = @file_get_contents($eachPath . $filename)){
