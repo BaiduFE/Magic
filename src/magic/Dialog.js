@@ -263,26 +263,26 @@ magic.Dialog.template = [
 
     /**
      * 模拟alert
-     * @grammar magic.Alert()
+     * @grammar magic.alert()
      * @param {Object} options 控制选项
      * @config {String} options.content Alert的内容
      * @config {String} options.titleText Alert的标题
      * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      * @example
-     * magic.Alert('内容', '标题');
+     * magic.alert('内容', '标题');
      * @example
-     * magic.Alert('内容', '标题', function(){
+     * magic.alert('内容', '标题', function(){
      *     alert('ok');
      * });
      * @example
-     * magic.Alert('内容', '标题', {
+     * magic.alert('内容', '标题', {
      *     'label': '好',
      *     'callback': function(){
      *          alert('ok');
      *      }
      *  });
      * @example
-     * magic.Alert({
+     * magic.alert({
      *     'content': '内容',
      *     'titleText': '标题',
      *     'ok': function(){
@@ -290,7 +290,7 @@ magic.Dialog.template = [
      *     }
      * });
      * @example
-     * magic.Alert({
+     * magic.alert({
      *     'content': '内容',
      *     'titleText': '标题',
      *     'ok': {
@@ -301,7 +301,7 @@ magic.Dialog.template = [
      *   }
      * });
      */
-    magic.Dialog.Alert = function(){
+    magic.Dialog.alert = function(){
         
         var defaultOptions = {
     		width: 360,
@@ -388,25 +388,25 @@ magic.Dialog.template = [
 
         return instance;
     };
-    magic.Alert = magic.Dialog.Alert;
+    magic.alert = magic.Dialog.alert;
 
 
     /**
      * 模拟confirm
-     * @grammar magic.Confirm()
+     * @grammar magic.confirm()
      * @param {Object} options 控制选项
      * @config {String} options.content Confirm的内容
      * @config {String} options.titleText Confirm的标题
      * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      * @config {Object} options.cancel 取消按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      * * @example
-     * magic.Confirm('内容', '标题', function(){
+     * magic.confirm('内容', '标题', function(){
      *     alert('ok');
      * }, function(){
      *     alert('cancel');
      * });
      * @example
-     * magic.Confirm('内容', '标题', {
+     * magic.confirm('内容', '标题', {
      *   'label': '是',
      *   'callback': function(){
      *       alert('ok');
@@ -418,7 +418,7 @@ magic.Dialog.template = [
      *   }
      * });
      * @example
-     * magic.Confirm({
+     * magic.confirm({
      *   'content': '内容',
      *   'titleText': '标题',
      *   'ok': function(){
@@ -429,7 +429,7 @@ magic.Dialog.template = [
      *   }
      * });
      * @example
-     * magic.Confirm({
+     * magic.confirm({
      *   'content': '内容',
      *   'titleText': '标题',
      *   'ok': {
@@ -446,7 +446,7 @@ magic.Dialog.template = [
      *   }
      * });
      */
-    magic.Dialog.Confirm = function(){
+    magic.Dialog.confirm = function(){
         
         var defaultOptions = {
     		width: 360,
@@ -550,5 +550,5 @@ magic.Dialog.template = [
 
         return instance;
     };
-    magic.Confirm = magic.Dialog.Confirm;
+    magic.confirm = magic.Dialog.confirm;
 })();
