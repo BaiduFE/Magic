@@ -24,17 +24,34 @@
 ///import baidu.browser.ie;
 
 /**
- * 遮罩层
- *
+ * @description 遮罩层
  * @class magic.Mask
  * @author meizz, dron
- * @grammar new magic.Mask(options)
+ * @name magic.Mask
  * @superClass  magic.control.Layer
- * @param	{JSON}			options 	参数设置
- * @config	{Boolean}		coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
- * @config	{String}		bgColor 	[r/w]遮罩层背景色
- * @config  {Number}		opacity 	[r/w]背景层透明度，取值 0-1
- * @config  {HTMLElement}	container 	[r/w]遮罩层的容器，默认为 document.body
+ * @grammar new magic.Mask(options)
+ * @param {JSON} options 参数设置
+ * @param {Boolean} options.coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
+ * @param {String} options.bgColor [r/w]遮罩层背景色
+ * @param {Number} options.opacity [r/w]背景层透明度，取值 0-1
+ * @param {HTMLElement}	options.container [r/w]遮罩层的容器，默认为 document.body
+ * @return {magic.Mask} Mask实例.
+ * @example
+ * /// for options.coverable
+ * var mask = new magic.Mask({
+ * 		coverable: true		// mask 遮盖 flash/select
+ * });
+ * @example
+ * /// for options.bgColor,options.opacity
+ * var mask = new magic.Mask({
+ * 		bgColor: '#ccc',	// 灰色背景
+ * 		opacity: 0.5		// 50%透明度
+ * });
+ * @example
+ * /// for options.container
+ * var mask = new magic.Mask({
+ * 		container: document.body
+ * });
  */
 magic.Mask = function(options){
 	var me = this;
@@ -51,7 +68,7 @@ magic.Mask = function(options){
 	var sf = baidu.browser.safari,
         ie = baidu.browser.ie;
         
-	baidu.dom.insertHTML(me.container, "afterBegin", me.toHTMLString());
+	baidu.dom(me.container).insertHTML("afterBegin", me.toHTMLString());
     
     if(ie == 6){
         me.getElement().style.position = "absolute";

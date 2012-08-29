@@ -10,12 +10,18 @@
 ///import baidu.string.format;
 
 /**
- * 为Slider组件增加缓存进度条
+ * @description 为Slider组件增加缓存进度条
  * @name magic.control.Slider.$cache
- * @addon magic.control.Slider
- * @param {Object} options config参数.
- * @config      {Boolean}       fx.enable             是否使用缓存条，true || false
+ * @addon
+ * @param {Object} cache 插件参数.
+ * @param {Boolean} cache.enable 是否使用缓存条，true || false
  * @author qiaoyue
+ * @example
+ * /// for cache.enable
+ * new magic.Slider({
+ * 		orientation:'horizonal',
+ * 		cache:{enable:true}		// 启用缓存条
+ * }); 
  */
 baidu.lang.register(magic.control.Slider, function(options){
     var me = this,
