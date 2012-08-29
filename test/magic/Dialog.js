@@ -522,13 +522,13 @@ test("getElements", function(){
 
 
 //case 16
-test('magic.Alert', function(){
+test('magic.alert', function(){
     expect(24);
     stop();
     ua.importsrc("baidu.ajax.request", function(){
             var called = false;
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Alert({
+            var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -565,7 +565,7 @@ test('magic.Alert', function(){
 
             //测试关闭按钮
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Alert({
+            var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -585,7 +585,7 @@ test('magic.Alert', function(){
 
             //测试键盘响应：esc
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Alert({
+            var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -606,7 +606,7 @@ test('magic.Alert', function(){
 
             //测试键盘响应：enter
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Alert({
+            var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -629,11 +629,11 @@ test('magic.Alert', function(){
 });
 
 //case 17
-test('magic.Alert 英文环境', function(){
+test('magic.alert 英文环境', function(){
     expect(1);
     stop();
     ua.importsrc("baidu.i18n.cultures.en-US", function(){
-    	var instance = magic.Alert({
+    	var instance = magic.alert({
             'content': '内容',
             'titleText': '标题',
             'ok': function(){}
@@ -647,14 +647,14 @@ test('magic.Alert 英文环境', function(){
 });
 
 //case 18
-test('magic.Confirm', function(){
+test('magic.confirm', function(){
     expect(29);
     stop();
     ua.importsrc("baidu.ajax.request", function(){
             var okcalled = false;
             var cancelcalled = false;
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Confirm({
+            var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -698,7 +698,7 @@ test('magic.Confirm', function(){
 
             //测试取消按钮
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Confirm({
+            var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -723,7 +723,7 @@ test('magic.Confirm', function(){
 
             //测试关闭按钮
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Confirm({
+            var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -748,7 +748,7 @@ test('magic.Confirm', function(){
 
             //测试关闭按钮
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Confirm({
+            var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -773,7 +773,7 @@ test('magic.Confirm', function(){
 
             //测试关闭按钮
             var l1 = baidu.dom._eventBase._getEventsLength();
-            var instance = magic.Confirm({
+            var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -801,11 +801,11 @@ test('magic.Confirm', function(){
 });
 
 //case 19
-test('magic.Confirm 英文环境', function(){
+test('magic.confirm 英文环境', function(){
     expect(2);
     stop();
     ua.importsrc("baidu.i18n.cultures.en-US", function(){
-    	var instance = magic.Confirm({
+    	var instance = magic.confirm({
             'content': '内容',
             'titleText': '标题',
             'ok': function(){},
@@ -840,7 +840,7 @@ test("test mask", function(){
 
 	        // w.document.body.style.height = '1000px';	//让iframe出滚动条
 			// w.document.body.style.width = '1000px';	//让iframe出滚动条
-	        var instance = w.magic.Alert({
+	        var instance = w.magic.alert({
 	            'content': '内容',
 	            'titleText': '标题',
 	            'ok': {

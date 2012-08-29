@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>magic.Confirm</title>
+	<title>magic.confirm</title>
 	<link type="text/css" rel="stylesheet" href="shCoreDefault.css"/>
 	<link type="text/css" rel="stylesheet" href="../../../resources/default/magic.control.Dialog/magic.control.Dialog.css"/>
     <script type="text/javascript" src="shCore.js"></script>
@@ -13,9 +13,9 @@
 
 <body style="background: white; font-family: Helvetica">
 
-<h1>magic.Confirm</h1>
+<h1>magic.confirm</h1>
 <pre class="brush: js;">
-            magic.Confirm('内容', '标题', {
+            magic.confirm('内容', '标题', {
                     'label': '是',
                     'callback': function(){
                         alert('ok');
@@ -30,7 +30,7 @@
 <p><button id="J_code6">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code6").onclick = function(){
-        magic.Confirm('内容', '标题', {
+        magic.confirm('内容', '标题', {
                     'label': '是',
                     'callback': function(){
                         alert('ok');
@@ -45,7 +45,7 @@
 </script>
 
 <pre class="brush: js;">
-            magic.Confirm('内容', '标题', function(){
+            magic.confirm('内容', '标题', function(){
                 alert('ok');
             }, function(){
                 alert('cancel');
@@ -54,7 +54,7 @@
 <p><button id="J_code7">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code7").onclick = function(){
-        magic.Confirm('内容', '标题', function(){
+        magic.confirm('内容', '标题', function(){
                 alert('ok');
             }, function(){
                 alert('cancel');
@@ -63,7 +63,7 @@
 </script>
 
 <pre class="brush: js;">
-            magic.Confirm({
+            magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': function(){
@@ -77,7 +77,7 @@
 <p><button id="J_code8">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code8").onclick = function(){
-        magic.Confirm({
+        magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': function(){
@@ -91,7 +91,7 @@
 </script>
 
 <pre class="brush: js;">
-            magic.Confirm({
+            magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -111,7 +111,7 @@
 <p><button id="J_code9">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code9").onclick = function(){
-        magic.Confirm({
+        magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {

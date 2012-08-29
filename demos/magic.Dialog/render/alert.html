@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>magic.Alert</title>
+	<title>magic.alert</title>
 	<link type="text/css" rel="stylesheet" href="shCoreDefault.css"/>
 	<link type="text/css" rel="stylesheet" href="../../../resources/default/magic.control.Dialog/magic.control.Dialog.css"/>
     <script type="text/javascript" src="shCore.js"></script>
@@ -13,33 +13,33 @@
 
 <body style="background: white; font-family: Helvetica">
 
-<h1>magic.Alert</h1>
+<h1>magic.alert</h1>
 <pre class="brush: js;">
-            magic.Alert('内容', '标题');
+            magic.alert('内容', '标题');
 </pre>
 <p><button id="J_code1">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code1").onclick = function(){
-        magic.Alert('内容', '标题');
+        magic.alert('内容', '标题');
     };
 </script>
 
 <pre class="brush: js;">
-            magic.Alert('内容', '标题', function(){
+            magic.alert('内容', '标题', function(){
                 alert('ok');
             });
 </pre>
 <p><button id="J_code2">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code2").onclick = function(){
-        magic.Alert('内容', '标题', function(){
+        magic.alert('内容', '标题', function(){
                 alert('ok');
             });
     };
 </script>
 
 <pre class="brush: js;">
-            magic.Alert('内容', '标题', {
+            magic.alert('内容', '标题', {
                 'label': '好',
                 'callback': function(){
                     alert('ok');
@@ -49,7 +49,7 @@
 <p><button id="J_code3">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code3").onclick = function(){
-        magic.Alert('内容', '标题', {
+        magic.alert('内容', '标题', {
                 'label': '好',
                 'callback': function(){
                     alert('ok');
@@ -59,7 +59,7 @@
 </script>
 
 <pre class="brush: js;">
-            magic.Alert({
+            magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': function(){
@@ -70,7 +70,7 @@
 <p><button id="J_code4">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code4").onclick = function(){
-        magic.Alert({
+        magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': function(){
@@ -81,7 +81,7 @@
 </script>
 
 <pre class="brush: js;">
-            magic.Alert({
+            magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
@@ -95,7 +95,7 @@
 <p><button id="J_code5">运行</button></p>
 <script type="text/javascript">
     document.getElementById("J_code5").onclick = function(){
-        magic.Alert({
+        magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
