@@ -38,8 +38,15 @@ test("default params, default position", function(){
 	enSetup();
 	var dialog = magic.setup.dialog("one-dialog");
 	equals(dialog.draggable, true, "The draggable is right");
-	equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
-	equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
+	//Attention  Tangram2.0中的css方法跟1.X中的逻辑不一样，需要按情况判断
+	if(baidu('#one-dialog').css('left') == 'auto'){
+		equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
+		equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
+	}else{
+		equals(parseInt(dialog.left), parseInt(baidu('#one-dialog').css('left')), "The left is right");
+		equals(parseInt(dialog.top), parseInt(baidu('#one-dialog').css('top')), "The top is right");
+	}
+	
 	equals(dialog.height, 300, "The height is right");
 	equals(dialog.width, 400, "The width is right");
 	equals(dialog.getElement().offsetHeight, "300", "The height is right");
