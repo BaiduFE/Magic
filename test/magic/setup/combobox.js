@@ -8,14 +8,14 @@ test('setup, init from select', function() {
         d.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
         document.body.appendChild(d);
         var s = baidu.dom.g('s');
-        var pos = baidu.dom.getPosition(s);
+        var pos = baidu.dom(s).offset();
         var width = s.offsetWidth;
 
         var cb = magic.setup.combobox(s);
+        console.log()
+        equals(Math.abs(baidu.dom(cb.getElement('container')).offset().left - pos.left) <= 2, true, 'left error in 2px is right.');
 
-        equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).left - pos.left) <= 2, true, 'left error in 2px is right.');
-
-        equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).top - pos.top) <= 5, true, 'top error in 5px is right.');
+        equals(Math.abs(baidu.dom(cb.getElement('container')).offset().top - pos.top) <= 5, true, 'top error in 5px is right.');
 
         equals(Math.abs(cb.getElement('container').offsetWidth - width - 12) <= 2, true, 'width error in 2px is right.');
 
@@ -28,19 +28,20 @@ test('setup, init from select', function() {
         start();
     });
 });
+
 //2
 test('setup, init from select selected item is the second item', function() {
     var d = document.createElement('div');
     document.body.appendChild(d);
     d.innerHTML = '<select id="s"><option value="f">女</option><option value="m" selected>男</option></select>';
     var s = baidu.dom.g('s');
-    var pos = baidu.dom.getPosition(s);
+    var pos = baidu.dom(s).offset();
     var width = s.offsetWidth;
     var cb = magic.setup.combobox(s, {
         readonly : true
     });
-    equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).left - pos.left) <= 2, true, 'left error in 2px is right.');
-    equals(Math.abs(baidu.dom.getPosition(cb.getElement('container')).top - pos.top) <= 5, true, 'top error in 5px is right.');
+    equals(Math.abs(baidu.dom(cb.getElement('container')).offset().left - pos.left) <= 2, true, 'left error in 2px is right.');
+    equals(Math.abs(baidu.dom(cb.getElement('container')).offset().top - pos.top) <= 5, true, 'top error in 5px is right.');
     equals(Math.abs(cb.getElement('container').offsetWidth - width - 12) <= 2, true, 'width error in 2px is right.');
     equals($("li", cb.getElement("menu")).text(), "女男", "The content of menu is right");
     equals(baidu.dom.getAttr($("li", cb.getElement("menu"))[0], 'data-value'), "f", "The value of menu is right");
@@ -71,7 +72,7 @@ test('setup, change', function() {
     document.body.appendChild(d);
     d.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var pos = baidu.dom.getPosition(s);
+    var pos = baidu.dom(s).offset();
     var width = s.clientWidth;
     var cb = magic.setup.combobox(s);
     var change = 0;
@@ -174,11 +175,7 @@ test("render, all param", function(){
     equals(combobox1._options.width, '200', "_options.width is right");
     equals((function(){
         var res = '';
-<<<<<<< HEAD
         for (var i=0, l=combobox1._options.items.length; i<l; i++) {
-=======
-        for (var i=0;i<combobox1._options.items.length;i++) {
->>>>>>> de9a9a78b4cce7d942655834b57f67176d3d60cb
             res += combobox1._options.items[i].content;
         }
         return res;
@@ -895,5 +892,4 @@ test("setup, ComboBox reload action should reload origin select too.", function(
     combobox1.dispose();
     document.body.removeChild(div1);
 });
-
 

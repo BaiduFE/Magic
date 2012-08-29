@@ -137,13 +137,13 @@ test("render, render", function() {
         
         var container = combobox1.getElement('container');
         equals(true, baidu.dom.contains(div1, container), 'position of combobox is right.');
-        equals(baidu.dom.getPosition(div1).left, baidu.dom.getPosition(container).left, 'left');
-        equals(baidu.dom.getPosition(div1).top, baidu.dom.getPosition(container).top, 'top');
+        equals(baidu.dom(div1).offset().left, baidu.dom(container).offset().left, 'left');
+        equals(baidu.dom(div1).offset().top, baidu.dom(container).offset().top, 'top');
         combobox1.menu.show();
         var menu = combobox1.getElement('menu');
-        equals(baidu.dom.getPosition(container).left, baidu.dom.getPosition(menu).left, 'left');
+        equals(baidu.dom(container).offset().left, baidu.dom(menu).offset().left, 'left');
         var offset =  -1;
-        equals(baidu.dom.getPosition(container).top + container.offsetHeight + offset, baidu.dom.getPosition(menu).top, 'top');
+        equals(baidu.dom(container).offset().top + container.offsetHeight + offset, baidu.dom(menu).offset().top, 'top');
         combobox1.dispose();
         document.body.removeChild(div1);
         start();
