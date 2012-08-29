@@ -43,6 +43,16 @@ baidu.lang.register(magic.control.Dialog,
 		 * @name magic.control.Dialog.$mask#renderMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#renderMask()
+		 * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.renderMask();
 		 * @return {This} 实例本身
 		 */
 		renderMask: function(){
@@ -61,6 +71,16 @@ baidu.lang.register(magic.control.Dialog,
 		 * @name magic.control.Dialog.$mask#showMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#showMask()
+		 * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.showMask();
 		 * @return {This} 实例本身
 		 */
 		showMask: function(){
@@ -73,6 +93,16 @@ baidu.lang.register(magic.control.Dialog,
 		 * @name magic.control.Dialog.$mask#hideMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#hideMask()
+		 * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.hideMask();
 		 * @return {This} 实例本身
 		 */
 		hideMask: function(){

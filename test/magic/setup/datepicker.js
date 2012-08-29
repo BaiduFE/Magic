@@ -41,19 +41,20 @@ function indexOf(source, match, fromIndex) {
  */
 function getListenersOnInput(inputEl){
     var count = 0;
-    for(var i = 0,len = baidu.event._listeners.length; i<len; i++){
-        if(baidu.event._listeners[i][0] == inputEl){
-            count++;
-        }
-    }
-    return count;
+    // for(var i = 0,len = baidu.event._listeners.length; i<len; i++){
+    //     if(baidu.event._listeners[i][0] == inputEl){
+    //         count++;
+    //     }
+    // }
+    // return count;
+    return baidu.dom._eventBase._getEventsLength(inputEl);
 }
 
 
 test('默认参数、show接口、show自定义事件、hide自定义事件', function(){
     expect(8);
     stop();
-    ua.importsrc('baidu.dom.q,baidu.date.format', function() {
+    ua.importsrc('baidu.date.format,baidu.dom.position', function() {
         ua.loadcss(upath + "../Calendar/magic.Calendar.css", function(){
             var input = document.createElement('input');
             input.id = 'input_test';
@@ -75,10 +76,10 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
                 var dpTop = dp.popup.getElement("").style.top,
                     dpLeft = dp.popup.getElement("").style.left;
                 
-                equals(dpTop, baidu.dom.getPosition(input).top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
-                equals(dpLeft, baidu.dom.getPosition(input).left + "px", '测试默认状态下日历的位置');
+                equals(dpTop, baidu(input).position().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
+                equals(dpLeft, baidu(input).position().left + "px", '测试默认状态下日历的位置');
                 
-                var dateDoms = baidu.dom.q("tang-calendar-date", document, "td");
+                var dateDoms = baidu(".tang-calendar-date", document);
                 
                 ua.click(dateDoms[0]);
                 
@@ -129,10 +130,10 @@ test('自定义参数', function(){
         var dpTop = dp.popup.getElement("").style.top,
             dpLeft = dp.popup.getElement("").style.left;
         
-        equals(dpTop, baidu.dom.getPosition(input).top + input.offsetHeight + 20 + "px", '测试自定义日历的位置');
-        equals(dpLeft, baidu.dom.getPosition(input).left + 20 + "px", '测试自定义日历的位置');
+        equals(dpTop, baidu(input).position().top + input.offsetHeight + 20 + "px", '测试自定义日历的位置');
+        equals(dpLeft, baidu(input).position().left + 20 + "px", '测试自定义日历的位置');
         
-        var dateDoms = baidu.dom.q("tang-calendar-date", document, "td");
+        var dateDoms = baidu(".tang-calendar-date", document);
         ua.click(dateDoms[0]);
 
         equals((new Date(input.value)).getDay(), 6, '测试自定义的weekStart' );
@@ -337,7 +338,7 @@ test('测试日历上有效日期和无效日期的点击', function(){
     
     ua.click(input);
     setTimeout(function(){
-        var dateDoms = baidu.dom.q("tang-calendar-date", document, "td");
+        var dateDoms = baidu(".tang-calendar-date", document);
         ua.click(dateDoms[0]);
         equals(input.value, '', "点击不可选日期时，input值不变");
         
