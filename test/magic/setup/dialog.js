@@ -38,8 +38,8 @@ test("default params, default position", function(){
 	enSetup();
 	var dialog = magic.setup.dialog("one-dialog");
 	equals(dialog.draggable, true, "The draggable is right");
-	equals(dialog.left, 0, "The left is right");
-	equals(dialog.top, 0, "The top is right");
+	equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
+	equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
 	equals(dialog.height, 300, "The height is right");
 	equals(dialog.width, 400, "The width is right");
 	equals(dialog.getElement().offsetHeight, "300", "The height is right");
@@ -441,7 +441,7 @@ test("drag", function(){
 });
 
 // case 14
-test("drag", function(){
+test("drag range", function(){
 	expect(2);
 	stop();
 	ua.frameExt(function(w, f){

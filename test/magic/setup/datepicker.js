@@ -75,7 +75,9 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
                 
                 var dpTop = dp.popup.getElement("").style.top,
                     dpLeft = dp.popup.getElement("").style.left;
+
                 equals(dpTop, baidu(input).offset().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
+                
                 equals(dpLeft, baidu(input).offset().left + "px", '测试默认状态下日历的位置');
                 
                 var dateDoms = baidu(".tang-calendar-date", document);
@@ -128,8 +130,13 @@ test('自定义参数', function(){
         
         var dpTop = dp.popup.getElement("").style.top,
             dpLeft = dp.popup.getElement("").style.left;
-        
-        equals(dpTop, baidu(input).offset().top + input.offsetHeight + 20 + "px", '测试自定义日历的位置');
+
+        //Attention: 火狐在设置样式时遇到浮点数值会直接阶段，此处取整来判断
+        if(/Firefox/.test(window.navigator.userAgent)){
+            equals(parseInt(dpTop), parseInt(baidu(input).offset().top + input.offsetHeight + 20), '测试默认状态下日历的位置');
+        }else{
+            equals(dpTop, baidu(input).offset().top + input.offsetHeight + 20 + "px", '测试默认状态下日历的位置');
+        }
         equals(dpLeft, baidu(input).offset().left + 20 + "px", '测试自定义日历的位置');
         
         var dateDoms = baidu(".tang-calendar-date", document);
