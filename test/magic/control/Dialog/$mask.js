@@ -481,22 +481,22 @@ test("window resize, window scroll", function(){
 			//resize
 			$(f).css("height", 600).css("width", 600);
 			setTimeout(function(){
-				equals(dialog._mask.height, getViewHeight(), "The height is right");
-				equals(dialog._mask.width, getViewWidth(), "The width is right");
-				equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
-				equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
+				equals(dialog._mask.height, getViewHeight(), "After window resize, the height is right");
+				equals(dialog._mask.width, getViewWidth(), "After window resize, the width is right");
+				equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "After window resize, the height is right");
+				equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "After window resize, the width is right");
 				var left = '0px';
 				var top = '0px';
-				equals(dialog._mask.getElement().style.left, left, "The left is right");
-				equals(dialog._mask.getElement().style.top, top, "The top is right");
+				equals(dialog._mask.getElement().style.left, left, "After window resize, the left is right");
+				equals(dialog._mask.getElement().style.top, top, "After window resize, the top is right");
 
 				//scroll
 				w.document.body.scrollTop = w.document.body.scrollLeft = 200;
 				setTimeout(function(){
-					equals(dialog._mask.height, getViewHeight(), "The height is right");
-					equals(dialog._mask.width, getViewWidth(), "The width is right");
-					equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
-					equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
+					equals(dialog._mask.height, getViewHeight(), "After window scroll, the height is right");
+					equals(dialog._mask.width, getViewWidth(), "After window scroll, the width is right");
+					equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "After window scroll, the height is right");
+					equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "After window scroll, the width is right");
 
 					if(baidu.browser.ie == 6){
 						var left = '200px';
@@ -506,8 +506,8 @@ test("window resize, window scroll", function(){
 						var top = '0px';
 					}
 					
-					equals(dialog._mask.getElement().style.left, left, "The left is right");
-					equals(dialog._mask.getElement().style.top, top, "The top is right");
+					equals(dialog._mask.getElement().style.left, left, "After window scroll, the left is right");
+					equals(dialog._mask.getElement().style.top, top, "After window scroll, the top is right");
 					
 					w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 					me.finish();

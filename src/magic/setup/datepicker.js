@@ -13,16 +13,31 @@
 ///import magic.control.DatePicker;
 
 /**
- * 由HTML创建datePicker
+ * @description datePicker
+ * @name magic.setup.datePicker
  * @function
- * @grammar magic.setup.datePicker(el, options)
- * @param {String|HTMLElement} el datepicker对应的input输入框id或者dom元素
- * @param {Object} options 选项
- * @config {String} format 输出日期的格式
- * @config {String} language 当前语言，默认为中文
- * @config {Object} popupOptions popup的配置项
- * @config {Object} calendarOptions calendar的配置项
+ * @grammar magic.setup.datePicker(options)
+ * @param {Object} options 自定义选项
+ * @param {String} format 输出日期的格式
+ * @param {String} language 当前语言，默认为中文
+ * @param {Object} popupOptions popup的配置项
+ * @param {Object} calendarOptions calendar的配置项
+ * @example 
+ * /// for options.format,options.language,options.calendarOptions,options.popupOptions
+ * var datePicker = magic.setup.datePicker('J_input_1', {
+ *              'format': 'yyyy/MM/dd',
+ *              'language': 'en-US'
+ *              'calendarOptions': {
+ *                  'initDate': new Date(),
+ *                  'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+ *                  'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+ *              },
+ *              'popupOptions': {
+ *                  'hideOnEscape': true
+ *              }
+ * });
  * @return {magic.control.datePicker} datePicker实例
+ * @superClass magic.Base
  * @author zhaochengyang
  */
 magic.setup.datePicker = function(el, options){

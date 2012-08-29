@@ -823,7 +823,7 @@ test('magic.Confirm 英文环境', function(){
 
 // case 20
 test("test mask", function(){
-    expect(8);
+    expect(12);
     stop();
     ua.frameExt(function(w, f){
         var me = this;
@@ -858,24 +858,31 @@ test("test mask", function(){
 
 			    return client.clientWidth;
 			};
+			var _mask = w.$('.tang-mask')[0];
+			equals(_mask.style.height, getViewHeight() + "px", "The height is right");
+			equals(_mask.style.width, getViewWidth() + "px", "The width is right");
+			var left = '0px';
+			var top = '0px';
+			equals(w.$(_mask).css('left'), left, "The left is right");
+			equals(w.$(_mask).css('top'), top, "The top is right");
 
 	        //resize
 			$(f).css("height", 600).css("width", 600);
 			setTimeout(function(){
-				var _mask = w.$('.tang-mask')[0];
-				equals(_mask.style.height, getViewHeight() + "px", "The height is right");
-				equals(_mask.style.width, getViewWidth() + "px", "The width is right");
+				
+				equals(_mask.style.height, getViewHeight() + "px", "After window resize, the height is right");
+				equals(_mask.style.width, getViewWidth() + "px", "After window resize, the width is right");
 				var left = '0px';
 				var top = '0px';
-				equals(w.$(_mask).css('left'), left, "The left is right");
-				equals(w.$(_mask).css('top'), top, "The top is right");
+				equals(w.$(_mask).css('left'), left, "After window resize, the left is right");
+				equals(w.$(_mask).css('top'), top, "After window resize, the top is right");
 
 				//scroll
-				w.document.body.scrollTop = w.document.body.scrollLeft = 200;
-				// w.scrollBy(200, 200);
+				// w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				w.scrollBy(200, 200);
 				setTimeout(function(){
-					equals(_mask.style.height, getViewHeight() + "px", "The height is right");
-					equals(_mask.style.width, getViewWidth() + "px", "The width is right");
+					equals(_mask.style.height, getViewHeight() + "px", "After window scroll, the height is right");
+					equals(_mask.style.width, getViewWidth() + "px", "After window scroll, the width is right");
 
 					if(baidu.browser.ie == 6){
 						var left = '200px';
@@ -885,8 +892,8 @@ test("test mask", function(){
 						var top = '0px';
 					}
 					
-					equals(w.$(_mask).css('left'), left, "The left is right");
-					equals(w.$(_mask).css('top'), top, "The top is right");
+					equals(w.$(_mask).css('left'), left, "After window scroll, the left is right");
+					equals(w.$(_mask).css('top'), top, "After window scroll, the top is right");
 					
 					me.finish();
 					// ua.click(baidu('#' + instance.getId('ok-button'))[0]);

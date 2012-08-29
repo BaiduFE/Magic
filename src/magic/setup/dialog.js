@@ -12,7 +12,6 @@
 ///import magic.control.Dialog;
 ///import magic.Background;
 ///import magic.setup.background;
-///import magic._query;
 ///import baidu.type;
 
 /**
@@ -20,14 +19,37 @@
  * @name magic.setup.dialog
  * @function
  * @grammar  magic.setup.dialog(el,options)
- * @param {String|HTMLElement} el 容器，ID或者HTML元素 [exp]:['containerId']
+ * @param {String|HTMLElement} el 容器，ID或者HTML元素 
  * @param {Object} options 控制选项
- * @param {Boolean} options.titleText 对话框的标题内容，可选 [exp]:['我的标题']
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选 [exp]:['我是内容']
- * @param {Number} options.width Dialog 的宽度，缺省为 400 [exp]:[400]
- * @param {Number} options.height Dialog 的高度，缺省为 300 [exp]:[300]
- * @param {Number} options.left Dialog 的左边距，可选 [exp]:[200]
- * @param {Number} options.top Dialog 的上边距，可选 [exp]:[100]
+ * @param {Boolean} options.titleText 对话框的标题内容，可选 
+ * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选 
+ * @param {Number} options.width Dialog 的宽度，缺省为 400
+ * @param {Number} options.height Dialog 的高度，缺省为 300
+ * @param {Number} options.left Dialog 的左边距，可选
+ * @param {Number} options.top Dialog 的上边距，可选
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
+ * @example 
+ * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
+ * var dialog = new magic.Dialog({
+ *      draggable: true,
+ *      titleText: "对话框标题",
+ *      content: "对话框内容",
+ *      left: 80,
+ *      top: 140,
+ *      width: 400,
+ *      height: 300
+ * });
+ * @example 
+ * /// for options.contentType
+ * var dialog = new magic.Dialog({
+ *      titleText: "对话框标题",
+ *      content: baidu('#dialog-content'),
+ *      contentType: 'element'
+ *      left: 80,
+ *      top: 140,
+ *      width: 400,
+ *      height: 300
+ * });
  * @return {magic.control.Dialog} magic.control.Dialog 实例
  */
 magic.setup.dialog = function(el, options){
@@ -79,7 +101,36 @@ magic.setup.dialog = function(el, options){
 		instance.width = 100;
 	if(instance.height < 100)
 		instance.height = 100;
-
+    /**
+    * 当窗口节点渲染完成后触发
+    * @name magic.control.Dialog#onload
+    * @event
+    * @grammar magic.control.Dialog#onload = function(){...}
+    * @example
+    * var dialog = new magic.Dialog({
+    *      titleText: "对话框标题",
+    *      content: "对话框内容",
+    *      left: 80,
+    *      top: 140,
+    *      width: 400,
+    *      height: 300
+    * });
+    * dialog.on("load", function(){
+    *     //do something...
+    * });
+    * @example
+    * var dialog = new magic.Dialog({
+    *      titleText: "对话框标题",
+    *      content: "对话框内容",
+    *      left: 80,
+    *      top: 140,
+    *      width: 400,
+    *      height: 300
+    * });
+    * dialog.onload = function(){
+    *     //do something...
+    * };
+    */  
 	instance.fire("load");
 	instance.show();
 

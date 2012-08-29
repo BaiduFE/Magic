@@ -40,13 +40,36 @@
  * @name magic.Dialog
  * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
- * @param {Boolean} options.titleText 对话框的标题内容，可选 [exp]:[标题]
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选 [exp]:[我是内容区域]
- * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html [exp]:[element,html,text,frame]
- * @param {Number} options.width Dialog 的宽度，缺省为 400 [exp]:[500]
- * @param {Number} options.height Dialog 的高度，缺省为 300 [exp]:[200]
- * @param {Number} options.left Dialog 的左边距，可选 [exp]:[300]
- * @param {Number} options.top Dialog 的上边距，可选 [exp]:[200]
+ * @param {Boolean} options.titleText 对话框的标题内容，可选
+ * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
+ * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html
+ * @param {Number} options.width Dialog 的宽度，缺省为 400
+ * @param {Number} options.height Dialog 的高度，缺省为 300
+ * @param {Number} options.left Dialog 的左边距，可选
+ * @param {Number} options.top Dialog 的上边距，可选
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
+ * @example 
+ * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
+ * var dialog = new magic.Dialog({
+ *      draggable: true,
+ *      titleText: "对话框标题",
+ *      content: "对话框内容",
+ *      left: 80,
+ *      top: 140,
+ *      width: 400,
+ *      height: 300
+ * });
+ * @example 
+ * /// for options.contentType
+ * var dialog = new magic.Dialog({
+ *      titleText: "对话框标题",
+ *      content: baidu('#dialog-content'),
+ *      contentType: 'element'
+ *      left: 80,
+ *      top: 140,
+ *      width: 400,
+ *      height: 300
+ * });
  * @return {magic.control.Dialog} magic.control.Dialog 实例
  * @superClass magic.control.Dialog
  */
@@ -79,7 +102,17 @@ magic.Dialog.extend(
 	 * @name magic.Dialog#render
 	 * @function
 	 * @grammar magic.Dialog#render(el)
-	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部 [exp]:['contentId']
+	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.render('dialog-container');
 	 */
     render: function(el){
         if(baidu.type(el) === "string"){
@@ -119,7 +152,36 @@ magic.Dialog.extend(
 
 		if(this.content)
 		    this.setContent(this.content, this.contentType);
-		
+		/**
+        * 当窗口节点渲染完成后触发
+        * @name magic.control.Dialog#onload
+        * @event
+        * @grammar magic.control.Dialog#onload = function(){...}
+        * @example
+        * var dialog = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * dialog.on("load", function(){
+        *     //do something...
+        * });
+        * @example
+        * var dialog = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * dialog.onload = function(){
+        *     //do something...
+        * };
+        */  
         this.fire("load");
         this.show();
 
@@ -206,6 +268,38 @@ magic.Dialog.template = [
      * @config {String} options.content Alert的内容
      * @config {String} options.titleText Alert的标题
      * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
+     * @example
+     * magic.Alert('内容', '标题');
+     * @example
+     * magic.Alert('内容', '标题', function(){
+     *     alert('ok');
+     * });
+     * @example
+     * magic.Alert('内容', '标题', {
+     *     'label': '好',
+     *     'callback': function(){
+     *          alert('ok');
+     *      }
+     *  });
+     * @example
+     * magic.Alert({
+     *     'content': '内容',
+     *     'titleText': '标题',
+     *     'ok': function(){
+     *         alert('ok');
+     *     }
+     * });
+     * @example
+     * magic.Alert({
+     *     'content': '内容',
+     *     'titleText': '标题',
+     *     'ok': {
+     *         'label': '好',
+     *         'callback': function(){
+     *             alert('ok');
+     *      }
+     *   }
+     * });
      */
     magic.Dialog.Alert = function(){
         
@@ -305,6 +399,52 @@ magic.Dialog.template = [
      * @config {String} options.titleText Confirm的标题
      * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      * @config {Object} options.cancel 取消按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
+     * * @example
+     * magic.Confirm('内容', '标题', function(){
+     *     alert('ok');
+     * }, function(){
+     *     alert('cancel');
+     * });
+     * @example
+     * magic.Confirm('内容', '标题', {
+     *   'label': '是',
+     *   'callback': function(){
+     *       alert('ok');
+     *   }
+     * }, {
+     *   'label': '否',
+     *   'callback': function(){
+     *       alert('cancel');
+     *   }
+     * });
+     * @example
+     * magic.Confirm({
+     *   'content': '内容',
+     *   'titleText': '标题',
+     *   'ok': function(){
+     *       alert('ok');
+     *   },
+     *   'cancel': function(){
+     *       alert('cancel');
+     *   }
+     * });
+     * @example
+     * magic.Confirm({
+     *   'content': '内容',
+     *   'titleText': '标题',
+     *   'ok': {
+     *       'label': '是',
+     *       'callback': function(){
+     *           alert('ok');
+     *       }
+     *   },
+     *   'cancel': {
+     *       'label': '否',
+     *       'callback': function(){
+     *           alert('cancel');
+     *       }
+     *   }
+     * });
      */
     magic.Dialog.Confirm = function(){
         

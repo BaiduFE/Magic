@@ -18,15 +18,31 @@
 
 
 /**
- * DatePicker组件的控制器
+ * @description datePicker组件的控制器
+ * @name magic.setup.DatePicker
  * @class
- * @superClass magic.Base
  * @grammar new magic.control.DatePicker(options)
- * @param {Object} options 选项
- * @config {String} format 输出日期的格式
- * @config {String} language 当前语言，默认为中文
- * @config {Object} popupOptions popup的配置项
- * @config {Object} calendarOptions calendar的配置项
+ * @param {Object} options 自定义选项
+ * @param {String} format 输出日期的格式
+ * @param {String} language 当前语言，默认为中文
+ * @param {Object} popupOptions popup的配置项
+ * @param {Object} calendarOptions calendar的配置项
+ * @example 
+ * /// for options.format,options.language,options.calendarOptions,options.popupOptions
+ * var datePicker = magic.setup.datePicker('J_input_1', {
+ *              'format': 'yyyy/MM/dd',
+ *              'language': 'en-US'
+ *              'calendarOptions': {
+ *                  'initDate': new Date(),
+ *                  'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+ *                  'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+ *              },
+ *              'popupOptions': {
+ *                  'hideOnEscape': true
+ *              }
+ * });
+ * @return {magic.control.datePicker} datePicker实例
+ * @superClass magic.Base
  * @author zhaochengyang
  */
 magic.control.DatePicker = baidu.lang.createClass(function(options){
@@ -48,9 +64,6 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      */
 {
     
-    /**
-     * 初始化datePicker
-     */
     init: function(){
 		var me = this,
 			popup = me.popup = new magic.Popup(me.popupOption),
@@ -70,7 +83,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         }
         
         function documentClickHandler(e){
-            var target = baidu.event.getTarget(e);
+            var target = baidu.event(e).target;
             if(target != input && !baidu(calendar.getElement("calendar")).contains(target)){
                 me.hide();
             }
@@ -107,7 +120,16 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     },
 
     /**
-     * 显示日历
+     * @description 显示日历
+     * @name magic.DatePicker#show
+     * @function
+     * @grammar magic.DatePicker#show()
+     * @example
+     * var datePicker = new magic.setup.datePicker({
+     *      'format': 'yyyy/MM/dd',
+     *      'language': 'en-US'
+     * });
+     * datePicker.show();
      */
     show: function(){
 		var me = this,
@@ -119,27 +141,70 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 			'offsetX': me.popupOption.offsetY || 0
 		});
 		
-		/**
-         * 显示日历
-         * @name magic.control.DatePicker#show
-         * @event 
-         */
+        /**
+        * 日历渲染完成
+        * @name magic.control.DatePicker#onshow
+        * @event
+        * @grammar magic.control.DatePicker#onshow = function(){...}
+        * @example
+        * var datePicker = new magic.setup.datePicker({
+        *      'format': 'yyyy/MM/dd',
+        *      'language': 'en-US'
+        * });
+        * datePicker.on("show", function(){
+        *     //do something...
+        * });
+        * @example
+        * var datePicker = new magic.setup.datePicker({
+        *      'format': 'yyyy/MM/dd',
+        *      'language': 'en-US'
+        * });
+        * datePicker.onshow = function(){
+        *     //do something...
+        * };
+        */
 		me.fire("show");
     },
 
     /**
-     * 隐藏日历
+     * @description 隐藏日历
+     * @name magic.DatePicker#hide
+     * @function
+     * @grammar magic.DatePicker#hide()
+     * @example
+     * var datePicker = new magic.setup.datePicker({
+     *      'format': 'yyyy/MM/dd',
+     *      'language': 'en-US'
+     * });
+     * datePicker.hide();
      */
     hide: function(){
 		var me = this;
 		
 		me.popup.hide();
 		
-		/**
-         * 隐藏日历
-         * @name magic.control.DatePicker#hide
-         * @event 
-         */
+        /**
+        * 隐藏日历
+        * @name magic.control.DatePicker#onhide
+        * @event
+        * @grammar magic.control.DatePicker#onhide = function(){...}
+        * @example
+        * var datePicker = new magic.setup.datePicker({
+        *      'format': 'yyyy/MM/dd',
+        *      'language': 'en-US'
+        * });
+        * datePicker.on("hide", function(){
+        *     //do something...
+        * });
+        * @example
+        * var datePicker = new magic.setup.datePicker({
+        *      'format': 'yyyy/MM/dd',
+        *      'language': 'en-US'
+        * });
+        * datePicker.onhide = function(){
+        *     //do something...
+        * };
+        */
         me.fire("hide");
     },
     
@@ -173,8 +238,16 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 
    
     /**
-     * 析构函数
-     * @public
+     * @description 析构函数
+     * @name magic.DatePicker#dispose
+     * @function
+     * @grammar magic.DatePicker#dispose()
+     * @example
+     * var datePicker = new magic.setup.datePicker({
+     *      'format': 'yyyy/MM/dd',
+     *      'language': 'en-US'
+     * });
+     * datePicker.dispose();
      */
     dispose: function(){
         var me = this;
@@ -192,10 +265,16 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     }
     
     /**
-     * 获得 Suggestion组件结构里的 HtmlElement对象
-     * @name magic.control.Suggestion#getElement
+     * 获得DatePicker组件结构里的 HtmlElement对象
+     * @name magic.control.DatePicker#getElement
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)
+     * @example
+     * var datePicker = new magic.setup.datePicker({
+     *      'format': 'yyyy/MM/dd',
+     *      'language': 'en-US'
+     * });
+     * var calendar_el = datePicker.getElement('calendar');//获取calendar节点
      * @return {HtmlElement} 得到的 HtmlElement 对象
      */
 	

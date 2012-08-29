@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  * version: 0.1
@@ -34,11 +34,11 @@
  * @superClass magic.control.Layer
  * @grammar new magic.control.Dialog(options)
  * @param {Object} options 选项
- * @param {Number} options.width Dialog 的宽度，缺省为 400 [exp]:[400]
- * @param {Number} options.height Dialog 的高度，缺省为 300 [exp]:[300]
- * @param {Number} options.left Dialog 的左边距，可选 [exp]:[100]
- * @param {Number} options.top Dialog 的上边距，可选 [exp]:[300]
- * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true [exp]:[true]
+ * @param {Number} options.width Dialog 的宽度，缺省为 400
+ * @param {Number} options.height Dialog 的高度，缺省为 300
+ * @param {Number} options.left Dialog 的左边距，可选
+ * @param {Number} options.top Dialog 的上边距，可选
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
  * @plugin  mask              对话框遮罩插件
  * @author dron
  * @return {magic.control.Dialog} Dialog实例对象
@@ -172,6 +172,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#isShowing
      * @function
      * @grammar magic.control.Dialog#isShowing()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * var isShowing = dialog.isShowing();
      * @return {Boolean} 对话框是否处于显示状态
      */
     isShowing: function(){
@@ -182,24 +192,84 @@ magic.control.Dialog.extend(
      * 显示对话框
 	 * @name magic.control.Dialog#show
      * @function
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.show();
      * @return {This} 实例本身
      */
     show: function(){
         /**
          * 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
          * @name magic.control.Dialog#onbeforeshow
-         * @event 
+         * @event
+         * @grammar magic.control.Dialog#onbeforeshow = function(){...}
+        * @example
+        * var dialog = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * dialog.on("beforeshow", function(){
+        *     //do something...
+        * });
+        * @example
+        * var dialog = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * dialog.onbeforeshow = function(){
+        *     //do something...
+        * };
          */
         if(this.fire("beforeshow") === false)
             return this;
         this.getElement().style.display = "";
         this._isShown = true;
 
-           /**
-            * 当窗口显示后触发
-            * @name magic.control.Dialog#onshow
-            * @event
-            */  
+       /**
+        * 当窗口显示后触发
+        * @name magic.control.Dialog#onshow
+        * @event
+        * @grammar magic.control.Dialog#onshow = function(){...}
+        * @example
+        * var dialog = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * dialog.on("show", function(){
+        *     //do something...
+        * });
+        * @example
+        * var dialog = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * dialog.onshow = function(){
+        *     //do something...
+        * };
+        */  
         this.fire("show");
     },
 
@@ -208,6 +278,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#hide
      * @function
      * @grammar magic.control.Dialog#hide()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.hide();
      * @return {This} 实例本身
      */
     hide: function(){
@@ -216,6 +296,30 @@ magic.control.Dialog.extend(
          * @name magic.control.Dialog#onbeforehide
          * @event
          * @grammar magic.control.Dialog#onbeforehide = function(){...}
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.on("beforehide", function(){
+         *     //do something...
+         * });
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.onbeforehide = function(){
+         *     //do something...
+         * };
          */
         if(this.fire("beforehide") === false)
             return this;
@@ -227,6 +331,30 @@ magic.control.Dialog.extend(
          * @name magic.control.Dialog#onhide
          * @event
          * @grammar magic.control.Dialog#onhide = function(){...}
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.on("hide", function(){
+         *     //do something...
+         * });
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.onhide = function(){
+         *     //do something...
+         * };
          */
         this.fire("hide");
     },
@@ -235,7 +363,17 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#setTitleText
      * @function
      * @grammar magic.control.Dialog#setTitleText(title)
-     * @param {String} title 对话框标题文本内容 [exp]:['我的标题']
+     * @param {String} title 对话框标题文本内容 
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.setTitleText('标题');
      * @return {This} 实例本身
      */
     setTitleText: function(title){
@@ -251,6 +389,16 @@ magic.control.Dialog.extend(
      * @grammar magic.control.Dialog#setContent(content, contentType)
      * @param {HTMLElement|id|dom} content 用于做为对话框内容的节点或字符串 id [exp]:['contentId']
      * @param {string} contentType 内容类型，可选参数有 element|html|text|frame，分别表示传入的内容类型为 dom 对象、html 字符、文本或 iframe 地址，content 参数的数据类型由 contentType 决定，两个参数配合使用，contentType 参数如果不传或非以上四种情况，一律当 html 处理 [exp]:['element','html','text','frame']
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.setContent('对话框内容', 'html');
      * @return {This} 实例本身
      */
     setContent: function(content, contentType){
@@ -301,6 +449,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#focus
      * @function
      * @grammar magic.control.Dialog#focus()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.focus();
      */
     focus: function(){
         baidu(this.getElement()).css("zIndex", 
@@ -310,6 +468,30 @@ magic.control.Dialog.extend(
          * @name magic.control.Dialog#onfocus
          * @event 
          * @grammar magic.control.Dialog#onfocus = function(){...}
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.on("focus", function(){
+         *     //do something...
+         * });
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.onfocus = function(){
+         *     //do something...
+         * };
          */
         this.fire("focus");
     },
@@ -320,8 +502,18 @@ magic.control.Dialog.extend(
      * @function
      * @grammar magic.control.Dialog#setSize(size)
      * @param {Object} size 尺寸描述对象，必须至少有 width/height 中的一个
-     * @param {Number} size.width  对话框的宽，单位 px [exp]:[600]
-     * @param {Number} size.height 对话框的高，单位 px [exp]:[300]
+     * @param {Number} size.width  对话框的宽，单位 px
+     * @param {Number} size.height 对话框的高，单位 px
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.setSize({width: 200, height: 300});
      * @return {This} 实例本身
      */
     setSize: function(size){
@@ -338,8 +530,32 @@ magic.control.Dialog.extend(
          * @event 
          * @grammar magic.control.Dialog#onresize = function(evt){...}
          * @param {Object} evt 事件参数
-         * @param {Number} evt.width 宽度 [exp]:[600]
-         * @param {Number} evt.height 高度 [exp]:[300]
+         * @param {Number} evt.width 宽度 
+         * @param {Number} evt.height 高度 
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.on("resize", function(){
+         *     //do something...
+         * });
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.onresize = function(){
+         *     //do something...
+         * };
          */
         this.fire("resize", size);
     },
@@ -349,6 +565,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#getSize
      * @function
      * @grammar magic.control.Dialog#getSize()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * var size = dialog.getSize();
      * @return {Object} 返回值形如 { width: 100, height: 100 }，单位 px
      */
     getSize: function(){
@@ -364,8 +590,18 @@ magic.control.Dialog.extend(
      * @function
      * @grammar magic.control.Dialog#setPosition(pos)
      * @param {Object} pos 位置描述对象，必须至少有 left/top 中的一个
-     * @param {Number} pos.left 对话框左边框到 body 左侧的距离，单位 px [exp]:[700]
-     * @param {Number} pos.top 对话框上边框到 body 上侧的距离，单位 px [exp]:[200]
+     * @param {Number} pos.left 对话框左边框到 body 左侧的距离，单位 px
+     * @param {Number} pos.top 对话框上边框到 body 上侧的距离，单位 px
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.setPosition({left: 200, top: 300});
      * @return {This} 实例本身
      */
     setPosition: function(pos){
@@ -382,6 +618,30 @@ magic.control.Dialog.extend(
          * @param {Object} evt 事件参数
          * @param {Number} evt.left 左边距
          * @param {Number} evt.top 右边距
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.on("move", function(){
+         *     //do something...
+         * });
+         * @example
+         * var dialog = new magic.Dialog({
+         *      titleText: "对话框标题",
+         *      content: "对话框内容",
+         *      left: 80,
+         *      top: 140,
+         *      width: 400,
+         *      height: 300
+         * });
+         * dialog.onmove = function(){
+         *     //do something...
+         * };
          */
         this.fire("move", pos);
     },
@@ -391,6 +651,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#getPosition
      * @function
      * @grammar magic.control.Dialog#getPosition()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * var position = dialog.getPosition();
      * @return {Object} 返回值形如 { left: 100, top: 100 }，单位 px
      */
     getPosition: function(){
@@ -405,6 +675,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#center
      * @function
      * @grammar magic.control.Dialog#center()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.center();
      */
     center: function(){
         var body = document[baidu.browser.isStrict ? "documentElement" : "body"];
@@ -423,6 +703,16 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#dispose
      * @function
      * @grammar magic.control.Dialog#dispose()
+     * @example
+     * var dialog = new magic.Dialog({
+     *      titleText: "对话框标题",
+     *      content: "对话框内容",
+     *      left: 80,
+     *      top: 140,
+     *      width: 400,
+     *      height: 300
+     * });
+     * dialog.dispose();
      */
     dispose: function(){
         for(var i = 0, l = this.disposeProcess.length; i < l; i ++)
