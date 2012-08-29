@@ -15,7 +15,7 @@
 ///import baidu.object.extend;
 ///import baidu.i18n.cultures.zh-CN;
 ///import baidu.i18n.date;
-///import baidu.lang.isDate;
+///import baidu.type;
 ///import baidu.date.format;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
@@ -697,7 +697,7 @@ magic.Calendar.extend(
      */
     _datesEqual: function(d1, d2){
         
-        if(!baidu.lang.isDate(d1) || !baidu.lang.isDate(d2)){
+        if(baidu.type(d1) != 'date' || baidu.type(d2) != 'date'){
             return;
         }
         
@@ -724,7 +724,7 @@ magic.Calendar.extend(
             item,
             flag = true;
             
-        if(!baidu.lang.isDate(source)){
+        if(baidu.type(source) != 'date'){
             return;
         }
 
@@ -817,7 +817,7 @@ magic.Calendar.extend(
         var me = this,
             _date = new Date(date);
             
-        if(!baidu.lang.isDate(date)){
+        if(baidu.type(date) != 'date'){
             return;
         }
 

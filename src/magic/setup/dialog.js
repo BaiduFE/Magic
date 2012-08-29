@@ -12,7 +12,6 @@
 ///import magic.control.Dialog;
 ///import magic.Background;
 ///import magic.setup.background;
-///import magic._query;
 ///import baidu.type;
 
 /**

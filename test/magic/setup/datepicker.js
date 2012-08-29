@@ -1,4 +1,4 @@
-module('magic.setup.datePicker');
+﻿module('magic.setup.datePicker');
 (function() {
 
     var s = QUnit.testStart;
@@ -40,7 +40,7 @@ function indexOf(source, match, fromIndex) {
  * 获取input上挂载的监听事件
  */
 function getListenersOnInput(inputEl){
-    var count = 0;
+    // var count = 0;
     // for(var i = 0,len = baidu.event._listeners.length; i<len; i++){
     //     if(baidu.event._listeners[i][0] == inputEl){
     //         count++;
@@ -54,7 +54,7 @@ function getListenersOnInput(inputEl){
 test('默认参数、show接口、show自定义事件、hide自定义事件', function(){
     expect(8);
     stop();
-    ua.importsrc('baidu.date.format,baidu.dom.position', function() {
+    ua.importsrc('baidu.dom.offset,baidu.date.format', function() {
         ua.loadcss(upath + "../Calendar/magic.Calendar.css", function(){
             var input = document.createElement('input');
             input.id = 'input_test';
@@ -75,9 +75,8 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
                 
                 var dpTop = dp.popup.getElement("").style.top,
                     dpLeft = dp.popup.getElement("").style.left;
-                
-                equals(dpTop, baidu(input).position().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
-                equals(dpLeft, baidu(input).position().left + "px", '测试默认状态下日历的位置');
+                equals(dpTop, baidu(input).offset().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
+                equals(dpLeft, baidu(input).offset().left + "px", '测试默认状态下日历的位置');
                 
                 var dateDoms = baidu(".tang-calendar-date", document);
                 
@@ -130,8 +129,8 @@ test('自定义参数', function(){
         var dpTop = dp.popup.getElement("").style.top,
             dpLeft = dp.popup.getElement("").style.left;
         
-        equals(dpTop, baidu(input).position().top + input.offsetHeight + 20 + "px", '测试自定义日历的位置');
-        equals(dpLeft, baidu(input).position().left + 20 + "px", '测试自定义日历的位置');
+        equals(dpTop, baidu(input).offset().top + input.offsetHeight + 20 + "px", '测试自定义日历的位置');
+        equals(dpLeft, baidu(input).offset().left + 20 + "px", '测试自定义日历的位置');
         
         var dateDoms = baidu(".tang-calendar-date", document);
         ua.click(dateDoms[0]);
@@ -232,7 +231,6 @@ test("在calendar显示的状态下改变input中的值", function(){
     var currentDate = dp.calendar.selectedDate;
     input.value="fdafdsafd";
     input.oninput();
-    
     equals(formatDate(dp.calendar.selectedDate), formatDate(new Date(currentDate)), "input值改变成无效日期字符串时，Calendar的当前选中日期不改变");
     dp.dispose();
     document.body.removeChild(input);
