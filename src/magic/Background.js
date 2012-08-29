@@ -18,15 +18,21 @@
 ///import baidu.dom.getCurrentStyle;
 
 /**
- * 创造一个背景层，可以在这个层上用CSS构造出阴影、圆角、渐变透明的效果；提供一组可外调的CSS：tang-background、tang-background-inner
+ * @description 创造一个背景层，可以在这个层上用CSS构造出阴影、圆角、渐变透明的效果；提供一组可外调的CSS：tang-background、tang-background-inner
  * @author meizz
  * @class
  * @name    magic.Background
- * @grammar new magic.Background(options)
- * @param   {Object}    options 参数设置
- * @config	{Boolean}	options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
- * @plugin  styleBox    使按钮支持capture
  * @superClass magic.Base
+ * @grammar new magic.Background(options)
+ * @param {Object} options 参数设置
+ * @param {Boolean} options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
+ * @plugin styleBox 使按钮支持capture
+ * @return {magic.Background} Background实例.
+ * @example
+ * /// for options.coverable
+ * var background = new magic.Background({
+ * 		coverable: true		// 遮盖 select、flash
+ * });
  */
 magic.Background = baidu.lang.createClass(function(options){
 	var opt = options || {}
@@ -58,9 +64,15 @@ magic.Background = baidu.lang.createClass(function(options){
  */
 {
 	/**
-	 * 将背景图层附着到DOM元素上
-	 * @param	{HTMLElement}	container 	被附加背景层的DOM元素
-	 */
+     * @description 将背景图层附着到DOM元素上
+     * @name magic.Background#render
+     * @function 
+     * @grammar magic.Background#render(container)
+     * @param {HTMLElement} container 被附加背景层的DOM元素
+     * @example
+     * var background = new magic.Background(option);
+     * background.render(baidu('#bg').get(0));
+     */
 	render : function(container) {
 		var box = baidu.dom(container).get(0);
 
@@ -71,8 +83,15 @@ magic.Background = baidu.lang.createClass(function(options){
 	},
 
 	/**
-	 * 析构
-	 */
+     * @description 析构
+     * @name magic.Background#dispose
+     * @function 
+     * @grammar magic.Background#dispose()
+     * @example
+     * var background = new magic.Background(option);
+     * background.render(baidu('#bg').get(0));
+     * background.dispose();	// 销毁元素
+     */
 	dispose: function(){
 	    var layer = this.getElement();
 	    layer.parentNode.removeChild(layer);
@@ -95,11 +114,17 @@ magic.Background = baidu.lang.createClass(function(options){
 			,"</",(tagName||this.tagName),">"
 		].join("");
 	}
-
 	/**
-	 * 用户可以向背景层注入HTML，以便完成更复杂的背景需求
-	 * @param	{HTMLString}	content 	注入的HTML文本
-	 */
+     * @description 向背景层注入HTML，以便完成更复杂的背景需求
+     * @name magic.Background#setContent
+     * @function 
+     * @grammar magic.Background#setContent(content)
+     * @param {HTMLString} content 注入的HTML文本
+     * @example
+     * var background = new magic.Background(option);
+     * background.render(baidu('#bg').get(0));
+     * background.setContent('some text');
+     */
 	,setContent : function(content){
 		this.getElement("inner").innerHTML = content;
 	}
