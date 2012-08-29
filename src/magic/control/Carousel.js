@@ -222,7 +222,7 @@ void function(){
          * }
          * @example
          * var carousel = new magic.Carousel(option);
-         * carousel.on("onclickitem",function(evt){
+         * carousel.on("clickitem",function(evt){
          * 		// do something...
          * });
          */
@@ -241,7 +241,7 @@ void function(){
          * }
          * @example
          * var carousel = new magic.Carousel(option);
-         * carousel.on("onmouseoveritem",function(evt){
+         * carousel.on("mouseoveritem",function(evt){
          * 		// do something...
          * });
          */
@@ -260,7 +260,7 @@ void function(){
          * }
          * @example
          * var carousel = new magic.Carousel(option);
-         * carousel.on("onmouseoveritem",function(evt){
+         * carousel.on("mouseoveritem",function(evt){
          * 		// do something...
          * });
          */
@@ -388,7 +388,7 @@ void function(){
          * }
          * @example
          * var carousel = new magic.Carousel(option);
-         * carousel.on("onfocus",function(evt){
+         * carousel.on("focus",function(evt){
          * 		alert("当次的滚动方向为：" + evt.direction);
          * 		// do something...
          * });

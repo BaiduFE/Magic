@@ -76,7 +76,7 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * var carousel = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.on('onmouseenter', function(evt){
+     * carousel.on('mouseenter', function(evt){
      * 		alert("鼠标移入");
      * });
      * @example
@@ -98,7 +98,7 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * var carousel = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.on('onmouseleave', function(evt){
+     * carousel.on('mouseleave', function(evt){
      * 		alert("鼠标移入");
      * });
      * @example

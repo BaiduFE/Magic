@@ -18,7 +18,7 @@
 
 
  /**
- * 根据当前页码和总页数生成一个页码条，当前页不可点击，其它页码为普通的链接。
+ * @description 根据当前页码和总页数生成一个页码条，当前页不可点击，其它页码为普通的链接。
  * 目前暂不支持异步翻页，若有需求，请自行实现。<br>
  * 展示的效果可参考：<br>
  * 首页 上一页 5 6 7 8 <b>9</b> 10 11 12 13 14 下一页 尾页<br>
@@ -28,9 +28,9 @@
  * 3，当前页是第一页时，不出现首页和上一页的链接；当前页是最后一页时，不出现下一页和尾页的链接。<br>
  * @author 夏登平 (xiadengping@baidu.com)
  * @class
- * @grammar new magic.Pager(options)
  * @superClass magic.Base
- * @param {Object} [options] 更新选项，若选项值不符合规则，则此次更新不予更新任何选项
+ * @grammar new magic.Pager(options)
+ * @param {Object} options 选项
  * @param {Number} options.currentPage 当前页，使用第二种构造方式时使用。
  * @param {Number} options.totalPage 总页数，使用第二种构造方式时使用。
  * @param {Number} options.viewSize 页码数，默认显示多少个页面的链接（不包括“首页”等特殊链接），默认值10。
@@ -42,6 +42,39 @@
  * @param {String} options.tplLabelNormal 普通页码显示模版，默认为#{pageNum}
  * @param {String} options.tplLabelCurrent 当前页码的显示模版，默认为#{pageNum}。
  * @return {magic.Pager} Pager实例
+ * @example
+ * /// for options.currentPage,options.totalPage
+ * var pager = new Pager({currentPage: 1, totalPage: 8});		// 总8页，当前第1页
+ * pager.render('pager');
+ * @example
+ * /// for options.viewSize, options.currentPagePos
+ * var pager = new Pager({currentPage: 5, totalPage: 10, viewSize: 5, currentPagePos: 2});
+ * // 第5页，一共10页，只显示5个页码，当前页前面有2个页码
+ * pager.render('pager');
+ * @example
+ * /// for options.labelFirst, options.labelPrev, options.labelNext, options.labelLast
+ * var pager = new Pager({
+ * 		currentPage: 5, 
+ * 		totalPage: 10, 
+ * 		viewSize: 5, 
+ * 		currentPagePos: 2,
+ * 		labelFirst: '最前面',
+ * 		labelLast: '最后面',
+ * 		labelPrev: '往前翻',
+ * 		labelNext: '往后翻'
+ * });
+ * pager.render('pager');
+ * @example
+ * /// for options.tplLabelNormal, options.tplLabelCurrent
+ * var pager = new Pager({
+ * 		currentPage: 5, 
+ * 		totalPage: 10, 
+ * 		viewSize: 5, 
+ * 		currentPagePos: 2,
+ * 		tplLabelNormal: '[#{pageNum}]',		// 普通页码显示如: [8][9]
+ * 		tplLabelCurrent: '{#{pageNum}}'		// 当前页码显示如: {8}{9}
+ * });
+ * pager.render('pager');
  */
 magic.Pager = baidu.lang.createClass(function(options) {
     var me = this;
@@ -143,11 +176,14 @@ magic.Pager = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 将pager渲染到dom中
+     * @description 将pager渲染到dom中
      * @name magic.Pager#render
-     * @public
      * @function
+     * @grammar magic.Pager#render(target)
      * @param {String|HTMLElement} target 渲染的容器，默认为document.body。
+     * @example
+     * var pager = new Pager({currentPage: 1, totalPage: 8});
+     * pager.render('pager');
      */
     'render' :  function(target) {
         if (!this.getElement()) {
@@ -157,19 +193,34 @@ magic.Pager = baidu.lang.createClass(function(options) {
         baidu.dom(target).addClass('tang-pager')
         					.insertHTML('beforeEnd', this.$toHTMLString());
        /**
-        * Pager渲染后触发
+        * @description 渲染后触发
         * @name magic.Pager#onload
         * @event 
+        * @grammar magic.control.Pager#onload=function(evt){...}
         * @param {baidu.lang.Event} evt 事件参数
+        * @example
+		* var pager = new Pager({currentPage: 1, totalPage: 8});
+		* pager.onload = function(evt){
+		* 		// do something...
+		* }
+		* @example
+		* var pager = new Pager({currentPage: 1, totalPage: 8});
+		* pager.on('load', function(evt){
+		* 		// do something...
+		* });
         */
         this.fire("load");
     },
     
     /**
-     * dispose 析构
+     * @description dispose 析构
      * @name magic.Pager#dispose
-     * @public
      * @function
+     * @grammar magic.Pager#dispose()
+     * @example
+     * var pager = new Pager({currentPage: 1, totalPage: 8});
+     * pager.render('pager');
+     * pager.dispose();
      */
     'dispose' : function() {
         if(this.disposed) {
@@ -178,11 +229,23 @@ magic.Pager = baidu.lang.createClass(function(options) {
         var container = this.getElement(),
             main = this.getElement('main');
         baidu.dom(container).removeClass('tang-pager');
+       
        /**
-        * Pager析构后触发
+        * @description Pager析构后触发
         * @name magic.Pager#ondispose
         * @event 
+        * @grammar magic.control.Pager#ondispose=function(evt){...}
         * @param {baidu.lang.Event} evt 事件参数
+        * @example
+		* var pager = new Pager({currentPage: 1, totalPage: 8});
+		* pager.ondispose = function(evt){
+		* 		// do something...
+		* }
+		* @example
+		* var pager = new Pager({currentPage: 1, totalPage: 8});
+		* pager.on('dispose', function(evt){
+		* 		// do something...
+		* });
         */
         magic.Base.prototype.dispose.call(this);
         baidu.dom(main).remove();

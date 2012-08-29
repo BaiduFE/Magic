@@ -593,7 +593,7 @@ magic.control.Slider.extend({
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onslidestart', function(evt){
+     * slider.on('slidestart', function(evt){
      * 		alert("开始拖动");
      * });
      */
@@ -617,7 +617,7 @@ magic.control.Slider.extend({
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onslide', function(evt){
+     * slider.on('slide', function(evt){
      * 		// do something...
      * });
      */
@@ -641,7 +641,7 @@ magic.control.Slider.extend({
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onslidestop', function(evt){
+     * slider.on('slidestop', function(evt){
      * 		// do something...
      * });
      */
@@ -665,7 +665,7 @@ magic.control.Slider.extend({
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onchange', function(evt){
+     * slider.on('change', function(evt){
      * 		log(evt.value);		// 记录值的每一次变动
      * });
      */

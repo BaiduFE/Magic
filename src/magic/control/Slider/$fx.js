@@ -89,7 +89,7 @@ baidu.lang.register(magic.control.Slider, function(options){
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onfxstart', function(evt){
+     * slider.on('fxstart', function(evt){
      * 		// do something...
      * });
      */
@@ -112,7 +112,7 @@ baidu.lang.register(magic.control.Slider, function(options){
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onfx', function(evt){
+     * slider.on('fx', function(evt){
      * 		// do something...
      * });
      */
@@ -135,7 +135,7 @@ baidu.lang.register(magic.control.Slider, function(options){
      * 		orientation: 'vertical'
      * });
      * slider.render('s1');
-     * slider.on('onfxstop', function(evt){
+     * slider.on('fxstop', function(evt){
      * 		// do something...
      * });
      */
