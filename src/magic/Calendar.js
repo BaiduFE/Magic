@@ -25,7 +25,7 @@
 /**
  * @description 日历
  * @name magic.Calendar
- * @class 日历
+ * @class
  * @grammar new magic.Calendar(options)
  * @param {Object} options 自定义选项
  * @param {String} [options.weekStart] 定义一周的第一天取值:'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'，默认为'Sun'
@@ -128,31 +128,29 @@ magic.Calendar.extend(
         
         /**
         * 日历渲染完成
-        * @name magic.control.Dialog#onrender
+        * @name magic.control.Calendar#onrender
         * @event
-        * @grammar magic.control.Dialog#onrender = function(){...}
+        * @grammar magic.control.Calendar#onrender = function(){...}
         * @example
-        * var dialog = new magic.Dialog({
-        *      titleText: "对话框标题",
-        *      content: "对话框内容",
-        *      left: 80,
-        *      top: 140,
-        *      width: 400,
-        *      height: 300
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
         * });
-        * dialog.on("render", function(){
+        * calendar.on("render", function(){
         *     //do something...
         * });
         * @example
-        * var dialog = new magic.Dialog({
-        *      titleText: "对话框标题",
-        *      content: "对话框内容",
-        *      left: 80,
-        *      top: 140,
-        *      width: 400,
-        *      height: 300
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
         * });
-        * dialog.onrender = function(){
+        * calendar.onrender = function(){
         *     //do something...
         * };
         */  
@@ -283,31 +281,29 @@ magic.Calendar.extend(
             mousedownrespond = false;
             /**
             * 跳转到上一个月
-            * @name magic.control.Dialog#onpremonth
+            * @name magic.control.Calendar#onpremonth
             * @event
-            * @grammar magic.control.Dialog#onpremonth = function(){...}
+            * @grammar magic.control.Calendar#onpremonth = function(){...}
             * @example
-            * var dialog = new magic.Dialog({
-            *      titleText: "对话框标题",
-            *      content: "对话框内容",
-            *      left: 80,
-            *      top: 140,
-            *      width: 400,
-            *      height: 300
+            * var calendar = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
             * });
-            * dialog.on("premonth", function(){
+            * calendar.on("premonth", function(){
             *     //do something...
             * });
             * @example
-            * var dialog = new magic.Dialog({
-            *      titleText: "对话框标题",
-            *      content: "对话框内容",
-            *      left: 80,
-            *      top: 140,
-            *      width: 400,
-            *      height: 300
+            * var calendar = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
             * });
-            * dialog.onpremonth = function(){
+            * calendar.onpremonth = function(){
             *     //do something...
             * };
             */  
@@ -318,31 +314,29 @@ magic.Calendar.extend(
             mousedownrespond = false;
             /**
             * 跳转到下一个月
-            * @name magic.control.Dialog#onnextmonth
+            * @name magic.control.Calendar#onnextmonth
             * @event
-            * @grammar magic.control.Dialog#onnextmonth = function(){...}
+            * @grammar magic.control.Calendar#onnextmonth = function(){...}
             * @example
-            * var dialog = new magic.Dialog({
-            *      titleText: "对话框标题",
-            *      content: "对话框内容",
-            *      left: 80,
-            *      top: 140,
-            *      width: 400,
-            *      height: 300
+            * var calendar = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
             * });
-            * dialog.on("nextmonth", function(){
+            * calendar.on("nextmonth", function(){
             *     //do something...
             * });
             * @example
-            * var dialog = new magic.Dialog({
-            *      titleText: "对话框标题",
-            *      content: "对话框内容",
-            *      left: 80,
-            *      top: 140,
-            *      width: 400,
-            *      height: 300
+            * var calendar = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
             * });
-            * dialog.onnextmonth = function(){
+            * calendar.onnextmonth = function(){
             *     //do something...
             * };
             */  
@@ -519,11 +513,35 @@ magic.Calendar.extend(
         baidu(target).addClass(me._getClass("hover"));
 
         /**
-         * 鼠标移动到某个td上时触发
-         * @name magic.Calendar#mouseover
-         * @event 
-         * @param {HTMLElement} target 触发事件的td
-         */
+        * 鼠标移动到某个td上时触发
+        * @name magic.control.Calendar#onmouseover
+        * @event
+        * @grammar magic.control.Calendar#onmouseover = function(){...}
+        * @param {Object} options 自定义事件参数
+        * @param {HTMLElement} options.target 触发事件的td
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
+        * });
+        * calendar.on("mouseover", function(){
+        *     //do something...
+        * });
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
+        * });
+        * calendar.onmouseover = function(){
+        *     //do something...
+        * };
+        */  
         me.fire("mouseover", {
             'target': target
         });
@@ -540,38 +558,32 @@ magic.Calendar.extend(
         baidu(target).removeClass(me._getClass("hover"));
 
         /**
-         * 鼠标移出某个td时触发
-         * @name magic.Calendar#mouseout
-         * @event 
-         * @param {HTMLElement} target 触发事件的td
-         */
-        /**
         * 鼠标移出某个td时触发
-        * @name magic.control.Dialog#onmouseout
+        * @name magic.control.Calendar#onmouseout
         * @event
-        * @grammar magic.control.Dialog#onmouseout = function(){...}
+        * @grammar magic.control.Calendar#onmouseout = function(){...}
+        * @param {Object} options 自定义事件参数
+        * @param {HTMLElement} options.target 触发事件的td
         * @example
-        * var dialog = new magic.Dialog({
-        *      titleText: "对话框标题",
-        *      content: "对话框内容",
-        *      left: 80,
-        *      top: 140,
-        *      width: 400,
-        *      height: 300
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
         * });
-        * dialog.on("mouseout", function(){
+        * calendar.on("mouseout", function(){
         *     //do something...
         * });
         * @example
-        * var dialog = new magic.Dialog({
-        *      titleText: "对话框标题",
-        *      content: "对话框内容",
-        *      left: 80,
-        *      top: 140,
-        *      width: 400,
-        *      height: 300
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
         * });
-        * dialog.onmouseout = function(){
+        * calendar.onmouseout = function(){
         *     //do something...
         * };
         */  
@@ -615,11 +627,35 @@ magic.Calendar.extend(
             me.selectedDate = new Date(dateStr);
 
             /**
-             * 选中某个日期时触发
-             * @name magic.Calendar#selectdate
-             * @event 
-             * @param {Date} date 选中的日期
-             */
+            * 选中某个日期时触发
+            * @name magic.control.Calendar#onselectdate
+            * @event
+            * @grammar magic.control.Calendar#onselectdate = function(){...}
+            * @param {Object} options 自定义事件参数
+            * @param {Date} options.date 选中的日期
+            * @example
+            * var calendar = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
+            * });
+            * calendar.on("selectdate", function(){
+            *     //do something...
+            * });
+            * @example
+            * var calendar = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
+            * });
+            * calendar.onselectdate = function(){
+            *     //do something...
+            * };
+            */  
             me.fire("selectdate", {
                 'date': new Date(dateStr)
             });
@@ -890,12 +926,37 @@ magic.Calendar.extend(
         _date.setDate(_date.getDate() - 1);
 
         me.setDate(_date);
+        
         /**
-         * 选中某个日期时触发
-         * @name magic.Calendar#selectdate
-         * @event 
-         * @param {Date} date 选中的日期
-         */
+        * 选择上一天时触发
+        * @name magic.control.Calendar#onselectdate
+        * @event
+        * @grammar magic.control.Calendar#onselectdate = function(){...}
+        * @param {Object} options 自定义事件参数
+        * @param {Date} options.date 选中的日期
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
+        * });
+        * calendar.on("selectdate", function(){
+        *     //do something...
+        * });
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
+        * });
+        * calendar.onselectdate = function(){
+        *     //do something...
+        * };
+        */ 
         me.fire("selectdate", {
             'date': _date
         });
@@ -911,12 +972,37 @@ magic.Calendar.extend(
         _date.setDate(_date.getDate() + 1);
 
         me.setDate(_date);
+        
         /**
-         * 选中某个日期时触发
-         * @name magic.Calendar#selectdate
-         * @event 
-         * @param {Date} date 选中的日期
-         */
+        * 选择下一天时触发
+        * @name magic.control.Calendar#onselectdate
+        * @event
+        * @grammar magic.control.Calendar#onselectdate = function(){...}
+        * @param {Object} options 自定义事件参数
+        * @param {Date} options.date 选中的日期
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
+        * });
+        * calendar.on("selectdate", function(){
+        *     //do something...
+        * });
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN'
+        * });
+        * calendar.onselectdate = function(){
+        *     //do something...
+        * };
+        */  
         me.fire("selectdate", {
             'date': _date
         });

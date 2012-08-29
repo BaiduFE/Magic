@@ -8,12 +8,11 @@
 ///import baidu.dom.css;
 
 /**
- * 将年份和月份做成select控件，用户可以直接选择年份和月份
- *
+ * @description 将年份和月份做成select控件，用户可以直接选择年份和月份
  * @name magic.Calendar.$title
- * @addon  magic.Calendar
+ * @addon
  * @param {Object} options config参数.
- * @config {Boolean} title.enable 是否开启select控件，默认启用
+ * @param {Boolean} title.enable 是否开启select控件，默认启用
  * @author zhaochengyang
  */
 baidu.lang.register(magic.Calendar, function(){
@@ -118,6 +117,40 @@ baidu.lang.register(magic.Calendar, function(){
                                 }) + yearselect;
         }
         
+        /**
+        * 年份和月份select控件渲染完成时触发
+        * @name magic.control.Calendar#onselectdate
+        * @event
+        * @grammar magic.control.Calendar#onselectdate = function(){...}
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN',
+        *      title: {
+        *          enable: true
+        *      }
+        * });
+        * calendar.on("titlerender", function(){
+        *     //do something...
+        * });
+        * @example
+        * var calendar = new magic.Calendar({
+        *      weekStart: 'sat',
+        *      initDate: new Date()
+        *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+        *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+        *      language: 'zh-CN',
+        *      title: {
+        *           enable: true
+        *      }
+        * });
+        * calendar.ontitlerender = function(){
+        *     //do something...
+        * };
+        */  
         me.fire("titlerender");
     };
 }, {});
