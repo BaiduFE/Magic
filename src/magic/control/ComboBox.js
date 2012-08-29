@@ -18,19 +18,14 @@
 ///import baidu.object.extend;
 
 /**
- * ComboBox组件的控制器。
+ * @description 组合框组件的控制器。
  * @class
  * @name magic.control.ComboBox
  * @superClass magic.Base
  * @grammar new magic.control.ComboBox(options)
- * @param {Object} options 选项
- * @config {Array<Object>} items ComboBox下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]，默认[]。
- * @config {Number} viewSize 拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
- * @config {Boolean} readonly 输入框是否可以编辑输入，默认true。
- * @config {Boolean} disabled ComboBox是否处于禁用状态，默认false。
- * @config {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
- * @config {Number|String} width ComboBox的宽度，默认100%。
- * @plugin suggestion 为ComboBox提供suggestion功能。
+ * @param {Object} options 参考magic.comboBox
+ * @plugin suggestion 为组合框提供输入框提示功能。
+ * @return {magic.control.ComboBox} 实例
  * @author 夏登平 xiadengping@baidu.com
  */
 magic.control.ComboBox = baidu.lang.createClass(function(options) {
@@ -94,10 +89,18 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         //将popup的show和hide的事件链接
         me.menu.on('show', function() {
             /**
-            * 下拉菜单展示后触发
+            * @description 下拉菜单展示后触发
             * @name magic.control.ComboBox#onshow
+            * @grammar magic.control.ComboBox#onshow(evt)
             * @event 
             * @param {baidu.lang.Event} evt 事件参数
+            * @example
+            * instance.on('show', function() {
+            *     //do something...
+            * });
+            * @example.onshow = function() {
+            *     //do something...
+            * }
             */
             me.fire('show');
         });
@@ -105,11 +108,20 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
 
         me.menu.on('beforeshow', function(e) {
            /**
-            * 下拉菜单试图展示时触发
+            * @description 下拉菜单试图展示时触发
             * @name magic.control.ComboBox#onbeforeshow
+            * @grammar magic.control.ComboBox#onbeforeshow(evt)
             * @event 
             * @param {baidu.lang.Event} evt 事件参数
-            * @config {Boolean} evt.returnValue 返回false时，会阻止下拉菜单展现。
+            * @param {Boolean} evt.returnValue 返回false时，会阻止下拉菜单展现。
+            * @example 
+            * instance.on('beforeshow', function(evt) {
+            *     evt.returnValue = false; //此时会阻止下拉菜单展现。
+            * });
+            * @example
+            * instance.onbeforeshow = function() {
+            *     // do something...
+            * }
             */
             e.returnValue = me.fire('beforeshow');
         });
@@ -118,9 +130,18 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
            /**
             * 下拉菜单试图隐藏时触发
             * @name magic.control.ComboBox#onbeforehide
+            * @grammer magic.control.ComboBox#onbeforehide(evt)
             * @event 
             * @param {baidu.lang.Event} evt 事件参数
-            * @config {Boolean} evt.returnValue 返回false时，会阻止下拉菜单隐藏。
+            * @param {Boolean} evt.returnValue 返回false时，会阻止下拉菜单隐藏。
+            * @example
+            * instance.on('beforehide', function(evt) {
+            *     evt.returnValue = false; //此时会阻止下拉菜单隐藏。
+            * });
+            * @example
+            * instance.onbeforehide = function() {
+            *     // do something...
+            * }
             */
             e.returnValue = me.fire('beforehide');
         });
@@ -129,8 +150,17 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
            /**
             * 下拉菜单隐藏后触发
             * @name magic.control.ComboBox#onhide
+            * @grammar magic.control.ComboBox#onhide(evt)
             * @event 
             * @param {baidu.lang.Event} evt 事件参数
+            * @example 
+            * instance.on('hide', function(evt) {
+            *     // do something...
+            * });
+            * @example
+            * instance.onhide = function() {
+            *     // do something...
+            * }
             */
             me.fire('hide');
         });
@@ -193,11 +223,24 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
            /**
             * 点击下拉菜单某项后触发
             * @name magic.control.ComboBox#onclickitem
+            * @grammar magic.control.ComboBox#onclickitem(evt)
             * @event 
             * @param {baidu.lang.Event} evt 事件参数
-            * @config {Number} evt.result.index 被点击的选项的索引
-            * @config {Number} evt.result.value 被点击的选项的值
-            * @config {Number} evt.result.content 被点击的选项的文字 
+            * @param {Number} evt.result.index 被点击的选项的索引
+            * @param {Number} evt.result.value 被点击的选项的值
+            * @param {Number} evt.result.content 被点击的选项的文字 
+            * @example
+            * instance.on('clickitem', function(evt) {
+            *     evt.result.index;
+            *     evt.result.value;
+            *     evt.result.content;
+            * });
+            * @example
+            * instance.onclickitem = function(evt) {
+            *     evt.result.index;
+            *     evt.result.value;
+            *     evt.result.content;
+            * }
             */
             me.fire('clickitem', {
                 'result' : me._getResult(target)
@@ -372,29 +415,50 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * 将下拉菜单中的某项的文字放入输入框中。
      * @function
      * @name magic.control.ComboBox#$pick
-     * @public
      * @developer 开发者方法
      * @param {Node} elmItem 待操作的dom节点
      */  
     '$pick' : function(elmItem) {
         var result = this._getResult(elmItem);
        /**
-        * 下拉菜单选项试图上框时触发
+        * @description 下拉菜单选项试图上框时触发
         * @name magic.control.ComboBox#onbeforepick
+        * @grammar magic.control.ComboBox#onbeforepick(evt)
         * @event 
         * @param {baidu.lang.Event} evt 事件参数
-        * @config {Number} evt.returnValue 为false时会阻止选项文字上框
+        * @param {Number} evt.returnValue 为false时会阻止选项文字上框
+        * @example
+        * instance.on('beforepick', function(evt) {
+        *     evt.returnValue = false; //此时会阻止选项的文字上框。
+        * });
+        * @example
+        * instance.onbeforepick = function(evt) {
+        *     evt.returnValue = false; //此时会阻止选项的文字上框。
+        * };
         */
         if(this.fire('beforepick')) {
             this.getElement('input').value = result.content;
            /**
-            * 下拉菜单选项上框后触发
+            * @description 下拉菜单选项上框后触发
             * @name magic.control.ComboBox#onpick
+            * @grammar magic.control.ComboBox#onpick()
             * @event 
             * @param {baidu.lang.Event} evt 事件参数
-            * @config {Number} evt.result.index 选项的索引
-            * @config {Number} evt.result.value 选项的值
-            * @config {Number} evt.result.content 选项的文字 
+            * @param {Number} evt.result.index 选项的索引
+            * @param {Number|Boolean|String} evt.result.value 选项的值
+            * @param {String} evt.result.content 选项的文字 
+            * @example
+            * instance.on('pick', function(evt) {
+            *     evt.result.index;
+            *     evt.result.value;
+            *     evt.result.content;
+            * });
+            * @example
+            * instance.onpick = function(evt) {
+            *     evt.result.index;
+            *     evt.result.value;
+            *     evt.result.content;
+            * };
             */  
             this.fire('pick', {'result' : result});
         }
@@ -407,22 +471,34 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * 键盘按上下键时调用
      * @function
      * @name magic.control.ComboBox#$menufocus
-     * @public
      * @developer 开发者方法
      * @param {Node} elmItem 待选中的dom节点
      */    
     '$menufocus' : function(elmItem) {
         this.$highlight(elmItem);
         var result = this.$pick(elmItem);
-        /**
-         * 选中下拉菜单中的某个选项后触发
-         * @event
-         * @name magic.control.ComboBox#onmenufocus
-         * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} evt.result.index 选项的索引
-         * @config {Number} evt.result.value 选项的值
-         * @config {Number} evt.result.content 选项的文字 
-         */   
+       /**
+        * @description 选中下拉菜单中的某个选项后触发
+        * @event
+        * @name magic.control.ComboBox#onmenufocus
+        * @grammar magic.control.ComboBox#onmenufocus(evt)
+        * @param {baidu.lang.Event} evt 事件参数
+        * @param {Number} evt.result.index 选项的索引
+        * @param {Number|Boolean|String} evt.result.value 选项的值
+        * @param {String} evt.result.content 选项的文字 
+        * @example
+        * instance.on('menufocus', function(evt) {
+        *     evt.result.index;
+        *     evt.result.value;
+        *     evt.result.content;
+        * });
+        * @example
+        * instance.onmenufocus = function(evt) {
+        *     evt.result.index;
+        *     evt.result.value;
+        *     evt.result.content;
+        * };
+        */   
         this.fire('menufocus', {'result' : result});
         return result;
     },
@@ -433,35 +509,62 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * 鼠标点击下拉菜单中的某项，或者键盘按回车键时调用
      * @function
      * @name magic.control.ComboBox#$confirm
-     * @public
      * @developer 开发者方法
      * @param {Node} elmItem 待确认的dom节点
      */  
     '$confirm' : function(elmItem) {
         var result = this.$pick(elmItem);
         this.menu.hide();
-        /**
-         * 确认下拉菜单中的某个选项后触发
-         * @event
-         * @name magic.control.ComboBox#onconfirm
-         * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} evt.result.index 选项的索引
-         * @config {Number} evt.result.value 选项的值
-         * @config {Number} evt.result.content 选项的文字 
-         */
+       /**
+        * @description 确认下拉菜单中的某个选项后触发
+        * @event
+        * @name magic.control.ComboBox#onconfirm
+        * @grammar magic.control.ComboBox#onconfirm(evt)
+        * @param {baidu.lang.Event} evt 事件参数
+        * @param {Number} evt.result.index 选项的索引
+        * @param {Number|Boolean|String} evt.result.value 选项的值
+        * @param {String} evt.result.content 选项的文字 
+        * @example
+        * instance.on('confirm', function(evt) {
+        *     evt.result.index;
+        *     evt.result.value;
+        *     evt.result.content;
+        * });
+        * @example
+        * instance.onconfirm = function(evt) {
+        *     evt.result.index;
+        *     evt.result.value;
+        *     evt.result.content;
+        * };
+        */
         this.fire('confirm', {'result' : result});
         //触发change事件
         if (this.selectValue != result.value) {
-            /**
-             * combobox值变化时触发。有两个途径：1，confirm后若值发生变化；2，blur后若值发生变化。
-             * @event
-             * @name magic.control.ComboBox#onchange
-             * @param {baidu.lang.Event} evt 事件参数
-             * @config {Number} evt.from 如何触发该事件，可以为comfirm或blur。
-             * @config {Number} evt.result.index 选项的索引（仅在evt.from为confirm时）
-             * @config {Number} evt.result.value 选项的值（仅在evt.from为confirm时）
-             * @config {Number} evt.result.content 选项的文字 （仅在evt.from为confirm时）
-             */ 
+           /**
+            * @description 组合框值变化时触发。有两个途径：1，confirm后若值发生变化；2，blur后若值发生变化。
+            * @event
+            * @name magic.control.ComboBox#onchange
+            * @grammar magic.control.ComboBox#onchange(evt)
+            * @param {baidu.lang.Event} evt 事件参数
+            * @param {Number} evt.from 如何触发该事件，可以为comfirm或blur。
+            * @param {Number} evt.result.index 选项的索引（仅在evt.from为confirm时）
+            * @param {Number|Boolean|String} evt.result.value 选项的值（仅在evt.from为confirm时）
+            * @param {String} evt.result.content 选项的文字 （仅在evt.from为confirm时）
+            * @example
+            * instance.on('change', function(evt) {
+            *     evt.from;
+            *     evt.result.index; //仅在evt.from为confirm时
+            *     evt.result.value; //仅在evt.from为confirm时
+            *     evt.result.content; //仅在evt.from为confirm时
+            * });
+            * @example
+            * instance.onchange = function(evt) {
+            *     evt.from;
+            *     evt.result.index; //仅在evt.from为confirm时
+            *     evt.result.value; //仅在evt.from为confirm时
+            *     evt.result.content; //仅在evt.from为confirm时
+            * };
+            */ 
             this.fire('change', {
                 'from' : 'confirm',
                 'result' : result
@@ -475,22 +578,34 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * 高亮下拉菜单中的某个选项
      * @function
      * @name magic.control.ComboBox#$highlight
-     * @public
      * @developer 开发者方法
      * @param {Node} elmItem 待高亮的dom节点
      */
     '$highlight' : function(elmItem) {
         baidu(elmItem).addClass('magic-combobox-menu-item-hover');
         var index = baidu(elmItem).attr('data-index');
-        /**
-         * 高亮下拉菜单中的某个选项后触发
-         * @event
-         * @name magic.control.ComboBox#onhighlight
-         * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} evt.result.index 选项的索引
-         * @config {Number} evt.result.value 选项的值
-         * @config {Number} evt.result.content 选项的文字 
-         */
+       /**
+        * @description 高亮下拉菜单中的某个选项后触发
+        * @event
+        * @name magic.control.ComboBox#onhighlight
+        * @grammar magic.control.ComboBox#onhighlight(evt)
+        * @param {baidu.lang.Event} evt 事件参数
+        * @param {Number} evt.result.index 选项的索引
+        * @param {Number|Boolean|String} evt.result.value 选项的值
+        * @param {String} evt.result.content 选项的文字 
+        * @example
+        * instance.on('change', function(evt) {
+        *     evt.result.index; 
+        *     evt.result.value; 
+        *     evt.result.content; 
+        * });
+        * @example
+        * instance.onchange = function(evt) {
+        *     evt.result.index; 
+        *     evt.result.value; 
+        *     evt.result.content;
+        * };
+        */
         this.fire('highlight', {
             'index' : index
         });
@@ -500,7 +615,6 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * 清除下拉菜单中所有选项的高亮状态
      * @function
      * @name magic.control.ComboBox#$clearHighlight
-     * @public
      * @developer 开发者方法
      */
     '$clearHighlight' : function() {
@@ -509,22 +623,26 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 获得选中项的值，若输入框的中的值不在下拉菜单中，则返回输入框中的值。
+     * @description 获得选中项的值，若输入框的中的值不在下拉菜单中，则返回输入框中的值。
      * @function
      * @name magic.control.ComboBox#getValue
-     * @public
+     * @grammar magic.control.ComboBox#getValue()
      * @return {Number} ComboBox的值 
+     * @example
+     * instance.getValue();
      */
     'getValue' : function() {
         return this.selectValue || this._getValue(this.getElement('input').value) || this.getElement('input').value;
     },
     
     /**
-     * 获得选中项的索引值，若输入框的中的值不在下拉菜单中，则返回-1.
+     * @description 获得选中项的索引值，若输入框的中的值不在下拉菜单中，则返回-1.
      * @function
      * @name magic.control.ComboBox#getSelectIndex
-     * @public
+     * @grammar magic.control.ComboBox#getSelectIndex()
      * @return {Number} 索引值 
+     * @example
+     * instance.getSelectIndex();
      */
     'getSelectIndex' : function() {
         for (var data = this._options.items, length = data.length; length--;) {
@@ -536,11 +654,13 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 根据选中项的值设置ComboBox
+     * @description 根据选中项的值设置ComboBox
      * @function
      * @name magic.control.ComboBox#setByValue
-     * @public
+     * @grammar magic.control.ComboBox#setByValue(value)
      * @param {String|Number|Boolean} value 选中项的值。
+     * @example
+     * instance.setByValue(value);
      */    
     'setByValue' : function(value) {
         for (var data = this._options.items, length = data.length; length--;) {
@@ -560,7 +680,6 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * 根据选中项的索引值设置ComboBox
      * @function
      * @name magic.control.ComboBox#$setByIndex
-     * @public
      * @developer 开发者方法
      * @param {Number} index 选中项的索引值。
      */
@@ -575,28 +694,41 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 使ComboBox获得焦点
+     * @description 使组合框获得焦点
      * @function
      * @name magic.control.ComboBox#focus
-     * @public
+     * @grammar magic.control.ComboBox#focus()
+     * @example
+     * instance.focus();
      */
     'focus' : function() {
         if (!this.isFocus) {
             /**
-             * ComboBox聚焦后触发
+             * @description 组合框聚焦后触发
              * @event
              * @name magic.control.ComboBox#onfocus
-             * @param {baidu.lang.Event} evt 事件参数 
+             * @grammar magic.control.ComboBox#onfocus(evt)
+             * @param {baidu.lang.Event} evt 事件参数
+             * @example
+             * instance.on('focus', function() {
+             *     //do something...
+             * });
+             * @example
+             * instance.onfocus = function() {
+             *     //do something...
+             * };
              */
             this.fire('focus'); 
         }
     },
     
     /**
-     * 使ComboBox失去焦点
+     * @description 使组合框失去焦点
      * @function
      * @name magic.control.ComboBox#blur
-     * @public 
+     * @grammar magic.control.ComboBox#blur()
+     * @example
+     * instance.blur();
      */
     'blur' : function() {
         if (this.isFocus) {
@@ -611,20 +743,31 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
                 this.selectValue = value;
             }
             /**
-             * ComboBox失去焦点后触发
+             * @description 组合框失去焦点后触发
              * @event
              * @name magic.control.ComboBox#onfocus
+             * @grammar magic.control.ComboBox#onfocus(evt)
              * @param {baidu.lang.Event} evt 事件参数 
+             * @example
+             * instance.on('blur', function() {
+             *     //do something...
+             * });
+             * @example
+             * instance.onblur = function() {
+             *     //do something...
+             * };
              */
             this.fire('blur');
         }
     },
     
     /**
-     * 将ComboBox重置
+     * @description 将组合框重置
      * @function
      * @name magic.control.ComboBox#reset
-     * @public 
+     * @grammar magic.control.ComboBox#reset()
+     * @example
+     * instance.reset();
      */
     'reset' : function() {
         this._initInput();
@@ -636,11 +779,16 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 为ComboBox载入新的下拉菜单数据
+     * @description 为组合框载入新的下拉菜单数据
      * @function
      * @name magic.control.ComboBox#reload
-     * @public
-     * @param {Array<Object>} data 下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]
+     * @name magic.control.ComboBox#reload(data)
+     * @param {Array<Object>} data 下拉菜单的数据，每项由value和content组成。
+     * @example
+     * instance.reload([
+     *     {"value" : 0, "content" : "女"},
+     *     {"value" : 1, "content" : "男"}
+     * ]);
      */
     'reload' : function(data) {
         this._options.items = data;
@@ -648,10 +796,19 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         this._initInput();
         this.highlightIndex = -1;
         /**
-         * ComboBox载入新的下拉菜单数据后触发
+         * @description 组合框载入新的下拉菜单数据后触发
          * @event
          * @name magic.control.ComboBox#onrelad
-         * @param {baidu.lang.Event} evt 事件参数 
+         * @name magic.control.ComboBox#onrelad()
+         * @param {baidu.lang.Event} evt 事件参数
+         * @example
+         * instance.on('reload', function() {
+         *     //do something...
+         * });
+         * @example
+         * instance.onreload = function() {
+         *     //do something...
+         * };
          */
         this.fire('reload', {
             'data' : data
@@ -659,11 +816,13 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 设置ComboBox为不可用状态
+     * @description 设置组合框为不可用状态。
      * 做2件事：修改样式， 设置input为disable。
      * @function
      * @name magic.control.ComboBox#disable
-     * @public
+     * @grammar magic.control.ComboBox#disable()
+     * @example
+     * instance.disable()
      */
     'disable' : function() {
         if (!this.disabled) {
@@ -676,10 +835,12 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * 设置ComboBox为可用状态
+     * @description 设置组合框为可用状态
      * @function
      * @name magic.control.ComboBox#enable
-     * @public 
+     * @grammar magic.control.ComboBox#enable()
+     * @example
+     * instance.enable();
      */
     'enable' : function() {
         if (this.disabled) {
@@ -693,11 +854,16 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     
     // width: 30%|30px|30em|3cm
     /** 
-     * 通用设置宽度
+     * @description 设置组合框的宽度
      * @function
      * @name magic.control.ComboBox#setWidth
-     * @public
-     * @param {Number} width 宽度数字
+     * @grammar magic.control.ComboBox#setWidth(width)
+     * @param {Number|String} width 宽度数字
+     * @example
+     * instance.setWidth(200);
+     * instance.setWidth('200px');
+     * instance.setWidth(30%);
+     * instance.setWidth('30em');
      */
     'setWidth' :  function(width) {
         this.width = width;
@@ -724,11 +890,18 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     }
     
     /**
-     * 获得 ComboBox组件结构里的 HtmlElement对象
+     * @description 获得 组合框组件结构里的 HtmlElement对象
      * @name magic.control.ComboBox#getElement
+     * @grammar magic.control.ComboBox#getElement(key)
      * @function
      * @param {String} name 可选的值包括：container(combobox节点)|input-container(输入框和右边的箭头整体)|input(输入框)|arrow(输入框右边的箭头)|menu(下拉菜单)
      * @return {HtmlElement} 得到的 HtmlElement 对象
+     * @example
+     * instance.getElement('container'); //获得组合框的最外层节点
+     * instance.getElement('input-container'); //获得输入框+箭头部分的整体。
+     * instance.getElement('input'); //获得输入框
+     * instance.getElement('arrow'); //获得输入框右边的箭头
+     * instance.getElement('menu'); //获得下拉菜单
      */
 
 });
