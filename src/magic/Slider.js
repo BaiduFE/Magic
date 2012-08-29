@@ -15,16 +15,38 @@
 ///import baidu.object.extend;
 
 /**
- * Slider滑动条。
+ * @description Slider滑动条。
  * @class
- * @superClass  magic.control.Slider
- * @grammar     new magic.Slider(options)
- * @param       {Object}                  options           选项。参数的详细说明如下表所示
- * @config      {String}                  orientation       决定sider是水平还是垂直，'horizontal' || 'vertical'
- * @config      {String}                  direction         决定从哪一端开始移动，'forwrad' || 'backward'
- * @config      {Float}                   accuracy          精确度，0-1之间的小数
- * @config      {Number}                  currentValue      Slider的初始值，即游标初始位置
+ * @name magic.Slider
+ * @superClass magic.control.Slider
+ * @grammar new magic.Slider(options)
+ * @param {Object} options 选项。参数的详细说明如下表所示
+ * @param {String} options.orientation 决定sider是水平还是垂直，'horizontal' || 'vertical'
+ * @param {String} options.direction 决定从哪一端开始移动，'forwrad' || 'backward'
+ * @param {Float} options.accuracy 精确度，0-1之间的小数
+ * @param {Number} options.currentValue Slider的初始值，即游标初始位置
  * @author      qiaoyue
+ * @return {magic.Slider} Slider实例
+ * @example
+ * /// for options.orientation
+ * var slider = new magic.Slider({
+ * 		orientation: 'vertical'	// 垂直滚动条
+ * });
+ * @example
+ * /// for options.direction
+ * var slider = new magic.Slider({
+ * 		direction: 'forward'
+ * });
+ * @example
+ * /// for options.accuracy
+ * var slider = new magic.Slider({
+ * 		accuracy: 0.25
+ * });
+ * @example
+ * /// for options.accuracy
+ * var slider = new magic.Slider({
+ * 		currentValue: 10
+ * });
  */
 magic.Slider = baidu.lang.createClass(function(options){
 
@@ -33,12 +55,18 @@ magic.Slider = baidu.lang.createClass(function(options){
 
 /** @lends magic.Slider.prototype */
 magic.Slider.extend({
-
 	/**
-	 * 渲染Slider
-	 * @param  {HtmlElement} el 存放slider的容器对象
-	 * @return none
-	 */
+     * @description 渲染Slider
+     * @name magic.Slider#render
+     * @function
+     * @grammar magic.Slider#render(el)
+     * @param {HtmlElement} el 存放slider的容器对象
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');		// 渲染
+     */
     render: function(el){
         var me = this;
     	el = baidu.dom('#'+el).get(0);
@@ -75,7 +103,16 @@ magic.Slider.extend({
     },
 
     /**
-     * 析构
+     * @description 析构
+     * @name magic.Slider#dispose
+     * @function
+     * @grammar magic.Slider#dispose()
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.dispose();	// 销毁组件
      */
     dispose: function(){
         var me = this, slider;

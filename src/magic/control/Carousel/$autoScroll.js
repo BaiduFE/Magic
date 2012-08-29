@@ -19,7 +19,7 @@
  * @param {Number} autoScroll.interval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
  * @param {String} autoScroll.direction 取值，forward|backward 描述组件的滚动方向
  * @example
- * for autoScroll.enable,autoScroll.direction
+ * /// for autoScroll.enable,autoScroll.direction
  * var carousel = new magic.Carousel({
  * 		autoScroll: {
  * 			enable: true,
@@ -27,7 +27,7 @@
  *      }
  * });
  * @example
- * for autoScroll.interval
+ * /// for autoScroll.interval
  * var carousel = new magic.Carousel({
  * 		autoScroll: {
  * 			enable: true,

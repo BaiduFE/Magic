@@ -17,14 +17,14 @@
  * @param {Number} fx.interval 动画脉冲间隔时间，默认值是16（毫秒）
  * @author linlingyu
  * @example
- * for fx.enable
+ * /// for fx.enable
  * var carousel = new magic.Carousel({
  * 		fx: {
  * 			enable: true
  *      }
  * });
  * @example
- * for fx.duration
+ * /// for fx.duration
  * var carousel = new magic.Carousel({
  * 		fx: {
  * 			enable: true,
@@ -32,7 +32,7 @@
  *      }
  * });
  * @example
- * for fx.duration
+ * /// for fx.duration
  * var carousel = new magic.Carousel({
  * 		fx: {
  * 			enable: true,

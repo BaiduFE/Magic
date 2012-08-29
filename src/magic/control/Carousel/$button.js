@@ -21,7 +21,7 @@
  * @param {Boolean} button.enable 是否显示按钮，默认显示
  * @author linlingyu
  * @example
- * for button.enable
+ * /// for button.enable
  * var carousel = new magic.Carousel({
  * 		button: {
  * 			enable: true,

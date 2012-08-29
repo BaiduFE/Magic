@@ -23,28 +23,28 @@
  * @return {magic.control.Carousel} Carousel实例.
  * @author linlingyu
  * @example
- * for el,options.orientation,options.isLoop
+ * /// for el,options.orientation,options.isLoop
  * var carousel = magic.setup.carousel('one-carousel', {
  * 		orientation: 'vertical',
  * 		isLoop: true
  * });
  * @example
- * for options.originalIndex
+ * /// for options.originalIndex
  * var carousel = magic.setup.carousel('one-carousel', {
  * 		originalIndex: 2,
  * });
  * @example
- * for options.viewSize
+ * /// for options.viewSize
  * var carousel = magic.setup.carousel('one-carousel', {
  * 		viewSize: 2,
  * });
  * @example
- * for options.focusRange
+ * /// for options.focusRange
  * var carousel = magic.setup.carousel('one-carousel', {
  * 		focusRange: {min: 1, max: 2}
  * });
  * @example
- * for options.step
+ * /// for options.step
  * var carousel = magic.setup.carousel('one-carousel', {
  * 		step: 4
  * });

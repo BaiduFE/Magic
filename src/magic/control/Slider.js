@@ -17,18 +17,40 @@
 
 
 /**
- * Slider控制器。
+ * @description Slider控制器。
  * @class
+ * @name magic.control.Slider
  * @superClass  magic.control.Layer
  * @grammar     new magic.control.Slider(options)
- * @param       {Object}                  options           选项。参数的详细说明如下表所示
- * @config      {String}                  orientation       决定sider是水平还是垂直，'horizontal' || 'vertical'
- * @config      {String}                  direction         决定从哪一端开始移动，'forwrad' || 'backward'
- * @config      {Float}                   accuracy          精确度，0-1之间的小数
- * @config      {Number}                  currentValue      Slider的初始值，即游标初始位置
- * @plugin      fx                        为Slider组件增加动画滚动功能
- * @plugin      cache                     为Slider组件增加缓存进度功能
+ * @param {Object} options 选项。参数的详细说明如下表所示
+ * @param {String} options.orientation 决定sider是水平还是垂直，'horizontal' || 'vertical'
+ * @param {String} options.direction 决定从哪一端开始移动，'forwrad' || 'backward'
+ * @param {Float} options.accuracy 精确度，0-1之间的小数
+ * @param {Number} options.currentValue Slider的初始值，即游标初始位置
+ * @plugin fx 为Slider组件增加动画滚动功能
+ * @plugin cache 为Slider组件增加缓存进度功能
  * @author      qiaoyue
+ * @return {magic.control.Slider} Slider实例
+ * @example
+ * /// for options.orientation
+ * var slider = new magic.Slider({
+ * 		orientation: 'vertical'	// 垂直滚动条
+ * });
+ * @example
+ * /// for options.direction
+ * var slider = new magic.Slider({
+ * 		direction: 'forward'
+ * });
+ * @example
+ * /// for options.accuracy
+ * var slider = new magic.Slider({
+ * 		accuracy: 0.25
+ * });
+ * @example
+ * /// for options.accuracy
+ * var slider = new magic.Slider({
+ * 		currentValue: 10
+ * });
  */
 magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options){
     var me = this,
@@ -91,25 +113,49 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
 magic.control.Slider.extend({
 
     /**
-     * 禁用组件
-     * @return {}   none
+     * @description 禁用组件
+     * @name magic.control.Slider#disable
+     * @function
+     * @grammar magic.control.Slider#disable()
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.disable();	// 禁用
      */
     disable: function(){
         this._info._status = 'disabled';
     },
-
-    /**
-     * 启用组件
-     * @return {}   none
+	/**
+     * @description 启用组件
+     * @name magic.control.Slider#enable
+     * @function
+     * @grammar magic.control.Slider#enable()
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.disable();	// 禁用
+     * slider.enable();	// 启用
      */
     enable: function(){
         this._info._status = 'enable';
     },
 
-    /**
-     * 设置组件的值，无动画效果
-     * @param  {float}   value    要设置的值
-     * @return {}        none
+	/**
+     * @description 设置组件的值，无动画效果
+     * @name magic.control.Slider#setValue
+     * @function
+     * @grammar magic.control.Slider#setValue(value)
+     * @param {float} value 要设置的值
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.setValue(20);		// 设置值
      */
     setValue: function(value){
         var me = this,
@@ -126,19 +172,34 @@ magic.control.Slider.extend({
         me._setPosition({target: null, noAccuracy: true, noFx: true}, pos);
         info.currentValue = value;       
     },
-
-    /**
-     * 获取组件的值
-     * @return {float}    value    组件当前值
+	/**
+     * @description 获取组件的值
+     * @name magic.control.Slider#getValue
+     * @function
+     * @grammar magic.control.Slider#getValue()
+     * @return {float} value 组件当前值
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.getValue();	// 获取值
      */
     getValue: function(){
         return this._info.currentValue;
     },
-
-    /**
-     * 设置范围
-     * @param  {float}    value    设置组件的取值范围(0-1)
-     * @return {}         none
+	/**
+     * @description 设置范围
+     * @name magic.control.Slider#setRange
+     * @function
+     * @grammar magic.control.Slider#setRange(value)
+     * @param {float} value 设置组件的取值范围(0-1)
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.setRange(0.5);	// 设置范围
      */
     setRange: function(value){
         var me = this,
@@ -155,7 +216,16 @@ magic.control.Slider.extend({
     },
 
     /**
-     * 析构
+     * @description 析构
+     * @name magic.control.Slider#dispose
+     * @function
+     * @grammar magic.control.Slider#dispose()
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.dispose();	// 销毁组件
      */
     dispose: function(){
         var me = this;
@@ -503,30 +573,101 @@ magic.control.Slider.extend({
         info._accuracyZone = accuracyZone.concat(info[_accuracyKey]);
     },
 
-    /**
-     * 拖动开始触发
+	
+	/**
+     * @description 拖动开始触发
      * @name magic.control.Slider#onslidestart
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onslidestart=function(evt){...}
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.onslidestart = function(evt){
+     * 		alert("开始拖动");
+     * }
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.on('onslidestart', function(evt){
+     * 		alert("开始拖动");
+     * });
      */
-    /**
-     * 拖动中触发
+	
+	/**
+     * @description 拖动中触发
      * @name magic.control.Slider#onslide
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onslide=function(evt){...}
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.onslide = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.on('onslide', function(evt){
+     * 		// do something...
+     * });
      */
-    /**
-     * 拖动结束触发
+	
+	/**
+     * @description 拖动结束触发
      * @name magic.control.Slider#onslidestop
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onslidestop=function(evt){...}
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.onslidestop = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.on('onslidestop', function(evt){
+     * 		// do something...
+     * });
      */
     /**
-     * 当组件值发生改变时触发
+     * @description 当组件值发生改变时触发
      * @name magic.control.Slider#onchange
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
-     * @config  {Number}             value      组件当前值
+     * @event
+     * @grammar magic.control.Slider#onchange=function(evt){...}
+     * @param {baidu.lang.Event} evt 事件参数
+     * @param {Number} evt.value 组件当前值
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.onchange = function(evt){
+     * 		log(evt.value);		// 记录值的每一次变动
+     * }
+     * @example
+     * var slider = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * slider.render('s1');
+     * slider.on('onchange', function(evt){
+     * 		log(evt.value);		// 记录值的每一次变动
+     * });
      */
     /**
      * 事件控制器

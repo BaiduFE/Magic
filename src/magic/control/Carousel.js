@@ -118,28 +118,28 @@ void function(){
  * @author linlingyu
  * @return {magic.control.Carousel} Carousel实例
  * @example
- * for options.orientation,options.isLoop
+ * /// for options.orientation,options.isLoop
  * var carousel = new magic.Carousel({
  * 		orientation: 'vertical',
  * 		isLoop: true
  * });
  * @example
- * for options.originalIndex
+ * /// for options.originalIndex
  * var carousel = new magic.Carousel({
  * 		originalIndex: 2,
  * });
  * @example
- * for options.viewSize
+ * /// for options.viewSize
  * var carousel = new magic.Carousel({
  * 		viewSize: 2,
  * });
  * @example
- * for options.focusRange
+ * /// for options.focusRange
  * var carousel = new magic.Carousel({
  * 		focusRange: {min: 1, max: 2}
  * });
  * @example
- * for options.step
+ * /// for options.step
  * var carousel = new magic.Carousel({
  * 		step: 4
  * });
