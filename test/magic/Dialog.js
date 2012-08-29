@@ -828,12 +828,18 @@ test("test mask", function(){
     ua.frameExt(function(w, f){
         var me = this;
         ua.loadcss(upath + "setup/dialog/demo.css", function(){
-	        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500).css('margin',0).css('padding',0).css('border',0);
+	        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 400).css("width", 400).css('margin',0).css('padding',0).css('border',0);
 	        $(f).attr('allowtransparency', 'true');
 	        $(f).css('background-color', 'transparent');
 	        w.document.body.style.backgroundColor = 'transparent';
-	        w.document.body.style.height = '1000px';	//让iframe出滚动条
-			w.document.body.style.width = '1000px';	//让iframe出滚动条
+
+	        //让iframe出滚动条
+	        var temp = w.document.createElement('div');
+	        temp.innerHTML = '<div style="width:800px;height:800px;"></div>'
+	        w.document.body.appendChild(temp);
+
+	        // w.document.body.style.height = '1000px';	//让iframe出滚动条
+			// w.document.body.style.width = '1000px';	//让iframe出滚动条
 	        var instance = w.magic.Alert({
 	            'content': '内容',
 	            'titleText': '标题',
@@ -867,7 +873,7 @@ test("test mask", function(){
 			equals(w.$(_mask).css('top'), top, "The top is right");
 
 	        //resize
-			$(f).css("height", 600).css("width", 600);
+			$(f).css("height", 500).css("width", 500);
 			setTimeout(function(){
 				
 				equals(_mask.style.height, getViewHeight() + "px", "After window resize, the height is right");
@@ -878,7 +884,7 @@ test("test mask", function(){
 				equals(w.$(_mask).css('top'), top, "After window resize, the top is right");
 
 				//scroll
-				// w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				// w.document.documentElement.scrollTop = w.document.documentElement.scrollLeft = 100;
 				w.scrollBy(200, 200);
 				setTimeout(function(){
 					equals(_mask.style.height, getViewHeight() + "px", "After window scroll, the height is right");

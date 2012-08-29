@@ -447,8 +447,15 @@ test("window resize, window scroll", function(){
 		ua.importsrc("magic.setup.dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 			enSetup(w);
-			w.document.body.style.height = '1000px';	//让iframe出滚动条
-			w.document.body.style.width = '1000px';	//让iframe出滚动条
+			
+			//让iframe出滚动条
+	        var temp = w.document.createElement('div');
+	        temp.innerHTML = '<div style="width:800px;height:800px;"></div>'
+	        w.document.body.appendChild(temp);
+
+	        // w.document.body.style.height = '1000px';	//让iframe出滚动条
+			// w.document.body.style.width = '1000px';	//让iframe出滚动条
+
 			var cdiv = w.document.createElement("div");
 			cdiv.id = "cdiv";
 			$(cdiv).html("dialog内容");
@@ -491,7 +498,8 @@ test("window resize, window scroll", function(){
 				equals(dialog._mask.getElement().style.top, top, "After window resize, the top is right");
 
 				//scroll
-				w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				// w.document.body.scrollTop = w.document.body.scrollLeft = 200;
+				w.scrollBy(200, 200);
 				setTimeout(function(){
 					equals(dialog._mask.height, getViewHeight(), "After window scroll, the height is right");
 					equals(dialog._mask.width, getViewWidth(), "After window scroll, the width is right");
