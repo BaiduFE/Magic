@@ -55,7 +55,7 @@ magic.setup.carousel = function(el, options) {
 	 *@instace
 	 *@name magic.setup.carousel!
 	 *@superClass magic.control.Carousel
-	 *@return {instace} magic.control.Dialog 实例对象
+	 *@return {instace} magic.control.Carousel 实例对象
 	 */
     var instance = magic.setup(baidu.dom('#'+el).get(0), magic.control.Carousel, options);
     instance.fire('onload');
