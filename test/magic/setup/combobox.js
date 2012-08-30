@@ -12,7 +12,6 @@ test('setup, init from select', function() {
         var width = s.offsetWidth;
 
         var cb = magic.setup.combobox(s);
-        console.log()
         equals(Math.abs(baidu.dom(cb.getElement('container')).offset().left - pos.left) <= 2, true, 'left error in 2px is right.');
 
         equals(Math.abs(baidu.dom(cb.getElement('container')).offset().top - pos.top) <= 5, true, 'top error in 5px is right.');
