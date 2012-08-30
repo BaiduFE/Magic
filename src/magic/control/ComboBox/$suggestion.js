@@ -86,12 +86,24 @@ var Timer = baidu.lang.createClass(function(options) {
 });
 
 /**
- * ComboBox的suggestion功能插件
+ * @description 组合框的输入框提示功能插件
  * @name magic.control.ComboBox.$suggestion
  * @addon magic.control.ComboBox
  * @param {Object} options 选项
- * @config {Boolean} enable 开关
+ * @param {Boolean} enable 开关
  * @author 夏登平 xiadengping@baidu.com
+ * @example
+ * /// for enable
+ * var instance = new magic.Combobox({
+ *     'items' : [
+ *         {'value' : 0, 'content' : '选项1'},
+ *         {'value' : 1, 'content' : '选项2'},
+ *         {'value' : 2, 'content' : '选项3'}
+ *     ],
+ *     'suggestion' : {
+ *         'enable' : false //此时插件功能将不启用
+ *     }
+ * });
  *  
  */
 baidu.lang.register(magic.control.ComboBox, function(options) {
