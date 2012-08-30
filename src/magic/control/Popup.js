@@ -21,26 +21,48 @@
 ///import baidu.page.getScrollTop;
 
 /**
- * 弹出窗的窗体，此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
+ * @description 弹出窗的窗体，此类没有render()方法，直接 new，指定参数后直接 attach() 或者 show()
  * @class
- * @superClass magic.control.Layer
  * @name magic.control.Popup
+ * @superClass magic.control.Layer
  * @grammar new magic.control.Popup(options)
- *
- * @param   {JSON}       options     参数设置
- * @config  {Boolean}    autoHide     [r/w]是否自动隐藏
- * @config  {Boolean}    visible     [r]弹出层当前是否显示？
- * @config  {Boolean}    smartPosition    [r/w]弹出层会根据屏幕可视区域的大小自动向下或向上翻转
- * @config  {Boolean}    disposeOnHide    [r/w]在 hide 方法执行的时候自动析构
- * @config  {Boolean}    hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
- * @config  {Number}     offsetX     [r/w]定位时的偏移量，X方向
- * @config  {Number}     offsetY     [r/w]定位时的偏移量，Y方向
- * @config  {Number|String}    top     [r]弹出层的定位点
- * @config  {Number|String}    left    [r]弹出层的定位点 200|200px|50%|12em|12cm
- * @config  {Number|String}    width     [r/w]弹出层的宽度，默认值 auto
- * @config  {Number|String}    height     [r/w]弹出层的高度，默认值 auto
- * 
+ * @param {JSON} options 参数设置
+ * @param {Boolean} options.autoHide [r/w]是否自动隐藏
+ * @param {Boolean} options.visible [r]弹出层当前是否显示？
+ * @param {Boolean} options.smartPosition [r/w]弹出层会根据屏幕可视区域的大小自动向下或向上翻转
+ * @param {Boolean} options.disposeOnHide [r/w]在 hide 方法执行的时候自动析构
+ * @param {Boolean} options.hideOnEscape [r/w]在用户按[ESC]键时是否隐藏当前弹出层
+ * @param {Number} options.offsetX [r/w]定位时的偏移量，X方向
+ * @param {Number} options.offsetY [r/w]定位时的偏移量，Y方向
+ * @param {Number|String} options.top [r]弹出层的定位点
+ * @param {Number|String} options.left [r]弹出层的定位点 200|200px|50%|12em|12cm
+ * @param {Number|String} options.width [r/w]弹出层的宽度，默认值 auto
+ * @param {Number|String} options.height [r/w]弹出层的高度，默认值 auto
+ * @return {magic.control.Popup} Popup实例
  * @author meizz
+ * @example
+ * /// for options.autoHide,options.visible,options.smartPosition
+ * var popup = new magic.Popup({
+ * 		autoHide: true,		// 自动隐藏
+ * 		visible: true,		// 显示弹出层
+ * 		smartPosition: true		// 自动向下或向上翻转
+ * });
+ * @example
+ * /// for options.disposeOnHide,options.hideOnEscape
+ * var popup = new magic.Popup({
+ * 		disposeOnHide: true,		// 在 hide 方法执行的时候自动析构
+ * 		hideOnEscape: true		// 在用户按[ESC]键时是否隐藏当前弹出层
+ * });
+ * @example
+ * /// for options.offsetX,options.offsetY,options.top,options.left,options.width,options.height
+ * var popup = new magic.Popup({
+ * 		offsetX: 10,		// X方向偏移10px
+ * 		offsetY: 20,		// Y方向偏移20px
+ * 		left: 200,			// X轴坐标 200px
+ * 		top: 500,			// Y轴坐标 500px
+ * 		width: 300,			// 宽 300px
+ * 		height:80			// 高 80px
+ * });
  */
 magic.control.Popup = baidu.lang.createClass(function(options){
     var me = this;
@@ -68,21 +90,40 @@ magic.control.Popup = baidu.lang.createClass(function(options){
 .extend(
     /** @lends magic.control.Popup.prototype */
     {
+    	
     /**
-     * 向弹出层写入内容，支持HTML
-     * @param    {String}    content 将要写入的内容
+     * @description 向弹出层写入内容，支持HTML
+     * @name magic.control.Popup#setContent
+     * @function 
+     * @grammar magic.control.Popup#setContent(content)
+     * @param {String} content 将要写入的内容
+     * @example
+     * var popup = new magic.Popup(option);
+     * popup.setContent('some text');
      */
     setContent : function(content){
         this.getElement("content").innerHTML = content;
     }
+    
     /**
-     * 将弹出层与某个DOM元素进行展现的位置绑定
-     * @param    {HTMLElement}    el         被绑定的元素
-     * @param    {JSON}            options 展现的时候一个参数设置
-     * @config  {Number}        offsetX 定位时的偏移量，X方向
-     * @config  {Number}        offsetY 定位时的偏移量，Y方向
-     * @config  {Number|String}    width     弹出层的宽度，默认值 auto；200|200px|50%|12em|12cm
-     * @config  {Number|String}    height     弹出层的高度，默认值 auto
+     * @description 将弹出层与某个DOM元素进行展现的位置绑定
+     * @name magic.control.Popup#attach
+     * @function 
+     * @grammar magic.control.Popup#attach(el, options)
+     * @param {HTMLElement} el 被绑定的元素
+     * @param {JSON} options 展现的时候一个参数设置
+     * @param {Number} options.offsetX 定位时的偏移量，X方向
+     * @param {Number} options.offsetY 定位时的偏移量，Y方向
+     * @param {Number|String} options.width 弹出层的宽度，默认值 auto；200|200px|50%|12em|12cm
+     * @param {Number|String} options.height 弹出层的高度，默认值 auto
+     * @example
+     * var popup = new magic.Popup(option);
+     * popup.attach(baidu('#target').get(0), {
+     * 		offsetX: 10,
+     * 		offsetY: 20,
+     * 		width: baidu('#target').width(),
+     * 		height: 150
+     * });
      */
     ,attach : function(el, options) {
         if(baidu.dom(el).size()) {
@@ -92,10 +133,18 @@ magic.control.Popup = baidu.lang.createClass(function(options){
             this.show();
         }
     }
-    
     /**
-     * 对弹出层重新定位，主要是应对页面resize时绑定的目标元素位置发生改变时重定位
-     * @param    {JSON|Array}    position     [可选]{top, left}|[top, left]
+     * @description 对弹出层重新定位，主要是应对页面resize时绑定的目标元素位置发生改变时重定位
+     * @name magic.control.Popup#reposition
+     * @function 
+     * @grammar magic.control.Popup#reposition(position)
+     * @param {JSON|Array} position [可选]{top, left}|[top, left]
+     * @example
+     * var popup = new magic.Popup(option);
+     * popup.reposition({
+     * 		left: 200,
+     * 		top: 20
+     * });
      */
     ,reposition : function(position){
         var me = this;
@@ -119,23 +168,45 @@ magic.control.Popup = baidu.lang.createClass(function(options){
         me.fire("reposition");
         me.setPosition([me.left, me.top]);
     }
-
-    /**
-     * 弹出层的定位
-     * @param    {JSON}    position     {left, top}|[left, top]
+	/**
+     * @description 弹出层的定位
+     * @name magic.control.Popup#setPosition
+     * @function 
+     * @grammar magic.control.Popup#setPosition(position)
+     * @param {JSON|Array} position [可选]{top, left}|[top, left]
+     * @example
+     * var popup = new magic.Popup(option);
+     * popup.setPosition({
+     * 		left: 200,
+     * 		top: 20
+     * });
      */
     ,setPosition : function(position){
         this.setTop(position.top || position[1]);
         this.setLeft(position.left||position[0]);
     }
-    /** 设置对象Top偏移
+    /**
+     * @description 设置对象Top偏移
+     * @name magic.control.Popup#setTop
+     * @function 
+     * @grammar magic.control.Popup#setTop(top)
      * @param {Number} top 偏移数值
+     * @example
+     * var popup = new magic.Popup(option);
+     * popup.setTop(20);
      */
     ,setTop : function(top) {
         baidu.dom(this.getElement()).css("top", (this.top=top)+"px");
     }
-    /** 设置对象Left偏移
+    /**
+     * @description 设置对象Left偏移
+     * @name magic.control.Popup#setLeft
+     * @function 
+     * @grammar magic.control.Popup#setLeft(left)
      * @param {Number} left 偏移数值
+     * @example
+     * var popup = new magic.Popup(option);
+     * popup.setLeft(20);
      */
     ,setLeft : function(left) {
         baidu.dom(this.getElement()).css("left", (this.left=left)+"px");
