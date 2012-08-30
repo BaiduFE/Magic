@@ -16,6 +16,7 @@
 /**
  * 所有 Layer 基类
  * @class
+ * @name magic.control.Layer
  * @grammar new magic.control.Layer(options)
  * @superClass magic.Base
  * @author meizz
@@ -37,14 +38,24 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
 .extend(
 /** @lends magic.control.Layer.prototype */
 {
-    /** 通用展现方法 */
+    /**
+     * @description 通用展现方法
+     * @name magic.control.Layer#show
+     * @function
+     * @grammar magic.control.Layer#show()
+     */
     show : function(){
         if (this.fire("onbeforeshow")) {
             this.getElement().style.display = "";
             this.fire("onshow");
         }
     }
-	/** 通用隐藏方法 */
+    /**
+     * @description 通用隐藏方法
+     * @name magic.control.Layer#hide
+     * @function
+     * @grammar magic.control.Layer#hide()
+     */
     ,hide :  function(){
         if (this.fire("onbeforehide")) {
             this.getElement().style.display = "none";
@@ -52,32 +63,37 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
         }
     }
 
-
-    // width: 30%|30px|30em|3cm
-	/** 
-     * 通用设置宽度
-	 * @function
-	 * @param {Number} width 宽度数字
-	 */
+    /**
+     * @description 通用设置宽度
+     * @name magic.control.Layer#setWidth
+     * @function
+     * @grammar magic.control.Layer#setWidth()
+     * @param {Number} width 宽度值:30%|30px|30em|3cm
+     */
     ,setWidth :  function(width) {
-        baidu.dom(this.getElement()).css('width', (this.width=width)+'px');
+         baidu.dom.setPixel(this.getElement(), "width",(this.height=height));
     }
-	/** 
-     * 通用设置高度
-	 * @function
-	 * @param {Number} height 高度数字
-	 */
+	
+    /**
+     * @description 通用设置高度
+     * @name magic.control.Layer#setHeight
+     * @function
+     * @grammar magic.control.Layer#setHeight()
+     * @param {Number} height 高度值:30%|30px|30em|3cm
+     */
     ,setHeight :  function(height) {
-        baidu.dom(this.getElement()).css('height', (this.height=height)+'px');
+        baidu.dom.setPixel(this.getElement(), "height",(this.height=height));
     }
-    // size:{width, height}|[width, height]
-	/** 
-     * 通用设置大小
-	 * @function
-	 * @param {object||Array} size 宽和高组成的对象，为数组时第一个参数为宽，第二个参数为高
-	 * @config {Number} size.width 宽度
-	 * @config {Number} size.height 高度
-	 */
+    
+     /**
+     * @description 通用设置大小
+     * @name magic.control.Layer#setSize
+     * @function
+     * @grammar magic.control.Layer#setSize()
+     * @param {Number} size {width, height}|[width, height]
+     * @param {Number} size.width 宽度值:30%|30px|30em|3cm
+     * @param {Number} size.height 高度值:30%|30px|30em|3cm
+     */
     ,setSize : function(size){
         this.setWidth(size.width || size[0]);
         this.setHeight(size.height||size[1]);

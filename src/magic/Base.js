@@ -19,7 +19,6 @@
  * @class
  * @name magic.Base
  * @grammar new magic.Base()
-
  * @return {magic.Base}
  * @author meizz
  */
@@ -33,7 +32,10 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
 /** @lends magic.Base.prototype */
 {
     /**
-     * 取得 ui 模块对应的 dom element 对象
+     * @description 取得 ui 模块对应的 dom element 对象
+     * @name magic.Base#getElement
+     * @function
+     * @grammar magic.Base#getElement(id)
      * @param   {String}    key     该ID对应的关键字(可选参数)
      * @return  {Object}    ui模块对应的dom element
      */
@@ -42,8 +44,11 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
     },
 
     /**
-     * 取得所有 ui 模块对应的 dom element 对象
-     * @return {Object} 取得对象的集合
+     * @description 取得所有 ui 模块对应的 dom element 对象
+     * @name magic.Base#getElements
+     * @function
+     * @grammar magic.Base#getElements()
+     * @return  {Object}    取得对象的集合
      */
     getElements: function(){
         var result = {};
@@ -54,7 +59,10 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
     },
 
     /**
-     * 取得一个页面唯一的 id
+     * @description 取得一个页面唯一的 id
+     * @name magic.Base#getId
+     * @function
+     * @grammar magic.Base#getId(key)
      * @param   {String}    key     该ID对应的关键字(可选参数)
      * @return  {String}            页面唯一的 id，可以作为DOM元素的id
      */
@@ -65,7 +73,10 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
     }
 
     /**
-     * 这是一个针对 setup 反向创建对象的特有方法，将类里key与DOM建立映射
+     * @description 这是一个针对 setup 反向创建对象的特有方法，将类里key与DOM建立映射
+     * @name magic.Base#mappingDom
+     * @function
+     * @grammar magic.Base#mappingDom(key, dom)
      * @param   {String}    key 自定义一个名称用来与DOM对象建立映射关系
      * @param   {HTMLElement | String}  dom 被映射的DOM对象
      */
@@ -79,7 +90,10 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
     }
 
     /**
-     * 析构函数，在析构时派发析构事件
+     * @description 析构函数，在析构时派发析构事件
+     * @name magic.Base#dispose
+     * @function
+     * @grammar magic.Base#dispose()
      */
     ,dispose : function() {
         this.fire("ondispose") && baidu.lang.Class.prototype.dispose.call(this);

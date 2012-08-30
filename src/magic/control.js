@@ -13,5 +13,6 @@
 /**
  * 按 VCD 模式，将 Control 与 View 分离，所有模块的 control 皆放在此空间下
  * @namespace magic.control
+ * @name magic.control
  */
 magic.control = magic.control || {};
