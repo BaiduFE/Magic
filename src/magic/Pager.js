@@ -28,7 +28,7 @@
  * 3，当前页是第一页时，不出现首页和上一页的链接；当前页是最后一页时，不出现下一页和尾页的链接。<br>
  * @author 夏登平 (xiadengping@baidu.com)
  * @class
- * @name magic.pager
+ * @name magic.Pager
  * @superClass magic.Base
  * @grammar new magic.Pager(options)
  * @param {Object} options 选项

@@ -17,12 +17,12 @@
  * @grammar new magic.ComboBox(options)
  * @superClass magic.control.ComboBox
  * @param {Object} options 选项
- * @param {Array<Object>} items 组合框下拉菜单的数据，每项由value和content组成，默认[]。
- * @param {Number} viewSize 下拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
- * @param {Boolean} readonly 输入框是否可以编辑输入，默认true。
- * @param {Boolean} disabled 组合框是否处于禁用状态，默认false。
- * @param {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
- * @param {Number|String} width 组合框的宽度，默认100%。
+ * @param {Array<Object>} options.items 组合框下拉菜单的数据，每项由value和content组成，默认[]。
+ * @param {Number} options.viewSize 下拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
+ * @param {Boolean} options.readonly 输入框是否可以编辑输入，默认true。
+ * @param {Boolean} options.disabled 组合框是否处于禁用状态，默认false。
+ * @param {Number} options.originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
+ * @param {Number|String} options.width 组合框的宽度，默认100%。
  * @return {magic.ComboBox} 组合框实例.
  * @example
  * /// for items

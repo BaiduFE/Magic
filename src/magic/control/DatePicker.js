@@ -19,7 +19,7 @@
 
 /**
  * @description datePicker组件的控制器
- * @name magic.setup.DatePicker
+ * @name magic.control.DatePicker
  * @class
  * @grammar new magic.control.DatePicker(options)
  * @param {Object} options 自定义选项
