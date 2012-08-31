@@ -152,10 +152,10 @@ magic.Dialog.extend(
 		if(this.content)
 		    this.setContent(this.content, this.contentType);
 		/**
-        * 当窗口节点渲染完成后触发
+        * @description 当窗口节点渲染完成后触发
         * @name magic.control.Dialog#onload
         * @event
-        * @grammar magic.control.Dialog#onload = function(){...}
+        * @grammar magic.control.Dialog#onload
         * @example
         * var dialog = new magic.Dialog({
         *      titleText: "对话框标题",

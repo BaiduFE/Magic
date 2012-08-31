@@ -206,10 +206,10 @@ magic.control.Dialog.extend(
      */
     show: function(){
         /**
-         * 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
+         * @description 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
          * @name magic.control.Dialog#onbeforeshow
          * @event
-         * @grammar magic.control.Dialog#onbeforeshow = function(){...}
+         * @grammar magic.control.Dialog#onbeforeshow
         * @example
         * var dialog = new magic.Dialog({
         *      titleText: "对话框标题",
@@ -241,10 +241,10 @@ magic.control.Dialog.extend(
         this._isShown = true;
 
        /**
-        * 当窗口显示后触发
+        * @description 当窗口显示后触发
         * @name magic.control.Dialog#onshow
         * @event
-        * @grammar magic.control.Dialog#onshow = function(){...}
+        * @grammar magic.control.Dialog#onshow
         * @example
         * var dialog = new magic.Dialog({
         *      titleText: "对话框标题",
@@ -295,7 +295,7 @@ magic.control.Dialog.extend(
          * @description 当即将关闭窗口时触发，如果事件回调函数返回值为 false，则阻止关闭窗口
          * @name magic.control.Dialog#onbeforehide
          * @event
-         * @grammar magic.control.Dialog#onbeforehide = function(){...}
+         * @grammar magic.control.Dialog#onbeforehide
          * @example
          * var dialog = new magic.Dialog({
          *      titleText: "对话框标题",
@@ -330,7 +330,7 @@ magic.control.Dialog.extend(
          * @description 当关闭窗口时触发
          * @name magic.control.Dialog#onhide
          * @event
-         * @grammar magic.control.Dialog#onhide = function(){...}
+         * @grammar magic.control.Dialog#onhide
          * @example
          * var dialog = new magic.Dialog({
          *      titleText: "对话框标题",
@@ -467,7 +467,7 @@ magic.control.Dialog.extend(
          * @description 当窗口获得焦点时触发
          * @name magic.control.Dialog#onfocus
          * @event 
-         * @grammar magic.control.Dialog#onfocus = function(){...}
+         * @grammar magic.control.Dialog#onfocus
          * @example
          * var dialog = new magic.Dialog({
          *      titleText: "对话框标题",
