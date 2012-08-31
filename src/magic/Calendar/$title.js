@@ -118,10 +118,10 @@ baidu.lang.register(magic.Calendar, function(){
         }
         
         /**
-        * 年份和月份select控件渲染完成时触发
-        * @name magic.control.Calendar#onselectdate
+        * @description 年份和月份select控件渲染完成时触发
+        * @name magic.Calendar#titlerender
         * @event
-        * @grammar magic.control.Calendar#onselectdate = function(){...}
+        * @grammar magic.Calendar#titlerender = function(){...}
         * @example
         * var calendar = new magic.Calendar({
         *      weekStart: 'sat',

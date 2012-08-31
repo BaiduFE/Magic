@@ -142,7 +142,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 		});
 		
         /**
-        * 日历渲染完成
+        * @description 日历渲染完成
         * @name magic.control.DatePicker#onshow
         * @event
         * @grammar magic.control.DatePicker#onshow = function(){...}
@@ -184,7 +184,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 		me.popup.hide();
 		
         /**
-        * 隐藏日历
+        * @description 隐藏日历
         * @name magic.control.DatePicker#onhide
         * @event
         * @grammar magic.control.DatePicker#onhide = function(){...}
@@ -265,7 +265,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     }
     
     /**
-     * 获得DatePicker组件结构里的 HtmlElement对象
+     * @description 获得DatePicker组件结构里的 HtmlElement对象
      * @name magic.control.DatePicker#getElement
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)

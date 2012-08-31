@@ -13,6 +13,7 @@
  * 轮询计时器，用来实现ComboBox的suggestion功能
  * @author 夏登平 (xiadengping@baidu.com)
  * @class
+ * @name magic.control.ComboBox.$suggestion
  * @param {Object} options 选项
  * @config {Number} circleTime 轮询的最小时间差，单位毫秒，默认10。
  * @config {Number} waitingTime 等待改变的时间，若在这个时间内输入内容改变则重新等待，单位毫秒，默认100.

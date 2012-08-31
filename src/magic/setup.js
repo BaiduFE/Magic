@@ -14,6 +14,7 @@
 /**
  * 各种UI组件反向创建的模块集合
  * @namespace magic.setup
+ * @name magic.setup
  */
 (function(){
 	magic.setup = magic.setup || function(el, Type, options){

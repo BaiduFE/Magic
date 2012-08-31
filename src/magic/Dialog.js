@@ -35,7 +35,6 @@
 
 /**
  * @description 模拟对话框类，用于建立一个实例
- * @name magic.Dialog
  * @class
  * @name magic.Dialog
  * @grammar new magic.Dialog(options)

@@ -11,7 +11,7 @@
 
  /**
  * @description 组合框，由一个文本输入控件和一个下拉菜单组成。
- * @name magic.Dialog
+ * @name magic.ComboBox
  * @author 夏登平 (xiadengping@baidu.com)
  * @class
  * @grammar new magic.ComboBox(options)

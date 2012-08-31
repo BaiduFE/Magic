@@ -14,6 +14,7 @@
 /**
  * 在页面已有 html 结构的基础上创建 background 组件
  * @function magic.setup.background
+ * @name magic.setup.background
  * @param {dom-id|HTMLElement} el 容器对象
  * @grammar magic.setup.background(el, options)
  * @param   {Object}    options 参数设置
