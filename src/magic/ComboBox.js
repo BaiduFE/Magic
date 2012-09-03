@@ -25,7 +25,7 @@
  * @param {Number|String} options.width 组合框的宽度，默认100%。
  * @return {magic.ComboBox} 组合框实例.
  * @example
- * /// for items
+ * /// for options.items
  * var instance = new magic.ComboBox({
  *     "items" : [
  *         {"value" : 0, "content" : "女"},
@@ -33,7 +33,7 @@
  *     ]
  * });
  * @example
- * /// for viewSize
+ * /// for options.viewSize
  * //下拉菜单中有5项，但是只能显示前3项，后两项需要拉滚动条后选择。
  * var instance = new magic.ComboBox({
  *     "items" : [
@@ -44,7 +44,17 @@
  *         {"value" : 4, "content" : "天津"}
  *     ],
  *     "viewSize" : 3
- * })
+ * });
+ * @example
+ * /// for options.readonly, options.originIndex
+ * //当readonly为true时，originIndex的值默认为0，选中第一个选项。
+ * var instance = new magic.ComboBox({
+ *     "items" : [
+ *         {"value" : 0, "content" : "女"},
+ *         {"value" : 1, "content" : "男"}
+ *     ],
+ *     "readonly" : true
+ * });
  */
 magic.ComboBox = baidu.lang.createClass(function(options) {
     //do nothing
@@ -146,10 +156,19 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         }
         var container = this.getElement('container');
         /**
-         * ComboBox析构后触发 
+         * @description ComboBox析构后触发 
          * @event
          * @name magic.ComboBox#ondispose
+         * @grammar magic.ComboBox#ondispose(evt)
          * @param {baidu.lang.Event} evt 事件参数 
+         * @example
+         * instance.on('dispose', function() {
+         *     //do something...
+         * });
+         * @example
+         * instance.ondispose = function() {
+         *     //do something...
+         * }; 
          * @todo ondispose触发的时机，并不是在整个combobox析构之后，而是在数据析构后，dom删除之前。
          */
         magic.control.ComboBox.prototype.dispose.call(this);
