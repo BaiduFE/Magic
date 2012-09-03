@@ -90,7 +90,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      */
     '$menuContentToHTMLString' : function(items) {
         var HTMLString = [];
-        baidu.array(items).each(function(item, index) {
+        baidu.array(items).each(function(index, item) {
             HTMLString.push('<li data-index="' + index + '" data-value="' + items[index].value + '" class="magic-combobox-menu-item">' + items[index].content + '</li>');
         });
         return HTMLString.join('');
