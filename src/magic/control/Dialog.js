@@ -189,7 +189,7 @@ magic.control.Dialog.extend(
     },
 
     /**
-     * 显示对话框
+     * @description 显示对话框
 	 * @name magic.control.Dialog#show
      * @function
      * @example

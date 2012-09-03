@@ -75,8 +75,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     baidu.object.extend(this, options||{});
     
     me.dataCache = {};      //本地缓存suggestion数据
-	me.enableIndexs = [];   //包含enable的item的数组
-	me.selectedIndex = -1;  //指当前选中的item的索引在enableIndexs数组中的索引
+	me.enableIndexs = [];   //包含enable的选项数组
+	me.selectedIndex = -1;  //指当前选中的选项的索引在enableIndexs数组中的索引
     me.currentQuery = '';   //currentQuery保存当前suggestion对应的query，用于在某些情况下还原input中的值
     me.oldInputValue = '';  //存储input中的值，用于轮询器与当前input值对比
     me.upDownArrowTimer = null;   //用来处理键盘上下键一直被按下的情况
@@ -293,19 +293,20 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             input_el = me.getElement("input"),
             customWidth = (me.offset && me.offset.width) || input_el.offsetWidth;
         /**
-         * @description 显示suggestion之前触发
+         * @description 试图显示suggestion时触发
          * @name magic.control.Suggestion#onbeforeshow
          * @event 
          * @grammar magic.control.Suggestion#onbeforeshow(evt)
          * @param {baidu.lang.Event} evt 事件参数
+         * @param {Boolean} evt.returnValue 返回false时，会阻止下拉菜单展现。
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
-         * instance.onbeforeshow = function(){
-         * 		// do something
+         * instance.onbeforeshow = function(evt){
+         * 		evt.returnValue = false; //此时会阻止下拉菜单展现。
          * }
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
-         * instance.on('beforeshow', function(){
+         * instance.on('beforeshow', function(evt){
          * 		// do something
          * });
          */
@@ -367,7 +368,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             var currentData = me.currentData,
                 i = me.enableIndexs[me.selectedIndex];
             if(currentData[i] && (typeof currentData[i].disable == 'undefined' || currentData[i].disable == false)){
-                me.pick(i);
+                me.$pick(i);
             }
         }else{
             me.oldInputValue = me.getElement("input").value;
@@ -486,7 +487,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     /**
      * 判断suggestion某一项是否处于enable状态
      * @private
-     * @param {Integer} index item的索引
+     * @param {Integer} index 选项的索引
      * @return {Boolean} suggestion某一项是否处于enable状态
      */
     _isEnable: function(index){
@@ -495,7 +496,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
     
     /**
-     * 取得某个item对应的的DOM
+     * 取得某个选项对应的的DOM
      * @private
      * @param {Integer} index
      * @return {HTMLElement}
@@ -515,33 +516,33 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 
     /**
-     * 选择某个item，即高亮并上框某个item
+     * 选择某个选项，即高亮并上框某个选项
      * @private
-     * @param {String} selectedIndex 需要高亮的item的索引在enableIndexs数组中的索引
+     * @param {String} selectedIndex 需要高亮的选项的索引在enableIndexs数组中的索引
      */
     _focus: function(selectedIndex){
         var enableIndexs = this.enableIndexs;
-        this.pick(enableIndexs[selectedIndex]);
-        this.highLight(enableIndexs[selectedIndex]);
+        this.$pick(enableIndexs[selectedIndex]);
+        this.$highlight(enableIndexs[selectedIndex]);
     },
     /**
-     * @description 高亮某个item
-     * @name magic.control.Suggestion#highLight
+     * @description 高亮某个选项
+     * @name magic.control.Suggestion#$highlight
      * @function
-     * @grammar magic.control.Suggestion#highLight(index)
-     * @param {String} index 需要高亮 的item索引
+     * @grammar magic.control.Suggestion#$highlight(index)
+     * @param {String} index 需要高亮 的选项索引
      * @example 
      * var instance = magic.setup.suggestion('sgt', option);
-     * instance.highLight(0);		// 高亮第一个 item
+     * instance.$highlight(0);		// 高亮第一个 选项
      */
-    highLight: function(index) {
+    $highlight: function(index) {
         var me = this,
             enableIndexs = me.enableIndexs,
             item = null;
 
-        //若需要高亮的item被设置了disable，则直接返回
+        //若需要高亮的选项被设置了disable，则直接返回
         if (!me._isEnable(index)) return;
-        me.selectedIndex >= 0 && me.clearHighLight();
+        me.selectedIndex >= 0 && me.$clearHighlight();
         
         item = me._getItemDom(index);
         baidu.dom(item).addClass('tang-suggestion-current');
@@ -549,12 +550,12 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         //修改索引
         me.selectedIndex = baidu.array(enableIndexs).indexOf(index);
         /**
-         * @description 高亮某个item时触发
+         * @description 高亮某个选项时触发
          * @name magic.control.Suggestion#onhighlight
          * @event 
          * @grammar magic.control.Suggestion#onhighlight(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onhighlight = function(index, value){
@@ -572,15 +573,15 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         });
     },
     /**
-     * @description 清除item高亮状态
-     * @name magic.control.Suggestion#clearHighLight
+     * @description 清除选项高亮状态
+     * @name magic.control.Suggestion#$clearHighlight
      * @function
-     * @grammar magic.control.Suggestion#clearHighLight()
+     * @grammar magic.control.Suggestion#$clearHighlight()
      * @example 
      * var instance = magic.setup.suggestion('sgt', option);
-     * instance.clearHighLight();
+     * instance.$clearHighlight();
      */
-    clearHighLight: function() {
+    $clearHighlight: function() {
         var me = this,
             selectedIndex = me.selectedIndex,
             item = null;
@@ -591,12 +592,12 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             baidu.dom(item).removeClass(me._getClass('current'));
             me.selectedIndex = -1;
             /**
-	         * @description 去除某个item高亮时触发，若当前没有元素处于高亮状态，则不发出事件
+	         * @description 去除某个选项高亮时触发，若当前没有元素处于高亮状态，则不发出事件
 	         * @name magic.control.Suggestion#onclearhighlight
 	         * @event 
 	         * @grammar magic.control.Suggestion#onclearhighlight(index, value)
-	         * @param {Number} index item的索引
-	         * @param {Object} value 该item对应的value值
+	         * @param {Number} index 选项的索引
+	         * @param {Object} value 该选项对应的value值
 	         * @example
 	         * var instance = magic.setup.suggestion('sgt', option);
 	         * instance.onclearhighlight = function(index, value){
@@ -616,26 +617,26 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 	/**
      * @description 把某个条目放到input框中
-     * @name magic.control.Suggestion#pick
+     * @name magic.control.Suggestion#$pick
      * @function
-     * @grammar magic.control.Suggestion#pick(index)
+     * @grammar magic.control.Suggestion#$pick(index)
      * @param {String} index 条目索引.
      * @example 
      * var instance = magic.setup.suggestion('sgt', option);
-     * instance.pick(1);
+     * instance.$pick(1);
      */
-	pick: function(index){
+	$pick: function(index){
 	    // 不检查index的有效性
 		var me = this,
             currentData = me.currentData,
             returnData = currentData[index];
         /**
-         * @description 将某个item上框前触发
+         * @description 试图将某个选项上框时触发
          * @name magic.control.Suggestion#onbeforepick
          * @event 
          * @grammar magic.control.Suggestion#onbeforepick(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onbeforepick = function(index, value){
@@ -655,12 +656,12 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             me.oldInputValue = returnData.value;
             
         /**
-         * @description 将某个item上框时触发
+         * @description 将某个选项上框时触发
          * @name magic.control.Suggestion#onpick
          * @event 
          * @grammar magic.control.Suggestion#onpick(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onpick = function(index, value){
@@ -680,29 +681,29 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	},
 	/**
      * @description confirm指定的条目
-     * @name magic.control.Suggestion#confirm
+     * @name magic.control.Suggestion#$confirm
      * @function
-     * @grammar magic.control.Suggestion#confirm(index)
-     * @param {Integer} index suggestion中item节点的序号，即当前suggestion值在data中的序号
+     * @grammar magic.control.Suggestion#$confirm(index)
+     * @param {Integer} index suggestion中选项节点的序号，即当前suggestion值在data中的序号
      * @example 
      * var instance = magic.setup.suggestion('sgt', option);
-     * instance.confirm(1);
+     * instance.$confirm(1);
      */
-    confirm: function(index) {
+    $confirm: function(index) {
         // 不检查index的有效性
         var me = this;
 
         if(!me._isEnable(index)){
             return;
         }
-        me.pick(index);
+        me.$pick(index);
         /**
-         * @description 提交某个item时触发
+         * @description 提交某个选项时触发
          * @name magic.control.Suggestion#onconfirm
          * @event 
          * @grammar magic.control.Suggestion#onconfirm(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onconfirm = function(index, value){
@@ -774,7 +775,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     receiveData: function(query, data){
         var me = this,
-            _data = me.cacheData(query, data);
+            _data = me.$cacheData(query, data);
 
         me.selectedIndex = -1;
         if(query == me.getInputValue()){
@@ -784,17 +785,17 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 	/**
      * @description 缓存一组suggestion数据
-     * @name magic.control.Suggestion#cacheData
+     * @name magic.control.Suggestion#$cacheData
      * @function
-     * @grammar magic.control.Suggestion#cacheData(query)
+     * @grammar magic.control.Suggestion#$cacheData(query)
      * @param {String} query 查找的关键字
      * @param {Array} data 通过关键字查找出的提示
      * @return {Array} 包装后的标准格式data {value:value, content:content [, disable:true]}
      * @example 
      * var instance = magic.setup.suggestion('sgt', option);
-     * instance.cacheData(query, data);	// 缓存
+     * instance.$cacheData(query, data);	// 缓存
      */
-    cacheData: function(query, data) {
+    $cacheData: function(query, data) {
         var me = this,
             _data = me._wrapData(data);
         me.dataCache[query] = _data;
@@ -802,10 +803,10 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 	
 	/**
-     * 当鼠标移入某个item
+     * 当鼠标移入某个选项
      * @private
      * @param {Event} e 事件对象
-     * @param {Number} index 当前item在dom中的序列号
+     * @param {Number} index 当前选项在dom中的序列号
      */
     _mouseOver: function(e, index) {
         var me = this;
@@ -813,16 +814,16 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         e.stopPropagation();
         
         if(me._isEnable(index)){
-            me.highLight(index);
+            me.$highlight(index);
             me.selectedIndex = baidu.array(me.enableIndexs).indexOf(index);
         }
         /**
-         * @description 鼠标移入某个item时触发
+         * @description 鼠标移入某个选项时触发
          * @name magic.control.Suggestion#onmouseoveritem
          * @event 
          * @grammar magic.control.Suggestion#onmouseoveritem(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onmouseoveritem = function(index, value){
@@ -841,10 +842,10 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 
     /**
-     * 当鼠标移出某个item
+     * 当鼠标移出某个选项
      * @private
      * @param {Event} e 事件对象
-     * @param {Number} index 当前item在dom中的序列号
+     * @param {Number} index 当前选项在dom中的序列号
      */
     _mouseOut: function(e, index) {
         var me = this;
@@ -852,15 +853,15 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         e.stopPropagation();
         
         if(!me.holdHighLight){
-            me._isEnable(index) && me.clearHighLight();
+            me._isEnable(index) && me.$clearHighlight();
         }
         /**
-         * @description 鼠标移出某个item时触发
+         * @description 鼠标移出某个选项时触发
          * @name magic.control.Suggestion#onmouseoutitem
          * @event 
          * @grammar magic.control.Suggestion#onmouseoutitem(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onmouseoutitem = function(index, value){
@@ -879,22 +880,22 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 	
 	/**
-     * 当通过鼠标选中某个item
+     * 当通过鼠标选中某个选项
      * @private
      * @param {Event} e 事件对象
-     * @param {Number} index 当前item在dom中的序列号
+     * @param {Number} index 当前选项在dom中的序列号
      */
     _mouseDown: function(e, index){
         var me = this;
         e = baidu.event(e);
         e.stopPropagation();
         /**
-         * @description 鼠标选中某个item时触发
+         * @description 鼠标选中某个选项时触发
          * @name magic.control.Suggestion#onmousedownitem
          * @event 
          * @grammar magic.control.Suggestion#onmousedownitem(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onmousedownitem = function(index, value){
@@ -913,22 +914,22 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
 	
 	/**
-     * 当鼠标点击某个item
+     * 当鼠标点击某个选项
      * @private
      * @param {Event} e 事件对象
-     * @param {Number} index 当前item在dom中的序列号
+     * @param {Number} index 当前选项在dom中的序列号
      */
     _mouseClick: function(e, index) {
         var me = this;
         e = baidu.event(e);
         e.stopPropagation();
 		/**
-         * @description 鼠标点击某个item时触发
+         * @description 鼠标点击某个选项时触发
          * @name magic.control.Suggestion#onmouseclick
          * @event 
          * @grammar magic.control.Suggestion#onmouseclick(index, value)
-         * @param {Number} index item的索引
-         * @param {Object} value 该item对应的value值
+         * @param {Number} index 选项的索引
+         * @param {Object} value 该选项对应的value值
          * @example
          * var instance = magic.setup.suggestion('sgt', option);
          * instance.onmouseclick = function(index, value){
@@ -945,7 +946,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             'value': me.getDataByIndex(index).value
         });
 
-        me.confirm(index);
+        me.$confirm(index);
     },
     
     /**
@@ -974,7 +975,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             
             //只剩下suggestion处于显示状态且当前suggestion对应的query与input中的query一致的情况
             
-            //当所有的item都处于disable状态,直接返回
+            //当所有的选项都处于disable状态,直接返回
             if(enableIndexs.length == 0){
                 return;
             }
@@ -991,13 +992,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             if("up" == direction) {
                 switch (selectedIndex) {
                     case -1:
-                        me.clearHighLight();
+                        me.$clearHighlight();
                         selectedIndex = enableIndexs.length - 1;
                         me._focus(selectedIndex);
                         break;
                     case 0:
                         selectedIndex = -1;
-                        me.clearHighLight();
+                        me.$clearHighlight();
                         me.getElement("input").value = me.currentQuery;
                         me.oldInputValue = me.currentQuery;
                         break;
@@ -1014,7 +1015,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                         break;
                     case enableIndexs.length - 1:
                         selectedIndex = -1;
-                        me.clearHighLight();
+                        me.$clearHighlight();
                         me.getElement("input").value = me.currentQuery;
                         me.oldInputValue = me.currentQuery;
                         break;
@@ -1036,16 +1037,16 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
                 case 13:    //回车，默认为表单提交
                     e.preventDefault();
                     e.stopPropagation();
-                    //当前有选中的item且holdHighLight打开
+                    //当前有选中的选项且holdHighLight打开
                     if(me.selectedIndex >= 0 && me.holdHighLight){
-                        me.confirm(me.enableIndexs[me.selectedIndex]);
+                        me.$confirm(me.enableIndexs[me.selectedIndex]);
                     }else{
                     	/**
-				         * @description 提交某个item时触发
+				         * @description 提交某个选项时触发
 				         * @name magic.control.Suggestion#onconfirm
 				         * @event 
 				         * @grammar magic.control.Suggestion#onconfirm(data)
-				         * @param {Object} data 该item对应的值
+				         * @param {Object} data 该选项对应的值
 				         * @example
 				         * var instance = magic.setup.suggestion('sgt', option);
 				         * instance.onconfirm = function(data){

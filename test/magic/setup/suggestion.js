@@ -414,7 +414,7 @@ test("highLight & clearHighLight", function(){
 	    },
         onshow: function(){
         	setTimeout(function(){
-        		s.highLight(0);
+        		s.$highlight(0);
         	}, 0);
         },
         onhighlight: function(e, data){
@@ -425,17 +425,17 @@ test("highLight & clearHighLight", function(){
         		equals(getCurrentItem(s), "a+1", "The hightlight item is right");
         		equals(this.selectedIndex, 0, "The selectedIndex is right");
         		setTimeout(function(){
-            		s.highLight(1);
+            		s.$highlight(1);
             	}, 0);
         	}
         	if(highlight == 2){
         		equals(getCurrentItem(s), "北海2", "The hightlight item is right");
         		equals(this.selectedIndex, 1, "The selectedIndex is right");
         		setTimeout(function(){
-            		s.highLight(3);
+            		s.$highlight(3);
             	}, 0);
         		setTimeout(function(){
-            		s.highLight(4);
+            		s.$highlight(4);
             	}, 0);
         	}
         	if(highlight == 3){
@@ -478,7 +478,7 @@ test("pick", function(){
 	    },
         onshow: function(){
         	setTimeout(function(){
-            	s.pick(1);
+            	s.$pick(1);
         	} ,0);
         },
         onbeforepick: function(e, data){
@@ -514,7 +514,7 @@ test("confirm", function(){
 	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
-        	this.confirm(1);
+        	this.$confirm(1);
         },
         onconfirm: function(e, data){
         	equals(data.index, 1, "The index param is right");
