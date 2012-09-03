@@ -217,20 +217,20 @@ magic.control.Slider.extend({
 
     /**
      * @description 析构
-     * @name magic.control.Slider#dispose
+     * @name magic.control.Slider#$dispose
      * @function
-     * @grammar magic.control.Slider#dispose()
+     * @grammar magic.control.Slider#$dispose()
      * @example
      * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.dispose();	// 销毁组件
+     * instance.$dispose();	// 销毁组件
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
         if(me.disposed) return;
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
     },
 
     /**

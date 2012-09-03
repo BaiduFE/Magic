@@ -91,11 +91,11 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
 
     /**
      * @description 析构函数，在析构时派发析构事件
-     * @name magic.Base#dispose
+     * @name magic.Base#$dispose
      * @function
-     * @grammar magic.Base#dispose()
+     * @grammar magic.Base#$dispose()
      */
-    ,dispose : function() {
+    ,$dispose : function() {
         this.fire("ondispose") && baidu.lang.Class.prototype.dispose.call(this);
     }
 });

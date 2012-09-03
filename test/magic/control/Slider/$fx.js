@@ -76,7 +76,7 @@ test("render, default params&events", function(){
 				ua.mousedown(slider.getElement("view"));
 				setTimeout(function(){
 					equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 38 - 11, "The position of The knob is right");
-					slider.dispose();
+					slider.$dispose();
 					var l2 = baidu.dom._eventBase._getEventsLength();
 					equals(l2, l1, "The events are un");
 					start();
@@ -110,7 +110,7 @@ test("render, orientation&accuracy&duration", function(){
 		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
 			equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 40 - 11, "The position of The knob is right");
-			slider.dispose();
+			slider.$dispose();
 			start();
 		}, 150);
 	}, 150);
@@ -146,7 +146,7 @@ test("setup, default params&events", function(){
 		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 42 - 11, "The position of The knob is right");
-			slider.dispose();
+			slider.$dispose();
 			var l2 = baidu.dom._eventBase._getEventsLength();
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
@@ -175,7 +175,7 @@ test("setup, orientation&accuracy&duration", function(){
 		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
 			equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 40 - 11, "The position of The knob is right");
-			slider.dispose();
+			slider.$dispose();
 			document.body.removeChild(div);
 			start();
 		}, 150);

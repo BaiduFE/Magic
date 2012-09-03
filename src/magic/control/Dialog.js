@@ -700,9 +700,9 @@ magic.control.Dialog.extend(
 
     /**
      * @description 析构
-     * @name magic.control.Dialog#dispose
+     * @name magic.control.Dialog#$dispose
      * @function
-     * @grammar magic.control.Dialog#dispose()
+     * @grammar magic.control.Dialog#$dispose()
      * @example
      * var instance = new magic.Dialog({
      *      titleText: "对话框标题",
@@ -712,11 +712,11 @@ magic.control.Dialog.extend(
      *      width: 400,
      *      height: 300
      * });
-     * instance.dispose();
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         for(var i = 0, l = this.disposeProcess.length; i < l; i ++)
             this.disposeProcess[i].call(this);
-        magic.Base.prototype.dispose.call(this);
+        magic.Base.prototype.$dispose.call(this);
     }
 });

@@ -84,15 +84,15 @@ magic.Background = baidu.lang.createClass(function(options){
 
 	/**
      * @description 析构
-     * @name magic.Background#dispose
+     * @name magic.Background#$dispose
      * @function 
-     * @grammar magic.Background#dispose()
+     * @grammar magic.Background#$dispose()
      * @example
      * var instance = new magic.Background(option);
      * instance.render(baidu('#bg').get(0));
-     * instance.dispose();	// 销毁元素
+     * instance.$dispose();	// 销毁元素
      */
-	dispose: function(){
+	$dispose: function(){
 	    var layer = this.getElement();
 	    layer.parentNode.removeChild(layer);
 	    clearInterval(this.timer);

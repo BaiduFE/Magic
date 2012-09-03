@@ -39,7 +39,7 @@ test("render, default param", function(){
 		equals($("li a span", tab.getElement("title")).text(), "项目一项目二项目三", "The title is right");
 		equals($("div", tab.getElement("body")).text(), "hello world~1hello world~2hello world~3", "The title is right");
 		equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~1", "The current tab is right");
-		tab.dispose();
+		tab.$dispose();
 		document.body.removeChild(div);
 		start();
 	});
@@ -61,7 +61,7 @@ test("render, all param", function(){
 	equals($("li a span", tab.getElement("title")).text(), "项目一项目二项目三", "The title is right");
 	equals($("div", tab.getElement("body")).text(), "hello world~1hello world~2hello world~3", "The title is right");
 	equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~3", "The current tab is right");
-	tab.dispose();
+	tab.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -102,7 +102,7 @@ test("select", function(){
 	tab.select(2);
 	equals(tab._selectedIndex, 2, "The _selectedIndex is right");
 	equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~3", "The current tab is right");
-	tab.dispose();
+	tab.$dispose();
 	var l2 = baidu.dom._eventBase._getEventsLength();
 	equals(l2, l1, "The events are un");
 	equals(tab.disposed, true, "The dom is disposed");//setup模式下，不需要销毁用户写好的html
@@ -120,7 +120,7 @@ test("click", function(){
 	ua.click(tab.getElement("title").childNodes[1].firstChild);
 	equals(tab._selectedIndex, 1, "The _selectedIndex is right");
 	equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~2", "The current tab is right");
-	tab.dispose();
+	tab.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -137,7 +137,7 @@ test("mouseover", function(){
 	setTimeout(function(){
 		equals(tab._selectedIndex, 1, "The _selectedIndex is right");
 		equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~2", "The current tab is right");
-		tab.dispose();
+		tab.$dispose();
 		document.body.removeChild(div);
 		start();
 	}, 0);
@@ -150,6 +150,6 @@ test("getElement", function(){
 	equals(tab.getElement("").id, "div1",　"The getElement si right");
 	equals(tab.getElement("title").className, "tang-title",　"The getElement si right");
 	equals(tab.getElement("body").className, "tang-body",　"The getElement si right");
-	tab.dispose();
+	tab.$dispose();
 	document.body.removeChild(div);
 });

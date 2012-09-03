@@ -94,7 +94,7 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
                 equals(input.value,'2012-04-29', '测试默认返回的date的格式');
                 
                 document.body.removeChild(input);
-                dp.dispose();
+                dp.$dispose();
                 start();
             });
             
@@ -145,7 +145,7 @@ test('自定义参数', function(){
         equals((new Date(input.value)).getDay(), 6, '测试自定义的weekStart' );
         equals(input.value, "2012/05/26", '测试自定义的date的格式' );
         start();
-        dp.dispose();
+        dp.$dispose();
         document.body.removeChild(input);
     });
     
@@ -174,7 +174,7 @@ test('hide接口、dispose', function(){
     dp.on("hide", function(){
         equals(dp.popup.getElement("").style.display, 'none', "测试日历已隐藏");
     
-        dp.dispose();
+        dp.$dispose();
         
         var listeners_now = getListenersOnInput(input);
         ok(dp.disposed === true, 'datepicker已销毁');
@@ -214,7 +214,7 @@ test('日历的显示和隐藏', function(){
             setTimeout(function(){
                 equals(dp.popup.getElement("").style.display, 'none', "日历隐藏");
                 start();
-                dp.dispose();
+                dp.$dispose();
                 document.body.removeChild(input);
             }, 100);
         }, 100);
@@ -239,7 +239,7 @@ test("在calendar显示的状态下改变input中的值", function(){
     input.value="fdafdsafd";
     input.oninput();
     equals(formatDate(dp.calendar.selectedDate), formatDate(new Date(currentDate)), "input值改变成无效日期字符串时，Calendar的当前选中日期不改变");
-    dp.dispose();
+    dp.$dispose();
     document.body.removeChild(input);
 });
 
@@ -274,7 +274,7 @@ test('测试click input框', function(){
                 
                 start();
                 
-                dp.dispose();
+                dp.$dispose();
                 document.body.removeChild(input);
             }, 100);
             
@@ -316,7 +316,7 @@ test('测试focus input框', function(){
                 
                 start();
                 
-                dp.dispose();
+                dp.$dispose();
                 document.body.removeChild(input);
             }, 200);
             
@@ -351,7 +351,7 @@ test('测试日历上有效日期和无效日期的点击', function(){
         equals(input.value, '2012-05-06', "点击可选日期时，input值改变");
         
         start();
-        dp.dispose();
+        dp.$dispose();
         document.body.removeChild(input);
     }, 100);
 });

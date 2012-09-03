@@ -547,17 +547,17 @@ void function(){
         
         /**
          * @description 析构
-         * @name magic.control.Carousel#dispose
+         * @name magic.control.Carousel#$dispose
          * @function 
-         * @grammar magic.control.Carousel#dispose()
+         * @grammar magic.control.Carousel#$dispose()
          * @example
          * var instance = new magic.Carousel(option);
-         * instance.dispose();	// 销毁 carousel
+         * instance.$dispose();	// 销毁 carousel
          */
-        dispose: function(){
+        $dispose: function(){
             var me = this;
             if(me.disposed){return;}
-            magic.Base.prototype.dispose.call(me);
+            magic.Base.prototype.$dispose.call(me);
         }
     });
 }();

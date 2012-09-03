@@ -191,17 +191,17 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
 
     /**
      * @description 析构
-     * @name magic.control.Tab#dispose
+     * @name magic.control.Tab#$dispose
      * @function 
-     * @grammar magic.control.Tab#dispose()
+     * @grammar magic.control.Tab#$dispose()
      * @example
      * var instance = new magic.Tab(option);
      * instance.render('tab-container');
-     * instance.dispose();
+     * instance.$dispose();
      */
-    dispose: function() {
+    $dispose: function() {
         var me = this;
         if(me.disposed){return;}
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
     }
 });

@@ -140,19 +140,19 @@ magic.Carousel = baidu.lang.createClass(function(options){
     
     /**
      * @description 析构
-     * @name magic.Carousel#dispose
+     * @name magic.Carousel#$dispose
      * @function 
-     * @grammar magic.Carousel#dispose()
+     * @grammar magic.Carousel#$dispose()
      * @example
      * var instance = new magic.Carousel(option);
-     * instance.dispose();	// 销毁 carousel
+     * instance.$dispose();	// 销毁 carousel
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this, container;
         if(me.disposed){return;}
         baidu.dom(me.getElement()).removeClass('tang-ui tang-carousel');
         container = me.getElement('container');
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         baidu.dom(container).remove();
         container = null;
     }

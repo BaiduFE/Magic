@@ -20,7 +20,7 @@ test("render, default param", function(){
 	equals(pager1.getElement("main").childNodes.length, 1, "The total page is right");
 	equals(pager1.getElement("main").childNodes[0].tagName.toLowerCase(), "span", "The current page is right");
 	equals(pager1.getElement("main").childNodes[0].innerHTML, "1", "The current page is right");
-    pager1.dispose();
+    pager1.$dispose();
 	document.body.removeChild(div1);
 });
 
@@ -104,9 +104,9 @@ test("render, only currentPage & totalPage param", function(){
 	equals(pager3.getElement("main").childNodes[13].tagName.toLowerCase(), "a", "The last page is right");
 	equals(pager3.getElement("main").childNodes[13].href, location.href.replace(location.hash,'') + "#10", "The last page is right");
 	equals(pager3.getElement("main").childNodes[13].innerHTML, "尾页", "The last page is right");
-	pager1.dispose();
-	pager2.dispose();
-	pager3.dispose();
+	pager1.$dispose();
+	pager2.$dispose();
+	pager3.$dispose();
 	document.body.removeChild(div1);
 	document.body.removeChild(div2);
 	document.body.removeChild(div3);
@@ -162,7 +162,7 @@ test("render, all param", function(){
 	equals(pager1.getElement("main").childNodes[7].tagName.toLowerCase(), "a", "The last page is right");
 	equals(pager1.getElement("main").childNodes[7].href, location.href.replace(location.hash,'') + "?#10", "The last page is right");
 	equals(pager1.getElement("main").childNodes[7].innerHTML, "last", "The last page is right");
-	pager1.dispose();
+	pager1.$dispose();
 	document.body.removeChild(div1);
 });
 
@@ -213,7 +213,7 @@ test("render, all param, spacial", function(){
 	equals(pager1.getElement("main").childNodes[7].tagName.toLowerCase(), "a", "The last page is right");
 	equals(pager1.getElement("main").childNodes[7].href, location.href.replace(location.hash,'') + "?#10", "The last page is right");
 	equals(pager1.getElement("main").childNodes[7].innerHTML, "last", "The last page is right");
-	pager1.dispose();
+	pager1.$dispose();
 	equals(pager1.disposed, true, "disposed");
 	equals($(".tang-pager-main").length, 0, "dom clear");
 	document.body.removeChild(div1);
@@ -245,7 +245,7 @@ test("render, all param, currentPagePos=currentPage", function(){
 	equals(pager1.getElement("main").childNodes[2].innerHTML, "1", "The common page is right");
 	equals(pager1.getElement("main").childNodes[6].tagName.toLowerCase(), "span", "The current page is right");
 	equals(pager1.getElement("main").childNodes[6].innerHTML, "5", "The current page is right");
-	pager1.dispose();
+	pager1.$dispose();
 	document.body.removeChild(div1);
 });
 
@@ -265,7 +265,7 @@ test("render, pagechange event", function(){
 	pager1.render('div1');
 	ua.click(pager1.getElement("main").childNodes[1]);
 	var l2 = baidu.dom._eventBase._getEventsLength();
-	pager1.dispose();
+	pager1.$dispose();
 	equals(l2, l1, "The events are un");
 	document.body.removeChild(div1);
 });

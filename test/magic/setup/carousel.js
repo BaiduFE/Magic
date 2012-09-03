@@ -77,7 +77,7 @@ test("vertical", function(){
 		equals(c.getElement("element").childNodes[2].innerHTML,  "text8", "The item is right");
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text9", "The item is right");
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text8", "The selectedIndex is right");   
-	    c.dispose();
+	    c.$dispose();
 	    document.body.removeChild(baidu.dom.g("one-carousel"));
 	    start();
 	});
@@ -500,7 +500,7 @@ test("focus, next, prev", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text3", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(baidu.dom.g("one-carousel"));
 });
 
@@ -530,7 +530,7 @@ test("events & dispose", function(){
     c.focus(8, "backward");
     ua.click(c.getElement("element").childNodes[0]);
     ua.mouseout(c.getElement("element").childNodes[0]);
-    c.dispose();
+    c.$dispose();
 	equals(c.disposed, true, "disposed");
     document.body.removeChild(baidu.dom.g("one-carousel"));
 });

@@ -216,15 +216,15 @@ magic.Pager = baidu.lang.createClass(function(options) {
     
     /**
      * @description dispose 析构
-     * @name magic.Pager#dispose
+     * @name magic.Pager#$dispose
      * @function
-     * @grammar magic.Pager#dispose()
+     * @grammar magic.Pager#$dispose()
      * @example
      * var instance = new Pager({currentPage: 1, totalPage: 8});
      * instance.render('pager');
-     * instance.dispose();
+     * instance.$dispose();
      */
-    'dispose' : function() {
+    '$dispose' : function() {
         if(this.disposed) {
             return;
         }
@@ -249,7 +249,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
 		* 		// do something...
 		* });
         */
-        magic.Base.prototype.dispose.call(this);
+        magic.Base.prototype.$dispose.call(this);
         baidu.dom(main).remove();
         container = main = null;
     }

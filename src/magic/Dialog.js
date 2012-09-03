@@ -187,7 +187,7 @@ magic.Dialog.extend(
         this.disposeProcess.push(
         	function(){
         		baidu(this.getElement("closeBtn")).off("click", this._closeBtnFn);
-        		this._background.dispose();
+        		this._background.$dispose();
         		el.innerHTML = "";
         	    baidu(el).addClass("tang-ui tang-dialog");
         	}
@@ -377,7 +377,7 @@ magic.Dialog.template = [
 
 
         disposeProcess.push(function(){
-            instance.dispose();
+            instance.$dispose();
         });
 
         disposeProcess.push(function(){
@@ -540,7 +540,7 @@ magic.Dialog.template = [
         });
         
         disposeProcess.push(function(){
-            instance.dispose();
+            instance.$dispose();
         });
         disposeProcess.push(function(){
             document.body.removeChild(confirm_el[0]);

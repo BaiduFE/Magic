@@ -874,19 +874,19 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     /**
      * dispose 析构
      * @function
-     * @name magic.control.ComboBox#dispose
+     * @name magic.control.ComboBox#$dispose
      * @public
      *  
      */
-    'dispose' : function() {
+    '$dispose' : function() {
         baidu(this.getElement('input-container')).off('click').off('keydown');
         baidu(this.getElement('input')).off('keydown').off('keyup');
         baidu(this.getElement('arrow')).off('click').off('keydown');
         baidu(this.getElement('menu')).off('click').off('mouseover').off('mouseout');
         this.menu.hide();
-        this.menu.dispose();
+        this.menu.$dispose();
         baidu.array(magic.control.ComboBox.instanceArray).remove(this.guid);
-        magic.Base.prototype.dispose.call(this);
+        magic.Base.prototype.$dispose.call(this);
     }
     
     /**

@@ -104,21 +104,21 @@ magic.Slider.extend({
 
     /**
      * @description 析构
-     * @name magic.Slider#dispose
+     * @name magic.Slider#$dispose
      * @function
-     * @grammar magic.Slider#dispose()
+     * @grammar magic.Slider#$dispose()
      * @example
      * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.dispose();	// 销毁组件
+     * instance.$dispose();	// 销毁组件
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this, slider;
         if(me.disposed){ return; }
         slider = me.getElement('');
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         baidu.dom(slider).remove();
         slider = null;
     }

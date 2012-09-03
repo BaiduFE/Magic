@@ -969,9 +969,9 @@ magic.Calendar.extend(
     
     /**
      * @description 析构函数
-     * @name magic.Calendar#dispose
+     * @name magic.Calendar#$dispose
      * @function
-     * @grammar magic.Calendar#dispose()
+     * @grammar magic.Calendar#$dispose()
      * @example
      * var instance = new magic.Calendar({
      *      weekStart: 'sat',
@@ -981,15 +981,15 @@ magic.Calendar.extend(
      *      language: 'zh-CN'
      * });
      * instance.render('calendar-container');
-     * instance.dispose();
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
         if(me.disposed){
             return;
         }
         me.container.removeChild(baidu('#' + me._getId())[0]);
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
     }
     
     /**

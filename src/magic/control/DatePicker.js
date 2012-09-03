@@ -239,28 +239,28 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
    
     /**
      * @description 析构函数
-     * @name magic.DatePicker#dispose
+     * @name magic.DatePicker#$dispose
      * @function
-     * @grammar magic.DatePicker#dispose()
+     * @grammar magic.DatePicker#$dispose()
      * @example
      * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * instance.dispose();
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
             
         if(me.disposed){
             return;
         }
         
-        me.calendar.dispose();
-        me.popup.dispose();
+        me.calendar.$dispose();
+        me.popup.$dispose();
         //popup在析构的时候会将节点保留在DOM中，以备重复利用，所以此处析构时不能移除popup节点
         
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         
     }
     

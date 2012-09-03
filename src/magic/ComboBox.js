@@ -130,13 +130,13 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
     
     /**
      * @description 析构
-     * @name magic.ComboBox#dispose
+     * @name magic.ComboBox#$dispose
      * @function
-     * @grammar magic.Dialog#dispose();
+     * @grammar magic.Dialog#$dispose();
      * @example
-     * instance.dispose();
+     * instance.$dispose();
      */
-    'dispose' : function() {
+    '$dispose' : function() {
         if(this.disposed) {
             return;
         }
@@ -152,7 +152,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
          * @param {baidu.lang.Event} evt 事件参数 
          * @todo ondispose触发的时机，并不是在整个combobox析构之后，而是在数据析构后，dom删除之前。
          */
-        magic.control.ComboBox.prototype.dispose.call(this);
+        magic.control.ComboBox.prototype.$dispose.call(this);
         baidu(container).remove();
         if (elm) {
             host.parentNode.insertBefore(elm, host);

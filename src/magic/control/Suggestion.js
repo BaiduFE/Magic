@@ -1079,23 +1079,23 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
     /**
      * @description 析构
-     * @name magic.control.Suggestion#dispose
+     * @name magic.control.Suggestion#$dispose
      * @function
-     * @grammar magic.control.Suggestion#dispose()
+     * @grammar magic.control.Suggestion#$dispose()
      * @example 
      * var instance = magic.setup.suggestion('sgt', option);
-     * instance.dispose();	// 销毁组件
+     * instance.$dispose();	// 销毁组件
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
         if(me.disposed){
             return;
         }
         if(me.suggestion){
-            me.suggestion.dispose();
+            me.suggestion.$dispose();
             me.hide();
         }
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         
     }
     /**

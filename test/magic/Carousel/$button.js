@@ -58,7 +58,7 @@ test("enable", function(){
 	    c.focusPrev();
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-	    c.dispose();
+	    c.$dispose();
 	    var l2 = baidu.dom._eventBase._getEventsLength();
 	    equals(l2, l1, "The events are un");
 	    document.body.removeChild(div);
@@ -88,7 +88,7 @@ test("click", function(){
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
     ua.click(c.getElement().childNodes[2]);
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(div);
 });
 
@@ -109,7 +109,7 @@ test("disable", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
     equals(c.getElement().childNodes.length, 1, "No buttons");
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(div);
 });
 
@@ -138,7 +138,7 @@ test("click, vertical", function(){
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
 	    ua.click(c.getElement().childNodes[2]);
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
-	    c.dispose();
+	    c.$dispose();
 	    document.body.removeChild(div);
 	    start();
 	});

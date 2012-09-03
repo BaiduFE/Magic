@@ -105,21 +105,21 @@ magic.Tab = baidu.lang.createClass(function(options) {
     
     /**
      * @description 析构
-     * @name magic.Tab#dispose
+     * @name magic.Tab#$dispose
      * @function 
-     * @grammar magic.Tab#dispose()
+     * @grammar magic.Tab#$dispose()
      * @example
      * var instance = new magic.Tab(option);
      * instance.render('tab-container');
-     * instance.dispose();
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this, title, body;
         if(me.disposed){return;}
         title = me.getElement('title');
         body = me.getElement('body');
         baidu.dom(me.getElement()).removeClass('tang-ui tang-tab');
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         baidu.dom(title).remove();
         baidu.dom(body).remove();
         title = body = null;
