@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="magic.Tab 组件 render 示例" />
+<title>magic.Tab 组件 render 示例</title>
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.Tab/magic.control.Tab.css">
+<script type="text/javascript" src="../../../src/import.php?f=baidu.dom.ready,baidu.dom.insertHTML,magic.Tab"></script>
+<style type='text/css'>
+.tang-tab {
+    width: 400px;
+}
+.tang-tab .tang-body .tang-body-item{
+    height: 50px;
+    border: #a9a9a9 solid 1px;
+    border-top: none;
+    padding: 5px;
+}
+
+.tab-container {
+	margin-bottom : 20px;
+}
+
+.tab-container .tab-title {
+	font-weight : bold;
+	font-size : 13px;
+	padding : 0;
+	margin : 5px;
+}
+.try-main .tang-tab ul,
+.try-main .tang-tab ul li {
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
+}
+</style>
+</head>
+<body>
+	<h1>Tab render模式demo</h1>
+    <div id='tab0'></div>
+    <div id='tab1'></div>
+    <div id='tab2'></div>
+    
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var testCase = (function(){
+		var caseNum = 0;
+		function create(title, options) {
+			var html = '',
+				num = caseNum++;
+			html += '<dl class="tab-container">';
+			html += '<dt class="tab-title">' + title + '</dt>';
+			html += '<dd id="tab' + num + '"></dd>';
+			html += '</dl>';
+			baidu.dom.insertHTML('tab' + num, 'beforeEnd', html);
+			
+			var instance = new magic.Tab(options);
+			instance.render('tab' + num);
+		}
+		
+		return {
+			'create' : function(title, options) {
+				create(title, options);
+			}
+		}
+	})();
+	
+    testCase.create('常规3个tab，鼠标点击切换。', {
+        'items': [
+            {title: '项目一', content: 'hello world~1'},
+            {title: '项目二', content: 'hello world~2'},
+            {title: '项目三', content: 'hello world~3'}
+        ]
+    });
+    
+    testCase.create('常规3个tab，默认打开第三个，鼠标mouseover切换。', {
+        originalIndex : 2,
+        selectEvent : 'mouseover',
+        items: [
+            {title: '项目一', content: 'hello world~1'},
+            {title: '项目二', content: 'hello world~2'},
+            {title: '项目三', content: 'hello world~3'}
+        ]
+    });
+    
+    testCase.create('常规10个tab，默认打开第三个，鼠标mouseover切换，且500ms后切换', {
+        originalIndex : 2,
+        selectEvent : 'mouseover',
+        selectDelay : 500,
+        items: [
+            {title: '项目一', content: 'hello world~1'},
+            {title: '项目二', content: 'hello world~2'},
+            {title: '项目三', content: 'hello world~3'},
+            {title: '项目四', content: 'hello world~4'},
+            {title: '项目五', content: 'hello world~5'},
+            {title: '项目六', content: 'hello world~6'},
+            {title: '项目七', content: 'hello world~7'},
+            {title: '项目八', content: 'hello world~8'},
+            {title: '项目九', content: 'hello world~9'},
+            {title: '项目十', content: 'hello world~10'}
+        ]
+    });
+});
+</script>
+</body>
+</html>
