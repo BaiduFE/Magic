@@ -214,9 +214,9 @@ magic.Calendar.extend(
         me.titleEl = baidu('#' + me._getId('title'))[0];
         me.tableEl = baidu('#' + me._getId('table'))[0];
 
-        me.mappingDom('calendar', baidu('#' + me._getId())[0]);
-        me.mappingDom('title', me.titleEl);
-        me.mappingDom('table', me.tableEl);
+        me.$mappingDom('calendar', baidu('#' + me._getId())[0]);
+        me.$mappingDom('title', me.titleEl);
+        me.$mappingDom('table', me.tableEl);
     },
 
     /**
@@ -262,8 +262,8 @@ magic.Calendar.extend(
         me.preBtn = preBtn;
         me.nextBtn = nextBtn;
 
-        me.mappingDom('premonthbtn', me.preBtn);
-        me.mappingDom('nextmonthbtn', me.nextBtn);
+        me.$mappingDom('premonthbtn', me.preBtn);
+        me.$mappingDom('nextmonthbtn', me.nextBtn);
     },
 
     /**

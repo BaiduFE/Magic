@@ -189,7 +189,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
      */
     'render' :  function(target) {
         if (!this.getElement()) {
-            this.mappingDom('', target || document.body);
+            this.$mappingDom('', target || document.body);
         }
         target = baidu.dom('#'+target);
         baidu.dom(target).addClass('tang-pager')

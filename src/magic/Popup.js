@@ -77,8 +77,8 @@
 
 
         var box = factory.produce();
-        me.mappingDom("", box.getElement());
-        me.mappingDom("content", box.getElement("content"));
+        me.$mappingDom("", box.getElement());
+        me.$mappingDom("content", box.getElement("content"));
         box.getElement().style.zIndex = baidu.global.getZIndex("popup");
         me.setContent(me.content);
         me.className && baidu.dom(box.getElement()).addClass(me.className);

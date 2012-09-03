@@ -77,8 +77,8 @@
             var me = this;
             
             var box = factory.produce();
-            me.mappingDom("", box.getElement());
-            me.mappingDom("content", box.getElement("content"));
+            me.$mappingDom("", box.getElement());
+            me.$mappingDom("content", box.getElement("content"));
             box.getElement().style.zIndex = baidu.global.getZIndex("popup");
             me.background = new magic.Background({coverable:true, styleBox:me.styleBox});
             me.background.render(me.getElement());

@@ -25,7 +25,7 @@
 		for (var i in options) opt[i] = options[i];
 
 		var ui = new Type(opt);
-		ui.mappingDom("", el);
+		ui.$mappingDom("", el);
 
 		// 添加DOM元素直接调用实例方法的模式	20111205 meizz
 		// tang-event="onclick:$.hide()"

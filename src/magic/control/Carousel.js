@@ -174,8 +174,8 @@ void function(){
                 opt = me._options,
                 focusRange = opt.focusRange,
                 handler = baidu.fn.bind('_onEventHandler', me);
-            me.mappingDom('container', baidu('.tang-carousel-container', me.getElement())[0]).
-            mappingDom('element', baidu('.tang-carousel-element', me.getElement())[0]);
+            me.$mappingDom('container', baidu('.tang-carousel-container', me.getElement())[0]).
+            $mappingDom('element', baidu('.tang-carousel-element', me.getElement())[0]);
             //data
             baidu.dom(baidu.dom(me.getElement('element')).children()).each(function(index, ele){
             	var item = new Item({content: ele});

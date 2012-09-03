@@ -116,7 +116,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	    
 	    
 	    //将calendar元素映射出来
-	    me.mappingDom('calendar', calendar.getElement("calendar"));
+	    me.$mappingDom('calendar', calendar.getElement("calendar"));
     },
 
     /**

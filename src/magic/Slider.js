@@ -75,7 +75,7 @@ magic.Slider.extend({
 
         baidu.dom(el).addClass('tang-ui tang-slider tang-slider-' + me._info._suffix);
         el.innerHTML = me.toHTMLString();
-        me.mappingDom("", el);
+        me.$mappingDom("", el);
 
         me.fire("load");
 

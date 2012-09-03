@@ -237,7 +237,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         popupContainer = popup.getElement();
         baidu.dom(popupContainer).addClass("tang-suggestion-popup");
         
-        me.mappingDom("suggestion", popupContainer);
+        me.$mappingDom("suggestion", popupContainer);
         
         me.suggestion = popup;  //指向suggestion的popup实例
         

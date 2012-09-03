@@ -51,8 +51,8 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
     me._selectedIndex = me._options.originalIndex;
     me.on('onload', function(evt) {
         var container = me.getElement();
-        me.mappingDom('title', baidu('.tang-title', container)[0]).
-        mappingDom('body', baidu('.tang-body', container)[0]);
+        me.$mappingDom('title', baidu('.tang-title', container)[0]).
+        $mappingDom('body', baidu('.tang-body', container)[0]);
         baidu.dom(me.getElement('title')).on(me._options.selectEvent, handler);
         me.on('ondispose', function(){
             baidu.dom(me.getElement('title')).off(me._options.selectEvent, handler);

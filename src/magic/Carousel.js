@@ -130,7 +130,7 @@ magic.Carousel = baidu.lang.createClass(function(options){
         var me = this,
             container;
         if (me.getElement()) {return;}//已经渲染过
-        me.mappingDom('', baidu.dom('#'+target).get(0) || document.body);
+        me.$mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
 		baidu.dom(container).addClass('tang-ui tang-carousel')
 							.insertHTML('beforeEnd', me.toHTMLString());

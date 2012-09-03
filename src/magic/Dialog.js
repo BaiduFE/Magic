@@ -140,7 +140,7 @@ magic.Dialog.extend(
         this._background = new magic.Background({ coverable: true });
         this._background.render(el);
 
-		this.mappingDom("", el);
+		this.$mappingDom("", el);
 
 		this._titleHeight = this.getElement("title").offsetHeight || 30;
 

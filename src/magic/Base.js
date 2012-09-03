@@ -74,13 +74,13 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
 
     /**
      * @description 这是一个针对 setup 反向创建对象的特有方法，将类里key与DOM建立映射
-     * @name magic.Base#mappingDom
+     * @name magic.Base#$mappingDom
      * @function
-     * @grammar magic.Base#mappingDom(key, dom)
+     * @grammar magic.Base#$mappingDom(key, dom)
      * @param   {String}    key 自定义一个名称用来与DOM对象建立映射关系
      * @param   {HTMLElement | String}  dom 被映射的DOM对象
      */
-    ,mappingDom : function(key, dom){
+    ,$mappingDom : function(key, dom){
         if (baidu.lang.isString(dom)) {
             this._ids[key] = dom;
         } else if (dom && dom.nodeType) {

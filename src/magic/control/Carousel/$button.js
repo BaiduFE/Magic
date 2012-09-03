@@ -45,8 +45,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
         baidu.dom(next)[!me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next');
     }
     me.on('onload', function(evt){
-        me.mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
-        mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
+        me.$mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
+        $mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
         //
         baidu.dom(me.getElement('prev')).on('click', prevHandler);
         baidu.dom(me.getElement('next')).on('click', nextHandler);
