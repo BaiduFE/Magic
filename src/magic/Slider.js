@@ -90,13 +90,13 @@ magic.Slider.extend({
             processClass = 'tang-process-' + info.direction,
             cornerClass = info._oppsite ? '-backward' : '',
             template = baidu.string.format(magic.Slider.template, {
-                id: me.getId(),
-                viewId: me.getId('view'),
-                innerId: me.getId('inner'),
+                id: me.$getId(),
+                viewId: me.$getId('view'),
+                innerId: me.$getId('inner'),
                 cornerClass: cornerClass,
-                processId: me.getId("process"),
+                processId: me.$getId("process"),
                 processClass: processClass,
-                knobId: me.getId("knob")
+                knobId: me.$getId("knob")
         });
 
         return template;

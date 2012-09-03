@@ -652,7 +652,7 @@ test("render, dispose", function() {
         var combobox1 = magic.setup.combobox(s);
         var comboid = combobox1.guid,
             popguid = combobox1.menu.guid,
-            popdomid = combobox1.menu.getId(),
+            popdomid = combobox1.menu.$getId(),
             container = combobox1.getElement('container'),
             menu = combobox1.getElement('menu');
         equals(true, !!baiduInstance(popguid), 'popup is created.');

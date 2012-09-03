@@ -53,7 +53,7 @@ magic.Background = baidu.lang.createClass(function(options){
 		me.size  = [0,0];
 		me.timer = setInterval(function(){me._forIE()}, 80);
 	}
-	this._innerHTML = "<div class='tang-background-inner' style='width:100%;height:100%;' id='"+ this.getId("inner")+"'></div>";
+	this._innerHTML = "<div class='tang-background-inner' style='width:100%;height:100%;' id='"+ this.$getId("inner")+"'></div>";
 }, {
 	type : "magic.Background"
 	,superClass : magic.Base
@@ -105,7 +105,7 @@ magic.Background = baidu.lang.createClass(function(options){
 	,toHTMLString : function(tagName) {
 		return [
 			"<",(tagName||this.tagName)," class='tang-background"
-			,(baidu.browser.ie < 7 ?" ie6__":""),"' id='",this.getId()
+			,(baidu.browser.ie < 7 ?" ie6__":""),"' id='",this.$getId()
 			,"' style='position:absolute; top:0px; left:0px;"
 			,(this.timer ? "width:10px;height:10px;" : "width:100%;height:100%;")
 			,"z-index:-9; -webkit-user-select:none; -moz-user-select:none;' "

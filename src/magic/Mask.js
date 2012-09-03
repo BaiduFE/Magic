@@ -140,7 +140,7 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
 	 * @private
 	 */
 	toHTMLString : function(){
-		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
+		return "<div id='"+this.$getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
 			+("<iframe frameborder='0' style='"
 			+"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
 			+"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "

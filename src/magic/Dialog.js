@@ -129,13 +129,13 @@ magic.Dialog.extend(
         baidu(el).insertHTML("beforeEnd", baidu.string.format(template, {
         	title: baidu.string.encodeHTML(this.titleText || "") || "&nbsp;",
         	content: "",
-        	titleId: this.getId("title"),
-        	titleTextId: this.getId("titleText"),
-        	titleButtonsId: this.getId("titleButtons"),
-        	bodyId: this.getId("body"),
-        	contentId: this.getId("content"),
-        	closeBtnId: this.getId("closeBtn"),
-        	foregroundId: this.getId("foreground")
+        	titleId: this.$getId("title"),
+        	titleTextId: this.$getId("titleText"),
+        	titleButtonsId: this.$getId("titleButtons"),
+        	bodyId: this.$getId("body"),
+        	contentId: this.$getId("content"),
+        	closeBtnId: this.$getId("closeBtn"),
+        	foregroundId: this.$getId("foreground")
         }));
         this._background = new magic.Background({ coverable: true });
         this._background.render(el);
@@ -335,16 +335,16 @@ magic.Dialog.template = [
         instance.render();
         instance.center();
         
-        var alert_el = baidu('#' + instance.getId());
-        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button></p>');   
+        var alert_el = baidu('#' + instance.$getId());
+        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.$getId('ok-button') + '">' + ok_button_label + '</button></p>');   
 
         //确定按钮
-        baidu('#' + instance.getId('ok-button')).on('click', okclickFn = function(){
+        baidu('#' + instance.$getId('ok-button')).on('click', okclickFn = function(){
                     dispose();
                     ok_button_callback.call(instance);
                 });
         disposeProcess.push(function(){
-            baidu('#' + instance.getId('ok-button')).off('click', okclickFn);
+            baidu('#' + instance.$getId('ok-button')).off('click', okclickFn);
         });
         //关闭按钮
         baidu(instance.getElement('closeBtn')).on('click', closeclickFn = function(){
@@ -492,24 +492,24 @@ magic.Dialog.template = [
         instance.render();
         instance.center();
         
-        var confirm_el = baidu('#' + instance.getId());
-        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button><button id="' + instance.getId('cancel-button') + '">' + cancel_button_label + '</button></p>');   
+        var confirm_el = baidu('#' + instance.$getId());
+        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.$getId('ok-button') + '">' + ok_button_label + '</button><button id="' + instance.$getId('cancel-button') + '">' + cancel_button_label + '</button></p>');   
         
         //确定按钮
-        baidu('#' + instance.getId('ok-button')).on('click', okclickFn = function(){
+        baidu('#' + instance.$getId('ok-button')).on('click', okclickFn = function(){
                     dispose();
                     ok_button_callback.call(instance);
                 });
         disposeProcess.push(function(){
-            baidu('#' + instance.getId('ok-button')).off('click', okclickFn);
+            baidu('#' + instance.$getId('ok-button')).off('click', okclickFn);
         });
         //取消按钮
-        baidu('#' + instance.getId('cancel-button')).on('click', cancelclickFn = function(){
+        baidu('#' + instance.$getId('cancel-button')).on('click', cancelclickFn = function(){
                     dispose();
                     cancel_button_callback.call(instance);
                 });
         disposeProcess.push(function(){
-            baidu('#' + instance.getId('cancel-button')).off('click', cancelclickFn);
+            baidu('#' + instance.$getId('cancel-button')).off('click', cancelclickFn);
         });
         //关闭按钮
         baidu(instance.getElement('closeBtn')).on('click', closeclickFn = function(){

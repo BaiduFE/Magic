@@ -551,12 +551,12 @@ test('magic.alert', function(){
             }
             ok(mask_el[0].style.zIndex < alert_el[0].style.zIndex, '遮罩层显示在alert的下方');
 
-            ok(baidu('#' + instance.getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
-            ok(baidu('#' + instance.getId('content'))[0].innerHTML == '内容', '内容显示正确');
-            ok(baidu('#' + instance.getId('ok-button'))[0].innerHTML == '好', '按钮文案显示正确');
+            ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+            ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+            ok(baidu('#' + instance.$getId('ok-button'))[0].innerHTML == '好', '按钮文案显示正确');
 
             //测试确定按钮
-            ua.click(baidu('#' + instance.getId('ok-button'))[0]);
+            ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
             ok(called == true, '确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
@@ -639,10 +639,10 @@ test('magic.alert 英文环境', function(){
             'ok': function(){}
         });
 
-        ok(baidu('#' + instance.getId('ok-button'))[0].innerHTML == 'ok', '按钮文案显示正确');
+        ok(baidu('#' + instance.$getId('ok-button'))[0].innerHTML == 'ok', '按钮文案显示正确');
 
        	start();
-       	ua.click(baidu('#' + instance.getId('ok-button'))[0]);
+       	ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
     });
 });
 
@@ -683,12 +683,12 @@ test('magic.confirm', function(){
             }
             ok(mask_el[0].style.zIndex < alert_el[0].style.zIndex, '遮罩层显示在alert的下方');
 
-            ok(baidu('#' + instance.getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
-            ok(baidu('#' + instance.getId('content'))[0].innerHTML == '内容', '内容显示正确');
-            ok(baidu('#' + instance.getId('ok-button'))[0].innerHTML == '是', '按钮文案显示正确');
-            ok(baidu('#' + instance.getId('cancel-button'))[0].innerHTML == '否', '按钮文案显示正确');
+            ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+            ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+            ok(baidu('#' + instance.$getId('ok-button'))[0].innerHTML == '是', '按钮文案显示正确');
+            ok(baidu('#' + instance.$getId('cancel-button'))[0].innerHTML == '否', '按钮文案显示正确');
             //测试确定按钮
-            ua.click(baidu('#' + instance.getId('ok-button'))[0]);
+            ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
             ok(okcalled == true, '确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
@@ -714,7 +714,7 @@ test('magic.confirm', function(){
                     }
                 }
             });
-            ua.click(baidu('#' + instance.getId('cancel-button'))[0]);
+            ua.click(baidu('#' + instance.$getId('cancel-button'))[0]);
             ok(cancelcalled == true, '取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
@@ -812,11 +812,11 @@ test('magic.confirm 英文环境', function(){
             'cancel': function(){}
         });
 
-        ok(baidu('#' + instance.getId('ok-button'))[0].innerHTML == 'ok', '确定按钮文案显示正确');
-        ok(baidu('#' + instance.getId('cancel-button'))[0].innerHTML == 'cancel', '取消按钮文案显示正确');
+        ok(baidu('#' + instance.$getId('ok-button'))[0].innerHTML == 'ok', '确定按钮文案显示正确');
+        ok(baidu('#' + instance.$getId('cancel-button'))[0].innerHTML == 'cancel', '取消按钮文案显示正确');
 
        	start();
-       	ua.click(baidu('#' + instance.getId('ok-button'))[0]);
+       	ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
     });
 });
 
@@ -902,7 +902,7 @@ test("test mask", function(){
 					equals(w.$(_mask).css('top'), top, "After window scroll, the top is right");
 					
 					me.finish();
-					// ua.click(baidu('#' + instance.getId('ok-button'))[0]);
+					// ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
 				}, 50);
 			}, 50);
         }, w);

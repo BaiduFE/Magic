@@ -425,7 +425,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         function getfix(name) {
             return baidu.format(
                 me.tpl.fix,
-                me.getId(name),
+                me.$getId(name),
                 me._getClass(name),
                 me[name + 'HTML']
             );
@@ -437,7 +437,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             ins = "baiduInstance('"+ me.guid +"')";
             itemsHTML.push(baidu.format(
                 me.tpl.item,
-                me.getId('item' + i),
+                me.$getId('item' + i),
                 data[i].content,
                 ins + '._mouseOver(event, ' + i + ')',
                 ins + '._mouseOut(event, ' + i + ')',
@@ -501,7 +501,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @return {HTMLElement}
      */
     _getItemDom: function(index){
-        return baidu.dom('#'+this.getId('item' + index)).get(0);
+        return baidu.dom('#'+this.$getId('item' + index)).get(0);
     },
     
     /**

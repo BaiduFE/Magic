@@ -30,7 +30,7 @@ baidu.lang.register(magic.control.Slider, function(options){
         var inner = me.getElement('inner'),
             _accuracyKey = info._accuracyKey,
             cacheClass = info._oppsite ? 'tang-cache-backward' : 'tang-cache-forward',
-            id = me.getId('cache'),
+            id = me.$getId('cache'),
             html = info._oppsite ? '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-start"></div>' : '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-last"></div>';
 
         baidu.dom(inner).insertHTML('afterBegin', baidu.string.format(html ,{

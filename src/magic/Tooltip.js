@@ -116,12 +116,12 @@
         }
         var box = new magic.Base();
         baidu.dom.insertHTML(document.body, "afterbegin", [
-            "<div class='tang-tooltip' id='",box.getId(),"' "
+            "<div class='tang-tooltip' id='",box.$getId(),"' "
             ,"style='position:absolute; display:none;'>"
-            ,    "<div class='tang-tooltip-close' id='",box.getId("close"),"'>"
+            ,    "<div class='tang-tooltip-close' id='",box.$getId("close"),"'>"
             ,        "<a href='#' onclick='return false'></a>"
             ,    "</div>"
-            ,    "<div class='tang-foreground' id='",box.getId("content"),"'></div>"
+            ,    "<div class='tang-foreground' id='",box.$getId("content"),"'></div>"
             ,"</div>"
         ].join(""));
         box.busy = true;

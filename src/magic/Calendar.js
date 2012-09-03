@@ -183,7 +183,7 @@ magic.Calendar.extend(
      * @return {String} 以TANGRAM$1__tang_calendar_为前缀的ID字符串
      */
     _getId: function(name){
-        return this.getId() + (name === undefined ? 'tang_calendar' : 'tang_calendar_' + name);
+        return this.$getId() + (name === undefined ? 'tang_calendar' : 'tang_calendar_' + name);
     },
     
     /**

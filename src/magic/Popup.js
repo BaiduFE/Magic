@@ -101,10 +101,10 @@
         }
         var box = new magic.Base();
         baidu.dom(document.body).insertHTML("afterbegin", [
-            "<div class='tang-popup' id='",box.getId(),"' "
+            "<div class='tang-popup' id='",box.$getId(),"' "
             ,"style='position:absolute; display:none;'>"
                 ,(box.background = new magic.Background({coverable:true})).toHTMLString()
-                ,"<div class='tang-foreground' id='",box.getId("content"),"'></div>"
+                ,"<div class='tang-foreground' id='",box.$getId("content"),"'></div>"
             ,"</div>"
         ].join(""));
         box.busy = true;

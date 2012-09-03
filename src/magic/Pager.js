@@ -123,7 +123,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         this.currentPage = currentPage;
         var container = this.getElement();
         container.innerHTML = '';
-        this.render(this.getId());
+        this.render(this.$getId());
        /**
         * @description 页码变换后触发
         * @event 
@@ -152,7 +152,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
             startPage = this.totalPage < this.viewSize || this.currentPage <= this.currentPagePos ? 1 : Math.min(this.currentPage - this.currentPagePos, this.totalPage - this.viewSize + 1),
             //展现结束页
             endPage = Math.min(this.totalPage, startPage + this.viewSize - 1);
-        HTMLString.push('<div id="' + this.getId('main') + '" class="tang-pager-main">');
+        HTMLString.push('<div id="' + this.$getId('main') + '" class="tang-pager-main">');
         //首页，前一页
         if (1 < this.currentPage) {
             HTMLString.push(this._buildLink(1, 'first', this.labelFirst));
