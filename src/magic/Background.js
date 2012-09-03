@@ -30,7 +30,7 @@
  * @return {magic.Background} Background实例.
  * @example
  * /// for options.coverable
- * var background = new magic.Background({
+ * var instance = new magic.Background({
  * 		coverable: true		// 遮盖 select、flash
  * });
  */
@@ -70,8 +70,8 @@ magic.Background = baidu.lang.createClass(function(options){
      * @grammar magic.Background#render(container)
      * @param {HTMLElement} container 被附加背景层的DOM元素
      * @example
-     * var background = new magic.Background(option);
-     * background.render(baidu('#bg').get(0));
+     * var instance = new magic.Background(option);
+     * instance.render(baidu('#bg').get(0));
      */
 	render : function(container) {
 		var box = baidu.dom(container).get(0);
@@ -88,9 +88,9 @@ magic.Background = baidu.lang.createClass(function(options){
      * @function 
      * @grammar magic.Background#dispose()
      * @example
-     * var background = new magic.Background(option);
-     * background.render(baidu('#bg').get(0));
-     * background.dispose();	// 销毁元素
+     * var instance = new magic.Background(option);
+     * instance.render(baidu('#bg').get(0));
+     * instance.dispose();	// 销毁元素
      */
 	dispose: function(){
 	    var layer = this.getElement();
@@ -121,9 +121,9 @@ magic.Background = baidu.lang.createClass(function(options){
      * @grammar magic.Background#setContent(content)
      * @param {HTMLString} content 注入的HTML文本
      * @example
-     * var background = new magic.Background(option);
-     * background.render(baidu('#bg').get(0));
-     * background.setContent('some text');
+     * var instance = new magic.Background(option);
+     * instance.render(baidu('#bg').get(0));
+     * instance.setContent('some text');
      */
 	,setContent : function(content){
 		this.getElement("inner").innerHTML = content;

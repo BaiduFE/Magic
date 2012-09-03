@@ -36,7 +36,7 @@
  * @return {magic.control.Suggestion} Suggestion实例
  * @example
  * /// for options.offset
- * var sgt = magic.setup.suggestion('sgt', {
+ * var instance = magic.setup.suggestion('sgt', {
  * 		offset: {
  *          'offsetX': 0,
  *          'offsetY': 0
@@ -53,18 +53,18 @@
  * 			me.receiveData(key, data);
  * 		});
  * }
- * var sgt = magic.setup.suggestion('sgt', {
+ * var instance = magic.setup.suggestion('sgt', {
  * 		getData: getData
  * });
  * @example
  * /// for options.prependHTML,options.appendHTML
- * var sgt = magic.setup.suggestion('sgt', {
+ * var instance = magic.setup.suggestion('sgt', {
  * 		prependHTML: '写在下拉框列表前面的HTML',
  * 		appendHTML: '<span class="tang-suggestion-closeBtn">关闭</span>';
  * });
  * @example
  * /// for options.holdHighLight
- * var sgt = magic.setup.suggestion('sgt', {
+ * var instance = magic.setup.suggestion('sgt', {
  * 		getData: getData,
  * 		holdHighLight: false	//鼠标移出待选项区域后消除高亮状态
  * });
@@ -228,8 +228,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.control.Suggestion#render()
      * @example 
-     * var sgt = new magic.control.Suggestion(option);
-     * sgt.render();
+     * var instance = new magic.control.Suggestion(option);
+     * instance.render();
      */
     render: function(){
         var me = this,
@@ -250,13 +250,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @grammar magic.control.Suggestion#onrender(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onrender = function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onrender = function(){
          * 		// do something
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('render', function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('render', function(){
          * 		// do something
          * });
          */
@@ -270,8 +270,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.control.Suggestion#isShowing()
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.isShowing();		// true OR false
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.isShowing();		// true OR false
      */
     isShowing: function(){
         var me = this,
@@ -284,8 +284,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.control.Suggestion#show()
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.show();		// 显示suggestion容器
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.show();		// 显示suggestion容器
      */
     show: function(){
         var me = this,
@@ -299,13 +299,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @grammar magic.control.Suggestion#onbeforeshow(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onbeforeshow = function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onbeforeshow = function(){
          * 		// do something
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('beforeshow', function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('beforeshow', function(){
          * 		// do something
          * });
          */
@@ -332,13 +332,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @grammar magic.control.Suggestion#onshow(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onshow = function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onshow = function(){
          * 		// do something
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('show', function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('show', function(){
          * 		// do something
          * });
          */
@@ -350,8 +350,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.control.Suggestion#hide()
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.hide();		// 隐藏suggestion容器
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.hide();		// 隐藏suggestion容器
      */
     hide: function(){
         var me = this,
@@ -394,13 +394,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @grammar magic.control.Suggestion#onhide(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onhide = function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onhide = function(){
          * 		// do something
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('hide', function(){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('hide', function(){
          * 		// do something
          * });
          */
@@ -461,8 +461,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @grammar magic.control.Suggestion#getInputValue()
      * @return {String} value input中的值
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.getInputValue();		// input 的 value
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.getInputValue();		// input 的 value
      */
     getInputValue: function(){
         return this.getElement("input").value;
@@ -476,8 +476,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @param {Integer} index 索引
      * @return {String} data 该索引对应的suggestion值 
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.getDataByIndex(0);		// 对应的suggestion值
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.getDataByIndex(0);		// 对应的suggestion值
      */
     getDataByIndex: function(index) {
         return this.currentData[index];
@@ -531,8 +531,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @grammar magic.control.Suggestion#highLight(index)
      * @param {String} index 需要高亮 的item索引
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.highLight(0);		// 高亮第一个 item
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.highLight(0);		// 高亮第一个 item
      */
     highLight: function(index) {
         var me = this,
@@ -556,13 +556,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onhighlight = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onhighlight = function(index, value){
          * 		alert('第'+index+'条高亮');
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('highlight', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('highlight', function(index, value){
          * 		alert('第'+index+'条高亮');
          * });
          */
@@ -577,8 +577,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.control.Suggestion#clearHighLight()
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.clearHighLight();
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.clearHighLight();
      */
     clearHighLight: function() {
         var me = this,
@@ -598,13 +598,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	         * @param {Number} index item的索引
 	         * @param {Object} value 该item对应的value值
 	         * @example
-	         * var sgt = magic.setup.suggestion('sgt', option);
-	         * sgt.onclearhighlight = function(index, value){
+	         * var instance = magic.setup.suggestion('sgt', option);
+	         * instance.onclearhighlight = function(index, value){
 	         * 		alert('第'+index+'条高亮去除');
 	         * }
 	         * @example
-	         * var sgt = magic.setup.suggestion('sgt', option);
-	         * sgt.on('clearhighlight', function(index, value){
+	         * var instance = magic.setup.suggestion('sgt', option);
+	         * instance.on('clearhighlight', function(index, value){
 	         * 		alert('第'+index+'条高亮去除');
 	         * });
 	         */
@@ -621,8 +621,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @grammar magic.control.Suggestion#pick(index)
      * @param {String} index 条目索引.
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.pick(1);
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.pick(1);
      */
 	pick: function(index){
 	    // 不检查index的有效性
@@ -637,13 +637,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onbeforepick = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onbeforepick = function(index, value){
          * 		// do something
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('beforepick', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('beforepick', function(index, value){
          * 		// do something
          * });
          */
@@ -662,13 +662,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onpick = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onpick = function(index, value){
          * 		alert('第'+index+'条放入 input');
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('pick', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('pick', function(index, value){
          * 		alert('第'+index+'条放入 input');
          * });
          */
@@ -685,8 +685,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @grammar magic.control.Suggestion#confirm(index)
      * @param {Integer} index suggestion中item节点的序号，即当前suggestion值在data中的序号
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.confirm(1);
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.confirm(1);
      */
     confirm: function(index) {
         // 不检查index的有效性
@@ -704,13 +704,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onconfirm = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onconfirm = function(index, value){
          * 		alert('提交了：'+value);
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('confirm', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('confirm', function(index, value){
          * 		alert('提交了：'+value);
          * });
          */
@@ -754,8 +754,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @grammar magic.control.Suggestion#getData(query)
      * @param {String} query 搜索关键字
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.getData(key);
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.getData(key);
      */
 	getData: function(query){},
 	/**
@@ -766,10 +766,10 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @param {String} query 搜索关键字
      * @param {Array} data 返回的数据
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
+     * var instance = magic.setup.suggestion('sgt', option);
 	 * baiud.ajax.get('search.php?'+key), function(xhr, rsp){
 	 * 		var data = eval(rsp);
-	 * 		sgt.receiveData(key, data);
+	 * 		instance.receiveData(key, data);
 	 * });
      */
     receiveData: function(query, data){
@@ -791,8 +791,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @param {Array} data 通过关键字查找出的提示
      * @return {Array} 包装后的标准格式data {value:value, content:content [, disable:true]}
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.cacheData(query, data);	// 缓存
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.cacheData(query, data);	// 缓存
      */
     cacheData: function(query, data) {
         var me = this,
@@ -824,13 +824,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onmouseoveritem = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onmouseoveritem = function(index, value){
          * 		alert('移入第：'+index+'个');
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('mouseoveritem', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('mouseoveritem', function(index, value){
          * 		alert('移入第：'+index+'个');
          * });
          */
@@ -862,13 +862,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onmouseoutitem = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onmouseoutitem = function(index, value){
          * 		alert('移出第：'+index+'个');
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('mouseoutitem', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('mouseoutitem', function(index, value){
          * 		alert('移出第：'+index+'个');
          * });
          */
@@ -896,13 +896,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onmousedownitem = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onmousedownitem = function(index, value){
          * 		alert('选中第：'+index+'个');
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('mousedownitem', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('mousedownitem', function(index, value){
          * 		alert('选中第：'+index+'个');
          * });
          */
@@ -930,13 +930,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.onmouseclick = function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.onmouseclick = function(index, value){
          * 		alert('点击第：'+index+'个');
          * }
          * @example
-         * var sgt = magic.setup.suggestion('sgt', option);
-         * sgt.on('mouseclick', function(index, value){
+         * var instance = magic.setup.suggestion('sgt', option);
+         * instance.on('mouseclick', function(index, value){
          * 		alert('点击第：'+index+'个');
          * });
          */
@@ -1047,13 +1047,13 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 				         * @grammar magic.control.Suggestion#onconfirm(data)
 				         * @param {Object} data 该item对应的值
 				         * @example
-				         * var sgt = magic.setup.suggestion('sgt', option);
-				         * sgt.onconfirm = function(data){
+				         * var instance = magic.setup.suggestion('sgt', option);
+				         * instance.onconfirm = function(data){
 				         * 		alert('提交:'+data);
 				         * }
 				         * @example
-				         * var sgt = magic.setup.suggestion('sgt', option);
-				         * sgt.on('confirm', function(data){
+				         * var instance = magic.setup.suggestion('sgt', option);
+				         * instance.on('confirm', function(data){
 				         * 		alert('提交:'+data);
 				         * });
 				         */
@@ -1083,8 +1083,8 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.control.Suggestion#dispose()
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.dispose();	// 销毁组件
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.dispose();	// 销毁组件
      */
     dispose: function(){
         var me = this;
@@ -1105,7 +1105,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      * @grammar magic.control.Suggestion#getElement(name)
      * @param {String} name 可选的值包括：input(输入框)|suggestion(suggestion部分的容器)
      * @example 
-     * var sgt = magic.setup.suggestion('sgt', option);
-     * sgt.getElement();
+     * var instance = magic.setup.suggestion('sgt', option);
+     * instance.getElement();
      */	
 });

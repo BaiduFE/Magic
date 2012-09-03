@@ -49,7 +49,7 @@
  * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
  * @example 
  * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
- * var dialog = new magic.Dialog({
+ * var instance = new magic.Dialog({
  *      draggable: true,
  *      titleText: "对话框标题",
  *      content: "对话框内容",
@@ -60,7 +60,7 @@
  * });
  * @example 
  * /// for options.contentType
- * var dialog = new magic.Dialog({
+ * var instance = new magic.Dialog({
  *      titleText: "对话框标题",
  *      content: baidu('#dialog-content'),
  *      contentType: 'element'
@@ -103,7 +103,7 @@ magic.Dialog.extend(
 	 * @grammar magic.Dialog#render(el)
 	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
      * @example
-     * var dialog = new magic.Dialog({
+     * var instance = new magic.Dialog({
      *      titleText: "对话框标题",
      *      content: "对话框内容",
      *      left: 80,
@@ -111,7 +111,7 @@ magic.Dialog.extend(
      *      width: 400,
      *      height: 300
      * });
-     * dialog.render('dialog-container');
+     * instance.render('dialog-container');
 	 */
     render: function(el){
         if(baidu.type(el) === "string"){
@@ -157,7 +157,7 @@ magic.Dialog.extend(
         * @event
         * @grammar magic.control.Dialog#onload
         * @example
-        * var dialog = new magic.Dialog({
+        * var instance = new magic.Dialog({
         *      titleText: "对话框标题",
         *      content: "对话框内容",
         *      left: 80,
@@ -165,11 +165,11 @@ magic.Dialog.extend(
         *      width: 400,
         *      height: 300
         * });
-        * dialog.on("load", function(){
+        * instance.on("load", function(){
         *     //do something...
         * });
         * @example
-        * var dialog = new magic.Dialog({
+        * var instance = new magic.Dialog({
         *      titleText: "对话框标题",
         *      content: "对话框内容",
         *      left: 80,
@@ -177,7 +177,7 @@ magic.Dialog.extend(
         *      width: 400,
         *      height: 300
         * });
-        * dialog.onload = function(){
+        * instance.onload = function(){
         *     //do something...
         * };
         */  

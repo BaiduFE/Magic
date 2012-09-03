@@ -31,7 +31,7 @@
  * @return {magic.control.Carousel} Carousel实例.
  * @example
  * /// for options.items
- * var carousel = new magic.Carousel({
+ * var instance = new magic.Carousel({
  * 		items: [{
  * 			content: '<img src="0.png"/>',
  * 			content: '<img src="1.png"/>'
@@ -39,7 +39,7 @@
  * });
  * @example
  * /// for options.orientation,options.isLoop
- * var carousel = new magic.Carousel({
+ * var instance = new magic.Carousel({
  * 		orientation: 'vertical',
  * 		isLoop: true,
  * 		items: [{
@@ -49,7 +49,7 @@
  * });
  * @example
  * /// for options.originalIndex
- * var carousel = new magic.Carousel({
+ * var instance = new magic.Carousel({
  * 		originalIndex: 2,
  *  	items: [{
  * 			content: '<img src="0.png"/>',
@@ -58,7 +58,7 @@
  * });
  * @example
  * /// for options.viewSize
- * var carousel = new magic.Carousel({
+ * var instance = new magic.Carousel({
  * 		viewSize: 2,
  *   	items: [{
  * 			content: '<img src="0.png"/>',
@@ -67,7 +67,7 @@
  * });
  * @example
  * /// for options.focusRange
- * var carousel = new magic.Carousel({
+ * var instance = new magic.Carousel({
  * 		focusRange: {min: 1, max: 2},
  *   	items: [{
  * 			content: '<img src="0.png"/>',
@@ -76,7 +76,7 @@
  * });
  * @example
  * /// for options.step
- * var carousel = new magic.Carousel({
+ * var instance = new magic.Carousel({
  * 		step: 4,
  *   	items: [{
  * 			content: '<img src="0.png"/>',
@@ -123,8 +123,8 @@ magic.Carousel = baidu.lang.createClass(function(options){
      * @grammar magic.Carousel#render(target)
      * @param {String|HTMLElement} target 被渲染的指定容器
      * @example
-     * var carousel = new magic.Carousel(option);
-     * carousel.render('one-carousel');	// 销毁 carousel
+     * var instance = new magic.Carousel(option);
+     * instance.render('one-carousel');	// 销毁 carousel
      */
     render: function(target){
         var me = this,
@@ -144,8 +144,8 @@ magic.Carousel = baidu.lang.createClass(function(options){
      * @function 
      * @grammar magic.Carousel#dispose()
      * @example
-     * var carousel = new magic.Carousel(option);
-     * carousel.dispose();	// 销毁 carousel
+     * var instance = new magic.Carousel(option);
+     * instance.dispose();	// 销毁 carousel
      */
     dispose: function(){
         var me = this, container;

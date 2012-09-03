@@ -29,7 +29,7 @@
  * @param {Object} calendarOptions calendar的配置项
  * @example 
  * /// for options.format,options.language,options.calendarOptions,options.popupOptions
- * var datePicker = magic.setup.datePicker('J_input_1', {
+ * var instance = magic.setup.datePicker('J_input_1', {
  *              'format': 'yyyy/MM/dd',
  *              'language': 'en-US'
  *              'calendarOptions': {
@@ -125,11 +125,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.DatePicker#show()
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * datePicker.show();
+     * instance.show();
      */
     show: function(){
 		var me = this,
@@ -147,19 +147,19 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         * @event
         * @grammar magic.control.DatePicker#onshow
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.on("show", function(){
+        * instance.on("show", function(){
         *     //do something...
         * });
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.onshow = function(){
+        * instance.onshow = function(){
         *     //do something...
         * };
         */
@@ -172,11 +172,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.DatePicker#hide()
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * datePicker.hide();
+     * instance.hide();
      */
     hide: function(){
 		var me = this;
@@ -189,19 +189,19 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         * @event
         * @grammar magic.control.DatePicker#onhide
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.on("hide", function(){
+        * instance.on("hide", function(){
         *     //do something...
         * });
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.onhide = function(){
+        * instance.onhide = function(){
         *     //do something...
         * };
         */
@@ -243,11 +243,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.DatePicker#dispose()
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * datePicker.dispose();
+     * instance.dispose();
      */
     dispose: function(){
         var me = this;
@@ -270,11 +270,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * var calendar_el = datePicker.getElement('calendar');//获取calendar节点
+     * var calendar_el = instance.getElement('calendar');//获取calendar节点
      * @return {HtmlElement} 得到的 HtmlElement 对象
      */
 	

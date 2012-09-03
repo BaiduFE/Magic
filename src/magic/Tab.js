@@ -28,14 +28,14 @@
  * @author linlingyu
  * @example
  * /// for options.selectEvent,options.selectDelay
- * var tab = new magic.Tab({
+ * var instance = new magic.Tab({
  * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
  * 		selectEvent : 'mouseover',	// mouseover 触发切换
  * 		selectDelay : 500	切换延时500毫秒
  * });
  * @example
  * /// for options.items,options.originalIndex
- * var tab = new magic.Tab({
+ * var instance = new magic.Tab({
  * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
  * 		originalIndex: 2	// 默认打开第三个tab
  * });
@@ -89,8 +89,8 @@ magic.Tab = baidu.lang.createClass(function(options) {
      * @grammar magic.Tab#render()
      * @param {String|HTMLElement} target 一个用来渲染组件的容器对象.
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
      */
     render: function(target) {
         var me = this,
@@ -109,9 +109,9 @@ magic.Tab = baidu.lang.createClass(function(options) {
      * @function 
      * @grammar magic.Tab#dispose()
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
-     * tab.dispose();
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.dispose();
      */
     dispose: function(){
         var me = this, title, body;

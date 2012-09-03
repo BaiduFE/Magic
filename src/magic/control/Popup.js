@@ -42,20 +42,20 @@
  * @author meizz
  * @example
  * /// for options.autoHide,options.visible,options.smartPosition
- * var popup = new magic.Popup({
+ * var instance = new magic.Popup({
  * 		autoHide: true,		// 自动隐藏
  * 		visible: true,		// 显示弹出层
  * 		smartPosition: true		// 自动向下或向上翻转
  * });
  * @example
  * /// for options.disposeOnHide,options.hideOnEscape
- * var popup = new magic.Popup({
+ * var instance = new magic.Popup({
  * 		disposeOnHide: true,		// 在 hide 方法执行的时候自动析构
  * 		hideOnEscape: true		// 在用户按[ESC]键时是否隐藏当前弹出层
  * });
  * @example
  * /// for options.offsetX,options.offsetY,options.top,options.left,options.width,options.height
- * var popup = new magic.Popup({
+ * var instance = new magic.Popup({
  * 		offsetX: 10,		// X方向偏移10px
  * 		offsetY: 20,		// Y方向偏移20px
  * 		left: 200,			// X轴坐标 200px
@@ -98,8 +98,8 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @grammar magic.control.Popup#setContent(content)
      * @param {String} content 将要写入的内容
      * @example
-     * var popup = new magic.Popup(option);
-     * popup.setContent('some text');
+     * var instance = new magic.Popup(option);
+     * instance.setContent('some text');
      */
     setContent : function(content){
         this.getElement("content").innerHTML = content;
@@ -117,8 +117,8 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @param {Number|String} options.width 弹出层的宽度，默认值 auto；200|200px|50%|12em|12cm
      * @param {Number|String} options.height 弹出层的高度，默认值 auto
      * @example
-     * var popup = new magic.Popup(option);
-     * popup.attach(baidu('#target').get(0), {
+     * var instance = new magic.Popup(option);
+     * instance.attach(baidu('#target').get(0), {
      * 		offsetX: 10,
      * 		offsetY: 20,
      * 		width: baidu('#target').width(),
@@ -140,8 +140,8 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @grammar magic.control.Popup#reposition(position)
      * @param {JSON|Array} position [可选]{top, left}|[top, left]
      * @example
-     * var popup = new magic.Popup(option);
-     * popup.reposition({
+     * var instance = new magic.Popup(option);
+     * instance.reposition({
      * 		left: 200,
      * 		top: 20
      * });
@@ -175,8 +175,8 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @grammar magic.control.Popup#setPosition(position)
      * @param {JSON|Array} position [可选]{top, left}|[top, left]
      * @example
-     * var popup = new magic.Popup(option);
-     * popup.setPosition({
+     * var instance = new magic.Popup(option);
+     * instance.setPosition({
      * 		left: 200,
      * 		top: 20
      * });
@@ -192,8 +192,8 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @grammar magic.control.Popup#setTop(top)
      * @param {Number} top 偏移数值
      * @example
-     * var popup = new magic.Popup(option);
-     * popup.setTop(20);
+     * var instance = new magic.Popup(option);
+     * instance.setTop(20);
      */
     ,setTop : function(top) {
         baidu.dom(this.getElement()).css("top", (this.top=top)+"px");
@@ -205,8 +205,8 @@ magic.control.Popup = baidu.lang.createClass(function(options){
      * @grammar magic.control.Popup#setLeft(left)
      * @param {Number} left 偏移数值
      * @example
-     * var popup = new magic.Popup(option);
-     * popup.setLeft(20);
+     * var instance = new magic.Popup(option);
+     * instance.setLeft(20);
      */
     ,setLeft : function(left) {
         baidu.dom(this.getElement()).css("left", (this.left=left)+"px");

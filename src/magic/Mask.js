@@ -38,18 +38,18 @@
  * @return {magic.Mask} Mask实例.
  * @example
  * /// for options.coverable
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		coverable: true		// mask 遮盖 flash/select
  * });
  * @example
  * /// for options.bgColor,options.opacity
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		bgColor: '#ccc',	// 灰色背景
  * 		opacity: 0.5		// 50%透明度
  * });
  * @example
  * /// for options.container
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		container: document.body
  * });
  */
