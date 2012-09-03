@@ -528,7 +528,7 @@ magic.control.Dialog.extend(
          * @description 当窗口发生尺寸修改时触发
          * @name magic.control.Dialog#onresize
          * @event 
-         * @grammar magic.control.Dialog#onresize = function(evt){...}
+         * @grammar magic.control.Dialog#onresize(evt)
          * @param {Object} evt 事件参数
          * @param {Number} evt.width 宽度 
          * @param {Number} evt.height 高度 
@@ -614,7 +614,7 @@ magic.control.Dialog.extend(
          * @description 当窗口发生位置移动时触发
          * @name magic.control.Dialog#onmove
          * @event 
-         * @grammar magic.control.Dialog#onmove = function(evt){...}
+         * @grammar magic.control.Dialog#onmove(evt){...}
          * @param {Object} evt 事件参数
          * @param {Number} evt.left 左边距
          * @param {Number} evt.top 右边距

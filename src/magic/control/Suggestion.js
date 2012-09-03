@@ -247,7 +247,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 渲染suggestion容器时触发
          * @name magic.control.Suggestion#onrender
          * @event 
-         * @grammar magic.control.Suggestion#onrender = function(evt){...}
+         * @grammar magic.control.Suggestion#onrender(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
          * var sgt = magic.setup.suggestion('sgt', option);
@@ -296,7 +296,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 显示suggestion之前触发
          * @name magic.control.Suggestion#onbeforeshow
          * @event 
-         * @grammar magic.control.Suggestion#onbeforeshow = function(evt){...}
+         * @grammar magic.control.Suggestion#onbeforeshow(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
          * var sgt = magic.setup.suggestion('sgt', option);
@@ -329,7 +329,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description suggestion显示后触发
          * @name magic.control.Suggestion#onshow
          * @event 
-         * @grammar magic.control.Suggestion#onshow = function(evt){...}
+         * @grammar magic.control.Suggestion#onshow(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
          * var sgt = magic.setup.suggestion('sgt', option);
@@ -391,7 +391,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description suggestion隐藏时触发
          * @name magic.control.Suggestion#onhide
          * @event 
-         * @grammar magic.control.Suggestion#onhide = function(evt){...}
+         * @grammar magic.control.Suggestion#onhide(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
          * var sgt = magic.setup.suggestion('sgt', option);
@@ -552,7 +552,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 高亮某个item时触发
          * @name magic.control.Suggestion#onhighlight
          * @event 
-         * @grammar magic.control.Suggestion#onhighlight = function(index, value){...}
+         * @grammar magic.control.Suggestion#onhighlight(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -594,7 +594,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	         * @description 去除某个item高亮时触发，若当前没有元素处于高亮状态，则不发出事件
 	         * @name magic.control.Suggestion#onclearhighlight
 	         * @event 
-	         * @grammar magic.control.Suggestion#onclearhighlight = function(index, value){...}
+	         * @grammar magic.control.Suggestion#onclearhighlight(index, value)
 	         * @param {Number} index item的索引
 	         * @param {Object} value 该item对应的value值
 	         * @example
@@ -633,7 +633,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 将某个item上框前触发
          * @name magic.control.Suggestion#onbeforepick
          * @event 
-         * @grammar magic.control.Suggestion#onbeforepick = function(index, value){...}
+         * @grammar magic.control.Suggestion#onbeforepick(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -658,7 +658,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 将某个item上框时触发
          * @name magic.control.Suggestion#onpick
          * @event 
-         * @grammar magic.control.Suggestion#onpick = function(index, value){...}
+         * @grammar magic.control.Suggestion#onpick(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -700,7 +700,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 提交某个item时触发
          * @name magic.control.Suggestion#onconfirm
          * @event 
-         * @grammar magic.control.Suggestion#onconfirm = function(index, value){...}
+         * @grammar magic.control.Suggestion#onconfirm(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -820,7 +820,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 鼠标移入某个item时触发
          * @name magic.control.Suggestion#onmouseoveritem
          * @event 
-         * @grammar magic.control.Suggestion#onmouseoveritem = function(index, value){...}
+         * @grammar magic.control.Suggestion#onmouseoveritem(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -858,7 +858,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 鼠标移出某个item时触发
          * @name magic.control.Suggestion#onmouseoutitem
          * @event 
-         * @grammar magic.control.Suggestion#onmouseoutitem = function(index, value){...}
+         * @grammar magic.control.Suggestion#onmouseoutitem(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -892,7 +892,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 鼠标选中某个item时触发
          * @name magic.control.Suggestion#onmousedownitem
          * @event 
-         * @grammar magic.control.Suggestion#onmousedownitem = function(index, value){...}
+         * @grammar magic.control.Suggestion#onmousedownitem(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -926,7 +926,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
          * @description 鼠标点击某个item时触发
          * @name magic.control.Suggestion#onmouseclick
          * @event 
-         * @grammar magic.control.Suggestion#onmouseclick = function(index, value){...}
+         * @grammar magic.control.Suggestion#onmouseclick(index, value)
          * @param {Number} index item的索引
          * @param {Object} value 该item对应的value值
          * @example
@@ -1044,7 +1044,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 				         * @description 提交某个item时触发
 				         * @name magic.control.Suggestion#onconfirm
 				         * @event 
-				         * @grammar magic.control.Suggestion#onconfirm = function(data){...}
+				         * @grammar magic.control.Suggestion#onconfirm(data)
 				         * @param {Object} data 该item对应的值
 				         * @example
 				         * var sgt = magic.setup.suggestion('sgt', option);

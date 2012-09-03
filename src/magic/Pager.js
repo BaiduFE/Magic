@@ -125,9 +125,10 @@ magic.Pager = baidu.lang.createClass(function(options) {
         container.innerHTML = '';
         this.render(this.getId());
        /**
-        * 页码变换后触发
-        * @name magic.Pager#onpagechange
+        * @description 页码变换后触发
         * @event 
+        * @name magic.Pager#onpagechange
+        * @grammar magic.Pager#onpagechange(evt)
         * @param {baidu.lang.Event} evt 事件参数
         * @config {Boolean} evt.returnValue 返回false时，会阻止<a>的浏览器默认href跳转。
         */
@@ -197,7 +198,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         * @description 渲染后触发
         * @name magic.Pager#onload
         * @event 
-        * @grammar magic.control.Pager#onload=function(evt){...}
+        * @grammar magic.control.Pager#onload(evt)
         * @param {baidu.lang.Event} evt 事件参数
         * @example
 		* var pager = new Pager({currentPage: 1, totalPage: 8});
@@ -235,7 +236,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         * @description Pager析构后触发
         * @name magic.Pager#ondispose
         * @event 
-        * @grammar magic.control.Pager#ondispose=function(evt){...}
+        * @grammar magic.control.Pager#ondispose(evt)
         * @param {baidu.lang.Event} evt 事件参数
         * @example
 		* var pager = new Pager({currentPage: 1, totalPage: 8});

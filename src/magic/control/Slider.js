@@ -578,7 +578,7 @@ magic.control.Slider.extend({
      * @description 拖动开始触发
      * @name magic.control.Slider#onslidestart
      * @event
-     * @grammar magic.control.Slider#onslidestart=function(evt){...}
+     * @grammar magic.control.Slider#onslidestart(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var slider = new magic.Slider({
@@ -602,7 +602,7 @@ magic.control.Slider.extend({
      * @description 拖动中触发
      * @name magic.control.Slider#onslide
      * @event
-     * @grammar magic.control.Slider#onslide=function(evt){...}
+     * @grammar magic.control.Slider#onslide(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var slider = new magic.Slider({
@@ -626,7 +626,7 @@ magic.control.Slider.extend({
      * @description 拖动结束触发
      * @name magic.control.Slider#onslidestop
      * @event
-     * @grammar magic.control.Slider#onslidestop=function(evt){...}
+     * @grammar magic.control.Slider#onslidestop(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var slider = new magic.Slider({
@@ -649,7 +649,7 @@ magic.control.Slider.extend({
      * @description 当组件值发生改变时触发
      * @name magic.control.Slider#onchange
      * @event
-     * @grammar magic.control.Slider#onchange=function(evt){...}
+     * @grammar magic.control.Slider#onchange(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Number} evt.value 组件当前值
      * @example

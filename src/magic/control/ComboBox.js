@@ -799,7 +799,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
          * @description 组合框载入新的下拉菜单数据后触发
          * @event
          * @name magic.control.ComboBox#onrelad
-         * @name magic.control.ComboBox#onrelad()
+         * @grammar magic.control.ComboBox#onrelad(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
          * instance.on('reload', function() {

@@ -102,7 +102,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @description 当焦点发生改变之前触发该事件
      * @name magic.control.Tab#onbeforeselect
      * @event 
-     * @grammar magic.control.Tab#onbeforeselect = function(evt){...}
+     * @grammar magic.control.Tab#onbeforeselect(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Number} evt.index 切换前的焦点索引
      * @example
@@ -120,7 +120,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @description 当焦点发生改变时触发该事件
      * @name magic.control.Tab#onselect
      * @event 
-     * @grammar magic.control.Tab#onselect = function(evt){...}
+     * @grammar magic.control.Tab#onselect(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Number} evt.index 切换后的焦点索引
      * @example

@@ -16,12 +16,12 @@
  * @description 给背景层添加一个“九宫格”的插件，可以让用户插入复杂的背景样式如PNG透明，提供一组可外调的CSS：tang-background、tang-background-inner
  * @name magic.Background.$styleBox
  * @addon
- * @param {Object} options 插件参数.
+ * @param {Object} options styleBox插件参数.
  * @param {Boolean} options.styleBox 是否使用九宫格方案，可以使用更复杂的背景图策略
  * @author meizz
  * @example
  * /// for options.styleBox
- * var background = new magic.Background({
+ * var instance = new magic.Background({
  * 		styleBox: true		// 启用九宫格方案
  * });
  */

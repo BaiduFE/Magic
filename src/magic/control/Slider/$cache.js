@@ -13,12 +13,12 @@
  * @description 为Slider组件增加缓存进度条
  * @name magic.control.Slider.$cache
  * @addon
- * @param {Object} cache 插件参数.
- * @param {Boolean} cache.enable 是否使用缓存条，true || false
+ * @param {Object} options cache插件参数.
+ * @param {Boolean} options.cache.enable cache插件开关，默认false
  * @author qiaoyue
  * @example
- * /// for cache.enable
- * new magic.Slider({
+ * /// for options.cache.enable
+ * var instance = new magic.Slider({
  * 		orientation:'horizonal',
  * 		cache:{enable:true}		// 启用缓存条
  * }); 
