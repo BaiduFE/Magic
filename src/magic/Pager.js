@@ -125,11 +125,22 @@ magic.Pager = baidu.lang.createClass(function(options) {
         container.innerHTML = '';
         this.render(this.getId());
        /**
-        * 页码变换后触发
+        * @description 页码变换后触发
         * @name magic.Pager#onpagechange
         * @event 
         * @param {baidu.lang.Event} evt 事件参数
-        * @config {Boolean} evt.returnValue 返回false时，会阻止<a>的浏览器默认href跳转。
+        * @param {Boolean} evt.returnValue 返回false时，会阻止<a>的浏览器默认href跳转。
+        * @param {Number} evt.pageNum 变化后的页码。
+        * @example
+        * instance.on('pagechange', function(evt) {
+        *     evt.pageNum;
+        *     evt.returnValue = false; //此时将组织浏览器的默认href跳转。
+        * });
+        * @example
+        * instance.onpagechange = function(evt) {
+        *     evt.pageNum;
+        *     evt.returnValue = false; //此时将组织浏览器的默认href跳转。
+        * };
         */
         return this.fire('pagechange', {
             'pageNum' : currentPage
