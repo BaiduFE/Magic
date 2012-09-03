@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
+    <meta name="description" content="Slider组件 render模式 竖直示例" />
+    <title>Slider组件 render模式 竖直示例</title>
+    <link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css"/>
+    <link rel="stylesheet" href="../../../resources/default/magic.control.Slider/magic.Slider.css"/>
+    <script src="../../../src/import.php?f=baidu.dom.ready,magic.Slider,magic.control.Slider.$fx,magic.control.Slider.$cache" type="text/javascript"></script>
+    <style type="text/css">
+        .demo{height:400px;}
+        .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+        .wrap{width:200px;margin:10px auto;font-size:12px;}
+        .tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knob.png");}
+        .tang-slider-htl .tang-knob:hover{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+        .tang-slider-htl .tang-knob:active{background-image:url("slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+
+        .tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knob.png");}
+        .tang-slider-vtl .tang-knob:hover{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+        .tang-slider-vtl .tang-knob:active{background-image:url("slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <h1>Slider 组件 <strong>render</strong> 模式示例</h1>
+        <div id="view1" class="view">
+            <div class="wrap">
+                <p>精确度：0</p>
+                <button onclick="s1.enable();">启用</button>
+                <button onclick="s1.disable();">禁用</button>
+                <p>animate: <input type="checkbox" value="yes" onclick="s1._info.fx.enable = this.checked;"></p>
+            </div>
+            <div id="s1"></div>
+        </div>
+
+        <div id="view2" class="view">
+            <div class="wrap">
+                <p>精确度：0.25</p>
+                <button onclick="s2.enable();">启用</button>
+                <button onclick="s2.disable();">禁用</button>
+                <p>animate: <input type="checkbox" value="yes" onclick="s2._info.fx.enable = this.checked;"></p>
+            </div>
+            <div id="s2"></div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        baidu.dom.ready(function(){
+            var s1 = new magic.Slider({orientation:'vertical', direction:'forward', fx:{enable: false}, cache:{enable:true}}); 
+
+            var s2 = new magic.Slider({accuracy:0.25, orientation:'vertical', direction:'backward', fx:{enable: false}, cache:{enable:true}}); 
+           
+            s1.render('s1');
+            s2.render('s2');
+    
+            s1.setCache(0.5);
+            s1.setRange(0.5);
+            s2.setCache(1);
+
+            window.s1 = s1;
+            window.s2 = s2;
+        });
+        
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Carousel 组件 fx动画插件 示例" />
+<title>Carousel 组件 fx动画插件 示例</title>
+<link rel="stylesheet" type="text/css" href="../../../demos/magic.Carousel/demo.css"/>
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css"/>
+<link rel='stylesheet' type='text/css' href='../../../resources/default/magic.control.Carousel/magic.control.Carousel.css'/>
+<script type="text/javascript" src="../../../src/import.php?f=baidu.dom.ready,magic.setup.carousel,magic.control.Carousel.$button,magic.control.Carousel.$fx"></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>fx动画插件</strong> 示例</h1>
+    <p>滚动动画默认情况是启动的，如果不需要动画效果，可以通过在options参数中加入 fx.enable 取值 false 来去掉动画效果。</p>
+    <p>可以通过 fx.duration 来指定一次滚动动画的总时间（默认值：500毫秒），可以通过fx.interval来指定每一帧的时间（默认值：16毫秒），如var options = {fx: {duration: 1000, interval: 20}}</p>
+</div>
+
+<div id='one-carousel' class='tang-ui tang-carousel' tang-param='viewSize:4; originalIndex: 0;'>
+    <a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+    <div class='tang-carousel-container'>
+        <ul class='tang-carousel-element'>
+            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../../demos/magic.Carousel/item/0.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/1.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/2.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/3.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/4.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/5.png'/></li>
+            <li class='tang-carousel-item'><img src='../../../demos/magic.Carousel/item/6.png'/></li>
+        </ul>
+    </div>
+    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+</div>
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var c = magic.setup.carousel('one-carousel', {
+        fx: {
+            enable: true,
+            duration: 1000,
+            interval: 20
+        }
+    });
+});
+</script>
+</body>
+
+</html>

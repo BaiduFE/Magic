@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Carousel 组件 button 插件示例" />
+<title>Carousel 组件 button 插件示例</title>
+<link rel="stylesheet" type="text/css" href="../../../demos/magic.Carousel/demo.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel='stylesheet' type='text/css' href='../../../resources/default/magic.control.Carousel/magic.control.Carousel.css'/>
+<script type='text/javascript' src='../../../src/import.php?f=baidu.dom.ready,magic.Carousel.$button'></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>button插件</strong> 示例</h1>
+    <p>button插件是在carousel的两边加上翻滚按钮提供翻页，默认情况下插件加载时加入按钮，可以通过options参数的button.enable设置值为false来去掉按钮。</p>
+    <p>在render模式下，可以通过options参数的button.buttonLabel: {prev: '左翻页', next: '右翻页'}的方式来为按钮增加标签。</p>
+</div>
+
+
+<div id='one-carousel'></div>
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var c = new magic.Carousel({
+        viewSize: 4,
+        originalIndex: 0,
+        items: [
+            {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/2.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/3.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/4.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/5.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/6.png"/>'}
+        ],
+        button: {
+            enable: true
+        }
+    });
+    c.render('one-carousel');
+});
+
+
+</script>
+</body>
+
+</html>
