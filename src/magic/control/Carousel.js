@@ -343,7 +343,7 @@ void function(){
                     && (offset = viewSize - totalCount + index);
             }
             
-            baidu.array(child).each(function(item, index){
+            baidu.array(child).each(function(index, item){
             	(index < posIndex - offset || index > posIndex + viewSize - offset - 1)
                     && baidu.dom(item).remove();
             });
