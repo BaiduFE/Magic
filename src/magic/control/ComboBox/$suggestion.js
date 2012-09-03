@@ -90,10 +90,10 @@ var Timer = baidu.lang.createClass(function(options) {
  * @name magic.control.ComboBox.$suggestion
  * @addon
  * @param {Object} options 选项
- * @param {Boolean} enable 开关
+ * @param {Boolean} options.suggestion.enable 开关
  * @author 夏登平 xiadengping@baidu.com
  * @example
- * /// for enable
+ * /// for options.suggestion.enable
  * var instance = new magic.Combobox({
  *     'items' : [
  *         {'value' : 0, 'content' : '选项1'},
