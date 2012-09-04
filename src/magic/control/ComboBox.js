@@ -148,7 +148,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         
         me.menu.on('hide', function() {
            /**
-            * 下拉菜单隐藏后触发
+            * @description 下拉菜单隐藏后触发
             * @name magic.control.ComboBox#onhide
             * @grammar magic.control.ComboBox#onhide(evt)
             * @event 
@@ -221,7 +221,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             }
             me.$confirm(target);
            /**
-            * 点击下拉菜单某项后触发
+            * @description 点击下拉菜单某项后触发
             * @name magic.control.ComboBox#onclickitem
             * @grammar magic.control.ComboBox#onclickitem(evt)
             * @event 
@@ -817,7 +817,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     
     /**
      * @description 设置组合框为不可用状态。
-     * 做2件事：修改样式， 设置input为disable。
+     * @note 做2件事：修改样式， 设置input为disable。
      * @function
      * @name magic.control.ComboBox#disable
      * @grammar magic.control.ComboBox#disable()

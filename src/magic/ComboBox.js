@@ -121,7 +121,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         position = position || 'beforeEnd';
         baidu(target).insertHTML(position, this.$toHTMLString(this._options.items));
         /**
-         * 组合框渲染后触发 
+         * @description 组合框渲染后触发 
          * @event
          * @name magic.ComboBox#onload
          * @grammar magic.ComboBox#onload()
@@ -156,7 +156,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         }
         var container = this.getElement('container');
         /**
-         * @description ComboBox析构后触发 
+         * @description 组合框析构后触发 
          * @event
          * @name magic.ComboBox#ondispose
          * @grammar magic.ComboBox#ondispose(evt)
