@@ -60,9 +60,9 @@ baidu.lang.inherits(magic.Base, baidu.lang.Class, "magic.Base").extend(
 
     /**
      * @description 取得一个页面唯一的 id
-     * @name magic.Base#getId
+     * @name magic.Base#$getId
      * @function
-     * @grammar magic.Base#getId(key)
+     * @grammar magic.Base#$getId(key)
      * @param   {String}    key     该ID对应的关键字(可选参数)
      * @return  {String}            页面唯一的 id，可以作为DOM元素的id
      */

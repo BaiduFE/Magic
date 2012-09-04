@@ -12,10 +12,10 @@
  * @description 对话框遮罩插件
  * @name magic.control.Dialog.$mask
  * @addon
- * @param {Object}  options 遮罩插件选项
- * @param {Boolean} options.mask.enable 遮罩插件的开关，默认false
- * @param {String} options.mask.bgColor 遮罩插件的颜色，默认#000
- * @param {Number} options.mask.opacity 遮罩插件的不透明度，默认0.15
+ * @param {Object}  options 插件选项
+ * @param {Boolean} options.mask.enable 插件开关，默认false
+ * @param {String} options.mask.bgColor 遮罩的颜色，默认#000
+ * @param {Number} options.mask.opacity 遮罩的不透明度，默认0.15
  * @example
  * /// for options.mask.enable,options.mask.bgColor,options.mask.opacity
  * var instance = new magic.Dialog({
