@@ -128,7 +128,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         
         me.menu.on('beforehide', function(e) {
            /**
-            * 下拉菜单试图隐藏时触发
+            * @description 下拉菜单试图隐藏时触发
             * @name magic.control.ComboBox#onbeforehide
             * @grammer magic.control.ComboBox#onbeforehide(evt)
             * @event 
@@ -141,7 +141,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             * @example
             * instance.onbeforehide = function() {
             *     // do something...
-            * }
+            * };
             */
             e.returnValue = me.fire('beforehide');
         });
@@ -160,7 +160,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             * @example
             * instance.onhide = function() {
             *     // do something...
-            * }
+            * };
             */
             me.fire('hide');
         });
@@ -240,7 +240,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             *     evt.result.index;
             *     evt.result.value;
             *     evt.result.content;
-            * }
+            * };
             */
             me.fire('clickitem', {
                 'result' : me._getResult(target)
@@ -654,7 +654,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * @description 根据选中项的值设置ComboBox
+     * @description 根据选中项的值设置组合框
      * @function
      * @name magic.control.ComboBox#setByValue
      * @grammar magic.control.ComboBox#setByValue(value)
