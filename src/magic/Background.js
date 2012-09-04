@@ -25,7 +25,7 @@
  * @superClass magic.Base
  * @grammar new magic.Background(options)
  * @param {Object} options 参数设置
- * @param {Boolean} options.coverable	可选，默认为False，添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等
+ * @param {Boolean} options.coverable 添加背景覆盖层，防止鼠标事件穿透，同时IE6里还可以遮盖select、Flash等，默认false
  * @plugin styleBox 使按钮支持capture
  * @return {magic.Background} Background实例.
  * @example

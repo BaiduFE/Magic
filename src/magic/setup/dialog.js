@@ -15,7 +15,7 @@
 ///import baidu.type;
 
 /**
- * @description 在页面已有 html 结构的基础上创建 dialog 组件
+ * @description 在页面已有 html 结构的基础上创建对话框组件
  * @name magic.setup.dialog
  * @function
  * @grammar  magic.setup.dialog(el,options)

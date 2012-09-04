@@ -21,17 +21,17 @@
 ///import magic.control;
 
 /**
- * @description Suggestion组件的控制器
+ * @description 输入框提示组件的控制器
  * @class
  * @name magic.control.Suggestion
  * @superClass magic.Base
  * @grammar new magic.control.Suggestion(options)
  * @param {Object} options 选项
- * @param {Object} options.offset suggestion相对于输入框的偏移量，传入的参数中可包括offsetX、 offsetY、width三个值（在CSS中使用margin同样可以定位）。
+ * @param {Object} options.offset 输入框提示组件相对于输入框的偏移量，传入的参数中可包括offsetX、 offsetY、width三个值（在CSS中使用margin同样可以定位）。
  * @param {Function} options.getData 在需要获取数据的时候会调用此函数来获取数据，传入的参数query是用户在输入框中输入的数据。在获取到数据后，调用receiveData，并传入参数，例如me.receiveData(query, returnValue);
  * @param {String} options.prependHTML 写在下拉框列表前面的html
  * @param {String} options.appendHTML 写在下拉框列表后面的html
- * @param {Boolean} options.holdHighLight 鼠标移出待选项区域后，是否保持条目的高亮状态
+ * @param {Boolean} options.holdHighLight 鼠标移出待选项区域后，是否保持条目的高亮状态，默认false
  * @author meizz, zhaochengyang
  * @return {magic.control.Suggestion} Suggestion实例
  * @example
@@ -223,7 +223,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     
     
     /**
-     * @description 创建suggestion容器，并渲染到dom树中
+     * @description 创建输入框提示组件容器，并渲染到dom树中
      * @name magic.control.Suggestion#render
      * @function
      * @grammar magic.control.Suggestion#render()
@@ -244,7 +244,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         baidu.dom(me.getElement("input")).attr("autocomplete", "false");
         
         /**
-         * @description 渲染suggestion容器时触发
+         * @description 渲染输入框提示容器时触发
          * @name magic.control.Suggestion#onrender
          * @event 
          * @grammar magic.control.Suggestion#onrender(evt)
@@ -265,7 +265,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         return popupContainer;
     },
     /**
-     * @description 判断suggestion是否显示
+     * @description 判断输入框提示是否显示
      * @name magic.control.Suggestion#isShowing
      * @function
      * @grammar magic.control.Suggestion#isShowing()
@@ -279,7 +279,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         return suggestion && baidu.dom(suggestion).css('display') != "none";
     },
     /**
-     * @description 显示suggestion容器
+     * @description 显示输入框提示容器
      * @name magic.control.Suggestion#show
      * @function
      * @grammar magic.control.Suggestion#show()
@@ -293,7 +293,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             input_el = me.getElement("input"),
             customWidth = (me.offset && me.offset.width) || input_el.offsetWidth;
         /**
-         * @description 试图显示suggestion时触发
+         * @description 试图显示输入框提示时触发
          * @name magic.control.Suggestion#onbeforeshow
          * @event 
          * @grammar magic.control.Suggestion#onbeforeshow(evt)
@@ -327,7 +327,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         //将selectedIndex重置为-1
         me.selectedIndex = -1;
         /**
-         * @description suggestion显示后触发
+         * @description 输入框提示显示后触发
          * @name magic.control.Suggestion#onshow
          * @event 
          * @grammar magic.control.Suggestion#onshow(evt)
@@ -346,7 +346,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         me.fire("onshow");
     },
     /**
-     * @description 隐藏suggestion容器
+     * @description 隐藏输入框提示容器
      * @name magic.control.Suggestion#hide
      * @function
      * @grammar magic.control.Suggestion#hide()
@@ -389,7 +389,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         //重置selectedIndex
         me.selectedIndex = -1;
         /**
-         * @description suggestion隐藏时触发
+         * @description 输入框提示隐藏时触发
          * @name magic.control.Suggestion#onhide
          * @event 
          * @grammar magic.control.Suggestion#onhide(evt)
@@ -470,7 +470,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     },
     
     /**
-     * @description 根据index获取对应的suggestion值
+     * @description 根据index获取对应的输入框提示值
      * @name magic.control.Suggestion#getDataByIndex
      * @function
      * @grammar magic.control.Suggestion#getDataByIndex(index)
@@ -749,7 +749,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         return _data;
 	},
 	/**
-     * @description 取suggestion数据
+     * @description 取输入框提示数据
      * @name magic.control.Suggestion#getData
      * @function
      * @grammar magic.control.Suggestion#getData(query)
@@ -784,7 +784,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         }
     },
 	/**
-     * @description 缓存一组suggestion数据
+     * @description 缓存一组输入框提示数据
      * @name magic.control.Suggestion#$cacheData
      * @function
      * @grammar magic.control.Suggestion#$cacheData(query)
@@ -1100,7 +1100,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         
     }
     /**
-     * @description 获得 Suggestion组件结构里的 HtmlElement对象
+     * @description 获得输入框提示组件结构里的 HtmlElement对象
      * @name magic.control.Suggestion#getElement
      * @function
      * @grammar magic.control.Suggestion#getElement(name)

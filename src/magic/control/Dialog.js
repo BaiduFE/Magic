@@ -28,7 +28,7 @@
 ///import baidu.page.getScrollLeft;
 
 /**
- * @description Dialog 组件的控制器
+ * @description 对话框组件的控制器
  * @class
  * @name magic.control.Dialog
  * @superClass magic.control.Layer
@@ -209,7 +209,7 @@ magic.control.Dialog.extend(
 		* @description 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
 		* @name magic.control.Dialog#onbeforeshow
 		* @event
-		* @grammar magic.control.Dialog#onbeforeshow
+		* @grammar magic.control.Dialog#onbeforeshow(evt)
 		* @example
 		* var instance = new magic.Dialog({
 		*      titleText: "对话框标题",
@@ -221,6 +221,7 @@ magic.control.Dialog.extend(
 		* });
 		* instance.on("beforeshow", function(){
 		*     //do something...
+		*     return false;		// 阻止显示窗口
 		* });
 		* @example
 		* var instance = new magic.Dialog({
@@ -244,7 +245,7 @@ magic.control.Dialog.extend(
         * @description 当窗口显示后触发
         * @name magic.control.Dialog#onshow
         * @event
-        * @grammar magic.control.Dialog#onshow
+        * @grammar magic.control.Dialog#onshow(evt)
         * @example
         * var instance = new magic.Dialog({
         *      titleText: "对话框标题",
@@ -295,7 +296,7 @@ magic.control.Dialog.extend(
          * @description 当即将关闭窗口时触发，如果事件回调函数返回值为 false，则阻止关闭窗口
          * @name magic.control.Dialog#onbeforehide
          * @event
-         * @grammar magic.control.Dialog#onbeforehide
+         * @grammar magic.control.Dialog#onbeforehide(evt)
          * @example
          * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
@@ -307,6 +308,7 @@ magic.control.Dialog.extend(
          * });
          * instance.on("beforehide", function(){
          *     //do something...
+         *     return false;	//阻止关闭窗口
          * });
          * @example
          * var instance = new magic.Dialog({
@@ -330,7 +332,7 @@ magic.control.Dialog.extend(
          * @description 当关闭窗口时触发
          * @name magic.control.Dialog#onhide
          * @event
-         * @grammar magic.control.Dialog#onhide
+         * @grammar magic.control.Dialog#onhide(evt)
          * @example
          * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
@@ -467,7 +469,7 @@ magic.control.Dialog.extend(
          * @description 当窗口获得焦点时触发
          * @name magic.control.Dialog#onfocus
          * @event 
-         * @grammar magic.control.Dialog#onfocus
+         * @grammar magic.control.Dialog#onfocus(evt)
          * @example
          * var instance = new magic.Dialog({
          *      titleText: "对话框标题",

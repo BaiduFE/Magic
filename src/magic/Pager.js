@@ -32,16 +32,16 @@
  * @superClass magic.Base
  * @grammar new magic.Pager(options)
  * @param {Object} options 选项
- * @param {Number} options.currentPage 当前页，使用第二种构造方式时使用。
- * @param {Number} options.totalPage 总页数，使用第二种构造方式时使用。
- * @param {Number} options.viewSize 页码数，默认显示多少个页面的链接（不包括“首页”等特殊链接），默认值10。
- * @param {Number} options.currentPagePos 当前页位置，当前页面链接在页面链接列表中的默认位置，必须小于页码数，默认值4。
- * @param {String} options.labelFirst 首页链接显示的内容，默认为“首页”。
- * @param {String} options.labelPrev 上一页链接显示的内容，默认为“上一页”。
- * @param {String} options.labelNext 下一页链接显示的内容，默认为“下一页”。
- * @param {String} options.labelLast 尾页链接显示的内容，默认为“尾页”。
- * @param {String} options.tplLabelNormal 普通页码显示模版，默认为#{pageNum}
- * @param {String} options.tplLabelCurrent 当前页码的显示模版，默认为#{pageNum}。
+ * @param {Number} options.currentPage 当前页，使用第二种构造方式时使用，默认1
+ * @param {Number} options.totalPage 总页数，使用第二种构造方式时使用，默认1
+ * @param {Number} options.viewSize 页码数，默认显示多少个页面的链接（不包括“首页”等特殊链接），默认10
+ * @param {Number} options.currentPagePos 当前页位置，当前页面链接在页面链接列表中的默认位置，必须小于页码数，默认4
+ * @param {String} options.labelFirst 首页链接显示的内容，默认“首页”
+ * @param {String} options.labelPrev 上一页链接显示的内容，默认“上一页”
+ * @param {String} options.labelNext 下一页链接显示的内容，默认“下一页”
+ * @param {String} options.labelLast 尾页链接显示的内容，默认“尾页”
+ * @param {String} options.tplLabelNormal 普通页码显示模版，默认#{pageNum}
+ * @param {String} options.tplLabelCurrent 当前页码的显示模版，默认#{pageNum}
  * @return {magic.Pager} Pager实例
  * @example
  * /// for options.currentPage,options.totalPage
@@ -188,7 +188,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * @description 将pager渲染到dom中
+     * @description 将分页组件渲染到dom中
      * @name magic.Pager#render
      * @function
      * @grammar magic.Pager#render(target)
@@ -243,7 +243,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         baidu.dom(container).removeClass('tang-pager');
        
        /**
-        * @description Pager析构后触发
+        * @description 分页组件析构后触发
         * @name magic.Pager#ondispose
         * @event 
         * @grammar magic.control.Pager#ondispose(evt)

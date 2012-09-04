@@ -13,13 +13,13 @@
 ///import magic.control.DatePicker;
 
 /**
- * @description datePicker
+ * @description 日历组件
  * @name magic.setup.datePicker
  * @function
  * @grammar magic.setup.datePicker(options)
  * @param {Object} options 自定义选项
- * @param {String} format 输出日期的格式
- * @param {String} language 当前语言，默认为中文
+ * @param {String} format 输出日期的格式，默认yyyy-MM-dd
+ * @param {String} language 当前语言，默认zh-CN
  * @param {Object} popupOptions popup的配置项
  * @param {Object} calendarOptions calendar的配置项
  * @example 
@@ -36,7 +36,7 @@
  *                  'hideOnEscape': true
  *              }
  * });
- * @return {magic.control.datePicker} datePicker实例
+ * @return {magic.control.datePicker} 日历实例
  * @superClass magic.Base
  * @author zhaochengyang
  */

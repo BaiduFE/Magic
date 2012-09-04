@@ -14,16 +14,16 @@
 ///import baidu.dom.remove;
 
 /**
- * @description Tab选项卡组件
+ * @description 选项卡组件
  * @class
  * @name magic.Tab
  * @superClass magic.control.Tab
  * @grammar new magic.Tab(options)
  * @param {Object} options 选项.
  * @param {Array} options.items 数据项，格式如：[{title: 'text-0', content: 'content-0'}, {title: 'text-1', content: 'content-1'}...]
- * @param {String} options.selectEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click
- * @param {Number} options.selectDelay 当selectEvent是mouseover时，选项卡之间切换的延迟时间，以毫秒为单位，默认值是0.
- * @param {Number} options.originalIndex 默认选项卡的打开项，默认值是0
+ * @param {String} options.selectEvent 触发选项卡切换的事件名称,取值click或mouseover，默认click
+ * @param {Number} options.selectDelay 当selectEvent是mouseover时，选项卡之间切换的延迟时间，以毫秒为单位，默认0
+ * @param {Number} options.originalIndex 默认选项卡的打开项，默认0
  * @return {magic.control.Tab} Tab实例.
  * @author linlingyu
  * @example
