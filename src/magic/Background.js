@@ -30,7 +30,7 @@
  * @return {magic.Background} Background实例.
  * @example
  * /// for options.coverable
- * var background = new magic.Background({
+ * var instance = new magic.Background({
  * 		coverable: true		// 遮盖 select、flash
  * });
  */
@@ -53,7 +53,7 @@ magic.Background = baidu.lang.createClass(function(options){
 		me.size  = [0,0];
 		me.timer = setInterval(function(){me._forIE()}, 80);
 	}
-	this._innerHTML = "<div class='tang-background-inner' style='width:100%;height:100%;' id='"+ this.getId("inner")+"'></div>";
+	this._innerHTML = "<div class='tang-background-inner' style='width:100%;height:100%;' id='"+ this.$getId("inner")+"'></div>";
 }, {
 	type : "magic.Background"
 	,superClass : magic.Base
@@ -70,8 +70,8 @@ magic.Background = baidu.lang.createClass(function(options){
      * @grammar magic.Background#render(container)
      * @param {HTMLElement} container 被附加背景层的DOM元素
      * @example
-     * var background = new magic.Background(option);
-     * background.render(baidu('#bg').get(0));
+     * var instance = new magic.Background(option);
+     * instance.render(baidu('#bg').get(0));
      */
 	render : function(container) {
 		var box = baidu.dom(container).get(0);
@@ -84,15 +84,15 @@ magic.Background = baidu.lang.createClass(function(options){
 
 	/**
      * @description 析构
-     * @name magic.Background#dispose
+     * @name magic.Background#$dispose
      * @function 
-     * @grammar magic.Background#dispose()
+     * @grammar magic.Background#$dispose()
      * @example
-     * var background = new magic.Background(option);
-     * background.render(baidu('#bg').get(0));
-     * background.dispose();	// 销毁元素
+     * var instance = new magic.Background(option);
+     * instance.render(baidu('#bg').get(0));
+     * instance.$dispose();	// 销毁元素
      */
-	dispose: function(){
+	$dispose: function(){
 	    var layer = this.getElement();
 	    layer.parentNode.removeChild(layer);
 	    clearInterval(this.timer);
@@ -105,7 +105,7 @@ magic.Background = baidu.lang.createClass(function(options){
 	,toHTMLString : function(tagName) {
 		return [
 			"<",(tagName||this.tagName)," class='tang-background"
-			,(baidu.browser.ie < 7 ?" ie6__":""),"' id='",this.getId()
+			,(baidu.browser.ie < 7 ?" ie6__":""),"' id='",this.$getId()
 			,"' style='position:absolute; top:0px; left:0px;"
 			,(this.timer ? "width:10px;height:10px;" : "width:100%;height:100%;")
 			,"z-index:-9; -webkit-user-select:none; -moz-user-select:none;' "
@@ -121,9 +121,9 @@ magic.Background = baidu.lang.createClass(function(options){
      * @grammar magic.Background#setContent(content)
      * @param {HTMLString} content 注入的HTML文本
      * @example
-     * var background = new magic.Background(option);
-     * background.render(baidu('#bg').get(0));
-     * background.setContent('some text');
+     * var instance = new magic.Background(option);
+     * instance.render(baidu('#bg').get(0));
+     * instance.setContent('some text');
      */
 	,setContent : function(content){
 		this.getElement("inner").innerHTML = content;

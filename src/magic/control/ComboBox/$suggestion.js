@@ -89,8 +89,8 @@ var Timer = baidu.lang.createClass(function(options) {
  * @description 组合框的输入框提示功能插件
  * @name magic.control.ComboBox.$suggestion
  * @addon
- * @param {Object} options 选项
- * @param {Boolean} options.suggestion.enable 开关
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.suggestion.enable 插件开关，默认true
  * @author 夏登平 xiadengping@baidu.com
  * @example
  * /// for options.suggestion.enable

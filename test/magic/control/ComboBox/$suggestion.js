@@ -31,7 +31,7 @@ test('default params', function() {
             setTimeout(function() {
                 equals(combobox1.menu.visible, true, "The menu is right");
                 equals($('li', combobox1.getElement('menu')).length, 3, "The menu is right");
-                combobox1.dispose();
+                combobox1.$dispose();
                 document.body.removeChild(div1);
                 start();             
             }, 200);
@@ -73,7 +73,7 @@ test('params', function() {
     setTimeout(function() {
         equals(combobox1.menu.visible, false, "The menu is right");
         equals($('li', combobox1.getElement('menu')).length, 5, "The menu is right");
-        combobox1.dispose();
+        combobox1.$dispose();
         document.body.removeChild(div1);
         start();
     }, 200)
@@ -131,7 +131,7 @@ test('suggstion basic action change value of input', function() {
                         combobox1.getElement('input').value = 'f';
                         setTimeout(function(){
                             equals(combobox1.menu.visible, false, 'suggestion is hiding');
-                            combobox1.dispose();
+                            combobox1.$dispose();
                             document.body.removeChild(div1);
                             start();                           
                         }, 200)                        
@@ -183,7 +183,7 @@ test('suggstion change value of input + keyboard action', function() {
                     setTimeout(function() {
                         equals($('li', combobox1.getElement('menu')).length, 1, '1 items displayed');
                         equals($('li', combobox1.getElement('menu'))[0].innerHTML, '选项1', '1 items displayed');
-                        combobox1.dispose();
+                        combobox1.$dispose();
                         document.body.removeChild(div1);
                         start(); 
                     }, 200);                

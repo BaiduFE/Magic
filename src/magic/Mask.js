@@ -38,18 +38,18 @@
  * @return {magic.Mask} Mask实例.
  * @example
  * /// for options.coverable
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		coverable: true		// mask 遮盖 flash/select
  * });
  * @example
  * /// for options.bgColor,options.opacity
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		bgColor: '#ccc',	// 灰色背景
  * 		opacity: 0.5		// 50%透明度
  * });
  * @example
  * /// for options.container
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		container: document.body
  * });
  */
@@ -140,7 +140,7 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
 	 * @private
 	 */
 	toHTMLString : function(){
-		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
+		return "<div id='"+this.$getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
 			+("<iframe frameborder='0' style='"
 			+"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
 			+"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "

@@ -28,14 +28,14 @@
  * @author linlingyu
  * @example
  * /// for options.selectEvent,options.selectDelay
- * var tab = new magic.Tab({
+ * var instance = new magic.Tab({
  * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
  * 		selectEvent : 'mouseover',	// mouseover 触发切换
  * 		selectDelay : 500	切换延时500毫秒
  * });
  * @example
  * /// for options.items,options.originalIndex
- * var tab = new magic.Tab({
+ * var instance = new magic.Tab({
  * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
  * 		originalIndex: 2	// 默认打开第三个tab
  * });
@@ -89,14 +89,14 @@ magic.Tab = baidu.lang.createClass(function(options) {
      * @grammar magic.Tab#render()
      * @param {String|HTMLElement} target 一个用来渲染组件的容器对象.
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
      */
     render: function(target) {
         var me = this,
             container;
         if (me.getElement()) {return;}//已经渲染过
-        me.mappingDom('', baidu.dom('#'+target).get(0) || document.body);
+        me.$mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
         baidu.dom(container).addClass('tang-ui tang-tab');
         baidu.dom(container).insertHTML('beforeEnd', me.toHTMLString());
@@ -105,21 +105,21 @@ magic.Tab = baidu.lang.createClass(function(options) {
     
     /**
      * @description 析构
-     * @name magic.Tab#dispose
+     * @name magic.Tab#$dispose
      * @function 
-     * @grammar magic.Tab#dispose()
+     * @grammar magic.Tab#$dispose()
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
-     * tab.dispose();
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this, title, body;
         if(me.disposed){return;}
         title = me.getElement('title');
         body = me.getElement('body');
         baidu.dom(me.getElement()).removeClass('tang-ui tang-tab');
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         baidu.dom(title).remove();
         baidu.dom(body).remove();
         title = body = null;

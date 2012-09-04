@@ -52,7 +52,7 @@ test("default param", function(){
 		tooltip = new magic.Tooltip();
 		tooltip.attach("tooltip0");
 		ok(isShown(tooltip.getElement()), "The tooltip is shown");
-		tooltip.dispose();
+		tooltip.$dispose();
 		start();
 	});
 });
@@ -77,7 +77,7 @@ test("render, hide, show, dispose, visible, top, left", function(){
 	ok(tooltip.visible, "The tooltip is show");
 	equals(tooltip.top, tooltip.getElement().offsetTop, "The top is right");
 	equals(tooltip.left, tooltip.getElement().offsetLeft, "The left is right");
-	tooltip.dispose();	
+	tooltip.$dispose();	
 	var l2 = baidu.event._listeners.length;
 	equals($('.tang-background').length, 0, "The tooltip is disposed");
 	equals(l2, l1, "The events are un");
@@ -154,7 +154,7 @@ test("disposeOnHide", function(){
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	tooltip.hide();
 	ok(!isShown(tooltip.getElement()), "The tooltip is hide but not disposed");
-	tooltip.dispose();
+	tooltip.$dispose();
 });
 
 test("hideOnEscape", function(){
@@ -173,7 +173,7 @@ test("hideOnEscape", function(){
 			keyCode: 27
 		});
 		ok(isShown(tooltip.getElement()), "The tooltip is still shown");
-		tooltip.dispose();
+		tooltip.$dispose();
 		start();
 	}, 10);
 });
@@ -191,7 +191,7 @@ test("offset", function(){
 			+ document.getElementById("con0").offsetHeight + 50, "The offsetX is right");
 	equals(tooltip.getElement().offsetLeft, baidu.dom.getPosition(document.getElementById("con0")).left 
 			+ 40 + 50, "The offsetY is right");
-	tooltip.dispose();
+	tooltip.$dispose();
 });
 
 test("size", function(){
@@ -205,7 +205,7 @@ test("size", function(){
 	tooltip.attach("tooltip0");
 	equals(tooltip.getElement().style.width, "200px", "The width is right");
 	equals(tooltip.getElement().style.height, "50px", "The height is right");
-	tooltip.dispose();
+	tooltip.$dispose();
 });
 
 test("align", function(){
@@ -217,7 +217,7 @@ test("align", function(){
 	var tooltip = new magic.Tooltip(options);
 	tooltip.attach("tooltip0");
 	ok($(".tang-background", tooltip.getElement()).attr("class").indexOf("align_center") > -1, "The arrow is center");
-	tooltip.dispose();
+	tooltip.$dispose();
 });
 
 test("attach 2 tooltips on 1 container", function(){
@@ -250,8 +250,8 @@ test("attach 2 tooltips on 1 container", function(){
 	tooltip.show();
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	ok(isShown(tooltip1.getElement()), "The tooltip1 is shown");
-	tooltip.dispose();	
-	tooltip1.dispose();	
+	tooltip.$dispose();	
+	tooltip1.$dispose();	
 });
 
 test("attach 2 tooltips on 2 containers", function(){
@@ -284,8 +284,8 @@ test("attach 2 tooltips on 2 containers", function(){
 	tooltip.show();
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	ok(isShown(tooltip1.getElement()), "The tooltip1 is shown");
-	tooltip.dispose();	
-	tooltip1.dispose();	
+	tooltip.$dispose();	
+	tooltip1.$dispose();	
 	$(".tang-tooltip").remove();
 	$("#con0").remove();
 	$("#con2").remove();

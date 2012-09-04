@@ -71,14 +71,14 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      */
     '$toHTMLString' :  function() {
         return [
-            '<div id="' + this.getId('container') + '" class="magic-combobox">',
-            '<div id="' + this.getId('input-container') + '" class="magic-combobox-input-container clearfix">',
+            '<div id="' + this.$getId('container') + '" class="magic-combobox">',
+            '<div id="' + this.$getId('input-container') + '" class="magic-combobox-input-container clearfix">',
             '<div class="magic-combobox-input-outter">',
             '<div class="magic-combobox-input-inner">',
-            '<input id="' + this.getId('input') + '" class="magic-combobox-input"' + (this._options.readonly ? 'readonly' : '') + '>',
+            '<input id="' + this.$getId('input') + '" class="magic-combobox-input"' + (this._options.readonly ? 'readonly' : '') + '>',
             '</div>',
             '</div>',
-            '<a href="#" id="' + this.getId('arrow') + '" class="magic-combobox-arrow" onclick="return false"></a>',
+            '<a href="#" id="' + this.$getId('arrow') + '" class="magic-combobox-arrow" onclick="return false"></a>',
             '</div>',
             '</div>'
         ].join('');
@@ -90,7 +90,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      * @return {String} 下拉菜单的壳子生成的HTMLString
      */
     '_menuContainerToHTMLString' : function() {
-        return '<ul id="' + this.getId('menu') + '" class="magic-combobox-menu"></ul>';
+        return '<ul id="' + this.$getId('menu') + '" class="magic-combobox-menu"></ul>';
     },
     
     /**
@@ -140,13 +140,13 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
     
     /**
      * @description 析构
-     * @name magic.ComboBox#dispose
+     * @name magic.ComboBox#$dispose
      * @function
-     * @grammar magic.Dialog#dispose();
+     * @grammar magic.Dialog#$dispose();
      * @example
-     * instance.dispose();
+     * instance.$dispose();
      */
-    'dispose' : function() {
+    '$dispose' : function() {
         if(this.disposed) {
             return;
         }
@@ -171,7 +171,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
          * }; 
          * @todo ondispose触发的时机，并不是在整个combobox析构之后，而是在数据析构后，dom删除之前。
          */
-        magic.control.ComboBox.prototype.dispose.call(this);
+        magic.control.ComboBox.prototype.$dispose.call(this);
         baidu(container).remove();
         if (elm) {
             host.parentNode.insertBefore(elm, host);

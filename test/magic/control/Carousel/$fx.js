@@ -87,7 +87,7 @@ test("render", function(){
 				    ok(time5 - time4 >= 100 && time5 - time4 < 500, "The duration is right");
 					setTimeout(function(){
 						equals(c._selectedIndex, 0, "Scroll to 0");
-						c.dispose();
+						c.$dispose();
 						var l2 = baidu.dom._eventBase._getEventsLength();
 						equals(l2, l1, "The events are un");
 						document.body.removeChild(div);
@@ -121,7 +121,7 @@ test("render, disable", function(){
     	 time2 = new Date();
 	     ok(time2 - time1 < 500, "The duration is right");
 		 equals(c._selectedIndex, 3, "Scroll to 3");
-		 c.dispose();
+		 c.$dispose();
 		 document.body.removeChild(div);
 	     start();
 	});
@@ -178,7 +178,7 @@ test("setup", function(){
 		    ok(time5 - time4 >= 100 && time5 - time4 < 500, "The duration is right");
 			setTimeout(function(){
 				equals(c._selectedIndex, 0, "Scroll to 0");
-				c.dispose();
+				c.$dispose();
 				var l2 = baidu.dom._eventBase._getEventsLength();
 				equals(l2, l1, "The events are un");
 				document.body.removeChild(baidu.dom.g("one-carousel"));
@@ -208,7 +208,7 @@ test("setup, disable", function(){
    	 time2 = new Date();
 	     ok(time2 - time1 < 500, "The duration is right");
 		 equals(c._selectedIndex, 3, "Scroll to 3");
-		 c.dispose();
+		 c.$dispose();
 		 document.body.removeChild(baidu.dom.g("one-carousel"));
 	     start();
 	});

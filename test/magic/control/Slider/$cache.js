@@ -75,7 +75,7 @@ test("render, enable", function(){
 			ua.mousedown(slider.getElement("view"));
 			ua.mouseup(slider.getElement("view"));start();
 			equals(slider.getElement("cache").offsetWidth, 382 * 0.5, "The cache is shown and width is right");
-			slider.dispose();
+			slider.$dispose();
 			start();
 		});
 	}, "magic.Slider", "magic.control.Slider.$fx");
@@ -119,7 +119,7 @@ test("render, enable, vertical", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
 	equals(slider.getElement("cache").offsetHeight, 382 * 0.5, "The cache is shown and height is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("setup, default params&events", function(){
@@ -156,7 +156,7 @@ test("setup, default params&events", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
 	equals(slider.getElement("cache").offsetWidth, 382 * 0.5, "The cache is shown and width is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 	
 });
@@ -194,7 +194,7 @@ test("setup, orientation&accuracy&duration", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));start();
 	equals(slider.getElement("cache").offsetHeight, 382 * 0.5, "The cache is shown and height is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 

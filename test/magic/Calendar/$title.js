@@ -33,7 +33,7 @@ test("测试参数", function(){
             ca.render(container);
             
             equals(ca.getElement("title").innerHTML, "2012年&nbsp;5月", "不启用插件，测试标题");
-            ca.dispose();
+            ca.$dispose();
             
             ca = new magic.Calendar({
                 initDate: new Date("2012/05/06")
@@ -45,7 +45,7 @@ test("测试参数", function(){
             ok(baidu.dom.getStyle(ca.getElement("title").getElementsByTagName("span")[1], "display") != "none", "启用插件，默认显示月份的span标签");
             
             start();
-            ca.dispose();
+            ca.$dispose();
             document.body.removeChild(container);
         });
     });
@@ -111,7 +111,7 @@ test("测试基本操作", function(){
     ok(checkMonth(1), "日历显示1月份");
     ok(checkYear(2002), "日历显示2002");
     
-    ca.dispose();
+    ca.$dispose();
     document.body.removeChild(container);
 });
 
@@ -177,6 +177,6 @@ test("测试英文日历", function(){
     ok(checkMonth(1), "日历显示1月份");
     ok(checkYear(2002), "日历显示2002");
     
-    ca.dispose();
+    ca.$dispose();
     document.body.removeChild(container);
 });

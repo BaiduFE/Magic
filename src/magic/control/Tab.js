@@ -28,14 +28,14 @@
  * @return {magic.control.Tab} Tab实例.
  * @example
  * /// for options.selectEvent,options.selectDelay
- * var tab = new magic.Tab({
+ * var instance = new magic.Tab({
  * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
  * 		selectEvent : 'mouseover',	// mouseover 触发切换
  * 		selectDelay : 500	切换延时500毫秒
  * });
  * @example
  * /// for options.originalIndex
- * var tab = new magic.Tab({
+ * var instance = new magic.Tab({
  * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
  * 		originalIndex: 2	// 默认打开第三个tab
  * });
@@ -51,8 +51,8 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
     me._selectedIndex = me._options.originalIndex;
     me.on('onload', function(evt) {
         var container = me.getElement();
-        me.mappingDom('title', baidu('.tang-title', container)[0]).
-        mappingDom('body', baidu('.tang-body', container)[0]);
+        me.$mappingDom('title', baidu('.tang-title', container)[0]).
+        $mappingDom('body', baidu('.tang-body', container)[0]);
         baidu.dom(me.getElement('title')).on(me._options.selectEvent, handler);
         me.on('ondispose', function(){
             baidu.dom(me.getElement('title')).off(me._options.selectEvent, handler);
@@ -102,17 +102,17 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @description 当焦点发生改变之前触发该事件
      * @name magic.control.Tab#onbeforeselect
      * @event 
-     * @grammar magic.control.Tab#onbeforeselect = function(evt){...}
+     * @grammar magic.control.Tab#onbeforeselect(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Number} evt.index 切换前的焦点索引
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.onbeforeselect = function(evt){
+     * var instance = new magic.Tab(option);
+     * instance.onbeforeselect = function(evt){
      * 		alert("切换前的焦点索引："+evt.index);
      * }
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.on("beforeselect",function(evt){
+     * var instance = new magic.Tab(option);
+     * instance.on("beforeselect",function(evt){
      * 		alert("切换前的焦点索引："+evt.index);
      * });
      */
@@ -120,17 +120,17 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @description 当焦点发生改变时触发该事件
      * @name magic.control.Tab#onselect
      * @event 
-     * @grammar magic.control.Tab#onselect = function(evt){...}
+     * @grammar magic.control.Tab#onselect(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Number} evt.index 切换后的焦点索引
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.onselect = function(evt){
+     * var instance = new magic.Tab(option);
+     * instance.onselect = function(evt){
      * 		alert("切换后的焦点索引："+evt.index);
      * }
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.on("select",function(evt){
+     * var instance = new magic.Tab(option);
+     * instance.on("select",function(evt){
      * 		alert("切换后的焦点索引："+evt.index);
      * });
      */
@@ -142,9 +142,9 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @grammar magic.control.Tab#select(index)
      * @param {Number} index 选项卡的索引，初始值是0.
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
-     * tab.select(2);	// 切换到第三个tab
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.select(2);	// 切换到第三个tab
      */
     select: function(index) {
         var me = this,
@@ -165,9 +165,9 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @grammar magic.control.Tab#getCurrentTitle()
      * @return {HTMLElement} 取得当前选中项的标题容器.
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
-     * tab.getCurrentTitle();
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.getCurrentTitle();
      */
     getCurrentTitle: function(){
         var me = this;
@@ -180,9 +180,9 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @grammar magic.control.Tab#getCurrentContent()
      * @return {HTMLElement} 取得当前选中项的内容容器.
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
-     * tab.getCurrentContent();
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.getCurrentContent();
      */
     getCurrentContent: function(){
         var me = this;
@@ -191,17 +191,17 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
 
     /**
      * @description 析构
-     * @name magic.control.Tab#dispose
+     * @name magic.control.Tab#$dispose
      * @function 
-     * @grammar magic.control.Tab#dispose()
+     * @grammar magic.control.Tab#$dispose()
      * @example
-     * var tab = new magic.Tab(option);
-     * tab.render('tab-container');
-     * tab.dispose();
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.$dispose();
      */
-    dispose: function() {
+    $dispose: function() {
         var me = this;
         if(me.disposed){return;}
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
     }
 });

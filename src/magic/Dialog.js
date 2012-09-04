@@ -39,17 +39,17 @@
  * @name magic.Dialog
  * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
- * @param {Boolean} options.titleText 对话框的标题内容，可选
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
- * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html
- * @param {Number} options.width Dialog 的宽度，缺省为 400
- * @param {Number} options.height Dialog 的高度，缺省为 300
- * @param {Number} options.left Dialog 的左边距，可选
- * @param {Number} options.top Dialog 的上边距，可选
- * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
+ * @param {Boolean} options.titleText 对话框的标题内容
+ * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象
+ * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，默认html
+ * @param {Number} options.width Dialog 的宽度，默认400
+ * @param {Number} options.height Dialog 的高度，默认300
+ * @param {Number} options.left Dialog 的左边距，默认0
+ * @param {Number} options.top Dialog 的上边距，默认0
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认true
  * @example 
  * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
- * var dialog = new magic.Dialog({
+ * var instance = new magic.Dialog({
  *      draggable: true,
  *      titleText: "对话框标题",
  *      content: "对话框内容",
@@ -60,7 +60,7 @@
  * });
  * @example 
  * /// for options.contentType
- * var dialog = new magic.Dialog({
+ * var instance = new magic.Dialog({
  *      titleText: "对话框标题",
  *      content: baidu('#dialog-content'),
  *      contentType: 'element'
@@ -103,7 +103,7 @@ magic.Dialog.extend(
 	 * @grammar magic.Dialog#render(el)
 	 * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
      * @example
-     * var dialog = new magic.Dialog({
+     * var instance = new magic.Dialog({
      *      titleText: "对话框标题",
      *      content: "对话框内容",
      *      left: 80,
@@ -111,7 +111,7 @@ magic.Dialog.extend(
      *      width: 400,
      *      height: 300
      * });
-     * dialog.render('dialog-container');
+     * instance.render('dialog-container');
 	 */
     render: function(el){
         if(baidu.type(el) === "string"){
@@ -129,18 +129,18 @@ magic.Dialog.extend(
         baidu(el).insertHTML("beforeEnd", baidu.string.format(template, {
         	title: baidu.string.encodeHTML(this.titleText || "") || "&nbsp;",
         	content: "",
-        	titleId: this.getId("title"),
-        	titleTextId: this.getId("titleText"),
-        	titleButtonsId: this.getId("titleButtons"),
-        	bodyId: this.getId("body"),
-        	contentId: this.getId("content"),
-        	closeBtnId: this.getId("closeBtn"),
-        	foregroundId: this.getId("foreground")
+        	titleId: this.$getId("title"),
+        	titleTextId: this.$getId("titleText"),
+        	titleButtonsId: this.$getId("titleButtons"),
+        	bodyId: this.$getId("body"),
+        	contentId: this.$getId("content"),
+        	closeBtnId: this.$getId("closeBtn"),
+        	foregroundId: this.$getId("foreground")
         }));
         this._background = new magic.Background({ coverable: true });
         this._background.render(el);
 
-		this.mappingDom("", el);
+		this.$mappingDom("", el);
 
 		this._titleHeight = this.getElement("title").offsetHeight || 30;
 
@@ -157,7 +157,7 @@ magic.Dialog.extend(
         * @event
         * @grammar magic.control.Dialog#onload
         * @example
-        * var dialog = new magic.Dialog({
+        * var instance = new magic.Dialog({
         *      titleText: "对话框标题",
         *      content: "对话框内容",
         *      left: 80,
@@ -165,11 +165,11 @@ magic.Dialog.extend(
         *      width: 400,
         *      height: 300
         * });
-        * dialog.on("load", function(){
+        * instance.on("load", function(){
         *     //do something...
         * });
         * @example
-        * var dialog = new magic.Dialog({
+        * var instance = new magic.Dialog({
         *      titleText: "对话框标题",
         *      content: "对话框内容",
         *      left: 80,
@@ -177,7 +177,7 @@ magic.Dialog.extend(
         *      width: 400,
         *      height: 300
         * });
-        * dialog.onload = function(){
+        * instance.onload = function(){
         *     //do something...
         * };
         */  
@@ -187,7 +187,7 @@ magic.Dialog.extend(
         this.disposeProcess.push(
         	function(){
         		baidu(this.getElement("closeBtn")).off("click", this._closeBtnFn);
-        		this._background.dispose();
+        		this._background.$dispose();
         		el.innerHTML = "";
         	    baidu(el).addClass("tang-ui tang-dialog");
         	}
@@ -335,16 +335,16 @@ magic.Dialog.template = [
         instance.render();
         instance.center();
         
-        var alert_el = baidu('#' + instance.getId());
-        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button></p>');   
+        var alert_el = baidu('#' + instance.$getId());
+        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.$getId('ok-button') + '">' + ok_button_label + '</button></p>');   
 
         //确定按钮
-        baidu('#' + instance.getId('ok-button')).on('click', okclickFn = function(){
+        baidu('#' + instance.$getId('ok-button')).on('click', okclickFn = function(){
                     dispose();
                     ok_button_callback.call(instance);
                 });
         disposeProcess.push(function(){
-            baidu('#' + instance.getId('ok-button')).off('click', okclickFn);
+            baidu('#' + instance.$getId('ok-button')).off('click', okclickFn);
         });
         //关闭按钮
         baidu(instance.getElement('closeBtn')).on('click', closeclickFn = function(){
@@ -377,7 +377,7 @@ magic.Dialog.template = [
 
 
         disposeProcess.push(function(){
-            instance.dispose();
+            instance.$dispose();
         });
 
         disposeProcess.push(function(){
@@ -492,24 +492,24 @@ magic.Dialog.template = [
         instance.render();
         instance.center();
         
-        var confirm_el = baidu('#' + instance.getId());
-        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.getId('ok-button') + '">' + ok_button_label + '</button><button id="' + instance.getId('cancel-button') + '">' + cancel_button_label + '</button></p>');   
+        var confirm_el = baidu('#' + instance.$getId());
+        baidu(instance.getElement("body")).insertHTML('beforeEnd', '<p class="tang-buttons"><button id="' + instance.$getId('ok-button') + '">' + ok_button_label + '</button><button id="' + instance.$getId('cancel-button') + '">' + cancel_button_label + '</button></p>');   
         
         //确定按钮
-        baidu('#' + instance.getId('ok-button')).on('click', okclickFn = function(){
+        baidu('#' + instance.$getId('ok-button')).on('click', okclickFn = function(){
                     dispose();
                     ok_button_callback.call(instance);
                 });
         disposeProcess.push(function(){
-            baidu('#' + instance.getId('ok-button')).off('click', okclickFn);
+            baidu('#' + instance.$getId('ok-button')).off('click', okclickFn);
         });
         //取消按钮
-        baidu('#' + instance.getId('cancel-button')).on('click', cancelclickFn = function(){
+        baidu('#' + instance.$getId('cancel-button')).on('click', cancelclickFn = function(){
                     dispose();
                     cancel_button_callback.call(instance);
                 });
         disposeProcess.push(function(){
-            baidu('#' + instance.getId('cancel-button')).off('click', cancelclickFn);
+            baidu('#' + instance.$getId('cancel-button')).off('click', cancelclickFn);
         });
         //关闭按钮
         baidu(instance.getElement('closeBtn')).on('click', closeclickFn = function(){
@@ -540,7 +540,7 @@ magic.Dialog.template = [
         });
         
         disposeProcess.push(function(){
-            instance.dispose();
+            instance.$dispose();
         });
         disposeProcess.push(function(){
             document.body.removeChild(confirm_el[0]);

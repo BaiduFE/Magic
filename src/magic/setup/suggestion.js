@@ -69,7 +69,7 @@ magic.setup.suggestion = function(el, options){
 	 */
     var el = baidu.dom('#'+el).get(0),
 	    instance = magic.setup(el, magic.control.Suggestion, options);
-	instance.mappingDom('input', el);
+	instance.$mappingDom('input', el);
 	instance.fire('onload');
 	return instance;
 };

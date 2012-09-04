@@ -23,13 +23,13 @@
  * @class
  * @grammar new magic.control.DatePicker(options)
  * @param {Object} options 自定义选项
- * @param {String} format 输出日期的格式
- * @param {String} language 当前语言，默认为中文
+ * @param {String} format 输出日期的格式，默认yyyy-MM-dd
+ * @param {String} language 当前语言，默认中文
  * @param {Object} popupOptions popup的配置项
  * @param {Object} calendarOptions calendar的配置项
  * @example 
  * /// for options.format,options.language,options.calendarOptions,options.popupOptions
- * var datePicker = magic.setup.datePicker('J_input_1', {
+ * var instance = magic.setup.datePicker('J_input_1', {
  *              'format': 'yyyy/MM/dd',
  *              'language': 'en-US'
  *              'calendarOptions': {
@@ -116,7 +116,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	    
 	    
 	    //将calendar元素映射出来
-	    me.mappingDom('calendar', calendar.getElement("calendar"));
+	    me.$mappingDom('calendar', calendar.getElement("calendar"));
     },
 
     /**
@@ -125,11 +125,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.DatePicker#show()
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * datePicker.show();
+     * instance.show();
      */
     show: function(){
 		var me = this,
@@ -145,21 +145,21 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         * @description 日历渲染完成
         * @name magic.control.DatePicker#onshow
         * @event
-        * @grammar magic.control.DatePicker#onshow = function(){...}
+        * @grammar magic.control.DatePicker#onshow
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.on("show", function(){
+        * instance.on("show", function(){
         *     //do something...
         * });
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.onshow = function(){
+        * instance.onshow = function(){
         *     //do something...
         * };
         */
@@ -172,11 +172,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @grammar magic.DatePicker#hide()
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * datePicker.hide();
+     * instance.hide();
      */
     hide: function(){
 		var me = this;
@@ -187,21 +187,21 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         * @description 隐藏日历
         * @name magic.control.DatePicker#onhide
         * @event
-        * @grammar magic.control.DatePicker#onhide = function(){...}
+        * @grammar magic.control.DatePicker#onhide
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.on("hide", function(){
+        * instance.on("hide", function(){
         *     //do something...
         * });
         * @example
-        * var datePicker = new magic.setup.datePicker({
+        * var instance = new magic.setup.datePicker({
         *      'format': 'yyyy/MM/dd',
         *      'language': 'en-US'
         * });
-        * datePicker.onhide = function(){
+        * instance.onhide = function(){
         *     //do something...
         * };
         */
@@ -239,28 +239,28 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
    
     /**
      * @description 析构函数
-     * @name magic.DatePicker#dispose
+     * @name magic.DatePicker#$dispose
      * @function
-     * @grammar magic.DatePicker#dispose()
+     * @grammar magic.DatePicker#$dispose()
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * datePicker.dispose();
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
             
         if(me.disposed){
             return;
         }
         
-        me.calendar.dispose();
-        me.popup.dispose();
+        me.calendar.$dispose();
+        me.popup.$dispose();
         //popup在析构的时候会将节点保留在DOM中，以备重复利用，所以此处析构时不能移除popup节点
         
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
         
     }
     
@@ -270,11 +270,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)
      * @example
-     * var datePicker = new magic.setup.datePicker({
+     * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
      *      'language': 'en-US'
      * });
-     * var calendar_el = datePicker.getElement('calendar');//获取calendar节点
+     * var calendar_el = instance.getElement('calendar');//获取calendar节点
      * @return {HtmlElement} 得到的 HtmlElement 对象
      */
 	

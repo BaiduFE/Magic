@@ -53,7 +53,7 @@ magic.setup.datePicker = function(el, options){
     * @return {magic.control.DatePicker} 日历实例
     */	
 	instance = magic.setup(el, magic.control.DatePicker, options);
-	instance.mappingDom('input', el);
+	instance.$mappingDom('input', el);
 	instance.init();
 	
 	return instance;
