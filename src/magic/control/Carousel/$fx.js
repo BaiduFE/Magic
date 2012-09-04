@@ -28,15 +28,15 @@
  * var instance = new magic.Carousel({
  * 		fx: {
  * 			enable: true,
- * 			duration: 1000
+ * 			duration: 1000	// 执行一次动画的时间1秒
  *      }
  * });
  * @example
- * /// for options.fx.duration
+ * /// for options.fx.interval
  * var instance = new magic.Carousel({
  * 		fx: {
  * 			enable: true,
- * 			interval: 20
+ * 			interval: 20	// 动画脉冲间隔时间20毫秒
  *      }
  * });
  */
