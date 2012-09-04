@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Carousel 组件 event 示例" />
+<title>Carousel 组件 event 示例</title>
+<link rel="stylesheet" type="text/css" href="../../../demos/magic.Carousel/demo.css"/>
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css"/>
+<link rel='stylesheet' type='text/css' href='../../../resources/default/magic.control.Carousel/magic.control.Carousel.css'/>
+<script type='text/javascript' src='../../../src/import.php?f=baidu.dom.ready,magic.Carousel,magic.Carousel.$button,magic.control.Carousel.$fx'></script>
+<style type='text/css'>
+.tang-carousel {
+    width: 644px;
+    height: 140px;
+}
+.tang-carousel .tang-carousel-container ul,
+.tang-carousel .tang-carousel-container ul li,
+.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+</style>
+</head>
+<body>
+<div class='demo'>
+    <h1>Carousel 组件 <strong>event</strong> 示例</h1>
+    <p>carousel 内核程序支持四个事件分别是onclickitem，onmouseoveritem，onmouseoutitem，onfocus，注册事件例如：carousel.on('onclickitem', function(evt){}); 从evt参数中，可以通过evt.DOMEvent来取得触发事件时的浏览器事件对象，通过evt.index来取得触发事件时的目标滚动项。</p>
+    <p>该范例注册了onclickitem事件，请在范例中点击某个滚动项来弹出对话框测试事件：</p>
+</div>
+<div id='one-carousel'></div>
+<script type='text/javascript'>
+baidu.dom.ready(function(){
+    var c = new magic.Carousel({
+        viewSize: 4,
+        originalIndex: 0,
+        isLoop: true,
+        items: [
+            {content: '<img src="../../../demos/magic.Carousel/item/0.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/1.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/2.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/3.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/4.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/5.png"/>'},
+            {content: '<img src="../../../demos/magic.Carousel/item/6.png"/>'}
+        ]
+    });
+    c.render('one-carousel');
+    c.on('onclickitem', function(evt){
+        alert(evt.index);
+    });
+});
+
+</script>
+</body>
+
+</html>

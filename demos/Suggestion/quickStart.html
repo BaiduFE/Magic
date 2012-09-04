@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="suggestion 组件quickStart" />
+    <title>suggestion 组件quickStart</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+    <link rel='stylesheet' type='text/css' href='../../resources/default/magic.control.Suggestion/magic.control.Suggestion.css'/>
+    <script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.dom.query,baidu.dom.getAttr"></script>
+
+    <style type='text/css'>
+        .tang-suggestion-closeBtn {
+            float: right;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .tang-suggestion-popup {
+            box-shadow: 0px 2px 2px #e1e1e1;
+            -webkit-box-shadow: 0px 2px 2px #e1e1e1;
+            -moz-box-shadow: 0px 2px 2px #e1e1e1;
+        }
+    </style>
+</head>
+<body>
+    <div id='one-suggestion' class='tang-ui tang-suggestion' tang-param=''>
+    <form action="#" id="form">
+        请任意输入关键字：<input type="text" class="tang-suggestion-input" id="tang-suggestion-input" name="q" />
+    </select>
+    </form>
+    </div>
+    <script type="text/javascript">
+        var options = {
+            getData: function(key){
+                var me = this;
+                baidu.ajax.request("../../demos/Suggestion/service.php?key=" + encodeURIComponent(key), {
+                    'method': 'GET',
+                    'timeout': 2000,
+                    'onsuccess': function(xhr, response){
+                        var a = eval(response);
+                        me.receiveData(key, a);
+                    }
+                });
+            }
+        };
+        
+        magic.setup.suggestion('tang-suggestion-input', options);
+    </script>    
+</body>
+</html>

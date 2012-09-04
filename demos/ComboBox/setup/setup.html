@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="ComboBox 组件 render 模式示例" />
+<link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.ComboBox/magic.control.ComboBox.css">
+<script type="text/javascript" src="../../../src/import.php?f=magic.setup.combobox,baidu.dom.g,magic.control.ComboBox.$suggestion"></script>
+<title>ComboBox 组件 setup 模式示例</title>
+<style type="text/css">
+body {
+	font-size : 14px;
+}
+.combobox-container {
+	margin-bottom : 20px;
+}
+
+.combobox-container .combobox-title {
+	font-weight : bold;
+	font-size : 13px;
+	padding : 0;
+	margin : 5px;
+}
+
+.combobox-container .combobox-content .combobox-data,
+.combobox-container .combobox-content .combobox-log{
+	font-size : 12px;
+	margin : 10px 0;
+}
+</style>
+</head>
+<body>
+
+<script type="text/javascript">
+	/* 这里指定 resources 目录相对于当前页面的地址 */
+	magic.resourcePath = "../../resources";
+</script>
+
+<div class="demo">
+	<h1>ComboBox 组件 <strong>setup</strong> 模式示例</h1>
+</div>
+
+<!-- 对话框组件 Start -->
+<dl class="combobox-container">
+	<dt class="combobox-title">普通的select变成ComboBox</dt>
+	<dd>性别：
+		<select id="select0" name="sex">
+			<option value="m">男</option>
+			<option value="f">女</option>
+		</select>
+	</dd>
+</dl>
+
+<dl class="combobox-container">
+	<dt class="combobox-title">普通的select变成ComboBox</dt>
+	<dd>出生日期：
+		<select id="year" name="year"></select>年
+		<select id="month" name="month"></select>月
+		<select id="date" name="date"></select>日
+	</dd>
+</dl>
+
+<script type="text/javascript">
+var year = baidu.dom.g('year'),
+	month = baidu.dom.g('month'),
+	date = baidu.dom.g('date');
+
+function createOptions(select, min, max, origin) {
+	for (var i = min; i <= max; i++) {
+		var o = document.createElement('OPTION');
+		o.value = o.text = i;
+		if (i == origin) {
+			o.selected = true;
+		}
+		select.add(o);
+	}
+}
+createOptions(year, 1900, 2010, 1992);
+createOptions(month, 1, 12 ,11);
+createOptions(date, 1, 31, 20);
+</script>
+
+<dl class="combobox-container">
+	<dt class="combobox-title">普通的select变成ComboBox，dispose!</dt>
+	<dd>性别：
+		<select id="select2" name="sex">
+			<option value="m">男</option>
+			<option value="f">女</option>
+		</select>
+	</dd>
+</dl>
+
+<dl class="combobox-container">
+	<dt class="combobox-title">普通的select变成ComboBox,下面有文字。</dt>
+	<dd>
+		<div>这是ComboBox上面的文字</div>
+		<div>性别：
+		<select id="select3" name="sex">
+			<option value="m">男</option>
+			<option value="f">女</option>
+		</select>
+		</div>
+		<div>这是ComboBox下面的文字</div>
+	</dd>
+</dl>
+<script type="text/javascript">
+
+var combobox0 = magic.setup.combobox('select0', {
+	readonly : true
+});
+combobox0.on('show', function() {
+	console.log('show');
+});
+combobox0.on('hide', function() {
+	console.log('hide');
+});
+
+//////////////////////////////////////
+var combobox1 = magic.setup.combobox('year', {
+	readonly : false
+});
+var combobox2 = magic.setup.combobox('month', {
+	readonly : true
+});
+var combobox3 = magic.setup.combobox('date', {
+	readonly : true
+});
+
+////////////////////////////////////
+var combobox4 = magic.setup.combobox('select2');
+combobox4.dispose();
+
+////////////////////////////////////
+var combobox4 = magic.setup.combobox('select3');
+
+</script>
+<!-- 对话框组件 End -->
+
+</body>
+</html>
