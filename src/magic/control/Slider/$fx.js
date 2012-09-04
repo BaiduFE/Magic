@@ -8,11 +8,11 @@
 ///import baidu.fx.moveTo;
 ///import baidu.dom.css;
 /**
- * @description 为Slider组件增加动画滚动功能
+ * @description 为滑动条组件增加动画滚动功能
  * @name magic.control.Slider.$fx
  * @addon
- * @param {Object} options fx插件参数.
- * @param {Boolean} options.fx.enable fx插件开关， 默认false
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.fx.enable 插件开关， 默认false
  * @param {Boolean} options.fx.duration 动画持续时间(毫秒)，默认200
  * @author qiaoyue
  * @example

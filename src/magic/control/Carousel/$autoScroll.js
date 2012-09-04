@@ -11,10 +11,10 @@
 ///import baidu.event._eventFilter.mouseleave;
 
 /**
- * @description 为滚动组件增加自动滚动功能
+ * @description 为图片轮播组件增加自动滚动功能
  * @name magic.control.Carousel.$autoScroll
  * @addon
- * @param {Object} options 自动滚动插件参数.
+ * @param {Object} options 插件选项
  * @param {Boolean} options.autoScroll.enable 插件开关，默认true
  * @param {Number} options.autoScroll.interval 以毫秒描述每次滚动的时间间隔，默认1000
  * @param {String} options.autoScroll.direction 取值，forward|backward 描述组件的滚动方向，默认forward

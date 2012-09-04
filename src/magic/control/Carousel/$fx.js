@@ -8,10 +8,10 @@
 ///import baidu.fx.scrollTo;
 ///import baidu.fx.current;
 /**
- * @description 为滚动组件增加动画滚动功能
+ * @description 为图片轮播组件增加动画滚动功能
  * @name magic.control.Carousel.$fx
  * @addon
- * @param {Object} options 动画插件参数.
+ * @param {Object} options 插件选项
  * @param {Boolean} options.fx.enable 插件开关，默认 true
  * @param {Number} options.fx.duration 执行一次动画的时间(毫秒)，默认500
  * @param {Number} options.fx.interval 动画脉冲间隔时间(毫秒)，默认16

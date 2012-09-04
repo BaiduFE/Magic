@@ -10,11 +10,11 @@
 ///import baidu.string.format;
 
 /**
- * @description 为Slider组件增加缓存进度条
+ * @description 为滑动条组件增加缓存进度条
  * @name magic.control.Slider.$cache
  * @addon
- * @param {Object} options cache插件参数.
- * @param {Boolean} options.cache.enable cache插件开关，默认false
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.cache.enable 插件开关，默认false
  * @author qiaoyue
  * @example
  * /// for options.cache.enable

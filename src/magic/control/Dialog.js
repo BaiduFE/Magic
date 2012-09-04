@@ -28,7 +28,7 @@
 ///import baidu.page.getScrollLeft;
 
 /**
- * @description Dialog 组件的控制器
+ * @description 对话框组件的控制器
  * @class
  * @name magic.control.Dialog
  * @superClass magic.control.Layer
@@ -205,36 +205,37 @@ magic.control.Dialog.extend(
      * @return {This} 实例本身
      */
     show: function(){
-        /**
-         * @description 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
-         * @name magic.control.Dialog#onbeforeshow
-         * @event
-         * @grammar magic.control.Dialog#onbeforeshow
-        * @example
-        * var instance = new magic.Dialog({
-        *      titleText: "对话框标题",
-        *      content: "对话框内容",
-        *      left: 80,
-        *      top: 140,
-        *      width: 400,
-        *      height: 300
-        * });
-        * instance.on("beforeshow", function(){
-        *     //do something...
-        * });
-        * @example
-        * var instance = new magic.Dialog({
-        *      titleText: "对话框标题",
-        *      content: "对话框内容",
-        *      left: 80,
-        *      top: 140,
-        *      width: 400,
-        *      height: 300
-        * });
-        * instance.onbeforeshow = function(){
-        *     //do something...
-        * };
-         */
+       /**
+		* @description 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
+		* @name magic.control.Dialog#onbeforeshow
+		* @event
+		* @grammar magic.control.Dialog#onbeforeshow(evt)
+		* @example
+		* var instance = new magic.Dialog({
+		*      titleText: "对话框标题",
+		*      content: "对话框内容",
+		*      left: 80,
+		*      top: 140,
+		*      width: 400,
+		*      height: 300
+		* });
+		* instance.on("beforeshow", function(){
+		*     //do something...
+		*     return false;		// 阻止显示窗口
+		* });
+		* @example
+		* var instance = new magic.Dialog({
+		*      titleText: "对话框标题",
+		*      content: "对话框内容",
+		*      left: 80,
+		*      top: 140,
+		*      width: 400,
+		*      height: 300
+		* });
+		* instance.onbeforeshow = function(){
+		*     //do something...
+		* };
+        */
         if(this.fire("beforeshow") === false)
             return this;
         this.getElement().style.display = "";
@@ -244,7 +245,7 @@ magic.control.Dialog.extend(
         * @description 当窗口显示后触发
         * @name magic.control.Dialog#onshow
         * @event
-        * @grammar magic.control.Dialog#onshow
+        * @grammar magic.control.Dialog#onshow(evt)
         * @example
         * var instance = new magic.Dialog({
         *      titleText: "对话框标题",
@@ -295,7 +296,7 @@ magic.control.Dialog.extend(
          * @description 当即将关闭窗口时触发，如果事件回调函数返回值为 false，则阻止关闭窗口
          * @name magic.control.Dialog#onbeforehide
          * @event
-         * @grammar magic.control.Dialog#onbeforehide
+         * @grammar magic.control.Dialog#onbeforehide(evt)
          * @example
          * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
@@ -307,6 +308,7 @@ magic.control.Dialog.extend(
          * });
          * instance.on("beforehide", function(){
          *     //do something...
+         *     return false;	//阻止关闭窗口
          * });
          * @example
          * var instance = new magic.Dialog({
@@ -330,7 +332,7 @@ magic.control.Dialog.extend(
          * @description 当关闭窗口时触发
          * @name magic.control.Dialog#onhide
          * @event
-         * @grammar magic.control.Dialog#onhide
+         * @grammar magic.control.Dialog#onhide(evt)
          * @example
          * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
@@ -387,8 +389,8 @@ magic.control.Dialog.extend(
      * @name magic.control.Dialog#setContent
      * @function
      * @grammar magic.control.Dialog#setContent(content, contentType)
-     * @param {HTMLElement|id|dom} content 用于做为对话框内容的节点或字符串 id [exp]:['contentId']
-     * @param {string} contentType 内容类型，可选参数有 element|html|text|frame，分别表示传入的内容类型为 dom 对象、html 字符、文本或 iframe 地址，content 参数的数据类型由 contentType 决定，两个参数配合使用，contentType 参数如果不传或非以上四种情况，一律当 html 处理 [exp]:['element','html','text','frame']
+     * @param {HTMLElement|id|dom} content 用于做为对话框内容的节点或字符串 id
+     * @param {string} contentType 内容类型，可选参数有 element|html|text|frame，分别表示传入的内容类型为 dom 对象、html 字符、文本或 iframe 地址，content 参数的数据类型由 contentType 决定，两个参数配合使用，contentType 参数如果不传或非以上四种情况，一律当 html 处理
      * @example
      * var instance = new magic.Dialog({
      *      titleText: "对话框标题",
@@ -467,7 +469,7 @@ magic.control.Dialog.extend(
          * @description 当窗口获得焦点时触发
          * @name magic.control.Dialog#onfocus
          * @event 
-         * @grammar magic.control.Dialog#onfocus
+         * @grammar magic.control.Dialog#onfocus(evt)
          * @example
          * var instance = new magic.Dialog({
          *      titleText: "对话框标题",

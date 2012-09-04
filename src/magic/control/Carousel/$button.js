@@ -14,10 +14,10 @@
 
 
 /**
- * @description 为滚动组件添加控制前后按钮插件
+ * @description 为图片轮播组件添加控制前后按钮插件
  * @name magic.control.Carousel.$button
  * @addon
- * @param {Object} options 前后按钮插件参数.
+ * @param {Object} options 插件选项
  * @param {Boolean} options.button.enable 插件开关，默认true
  * @author linlingyu
  * @example

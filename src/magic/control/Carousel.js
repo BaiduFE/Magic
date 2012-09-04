@@ -100,7 +100,7 @@ void function(){
     
     
 /**
- * @description Carousel图片滚动组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
+ * @description Carousel图片轮播组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
  * @class
  * @name magic.control.Carousel
  * @superClass magic.Base
@@ -109,7 +109,7 @@ void function(){
  * @param {Number} options.orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认horizontal
  * @param {Number} options.originalIndex 默认选项卡的聚焦项，默认0
  * @param {Number} options.viewSize 描述一页显示多少个滚动项，默认3
- * @param {Object} options.focusRange 描述焦点在viewSize参数中的滚动范围，最小值从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发滚动动作，默认{min: 0, max: 2}
+ * @param {Object} options.focusRange 描述焦点在viewSize参数中的滚动范围，区域起始位从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发可视区域的滚动动作，默认{min: 0, max: options.viewSize - 1 || 2}
  * @param {Boolean} options.isLoop 是否支持循环滚动，默认false
  * @param {Number} options.step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认1
  * @plugin button 为滚动组件添加控制按钮插件
@@ -120,8 +120,8 @@ void function(){
  * @example
  * /// for options.orientation,options.isLoop
  * var instance = new magic.Carousel({
- * 		orientation: 'vertical',
- * 		isLoop: true
+ * 		orientation: 'vertical',	// 竖向滚动
+ * 		isLoop: true				// 循环滚动
  * });
  * @example
  * /// for options.originalIndex
@@ -136,7 +136,7 @@ void function(){
  * @example
  * /// for options.focusRange
  * var instance = new magic.Carousel({
- * 		focusRange: {min: 1, max: 2}
+ * 		focusRange: {min: 1, max: 2},	// 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
  * });
  * @example
  * /// for options.step

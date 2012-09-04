@@ -31,10 +31,10 @@
  * @superClass  magic.control.Layer
  * @grammar new magic.Mask(options)
  * @param {JSON} options 参数设置
- * @param {Boolean} options.coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
- * @param {String} options.bgColor [r/w]遮罩层背景色
- * @param {Number} options.opacity [r/w]背景层透明度，取值 0-1
- * @param {HTMLElement}	options.container [r/w]遮罩层的容器，默认为 document.body
+ * @param {Boolean} options.coverable	对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理，默认false
+ * @param {String} options.bgColor 遮罩层背景色，默认'#000'
+ * @param {Number} options.opacity 背景层透明度，，默认0.3
+ * @param {HTMLElement}	options.container 遮罩层的容器，默认 document.body
  * @return {magic.Mask} Mask实例.
  * @example
  * /// for options.coverable

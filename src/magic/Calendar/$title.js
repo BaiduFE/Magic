@@ -11,7 +11,7 @@
  * @description 将年份和月份做成select控件，用户可以直接选择年份和月份
  * @name magic.Calendar.$title
  * @addon
- * @param {Object} options title插件参数.
+ * @param {Object} options 插件选项.
  * @param {Boolean} options.title.enable 插件开关，默认 true
  * @author zhaochengyang
  * @example

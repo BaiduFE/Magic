@@ -12,10 +12,10 @@
  * @description 对话框遮罩插件
  * @name magic.control.Dialog.$mask
  * @addon
- * @param {Object}  options 遮罩插件选项
- * @param {Boolean} options.mask.enable 遮罩插件的开关，默认false
- * @param {String} options.mask.bgColor 遮罩插件的颜色，默认#000
- * @param {Number} options.mask.opacity 遮罩插件的不透明度，默认0.15
+ * @param {Object}  options 插件选项
+ * @param {Boolean} options.mask.enable 插件开关，默认false
+ * @param {String} options.mask.bgColor 遮罩的颜色，默认#000
+ * @param {Number} options.mask.opacity 遮罩的不透明度，默认0.15
  * @example
  * /// for options.mask.enable,options.mask.bgColor,options.mask.opacity
  * var instance = new magic.Dialog({
@@ -48,7 +48,7 @@ baidu.lang.register(magic.control.Dialog,
 
 	/* methods */ {
 		/**
-		 * @description 渲染 mask 层（如果开启 mask 选项，主程序会自动 renderMask）
+		 * @description 渲染遮罩层（如果开启 mask 选项，主程序会自动渲染遮罩）
 		 * @name magic.control.Dialog.$mask#renderMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#renderMask()
@@ -76,7 +76,7 @@ baidu.lang.register(magic.control.Dialog,
 		},
 
 		/**
-		 * @description 显示 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		 * @description 显示遮罩层（如果开启 mask 选项，主程序会自动关联遮罩显隐）
 		 * @name magic.control.Dialog.$mask#showMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#showMask()
@@ -98,7 +98,7 @@ baidu.lang.register(magic.control.Dialog,
 		},
 
 		/**
-		 * @description 隐藏 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		 * @description 隐藏遮罩层（如果开启 mask 选项，主程序会自动关联遮罩显隐）
 		 * @name magic.control.Dialog.$mask#hideMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#hideMask()

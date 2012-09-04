@@ -40,13 +40,13 @@
  * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
  * @param {Boolean} options.titleText 对话框的标题内容
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象
+ * @param {HTMLElement|String} options.content 对话框的内容，可以是 html 或 dom 对象
  * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，默认html
  * @param {Number} options.width Dialog 的宽度，默认400
  * @param {Number} options.height Dialog 的高度，默认300
  * @param {Number} options.left Dialog 的左边距，默认0
  * @param {Number} options.top Dialog 的上边距，默认0
- * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认true
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
  * @example 
  * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
  * var instance = new magic.Dialog({
@@ -261,12 +261,12 @@ magic.Dialog.template = [
     }
 
     /**
-     * 模拟alert
+     * @description 模拟alert
      * @grammar magic.alert()
      * @param {Object} options 控制选项
-     * @config {String} options.content Alert的内容
-     * @config {String} options.titleText Alert的标题
-     * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
+     * @param {String} options.content Alert的内容
+     * @param {String} options.titleText Alert的标题
+     * @param {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
      * @example
      * magic.alert('内容', '标题');
      * @example
@@ -391,14 +391,14 @@ magic.Dialog.template = [
 
 
     /**
-     * 模拟confirm
+     * @description 模拟confirm
      * @grammar magic.confirm()
      * @param {Object} options 控制选项
-     * @config {String} options.content Confirm的内容
-     * @config {String} options.titleText Confirm的标题
-     * @config {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
-     * @config {Object} options.cancel 取消按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
-     * * @example
+     * @param {String} options.content Confirm的内容
+     * @param {String} options.titleText Confirm的标题
+     * @param {Object} options.ok 确定按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
+     * @param {Object} options.cancel 取消按钮的回调函数，也可以传入一个JSON：包含两个属性，按钮的label和callback
+     * @example
      * magic.confirm('内容', '标题', function(){
      *     alert('ok');
      * }, function(){

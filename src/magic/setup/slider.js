@@ -8,21 +8,21 @@
 ///import magic.control.Slider;
 
 /**
- * @description 在页面已有 html 结构的基础上创建 Slider 组件
+ * @description 在页面已有 html 结构的基础上创建滑动条组件
  * @name magic.setup.slider
  * @function 
  * @grammar magic.setup.slider(el,options)
  * @param {String|HTMLElement} el 一个包含Carousel所需结构的容器对象.
- * @param Object} options 选项。参数的详细说明如下表所示
- * @param {String} options.orientation 决定sider是水平还是垂直，'horizontal' || 'vertical'
- * @param {String} options.direction 决定从哪一端开始移动，'forwrad' || 'backward'
- * @param {Float} options.accuracy 精确度，0-1之间的小数
- * @param {Number} options.currentValue Slider的初始值，即游标初始位置
+ * @param {Object} options 选项
+ * @param {String} options.orientation 决定滑动条是水平还是垂直，'horizontal' || 'vertical'，默认vertical
+ * @param {String} options.direction 决定从哪一端开始移动，'forwrad'或'backward'，默认backward
+ * @param {Float} options.accuracy 精确度，0-1之间的小数，默认0
+ * @param {Number} options.currentValue 滑动条的初始值，即游标初始位置，默认0
  * @author qiaoyue
  * @example
  * /// for el,options.orientation
  * var slider = magic.setup.slider('s1' ,{
- * 		orientation: 'vertical'	// 垂直滚动条
+ * 		orientation: 'horizontal'	// 水平滑动条
  * });
  * @example
  * /// for options.direction

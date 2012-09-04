@@ -9,10 +9,10 @@
 ///import magic.control.Carousel.$button;
 
 /**
- * @description 为滚动组件添加前后按钮插件
+ * @description 为图片轮播组件添加前后按钮插件
  * @name magic.Carousel.$button
  * @addon
- * @param {Object} options 前后按钮插件参数.
+ * @param {Object} options 插件选项
  * @param {Boolean} options.button.enable 插件开关，默认true
  * @param {Object} options.button.buttonLabel 前后按钮的文字描述，参考值：{prev: 'left', next: 'right'}
  * @author linlingyu

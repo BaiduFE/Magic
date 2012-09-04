@@ -15,22 +15,22 @@
 ///import baidu.object.extend;
 
 /**
- * @description Slider滑动条。
+ * @description 滑动条组件。
  * @class
  * @name magic.Slider
  * @superClass magic.control.Slider
  * @grammar new magic.Slider(options)
- * @param {Object} options 选项。参数的详细说明如下表所示
- * @param {String} options.orientation 决定sider是水平还是垂直，'horizontal' || 'vertical'
- * @param {String} options.direction 决定从哪一端开始移动，'forwrad' || 'backward'
- * @param {Float} options.accuracy 精确度，0-1之间的小数
- * @param {Number} options.currentValue Slider的初始值，即游标初始位置
+ * @param {Object} options 选项
+ * @param {String} options.orientation 决定滑动条是水平还是垂直，'horizontal' || 'vertical'，默认vertical
+ * @param {String} options.direction 决定从哪一端开始移动，'forwrad'或'backward'，默认backward
+ * @param {Float} options.accuracy 精确度，0-1之间的小数，默认0
+ * @param {Number} options.currentValue 滑动条的初始值，即游标初始位置，默认0
  * @author      qiaoyue
  * @return {magic.Slider} Slider实例
  * @example
  * /// for options.orientation
  * var instance = new magic.Slider({
- * 		orientation: 'vertical'	// 垂直滚动条
+ * 		orientation: 'horizontal'	// 水平滑动条
  * });
  * @example
  * /// for options.direction
