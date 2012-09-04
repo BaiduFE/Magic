@@ -267,6 +267,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     /**
      * @description 获得DatePicker组件结构里的 HtmlElement对象
      * @name magic.control.DatePicker#getElement
+     * @grammar magic.control.DatePicker#getElement(name)
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)
      * @example

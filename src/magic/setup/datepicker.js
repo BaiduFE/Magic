@@ -18,10 +18,17 @@
  * @function
  * @grammar magic.setup.datePicker(options)
  * @param {Object} options 自定义选项
- * @param {String} format 输出日期的格式，默认yyyy-MM-dd
- * @param {String} language 当前语言，默认zh-CN
- * @param {Object} popupOptions popup的配置项
- * @param {Object} calendarOptions calendar的配置项
+ * @param {String} options.format 输出日期的格式，默认yyyy-MM-dd
+ * @param {String} options.language 当前语言，默认zh-CN
+ * @param {Object} options.popupOptions 弹出层的配置项
+ * @param {Boolean} options.popupOptions.hideOnEscape 在用户按[ESC]键时是否隐藏当前弹出层，默认true
+ * @param {Number} options.popupOptions.offsetX 定位时的偏移量，X方向，默认0
+ * @param {Number} options.popupOptions.offsetY 定位时的偏移量，Y方向，默认0
+ * @param {Object} options.calendarOptions 日历的配置项
+ * @param {String} options.calendarOptions.weekStart 定义一周的第一天取值:'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'，默认'Sun'
+ * @param {Date} options.calendarOptions.initDate 初始化日历的日期，默认为new Date()
+ * @param {Array} options.calendarOptions.highlightDates 需要高亮的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
+ * @param {Array} options.calendarOptions.disabledDates 不可用的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
  * @example 
  * /// for options.format,options.language,options.calendarOptions,options.popupOptions
  * var datePicker = magic.setup.datePicker('J_input_1', {
