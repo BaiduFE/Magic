@@ -106,7 +106,7 @@ void function(){
  * @superClass magic.Base
  * @grammar new magic.control.Carousel(options)
  * @param {Object} options 选项.
- * @param {Number} options.orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认horizontal.
+ * @param {Number} options.orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认horizontal
  * @param {Number} options.originalIndex 默认选项卡的聚焦项，默认0
  * @param {Number} options.viewSize 描述一页显示多少个滚动项，默认3
  * @param {Object} options.focusRange 描述焦点在viewSize参数中的滚动范围，最小值从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发滚动动作，默认{min: 0, max: 2}

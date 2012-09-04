@@ -21,8 +21,8 @@
  * @superClass magic.Base
  * @author meizz
  * @param {Object} options 选项参数
- * @config {Object} width 宽度，默认为auto
- * @config {Object} height 高度，默认为auto
+ * @config {Object} width 宽度，默认auto
+ * @config {Object} height 高度，默认auto
  * @class magic.control.Layer
  * @author meizz
  */

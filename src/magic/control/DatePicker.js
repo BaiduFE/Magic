@@ -23,8 +23,8 @@
  * @class
  * @grammar new magic.control.DatePicker(options)
  * @param {Object} options 自定义选项
- * @param {String} format 输出日期的格式
- * @param {String} language 当前语言，默认为中文
+ * @param {String} format 输出日期的格式，默认yyyy-MM-dd
+ * @param {String} language 当前语言，默认中文
  * @param {Object} popupOptions popup的配置项
  * @param {Object} calendarOptions calendar的配置项
  * @example 

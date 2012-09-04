@@ -12,7 +12,7 @@
  * @name magic.Calendar.$title
  * @addon
  * @param {Object} options title插件参数.
- * @param {Boolean} options.title.enable title插件开关，默认 true
+ * @param {Boolean} options.title.enable 插件开关，默认 true
  * @author zhaochengyang
  * @example
  * for options.title.enable

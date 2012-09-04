@@ -34,10 +34,10 @@
  * @superClass magic.control.Layer
  * @grammar new magic.control.Dialog(options)
  * @param {Object} options 选项
- * @param {Number} options.width Dialog 的宽度，缺省为 400
- * @param {Number} options.height Dialog 的高度，缺省为 300
- * @param {Number} options.left Dialog 的左边距，可选
- * @param {Number} options.top Dialog 的上边距，可选
+ * @param {Number} options.width Dialog 的宽度，默认400
+ * @param {Number} options.height Dialog 的高度，默认300
+ * @param {Number} options.left Dialog 的左边距，默认0
+ * @param {Number} options.top Dialog 的上边距，默认0
  * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
  * @plugin  mask              对话框遮罩插件
  * @author dron

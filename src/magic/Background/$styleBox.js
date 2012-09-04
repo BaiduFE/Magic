@@ -17,7 +17,7 @@
  * @name magic.Background.$styleBox
  * @addon
  * @param {Object} options styleBox插件参数.
- * @param {Boolean} options.styleBox 是否使用九宫格方案，可以使用更复杂的背景图策略
+ * @param {Boolean} options.styleBox 插件开关，默认false
  * @author meizz
  * @example
  * /// for options.styleBox

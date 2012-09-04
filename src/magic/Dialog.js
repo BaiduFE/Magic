@@ -39,14 +39,14 @@
  * @name magic.Dialog
  * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
- * @param {Boolean} options.titleText 对话框的标题内容，可选
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选
- * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，缺省为 html
- * @param {Number} options.width Dialog 的宽度，缺省为 400
- * @param {Number} options.height Dialog 的高度，缺省为 300
- * @param {Number} options.left Dialog 的左边距，可选
- * @param {Number} options.top Dialog 的上边距，可选
- * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
+ * @param {Boolean} options.titleText 对话框的标题内容
+ * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象
+ * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，默认html
+ * @param {Number} options.width Dialog 的宽度，默认400
+ * @param {Number} options.height Dialog 的高度，默认300
+ * @param {Number} options.left Dialog 的左边距，默认0
+ * @param {Number} options.top Dialog 的上边距，默认0
+ * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认true
  * @example 
  * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
  * var instance = new magic.Dialog({
