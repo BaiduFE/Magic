@@ -32,8 +32,8 @@
  * @superClass magic.Base
  * @grammar new magic.Pager(options)
  * @param {Object} options 选项
- * @param {Number} options.currentPage 当前页，使用第二种构造方式时使用，默认1
- * @param {Number} options.totalPage 总页数，使用第二种构造方式时使用，默认1
+ * @param {Number} options.currentPage 当前页，默认1
+ * @param {Number} options.totalPage 总页数，默认1
  * @param {Number} options.viewSize 页码数，默认显示多少个页面的链接（不包括“首页”等特殊链接），默认10
  * @param {Number} options.currentPagePos 当前页位置，当前页面链接在页面链接列表中的默认位置，必须小于页码数，默认4
  * @param {String} options.labelFirst 首页链接显示的内容，默认“首页”
