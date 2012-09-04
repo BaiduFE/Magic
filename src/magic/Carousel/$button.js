@@ -17,7 +17,7 @@
  * @param {Object} options.button.buttonLabel 前后按钮的文字描述，参考值：{prev: 'left', next: 'right'}
  * @author linlingyu
  * @example
- * for options.button.enable,options.button.buttonLabel
+ * /// for options.button.enable,options.button.buttonLabel
  * var instance = magic.setup.carousel('one-carousel', {
  * 		button: {
  * 			enable: true,
