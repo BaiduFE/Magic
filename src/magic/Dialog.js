@@ -40,7 +40,7 @@
  * @grammar new magic.Dialog(options)
  * @param {Object} options 控制选项
  * @param {Boolean} options.titleText 对话框的标题内容
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象
+ * @param {HTMLElement|String} options.content 对话框的内容，可以是 html 或 dom 对象
  * @param {String} options.contentType 内容类型，可以是 element|html|text|frame，默认html
  * @param {Number} options.width Dialog 的宽度，默认400
  * @param {Number} options.height Dialog 的高度，默认300
