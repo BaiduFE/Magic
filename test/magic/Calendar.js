@@ -181,7 +181,7 @@ test('自定义参数', function(){
         start();
         ca.$dispose();
         document.body.removeChild(container);
-    })
+    });
 });
 
 test("自定义参数1", function(){

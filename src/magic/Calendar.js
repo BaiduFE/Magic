@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * author: zhaochengyang
@@ -865,13 +865,14 @@ magic.Calendar.extend(
      * });
      * instance.render('calendar-container');
      * instance.setDate(new Date());
+     * @return {Boolean} 当前选中日期是否设置成功
      */
     setDate: function(date){
         var me = this,
             _date = new Date(date);
             
         if(baidu.type(date) != 'date'){
-            return;
+            return false;
         }
 
         //判断日期是否处于不可用状态
@@ -883,6 +884,7 @@ magic.Calendar.extend(
         me.selectedDate = new Date(date);
         
         me._rerender();
+        return true;
     },
     
     /**
