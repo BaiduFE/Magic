@@ -126,7 +126,7 @@ test('默认参数', function(){
             ok(ca._datesEqual(ca.currentDate, new Date()), "检查currentDate");
 
             start();
-            ca.dispose();
+            ca.$dispose();
             document.body.removeChild(container);
         });
     });
@@ -179,7 +179,7 @@ test('自定义参数', function(){
         }
         
         start();
-        ca.dispose();
+        ca.$dispose();
         document.body.removeChild(container);
     });
 });
@@ -196,7 +196,7 @@ test("自定义参数1", function(){
     
     equals(ca.currentDate.toString(), baidu.i18n.date.toLocaleDate(new Date()).toString(), "英文状态，不设置initDate时，初始化日期为当前系统时间国际化后的日期");
     
-    ca.dispose();
+    ca.$dispose();
     document.body.removeChild(container);
 });
 
@@ -314,7 +314,7 @@ test("测试接口", function(){
     selectedEls = baidu(".tang-calendar-selected");
     equals(baidu(selectedEls[0]).attr("date"), "2012/02/28", "2012年2月28日高亮");
     
-    ca.dispose();
+    ca.$dispose();
     document.body.removeChild(container);
 });
 
@@ -334,7 +334,7 @@ test("dispose", function(){
     ca.render(container);
     
     var caID = ca._getId();
-    ca.dispose();
+    ca.$dispose();
     
     ok(baidu('#' + caID).length == 0, "日历节点已被移除");
     equals(baidu.dom._eventBase._getEventsLength(), listenerLenth, "所有事件已移除");
@@ -379,7 +379,7 @@ test("基本操作", function(){
         ok(checkMonth(5), "当前2012年4月，nextMonth后为5月份");
         
         start();
-        ca.dispose();
+        ca.$dispose();
         document.body.removeChild(container);
     });
 });
@@ -428,7 +428,7 @@ test("检查展示", function(){
     var el = baidu(".tang-calendar-today")[0];
     equals(baidu(el).attr("date"), baidu.date.format(baidu.i18n.date.toLocaleDate(date), "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
     
-    ca.dispose();
+    ca.$dispose();
     document.body.removeChild(container);
 });
 
@@ -469,7 +469,7 @@ test("自定义事件", function(){
     ua.mouseout(tdDoms[0]);
     ua.click(tdDoms[0]);
     
-    ca.dispose();
+    ca.$dispose();
     document.body.removeChild(container);
 });
 

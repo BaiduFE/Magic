@@ -8,16 +8,16 @@
 ///import baidu.fx.moveTo;
 ///import baidu.dom.css;
 /**
- * @description 为Slider组件增加动画滚动功能
+ * @description 为滑动条组件增加动画滚动功能
  * @name magic.control.Slider.$fx
  * @addon
- * @param {Object} fx 插件参数.
- * @param {Boolean} fx.enable 是否开启动画效果，true || false, 默认为false
- * @param {Boolean} fx.duration 动画持续时间
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.fx.enable 插件开关， 默认false
+ * @param {Boolean} options.fx.duration 动画持续时间(毫秒)，默认200
  * @author qiaoyue
  * @example
- * /// for fx.enable,fx.duration
- * new magic.Slider({
+ * /// for options.fx.enable,options.fx.duration
+ * var instance = new magic.Slider({
  * 		orientation:'horizonal',
  * 		fx:{
  * 			enable: true,	// 启用动画
@@ -47,11 +47,11 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @param {float} value 要设置的值
      * @param {boolean} noFx 不使用动画，true || false 默认会使用
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.setValue(20, true);
+     * instance.render('s1');
+     * instance.setValue(20, true);
      */
     setValue: function(value, noFx){
         var me = this,
@@ -74,22 +74,22 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @description 动画开始触发
      * @name magic.control.Slider.$fx#onfxstart
      * @event
-     * @grammar magic.control.Slider#onfxstart=function(evt){...}
+     * @grammar magic.control.Slider#onfxstart(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.onfxstart = function(evt){
+     * instance.render('s1');
+     * instance.onfxstart = function(evt){
      * 		// do something...
      * }
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.on('fxstart', function(evt){
+     * instance.render('s1');
+     * instance.on('fxstart', function(evt){
      * 		// do something...
      * });
      */
@@ -97,22 +97,22 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @description 动画中触发
      * @name magic.control.Slider.$fx#onfx
      * @event
-     * @grammar magic.control.Slider#onfx=function(evt){...}
+     * @grammar magic.control.Slider#onfx(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.onfx = function(evt){
+     * instance.render('s1');
+     * instance.onfx = function(evt){
      * 		// do something...
      * }
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.on('fx', function(evt){
+     * instance.render('s1');
+     * instance.on('fx', function(evt){
      * 		// do something...
      * });
      */
@@ -120,22 +120,22 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @description 动画结束触发
      * @name magic.control.Slider.$fx#onfxstop
      * @event
-     * @grammar magic.control.Slider#onfxstop=function(evt){...}
+     * @grammar magic.control.Slider#onfxstop(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.onfxstop = function(evt){
+     * instance.render('s1');
+     * instance.onfxstop = function(evt){
      * 		// do something...
      * }
      * @example
-     * var slider = new magic.Slider({
+     * var instance = new magic.Slider({
      * 		orientation: 'vertical'
      * });
-     * slider.render('s1');
-     * slider.on('fxstop', function(evt){
+     * instance.render('s1');
+     * instance.on('fxstop', function(evt){
      * 		// do something...
      * });
      */

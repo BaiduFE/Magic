@@ -22,7 +22,7 @@ test("render, default param", function(){
 		equals(slider._info.height, 21, "The width is right");
 		equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("")).offset().left, "The position of The knob is right");
 		equals(slider._info._status, "enable", "The status is right");
-		slider.dispose();
+		slider.$dispose();
 		start();
 	});
 });
@@ -45,7 +45,7 @@ test("render, orientation", function(){
 	equals(slider._info.width, 21, "The width is right");
 	equals(slider._info.height, 200, "The height is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("")).offset().top, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, direciton", function(){
@@ -64,7 +64,7 @@ test("render, direciton", function(){
 	equals(slider._info._knobKey, "left", "The direction is right");
 	equals(slider._info.currentValue, 0, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("")).offset().left + 200, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, currentValue", function(){
@@ -79,7 +79,7 @@ test("render, currentValue", function(){
 	slider.render('div1');
 	equals(slider._info.currentValue, 0.5, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 100 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, accuracy", function(){
@@ -104,7 +104,7 @@ test("render, accuracy", function(){
 	ua.mouseup(slider.getElement("view"));
 	equals(slider._info.currentValue, 0.2, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, adaptive", function(){
@@ -140,7 +140,7 @@ test("render, adaptive", function(){
 	equals(slider.getElement("view").offsetWidth, 200, "The width is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, adaptive, vertical", function(){
@@ -177,7 +177,7 @@ test("render, adaptive, vertical", function(){
 	equals(slider.getElement("view").offsetHeight, 200, "The height is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, disable&enable", function(){
@@ -193,7 +193,7 @@ test("render, disable&enable", function(){
 	equals(slider._info._status, "disabled", "The status is right");
 	slider.enable();
 	equals(slider._info._status, "enable", "The status is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, getValue&setValue, forward", function(){
@@ -213,7 +213,7 @@ test("render, getValue&setValue, forward", function(){
 	equals(slider.getValue(), 0.1, "The setValue is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, getValue&setValue, backward", function(){
@@ -234,7 +234,7 @@ test("render, getValue&setValue, backward", function(){
 	equals(slider.getValue(), 0.1, "The setValue is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 200 - 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, setRange, forward", function(){
@@ -264,7 +264,7 @@ test("render, setRange, forward", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, setRange, backward", function(){
@@ -296,7 +296,7 @@ test("render, setRange, backward", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 150 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 });
 
 test("render, events&dispose", function(){
@@ -342,7 +342,7 @@ test("render, events&dispose", function(){
 		setTimeout(function(){
 			ua.mouseup(slider.getElement("knob"));
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");//本应是49，根据精确度定位到40
-			slider.dispose();
+			slider.$dispose();
 			var l2 = baidu.dom._eventBase._getEventsLength();
 			ok(!isShown(div), "The dom is clear");
 			equals(l2, l1, "The events are un");

@@ -10,15 +10,15 @@
 ///import baidu.string.format;
 
 /**
- * @description 为Slider组件增加缓存进度条
+ * @description 为滑动条组件增加缓存进度条
  * @name magic.control.Slider.$cache
  * @addon
- * @param {Object} cache 插件参数.
- * @param {Boolean} cache.enable 是否使用缓存条，true || false
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.cache.enable 插件开关，默认false
  * @author qiaoyue
  * @example
- * /// for cache.enable
- * new magic.Slider({
+ * /// for options.cache.enable
+ * var instance = new magic.Slider({
  * 		orientation:'horizonal',
  * 		cache:{enable:true}		// 启用缓存条
  * }); 
@@ -30,7 +30,7 @@ baidu.lang.register(magic.control.Slider, function(options){
         var inner = me.getElement('inner'),
             _accuracyKey = info._accuracyKey,
             cacheClass = info._oppsite ? 'tang-cache-backward' : 'tang-cache-forward',
-            id = me.getId('cache'),
+            id = me.$getId('cache'),
             html = info._oppsite ? '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-start"></div>' : '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-last"></div>';
 
         baidu.dom(inner).insertHTML('afterBegin', baidu.string.format(html ,{

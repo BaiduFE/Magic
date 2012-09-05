@@ -534,7 +534,7 @@ test("focus, next, prev, isLoop=false", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text3", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
-    c.dispose();
+    c.$dispose();
     var c = new magic.Carousel({
 		viewSize: 4,
 		originalIndex: 9,
@@ -581,7 +581,7 @@ test("events & dispose", function(){
     c.focus(8, 'backward');
     ua.click(c.getElement("element").childNodes[0]);
     ua.mouseout(c.getElement("element").childNodes[0]);
-    c.dispose();
+    c.$dispose();
 	equals(c.disposed, true, "disposed");
 	equals($(".tang-carousel-container").length, 0, "dom clear");
     document.body.removeChild(div);

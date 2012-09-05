@@ -12,10 +12,19 @@
  * @description 对话框遮罩插件
  * @name magic.control.Dialog.$mask
  * @addon
- * @param {Object}  mask 插件选项
- * @param {Boolean} mask.enable 遮罩的开关，缺省为 false [exp]:[false]
- * @param {String} mask.bgColor 遮罩景色，缺省为 #000 [exp]:['#000']
- * @param {Number} mask.opacity 遮罩不透明度，缺省为 0.15 [exp]:[0.15]
+ * @param {Object}  options 插件选项
+ * @param {Boolean} options.mask.enable 插件开关，默认false
+ * @param {String} options.mask.bgColor 遮罩的颜色，默认#000
+ * @param {Number} options.mask.opacity 遮罩的不透明度，默认0.15
+ * @example
+ * /// for options.mask.enable,options.mask.bgColor,options.mask.opacity
+ * var instance = new magic.Dialog({
+ * 		mask: {
+ * 			enable: true,
+ * 			bgColor: '#ccc',
+ * 			opacity: 0.6
+ *      }
+ * });
  */
 baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
@@ -38,13 +47,13 @@ baidu.lang.register(magic.control.Dialog,
 	},
 
 	/* methods */ {
-		/*
-		 * @description 渲染 mask 层（如果开启 mask 选项，主程序会自动 renderMask）
+		/**
+		 * @description 渲染遮罩层（如果开启 mask 选项，主程序会自动渲染遮罩）
 		 * @name magic.control.Dialog.$mask#renderMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#renderMask()
 		 * @example
-         * var dialog = new magic.Dialog({
+         * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
          *      content: "对话框内容",
          *      left: 80,
@@ -52,7 +61,7 @@ baidu.lang.register(magic.control.Dialog,
          *      width: 400,
          *      height: 300
          * });
-         * dialog.renderMask();
+         * instance.renderMask();
 		 * @return {This} 实例本身
 		 */
 		renderMask: function(){
@@ -66,13 +75,13 @@ baidu.lang.register(magic.control.Dialog,
 		    return this;
 		},
 
-		/*
-		 * @description 显示 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		/**
+		 * @description 显示遮罩层（如果开启 mask 选项，主程序会自动关联遮罩显隐）
 		 * @name magic.control.Dialog.$mask#showMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#showMask()
 		 * @example
-         * var dialog = new magic.Dialog({
+         * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
          *      content: "对话框内容",
          *      left: 80,
@@ -80,7 +89,7 @@ baidu.lang.register(magic.control.Dialog,
          *      width: 400,
          *      height: 300
          * });
-         * dialog.showMask();
+         * instance.showMask();
 		 * @return {This} 实例本身
 		 */
 		showMask: function(){
@@ -88,13 +97,13 @@ baidu.lang.register(magic.control.Dialog,
 		    return this;
 		},
 
-		/*
-		 * @description 隐藏 mask 层（如果开启 mask 选项，主程序会自动关联 mask 显隐）
+		/**
+		 * @description 隐藏遮罩层（如果开启 mask 选项，主程序会自动关联遮罩显隐）
 		 * @name magic.control.Dialog.$mask#hideMask
 		 * @function
 		 * @grammar magic.control.Dialog.$mask#hideMask()
 		 * @example
-         * var dialog = new magic.Dialog({
+         * var instance = new magic.Dialog({
          *      titleText: "对话框标题",
          *      content: "对话框内容",
          *      left: 80,
@@ -102,7 +111,7 @@ baidu.lang.register(magic.control.Dialog,
          *      width: 400,
          *      height: 300
          * });
-         * dialog.hideMask();
+         * instance.hideMask();
 		 * @return {This} 实例本身
 		 */
 		hideMask: function(){

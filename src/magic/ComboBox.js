@@ -17,15 +17,15 @@
  * @grammar new magic.ComboBox(options)
  * @superClass magic.control.ComboBox
  * @param {Object} options 选项
- * @param {Array<Object>} items 组合框下拉菜单的数据，每项由value和content组成，默认[]。
- * @param {Number} viewSize 下拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
- * @param {Boolean} readonly 输入框是否可以编辑输入，默认true。
- * @param {Boolean} disabled 组合框是否处于禁用状态，默认false。
- * @param {Number} originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
- * @param {Number|String} width 组合框的宽度，默认100%。
+ * @param {Array<Object>} options.items 组合框下拉菜单的数据，每项由value和content组成，默认[]。
+ * @param {Number} options.viewSize 下拉菜单最多显示的项目数，若选项多于此配置，则出现纵向滚动条，默认5。
+ * @param {Boolean} options.readonly 输入框是否可以编辑输入，默认true。
+ * @param {Boolean} options.disabled 组合框是否处于禁用状态，默认false。
+ * @param {Number} options.originIndex 初始化后默认选中的值的索引，不选中任何项为-1，当readonly为true时，默认0，反之默认-1。
+ * @param {Number|String} options.width 组合框的宽度，默认100%。
  * @return {magic.ComboBox} 组合框实例.
  * @example
- * /// for items
+ * /// for options.items
  * var instance = new magic.ComboBox({
  *     "items" : [
  *         {"value" : 0, "content" : "女"},
@@ -33,7 +33,7 @@
  *     ]
  * });
  * @example
- * /// for viewSize
+ * /// for options.viewSize
  * //下拉菜单中有5项，但是只能显示前3项，后两项需要拉滚动条后选择。
  * var instance = new magic.ComboBox({
  *     "items" : [
@@ -44,7 +44,17 @@
  *         {"value" : 4, "content" : "天津"}
  *     ],
  *     "viewSize" : 3
- * })
+ * });
+ * @example
+ * /// for options.readonly, options.originIndex
+ * //当readonly为true时，originIndex的值默认为0，选中第一个选项。
+ * var instance = new magic.ComboBox({
+ *     "items" : [
+ *         {"value" : 0, "content" : "女"},
+ *         {"value" : 1, "content" : "男"}
+ *     ],
+ *     "readonly" : true
+ * });
  */
 magic.ComboBox = baidu.lang.createClass(function(options) {
     //do nothing
@@ -61,14 +71,14 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      */
     '$toHTMLString' :  function() {
         return [
-            '<div id="' + this.getId('container') + '" class="magic-combobox">',
-            '<div id="' + this.getId('input-container') + '" class="magic-combobox-input-container clearfix">',
+            '<div id="' + this.$getId('container') + '" class="magic-combobox">',
+            '<div id="' + this.$getId('input-container') + '" class="magic-combobox-input-container clearfix">',
             '<div class="magic-combobox-input-outter">',
             '<div class="magic-combobox-input-inner">',
-            '<input id="' + this.getId('input') + '" class="magic-combobox-input"' + (this._options.readonly ? 'readonly' : '') + '>',
+            '<input id="' + this.$getId('input') + '" class="magic-combobox-input"' + (this._options.readonly ? 'readonly' : '') + '>',
             '</div>',
             '</div>',
-            '<a href="#" id="' + this.getId('arrow') + '" class="magic-combobox-arrow" onclick="return false"></a>',
+            '<a href="#" id="' + this.$getId('arrow') + '" class="magic-combobox-arrow" onclick="return false"></a>',
             '</div>',
             '</div>'
         ].join('');
@@ -80,7 +90,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      * @return {String} 下拉菜单的壳子生成的HTMLString
      */
     '_menuContainerToHTMLString' : function() {
-        return '<ul id="' + this.getId('menu') + '" class="magic-combobox-menu"></ul>';
+        return '<ul id="' + this.$getId('menu') + '" class="magic-combobox-menu"></ul>';
     },
     
     /**
@@ -111,7 +121,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         position = position || 'beforeEnd';
         baidu(target).insertHTML(position, this.$toHTMLString(this._options.items));
         /**
-         * 组合框渲染后触发 
+         * @description 组合框渲染后触发 
          * @event
          * @name magic.ComboBox#onload
          * @grammar magic.ComboBox#onload()
@@ -130,13 +140,13 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
     
     /**
      * @description 析构
-     * @name magic.ComboBox#dispose
+     * @name magic.ComboBox#$dispose
      * @function
-     * @grammar magic.Dialog#dispose();
+     * @grammar magic.Dialog#$dispose();
      * @example
-     * instance.dispose();
+     * instance.$dispose();
      */
-    'dispose' : function() {
+    '$dispose' : function() {
         if(this.disposed) {
             return;
         }
@@ -146,13 +156,22 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
         }
         var container = this.getElement('container');
         /**
-         * ComboBox析构后触发 
+         * @description 组合框析构后触发 
          * @event
          * @name magic.ComboBox#ondispose
+         * @grammar magic.ComboBox#ondispose(evt)
          * @param {baidu.lang.Event} evt 事件参数 
+         * @example
+         * instance.on('dispose', function() {
+         *     //do something...
+         * });
+         * @example
+         * instance.ondispose = function() {
+         *     //do something...
+         * }; 
          * @todo ondispose触发的时机，并不是在整个combobox析构之后，而是在数据析构后，dom删除之前。
          */
-        magic.control.ComboBox.prototype.dispose.call(this);
+        magic.control.ComboBox.prototype.$dispose.call(this);
         baidu(container).remove();
         if (elm) {
             host.parentNode.insertBefore(elm, host);

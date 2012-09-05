@@ -62,7 +62,7 @@ test("enable", function(){
 		    c.focusPrev();
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-		    c.dispose();
+		    c.$dispose();
 		    var l2 = baidu.dom._eventBase._getEventsLength();
 		    equals(l2, l1, "The events are un");
 		    document.body.removeChild(baidu.dom.g("one-carousel"));

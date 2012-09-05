@@ -14,15 +14,15 @@
 
 
 /**
- * @description 为滚动组件添加控制按钮插件
+ * @description 为图片轮播组件添加控制前后按钮插件
  * @name magic.control.Carousel.$button
  * @addon
- * @param {Object} button 插件参数.
- * @param {Boolean} button.enable 是否显示按钮，默认显示
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.button.enable 插件开关，默认true
  * @author linlingyu
  * @example
- * /// for button.enable
- * var carousel = new magic.Carousel({
+ * /// for options.button.enable
+ * var instance = new magic.Carousel({
  * 		button: {
  * 			enable: true,
  *      }
@@ -45,8 +45,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
         baidu.dom(next)[!me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next');
     }
     me.on('onload', function(evt){
-        me.mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
-        mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
+        me.$mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
+        $mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
         //
         baidu.dom(me.getElement('prev')).on('click', prevHandler);
         baidu.dom(me.getElement('next')).on('click', nextHandler);
@@ -94,10 +94,10 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @function
      * @return {Boolean} 当已经滚动到首项时返回true，否则返回false
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.isFirst();	// true OR false
+     * instance.isFirst();	// true OR false
      */
     isFirst: function(){
         return this._isLimit('backward');
@@ -110,10 +110,10 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @function
      * @return {Boolean} 当已经滚动到末项时返回true，否则返回false
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.isLast();	// true OR false
+     * instance.isLast();	// true OR false
      */
     isLast: function(){
         return this._isLimit('forward');

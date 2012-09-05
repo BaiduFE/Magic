@@ -82,7 +82,7 @@ test("render,default params", function(){
 				}
 				if(scroll == 2){
 					equals(c._selectedIndex, 9, "scroll to 9");
-					c.dispose();
+					c.$dispose();
 					document.body.removeChild(div);
 					start();
 				}
@@ -135,7 +135,7 @@ test("render,all params", function(){
 			time2 = new Date();
 		    ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
-			c.dispose();
+			c.$dispose();
 			var l2 = baidu.dom._eventBase._getEventsLength();
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
@@ -171,7 +171,7 @@ test("render, button", function(){
 		if(scroll == 4){
 			time2 = new Date();
 			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
-		    c.dispose();
+		    c.$dispose();
 			document.body.removeChild(div);
 			start();
 		}
@@ -197,7 +197,7 @@ test("render, disable", function(){
 	});
     c.render('one-carousel');
     ok(true);
-    c.dispose();
+    c.$dispose();
 	document.body.removeChild(div);
 	start();
 });
@@ -231,7 +231,7 @@ test("setup,default params", function(){
 		}
 		if(scroll == 2){
 			equals(c._selectedIndex, 9, "scroll to 9");
-			c.dispose();
+			c.$dispose();
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();
 		}
@@ -280,7 +280,7 @@ test("setup, all params", function(){
 			time2 = new Date();
 			ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
-			c.dispose();
+			c.$dispose();
 			var l2 = baidu.dom._eventBase._getEventsLength();
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(baidu.dom.g("one-carousel"));
@@ -314,7 +314,7 @@ test("setup, button", function(){
 		if(scroll == 4){
 			time2 = new Date();
 			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
-			c.dispose();
+			c.$dispose();
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();
 		}
@@ -337,7 +337,7 @@ test("setup, disable", function(){
     	ok(true, "not auto scroll");
 	});
     ok(true);
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(baidu.dom.g("one-carousel"));
 	start();
 });

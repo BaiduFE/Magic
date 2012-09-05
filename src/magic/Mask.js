@@ -31,25 +31,25 @@
  * @superClass  magic.control.Layer
  * @grammar new magic.Mask(options)
  * @param {JSON} options 参数设置
- * @param {Boolean} options.coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
- * @param {String} options.bgColor [r/w]遮罩层背景色
- * @param {Number} options.opacity [r/w]背景层透明度，取值 0-1
- * @param {HTMLElement}	options.container [r/w]遮罩层的容器，默认为 document.body
+ * @param {Boolean} options.coverable	对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理，默认false
+ * @param {String} options.bgColor 遮罩层背景色，默认'#000'
+ * @param {Number} options.opacity 背景层透明度，，默认0.3
+ * @param {HTMLElement}	options.container 遮罩层的容器，默认 document.body
  * @return {magic.Mask} Mask实例.
  * @example
  * /// for options.coverable
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		coverable: true		// mask 遮盖 flash/select
  * });
  * @example
  * /// for options.bgColor,options.opacity
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		bgColor: '#ccc',	// 灰色背景
  * 		opacity: 0.5		// 50%透明度
  * });
  * @example
  * /// for options.container
- * var mask = new magic.Mask({
+ * var instance = new magic.Mask({
  * 		container: document.body
  * });
  */
@@ -140,7 +140,7 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
 	 * @private
 	 */
 	toHTMLString : function(){
-		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
+		return "<div id='"+this.$getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
 			+("<iframe frameborder='0' style='"
 			+"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
 			+"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "

@@ -11,24 +11,24 @@
 ///import baidu.event._eventFilter.mouseleave;
 
 /**
- * @description 为滚动组件增加自动滚动功能
+ * @description 为图片轮播组件增加自动滚动功能
  * @name magic.control.Carousel.$autoScroll
  * @addon
- * @param {Object} autoScroll 插件参数.
- * @param {Boolean} autoScroll.enable 是否支持自动滚动，默认支持
- * @param {Number} autoScroll.interval 以毫秒描述每次滚动的时间间隔，默认是1000毫秒
- * @param {String} autoScroll.direction 取值，forward|backward 描述组件的滚动方向
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.autoScroll.enable 插件开关，默认true
+ * @param {Number} options.autoScroll.interval 以毫秒描述每次滚动的时间间隔，默认1000
+ * @param {String} options.autoScroll.direction 取值，forward|backward 描述组件的滚动方向，默认forward
  * @example
- * /// for autoScroll.enable,autoScroll.direction
- * var carousel = new magic.Carousel({
+ * /// for options.autoScroll.enable,options.autoScroll.direction
+ * var instance = new magic.Carousel({
  * 		autoScroll: {
  * 			enable: true,
  *          direction: 'backward'
  *      }
  * });
  * @example
- * /// for autoScroll.interval
- * var carousel = new magic.Carousel({
+ * /// for options.autoScroll.interval
+ * var instance = new magic.Carousel({
  * 		autoScroll: {
  * 			enable: true,
  *          interval: 2000
@@ -66,46 +66,46 @@ baidu.lang.register(magic.control.Carousel, function(options){
 }, 
 {   
     /**
-     * @description 当鼠标移入可视区时触发
+     * @description 当鼠标移入可视区后触发
      * @name magic.control.Carousel.$autoScroll#onmouseenter
      * @event
-     * @grammar magic.control.Carousel.$autoScroll#onmouseenter() = function(evt){...}
+     * @grammar magic.control.Carousel.$autoScroll#onmouseenter(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.on('mouseenter', function(evt){
+     * instance.on('mouseenter', function(evt){
      * 		alert("鼠标移入");
      * });
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.onmouseenter = function(evt){
+     * instance.onmouseenter = function(evt){
      * 		alert("鼠标移入");
      * };
      */
     /**
-     * @description 当鼠标移出可视区时触发
+     * @description 当鼠标移出可视区后触发
      * @name magic.control.Carousel.$autoScroll#onmouseleave
      * @event
-     * @grammar magic.control.Carousel.$autoScroll#onmouseleave() = function(evt){...}
+     * @grammar magic.control.Carousel.$autoScroll#onmouseleave(evt)
      * @param {baidu.lang.Event} evt 事件参数
      * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.on('mouseleave', function(evt){
+     * instance.on('mouseleave', function(evt){
      * 		alert("鼠标移入");
      * });
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.onmouseleave = function(evt){
+     * instance.onmouseleave = function(evt){
      * 		alert("鼠标移入");
      * };
      */
@@ -127,10 +127,10 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @function 
      * @grammar magic.control.Carousel.$autoScroll#start()
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.start();	//启动滚动
+     * instance.start();	//启动滚动
      */
     start: function(){
         var me = this,
@@ -148,10 +148,10 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @function 
      * @grammar magic.control.Carousel.$autoScroll#stop()
      * @example
-     * var carousel = new magic.Carousel({
+     * var instance = new magic.Carousel({
      * 		enable: true
      * });
-     * carousel.stop();	//停止滚动
+     * instance.stop();	//停止滚动
      */
     stop: function(){
         var me = this,

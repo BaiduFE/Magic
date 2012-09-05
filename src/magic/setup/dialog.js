@@ -15,18 +15,18 @@
 ///import baidu.type;
 
 /**
- * @description 在页面已有 html 结构的基础上创建 dialog 组件
+ * @description 在页面已有 html 结构的基础上创建对话框组件
  * @name magic.setup.dialog
  * @function
  * @grammar  magic.setup.dialog(el,options)
  * @param {String|HTMLElement} el 容器，ID或者HTML元素 
  * @param {Object} options 控制选项
- * @param {Boolean} options.titleText 对话框的标题内容，可选 
- * @param {el|String} options.content 对话框的内容，可以是 html 或 dom 对象，可选 
- * @param {Number} options.width Dialog 的宽度，缺省为 400
- * @param {Number} options.height Dialog 的高度，缺省为 300
- * @param {Number} options.left Dialog 的左边距，可选
- * @param {Number} options.top Dialog 的上边距，可选
+ * @param {Boolean} options.titleText 对话框的标题内容
+ * @param {String|HTMLElement} options.content 对话框的内容，可以是 html 或 dom 对象
+ * @param {Number} options.width Dialog 的宽度，默认400
+ * @param {Number} options.height Dialog 的高度，默认300
+ * @param {Number} options.left Dialog 的左边距，默认0
+ * @param {Number} options.top Dialog 的上边距，默认0
  * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
  * @example 
  * /// for options.titleText,options.content,options.width,options.height,options.left,options.top,options.draggable
@@ -77,14 +77,14 @@ magic.setup.dialog = function(el, options){
 		}
 	}
 
-	instance.mappingDom("title", baidu(".tang-title", container)[0]);
-	instance.mappingDom("titleText", baidu("span", instance.getElement("title"))[0]);
-	instance.mappingDom("titleButtons", baidu(".buttons", instance.getElement("title"))[0]);
-	instance.mappingDom("body", baidu(".tang-body", container)[0]);
-	instance.mappingDom("content", baidu(".content", instance.getElement("body"))[0]);
-	instance.mappingDom("closeBtn", baidu(".close-btn", instance.getElement("title"))[0]);
-	instance.mappingDom("foreground", baidu(".tang-foreground", container)[0]);
-	// instance.mappingDom("background", baidu(".tang-background", container)[0]);
+	instance.$mappingDom("title", baidu(".tang-title", container)[0]);
+	instance.$mappingDom("titleText", baidu("span", instance.getElement("title"))[0]);
+	instance.$mappingDom("titleButtons", baidu(".buttons", instance.getElement("title"))[0]);
+	instance.$mappingDom("body", baidu(".tang-body", container)[0]);
+	instance.$mappingDom("content", baidu(".content", instance.getElement("body"))[0]);
+	instance.$mappingDom("closeBtn", baidu(".close-btn", instance.getElement("title"))[0]);
+	instance.$mappingDom("foreground", baidu(".tang-foreground", container)[0]);
+	// instance.$mappingDom("background", baidu(".tang-background", container)[0]);
 	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
 	if(typeof instance.left == "undefined")
@@ -102,7 +102,7 @@ magic.setup.dialog = function(el, options){
 	if(instance.height < 100)
 		instance.height = 100;
     /**
-    * 当窗口节点渲染完成后触发
+    * @description 当窗口节点渲染完成后触发
     * @name magic.control.Dialog#onload
     * @event
     * @grammar magic.control.Dialog#onload = function(){...}

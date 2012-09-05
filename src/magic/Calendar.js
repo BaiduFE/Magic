@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * author: zhaochengyang
@@ -28,22 +28,22 @@
  * @class
  * @grammar new magic.Calendar(options)
  * @param {Object} options 自定义选项
- * @param {String} [options.weekStart] 定义一周的第一天取值:'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'，默认为'Sun'
+ * @param {String} [options.weekStart] 定义一周的第一天取值:'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'，默认'Sun'
  * @param {Date} [options.initDate] 初始化日历的日期，默认为new Date()
- * @param {Array} [options.highlightDates] 需要高亮的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]
- * @param {Array} [options.disabledDates] 不可用的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]
+ * @param {Array} [options.highlightDates] 需要高亮的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
+ * @param {Array} [options.disabledDates] 不可用的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
  * @param {String} [options.language] 日历语言，默认'zh-CN'
  * @plugin title 年份和月份select插件
  * @example 
  * /// for options.weekStart,options.initDate,options.highlightDates,options.disabledDates,options.language
- * var calendar = new magic.Calendar({
+ * var instance = new magic.Calendar({
  *      weekStart: 'sat',
  *      initDate: new Date()
  *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
  *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
  *      language: 'zh-CN'
  * });
- * calendar.render('calendar-container');
+ * instance.render('calendar-container');
  * @return {magic.Calendar} magic.Calendar 实例
  * @superClass magic.Base
  */
@@ -90,14 +90,14 @@ magic.Calendar.extend(
      * @grammar magic.Calendar#render(el)
      * @param {HTMLElement|String} el 指定容器
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
+     * instance.render('calendar-container');
      */
     render: function(el){
         var me = this;
@@ -132,31 +132,31 @@ magic.Calendar.extend(
         * @description 日历渲染完成
         * @name magic.Calendar#onrender
         * @event
-        * @grammar magic.Calendar#onrender = function(){...}
+        * @grammar magic.Calendar#onrender()
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
         *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
         *      language: 'zh-CN'
         * });
-        * calendar.on("render", function(){
+        * instance.on("render", function(){
         *     //do something...
         * });
-        * calendar.render('calendar-container');
+        * instance.render('calendar-container');
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
         *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
         *      language: 'zh-CN'
         * });
-        * calendar.onrender = function(){
+        * instance.onrender = function(){
         *     //do something...
         * };
-        * calendar.render('calendar-container');
+        * instance.render('calendar-container');
         */  
         me.fire("render");
     },
@@ -183,7 +183,7 @@ magic.Calendar.extend(
      * @return {String} 以TANGRAM$1__tang_calendar_为前缀的ID字符串
      */
     _getId: function(name){
-        return this.getId() + (name === undefined ? 'tang_calendar' : 'tang_calendar_' + name);
+        return this.$getId() + (name === undefined ? 'tang_calendar' : 'tang_calendar_' + name);
     },
     
     /**
@@ -214,9 +214,9 @@ magic.Calendar.extend(
         me.titleEl = baidu('#' + me._getId('title'))[0];
         me.tableEl = baidu('#' + me._getId('table'))[0];
 
-        me.mappingDom('calendar', baidu('#' + me._getId())[0]);
-        me.mappingDom('title', me.titleEl);
-        me.mappingDom('table', me.tableEl);
+        me.$mappingDom('calendar', baidu('#' + me._getId())[0]);
+        me.$mappingDom('title', me.titleEl);
+        me.$mappingDom('table', me.tableEl);
     },
 
     /**
@@ -262,8 +262,8 @@ magic.Calendar.extend(
         me.preBtn = preBtn;
         me.nextBtn = nextBtn;
 
-        me.mappingDom('premonthbtn', me.preBtn);
-        me.mappingDom('nextmonthbtn', me.nextBtn);
+        me.$mappingDom('premonthbtn', me.preBtn);
+        me.$mappingDom('nextmonthbtn', me.nextBtn);
     },
 
     /**
@@ -287,31 +287,31 @@ magic.Calendar.extend(
             * @description 跳转到上一个月
             * @name magic.Calendar#onpremonth
             * @event
-            * @grammar magic.Calendar#onpremonth = function(){...}
+            * @grammar magic.Calendar#onpremonth()
             * @example
-            * var calendar = new magic.Calendar({
+            * var instance = new magic.Calendar({
             *      weekStart: 'sat',
             *      initDate: new Date()
             *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
             *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
             *      language: 'zh-CN'
             * });
-            * calendar.on("premonth", function(){
+            * instance.on("premonth", function(){
             *     //do something...
             * });
-            * calendar.render('calendar-container');
+            * instance.render('calendar-container');
             * @example
-            * var calendar = new magic.Calendar({
+            * var instance = new magic.Calendar({
             *      weekStart: 'sat',
             *      initDate: new Date()
             *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
             *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
             *      language: 'zh-CN'
             * });
-            * calendar.onpremonth = function(){
+            * instance.onpremonth = function(){
             *     //do something...
             * };
-            * calendar.render('calendar-container');
+            * instance.render('calendar-container');
             */  
             me.fire("premonth");
         });
@@ -322,31 +322,31 @@ magic.Calendar.extend(
             * @description 跳转到下一个月
             * @name magic.Calendar#onnextmonth
             * @event
-            * @grammar magic.Calendar#onnextmonth = function(){...}
+            * @grammar magic.Calendar#onnextmonth()
             * @example
-            * var calendar = new magic.Calendar({
+            * var instance = new magic.Calendar({
             *      weekStart: 'sat',
             *      initDate: new Date()
             *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
             *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
             *      language: 'zh-CN'
             * });
-            * calendar.on("nextmonth", function(){
+            * instance.on("nextmonth", function(){
             *     //do something...
             * });
-            * calendar.render('calendar-container');
+            * instance.render('calendar-container');
             * @example
-            * var calendar = new magic.Calendar({
+            * var instance = new magic.Calendar({
             *      weekStart: 'sat',
             *      initDate: new Date()
             *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
             *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
             *      language: 'zh-CN'
             * });
-            * calendar.onnextmonth = function(){
+            * instance.onnextmonth = function(){
             *     //do something...
             * };
-            * calendar.render('calendar-container');
+            * instance.render('calendar-container');
             */  
             me.fire("nextmonth");
         });
@@ -524,33 +524,33 @@ magic.Calendar.extend(
         * @description 鼠标移动到某个td上时触发
         * @name magic.Calendar#onmouseover
         * @event
-        * @grammar magic.Calendar#onmouseover = function(){...}
+        * @grammar magic.Calendar#onmouseover(options)
         * @param {Object} options 自定义事件参数
         * @param {HTMLElement} options.target 触发事件的td
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
         *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
         *      language: 'zh-CN'
         * });
-        * calendar.on("mouseover", function(){
+        * instance.on("mouseover", function(){
         *     //do something...
         * });
-        * calendar.render('calendar-container');
+        * instance.render('calendar-container');
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
         *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
         *      language: 'zh-CN'
         * });
-        * calendar.onmouseover = function(){
+        * instance.onmouseover = function(){
         *     //do something...
         * };
-        * calendar.render('calendar-container');
+        * instance.render('calendar-container');
         */  
         me.fire("mouseover", {
             'target': target
@@ -571,33 +571,33 @@ magic.Calendar.extend(
         * @description 鼠标移出某个td时触发
         * @name magic.Calendar#onmouseout
         * @event
-        * @grammar magic.Calendar#onmouseout = function(){...}
+        * @grammar magic.Calendar#onmouseout(options)
         * @param {Object} options 自定义事件参数
         * @param {HTMLElement} options.target 触发事件的td
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
         *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
         *      language: 'zh-CN'
         * });
-        * calendar.on("mouseout", function(){
+        * instance.on("mouseout", function(){
         *     //do something...
         * });
-        * calendar.render('calendar-container');
+        * instance.render('calendar-container');
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
         *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
         *      language: 'zh-CN'
         * });
-        * calendar.onmouseout = function(){
+        * instance.onmouseout = function(){
         *     //do something...
         * };
-        * calendar.render('calendar-container');
+        * instance.render('calendar-container');
         */  
         me.fire("mouseout", {
             'target': target
@@ -642,33 +642,33 @@ magic.Calendar.extend(
             * @description 选中某个日期时触发
             * @name magic.Calendar#onselectdate
             * @event
-            * @grammar magic.Calendar#onselectdate = function(){...}
+            * @grammar magic.Calendar#onselectdate(options)
             * @param {Object} options 自定义事件参数
             * @param {Date} options.date 选中的日期
             * @example
-            * var calendar = new magic.Calendar({
+            * var instance = new magic.Calendar({
             *      weekStart: 'sat',
             *      initDate: new Date()
             *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
             *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
             *      language: 'zh-CN'
             * });
-            * calendar.on("selectdate", function(){
+            * instance.on("selectdate", function(){
             *     //do something...
             * });
-            * calendar.render('calendar-container');
+            * instance.render('calendar-container');
             * @example
-            * var calendar = new magic.Calendar({
+            * var instance = new magic.Calendar({
             *      weekStart: 'sat',
             *      initDate: new Date()
             *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
             *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
             *      language: 'zh-CN'
             * });
-            * calendar.onselectdate = function(){
+            * instance.onselectdate = function(){
             *     //do something...
             * };
-            * calendar.render('calendar-container');
+            * instance.render('calendar-container');
             */  
             me.fire("selectdate", {
                 'date': new Date(dateStr)
@@ -806,15 +806,15 @@ magic.Calendar.extend(
      * @param {Number} year 年份
      * @param {Number} [month] 月份
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * calendar.go(2012, 7);
+     * instance.render('calendar-container');
+     * instance.go(2012, 7);
      */
     go: function(year, month){
         var me = this;
@@ -834,15 +834,15 @@ magic.Calendar.extend(
      * @function
      * @grammar magic.Calendar#getDate()
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * var date = calendar.getDate();
+     * instance.render('calendar-container');
+     * var date = instance.getDate();
      * @return {Date} 当前选中的日期
      */
     getDate: function(){
@@ -856,15 +856,15 @@ magic.Calendar.extend(
      * @grammar magic.Calendar#setDate(date)
      * @param {Date} date 日期
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * calendar.setDate(new Date());
+     * instance.render('calendar-container');
+     * instance.setDate(new Date());
      * @return {Boolean} 当前选中日期是否设置成功
      */
     setDate: function(date){
@@ -893,15 +893,15 @@ magic.Calendar.extend(
      * @function
      * @grammar magic.Calendar#preMonth()
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * calendar.preMonth();
+     * instance.render('calendar-container');
+     * instance.preMonth();
      */
     preMonth: function(){
         var me = this,
@@ -918,15 +918,15 @@ magic.Calendar.extend(
      * @function
      * @grammar magic.Calendar#nextMonth()
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * calendar.nextMonth();
+     * instance.render('calendar-container');
+     * instance.nextMonth();
      */
     nextMonth: function(){
         var me = this,
@@ -971,27 +971,27 @@ magic.Calendar.extend(
     
     /**
      * @description 析构函数
-     * @name magic.Calendar#dispose
+     * @name magic.Calendar#$dispose
      * @function
-     * @grammar magic.Calendar#dispose()
+     * @grammar magic.Calendar#$dispose()
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * calendar.dispose();
+     * instance.render('calendar-container');
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
         if(me.disposed){
             return;
         }
         me.container.removeChild(baidu('#' + me._getId())[0]);
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
     }
     
     /**
@@ -1000,55 +1000,55 @@ magic.Calendar.extend(
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)|title(标题部分)|table(日期表的父容器)|premonthbtn(跳转到上个月的按钮)|nextmonthbtn(跳转到下个月的按钮)
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * var calendar_el = calendar.getElement('calendar');//获取calendar节点
+     * instance.render('calendar-container');
+     * var calendar_el = instance.getElement('calendar');//获取calendar节点
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * var title_el = calendar.getElement('title');//获取title节点
+     * instance.render('calendar-container');
+     * var title_el = instance.getElement('title');//获取title节点
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * var table_el = calendar.getElement('table');//获取日期表的父容器
+     * instance.render('calendar-container');
+     * var table_el = instance.getElement('table');//获取日期表的父容器
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * var premonthbtn_el = calendar.getElement('premonthbtn');//获取跳转到上个月的按钮
+     * instance.render('calendar-container');
+     * var premonthbtn_el = instance.getElement('premonthbtn');//获取跳转到上个月的按钮
      * @example
-     * var calendar = new magic.Calendar({
+     * var instance = new magic.Calendar({
      *      weekStart: 'sat',
      *      initDate: new Date()
      *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
      *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
      *      language: 'zh-CN'
      * });
-     * calendar.render('calendar-container');
-     * var nextmonthbtn_el = calendar.getElement('nextmonthbtn');//获取跳转到下个月的按钮
+     * instance.render('calendar-container');
+     * var nextmonthbtn_el = instance.getElement('nextmonthbtn');//获取跳转到下个月的按钮
      * @return {HtmlElement} 得到的 HtmlElement 对象
      */
 });

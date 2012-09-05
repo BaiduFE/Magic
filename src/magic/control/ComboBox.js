@@ -128,7 +128,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         
         me.menu.on('beforehide', function(e) {
            /**
-            * 下拉菜单试图隐藏时触发
+            * @description 下拉菜单试图隐藏时触发
             * @name magic.control.ComboBox#onbeforehide
             * @grammer magic.control.ComboBox#onbeforehide(evt)
             * @event 
@@ -141,14 +141,14 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             * @example
             * instance.onbeforehide = function() {
             *     // do something...
-            * }
+            * };
             */
             e.returnValue = me.fire('beforehide');
         });
         
         me.menu.on('hide', function() {
            /**
-            * 下拉菜单隐藏后触发
+            * @description 下拉菜单隐藏后触发
             * @name magic.control.ComboBox#onhide
             * @grammar magic.control.ComboBox#onhide(evt)
             * @event 
@@ -160,7 +160,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             * @example
             * instance.onhide = function() {
             *     // do something...
-            * }
+            * };
             */
             me.fire('hide');
         });
@@ -221,7 +221,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             }
             me.$confirm(target);
            /**
-            * 点击下拉菜单某项后触发
+            * @description 点击下拉菜单某项后触发
             * @name magic.control.ComboBox#onclickitem
             * @grammar magic.control.ComboBox#onclickitem(evt)
             * @event 
@@ -240,7 +240,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             *     evt.result.index;
             *     evt.result.value;
             *     evt.result.content;
-            * }
+            * };
             */
             me.fire('clickitem', {
                 'result' : me._getResult(target)
@@ -654,7 +654,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     },
     
     /**
-     * @description 根据选中项的值设置ComboBox
+     * @description 根据选中项的值设置组合框
      * @function
      * @name magic.control.ComboBox#setByValue
      * @grammar magic.control.ComboBox#setByValue(value)
@@ -799,7 +799,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
          * @description 组合框载入新的下拉菜单数据后触发
          * @event
          * @name magic.control.ComboBox#onrelad
-         * @name magic.control.ComboBox#onrelad()
+         * @grammar magic.control.ComboBox#onrelad(evt)
          * @param {baidu.lang.Event} evt 事件参数
          * @example
          * instance.on('reload', function() {
@@ -817,7 +817,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     
     /**
      * @description 设置组合框为不可用状态。
-     * 做2件事：修改样式， 设置input为disable。
+     * @note 做2件事：修改样式， 设置input为disable。
      * @function
      * @name magic.control.ComboBox#disable
      * @grammar magic.control.ComboBox#disable()
@@ -874,19 +874,19 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
     /**
      * dispose 析构
      * @function
-     * @name magic.control.ComboBox#dispose
+     * @name magic.control.ComboBox#$dispose
      * @public
      *  
      */
-    'dispose' : function() {
+    '$dispose' : function() {
         baidu(this.getElement('input-container')).off('click').off('keydown');
         baidu(this.getElement('input')).off('keydown').off('keyup');
         baidu(this.getElement('arrow')).off('click').off('keydown');
         baidu(this.getElement('menu')).off('click').off('mouseover').off('mouseout');
         this.menu.hide();
-        this.menu.dispose();
+        this.menu.$dispose();
         baidu.array(magic.control.ComboBox.instanceArray).remove(this.guid);
-        magic.Base.prototype.dispose.call(this);
+        magic.Base.prototype.$dispose.call(this);
     }
     
     /**

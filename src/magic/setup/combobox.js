@@ -41,7 +41,7 @@ magic.setup.combobox = function(el, options) {
    /**
     * @descript 组合框
     * @instace
-    * @name magic.setup.combobox
+    * @name magic.setup.combobox!
     * @superClass magic.ComboBox
     * @return {magic.ComboBox} 组合框实例
     */

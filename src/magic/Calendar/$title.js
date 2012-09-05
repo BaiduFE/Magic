@@ -11,9 +11,16 @@
  * @description 将年份和月份做成select控件，用户可以直接选择年份和月份
  * @name magic.Calendar.$title
  * @addon
- * @param {Object} options config参数.
- * @param {Boolean} title.enable 是否开启select控件，默认启用
+ * @param {Object} options 插件选项.
+ * @param {Boolean} options.title.enable 插件开关，默认 true
  * @author zhaochengyang
+ * @example
+ * for options.title.enable
+ * var instance = magic.setup.calendar('calendar', {
+ * 		title: {
+ * 			enable: true
+ * 		}
+ * });
  */
 baidu.lang.register(magic.Calendar, function(){
     var me = this;
@@ -118,12 +125,13 @@ baidu.lang.register(magic.Calendar, function(){
         }
         
         /**
-        * @description 年份和月份select控件渲染完成时触发
+        * @description 年份和月份select控件渲染完成后触发
         * @name magic.Calendar#titlerender
         * @event
-        * @grammar magic.Calendar#titlerender = function(){...}
+        * @grammar magic.Calendar#titlerender(evt)
+        * @param {baidu.lang.Event} evt 事件参数
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
@@ -133,11 +141,11 @@ baidu.lang.register(magic.Calendar, function(){
         *          enable: true
         *      }
         * });
-        * calendar.on("titlerender", function(){
+        * instance.on("titlerender", function(evt){
         *     //do something...
         * });
         * @example
-        * var calendar = new magic.Calendar({
+        * var instance = new magic.Calendar({
         *      weekStart: 'sat',
         *      initDate: new Date()
         *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
@@ -147,7 +155,7 @@ baidu.lang.register(magic.Calendar, function(){
         *           enable: true
         *      }
         * });
-        * calendar.ontitlerender = function(){
+        * instance.ontitlerender = function(evt){
         *     //do something...
         * };
         */  

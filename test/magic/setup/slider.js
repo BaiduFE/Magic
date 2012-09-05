@@ -53,7 +53,7 @@ test("setup, default param", function(){
 		equals(slider._info.height, 21, "The width is right");
 		equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("")).offset().left, "The position of The knob is right");
 		equals(slider._info._status, "enable", "The status is right");
-		slider.dispose();
+		slider.$dispose();
 		document.body.removeChild(div);
 		start();
 	});
@@ -73,7 +73,7 @@ test("setup, orientation", function(){
 	equals(slider._info.width, 21, "The width is right");
 	equals(slider._info.height, 200, "The height is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("")).offset().top, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -89,7 +89,7 @@ test("setup, direciton", function(){
 	equals(slider._info._knobKey, "left", "The direction is right");
 	equals(slider._info.currentValue, 0, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("")).offset().left + 200, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -101,7 +101,7 @@ test("setup, currentValue", function(){
 	});
 	equals(slider._info.currentValue, 0.5, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 100 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -123,7 +123,7 @@ test("setup, accuracy", function(){
 	ua.mouseup(slider.getElement("view"));
 	equals(slider._info.currentValue, 0.2, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -156,7 +156,7 @@ test("setup, adaptive", function(){
 	equals(slider.getElement("view").offsetWidth, 200, "The width is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -190,7 +190,7 @@ test("setup, adaptive, vertical", function(){
 	equals(slider.getElement("view").offsetHeight, 200, "The height is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -203,7 +203,7 @@ test("setup, disable&enable", function(){
 	equals(slider._info._status, "disabled", "The status is right");
 	slider.enable();
 	equals(slider._info._status, "enable", "The status is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -220,7 +220,7 @@ test("setup, getValue&setValue, forward", function(){
 	equals(slider.getValue(), 0.1, "The setValue is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -238,7 +238,7 @@ test("setup, getValue&setValue, backward", function(){
 	equals(slider.getValue(), 0.1, "The setValue is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 200 - 20 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -265,7 +265,7 @@ test("setup, setRange, forward", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -294,7 +294,7 @@ test("setup, setRange, backward", function(){
 	ua.mousedown(slider.getElement("view"));
 	ua.mouseup(slider.getElement("view"));
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 150 - 11, "The position of The knob is right");
-	slider.dispose();
+	slider.$dispose();
 	document.body.removeChild(div);
 });
 
@@ -337,7 +337,7 @@ test("setup, events&dispose", function(){
 		setTimeout(function(){
 			ua.mouseup(slider.getElement("knob"));
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
-			slider.dispose();
+			slider.$dispose();
 			var l2 = baidu.dom._eventBase._getEventsLength();
 			equals(div.childNodes.length, 1, "The dom is not clear");
 			equals(l2, l1, "The events are un");
