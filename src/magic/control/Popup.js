@@ -129,7 +129,7 @@ magic.control.Popup = baidu.lang.createClass(function(options){
         if(baidu.dom(el).size()) {
             baidu.object.extend(this, options||{});
 
-            this._host = el;
+            this._host = baidu(el)[0];
             this.show();
         }
     }

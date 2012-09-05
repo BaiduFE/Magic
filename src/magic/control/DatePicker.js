@@ -31,7 +31,7 @@
  * /// for options.format,options.language,options.calendarOptions,options.popupOptions
  * var datePicker = magic.setup.datePicker('J_input_1', {
  *              'format': 'yyyy/MM/dd',
- *              'language': 'en-US'
+ *              'language': 'en-US',
  *              'calendarOptions': {
  *                  'initDate': new Date(),
  *                  'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
@@ -53,6 +53,8 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     me.popupOption = baidu.object.merge({"autoHide": false, "autoTurn": false, 'disposeOnHide': false}, options.popupOptions);
     me.calendarOption = baidu.object.merge({}, options.calendarOptions);
     me.calendarOption.language = me.language;
+
+    me.showing = false;
     
 },{
 	type: "magic.control.DatePicker",
@@ -76,6 +78,34 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	    	//格式化日期
 	    	input.value = baidu.date.format(e.date, me.format);
 	    	me.hide();
+
+            /**
+            * @description 选中某个日期时触发
+            * @name magic.control.DatePicker#onselectdate
+            * @event
+            * @grammar magic.control.DatePicker#onselectdate = function(){...}
+            * @param {Object} options 自定义事件参数
+            * @param {Date} options.date 选中的日期
+            * @example
+            * var datePicker = magic.setup.datePicker('J_input', {
+            *              'format': 'yyyy/MM/dd',
+            *              'language': 'en-US'
+            * });
+            * datePicker.on("selectdate", function(){
+            *     //do something...
+            * });
+            * @example
+            * var datePicker = magic.setup.datePicker('J_input', {
+            *              'format': 'yyyy/MM/dd',
+            *              'language': 'en-US'
+            * });
+            * datePicker.onselectdate = function(){
+            *     //do something...
+            * };
+            */  
+            me.fire("selectdate", {
+                'date': new Date(e.date)
+            });
 	    });
 	    
 	    function focusHandler(){
@@ -102,7 +132,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         input.oninput = function() {
             if(me.disposed) return;
            
-            me._getInputDate() && me.calendar.setDate(me._getInputDate());
+            if(me._getInputDate() && me.calendar.setDate(me._getInputDate())){
+                me.fire("selectdate", {
+                    'date': new Date(me._getInputDate())
+                });
+            }
         }
         
 	    baidu(document).on("click", documentClickHandler);
@@ -134,6 +168,12 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     show: function(){
 		var me = this,
 			date = new Date();
+
+        if(me.showing){
+            return;
+        }
+
+        me.showing = true;
 
 		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || baidu.i18n.date.toLocaleDate(new Date()));
 		me.popup.attach(me.input, {
@@ -181,6 +221,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     hide: function(){
 		var me = this;
 		
+        if(!me.showing){
+            return;
+        }
+        me.showing = false;
+
 		me.popup.hide();
 		
         /**

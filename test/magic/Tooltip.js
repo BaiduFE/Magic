@@ -11,7 +11,7 @@ module("magic.Tooltip");
 		html += '<dt class="tooltip-title">' + title + '</dt>';
 		html += '<dd><div id="tooltip' + num + '" style="height:10px; width:10px"></div></dd>'
 		html += '</dl>';
-		w.baidu.dom.insertHTML(w.document.body, 'beforeEnd', html);
+		w.baidu.dom(w.document.body).insertHTML('beforeEnd', html);
 	};
 	loadcss = function(w, url, callback, classname, style, value) {
 		var doc = w.document;
@@ -47,13 +47,15 @@ module("magic.Tooltip");
 test("default param", function(){
 	expect(1);
 	stop();
-	ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
-		create('普通的tooltip');
-		tooltip = new magic.Tooltip();
-		tooltip.attach("tooltip0");
-		ok(isShown(tooltip.getElement()), "The tooltip is shown");
-		tooltip.dispose();
-		start();
+    ua.importsrc('baidu.dom.position', function() {
+		ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
+			create('普通的tooltip');
+			tooltip = new magic.Tooltip();
+			tooltip.attach("#tooltip0");
+			ok(isShown(tooltip.getElement()), "The tooltip is shown");
+			tooltip.dispose();
+			start();
+		});
 	});
 });
 
@@ -64,11 +66,11 @@ test("render, hide, show, dispose, visible, top, left", function(){
 			container: document.getElementById("tooltip0"),
 			disposeOnHide: false
 	};
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu.dom._eventBase._getEventsLength();
 	var tooltip = new magic.Tooltip(options);
 	tooltip.render();
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	tooltip.hide();
 	ok(!isShown(tooltip.getElement()), "The tooltip is hide");
 	ok(!tooltip.visible, "The tooltip is hide");
@@ -78,7 +80,7 @@ test("render, hide, show, dispose, visible, top, left", function(){
 	equals(tooltip.top, tooltip.getElement().offsetTop, "The top is right");
 	equals(tooltip.left, tooltip.getElement().offsetLeft, "The left is right");
 	tooltip.dispose();	
-	var l2 = baidu.event._listeners.length;
+	var l2 = baidu.dom._eventBase._getEventsLength();
 	equals($('.tang-background').length, 0, "The tooltip is disposed");
 	equals(l2, l1, "The events are un");
 });
@@ -91,7 +93,7 @@ test("autoHide", function(){
 			disposeOnHide: false
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	stop();
 	setTimeout(function(){
@@ -109,7 +111,7 @@ test("autoHide, key", function(){
 			disposeOnHide: false
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	stop();
 	setTimeout(function(){
@@ -136,7 +138,7 @@ test("smartPosition", function(){
 			};
 			var tooltip = new w.magic.Tooltip(options);
 			tooltip.attach("tooltip1");
-			ok(baidu.dom.getPosition(tooltip.getElement()).top < 150, "The tooltip is above");
+			ok(baidu.dom(tooltip.getElement()).position().top < 150, "The tooltip is above");
 			me.finish();
 			$(f).remove();
 		});
@@ -150,7 +152,7 @@ test("disposeOnHide", function(){
 			disposeOnHide: false 
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	tooltip.hide();
 	ok(!isShown(tooltip.getElement()), "The tooltip is hide but not disposed");
@@ -165,7 +167,7 @@ test("hideOnEscape", function(){
 			hideOnEscape: false 
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	stop();
 	setTimeout(function(){
@@ -186,10 +188,10 @@ test("offset", function(){
 			offsetY: 50 
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
-	equals(tooltip.getElement().offsetTop, baidu.dom.getPosition(document.getElementById("con0")).top 
+	tooltip.attach("#tooltip0");
+	equals(tooltip.getElement().offsetTop, baidu.dom(document.getElementById("con0")).position().top 
 			+ document.getElementById("con0").offsetHeight + 50, "The offsetX is right");
-	equals(tooltip.getElement().offsetLeft, baidu.dom.getPosition(document.getElementById("con0")).left 
+	equals(tooltip.getElement().offsetLeft, baidu.dom(document.getElementById("con0")).position().left 
 			+ 40 + 50, "The offsetY is right");
 	tooltip.dispose();
 });
@@ -202,7 +204,7 @@ test("size", function(){
 			height: 50
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	equals(tooltip.getElement().style.width, "200px", "The width is right");
 	equals(tooltip.getElement().style.height, "50px", "The height is right");
 	tooltip.dispose();
@@ -215,7 +217,7 @@ test("align", function(){
 			align: "center"
 	};
 	var tooltip = new magic.Tooltip(options);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	ok($(".tang-background", tooltip.getElement()).attr("class").indexOf("align_center") > -1, "The arrow is center");
 	tooltip.dispose();
 });
@@ -234,8 +236,8 @@ test("attach 2 tooltips on 1 container", function(){
 	};
 	var tooltip = new magic.Tooltip(options);
 	var tooltip1 = new magic.Tooltip(options1);
-	tooltip.attach("tooltip0");
-	tooltip1.attach("tooltip0");
+	tooltip.attach("#tooltip0");
+	tooltip1.attach("#tooltip0");
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	ok(isShown(tooltip1.getElement()), "The tooltip1 is shown");
 	tooltip.hide();
@@ -268,7 +270,7 @@ test("attach 2 tooltips on 2 containers", function(){
 	};
 	var tooltip = new magic.Tooltip(options);
 	var tooltip1 = new magic.Tooltip(options1);
-	tooltip.attach("tooltip0");
+	tooltip.attach("#tooltip0");
 	tooltip1.attach("tooltip1");
 	ok(isShown(tooltip.getElement()), "The tooltip is still shown");
 	ok(isShown(tooltip1.getElement()), "The tooltip is still shown");

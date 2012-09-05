@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="DatePicker 组件" />
+        <title>DatePicker 组件</title>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css"/>
+        <style type="text/css" media="screen">
+            
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datepicker'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                    <li><a href="./demo.html">DatePicker插件示例...</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>DatePicker示例</h3>
+                    <p>通过展示日历方便使用者快速填写日期，多用于需要填写日期的input表单输入控件。通过展示日历方便使用者快速填写日期，多用于需要填写日期的input表单输入控件。</p>
+                    <div class="demo-view">
+                        <p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
+                    </div>
+                </div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var datepicker = new magic.setup.datePicker('J_input', {
+                'format': 'yyyy/MM/dd',
+                'DatePickerOptions': {
+                    'initDate': new Date(),
+                    'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+                    'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+                }
+            });
+            datepicker.on("show", function(){
+                log('event', 'custom event fired: onshow.');
+            });
+            datepicker.on("hide", function(){
+                log('event', 'custom event fired: onhide.');
+            });
+            datepicker.on("selectdate", function(e){
+                log('info', 'date selected: ' + baidu.date.format(e.date, 'yyyy-MM-dd'));
+            })
+        </script>
+    </body>
+</html>
