@@ -1,0 +1,70 @@
+body {
+	font-family: "Arial", "宋体";
+	font-size: 14px;
+	color: #333;
+	margin: 0;
+	padding: 20px;
+}
+h3 {
+	margin: 0;
+	color: #6A84BB;
+}
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+a {
+	text-decoration: none;
+}
+.content {
+	width: 960px;
+	overflow: hidden;
+	clear: both;
+	margin: 0 auto;
+}
+.demo-list {
+	float: left;
+	width: 200px;
+}
+.demo-list li {
+	line-height: 2em;
+}
+.main-wrap {
+	float: left;
+	width: 740px;
+	margin-left: 20px;
+}
+.demo-wrap {
+	background-color: #8899DD;
+	color: #FFF;
+	padding: 15px;
+}
+.demo-wrap h3 {
+	color: #FFF;
+}
+.console-wrap {
+	margin-top: 20px;
+}
+
+.console {
+	height: 300px;
+	overflow: scroll;
+}
+.console p {
+	padding: 0 0 5px 3px;
+	border-bottom: 1px solid #E1E1E1;
+}
+.console span {
+	padding: 3px;
+	margin-right: 5px;
+}
+.console .event {
+	background-color: #A7CC25;
+}
+.console .fn {
+	background-color: #A6C9D7;
+}
+.console .info {
+	background-color: #89D;
+}
