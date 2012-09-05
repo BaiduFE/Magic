@@ -53,7 +53,7 @@ test("default param", function(){
 			tooltip = new magic.Tooltip();
 			tooltip.attach("#tooltip0");
 			ok(isShown(tooltip.getElement()), "The tooltip is shown");
-			tooltip.dispose();
+			tooltip.$dispose();
 			start();
 		});
 	});
@@ -77,9 +77,9 @@ test("render, hide, show, dispose, visible, top, left", function(){
 	tooltip.show();
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
 	ok(tooltip.visible, "The tooltip is show");
-	equals(tooltip.top, tooltip.getElement().offsetTop, "The top is right");
-	equals(tooltip.left, tooltip.getElement().offsetLeft, "The left is right");
-	tooltip.dispose();	
+	equals(tooltip.top, $(tooltip.getElement()).offset().top, "The top is right");
+	equals(tooltip.left, $(tooltip.getElement()).offset().left, "The left is right");
+	tooltip.$dispose();	
 	var l2 = baidu.dom._eventBase._getEventsLength();
 	equals($('.tang-background').length, 0, "The tooltip is disposed");
 	equals(l2, l1, "The events are un");
@@ -189,9 +189,9 @@ test("offset", function(){
 	};
 	var tooltip = new magic.Tooltip(options);
 	tooltip.attach("#tooltip0");
-	equals(tooltip.getElement().offsetTop, baidu.dom(document.getElementById("con0")).position().top 
+	equals($(tooltip.getElement()).offset().top, baidu.dom(document.getElementById("con0")).offset().top 
 			+ document.getElementById("con0").offsetHeight + 50, "The offsetX is right");
-	equals(tooltip.getElement().offsetLeft, baidu.dom(document.getElementById("con0")).position().left 
+	equals($(tooltip.getElement()).offset().left, baidu.dom(document.getElementById("con0")).offset().left 
 			+ 40 + 50, "The offsetY is right");
 	tooltip.$dispose();
 });
