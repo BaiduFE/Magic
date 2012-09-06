@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="description" content="选项卡组件" />
-        <title>选项卡组件 --- setup模式</title>
+        <title>选项卡组件 --- 常用方法</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Tab/magic.control.Tab.css"/>
@@ -41,7 +41,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.tab'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tab'></script>
     </head>
     <body>
         <div class="content">
@@ -60,29 +60,18 @@
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>选项卡组件 --- setup模式 示例</h3>
-                    <p>Setup模式： 从已有的 HTML 创建</p>
+                    <h3>选项卡组件 --- 方法 示例</h3>
+                    <p>选项卡组件的方法有 select、getCurrentTitle 和 getCurrentContent</p>
+                    <p>它们分别用于切换选项卡、获取当前项标题和获取当前项内容</p>
                     <div class="demo-view">
                     </div>
                 </div>
-               	<dd id="tab" class="tang-ui tang-tab" tang-param="originalIndex: 0;">
-				    <ul class="tang-title">
-				        <li class="tang-title-item">
-				            <a href="#" onclick="return false;" hidefocus="true"><span>项目一</span></a>
-				        </li>
-				        <li class="tang-title-item">
-				            <a href="#" onclick="return false;" hidefocus="true"><span>项目二</span></a>
-				        </li>
-				        <li class="tang-title-item">
-				            <a href="#" onclick="return false;" hidefocus="true"><span>----项目三----</span></a>
-				        </li>
-				    </ul>
-				    <div class="tang-body">
-				        <div class="tang-body-item">hello world~1</div>
-				        <div class="tang-body-item">hello world~2</div>
-				        <div class="tang-body-item">hello world~3</div>
-				    </div>
-				</dd>	
+               	<div id='tab'></div>
+               	<div>
+               		<button id="select">切换到下一个选项卡 (select)</button>
+               		<button id="getCurrentTitle">获得当前项的标题 (getCurrentTitle)</button>
+               		<button id="getCurrentContent">获得当前项的内容 (getCurrentContent)</button>
+               	</div>
                 <div class="console-wrap">
                     <h3>控制台</h3>
                     <div id="J_console" class="console"></div>
@@ -91,7 +80,35 @@
         </div>
 
         <script>
-        	magic.setup.tab('tab')
+       		var index = 0;
+        	var options = {
+        		originalIndex: index,
+		        items: [
+		            {title: '项目一', content: 'hello world~1'},
+		            {title: '项目二', content: 'hello world~2'},
+		            {title: '项目三', content: 'hello world~3'}
+		        ]
+		    }
+		    var instance = new magic.Tab(options);
+			instance.render('tab');
+			
+			// select 方法
+			baidu('#select').click(function(){
+				index = index == 2 ? 0 : ++index;
+				instance.select(index);
+			});
+			
+			// getCurrentTitle 方法
+			baidu('#getCurrentTitle').click(function(){
+				var title = instance.getCurrentTitle();
+				log('info', title.innerHTML);
+			});
+			
+			// getCurrentContent 方法
+			baidu('#getCurrentContent').click(function(){
+				var content = instance.getCurrentContent();
+				log('info', content.innerHTML);
+			});
         </script>
     </body>
 </html>

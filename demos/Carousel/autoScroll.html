@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Carousel 组件" />
+        <title>Carousel 组件 --- 自动滚动插件</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Carousel/magic.control.Carousel.css"/>
+		<style type='text/css'>
+			.tang-carousel {
+				margin:20px auto;
+			    width: 560px;
+			    height: 140px;
+			}
+			.tang-carousel .tang-carousel-container ul,
+			.tang-carousel .tang-carousel-container ul li,
+			.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+		</style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Carousel,magic.control.Carousel.$fx,magic.control.Carousel.$autoScroll'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                	<li><a href="../../demos/Carousel/render.html">render 模式</a></li>
+                	<li><a href="../../demos/Carousel/setup.html">setup 模式</a></li>
+                	<li><a href="../../demos/Carousel/button.html">前后按钮插件示例</a></li>
+                    <li><a href="../../demos/Carousel/fx.html">动画插件示例</a></li>
+                    <li><a href="../../demos/Carousel/autoScroll.html">自动滚动插件示例</a></li>
+                	<li><a href="../../demos/Carousel/vertical.html">垂直滚动</a></li>
+                	<li><a href="../../demos/Carousel/step.html">step</a></li>
+                	<li><a href="../../demos/Carousel/focusRange.html">focusRange</a></li>
+                	<li><a href="../../demos/Carousel/event.html">常用事件</a></li>
+                	<li><a href="../../demos/Carousel/method.html">常用方法</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>Carousel 组件 --- 自动滚动 (autoScroll) 插件示例</h3>
+                    <p>autoScroll可以使组件自动滚动，默认情况下打开，可以通参数autoScroll.enable设置false来关闭，通过autoScroll.nterval参数来设置每次滚动间的时间间隔，默认是1000毫秒，通过autoScroll.direction来设置自动滚动的滚动方向，取值forward|backward中的任意一个，注意配合orientation来使用</p>
+    				<p>自动滚动事件，提供onmouseenter和onmouseleave来处理鼠标移入移出可视范围时的处理，可以通过在事件中调用start和stop方法来控制自动滚动的启动和停止。</p>
+                    <div class="demo-view">
+                    </div>
+                </div>
+               	<div id='one-carousel'></div>
+               	<div>
+               		<button id="stop">停止滚动(stop)</button>
+               		<button id="start">启动滚动(start)</button>
+               	</div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+		    var c = new magic.Carousel({
+		        viewSize: 4,
+		        originalIndex: 3,
+		        orientation: 'horizontal',
+		        isLoop: true,
+		        focusRange: {min:3, max:3},
+		        items: [
+		            {content: '<img src="../../demos/Carousel/item/0.png"/>'},
+		            {content: '<img src="../../demos/Carousel/item/1.png"/>'},
+		            {content: '<img src="../../demos/Carousel/item/2.png"/>'},
+		            {content: '<img src="../../demos/Carousel/item/3.png"/>'},
+		            {content: '<img src="../../demos/Carousel/item/4.png"/>'},
+		            {content: '<img src="../../demos/Carousel/item/5.png"/>'},
+		            {content: '<img src="../../demos/Carousel/item/6.png"/>'}
+		        ]
+		    });
+		    c.render('one-carousel');
+		    
+		    // stop 方法
+		    baidu('#stop').click(function(){
+		    	c.stop();
+		    	log('info', '滚动已停止');
+		    });
+		    
+		    // start 方法
+		    baidu('#start').click(function(){
+		    	c.start();
+		    	log('info', '滚动已启动');
+		    });
+		    
+		    // onmouseenter 事件
+		    c.on('onmouseenter', function(evt){
+		        log('event', 'onmouseenter');
+		    });
+		    
+		    // onmouseleave 事件
+		    c.on('onmouseleave', function(evt){
+		        log('event', 'onmouseleave');
+		    });
+        </script>
+    </body>
+</html>
