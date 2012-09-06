@@ -3,13 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="description" content="选项卡组件" />
-        <title>选项卡组件 --- setup模式</title>
+        <title>选项卡组件 --- items</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Tab/magic.control.Tab.css"/>
 		<style type='text/css'>
 			.tang-tab {
-			    width: 400px;
 			    margin:20px 0;
 			}
 			.tang-tab .tang-body .tang-body-item{
@@ -41,7 +40,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.tab'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tab'></script>
     </head>
     <body>
         <div class="content">
@@ -59,29 +58,24 @@
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>选项卡组件 --- setup模式 示例</h3>
-                    <p>Setup模式： 从已有的 HTML 创建</p>
+                    <h3>选项卡组件 --- items 示例</h3>
+                    <p>数据项，配置要生成的选项卡的相关信息，分为 tittle 和 content 两部分</p>
+                    <p class="item">
+                    	<label>title: <input type="text" name="title" value="选项卡标题1" /></label>
+                    	<label>content: <input type="text" name="content" value="选项卡内容1" /></label>
+                    </p>
+                    <p class="item">
+                    	<label>title: <input type="text" name="title" value="选项卡标题2" /></label>
+                    	<label>content: <input type="text" name="content" value="选项卡内容2" /></label>
+                    </p>
+                    <p id="tab-func">
+                    	<button id="render">生成</button>
+                    	<button id="add">再增加一项</button>
+                    </p>
                     <div class="demo-view">
                     </div>
                 </div>
-               	<dd id="tab" class="tang-ui tang-tab" tang-param="originalIndex: 0;">
-				    <ul class="tang-title">
-				        <li class="tang-title-item">
-				            <a href="#" onclick="return false;" hidefocus="true"><span>项目一</span></a>
-				        </li>
-				        <li class="tang-title-item">
-				            <a href="#" onclick="return false;" hidefocus="true"><span>项目二</span></a>
-				        </li>
-				        <li class="tang-title-item">
-				            <a href="#" onclick="return false;" hidefocus="true"><span>----项目三----</span></a>
-				        </li>
-				    </ul>
-				    <div class="tang-body">
-				        <div class="tang-body-item">hello world~1</div>
-				        <div class="tang-body-item">hello world~2</div>
-				        <div class="tang-body-item">hello world~3</div>
-				    </div>
-				</dd>	
+               	<div id='tab'></div>
                 <div class="console-wrap">
                     <h3>控制台</h3>
                     <div id="J_console" class="console"></div>
@@ -90,7 +84,37 @@
         </div>
 
         <script>
-        	magic.setup.tab('tab')
+        	var instance = null;
+        	baidu('#add').click(function(){
+        		var html = '<p class="item"><label>title: <input type="text" name="title" value="选项卡标题'+(baidu('.item').size()+1)+'" /></label><label>content: <input type="text" name="content" value="选项卡内容'+(baidu('.item').size()+1)+'" /></label></p>';
+        		baidu('#tab-func').insertHTML('beforeBegin',html);
+        		if(baidu('.item').size() > 4)
+        			baidu('#add').get(0).disabled = true;
+        	});
+        	
+        	function renderTab(items){
+        		var options = {
+			        items: items
+			    }
+			    instance = new magic.Tab(options);
+				instance.render('tab');
+        	}
+        	
+        	baidu('#render').click(function(){
+        		var items = [];
+        		var title = baidu('input[name=title]');
+        		var content =  baidu('input[name=content]');
+        		title.each(function(index){
+        			items.push({
+        				title: this.value,
+        				content: content[index].value
+        			});
+        		});
+        		if(instance)
+        			instance.dispose();
+        		baidu('#tab').get(0).innerHTML = "";
+        		renderTab(items);
+        	});
         </script>
     </body>
 </html>
