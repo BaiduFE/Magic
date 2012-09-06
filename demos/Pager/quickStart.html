@@ -7,27 +7,15 @@
 		<link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
 		<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Pager/magic.Pager.css">
 		<script type="text/javascript" src="../../src/import.php?f=magic.Pager"></script>
-		<style type="text/css">
-			.pager-container .pager-title {
-				font-weight : bold;
-				font-size : 13px;
-				padding : 0;
-				margin : 5px;
-			}
-		</style>
 	</head>
 	<body>
-		<div id="demo" class="demo">
-			<h1>Pager 组件</h1>
-			<p class="pager-title">第1页，一共8页，点击翻页时，会alert出点击的页码。</p>
-			<div id="J_pager"></div>
-		</div>
+		<div id="magic-pager"></div>
 		<script type="text/javascript">
 		var pager = new magic.Pager({'currentPage' : 1, 'totalPage' : 8});
-		pager.render('J_pager');
-		pager.on('pagechange', function(event) {
-			alert(event.pageNum);
-			baidu.event(event).preventDefault();
+		pager.render('magic-pager');
+		pager.on('pagechange', function(evt) {
+			alert(evt.pageNum);
+			baidu.event(evt).preventDefault();
 		});
 		</script>
 	</body>

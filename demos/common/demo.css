@@ -68,3 +68,15 @@ a {
 .console .info {
 	background-color: #89D;
 }
+
+.clearfix:after {
+	content : '.';
+	display : block;
+	clear : both;
+	height : 0;
+	visibility : hidden;
+}
+
+.clearfix {
+	zoom : 1;
+}
