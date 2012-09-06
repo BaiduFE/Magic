@@ -6,14 +6,8 @@
     <title>suggestion 组件quickStart</title>
     <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
     <link rel='stylesheet' type='text/css' href='../../resources/default/magic.control.Suggestion/magic.control.Suggestion.css'/>
-    <script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request,baidu.dom.query,baidu.dom.getAttr"></script>
-
+    <script type="text/javascript" src="../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request"></script>
     <style type='text/css'>
-        .tang-suggestion-closeBtn {
-            float: right;
-            margin-right: 8px;
-            cursor: pointer;
-        }
         .tang-suggestion-popup {
             box-shadow: 0px 2px 2px #e1e1e1;
             -webkit-box-shadow: 0px 2px 2px #e1e1e1;
@@ -25,7 +19,6 @@
     <div id='one-suggestion' class='tang-ui tang-suggestion' tang-param=''>
     <form action="#" id="form">
         请任意输入关键字：<input type="text" class="tang-suggestion-input" id="tang-suggestion-input" name="q" />
-    </select>
     </form>
     </div>
     <script type="text/javascript">
@@ -43,7 +36,7 @@
             }
         };
         
-        magic.setup.suggestion('tang-suggestion-input', options);
+        var instance = magic.setup.suggestion('tang-suggestion-input', options);
     </script>    
 </body>
 </html>
