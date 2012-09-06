@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="description" content="DatePicker 组件" />
-        <title>DatePicker 组件</title>
+        <meta name="description" content="DatePicker 英语版" />
+        <title>DatePicker 英语版</title>
         <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css"/>
@@ -15,7 +15,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datepicker,magic.Calendar.$title'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datepicker,magic.Calendar.$title,baidu.i18n.cultures.en-US'></script>
     </head>
     <body>
         <div class="content">
@@ -30,8 +30,8 @@
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>DatePicker示例</h3>
-                    <p>通过展示日历方便使用者快速填写日期，多用于需要填写日期的input表单输入控件。</p>
+                    <h3>DatePicker英文版示例</h3>
+                    <p>英文版的DatePicker示例</p>
                     <div class="demo-view">
                         <p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
                     </div>
@@ -46,13 +46,13 @@
         <script>
             var datepicker = new magic.setup.datePicker('J_input', {
                 'format': 'yyyy/MM/dd',
+                'language': 'en-US',
                 'calendarOptions': {
-                    'weekStart': 'sat',
                     'initDate': new Date(),
                     'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                     'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
                     'title': {
-                        enable: false
+                        enable: true
                     }
                 }
             });
