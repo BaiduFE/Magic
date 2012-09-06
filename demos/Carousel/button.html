@@ -29,14 +29,16 @@
             <div class="demo-list">
                 <h3>Demo列表</h3>
                 <ul>
+                	<li><a href="../../demos/Carousel/render.html">render 模式</a></li>
                 	<li><a href="../../demos/Carousel/setup.html">setup 模式</a></li>
                 	<li><a href="../../demos/Carousel/button.html">前后按钮插件示例</a></li>
                     <li><a href="../../demos/Carousel/fx.html">动画插件示例</a></li>
                     <li><a href="../../demos/Carousel/autoScroll.html">自动滚动插件示例</a></li>
                 	<li><a href="../../demos/Carousel/vertical.html">垂直滚动</a></li>
-                	<li><a href="../../demos/Carousel/event.html">事件</a></li>
                 	<li><a href="../../demos/Carousel/step.html">step</a></li>
                 	<li><a href="../../demos/Carousel/focusRange.html">focusRange</a></li>
+                	<li><a href="../../demos/Carousel/event.html">常用事件</a></li>
+                	<li><a href="../../demos/Carousel/method.html">常用方法</a></li>
                 </ul>
             </div>
             <div class="main-wrap">
@@ -58,9 +60,8 @@
         <script>
 		    var c = new magic.Carousel({
 		        viewSize: 4,
-		        originalIndex: 0,
+		        originalIndex: 2,
 		        orientation: 'horizontal',
-		        isLoop: true,
 		        items: [
 		            {content: '<img src="../../demos/Carousel/item/0.png"/>'},
 		            {content: '<img src="../../demos/Carousel/item/1.png"/>'},
@@ -75,6 +76,15 @@
 		        }
 		    });
 		    c.render('one-carousel');
+		    
+		    c.on('focus', function(){
+		    	if(c.isFirst()){
+		    		log('info', 'isFirst 方法返回true， 已经滚动到首项');
+		    	}
+		    	if(c.isLast()){
+		    		log('info', 'isLast 方法返回true， 已经滚动到末项');
+		    	}
+		    });
         </script>
     </body>
 </html>
