@@ -99,7 +99,7 @@ function parseSelectOptions(selectNode) {
     var items = [],
         originIndex = -1,
         optionNodes = selectNode.options;
-    baidu.each(optionNodes, function(item, index) {
+    baidu.each(optionNodes, function(index, item) {
 
         items.push({
             'value' : item.value,
