@@ -48,14 +48,14 @@
             <div class="demo-list">
                 <h3>Demo列表</h3>
                 <ul>
-                	<li><a href="../../demos/Tab/render.html">选项卡组件 --- render模式</a></li>
-                	<li><a href="../../demos/Tab/setup.html">选项卡组件 --- setup模式</a></li>
-                	<li><a href="../../demos/Tab/items.html">选项卡组件 --- items</a></li>
-                	<li><a href="../../demos/Tab/originalIndex.html">选项卡组件 --- originalIndex</a></li>
-                	<li><a href="../../demos/Tab/selectEvent.html">选项卡组件 --- selectEvent</a></li>
-                	<li><a href="../../demos/Tab/selectDelay.html">选项卡组件 --- selectDelay</a></li>
-                	<li><a href="../../demos/Tab/event.html">选项卡组件 --- 常用事件</a></li>
-                	<li><a href="../../demos/Tab/method.html">选项卡组件 --- 常用方法</a></li>
+                	<li><a href="../../demos/Tab/render.html">render模式</a></li>
+                	<li><a href="../../demos/Tab/setup.html">setup模式</a></li>
+                	<li><a href="../../demos/Tab/items.html">items</a></li>
+                	<li><a href="../../demos/Tab/originalIndex.html">originalIndex</a></li>
+                	<li><a href="../../demos/Tab/selectEvent.html">selectEvent</a></li>
+                	<li><a href="../../demos/Tab/selectDelay.html">selectDelay</a></li>
+                	<li><a href="../../demos/Tab/event.html">常用事件</a></li>
+                	<li><a href="../../demos/Tab/method.html">常用方法</a></li>
                 </ul>
             </div>
             <div class="main-wrap">
@@ -96,18 +96,19 @@
 			baidu('#select').click(function(){
 				index = index == 2 ? 0 : ++index;
 				instance.select(index);
+				log('info', 'instance.<b>select()</b>');
 			});
 			
 			// getCurrentTitle 方法
 			baidu('#getCurrentTitle').click(function(){
 				var title = instance.getCurrentTitle();
-				log('info', title.innerHTML);
+				log('info', 'instance.<b>getCurrentTitle()</b>: '+title.innerHTML);
 			});
 			
 			// getCurrentContent 方法
 			baidu('#getCurrentContent').click(function(){
 				var content = instance.getCurrentContent();
-				log('info', content.innerHTML);
+				log('info', 'instance.<b>getCurrentContent()</b>: '+content.innerHTML);
 			});
         </script>
     </body>

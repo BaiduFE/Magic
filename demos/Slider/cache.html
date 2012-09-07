@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Carousel 组件" />
+        <title>滑动条组件 --- 缓存插件</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Slider/magic.Slider.css"/>
+	    <style type="text/css">
+	    	#slider{
+	    		margin:20px 0;
+	    	}
+	        .demo{height:400px;}
+	        .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+	        .wrap{width:200px;margin:10px auto;font-size:12px;}
+	        .tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("../../resources/default/magic.control.Slider/slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-h-knob.png");}
+	        .tang-slider-htl .tang-knob:hover{background-image:url("../../resources/default/magic.control.Slider/slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+	        .tang-slider-htl .tang-knob:active{background-image:url("../../resources/default/magic.control.Slider/slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+	
+	        .tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("../../resources/default/magic.control.Slider/slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knob.png");}
+	        .tang-slider-vtl .tang-knob:hover{background-image:url("../../resources/default/magic.control.Slider/slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+	        .tang-slider-vtl .tang-knob:active{background-image:url("../../resources/default/magic.control.Slider/slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+	    </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Slider,magic.control.Slider.$fx,magic.control.Slider.$cache'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                	<li><a href="../../demos/Slider/render.html">render 模式</a></li>
+                	<li><a href="../../demos/Slider/setup.html">setup 模式</a></li>
+                	<li><a href="../../demos/Slider/fx.html">动画插件</a></li>
+                	<li><a href="../../demos/Slider/cache.html">缓存插件</a></li>
+                	<li><a href="../../demos/Slider/accuracy.html">accuracy</a></li>
+                	<li><a href="../../demos/Slider/currentValue.html">currentValue</a></li>
+                	<li><a href="../../demos/Slider/direction.html">direction</a></li>
+                	<li><a href="../../demos/Slider/orientation.html">orientation</a></li>
+                	<li><a href="../../demos/Slider/event.html">常用事件</a></li>
+                	<li><a href="../../demos/Slider/method.html">常用方法</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>滑动条组件 --- 缓存插件</h3>
+                    <p>为滑动条组件增加缓存进度条，配置项 enable 用于开启/关闭，方法 setCache(value) 用于设置缓存值</p>
+                    <p>在下面的示例中，滑动条初始缓存了 0.5，即 setCache(0.5)，注意观察滑动条的白色部分。</p>
+                    <div class="demo-view">
+                    </div>
+                </div>
+               	<div id='slider'></div>
+               	<form autocomplete="off">
+               		<label>设置缓存：
+               			<select id="setCache">
+               				<option value="0">0</option>
+	               			<option value="0.1">0.1</option>
+	               			<option value="0.3">0.3</option>
+	               			<option value="0.5" selected>0.5</option>
+	               			<option value="0.75">0.75</option>
+	               			<option value="1">1</option>
+               			</select>	
+               		</label>
+               	</form>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+		    var instance = new magic.Slider({
+		    	direction: 'forward',
+		    	currentValue: 0.2,
+		    	cache : {
+		    		enable: true
+		    	}
+		    });
+		    instance.render('slider');
+		    instance.setCache(baidu('#setCache').get(0).value);
+		    
+		    baidu('#setCache').change(function(){
+		    	instance.setCache(this.value);
+		    	log('info', 'instance.<b>setCache()</b>: 设置缓存：'+this.value);
+		    });
+		    
+        </script>
+    </body>
+</html>

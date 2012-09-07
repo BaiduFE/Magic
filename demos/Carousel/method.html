@@ -52,7 +52,7 @@
                	<div>
                		<button id="focusPrev">上一项 (focusPrev)</button>
                		<button id="focusNext">下一项 (focusPrev)</button>
-               		<button id="focus">聚焦到第二项 (focus)</button><br />
+               		<button id="focus">聚焦到第三项 (focus)</button><br />
                		<button id="getCurrentIndex">取得当前项的索引值 (getCurrentIndex)</button>
                		<button id="getTotalCount">取得数据项的总数目 (getTotalCount)</button>
                	</div>
@@ -64,7 +64,7 @@
         </div>
 
         <script>
-		    var c = new magic.Carousel({
+		    var instance = new magic.Carousel({
 		        viewSize: 4,
 		        isLoop: true,
 		        items: [
@@ -77,34 +77,37 @@
 		            {content: '<img src="../../demos/Carousel/item/6.png"/>'}
 		        ]
 		    });
-		    c.render('one-carousel');
+		    instance.render('one-carousel');
 		    
-		    // focusPrev 事件
+		    // focusPrev 方法
 		    baidu('#focusPrev').click(function(){
-		    	c.focusPrev();
+		    	instance.focusPrev();
+		    	log('info', 'instance.<b>focusPrev()</b>: 焦点移动到上一项');
 		    });
 
-		    // focusNext 事件
+		    // focusNext 方法
 		    baidu('#focusNext').click(function(){
-		    	c.focusNext();
+		    	instance.focusNext();
+		    	log('info', 'instance.<b>focusNext()</b>: 焦点移动到下一项');
 		    });
 		    
-		    // focus 事件
+		    // focus 方法
 		    baidu('#focus').click(function(){
-		    	c.focus(2);
+		    	instance.focus(2);
+		    	log('info', 'instance.<b>focus(2)</b>: 焦点移动到第三项');
 		    });
 		    
 		    
-		    // getCurrentIndex 事件
+		    // getCurrentIndex 方法
 		    baidu('#getCurrentIndex').click(function(){
-		    	var index = c.getCurrentIndex();
-		    	log('info', '当前项的索引值为：' + index);
+		    	var index = instance.getCurrentIndex();
+		    	log('info', 'instance.<b>getCurrentIndex()</b>: 当前项的索引值为: ' + index);
 		    });
 		    
-		    // getTotalCount 事件
+		    // getTotalCount 方法
 		    baidu('#getTotalCount').click(function(){
-		    	var num = c.getTotalCount();
-		    	log('info', '数据项的总数目：' + num);
+		    	var num = instance.getTotalCount();
+		    	log('info', 'instance.<b>getTotalCount()</b>: 数据项的总数目: ' + num);
 		    });
 		    
         </script>
