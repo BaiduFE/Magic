@@ -204,7 +204,7 @@ magic.Dialog.template = [
 			"<span id='#{titleTextId}'>#{title}</span>",
 		"</div>",
 		"<div class='tang-body' id='#{bodyId}'>",
-			"<div class='content' id='#{contentId}'>#{content}</div>",
+			"<div class='tang-content' id='#{contentId}'>#{content}</div>",
 		"</div>",
 	"</div>"];
 

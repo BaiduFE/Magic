@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Dialog 组件各个接口的使用示例" />
+        <title>Dialog 组件各个接口的使用示例</title>
+        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="./demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
+        <style type="text/css" media="screen">
+            /* 对话框初始信息 */
+            #one-dialog .tang-body{ font-size: 12px; }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog"></script>
+        <script type="text/javascript" src="./demo.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./quickStart.html">Dialog quickStart</a></li>
+                    <li><a href="./complex.html">Dialog多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">Dialog frame 类型内容示例</a></li>
+                    <li><a href="./mask.html">Dialog 组件 mask 插件示例</a></li>
+                    <li><a href="./methods.html">Dialog 组件各个接口的使用示例</a></li>
+                    <li><a href="./event.html">Dialog 组件自定义事件的使用示例</a></li>
+                    <li><a href="./render.html">Dialog 组件render模式示例</a></li>
+                    <li><a href="./setup.html">Dialog 组件setup模式示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>Dialog 组件各个接口的使用示例</h3>
+                    <p>本例只有 Dialog 的 render 模式做演示，对于 setup 一样适用。</p>
+					<p><em>notice:</em> 本例仅是 Dialog 组件方法的使用演示，不代表 Dialog 只有<br />这些方法，参考方法请详见官网 api 页面。</p>
+					<p><em>notice:</em> 调用方法，只能在 render 或 setup 完成后才可生效。</p>
+					<p><em>notice:</em> 如果 setContent 传入的是一个 body 内的 dom 节点，<br />该 dom 的位置会被记住，下次再 setContent 其它内容，dom 节点<br />会被还原到原来的位置。</p>
+					<table class="demo-control">
+						<!-- item start -->
+						<tr>
+							<td>查询显示状态</td>
+							<td>dialog.<strong>isShowing</strong>();</td>
+							<td><input cmd="alert(dialog.isShowing());" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>显示</td>
+							<td>dialog.<strong>show</strong>();</td>
+							<td><input cmd="dialog.show();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>隐藏</td>
+							<td>dialog.<strong>hide</strong>();</td>
+							<td><input cmd="dialog.hide();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="2">设置标题</td>
+							<td>dialog.<strong>setTitleText</strong>( <em>str</em> );</td>
+							<td rowspan="2"><input cmd="dialog.setTitleText('#{title}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<tr>
+							<td><span>str = </span><span><input class="textInput" value="测试标题" id="title" /></span></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="2">设置内容(文本)</td>
+							<td>dialog.<strong>setContent</strong>( <em>str</em>, "text" );</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>" /></span></td>
+							<td><input cmd="dialog.setContent('#{strContent}','text');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>		
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="2">设置内容(html)</td>
+							<td>dialog.<strong>setContent</strong>( <em>html</em>, "html" );</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><span>html = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>" /></span></td>
+							<td><input cmd="dialog.setContent('#{strContent}','html');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>		
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="3">设置内容(element)</td>
+							<td>dialog.<strong>setContent</strong>( <em>element</em>, "element" );</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><span>element = </span><span>baidu("#hello")</span></td>
+							<td><input cmd="dialog.setContent(baidu('#hello')[0],'element');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<tr>
+							<td><span>element = </span><span>baidu("#world")</span></td>
+							<td><input cmd="dialog.setContent(baidu('#world')[0],'element');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>			
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>设置内容(frame)</td>
+							<td>dialog.<strong>setContent</strong>( <em>url</em>, "frame" );</td>
+							<td>参见frame示例</td>
+						</tr>	
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="3">设置尺寸</td>
+							<td>dialog.<strong>setSize</strong>( <em>size</em> );</td>
+							<td rowspan="3"><input cmd="dialog.setSize({width:#{dlgWidth},height:#{dlgHeight}});" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<tr>
+							<td><span>size.width = </span><span><input type="text" value="500" class="textInput-s" id="dlgWidth" /></span></td>
+						</tr>
+						<tr>
+							<td><span>size.height = </span><span><input type="text" value="500" class="textInput-s" id="dlgHeight" /></span></td>
+						</tr>	
+						<!-- item end -->			
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="3">设置位置</td>
+							<td>dialog.<strong>setPosition</strong>( <em>pos</em> );</td>
+							<td rowspan="3"><input cmd="dialog.setPosition({left:#{dlgLeft},top:#{dlgTop}});" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<tr>
+							<td><span>pos.left = </span><span><input type="text" class="textInput-s" id="dlgLeft" value="100" /></span></td>
+						</tr>
+						<tr>
+							<td><span>pos.top = </span><span><input type="text" class="textInput-s" id="dlgTop" value="100" /></span></td>
+						</tr>	
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>居中显示</td>
+							<td>dialog.<strong>center</strong>();</td>
+							<td><input cmd="dialog.center();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->				
+					</table>
+					<div>
+						<div id="hello" style="color:#333">我是一个备用的 <strong>&lt;div id="hello"&gt;</strong></div>
+						<div id="world" style="color:#333">我是一个备用的 <strong>&lt;div id="world"&gt;</strong></div>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        	dialog = new magic.Dialog({
+				draggable: true,
+				titleText: "对话框标题",
+				content: "对话框内容", // 这里可以是 html 内容或直接是 dom 对象的引用
+				left: 470,
+				top: 240,
+				width: 400,
+				height: 300
+			});
+			dialog.render(); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
+        </script>
+    </body>
+</html>
