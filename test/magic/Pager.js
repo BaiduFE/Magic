@@ -269,3 +269,20 @@ test("render, pagechange event", function(){
 	equals(l2, l1, "The events are un");
 	document.body.removeChild(div1);
 });
+
+test("render, when viewSize equals currentPagePos + 1, next and last page should be shown while click the last page showed in the page bar.", function(){
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var pager1 = new magic.Pager({
+        currentPage: 1,
+        totalPage: 10,
+        viewSize : 5,
+        currentPagePos : 4
+    });
+    pager1.render('div1');
+    ua.click(pager1.getElement("main").childNodes[4]);
+    equals(pager1.getElement("main").childNodes[7].innerHTML, '下一页', "Next Page showing is right");
+    pager1.$dispose();
+    document.body.removeChild(div1);
+});
