@@ -24,7 +24,7 @@
  * @grammar     new magic.control.Slider(options)
  * @param {Object} options 选项
  * @param {String} options.orientation 决定滑动条是水平还是垂直，'horizontal' || 'vertical'，默认vertical
- * @param {String} options.direction 决定从哪一端开始移动，'forwrad'或'backward'，默认backward
+ * @param {String} options.direction 决定从哪一端开始移动，'forward'或'backward'，默认backward
  * @param {Float} options.accuracy 精确度，0-1之间的小数，默认0
  * @param {Number} options.currentValue 滑动条的初始值，即游标初始位置，默认0
  * @plugin fx 为滑动条组件增加动画滚动功能

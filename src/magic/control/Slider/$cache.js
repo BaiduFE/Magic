@@ -42,8 +42,17 @@ baidu.lang.register(magic.control.Slider, function(options){
     
 }, {
     /**
-     * 缓存进度
-     * @private
+     * @description 设置缓存
+     * @name magic.control.Slider.$cache#setCache
+     * @function
+     * @grammar magic.control.Slider.$cache#setCache(value)
+     * @param {float} value 要设置的值
+     * @example
+     * var instance = new magic.Slider({
+     * 		cache:{enable:true}		// 启用缓存条
+     * });
+     * instance.render('s1');
+     * instance.setCache(0.7);	//设置缓存在滑动条70%的位置
      */
     setCache: function(value){
         var me = this,
