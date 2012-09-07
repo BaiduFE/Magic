@@ -179,7 +179,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
             HTMLString.push(this._buildLink(pageNum, 'normal', baidu.string.format(this.tplLabelNormal, {'pageNum' : pageNum})));
         }
         //下一页，尾页
-        if (endPage > this.currentPage) {
+        if (this.totalPage > this.currentPage) {
             HTMLString.push(this._buildLink(this.currentPage + 1, 'next', this.labelNext));
             HTMLString.push(this._buildLink(this.totalPage, 'last', this.labelLast));
         }
