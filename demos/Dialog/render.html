@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Dialog 组件 render 模式示例" />
+        <title>Dialog 组件 render 模式示例</title>
+        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="./demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
+        <style type="text/css" media="screen">
+            /* 对话框初始信息 */
+            #one-dialog .tang-body{ font-size: 12px; }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./quickStart.html">Dialog quickStart</a></li>
+                    <li><a href="./complex.html">Dialog多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">Dialog frame类型内容示例</a></li>
+                    <li><a href="./mask.html">Dialog 组件mask插件示例</a></li>
+                    <li><a href="./methods.html">Dialog 组件各个接口的使用示例</a></li>
+                    <li><a href="./render.html">Dialog 组件render模式示例</a></li>
+                    <li><a href="./setup.html">Dialog 组件setup模式示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>Dialog 组件 render 模式示例</h3>
+                    <p>其中 class 为 tang-ui, tang-dialog, tang-title, tang-body 为必须元素，其它元素非必须，您可以做任意调整以满足使用需求。</p>
+					<p>setup 模式的好处在于 js 还没有加载之前，对话框样子已经呈现，保证 html 优先加载，并且能够较为灵活的改变它的外观。</p>
+					<p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
+                </div>
+                <div id="one-dialog"></div>
+            </div>
+        </div>
+
+        <script>
+        	var dialog = new magic.Dialog({
+				draggable: true,
+				titleText: "对话框标题",
+				content: "对话框内容", // 这里可以是 html 内容或直接是 dom 对象的引用
+				left: 80,
+				top: 140,
+				width: 400,
+				height: 300
+			});
+			dialog.render("one-dialog"); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
+        </script>
+    </body>
+</html>

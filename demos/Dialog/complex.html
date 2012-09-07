@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Dialog 组件多对话框并存示例" />
+        <title>Dialog 组件多对话框并存示例</title>
+        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="./demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
+        <style type="text/css" media="screen">
+            /* 对话框初始信息 */
+            #one-dialog{ left: 500px; top: 140px; }
+            #one-dialog .tang-foreground{ width: 400px; height: 300px; }
+            #one-dialog .tang-body{ height: 270px; font-size: 12px; }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog,magic.setup.dialog"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./quickStart.html">Dialog quickStart</a></li>
+                    <li><a href="./complex.html">Dialog多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">Dialog frame 类型内容示例</a></li>
+                    <li><a href="./mask.html">Dialog 组件 mask 插件示例</a></li>
+                    <li><a href="./methods.html">Dialog 组件各个接口的使用示例</a></li>
+                    <li><a href="./render.html">Dialog 组件render模式示例</a></li>
+                    <li><a href="./setup.html">Dialog 组件setup模式示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>Dialog 组件多对话框并存示例</h3>
+                    <p>Dialog 组件允许多个对话框并存，并且可以 setup 和 render 并存。</p>
+                    <div class="demo-view">
+                        <p><button id="J_render">创建一个render模式的Dialog</button><button id="J_setup">从页面上的DOM节点，用setup模式创建Dialog</button></p>
+                    </div>
+                </div>
+                <!-- setup对话框组件 -->
+                <div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true;">
+                    <div class="tang-background">
+                        <div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
+                    </div>
+                    <div class="tang-foreground">
+                        <div class="tang-title">
+                            <div class="buttons">
+                                <a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
+                            </div>
+                            <span>对话框一</span>
+                        </div>
+                        <div class="tang-body">
+                            <div class="bars"><!-- bars 为各种条，可以任意添加 -->
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="tang-content">我是一个由 setup 模式创建的对话框</div>
+                            <div class="bars"><!-- bars 为各种条，可以任意添加 -->
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- render对话框组件 -->
+                <div id="demo-render"></div>
+            </div>
+        </div>
+
+        <script>
+
+            baidu("#J_render").on("click", function(){
+                baidu("#J_render")[0].setAttribute("disabled", true);
+
+                var render_instance = new magic.Dialog({
+                    draggable: true,
+                    titleText: "对话框二",
+                    content: "我是一个由 render 模式创建的对话框", // 这里可以是 html 内容或直接是 dom 对象的引用
+                    left: 120,
+                    top: 180,
+                    width: 400,
+                    height: 300
+                });
+                render_instance.render("demo-render");
+            });
+
+            baidu("#J_setup").on("click", function(){
+                baidu("#J_setup")[0].setAttribute("disabled", true);
+                var setup_instance = magic.setup.dialog("one-dialog");
+            });
+        </script>
+    </body>
+</html>

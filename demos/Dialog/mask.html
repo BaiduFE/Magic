@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Dialog 组件 mask 插件示例" />
+        <title>Dialog 组件 mask 插件示例</title>
+        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="./demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
+        <style type="text/css" media="screen">
+            /* 对话框初始信息 */
+			#one-dialog{ left: 80px; top: 140px; }
+			#one-dialog .tang-foreground{ width: 400px; height: 300px; }
+			#one-dialog .tang-body{ height: 270px; font-size: 12px; }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog,magic.setup.dialog,magic.control.Dialog.$mask,baidu.swf.create"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./quickStart.html">Dialog quickStart</a></li>
+                    <li><a href="./complex.html">Dialog多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">Dialog frame 类型内容示例</a></li>
+                    <li><a href="./mask.html">Dialog 组件 mask 插件示例</a></li>
+                    <li><a href="./methods.html">Dialog 组件各个接口的使用示例</a></li>
+                    <li><a href="./render.html">Dialog 组件render模式示例</a></li>
+                    <li><a href="./setup.html">Dialog 组件setup模式示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>Dialog 组件mask插件示例</h3>
+                    <p>使用 mask 插件必须在下载 tangram 代码时勾选了“mask”</p>
+					<p>mask 插件提供对话框背后的遮罩层。</p>
+					<p>mask 插件同时适用于 render 和 setup 模式，使用遮罩插件，请将 mask 选项设置为 true</p>
+					<p><input type="button" value="dialog.show();" onclick="dialog.show();" /></p>
+					<p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
+					<div id="flashContainer1"></div>
+				    <div id="flashContainer2"></div>
+				    <div id="flashContainer3"></div>
+					<div>这里的文字用于测试占位。</div>
+                </div>
+                
+            </div>
+        </div>
+
+        <script>
+	        baidu.swf.create({
+		        id: "flash1",
+		        url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
+		        width:695,
+		        height:90,
+		        wmode:'transparent'
+		    }, "flashContainer1");
+		     
+		    baidu.swf.create({
+		        id: "flash2",
+		        url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
+		        width:695,
+		        height:90,
+		        wmode:'window'
+		    }, "flashContainer2");
+		     
+		    baidu.swf.create({
+		        id: "flash3",
+		        url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
+		        width:695,
+		        height:90,
+		        wmode:'opaque'
+		    }, "flashContainer3");
+			var dialog = new magic.Dialog({
+				draggable: true,
+				titleText: "对话框二",
+				content: "我是一个由 render 模式创建的对话框", // 这里可以是 html 内容或直接是 dom 对象的引用
+				width: 400,
+				height: 300,
+				mask: {
+					enable: true
+				}
+			});
+			dialog.render();
+        </script>
+    </body>
+</html>

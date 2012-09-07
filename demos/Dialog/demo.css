@@ -20,6 +20,7 @@
 
 .demo-control{
 	border-collapse: collapse;
+	color: #333;
 }
 
 .demo-control td{
@@ -54,7 +55,6 @@
 .demo-control td .btn{
 	width: 60px;
 	height: 22px;
-	background-color: #ccc;
 	line-height: 14px;
 	padding: 0;
 }
