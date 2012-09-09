@@ -20,6 +20,11 @@
 		<delete dir="${report.path}" />
 		<delete file="${report.file}" />
 	</target>
+	
+	<target name="close">
+		<exec executable="/home/work/soft/timer/stopbrow.sh">
+		</exec> 
+	</target>
 
 	<target name="coverage">
 		<delete dir="${coverage.path}" />
@@ -30,7 +35,7 @@
 		</exec>
 	</target>
 
-	<target name="execute" depends="init,coverage">
+	<target name="execute" depends="init,close,coverage">
 		<get src="http://${serverip}/addTask?proj=${git.user}.${git.project}&amp;cov=true" dest="/tmp/${git.user}_${git.project}.html" />
 	</target>
 	<target name="getreport" depends="execute">
