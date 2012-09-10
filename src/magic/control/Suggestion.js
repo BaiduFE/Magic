@@ -424,7 +424,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             
         //生成在suggestion之前或之后显示的内容的HTML
         function getfix(name) {
-            return baidu.format(
+            return baidu.string.format(
                 me.tpl.fix,
                 me.$getId(name),
                 me._getClass(name),
@@ -436,7 +436,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 
         for (; i < len; i++) {
             ins = "baiduInstance('"+ me.guid +"')";
-            itemsHTML.push(baidu.format(
+            itemsHTML.push(baidu.string.format(
                 me.tpl.item,
                 me.$getId('item' + i),
                 data[i].content,
@@ -448,7 +448,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             ));
         }
 
-        html += baidu.format(
+        html += baidu.string.format(
             me.tpl.body, 
             itemsHTML.join('')
         );

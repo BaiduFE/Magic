@@ -338,6 +338,8 @@ magic.control.Slider.extend({
             pos1 = knob.style[info._knobKey],
             pos2 = process.style[_accuracyKey];
         if(/px|auto/.test(pos1)) return;
+        if(!pos1.length) pos1 = 0;
+        if(!pos2.length) pos2 = 0;
         pos1 = parseFloat(pos1) / 100 * info[_accuracyKey] + 'px';
         pos2 = parseFloat(pos2) / 100 * info._limit + 'px';
         baidu.dom(knob).css(info._knobKey, pos1);

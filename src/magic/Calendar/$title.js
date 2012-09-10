@@ -99,25 +99,25 @@ baidu.lang.register(magic.Calendar, function(){
         var i18ntitle = baidu.i18n.cultures[me._options.language].calendar.titleNames;
         i18ntitle = i18ntitle.split("&nbsp;");
         if(/y/.test(i18ntitle[0])){  //中文
-            yearStr = baidu.format(i18ntitle[0], {"yyyy": year});
-            monthStr = baidu.format(i18ntitle[1], {'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]});
-            this.titleEl.innerHTML = baidu.format(me.tplTitle, {
+            yearStr = baidu.string.format(i18ntitle[0], {"yyyy": year});
+            monthStr = baidu.string.format(i18ntitle[1], {'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]});
+            this.titleEl.innerHTML = baidu.string.format(me.tplTitle, {
                                     "id": me._getId("year"),
                                     "class": me._getClass("year"),
                                     "text": yearStr
-                                }) + yearselect + '&nbsp;&nbsp;' + baidu.format(me.tplTitle, {
+                                }) + yearselect + '&nbsp;&nbsp;' + baidu.string.format(me.tplTitle, {
                                     "id": me._getId("month"),
                                     "class": me._getClass("month"),
                                     "text": monthStr
                                 }) + monthselect;
         }else{  //英文
-            yearStr = baidu.format(i18ntitle[1], {"yyyy": year});
-            monthStr = baidu.format(i18ntitle[0], {'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]});
-            this.titleEl.innerHTML = baidu.format(me.tplTitle, {
+            yearStr = baidu.string.format(i18ntitle[1], {"yyyy": year});
+            monthStr = baidu.string.format(i18ntitle[0], {'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]});
+            this.titleEl.innerHTML = baidu.string.format(me.tplTitle, {
                                     "id": me._getId("month"),
                                     "class": me._getClass("month"),
                                     "text": monthStr
-                                }) + monthselect + '&nbsp;&nbsp;' + baidu.format(me.tplTitle, {
+                                }) + monthselect + '&nbsp;&nbsp;' + baidu.string.format(me.tplTitle, {
                                     "id": me._getId("year"),
                                     "class": me._getClass("year"),
                                     "text": yearStr
