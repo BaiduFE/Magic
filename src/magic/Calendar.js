@@ -21,6 +21,7 @@
 ///import baidu.dom.off;
 ///import baidu.event;
 ///import magic.Base;
+///import baidu.lang.isDate;
 
 /**
  * @description 日历
@@ -202,7 +203,7 @@ magic.Calendar.extend(
         var me = this,
             container = me.container;
         
-        baidu(container).insertHTML('beforeEnd', baidu.format(me.tplSkeleton, {
+        baidu(container).insertHTML('beforeEnd', baidu.string.format(me.tplSkeleton, {
             calendarId: me._getId(),
             calendarClass: me._getClass(),
             titleId: me._getId('title'),
@@ -228,7 +229,7 @@ magic.Calendar.extend(
             year = date.getFullYear(),
             month = date.getMonth() + 1;
             
-        me.titleEl.innerHTML = baidu.format(baidu.i18n.cultures[me._options.language].calendar.titleNames, {
+        me.titleEl.innerHTML = baidu.string.format(baidu.i18n.cultures[me._options.language].calendar.titleNames, {
             "yyyy": year,
             'MM': baidu.i18n.cultures[me._options.language].calendar.monthNamesShort[month-1]
         });
