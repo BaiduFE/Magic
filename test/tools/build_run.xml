@@ -5,6 +5,8 @@
 	<property name="report.path" value="test/tools/br/report" />
 	<property name="coverage.path" value="test/coverage" />
 	<property name="report.file" value="test/tools/br/report.xml" />
+	<property name="coverage.report.file" value="test/tools/br/coveragereport/totalCoverage/coverage_report.xml"/>
+	<property name="coverage.source.file" value="test/tools/br/coveragereport/totalCoverage/source.js"/>
 	<property name="git.project" value="Magic" />
 	<property name="git.user" value="" />
 
@@ -19,6 +21,11 @@
 	<target name="init">
 		<delete dir="${report.path}" />
 		<delete file="${report.file}" />
+		<delete file="${coverage.report.file}"/>
+		<delete file="${coverage.source.file}"/>
+		<mkdir dir="${report.path}/html"/>
+		<mkdir dir="${report.path}/coverage/html"/>
+		<mkdir dir="${report.path}/coverage/history"/>
 	</target>
 	
 	<target name="close">
@@ -42,10 +49,15 @@
 		<waitfor maxwait="600" maxwaitunit="second">
 			<available file="${report.file}" />
 		</waitfor>
+
 		<echo>[report] : ${report.file}</echo>
 		<!-- junit report and mail-->
 		<antcall target="mail" />
 		<!-- junit report and mail end -->
+		<waitfor maxwait="20" maxwaitunit="second">
+			<istrue value="false" />
+		</waitfor>
+		
 	</target>
 	<target name="getreport_release" depends="execute">
 		<waitfor maxwait="1000" maxwaitunit="second">
