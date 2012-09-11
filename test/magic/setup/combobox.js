@@ -129,7 +129,7 @@ test("render, default param", function(){
     equals(combobox1.getElement('input').value, '女', "The originIndex in readonly=false is right");
     equals(combobox1._options.viewSize, 5, "The viewSize is right");
     equals(combobox1._options.readonly, false, "The readonly is right");
-    equals($(combobox1.getElement('input')).attr('readonly'), false, "The readonly displayed is right");
+    equals($(combobox1.getElement('input')).attr('readonly'), undefined, "The readonly displayed is right");
     equals(combobox1._options.disabled, false, "The disabled is right");
     equals(combobox1.getElement('input').disabled, false, "The disabled displayed is right");
     combobox1.$dispose();
@@ -166,7 +166,6 @@ test("render, all param", function(){
         'disabled' : false,
         'width' : 200
     });
-    combobox1.render('#div1');
     equals(combobox1._options.originIndex, 1, "_options.originIndex is right");
     equals(combobox1._options.viewSize, 3, "_options.viewSize is right");
     equals(combobox1._options.readonly, true, "_options.readonly is right");
@@ -184,7 +183,7 @@ test("render, all param", function(){
     equals($("li", combobox1.getElement("menu")).text(), "北京上海广州天津重庆", "The content of menu is right");
     equals($($("li", combobox1.getElement("menu"))[0]).attr('data-value'), "beijing", "The values of menu is right");
     equals(combobox1.getElement('container').clientWidth, 200, "The width is right");
-    equals($(combobox1.getElement('input')).attr('readonly'), true, "The readonly displayed is right");
+    equals($(combobox1.getElement('input')).attr('readonly'), "readonly", "The readonly displayed is right");
     equals(combobox1.getElement('input').disabled, false, "The disabled displayed is right");
     combobox1.$dispose();
     document.body.removeChild(div1);
@@ -454,7 +453,6 @@ test("render, focus", function(){
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     var focus = 0;
-    combobox1.render('#div1');
     combobox1.on('focus', function() {
         focus ++;
         switch (focus) {
@@ -485,7 +483,6 @@ test("render, blur", function(){
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
     var blur = 0;
-    combobox1.render('#div1');
     combobox1.on('blur', function() {
         blur ++;
         switch (blur) {
@@ -631,7 +628,6 @@ test("render, setWidth", function(){
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
     var combobox1 = magic.setup.combobox(s);
-    combobox1.render('#div1');
     combobox1.setWidth(200);
     equals(combobox1.getElement('container').clientWidth, 200, 'width of input container is right');
     ua.click(combobox1.getElement('arrow'));
