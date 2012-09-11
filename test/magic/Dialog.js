@@ -543,7 +543,7 @@ test('magic.alert', function(){
                 ok(true, 'dialog已render');
             }
             equals(parseInt(alert_el[0].style.left), Math.floor((baidu.page.getViewWidth() - alert_el[0].offsetWidth)/2) + baidu.page.getScrollLeft(), 'Alert水平居中显示');
-            equals(parseInt(alert_el[0].style.top), Math.floor((baidu.page.getViewHeight() - alert_el[0].offsetHeight)/2) + baidu.page.getScrollTop(), 'Alert垂直居中显示');
+			ok(Math.abs(parseInt(alert_el[0].style.top) - Math.floor((baidu.page.getViewHeight() - alert_el[0].offsetHeight)/2) + baidu.page.getScrollTop()) <= 1, 'Alert垂直居中显示' );
 
             var mask_el = $('.tang-mask');
             if(mask_el.length>0){
@@ -674,8 +674,8 @@ test('magic.confirm', function(){
             if(alert_el.length>0){
                 ok(true, 'dialog已render');
             }
-            equals(parseInt(alert_el[0].style.left), Math.floor((baidu.page.getViewWidth() - alert_el[0].offsetWidth)/2) + baidu.page.getScrollLeft(), 'Alert水平居中显示');
-            equals(parseInt(alert_el[0].style.top), Math.floor((baidu.page.getViewHeight() - alert_el[0].offsetHeight)/2) + baidu.page.getScrollTop(), 'Alert垂直居中显示');
+            equals(parseInt(alert_el[0].style.left), Math.floor((baidu.page.getViewWidth() - alert_el[0].offsetWidth)/2) + baidu.page.getScrollLeft(), 'Confirm水平居中显示');
+            ok(Math.abs(parseInt(alert_el[0].style.top) - Math.floor((baidu.page.getViewHeight() - alert_el[0].offsetHeight)/2) + baidu.page.getScrollTop()) <= 1, 'Confirm垂直居中显示' );
 
             var mask_el = $('.tang-mask');
             if(mask_el.length>0){
