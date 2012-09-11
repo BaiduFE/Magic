@@ -73,7 +73,7 @@ test("select", function(){
 	};
 	var beforeselect = 0;
 	var select = 0;
-	var l1 = baidu.dom._eventBase._getEventsLength();
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var tab = magic.setup.tab('div1', options);
 	tab.on("onbeforeselect", function(e, data){
 		beforeselect ++;
@@ -103,7 +103,7 @@ test("select", function(){
 	equals(tab._selectedIndex, 2, "The _selectedIndex is right");
 	equals($(".tang-body-item-selected", tab.getElement("body")).text(), "hello world~3", "The current tab is right");
 	tab.$dispose();
-	var l2 = baidu.dom._eventBase._getEventsLength();
+	var l2 = baidu._util_.eventBase._getEventsLength();
 	equals(l2, l1, "The events are un");
 	equals(tab.disposed, true, "The dom is disposed");//setup模式下，不需要销毁用户写好的html
 	document.body.removeChild(div);

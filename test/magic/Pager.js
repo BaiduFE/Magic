@@ -254,7 +254,7 @@ test("render, pagechange event", function(){
 	var div1 = document.createElement("div");
 	document.body.appendChild(div1);
 	div1.id = "div1";
-	var l1 = baidu.dom._eventBase._getEventsLength();
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var pager1 = new magic.Pager({
 		currentPage: 1,
 		totalPage: 10
@@ -264,7 +264,7 @@ test("render, pagechange event", function(){
 	})
 	pager1.render('div1');
 	ua.click(pager1.getElement("main").childNodes[1]);
-	var l2 = baidu.dom._eventBase._getEventsLength();
+	var l2 = baidu._util_.eventBase._getEventsLength();
 	pager1.$dispose();
 	equals(l2, l1, "The events are un");
 	document.body.removeChild(div1);

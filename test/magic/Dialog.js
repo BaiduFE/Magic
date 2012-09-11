@@ -527,7 +527,7 @@ test('magic.alert', function(){
     stop();
     ua.importsrc("baidu.ajax.request", function(){
             var called = false;
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -560,11 +560,11 @@ test('magic.alert', function(){
             ok(called == true, '确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -580,11 +580,11 @@ test('magic.alert', function(){
             ok(called == true, '点击关闭按钮，确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试键盘响应：esc
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -601,11 +601,11 @@ test('magic.alert', function(){
             
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试键盘响应：enter
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
@@ -621,7 +621,7 @@ test('magic.alert', function(){
             ok(called == true, '按下Enter键，确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             start();
@@ -653,7 +653,7 @@ test('magic.confirm', function(){
     ua.importsrc("baidu.ajax.request", function(){
             var okcalled = false;
             var cancelcalled = false;
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -692,12 +692,12 @@ test('magic.confirm', function(){
             ok(okcalled == true, '确定按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
 
             //测试取消按钮
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -718,11 +718,11 @@ test('magic.confirm', function(){
             ok(cancelcalled == true, '取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -743,11 +743,11 @@ test('magic.confirm', function(){
             ok(cancelcalled == true, '点击关闭按钮，取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -768,11 +768,11 @@ test('magic.confirm', function(){
             ok(cancelcalled == true, '按下ESC键，取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = baidu.dom._eventBase._getEventsLength();
+            var l1 = baidu._util_.eventBase._getEventsLength();
             var instance = magic.confirm({
                 'content': '内容',
                 'titleText': '标题',
@@ -793,7 +793,7 @@ test('magic.confirm', function(){
             ok(cancelcalled == true, '按下Enter键，取消按钮回调执行成功');
             equals($('.tang-dialog').length, 0, 'confirm元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = baidu.dom._eventBase._getEventsLength();
+            var l2 = baidu._util_.eventBase._getEventsLength();
             equals(l2, l1, '事件已全部移除');
 
             start();

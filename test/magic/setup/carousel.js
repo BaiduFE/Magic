@@ -507,7 +507,7 @@ test("focus, next, prev", function(){
 test("events & dispose", function(){
 	expect(6);
 	enSetup();
-	var l1 = baidu.dom._eventBase._getEventsLength();
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var options = {
 	};
     var c = magic.setup.carousel('one-carousel', options);
@@ -524,7 +524,7 @@ test("events & dispose", function(){
     	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
-    	var l2 = baidu.dom._eventBase._getEventsLength();
+    	var l2 = baidu._util_.eventBase._getEventsLength();
     	equals(l2, l1, "The events are un");
     });
     c.focus(8, "backward");

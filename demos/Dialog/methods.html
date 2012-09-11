@@ -4,13 +4,73 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="Dialog 组件各个接口的使用示例" />
         <title>Dialog 组件各个接口的使用示例</title>
-        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
-        <link rel="stylesheet" type="text/css" href="./demo.css">
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
         <style type="text/css" media="screen">
             /* 对话框初始信息 */
             #one-dialog .tang-body{ font-size: 12px; }
+			.demo-control{
+				border-collapse: collapse;
+				color: #333;
+			}
+			
+			.demo-control td{
+				padding: 8px;
+				background-color: #f6f6f6;
+				border: 1px solid #ccc;
+				line-height: 22px;
+			}
+			
+			.demo-control td span{
+				vertical-align: middle;
+			}
+			
+			.demo-control td .textInput,
+			.demo-control td .textInput-s,
+			.demo-control td .textArea{
+				width: 195px; padding-left: 5px;
+				height: 22px;
+				line-height: 22px;
+				border: 1px solid #ccc;
+			}
+			.demo-control td .textInput-s{
+				width: 50px;
+			}
+			.demo-control td .textArea{
+				height: 50px;
+				overflow: auto;
+			}
+			
+			.demo-control td .btn{
+				width: 60px;
+				height: 22px;
+				line-height: 14px;
+				padding: 0;
+			}
+			
+			#hello, #world{
+				border: 1px solid #900;
+				width: 290px; padding-left: 10px;
+				line-height: 30px;
+				text-align: left;
+				background-color: #fff;
+			}
+			#world{
+				border-color: #009;	
+			}
+			
+			#temp-div #hello, #temp-div #world{
+				margin-top: 10px;
+			}
+			#temp-div{
+				position: absolute;
+				left: 450px; top: 0;
+			}
+			
+			.tang-body .content{
+				font-size: 14px;
+			}
         </style>
         <script>
             function log(type, msg){
@@ -18,14 +78,12 @@
             }
         </script>
         <script type="text/javascript" src="../../src/import.php?f=magic.Dialog"></script>
-        <script type="text/javascript" src="./demo.js"></script>
     </head>
     <body>
         <div class="content">
             <div class="demo-list">
                 <h3>Demo列表</h3>
                 <ul>
-                    <li><a href="./quickStart.html">Dialog quickStart</a></li>
                     <li><a href="./complex.html">Dialog多对话框并存示例</a></li>
                     <li><a href="./iframe.html">Dialog frame 类型内容示例</a></li>
                     <li><a href="./mask.html">Dialog 组件 mask 插件示例</a></li>
@@ -169,7 +227,32 @@
                 </div>
             </div>
         </div>
-
+		<script>
+			function exec(dom){
+			    var cmd = dom.getAttribute("cmd");
+			    try{
+			    	eval(parseCmd(cmd));
+			    }catch(e){
+			    	window.alert("参数出错啦！");
+			    }
+			}
+			
+			function parseCmd(cmd){
+				var params = cmd.match(/#\{\w+\}/g) || [];
+				var obj = {};
+				for(var i = 0, name, param, l = params.length; i < l; i ++){
+					param = params[i];
+					if(name = /#\{(\w+)\}/.test(param) && RegExp.$1)
+					    obj[name] = getValue(name);
+				}
+				cmd = baidu.string.format(cmd, obj);
+				return cmd;
+			}
+			
+			function getValue(dom){
+			    return document.getElementById(dom).value;
+			}
+		</script>
         <script>
         	dialog = new magic.Dialog({
 				draggable: true,

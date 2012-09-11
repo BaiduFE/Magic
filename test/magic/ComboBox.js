@@ -157,7 +157,7 @@ test("render, events", function() {
 	document.body.appendChild(div1);
 	div1.id = "div1";
 	var highlight = pick = change = 0;
-	var l1 = baidu.dom._eventBase._getEventsLength();
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var combobox1 = new magic.ComboBox({
 		items : [{
 		    'value' : 'f', 'content' : '女'
@@ -242,7 +242,7 @@ test("render, events", function() {
     });
     combobox1.on("dispose", function(e, data){
         equals('dispose', 'dispose', "The dispose Event is right");
-        var l2 = baidu.dom._eventBase._getEventsLength();
+        var l2 = baidu._util_.eventBase._getEventsLength();
         equals(l2, l1, "The events are un");
     }); 	
 	combobox1.render(div1);

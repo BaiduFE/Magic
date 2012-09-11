@@ -66,7 +66,7 @@ test("render, hide, show, dispose, visible, top, left", function(){
 			container: document.getElementById("tooltip0"),
 			disposeOnHide: false
 	};
-	var l1 = baidu.dom._eventBase._getEventsLength();
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var tooltip = new magic.Tooltip(options);
 	tooltip.render();
 	ok(isShown(tooltip.getElement()), "The tooltip is shown");
@@ -80,7 +80,7 @@ test("render, hide, show, dispose, visible, top, left", function(){
 	equals(tooltip.top, $(tooltip.getElement()).offset().top, "The top is right");
 	equals(tooltip.left, $(tooltip.getElement()).offset().left, "The left is right");
 	tooltip.$dispose();	
-	var l2 = baidu.dom._eventBase._getEventsLength();
+	var l2 = baidu._util_.eventBase._getEventsLength();
 	equals($('.tang-background').length, 0, "The tooltip is disposed");
 	equals(l2, l1, "The events are un");
 });
