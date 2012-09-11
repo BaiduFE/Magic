@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="ComboBox 组件" />
+        <title>ComboBox 组件</title>
+        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.ComboBox/magic.control.ComboBox.css"/>
+		<style type="text/css">
+		.demo-control{
+			border-collapse: collapse;
+			color: #333;
+		}
+		
+		.demo-control td{
+			padding: 8px;
+			background-color: #f6f6f6;
+			border: 1px solid #ccc;
+			line-height: 22px;
+		}
+		
+		.demo-control td span{
+			vertical-align: middle;
+		}
+		
+		.demo-control td .textInput,
+		.demo-control td .textInput-s,
+		.demo-control td .textArea{
+			width: 195px; padding-left: 5px;
+			height: 22px;
+			line-height: 22px;
+			border: 1px solid #ccc;
+		}
+		
+		.demo-control td .textInput-s{
+			width: 50px;
+		}
+		
+		.demo-control td .textArea{
+			height: 50px;
+			overflow: auto;
+		}
+		
+		.demo-control td .btn{
+			width: 60px;
+			height: 22px;
+			line-height: 14px;
+			padding: 0;
+		}
+		</style>
+		<script type="text/javascript" src="scripts/Tangram2.0-full.js"></script>
+		<script type="text/javascript" src="scripts/demo.js"></script>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.ComboBox'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./quickStart.html">组合框 quickStart</a></li>
+                    <li><a href="./demo.html">组合框方法和事件演示</a></li>
+                    <li><a href="./sutup-demo.html">组合框</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>组合框方法和事件演示</h3>
+                    <p>请按下方的按钮调用组合框的方法。</p>
+                    <div class="demo-view">
+                    	<div style="width:200px">
+                    		<div id="combobox"></div>
+                    	</div>
+						<table class="demo-control">
+						<!-- item start -->
+						<tr>
+							<td>获得选中项的值</td>
+							<td>combobox.<strong>getValue</strong>();</td>
+							<td><input cmd="alert(combobox.getValue());" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>获得选中项的索引值</td>
+							<td>combobox.<strong>getSelectIndex</strong>();</td>
+							<td><input cmd="combobox.getSelectIndex();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+						
+						<!-- item start -->
+						<tr>
+							<td>使组合框获得焦点</td>
+							<td>combobox.<strong>focus</strong>();</td>
+							<td><input cmd="combobox.focus();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>使组合框失去焦点</td>
+							<td>combobox.<strong>blur</strong>();</td>
+							<td><input cmd="combobox.blur();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>将组合框重置</td>
+							<td>combobox.<strong>reset</strong>();</td>
+							<td><input cmd="combobox.reset();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>设置组合框为不可用状态。</td>
+							<td>combobox.<strong>disable</strong>();</td>
+							<td><input cmd="combobox.disable();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td>设置组合框为可用状态</td>
+							<td>combobox.<strong>enable</strong>();</td>
+							<td><input cmd="combobox.enable();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<!-- item end -->
+						
+						<!-- item start -->
+						<tr>
+							<td rowspan="2">根据选中项的值设置组合框</td>
+							<td>combobox.<strong>setByValue</strong>( <em>value</em> );</td>
+							<td rowspan="2"><input cmd="combobox.setByValue('#{value}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<tr>
+							<td><span>str = </span><span><input class="textInput" value="1" id="value" /></span></td>
+						</tr>
+						<!-- item end -->
+
+						<!-- item start -->
+						<tr>
+							<td rowspan="2">设置组合框的宽度</td>
+							<td>combobox.<strong>setWidth</strong>( <em>width</em> );</td>
+							<td rowspan="2"><input cmd="combobox.setWidth('#{width}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+						</tr>
+						<tr>
+							<td><span>str = </span><span><input class="textInput" value="300px" id="width" /></span></td>
+						</tr>
+						<!-- item end -->
+
+					</table>
+                    </div>
+                </div>
+                <div id="magic-pager"></div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+<script type="text/javascript">
+var combobox = new magic.ComboBox({
+	'items' : [
+		{'content' : '北京', 'value' : 0},
+		{'content' : '上海', 'value' : 1},
+		{'content' : '天津', 'value' : 2},
+		{'content' : '重庆', 'value' : 3},
+		{'content' : '广州', 'value' : 4},
+	]
+});
+combobox.render('#combobox');
+
+combobox.on('show', function() {
+	log('event', '下拉菜单展示');
+});
+
+combobox.on('change', function() {
+	log('event', '组合框的值改变');
+});
+
+combobox.on('hide', function() {
+	log('event', '下拉菜单隐藏');
+});
+
+combobox.on('focus', function() {
+	log('event', '组合框聚焦');
+});
+
+combobox.on('blur', function() {
+	log('event', '组合框失去焦点');
+});
+combobox.on('highlight', function(e) {
+	log('event', '第' + e.index + '个选项处于高亮状态');
+});
+combobox.on('confirm', function(e) {
+	log('event', '第' + e.result.index + '个选项被选中');
+});
+</script>
+    </body>
+</html>

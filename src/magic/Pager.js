@@ -40,8 +40,9 @@
  * @param {String} options.labelPrev 上一页链接显示的内容，默认“上一页”
  * @param {String} options.labelNext 下一页链接显示的内容，默认“下一页”
  * @param {String} options.labelLast 尾页链接显示的内容，默认“尾页”
- * @param {String} options.tplLabelNormal 普通页码显示模版，默认#{pageNum}
- * @param {String} options.tplLabelCurrent 当前页码的显示模版，默认#{pageNum}
+ * @param {String} options.labelURL 页码链接中href属性的模版，页码的模版变量为#{pageNum}，默认“##{pageNum}”
+ * @param {String} options.tplLabelNormal 普通页码显示模版，页码的模版变量为#{pageNum}，默认#{pageNum}
+ * @param {String} options.tplLabelCurrent 当前页码的显示模版，页码的模版变量为#{pageNum}，默认#{pageNum}
  * @return {magic.Pager} Pager实例
  * @example
  * /// for options.currentPage,options.totalPage
@@ -57,8 +58,6 @@
  * var instance = new Pager({
  * 		currentPage: 5, 
  * 		totalPage: 10, 
- * 		viewSize: 5, 
- * 		currentPagePos: 2,
  * 		labelFirst: '最前面',
  * 		labelLast: '最后面',
  * 		labelPrev: '往前翻',
@@ -70,10 +69,16 @@
  * var instance = new Pager({
  * 		currentPage: 5, 
  * 		totalPage: 10, 
- * 		viewSize: 5, 
- * 		currentPagePos: 2,
  * 		tplLabelNormal: '[#{pageNum}]',		// 普通页码显示如: [8][9]
  * 		tplLabelCurrent: '{#{pageNum}}'		// 当前页码显示如: {8}{9}
+ * });
+ * instance.render('pager');
+ * @example
+ * /// for options.tplURL
+ * var instance = new Pager({
+ *      currentPage: 5, 
+ *      totalPage: 10, 
+ *      tplURL: '?pn=#{pageNum}'     // 此时第1页生成的<a>标签中的href="?pn=1"，第2页href="?pn=2"
  * });
  * instance.render('pager');
  */
