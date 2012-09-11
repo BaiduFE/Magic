@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="DatePicker 组件" />
+        <title>ComboBox 组件</title>
+        <link rel="stylesheet" type="text/css" href="../common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.ComboBox/magic.control.ComboBox.css"/>
+		<script type="text/javascript" src="scripts/Tangram2.0-full.js"></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.combobox'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./quickStart.html">组合框 quickStart</a></li>
+                    <li><a href="./demo.html">组合框方法和事件演示</a></li>
+                    <li><a href="./setup-demo.html">组合框setup初始化演示</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>组合框setup初始化演示</h3>
+                    <p>这是一个浏览器原生的select，请点击setup按钮将其变为组合框。
+                    	<br><strong>magic.setup.combobox</strong>(<strong>select</strong>);</p>
+                    <div class="demo-view">
+                    	<div style="margin-bottom: 20px">
+						<select id="combobox">
+							<option value="0">北京</option>
+							<option value="1">上海</option>
+							<option value="2">天津</option>
+							<option value="3">重庆</option>
+							<option value="4">广州</option>
+						</select>
+						</div>
+						<div>
+							<input value="setup" type="button" id="setupBtn">
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<script type="text/javascript">
+		baidu('#setupBtn').click(function() {
+			magic.setup.combobox('combobox');
+		})
+		</script>
+    </body>
+</html>

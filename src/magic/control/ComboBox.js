@@ -646,7 +646,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      */
     'getSelectIndex' : function() {
         for (var data = this._options.items, length = data.length; length--;) {
-            if (data[length].value == this.selectValue) {
+            if (data[length].value + '' === this.selectValue) {
                 return length;
             }
         }
