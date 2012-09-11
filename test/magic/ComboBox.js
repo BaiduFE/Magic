@@ -22,7 +22,7 @@ test("render, default param", function(){
     equals(combobox1.getElement('input').value, '', "The originIndex in readonly=false is right");
     equals(combobox1._options.viewSize, 5, "The viewSize is right");
     equals(combobox1._options.readonly, false, "The readonly is right");
-    equals($(combobox1.getElement('input')).attr('readonly'), false, "The readonly displayed is right");
+    equals($(combobox1.getElement('input')).attr('readonly'), undefined, "The readonly displayed is right");
     equals(combobox1._options.disabled, false, "The disabled is right");
     equals(combobox1.getElement('input').disabled, false, "The disabled displayed is right");
     equals(combobox1._options.width, '100%', "The width is right");
@@ -83,7 +83,7 @@ test("render, all param", function(){
     equals($("li", combobox1.getElement("menu")).text(), "北京上海广州天津重庆", "The content of menu is right");
     equals($($("li", combobox1.getElement("menu"))[0]).attr('data-value'), "beijing", "The values of menu is right");
 	equals(combobox1.getElement('container').clientWidth, 200, "The width is right");
-	equals($(combobox1.getElement('input')).attr('readonly'), true, "The readonly displayed is right");
+	equals($(combobox1.getElement('input')).attr('readonly'), "readonly", "The readonly displayed is right");
 	equals(combobox1.getElement('input').disabled, false, "The disabled displayed is right");
 	combobox1.$dispose();
 	document.body.removeChild(div1);
