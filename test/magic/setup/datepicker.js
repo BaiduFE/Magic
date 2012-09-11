@@ -47,7 +47,7 @@ function getListenersOnInput(inputEl){
     //     }
     // }
     // return count;
-    return baidu.dom._eventBase._getEventsLength(inputEl);
+    return baidu._util_.eventBase._getEventsLength(inputEl);
 }
 
 
