@@ -58,7 +58,7 @@
 	width : 15px;
 	height : 15px;
 	overflow : hidden;
-	background : url('magic-combobox-arrow.gif') no-repeat 0 0;
+	background : url(magic-combobox-arrow.gif) no-repeat 0 0;
 	border-left : 1px solid #a9a9a9;
 }
 
