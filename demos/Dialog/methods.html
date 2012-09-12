@@ -3,52 +3,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="Dialog 组件各个接口的使用示例" />
-        <title>Dialog 组件各个接口的使用示例</title>
+        <title>对话框组件各个接口的使用示例</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
         <style type="text/css" media="screen">
             /* 对话框初始信息 */
-            #one-dialog .tang-body{ font-size: 12px; }
-			.demo-control{
-				border-collapse: collapse;
-				color: #333;
-			}
-			
-			.demo-control td{
-				padding: 8px;
-				background-color: #f6f6f6;
-				border: 1px solid #ccc;
-				line-height: 22px;
-			}
-			
-			.demo-control td span{
-				vertical-align: middle;
-			}
-			
-			.demo-control td .textInput,
-			.demo-control td .textInput-s,
-			.demo-control td .textArea{
-				width: 195px; padding-left: 5px;
-				height: 22px;
-				line-height: 22px;
-				border: 1px solid #ccc;
-			}
-			.demo-control td .textInput-s{
-				width: 50px;
-			}
-			.demo-control td .textArea{
-				height: 50px;
-				overflow: auto;
-			}
-			
-			.demo-control td .btn{
-				width: 60px;
-				height: 22px;
-				line-height: 14px;
-				padding: 0;
-			}
-			
+            #one-dialog .tang-body{ font-size: 12px; }			
 			#hello, #world{
 				border: 1px solid #900;
 				width: 290px; padding-left: 10px;
@@ -78,24 +39,25 @@
             }
         </script>
         <script type="text/javascript" src="../../src/import.php?f=magic.Dialog"></script>
+        <script type="text/javascript" src="../../demos/common/exec.js"></script>
     </head>
     <body>
         <div class="content">
             <div class="demo-list">
                 <h3>Demo列表</h3>
                 <ul>
-                    <li><a href="./complex.html">Dialog多对话框并存示例</a></li>
-                    <li><a href="./iframe.html">Dialog frame 类型内容示例</a></li>
-                    <li><a href="./mask.html">Dialog 组件 mask 插件示例</a></li>
-                    <li><a href="./methods.html">Dialog 组件各个接口的使用示例</a></li>
-                    <li><a href="./event.html">Dialog 组件自定义事件的使用示例</a></li>
-                    <li><a href="./render.html">Dialog 组件render模式示例</a></li>
-                    <li><a href="./setup.html">Dialog 组件setup模式示例</a></li>
+                    <li><a href="./complex.html">对话框组件多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">对话框组件frame 类型内容示例</a></li>
+                    <li><a href="./mask.html">对话框组件 mask 插件示例</a></li>
+                    <li><a href="./methods.html">对话框组件各个接口的使用示例</a></li>
+                    <li><a href="./event.html">对话框组件自定义事件的使用示例</a></li>
+                    <li><a href="./render.html">对话框组件render模式示例</a></li>
+                    <li><a href="./setup.html">对话框组件setup模式示例</a></li>
                 </ul>
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>Dialog 组件各个接口的使用示例</h3>
+                    <h3>对话框组件各个接口的使用示例</h3>
                     <p>本例只有 Dialog 的 render 模式做演示，对于 setup 一样适用。</p>
 					<p><em>notice:</em> 本例仅是 Dialog 组件方法的使用演示，不代表 Dialog 只有<br />这些方法，参考方法请详见官网 api 页面。</p>
 					<p><em>notice:</em> 调用方法，只能在 render 或 setup 完成后才可生效。</p>
@@ -227,32 +189,6 @@
                 </div>
             </div>
         </div>
-		<script>
-			function exec(dom){
-			    var cmd = dom.getAttribute("cmd");
-			    try{
-			    	eval(parseCmd(cmd));
-			    }catch(e){
-			    	window.alert("参数出错啦！");
-			    }
-			}
-			
-			function parseCmd(cmd){
-				var params = cmd.match(/#\{\w+\}/g) || [];
-				var obj = {};
-				for(var i = 0, name, param, l = params.length; i < l; i ++){
-					param = params[i];
-					if(name = /#\{(\w+)\}/.test(param) && RegExp.$1)
-					    obj[name] = getValue(name);
-				}
-				cmd = baidu.string.format(cmd, obj);
-				return cmd;
-			}
-			
-			function getValue(dom){
-			    return document.getElementById(dom).value;
-			}
-		</script>
         <script>
         	dialog = new magic.Dialog({
 				draggable: true,

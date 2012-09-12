@@ -70,13 +70,50 @@ a {
 }
 
 .clearfix:after {
-	content : '.';
-	display : block;
-	clear : both;
-	height : 0;
-	visibility : hidden;
+	content: '.';
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
 }
 
 .clearfix {
-	zoom : 1;
+	zoom: 1;
+}
+.demo-control {
+	border-collapse: collapse;
+	color: #333;
+}
+
+.demo-control td {
+	padding: 8px;
+	background-color: #f6f6f6;
+	border: 1px solid #ccc;
+	line-height: 22px;
+}
+
+.demo-control td span {
+	vertical-align: middle;
+}
+
+.demo-control td .textInput, .demo-control td .textInput-s, .demo-control td .textArea {
+	width: 195px;
+	padding-left: 5px;
+	height: 22px;
+	line-height: 22px;
+	border: 1px solid #ccc;
+}
+.demo-control td .textInput-s {
+	width: 50px;
+}
+.demo-control td .textArea {
+	height: 50px;
+	overflow: auto;
+}
+
+.demo-control td .btn {
+	width: 60px;
+	height: 22px;
+	line-height: 14px;
+	padding: 0;
 }
