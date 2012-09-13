@@ -56,7 +56,7 @@
             var options = {
                 getData: function(key){
                     var me = this;
-                    baidu.ajax.request("../../demos/Suggestion/service.json?key=" + encodeURIComponent(key), {
+                    baidu.ajax.request("../../demos/Suggestion/service.json", {
                         'method': 'GET',
                         'timeout': 2000,
                         'onsuccess': function(xhr, response){
