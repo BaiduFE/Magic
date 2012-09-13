@@ -16,7 +16,7 @@
     text-align: center;
     line-height: 30px;
     _height: 30px;
-    background: url(./bg.png) repeat-x 0 0 #BFBFBF;
+    background: url(bg.png) repeat-x 0 0 #BFBFBF;
     _background-position: 0 2px;
     border: 1px solid #979797;
     border-width: 1px 1px 0px;
@@ -29,7 +29,7 @@
     left: 5px;
     height: 15px;
     width: 15px;
-    background: url(./bg.png) no-repeat -15px -29px #BFBFBF;
+    background: url(bg.png) no-repeat -15px -29px #BFBFBF;
     cursor: pointer;
 }
 .tang-calendar-nextbtn {
@@ -114,6 +114,6 @@
  */
 .tang-calendar-year,
 .tang-calendar-month {
-    background: url(./bg.png) no-repeat right -61px;
+    background: url(bg.png) no-repeat right -61px;
     padding-right: 12px;
 }

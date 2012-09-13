@@ -5,9 +5,9 @@
 .tang-dialog .tang-background-inner{
 	width: 100%; height: 100%;
 	margin: 5px auto auto 4px;
-	background: url(../common/shadow.png) no-repeat right bottom;
+	background: url(shadow.png) no-repeat right bottom;
 	_margin-top: 4px;
-	_background: url(../common/shadow.gif) no-repeat right bottom;
+	_background: url(shadow.gif) no-repeat right bottom;
 }
 
 .tang-dialog .tang-title{
