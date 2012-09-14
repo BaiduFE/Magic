@@ -132,6 +132,10 @@
                         alert("需要先初始化Suggestion");
                         return;
                     }
+					if(!baidu.string.trim(instance.getInputValue()).length){
+						alert("请先输入搜索关键字");
+						return;
+					}
                     if(instance.dataCache[instance.getInputValue()]){
                         instance.show();
                     }else{

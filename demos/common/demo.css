@@ -39,6 +39,7 @@ a {
 	background-color: #8899DD;
 	color: #FFF;
 	padding: 15px;
+	*zoom:1;
 }
 .demo-wrap h3 {
 	color: #FFF;
