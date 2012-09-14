@@ -92,6 +92,10 @@
 		    var instance = new magic.Tab(options);
 			instance.render('tab');
 			
+			instance.on('select',function(evt){
+				index = evt.index;
+			});
+			
 			// select 方法
 			baidu('#select').click(function(){
 				index = index == 2 ? 0 : ++index;

@@ -129,7 +129,8 @@ magic.control.Dialog = baidu.lang.createClass(
                     }
                 };
 
-                baidu(title).on("mousedown", dragFn = bind(function(){
+                baidu(title).on("mousedown", dragFn = bind(function(evt){
+                	evt.preventDefault();
                     baidu.dom.drag(container, {
                         ondragstart: bind(function(){ this.fire("dragstart"); }, this),
                         ondrag: bind(function(){ this.fire("drag"); }, this),

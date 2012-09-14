@@ -78,8 +78,8 @@
 		    	accuracy: 0
 		    });
 		    instance1.render('slider1');
-		    instance1.on('change', function(evt){
-		    	log('info', "滑动条一，精度 0 ，当前值: " + evt.value);
+		    instance1.on('slidestop', function(evt){
+		    	log('info', "滑动条一，精度 0 ，当前值: " + instance1.getValue());
 		    });
 		    
 		    // accuracy : 0.1
@@ -88,8 +88,8 @@
 		    	accuracy: 0.1
 		    });
 		    instance2.render('slider2');
-		    instance2.on('change', function(evt){
-		    	log('info', "滑动条二，精度 0.1 ，当前值: " + evt.value);
+		    instance2.on('slidestop', function(evt){
+		    	log('info', "滑动条二，精度 0.1 ，当前值: " + instance2.getValue());
 		    });
 		    
 		    // accuracy : 0.25
@@ -98,8 +98,8 @@
 		    	accuracy: 0.25
 		    });
 		    instance3.render('slider3');
-		    instance3.on('change', function(evt){
-		    	log('info', "滑动条三，精度 0.25 ，当前值: " + evt.value);
+		    instance3.on('slidestop', function(evt){
+		    	log('info', "滑动条三，精度 0.25 ，当前值: " + instance3.getValue());
 		    });
 		    
 		    // accuracy : 0.5
@@ -108,8 +108,8 @@
 		    	accuracy: 0.5
 		    });
 		    instance4.render('slider4');
-		    instance4.on('change', function(evt){
-		    	log('info', "滑动条四，精度 0.5 ，当前值: " + evt.value);
+		    instance4.on('slidestop', function(evt){
+		    	log('info', "滑动条四，精度 0.5 ，当前值: " + instance4.getValue());
 		    });
 		    
 		    // accuracy : 1
@@ -118,8 +118,8 @@
 		    	accuracy: 1
 		    });
 		    instance5.render('slider5');
-		    instance5.on('change', function(evt){
-		    	log('info', "滑动条五，精度 1 ，当前值: " + evt.value);
+		    instance5.on('slidestop', function(evt){
+		    	log('info', "滑动条五，精度 1 ，当前值: " + instance5.getValue());
 		    });
 		    
         </script>
