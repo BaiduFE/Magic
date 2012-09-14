@@ -525,7 +525,9 @@ magic.control.Dialog.extend(
             baidu(foreground).css("width", (this.width = size.width) + "px");
         if(typeof size.height == "number"){
             baidu(foreground).css("height", (this.height = size.height) + "px");
-            baidu(this.getElement("body")).css("height", Math.max(0, this.height - this._titleHeight) + "px");
+            var height = Math.max(0, this.height - this._titleHeight) + "px";
+            baidu(this.getElement("body")).css("height", height);
+            baidu(this.getElement("content")).css("height", height);
         }
         /**
          * @description 当窗口发生尺寸修改时触发
