@@ -363,6 +363,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             if(++ this.highlightIndex == length) {
                 this.highlightIndex = -1;
                 this.getElement('input').value = this.tempValue;
+                this.fire('pickOrigin', {
+                    'content' : this.tempValue
+                })
             } else {
                 this.$menufocus(elmMenuItems[this.highlightIndex]);
             }                
@@ -374,6 +377,9 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
             }
             if (-- this.highlightIndex == -1) {
                 this.getElement('input').value = this.tempValue;
+                this.fire('pickOrigin', {
+                    'content' : this.tempValue
+                })
             } else {
                 this.$menufocus(elmMenuItems[this.highlightIndex]);
             }                
@@ -513,7 +519,8 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
      * @param {Node} elmItem 待确认的dom节点
      */  
     '$confirm' : function(elmItem) {
-        var result = this.$pick(elmItem);
+        //当按上下至搜索框初始值时，elmItem为空，需要进行判断。By Dengping
+        var result = elmItem ? this.$pick(elmItem) : {'result' : this.tempValue};
         this.menu.hide();
        /**
         * @description 确认下拉菜单中的某个选项后触发
