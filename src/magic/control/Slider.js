@@ -471,7 +471,7 @@ magic.control.Slider.extend({
      */
     _setCurrentValue: function(pos){
         var info = this._info;
-        info.currentValue = parseFloat(pos) / info[info._accuracyKey];
+        info.currentValue = (parseFloat(pos) * 10) / (info[info._accuracyKey] * 10);
     },
 
     /** 
