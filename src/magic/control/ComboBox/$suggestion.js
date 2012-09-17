@@ -148,6 +148,9 @@ baidu.lang.register(magic.control.ComboBox, function(options) {
     this.on('pick', function(e) {
        me.timer.focusValue = e.result.content;
     });
+    this.on('pickOrigin', function(e) {
+       me.timer.focusValue = e.content;
+    });
     this.on('reload', function(e) {
        me.timer.focusValue = this.getElement('input').value;
     });
