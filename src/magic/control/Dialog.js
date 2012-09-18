@@ -70,10 +70,15 @@ magic.control.Dialog = baidu.lang.createClass(
             this.focus();
 
             // 处理聚焦
-            var focusFn = function(){ me.focus(); };
-            baidu(container).on("mousedown", focusFn);
+            var focusFn = function(e){ me.focus(e); };
+            
+            
+            // baidu(container).on("mousedown", focusFn);
+            
+            baidu(document).on("mousedown", focusFn);
+            
             this.disposeProcess.unshift(function(){
-                baidu(container).off("mousedown", focusFn);
+                baidu(document).off("mousedown", focusFn);
             });
 
             // 定义拖拽事件
@@ -463,9 +468,28 @@ magic.control.Dialog.extend(
      * });
      * instance.focus();
      */
-    focus: function(){
-        baidu(this.getElement()).css("zIndex", 
-            this.zIndex = baidu.global.getZIndex("dialog", 5));
+    focus: function(e){
+    	if(arguments.length){
+    		var target = e.target;
+    		if(baidu(target).closest(this.getElement()).size() > 0){
+    			baidu(this.getElement()).css("zIndex", 
+            		this.zIndex = baidu.global.getZIndex("dialog", 5));
+            	if(baidu.global.get(this.$getId() + "focus") != true){
+            		this.fire("focus");
+            		baidu.global.set(this.$getId() + "focus", true);
+            	}
+    		}else{
+    			baidu.global.set(this.$getId() + "focus", false);
+    		}
+    	}else{
+    		baidu(this.getElement()).css("zIndex", 
+            		this.zIndex = baidu.global.getZIndex("dialog", 5));
+            baidu.global.set(this.$getId() + "focus", true);
+            this.fire("focus");
+    	}
+    	
+    	
+        
         /**
          * @description 当窗口获得焦点时触发
          * @name magic.control.Dialog#onfocus
@@ -496,7 +520,7 @@ magic.control.Dialog.extend(
          *     //do something...
          * };
          */
-        this.fire("focus");
+        
     },
 
     /**
