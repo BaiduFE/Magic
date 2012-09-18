@@ -930,17 +930,19 @@ function activeController() {
         activeComboBox.focus();
     }
     var comboBoxes = magic.control.ComboBox.instanceArray;
-    for (var length = comboBoxes.length; length--;) {
-        if (comboBoxes[length] == guid) {
-            continue;
+    if (comboBoxes) {
+        for (var length = comboBoxes.length; length--;) {
+            if (comboBoxes[length] == guid) {
+                continue;
+            }
+            var comboBox = baiduInstance(comboBoxes[length]);
+            if (comboBox.isFocus) {
+                comboBox.blur();
+                break;
+            }
         }
-        var comboBox = baiduInstance(comboBoxes[length]);
-        if (comboBox.isFocus) {
-            comboBox.blur();
-            break;
-        }
+        magic.control.ComboBox.globalActive = null;          
     }
-    magic.control.ComboBox.globalActive = null;    
 }
 
 baidu(document).click(activeController).keydown(activeController);
