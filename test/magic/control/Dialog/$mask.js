@@ -38,6 +38,7 @@ test("render, default params", function(){
 		var me = this;
 		ua.importsrc("magic.Dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			var div = w.document.createElement("div");
 			w.document.body.appendChild(div);
 			div.id = "one-dialog";
@@ -119,6 +120,7 @@ test("render, default mask params", function(){
 		var me = this;
 		ua.importsrc("magic.Dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			var div = w.document.createElement("div");
 			w.document.body.appendChild(div);
 			div.id = "one-dialog";
@@ -204,6 +206,7 @@ test("render, params", function(){
 		var me = this;
 		ua.importsrc("magic.Dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			var div = w.document.createElement("div");
 			w.document.body.appendChild(div);
 			div.id = "one-dialog";
@@ -267,6 +270,7 @@ test("setup, default params", function(){
 		var me = this;
 		ua.importsrc("magic.setup.dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			enSetup(w);
 			var cdiv = w.document.createElement("div");
 			cdiv.id = "cdiv";
@@ -325,6 +329,7 @@ test("setup, default mask params", function(){
 		var me = this;
 		ua.importsrc("magic.setup.dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			enSetup(w);
 			var cdiv = w.document.createElement("div");
 			cdiv.id = "cdiv";
@@ -387,6 +392,7 @@ test("render, params", function(){
 		var me = this;
 		ua.importsrc("magic.setup.dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			enSetup(w);
 			var cdiv = w.document.createElement("div");
 			cdiv.id = "cdiv";
@@ -446,6 +452,7 @@ test("window resize, window scroll", function(){
 		var me = this;
 		ua.importsrc("magic.setup.dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
 			enSetup(w);
 			
 			//让iframe出滚动条
