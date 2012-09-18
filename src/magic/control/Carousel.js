@@ -275,10 +275,18 @@ void function(){
                 element = me.getElement('element'),
                 target = evt.target;
             if(!baidu.dom.contains(me.getElement('element'), target)){return;}
-            target = baidu.dom(target).closest('.tang-carousel-item').get(0);
+        	var item = baidu.dom(target).closest('.tang-carousel-item').get(0);
+        	
+            if(evt.type === 'mouseover'){
+            	var relatedTarget = evt.fromElement || evt.relatedTarget;
+            }else if(evt.type === 'mouseout'){
+            	var relatedTarget = evt.toElement || evt.relatedTarget;
+            }
+            if(baidu.dom(relatedTarget).closest(item).size() > 0) return;
+            
             me.fire('on' + evt.type.toLowerCase() + 'item', {
                 DOMEvent: evt,
-                index: baidu.array.indexOf(me._dataIds, target.id)
+                index: baidu.array.indexOf(me._dataIds, item.id)
             });
         },
         

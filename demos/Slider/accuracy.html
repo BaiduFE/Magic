@@ -81,6 +81,9 @@
 		    instance1.on('slidestop', function(evt){
 		    	log('info', "滑动条一，精度 0 ，当前值: " + instance1.getValue());
 		    });
+		    instance1.on('change', function(evt){
+		    	log('info', "滑动条一，精度 0 ，当前值: " + instance1.getValue());
+		    });
 		    
 		    // accuracy : 0.1
 		    var instance2 = new magic.Slider({
@@ -91,7 +94,9 @@
 		    instance2.on('slidestop', function(evt){
 		    	log('info', "滑动条二，精度 0.1 ，当前值: " + instance2.getValue());
 		    });
-		    
+		    instance2.on('change', function(evt){
+		    	log('info', "滑动条二，精度 0.1 ，当前值: " + instance2.getValue());
+		    });
 		    // accuracy : 0.25
 		    var instance3 = new magic.Slider({
 		    	direction: 'forward',
@@ -99,6 +104,9 @@
 		    });
 		    instance3.render('slider3');
 		    instance3.on('slidestop', function(evt){
+		    	log('info', "滑动条三，精度 0.25 ，当前值: " + instance3.getValue());
+		    });
+		    instance3.on('change', function(evt){
 		    	log('info', "滑动条三，精度 0.25 ，当前值: " + instance3.getValue());
 		    });
 		    
@@ -111,6 +119,9 @@
 		    instance4.on('slidestop', function(evt){
 		    	log('info', "滑动条四，精度 0.5 ，当前值: " + instance4.getValue());
 		    });
+		    instance4.on('change', function(evt){
+		    	log('info', "滑动条四，精度 0.5 ，当前值: " + instance4.getValue());
+		    });
 		    
 		    // accuracy : 1
 		    var instance5 = new magic.Slider({
@@ -119,6 +130,9 @@
 		    });
 		    instance5.render('slider5');
 		    instance5.on('slidestop', function(evt){
+		    	log('info', "滑动条五，精度 1 ，当前值: " + instance5.getValue());
+		    });
+		    instance5.on('change', function(evt){
 		    	log('info', "滑动条五，精度 1 ，当前值: " + instance5.getValue());
 		    });
 		    
