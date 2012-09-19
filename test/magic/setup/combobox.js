@@ -888,3 +888,27 @@ test("setup, ComboBox reload action should reload origin select too.", function(
     document.body.removeChild(div1);
 });
 
+test('use keyboard select items, press enter should be right while select the last item and continue to press down once', function() {
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    div1.innerHTML = '<select id="s"><option value="beijing">北京</option><option value="shanghai">上海</option></select>';
+    var s = baidu.dom.g('s');
+    var combobox1 = magic.setup.combobox(s);
+    combobox1.getElement('input').value = 'my value';
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 13
+    });
+    equals(combobox1.getElement('input').value, 'my value', 'should be \'my value\'');
+    combobox1.$dispose();
+    document.body.removeChild(div1);
+});

@@ -192,3 +192,45 @@ test('suggstion change value of input + keyboard action', function() {
         }, 200);
     }, 200);
 });
+
+test('use keyboard select items, suggestion should wait for select.', function() {
+    stop();
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var combobox1 = new magic.ComboBox({
+        'items' : [{
+            'value' : 0,
+            'content' : '选项1'
+        },{
+            'value' : 1,
+            'content' : '选项2'
+        },{
+            'value' : 2,
+            'content' : '选项3'
+        }]
+    });
+    combobox1.render('#div1');
+    combobox1.getElement('input').value = 'my value';
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 13
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    setTimeout(function() {
+        equals($('li', combobox1.getElement('menu')).length, 3, '3 items displayed');
+        combobox1.$dispose();
+        document.body.removeChild(div1);
+        start();
+    }, 200);
+});
