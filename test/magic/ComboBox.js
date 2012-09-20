@@ -873,3 +873,41 @@ test("render, viewSize", function(){
     combobox1.$dispose();
     document.body.removeChild(div1);
 });
+
+test('use keyboard select items, press enter should be right while select the last item and continue to press down once', function() {
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var combobox1 = new magic.ComboBox({
+        'items' : [{
+            'value' : 0,
+            'content' : '选项1'
+        },{
+            'value' : 1,
+            'content' : '选项2'
+        },{
+            'value' : 2,
+            'content' : '选项3'
+        }]
+    });
+    combobox1.render('#div1');
+    combobox1.getElement('input').value = 'my value';
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 13
+    });
+    equals(combobox1.getElement('input').value, 'my value', 'should be \'my value\'');
+    combobox1.$dispose();
+    document.body.removeChild(div1);
+});
