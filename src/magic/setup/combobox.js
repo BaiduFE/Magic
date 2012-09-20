@@ -58,7 +58,12 @@ magic.setup.combobox = function(el, options) {
     baidu(instance.getElement('container')).addClass('magic-combobox-container-setup');
     instance.on('change', function(event) {
         if (event.from == 'confirm') {
-            el.options[event.result.index].selected = true;
+            //当用键盘选到初始值（最后一个值再往后选一个或第一个值往前选一个）
+            //此时按回车，虽然出发onchange，但是原生select没有此值，无须改变。
+            //by Dengping
+            if (event.result.index) {
+                el.options[event.result.index].selected = true;
+            }
         } else if (event.from == 'blur') {
             var content = this.getElement('input').value;
             if (!newItemOpt) {
