@@ -61,7 +61,10 @@ test("render,default params", function(){
 			var scroll = 0; 
 			var c = new magic.Carousel({
 			    items: citems,
-			    originalIndex: 7
+			    originalIndex: 7,
+			    fx: {                   //保证release模式下Carousel不会被fx插件影响
+			    	enable: false
+			    }
 			});
 			c.on("onmouseenter", function(evt){
 		        evt.target.stop();
@@ -108,6 +111,9 @@ test("render,all params", function(){
 	    autoScroll: {
 	    	interval:100,
 	    	direction: 'backward'
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
 	c.on("onmouseenter", function(evt){
@@ -158,6 +164,9 @@ test("render, button", function(){
 	    items: citems,
 	    autoScroll: {
 	    	interval:100
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
 	c.on("onfocus", function(){
@@ -190,6 +199,9 @@ test("render, disable", function(){
 	    items: citems,
 	    autoScroll: {
 	    	enable: false
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
     c.on("onfocus", function(){
@@ -209,7 +221,10 @@ test("setup,default params", function(){
 	var scroll = 0; 
 	var options = {
 	    items: citems,
-	    originalIndex: 7
+	    originalIndex: 7,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
 	c.on("onmouseenter", function(evt){
@@ -252,6 +267,9 @@ test("setup, all params", function(){
 	    autoScroll: {
 	    	interval: 100,
 	    	direction: 'backward'
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
@@ -300,6 +318,9 @@ test("setup, button", function(){
 	    items: citems,
 	    autoScroll: {
 	    	interval:100
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
@@ -329,6 +350,9 @@ test("setup, disable", function(){
 	var options = {
 	    items: citems,
 	    autoScroll: {
+	    	enable: false
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
 	    	enable: false
 	    }
 	};
