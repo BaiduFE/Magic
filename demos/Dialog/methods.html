@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Dialog 组件各个接口的使用示例" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Dialog 组件各个接口的使用示例">
         <title>对话框组件各个接口的使用示例</title>
-        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
         <style type="text/css" media="screen">
@@ -59,15 +59,15 @@
                 <div class="demo-wrap">
                     <h3>对话框组件各个接口的使用示例</h3>
                     <p>本例只有 Dialog 的 render 模式做演示，对于 setup 一样适用。</p>
-					<p><em>notice:</em> 本例仅是 Dialog 组件方法的使用演示，不代表 Dialog 只有<br />这些方法，参考方法请详见官网 api 页面。</p>
+					<p><em>notice:</em> 本例仅是 Dialog 组件方法的使用演示，不代表 Dialog 只有<br>这些方法，参考方法请详见官网 api 页面。</p>
 					<p><em>notice:</em> 调用方法，只能在 render 或 setup 完成后才可生效。</p>
-					<p><em>notice:</em> 如果 setContent 传入的是一个 body 内的 dom 节点，<br />该 dom 的位置会被记住，下次再 setContent 其它内容，dom 节点<br />会被还原到原来的位置。</p>
+					<p><em>notice:</em> 如果 setContent 传入的是一个 body 内的 dom 节点，<br>该 dom 的位置会被记住，下次再 setContent 其它内容，dom 节点<br>会被还原到原来的位置。</p>
 					<table class="demo-control">
 						<!-- item start -->
 						<tr>
 							<td>查询显示状态</td>
 							<td>dialog.<strong>isShowing</strong>();</td>
-							<td><input cmd="alert(dialog.isShowing());" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><input cmd="alert(dialog.isShowing());" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<!-- item end -->
 
@@ -75,7 +75,7 @@
 						<tr>
 							<td>显示</td>
 							<td>dialog.<strong>show</strong>();</td>
-							<td><input cmd="dialog.show();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><input cmd="dialog.show();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<!-- item end -->
 
@@ -83,7 +83,7 @@
 						<tr>
 							<td>隐藏</td>
 							<td>dialog.<strong>hide</strong>();</td>
-							<td><input cmd="dialog.hide();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><input cmd="dialog.hide();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<!-- item end -->
 
@@ -91,10 +91,10 @@
 						<tr>
 							<td rowspan="2">设置标题</td>
 							<td>dialog.<strong>setTitleText</strong>( <em>str</em> );</td>
-							<td rowspan="2"><input cmd="dialog.setTitleText('#{title}');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td rowspan="2"><input cmd="dialog.setTitleText('#{title}');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<tr>
-							<td><span>str = </span><span><input class="textInput" value="测试标题" id="title" /></span></td>
+							<td><span>str = </span><span><input class="textInput" value="测试标题" id="title"></span></td>
 						</tr>
 						<!-- item end -->
 
@@ -105,8 +105,8 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>" /></span></td>
-							<td><input cmd="dialog.setContent('#{strContent}','text');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>"></span></td>
+							<td><input cmd="dialog.setContent('#{strContent}','text');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>		
 						<!-- item end -->
 
@@ -117,8 +117,8 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td><span>html = </span><span><input type="text" class="textArea" id="strHtml" value="hello <b>magic</b>" /></span></td>
-							<td><input cmd="dialog.setContent('#{strHtml}','html');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><span>html = </span><span><input type="text" class="textArea" id="strHtml" value="hello <b>magic</b>"></span></td>
+							<td><input cmd="dialog.setContent('#{strHtml}','html');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>		
 						<!-- item end -->
 
@@ -130,11 +130,11 @@
 						</tr>
 						<tr>
 							<td><span>element = </span><span>baidu("#hello")</span></td>
-							<td><input cmd="dialog.setContent(baidu('#hello')[0],'element');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><input cmd="dialog.setContent(baidu('#hello')[0],'element');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<tr>
 							<td><span>element = </span><span>baidu("#world")</span></td>
-							<td><input cmd="dialog.setContent(baidu('#world')[0],'element');" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><input cmd="dialog.setContent(baidu('#world')[0],'element');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>			
 						<!-- item end -->
 
@@ -150,13 +150,13 @@
 						<tr>
 							<td rowspan="3">设置尺寸</td>
 							<td>dialog.<strong>setSize</strong>( <em>size</em> );</td>
-							<td rowspan="3"><input cmd="dialog.setSize({width:#{dlgWidth},height:#{dlgHeight}});" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td rowspan="3"><input cmd="dialog.setSize({width:#{dlgWidth},height:#{dlgHeight}});" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<tr>
-							<td><span>size.width = </span><span><input type="text" value="500" class="textInput-s" id="dlgWidth" /></span></td>
+							<td><span>size.width = </span><span><input type="text" value="500" class="textInput-s" id="dlgWidth"></span></td>
 						</tr>
 						<tr>
-							<td><span>size.height = </span><span><input type="text" value="500" class="textInput-s" id="dlgHeight" /></span></td>
+							<td><span>size.height = </span><span><input type="text" value="500" class="textInput-s" id="dlgHeight"></span></td>
 						</tr>	
 						<!-- item end -->			
 
@@ -164,13 +164,13 @@
 						<tr>
 							<td rowspan="3">设置位置</td>
 							<td>dialog.<strong>setPosition</strong>( <em>pos</em> );</td>
-							<td rowspan="3"><input cmd="dialog.setPosition({left:#{dlgLeft},top:#{dlgTop}});" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td rowspan="3"><input cmd="dialog.setPosition({left:#{dlgLeft},top:#{dlgTop}});" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<tr>
-							<td><span>pos.left = </span><span><input type="text" class="textInput-s" id="dlgLeft" value="100" /></span></td>
+							<td><span>pos.left = </span><span><input type="text" class="textInput-s" id="dlgLeft" value="100"></span></td>
 						</tr>
 						<tr>
-							<td><span>pos.top = </span><span><input type="text" class="textInput-s" id="dlgTop" value="100" /></span></td>
+							<td><span>pos.top = </span><span><input type="text" class="textInput-s" id="dlgTop" value="100"></span></td>
 						</tr>	
 						<!-- item end -->
 
@@ -178,7 +178,7 @@
 						<tr>
 							<td>居中显示</td>
 							<td>dialog.<strong>center</strong>();</td>
-							<td><input cmd="dialog.center();" onclick="exec(this)" class="btn" type="button" value="apply" /></td>
+							<td><input cmd="dialog.center();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
 						</tr>
 						<!-- item end -->				
 					</table>

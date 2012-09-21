@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="description" content="选项卡组件" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="选项卡组件">
         <title>选项卡组件 --- items</title>
-        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css"/>
-        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
-        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Tab/magic.control.Tab.css"/>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Tab/magic.control.Tab.css">
 		<style type='text/css'>
 			.tang-tab {
 			    margin:20px 0;
@@ -62,12 +62,12 @@
                     <h3>选项卡组件 --- items 示例</h3>
                     <p>数据项，配置要生成的选项卡的相关信息，分为 tittle 和 content 两部分</p>
                     <p class="item">
-                    	<label>title: <input type="text" class="input_title" value="选项卡标题1" /></label>
-                    	<label>content: <input type="text" class="input_content" value="选项卡内容1" /></label>
+                    	<label>title: <input type="text" class="input_title" value="选项卡标题1"></label>
+                    	<label>content: <input type="text" class="input_content" value="选项卡内容1"></label>
                     </p>
                     <p class="item">
-                    	<label>title: <input type="text" class="input_title" value="选项卡标题2" /></label>
-                    	<label>content: <input type="text" class="input_content" value="选项卡内容2" /></label>
+                    	<label>title: <input type="text" class="input_title" value="选项卡标题2"></label>
+                    	<label>content: <input type="text" class="input_content" value="选项卡内容2"></label>
                     </p>
                     <p id="tab-func">
                     	<button id="render">生成</button>
@@ -87,7 +87,7 @@
         <script>
         	var instance = null;
         	baidu('#add').click(function(){
-        		var html = '<p class="item"><label>title: <input type="text" class="input_title" value="选项卡标题'+(baidu('.item').size()+1)+'" /></label><label>content: <input type="text" class="input_content" value="选项卡内容'+(baidu('.item').size()+1)+'" /></label></p>';
+        		var html = '<p class="item"><label>title: <input type="text" class="input_title" value="选项卡标题'+(baidu('.item').size()+1)+'"></label><label>content: <input type="text" class="input_content" value="选项卡内容'+(baidu('.item').size()+1)+'"></label></p>';
         		baidu('#tab-func').insertHTML('beforeBegin',html);
         		if(baidu('.item').size() > 4)
         			baidu('#add').get(0).disabled = true;
