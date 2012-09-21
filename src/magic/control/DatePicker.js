@@ -27,6 +27,9 @@
  * @param {String} language 当前语言，默认zh-CN
  * @param {Object} popupOptions popup的配置项
  * @param {Object} calendarOptions calendar的配置项
+ * @superClass magic.Base
+ * @author zhaochengyang
+ * @return {magic.control.datePicker} 日历实例
  * @example 
  * /// for options.format,options.language,options.calendarOptions,options.popupOptions
  * var instance = magic.setup.datePicker('J_input_1', {
@@ -41,9 +44,29 @@
  *                  'hideOnEscape': true
  *              }
  * });
- * @return {magic.control.datePicker} 日历实例
- * @superClass magic.Base
- * @author zhaochengyang
+ * @example
+ * /// for options.popupOptions.hideOnEscape,options.popupOptions.offsetX,options.popupOptions.offsetY
+ * var datePicker = magic.setup.datePicker('J_input_1', {
+ *      'format': 'yyyy/MM/dd',
+ *      'language': 'en-US',
+ *      'popupOptions': {
+ *          'hideOnEscape': true,
+ *          'offsetX': 10,
+ *          'offsetY': 20
+ *      }
+ * });
+ * @example
+ * /// for options.calendarOptions.weekStart,options.calendarOptions.initDate,options.calendarOptions.highlightDates,options.calendarOptions.disabledDates
+ * var datePicker = magic.setup.datePicker('J_input_1', {
+ *      'format': 'yyyy/MM/dd',
+ *      'language': 'en-US',
+ *      'calendarOptions': {
+ *          'initDate': new Date(),
+ * 			'weekStart': 'Mon',
+ *          'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+ *          'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+ *      }
+ * });
  */
 magic.control.DatePicker = baidu.lang.createClass(function(options){
 	var me = this;
