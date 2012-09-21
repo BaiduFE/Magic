@@ -46,6 +46,7 @@
  *          'hideOnEscape': true
  *      }
  * });
+ * @example
  * /// for options.popupOptions.hideOnEscape,options.popupOptions.offsetX,options.popupOptions.offsetY
  * var datePicker = magic.setup.datePicker('J_input_1', {
  *      'format': 'yyyy/MM/dd',
@@ -56,6 +57,7 @@
  *          'offsetY': 20
  *      }
  * });
+ * @example
  * /// for options.calendarOptions.weekStart,options.calendarOptions.initDate,options.calendarOptions.highlightDates,options.calendarOptions.disabledDates
  * var datePicker = magic.setup.datePicker('J_input_1', {
  *      'format': 'yyyy/MM/dd',
