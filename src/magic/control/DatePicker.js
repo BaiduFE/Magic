@@ -155,9 +155,9 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 
     /**
      * @description 显示日历
-     * @name magic.DatePicker#show
+     * @name magic.control.DatePicker#show
      * @function
-     * @grammar magic.DatePicker#show()
+     * @grammar magic.control.DatePicker#show()
      * @example
      * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
@@ -208,9 +208,9 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 
     /**
      * @description 隐藏日历
-     * @name magic.DatePicker#hide
+     * @name magic.control.DatePicker#hide
      * @function
-     * @grammar magic.DatePicker#hide()
+     * @grammar magic.control.DatePicker#hide()
      * @example
      * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
@@ -284,9 +284,9 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
    
     /**
      * @description 析构函数
-     * @name magic.DatePicker#$dispose
+     * @name magic.control.DatePicker#$dispose
      * @function
-     * @grammar magic.DatePicker#$dispose()
+     * @grammar magic.control.DatePicker#$dispose()
      * @example
      * var instance = new magic.setup.datePicker({
      *      'format': 'yyyy/MM/dd',
