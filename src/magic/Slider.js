@@ -43,7 +43,7 @@
  * 		accuracy: 0.25
  * });
  * @example
- * /// for options.accuracy
+ * /// for options.currentValue
  * var instance = new magic.Slider({
  * 		currentValue: 10
  * });
