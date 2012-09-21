@@ -25,12 +25,14 @@
  * @param {Number|String} options.width 组合框的宽度，默认100%。
  * @return {magic.ComboBox} 组合框实例.
  * @example
- * /// for options.items
+ * /// for options.items,options.diabled,options.width
  * var instance = new magic.ComboBox({
  *     "items" : [
  *         {"value" : 0, "content" : "女"},
  *         {"value" : 1, "content" : "男"}
- *     ]
+ *     ],
+ *     diabled: false,
+ *     width: '100%'
  * });
  * @example
  * /// for options.viewSize
