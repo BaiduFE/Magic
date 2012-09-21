@@ -6,12 +6,14 @@
         <title>日历组件quickStart</title>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css"/>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datepicker'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker'></script>
     </head>
     <body>
         <div class='demo'>
             <h1>DatePicker </h1>
-            <p>选择日期：<input type="text" id="J_input" /></p>
+            <form autocomplete="off">
+	            <p>选择日期：<input type="text" id="J_input" /></p>
+        	</form>
         </div>
         <script type="text/javascript" charset="utf-8">
             var datepicker1 = new magic.setup.datePicker('J_input');

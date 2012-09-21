@@ -41,7 +41,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datepicker,magic.Calendar.$title'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker,magic.Calendar.$title'></script>
     </head>
     <body>
         <div class="content">
@@ -57,9 +57,10 @@
                 <div class="demo-wrap">
                     <h3>日历组件示例</h3>
                     <p>通过展示日历方便使用者快速填写日期，多用于需要填写日期的input表单输入控件。</p>
-                    <p></p>
                     <div class="demo-view">
-                        <p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
+                    	<form autocomplete="off">
+                        	<p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
+                        </form>
                     </div>
                 </div>
                 <div class="datepicker_describe">
