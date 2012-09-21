@@ -32,7 +32,10 @@ test("vertical", function(){
 			originalIndex: 5,
 			focusRange : {min: 1, max: 2},
 			isLoop: true,
-			step: 2
+			step: 2,
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
+		    }
 		};
 		var c = magic.setup.carousel('one-carousel', options);
 	    equals(c._selectedIndex, 5, "The default index is right");
@@ -88,6 +91,9 @@ test("default params", function(){
 	ua.loadcss(upath + "carousel/carousel.css", function(){
 		enSetup();
 		var options = {
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
+		    }
 		};
 	    var c = magic.setup.carousel('one-carousel', options);
 	    equals(c._selectedIndex, 0, "The default index is right");
@@ -118,7 +124,10 @@ test("all params", function(){
 		originalIndex: 5,
 		focusRange : {min: 1, max: 2},
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     equals(c._selectedIndex, 5, "The default index is right");
@@ -144,7 +153,10 @@ test("all params, special selectedIndex", function(){
 		viewSize: 4,
 		originalIndex: 9,
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     equals(c._selectedIndex, 9, "The default index is right");
@@ -170,7 +182,10 @@ test("all params, special selectedIndex & focusRange", function(){
 		viewSize: 4,
 		originalIndex: 4,
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     equals(c._selectedIndex, 4, "The default index is right");
@@ -194,6 +209,9 @@ test("next, default params", function(){
 	expect(55);
 	enSetup();
 	var options = {
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     for(var i = 0; i < 11; i ++){
@@ -225,7 +243,10 @@ test("next, all params", function(){
 		originalIndex: 4,
 		focusRange : {min: 1, max: 3},
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     for(var i = 0; i < 6; i ++){
@@ -256,7 +277,10 @@ test("next, step more than focusRange", function(){
 		originalIndex: 4,
 		focusRange : {min: 1, max: 2},
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     for(var i = 0; i < 6; i ++){
@@ -287,7 +311,10 @@ test("next, step less than focusRange", function(){
 		originalIndex: 4,
 		focusRange : {min: 1, max: 3},
 		isLoop: true,
-		step: 1
+		step: 1,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     for(var i = 0; i < 6; i ++){
@@ -314,7 +341,10 @@ test("prev, default params", function(){
 	expect(30);
 	enSetup();
 	var options = {
-		originalIndex: 4
+		originalIndex: 4,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     for(var i = 4; i > -2; i --){
@@ -346,7 +376,10 @@ test("prev, all params", function(){
 		originalIndex: 4,
 		focusRange : {min: 1, max: 3},
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     for(var i = 4; i > -2; i --){
@@ -365,6 +398,9 @@ test("focus, default params", function(){
 	expect(30);
 	enSetup();
 	var options = {
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     c.focus(0);
@@ -414,7 +450,10 @@ test("focus, all params", function(){
 		originalIndex: 4,
 		focusRange : {min: 1, max: 2},
 		isLoop: true,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     c.focus(4);
@@ -469,7 +508,10 @@ test("focus, next, prev", function(){
 		viewSize: 4,
 		focusRange : {min: 1, max: 2},
 		isLoop: false,
-		step: 2
+		step: 2,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     c.focus(7);
@@ -509,6 +551,9 @@ test("events & dispose", function(){
 	enSetup();
 	var l1 = baidu._util_.eventBase._getEventsLength();
 	var options = {
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     c.on("onfocus", function(e, d){
@@ -539,6 +584,9 @@ test("getElement", function(){
 	expect(2);
 	enSetup();
 	var options = {
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     equals(c.getElement().id, "one-carousel", "getElement");

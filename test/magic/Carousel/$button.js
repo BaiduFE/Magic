@@ -26,6 +26,9 @@ test("enable", function(){
 		    items: citems,
 		    button: {
 		    	buttonLabel: {prev: 'left', next: 'right'}
+		    },
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
 		    }
 		});
 	    c.render('one-carousel');
@@ -74,6 +77,9 @@ test("click", function(){
 	    items: citems,
 	    button: {
 	    	buttonLabel: {prev: 'left', next: 'right'}
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
     c.render('one-carousel');
@@ -100,6 +106,9 @@ test("disable", function(){
 	    items: citems,
 	    button:{
 	    	enable : false
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
     c.render('one-carousel');
@@ -124,6 +133,9 @@ test("click, vertical", function(){
 		    items: citems,
 		    button:{
 		    	buttonLabel: {prev: 'left', next: 'right'}
+		    },
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
 		    }
 		});
 	    c.render('one-carousel');
