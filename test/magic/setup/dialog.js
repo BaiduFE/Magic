@@ -296,10 +296,10 @@ test("setPosition & getPosition", function(){
 			equals(dialog.getElement().style.top, "100px", "The top is right");
 		}
 	});
-	equals(dialog.left, (ww - 400) / 2, "The left is right");
-    equals(dialog.top, (wh - 300) / 2, "The top is right");
-    equals(dialog.getElement().style.left, (ww - 400) / 2 + "px", "The left is right");
-    equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");     
+	dialog.setPosition({ left: 50, top: 100 });
+	dialog.setPosition({left:70});
+	equals(dialog.getPosition().left, 70, "The getPosition() is right");
+	equals(dialog.getPosition().top, 100, "The getPosition() is right");
 	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
@@ -322,10 +322,10 @@ test("center, auto width & height", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, 50, "The left is right");
-		equals(dialog.top, 100, "The top is right");
-		equals(dialog.getElement().style.left, "50px", "The left is right");
-		equals(dialog.getElement().style.top, "100px", "The top is right");
+		equals(dialog.left, (ww - 400) / 2, "The left is right");
+	    equals(dialog.top, (wh - 300) / 2, "The top is right");
+	    equals(dialog.getElement().style.left, (ww - 400) / 2 + "px", "The left is right");
+	    equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");    
 		w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 		this.finish();
 		document.body.removeChild(f.parentNode);
@@ -353,10 +353,10 @@ test("center", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, (ww - 100) / 2, "The left is right");
-        equals(dialog.top, (wh - 100) / 2, "The top is right");
-        equals(dialog.getElement().style.left, (ww - 100) / 2 + "px", "The left is right");
-        equals(dialog.getElement().style.top, (wh - 100) / 2 + "px", "The top is right");     
+		equals(dialog.left, (ww - 300) / 2, "The left is right");
+        equals(dialog.top, (wh - 300) / 2, "The top is right");
+        equals(dialog.getElement().style.left, (ww - 300) / 2 + "px", "The left is right");
+        equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");     
         
         var largeDiv = w.document.createElement('div');
         w.document.body.appendChild(largeDiv);
@@ -368,10 +368,10 @@ test("center", function(){
         var ww = w.document.body.clientWidth;
         var wh = w.document.body.clientHeight;
         dialog.center();
-        equals(dialog.left, parseInt(st + (ww - 100) / 2), "The left is right");
-        equals(dialog.top, parseInt(st + (wh - 100) / 2), "The top is right");
-        equals(dialog.getElement().style.left, parseInt(st + (ww - 100) / 2) + "px", "The left is right");
-        equals(dialog.getElement().style.top, parseInt(st + (wh - 100) / 2) + "px", "The top is right");
+        equals(dialog.left, parseInt(st + (ww - 300) / 2), "The left is right");
+        equals(dialog.top, parseInt(st + (wh - 300) / 2), "The top is right");
+        equals(dialog.getElement().style.left, parseInt(st + (ww - 300) / 2) + "px", "The left is right");
+        equals(dialog.getElement().style.top, parseInt(st + (wh - 300) / 2) + "px", "The top is right");
 
 		
 		w.document.body.removeChild(w.baidu("#one-dialog")[0]);
