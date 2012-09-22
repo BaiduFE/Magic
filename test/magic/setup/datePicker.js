@@ -112,7 +112,7 @@ test('自定义参数', function(){
     var dp = magic.setup.datePicker(input, {
         'format': 'yyyy/MM/dd',
         'popupOptions': {
-            'offsetX': 20,
+            'offsetX': 50,
             'offsetY': 20
         },
         'calendarOptions': {
@@ -134,7 +134,7 @@ test('自定义参数', function(){
         }else{
             equals(dpTop, baidu(input).offset().top + input.offsetHeight + 20 + "px", '测试默认状态下日历的位置');
         }
-        equals(dpLeft, baidu(input).offset().left + 20 + "px", '测试自定义日历的位置');
+        equals(dpLeft, baidu(input).offset().left + 50 + "px", '测试自定义日历的位置');
         
         var dateDoms = baidu(".tang-calendar-date", document);
         ua.click(dateDoms[0]);
