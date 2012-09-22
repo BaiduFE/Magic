@@ -201,7 +201,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || baidu.i18n.date.toLocaleDate(new Date()));
 		me.popup.attach(me.input, {
 			'offsetY': me.popupOption.offsetY || -1,
-			'offsetX': me.popupOption.offsetY || 0
+			'offsetX': me.popupOption.offsetX || 0
 		});
 		
         /**
