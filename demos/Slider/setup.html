@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Carousel 组件">
+        <title>滑动条组件 --- setup模式</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Slider/magic.Slider.css">
+	    <style type="text/css">
+	    	#slider{
+	    		margin:20px 0;
+	    	}
+	        .demo{height:400px;}
+	        .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+	        .wrap{width:200px;margin:10px auto;font-size:12px;}
+	        .tang-slider-htl .tang-knob{top:0;margin-left:-11px;background:url("../../resources/default/magic.control.Slider/slider-h-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-h-knob.png");}
+	        .tang-slider-htl .tang-knob:hover{background-image:url("../../resources/default/magic.control.Slider/slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+	        .tang-slider-htl .tang-knob:active{background-image:url("../../resources/default/magic.control.Slider/slider-h-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-h-knobHover.png");}
+	
+	        .tang-slider-vtl .tang-knob{top:0;margin-top:-11px;background:url("../../resources/default/magic.control.Slider/slider-v-knob.png") no-repeat left top;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knob.png");}
+	        .tang-slider-vtl .tang-knob:hover{background-image:url("../../resources/default/magic.control.Slider/slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+	        .tang-slider-vtl .tang-knob:active{background-image:url("../../resources/default/magic.control.Slider/slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
+	    </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Slider,magic.setup.slider,magic.control.Slider.$fx,magic.control.Slider.$cache'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                	<li><a href="./render.html">render 模式</a></li>
+                	<li><a href="./setup.html">setup 模式</a></li>
+                	<li><a href="./fx.html">动画插件</a></li>
+                	<li><a href="./cache.html">缓存插件</a></li>
+                	<li><a href="./accuracy.html">accuracy</a></li>
+                	<li><a href="./currentValue.html">currentValue</a></li>
+                	<li><a href="./direction.html">direction</a></li>
+                	<li><a href="./orientation.html">orientation</a></li>
+                	<li><a href="./event.html">常用事件</a></li>
+                	<li><a href="./method.html">常用方法</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>滑动条组件 --- setup模式</h3>
+                    <p>从已有的 HTML 创建滑动条组件</p>
+                    <div class="demo-view"></div>
+                </div>
+               	<div id="slider" class="tang-ui tang-slider tang-slider-htl">
+	                <div class="tang-view">
+	                    <div class="tang-content">
+	                        <div class="tang-corner tang-start"></div>
+	                        <div class="tang-corner tang-last"></div>
+	                        <div class="tang-inner"><div class="tang-process tang-process-forward"></div></div>
+	                    </div>
+	                    <a href="javascript:;" class="tang-knob"></a>
+	                </div>
+	            </div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+		    var instance = magic.setup.slider('slider', {
+		    	orientation: 'horizonal',
+		    	direction: 'forward'
+		    }); 
+		    
+		    instance.on('change', function(evt){
+		    	log('info', "当前值: " + evt.value);
+		    });
+        </script>
+    </body>
+</html>

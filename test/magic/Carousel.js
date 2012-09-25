@@ -28,7 +28,10 @@ test("vertical", function(){
 			focusRange : {min: 1, max: 2},
 			isLoop: true,
 			step: 2,
-		    items: citems
+		    items: citems,
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
+		    }
 		});
 	    c.render('one-carousel');
 	    equals(c._selectedIndex, 5, "The default index is right");
@@ -85,7 +88,10 @@ test("default params", function(){
 		document.body.appendChild(div);
 		div.id = "one-carousel";
 		var c = new magic.Carousel({
-		    items: citems
+		    items: citems,
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
+		    }
 		});
 	    c.render('one-carousel');
 	    equals(c._selectedIndex, 0, "The default index is right");
@@ -119,7 +125,10 @@ test("all params", function(){
 		focusRange : {min: 1, max: 2},
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     equals(c._selectedIndex, 5, "The default index is right");
@@ -148,7 +157,10 @@ test("all params, special selectedIndex", function(){
 		originalIndex: 9,
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     equals(c._selectedIndex, 9, "The default index is right");
@@ -177,7 +189,10 @@ test("all params, special selectedIndex & focusRange", function(){
 		originalIndex: 4,
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     equals(c._selectedIndex, 4, "The default index is right");
@@ -203,7 +218,10 @@ test("next, default params", function(){
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     for(var i = 0; i < 11; i ++){
@@ -238,7 +256,10 @@ test("next, all params", function(){
 		focusRange : {min: 1, max: 3},
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     for(var i = 0; i < 6; i ++){
@@ -272,7 +293,10 @@ test("next, step more than focusRange", function(){
 		focusRange : {min: 1, max: 2},
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     for(var i = 0; i < 6; i ++){
@@ -306,7 +330,10 @@ test("next, step less than focusRange", function(){
 		focusRange : {min: 1, max: 3},
 		isLoop: true,
 		step: 1,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     for(var i = 0; i < 6; i ++){
@@ -336,7 +363,10 @@ test("prev, default params", function(){
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
 	    items: citems,
-		originalIndex: 4
+		originalIndex: 4,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     for(var i = 4; i > -2; i --){
@@ -371,7 +401,10 @@ test("prev, all params", function(){
 		focusRange : {min: 1, max: 3},
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     for(var i = 4; i > -2; i --){
@@ -392,7 +425,10 @@ test("focus, default params", function(){
 	document.body.appendChild(div);
 	div.id = "one-carousel";
 	var c = new magic.Carousel({
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     c.focus(0);
@@ -445,7 +481,10 @@ test("focus, all params", function(){
 		focusRange : {min: 1, max: 2},
 		isLoop: true,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     c.focus(4);
@@ -503,7 +542,10 @@ test("focus, next, prev, isLoop=false", function(){
 		focusRange : {min: 1, max: 2},
 		isLoop: false,
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     c.focus(7);
@@ -534,13 +576,16 @@ test("focus, next, prev, isLoop=false", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text3", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
-    c.dispose();
+    c.$dispose();
     var c = new magic.Carousel({
 		viewSize: 4,
 		originalIndex: 9,
 		focusRange : {min: 1, max: 2},
 		step: 2,
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
 	equals(c.getElement("element").childNodes.length, 4, "The viewSize is right");
@@ -557,9 +602,12 @@ test("events & dispose", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var c = new magic.Carousel({
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     c.on("onfocus", function(e, d){
@@ -575,13 +623,13 @@ test("events & dispose", function(){
     	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
-    	var l2 = baidu.event._listeners.length;
+    	var l2 = baidu._util_.eventBase._getEventsLength();
     	equals(l2, l1, "The events are un");
     });
     c.focus(8, 'backward');
     ua.click(c.getElement("element").childNodes[0]);
     ua.mouseout(c.getElement("element").childNodes[0]);
-    c.dispose();
+    c.$dispose();
 	equals(c.disposed, true, "disposed");
 	equals($(".tang-carousel-container").length, 0, "dom clear");
     document.body.removeChild(div);
@@ -592,13 +640,14 @@ test("getElement", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
-	var l1 = baidu.event._listeners.length;
 	var c = new magic.Carousel({
-	    items: citems
+	    items: citems,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	});
     c.render('one-carousel');
     equals(c.getElement().id, "one-carousel", "getElement");
     equals(c.getElement("container").className, "tang-carousel-container", "getElement");
     document.body.removeChild(div);
 });
-

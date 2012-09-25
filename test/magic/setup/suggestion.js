@@ -40,8 +40,8 @@ test('default params', function(){
 			        me.receiveData(key, getContentByKey(key));
 			    },
 		        onshow: function(){
-		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).top, baidu.dom.getPosition(this.getElement("input")).top + input.offsetHeight - 1, "The offsetX is right");
-		        	equals(baidu.dom.getPosition(this.getElement("suggestion")).left, baidu.dom.getPosition(this.getElement("input")).left, "The offsetY is right");
+		        	equals(baidu.dom(this.getElement("suggestion")).offset().top, baidu.dom(this.getElement("input")).offset().top + input.offsetHeight - 1, "The offsetX is right");
+		        	equals(baidu.dom(this.getElement("suggestion")).offset().left, baidu.dom(this.getElement("input")).offset().left, "The offsetY is right");
 		        	equals(this.getElement("suggestion").offsetWidth, input.offsetWidth, "The Width is right");
 		        	
 		        	equals(this.getDataByIndex(0).value, "a+1", "The value is right");
@@ -154,19 +154,19 @@ test('default params', function(){
 		        onhide: function(){
 		        	ok(!isShown(this.getElement("suggestion")), "hide");
 		        	this.on("ondispose", function(){//不能在ondispose中写，因为ondispose在代码解绑监听函数之前运行，那时还有一些监听函数没有解绑
-		        		var l2 = baidu.event._listeners.length;
+		        		var l2 = baidu._util_.eventBase._getEventsLength();
 			        	equals(l2, l1, "The events are un");
 			        	equals(this.getElement("suggestion").style.display, "none", "The dom is hide");
 			        	document.body.removeChild(div);
 			        	start();
 		        	})
-		        	this.dispose();
+		        	this.$dispose();
 		        },
 		        ondispose: function(){
 		        	
 		        }
 		    };
-			var l1 = baidu.event._listeners.length;
+			var l1 = baidu._util_.eventBase._getEventsLength();
 			var s = magic.setup.suggestion('tang-suggestion-input', options);
 			$("input").focus();
 			$("input").attr("value", "a");
@@ -195,8 +195,8 @@ test("all params", function(){
         holdHighLight : true,
         onshow: function(){
         	var s = this;
-        	equals(baidu.dom.getPosition(this.getElement("suggestion")).top, baidu.dom.getPosition(this.getElement("input")).top + input.offsetHeight + 200, "The offsetX is right");
-        	equals(baidu.dom.getPosition(this.getElement("suggestion")).left, baidu.dom.getPosition(this.getElement("input")).left + 200, "The offsetY is right");
+        	equals(baidu.dom(this.getElement("suggestion")).offset().top, baidu.dom(this.getElement("input")).offset().top + input.offsetHeight + 200, "The offsetX is right");
+        	equals(baidu.dom(this.getElement("suggestion")).offset().left, baidu.dom(this.getElement("input")).offset().left + 200, "The offsetY is right");
         	equals(this.getElement("suggestion").offsetWidth, 200, "The Width is right");
         	
         	setTimeout(function(){
@@ -272,7 +272,7 @@ test("all params", function(){
         },
         onhide: function(){
         	ok(!isShown(this.getElement("suggestion")), "hide");
-        	this.dispose();
+        	this.$dispose();
     		document.body.removeChild(div);
         	start();
         }
@@ -331,7 +331,7 @@ test("getData & show & render", function(){
             	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The class is right");
             	ok(isShown(this.getElement("suggestion")), "The suggestion is show");
             	equals(this.selectedIndex, -1, "The selectedIndex is right");
-            	this.dispose();
+            	this.$dispose();
             	document.body.removeChild(div);
             	start();
         	}
@@ -389,7 +389,7 @@ test("hide", function(){
         		equals(this.getInputValue(), "北海3", "The input value is right");
         		equals(this.oldInputValue, "北海3", "The oldInputValue is right");
             	setTimeout(function(){
-            		s.dispose();
+            		s.$dispose();
                 	document.body.removeChild(div);
                 	start();
             	}, 0);
@@ -414,7 +414,7 @@ test("highLight & clearHighLight", function(){
 	    },
         onshow: function(){
         	setTimeout(function(){
-        		s.highLight(0);
+        		s.$highlight(0);
         	}, 0);
         },
         onhighlight: function(e, data){
@@ -425,23 +425,23 @@ test("highLight & clearHighLight", function(){
         		equals(getCurrentItem(s), "a+1", "The hightlight item is right");
         		equals(this.selectedIndex, 0, "The selectedIndex is right");
         		setTimeout(function(){
-            		s.highLight(1);
+            		s.$highlight(1);
             	}, 0);
         	}
         	if(highlight == 2){
         		equals(getCurrentItem(s), "北海2", "The hightlight item is right");
         		equals(this.selectedIndex, 1, "The selectedIndex is right");
         		setTimeout(function(){
-            		s.highLight(3);
+            		s.$highlight(3);
             	}, 0);
         		setTimeout(function(){
-            		s.highLight(4);
+            		s.$highlight(4);
             	}, 0);
         	}
         	if(highlight == 3){
         		equals(getCurrentItem(s), "北海5", "The hightlight item is right");
         		equals(this.selectedIndex, 3, "The selectedIndex is right");
-        		this.dispose();
+        		this.$dispose();
             	document.body.removeChild(div);
             	start();
         	}
@@ -478,7 +478,7 @@ test("pick", function(){
 	    },
         onshow: function(){
         	setTimeout(function(){
-            	s.pick(1);
+            	s.$pick(1);
         	} ,0);
         },
         onbeforepick: function(e, data){
@@ -492,7 +492,7 @@ test("pick", function(){
     		equals(data.value, "北海2", "The value param is right");
         	equals($(input).attr("value"), "北海2", "The input value is right");
         	equals(this.oldInputValue, "北海2", "The oldInputValue is right");
-	   		this.dispose();
+	   		this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -514,7 +514,7 @@ test("confirm", function(){
 	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
-        	this.confirm(1);
+        	this.$confirm(1);
         },
         onconfirm: function(e, data){
         	equals(data.index, 1, "The index param is right");
@@ -524,7 +524,7 @@ test("confirm", function(){
         },
         onhide: function(){
         	equals(this.selectedIndex, -1, "The selectedIndex is right");
-        	this.dispose();
+        	this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -605,7 +605,7 @@ test("mouse event pick", function(){
         	equals($(input).attr("value"), "北海3", "The input value is right");
     		equals(this.oldInputValue, "北海3", "The oldInputValue is right");
     		equals(this.selectedIndex, -1, "The selectedIndex is right");
-    		this.dispose();
+    		this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -655,7 +655,7 @@ test("mouse event,hide", function(){
         	equals($(input).attr("value"), "a", "The input value is right");//mouseover之后，input框中的内容没有变化
     		equals(this.oldInputValue, "a", "The oldInputValue is right");
     		equals(this.selectedIndex, -1, "The selectedIndex is right");
-    		this.dispose();
+    		this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -719,7 +719,7 @@ test("key event,enter", function(){
         	equals($(input).attr("value"), "a+1", "The input value is right");
     		equals(this.oldInputValue, "a+1", "The oldInputValue is right");
     		equals(this.selectedIndex, -1, "The selectedIndex is right");
-    		this.dispose();
+    		this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -760,7 +760,7 @@ test("key event,esc", function(){
         	equals($(input).attr("value"), "a+1", "The input value is right");
     		equals(this.oldInputValue, "a+1", "The oldInputValue is right");
     		equals(this.selectedIndex, -1, "The selectedIndex is right");
-    		this.dispose();
+    		this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -801,7 +801,7 @@ test("key event,tab", function(){
         	equals($(input).attr("value"), "a+1", "The input value is right");
     		equals(this.oldInputValue, "a+1", "The oldInputValue is right");
     		equals(this.selectedIndex, -1, "The selectedIndex is right");
-    		this.dispose();
+    		this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -824,7 +824,7 @@ test("getElement", function(){
         	equals(this.getElement("").id, "tang-suggestion-input", "The getElement()is right");
         	equals(this.getElement("input").id, "tang-suggestion-input", "The getElement()is right");
         	equals(this.getElement("suggestion").className, "tang-popup tang-suggestion-popup", "The getElement()is right");
-        	this.dispose();
+        	this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }
@@ -846,7 +846,7 @@ test("encode", function(){
         onshow: function(){
         	equals(this.getDataByIndex(0).value, "<input>", "The value is right");
         	equals(this.getDataByIndex(0).content, "&lt;input&gt;", "The value is right");
-        	this.dispose();
+        	this.$dispose();
 	       	document.body.removeChild(div);
 	       	start();
         }

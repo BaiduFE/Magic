@@ -88,10 +88,9 @@ class Kiss{
 	}
 
 	public function print_js($cov=false, $release=false){
-		print '<script type="text/javascript" src="js/jquery-1.3.2.js"></script>'."\n";
+		print '<script type="text/javascript" src="js/jquery-1.7.2.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/testrunner.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
-		print '<script type="text/javascript" src="js/commonTest.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/UserAction.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/tools.js"></script>'."\n";
 
@@ -103,7 +102,7 @@ class Kiss{
 			if($cov) $importurl.='&cov=true';
 			print "<script type='text/javascript' src='$importurl' ></script>\n";
 		}else{
-			print "<script type='text/javascript' src='{$this->projroot}release/all_release.js'></script>\n";
+			print "<script type='text/javascript' src='{$this->projroot}Magic.js'></script>\n";
 		}
 
 		/* load case and case dependents*/

@@ -8,14 +8,37 @@
 ///import baidu.fx.scrollTo;
 ///import baidu.fx.current;
 /**
- * 为滚动组件增加动画滚动功能
+ * @description 为图片轮播组件增加动画滚动功能
  * @name magic.control.Carousel.$fx
- * @addon magic.control.Carousel
- * @param {Object} options config参数.
- * @config {Boolean} fx.enable 是否支持动画插件
- * @config {Number} fx.duration 执行一次动画的时间，默认值是500（毫秒）
- * @config {Number} fx.interval 动画脉冲间隔时间，默认值是16（毫秒）
+ * @addon
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.fx.enable 插件开关，默认 true
+ * @param {Number} options.fx.duration 执行一次动画的时间(毫秒)，默认500
+ * @param {Number} options.fx.interval 动画脉冲间隔时间(毫秒)，默认16
  * @author linlingyu
+ * @example
+ * /// for options.fx.enable
+ * var instance = new magic.Carousel({
+ * 		fx: {
+ * 			enable: true
+ *      }
+ * });
+ * @example
+ * /// for options.fx.duration
+ * var instance = new magic.Carousel({
+ * 		fx: {
+ * 			enable: true,
+ * 			duration: 1000	// 执行一次动画的时间1秒
+ *      }
+ * });
+ * @example
+ * /// for options.fx.interval
+ * var instance = new magic.Carousel({
+ * 		fx: {
+ * 			enable: true,
+ * 			interval: 20	// 动画脉冲间隔时间20毫秒
+ *      }
+ * });
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this;
@@ -47,6 +70,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
                 },
                 
                 onafterfinish: function(){
+                	if(me.disposed)
+                		return;
                     me._toggle(evt.index);
                     me._clear(evt.index, opt.focusRange[evt.distance < 0 ? 'min' : 'max']);
                     me._resize();

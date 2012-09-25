@@ -21,11 +21,14 @@ test("enable", function(){
 		var div = document.createElement("div");
 		document.body.appendChild(div);
 		div.id = "one-carousel";
-		var l1 = baidu.event._listeners.length;
+		var l1 = baidu._util_.eventBase._getEventsLength();
 		var c = new magic.Carousel({
 		    items: citems,
 		    button: {
 		    	buttonLabel: {prev: 'left', next: 'right'}
+		    },
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
 		    }
 		});
 	    c.render('one-carousel');
@@ -58,8 +61,8 @@ test("enable", function(){
 	    c.focusPrev();
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-	    c.dispose();
-	    var l2 = baidu.event._listeners.length;
+	    c.$dispose();
+	    var l2 = baidu._util_.eventBase._getEventsLength();
 	    equals(l2, l1, "The events are un");
 	    document.body.removeChild(div);
 	    start();
@@ -74,6 +77,9 @@ test("click", function(){
 	    items: citems,
 	    button: {
 	    	buttonLabel: {prev: 'left', next: 'right'}
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
     c.render('one-carousel');
@@ -88,7 +94,7 @@ test("click", function(){
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
     ua.click(c.getElement().childNodes[2]);
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(div);
 });
 
@@ -100,6 +106,9 @@ test("disable", function(){
 	    items: citems,
 	    button:{
 	    	enable : false
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
     c.render('one-carousel');
@@ -109,7 +118,7 @@ test("disable", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
     equals(c.getElement().childNodes.length, 1, "No buttons");
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(div);
 });
 
@@ -124,6 +133,9 @@ test("click, vertical", function(){
 		    items: citems,
 		    button:{
 		    	buttonLabel: {prev: 'left', next: 'right'}
+		    },
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
 		    }
 		});
 	    c.render('one-carousel');
@@ -138,7 +150,7 @@ test("click, vertical", function(){
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
 	    ua.click(c.getElement().childNodes[2]);
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
-	    c.dispose();
+	    c.$dispose();
 	    document.body.removeChild(div);
 	    start();
 	});

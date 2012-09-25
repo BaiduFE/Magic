@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Carousel 组件">
+        <title>图片轮播组件 --- setup模式</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Carousel/magic.control.Carousel.css">
+		<style type='text/css'>
+			.tang-carousel {
+				margin:20px auto;
+			    width: 644px;
+    			height: 140px;
+			}
+			.tang-carousel .tang-carousel-container ul,
+			.tang-carousel .tang-carousel-container ul li,
+			.tang-carousel .tang-carousel-container ul li img {margin: 0px; padding: 0px;}
+		</style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.carousel,magic.control.Carousel.$button'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./render.html">render 模式</a></li>
+                	<li><a href="./setup.html">setup 模式</a></li>
+                	<li><a href="./button.html">前后按钮插件示例</a></li>
+                    <li><a href="./fx.html">动画插件示例</a></li>
+                    <li><a href="./autoScroll.html">自动滚动插件示例</a></li>
+                	<li><a href="./vertical.html">垂直滚动</a></li>
+                	<li><a href="./step.html">step</a></li>
+                	<li><a href="./focusRange.html">focusRange</a></li>
+                	<li><a href="./event.html">常用事件</a></li>
+                	<li><a href="./method.html">常用方法</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>图片轮播组件 --- setup 模式示例</h3>
+                    <p>setup 模式： 从已有的 HTML 创建组件</p>
+                    <div class="demo-view">
+                    </div>
+                </div>
+               	<div id='one-carousel' class='tang-ui tang-carousel' tang-param='viewSize:4; originalIndex: 0;'>
+               		<a class='tang-carousel-btn tang-carousel-btn-prev' href='#' onclick='return false;'></a>
+				    <div class='tang-carousel-container'>
+				        <ul class='tang-carousel-element'>
+				            <li class='tang-carousel-item tang-carousel-item-selected'><img src='../../demos/Carousel/item/0.png'/></li>
+				            <li class='tang-carousel-item'><img src='../../demos/Carousel/item/1.png'/></li>
+				            <li class='tang-carousel-item'><img src='../../demos/Carousel/item/2.png'/></li>
+				            <li class='tang-carousel-item'><img src='../../demos/Carousel/item/3.png'/></li>
+				            <li class='tang-carousel-item'><img src='../../demos/Carousel/item/4.png'/></li>
+				            <li class='tang-carousel-item'><img src='../../demos/Carousel/item/5.png'/></li>
+				            <li class='tang-carousel-item'><img src='../../demos/Carousel/item/6.png'/></li>
+				        </ul>
+				    </div>
+				    <a class='tang-carousel-btn tang-carousel-btn-next' href='#' onclick='return false;'></a>
+				</div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+		    var c = magic.setup.carousel('one-carousel', {
+		        isLoop: true,
+		        autoScroll: {
+		            enable: true
+		        }
+		    });
+		    c.on('onmouseenter', function(evt){
+		        evt.target.stop();
+		    });
+		    c.on('onmouseleave', function(evt){
+		        evt.target.start();
+		    });
+        </script>
+    </body>
+</html>

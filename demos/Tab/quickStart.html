@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="magic.Tab 组件quickStart">
+<title>magic.Tab 组件quickStart</title>
+<link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+<link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Tab/magic.control.Tab.css">
+<script type="text/javascript" src="../../src/import.php?f=magic.Tab"></script>
+<style type='text/css'>
+.tang-tab {
+    width: 400px;
+}
+.tang-tab .tang-body .tang-body-item{
+    height: 50px;
+    border: #a9a9a9 solid 1px;
+    border-top: none;
+    padding: 5px;
+}
+.try-main .tang-tab ul,
+.try-main .tang-tab ul li {
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
+}
+</style>
+</head>
+<body>
+    <div id='J_tab'></div>
+    <script type='text/javascript'>
+    	var instance = new magic.Tab({
+            'items': [
+                {title: '项目一', content: 'hello world~1'},
+                {title: '项目二', content: 'hello world~2'},
+                {title: '项目三', content: 'hello world~3'}
+            ]
+        });
+        instance.render('J_tab');
+    </script>
+</body>
+</html>

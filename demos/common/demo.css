@@ -1,0 +1,120 @@
+body {
+	font-family: "Arial", "宋体";
+	font-size: 14px;
+	color: #333;
+	margin: 0;
+	padding: 20px;
+}
+h3 {
+	margin: 0;
+	color: #6A84BB;
+}
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+a {
+	text-decoration: none;
+}
+.content {
+	width: 960px;
+	overflow: hidden;
+	clear: both;
+	margin: 0 auto;
+}
+.demo-list {
+	float: left;
+	width: 200px;
+}
+.demo-list li {
+	line-height: 2em;
+}
+.main-wrap {
+	float: left;
+	width: 740px;
+	margin-left: 20px;
+}
+.demo-wrap {
+	background-color: #8899DD;
+	color: #FFF;
+	padding: 15px;
+	*zoom:1;
+}
+.demo-wrap h3 {
+	color: #FFF;
+}
+.console-wrap {
+	margin-top: 20px;
+}
+
+.console {
+	height: 300px;
+	overflow: scroll;
+}
+.console p {
+	padding: 0 0 5px 3px;
+	border-bottom: 1px solid #E1E1E1;
+}
+.console span {
+	padding: 3px;
+	margin-right: 5px;
+}
+.console .event {
+	background-color: #A7CC25;
+}
+.console .fn {
+	background-color: #A6C9D7;
+}
+.console .info {
+	background-color: #89D;
+}
+
+.clearfix:after {
+	content: '.';
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.clearfix {
+	zoom: 1;
+}
+.demo-control {
+	border-collapse: collapse;
+	color: #333;
+}
+
+.demo-control td {
+	padding: 8px;
+	background-color: #f6f6f6;
+	border: 1px solid #ccc;
+	line-height: 22px;
+}
+
+.demo-control td span {
+	vertical-align: middle;
+}
+
+.demo-control td .textInput, .demo-control td .textInput-s, .demo-control td .textArea {
+	width: 195px;
+	padding-left: 5px;
+	height: 22px;
+	line-height: 22px;
+	border: 1px solid #ccc;
+}
+.demo-control td .textInput-s {
+	width: 50px;
+}
+.demo-control td .textArea {
+	height: 50px;
+	overflow: auto;
+}
+
+.demo-control td .btn {
+	width: 60px;
+	height: 22px;
+	line-height: 14px;
+	padding: 0;
+}

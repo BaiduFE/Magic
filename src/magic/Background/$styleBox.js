@@ -13,16 +13,17 @@
 ///import baidu.browser.ie;
 
 /**
- * 给背景层添加一个“九宫格”的插件，可以让用户插入复杂的背景样式如PNG透明
- *
- * 提供一组可外调的CSS：
- * tang-background
- * tang-background-inner
+ * @description 给背景层添加一个“九宫格”的插件，可以让用户插入复杂的背景样式如PNG透明，提供一组可外调的CSS：tang-background、tang-background-inner
  * @name magic.Background.$styleBox
- * @addon  magic.Background
- * @param  {Object}  options       options参数.
- * @config {Boolean} styleBox     是否使用九宫格方案，可以使用更复杂的背景图策略
+ * @addon
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.styleBox 插件开关，默认false
  * @author meizz
+ * @example
+ * /// for options.styleBox
+ * var instance = new magic.Background({
+ * 		styleBox: true		// 启用九宫格方案
+ * });
  */
 baidu.lang.register(magic.Background, function(opt){
 	if (this.styleBox) {

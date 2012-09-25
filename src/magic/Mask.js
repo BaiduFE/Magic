@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  * 
@@ -13,27 +13,45 @@
 
 ///import baidu.object.extend;
 ///import baidu.dom.insertHTML;
-///import baidu.page.getWidth;
-///import baidu.page.getHeight;
+///import baidu.page.getViewWidth;
+///import baidu.page.getViewHeight;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
 
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.browser.safari;
+///import baidu.browser.ie;
 
 /**
- * 遮罩层
- *
+ * @description 遮罩层
  * @class magic.Mask
  * @author meizz, dron
- * @grammar new magic.Mask(options)
+ * @name magic.Mask
  * @superClass  magic.control.Layer
- * @param	{JSON}			options 	参数设置
- * @config	{Boolean}		coverable	[r/w]对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理？
- * @config	{String}		bgColor 	[r/w]遮罩层背景色
- * @config  {Number}		opacity 	[r/w]背景层透明度，取值 0-1
- * @config  {HTMLElement}	container 	[r/w]遮罩层的容器，默认为 document.body
+ * @grammar new magic.Mask(options)
+ * @param {JSON} options 参数设置
+ * @param {Boolean} options.coverable	对&lt;select&gt;、&lt;object&gt;、Flash 是否采取遮盖处理，默认false
+ * @param {String} options.bgColor 遮罩层背景色，默认'#000'
+ * @param {Number} options.opacity 背景层透明度，，默认0.3
+ * @param {HTMLElement}	options.container 遮罩层的容器，默认 document.body
+ * @return {magic.Mask} Mask实例.
+ * @example
+ * /// for options.coverable
+ * var instance = new magic.Mask({
+ * 		coverable: true		// mask 遮盖 flash/select
+ * });
+ * @example
+ * /// for options.bgColor,options.opacity
+ * var instance = new magic.Mask({
+ * 		bgColor: '#ccc',	// 灰色背景
+ * 		opacity: 0.5		// 50%透明度
+ * });
+ * @example
+ * /// for options.container
+ * var instance = new magic.Mask({
+ * 		container: document.body
+ * });
  */
 magic.Mask = function(options){
 	var me = this;
@@ -47,10 +65,14 @@ magic.Mask = function(options){
 
 	baidu.object.extend(me, options || {});
 
-	me.width = me.height = "100%";
-
-	var sf = baidu.browser.safari;
-	baidu.dom.insertHTML(me.container, "afterbegin", me.toHTMLString());
+	var sf = baidu.browser.safari,
+        ie = baidu.browser.ie;
+        
+	baidu.dom(me.container).insertHTML("afterBegin", me.toHTMLString());
+    
+    if(ie == 6){
+        me.getElement().style.position = "absolute";
+    }
     
     /**
      * @private
@@ -58,8 +80,22 @@ magic.Mask = function(options){
 	function resize(){
 		if (me.container == document.body) {
 			var ls = me.getElement().style;
+                
 			ls.display = "none";
-			me.setSize([baidu.page.getWidth(), baidu.page.getHeight()]);
+			me.setSize([baidu.page.getViewWidth(), baidu.page.getViewHeight()]);
+			ls.display = "";
+		}
+	}
+	
+	/**
+     * @private
+     */
+	function scroll(){
+		if (me.container == document.body) {
+			var ls = me.getElement().style;
+			ls.display = "none";
+			ls.top = baidu.page.getScrollTop()  + "px";
+			ls.left = baidu.page.getScrollLeft() + "px";
 			ls.display = "";
 		}
 	}
@@ -78,7 +114,10 @@ magic.Mask = function(options){
 
 	me.on("show", function(){
 		resize();
-		baidu.event.on(window, "onresize", resize);
+		ie == 6 && scroll();
+		baidu.dom(window).on("resize", resize);
+		ie == 6 && baidu.dom(window).on("scroll", scroll);
+
 		var es = me.getElement().style;
 		es.opacity = me.opacity;
 		es.zIndex = me.zIndex;
@@ -88,7 +127,8 @@ magic.Mask = function(options){
 	});
 
 	me.on("hide", function(){
-		baidu.event.un(window, "onresize", resize);
+		baidu.dom(window).off("resize", resize);
+		ie == 6 && baidu.dom(window).off("scroll", scroll);
 		sf && showObjects(true);
 	});
 
@@ -100,7 +140,7 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
 	 * @private
 	 */
 	toHTMLString : function(){
-		return "<div id='"+this.getId()+"' style='top:0px; left:0px; position:absolute; display:none;'>"
+		return "<div id='"+this.$getId()+"' style='top:0px; left:0px; position:fixed; display:none;'>"
 			+("<iframe frameborder='0' style='"
 			+"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
 			+"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "

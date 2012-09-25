@@ -6,21 +6,27 @@
 ///import baidu.lang.register;
 ///import magic.control.Carousel;
 ///import baidu.fn.bind;
-///import magic._query;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.object.extend;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 
 
 /**
- * 为滚动组件添加控制按钮插件
+ * @description 为图片轮播组件添加控制前后按钮插件
  * @name magic.control.Carousel.$button
- * @addon magic.control.Carousel
- * @param {Object} options config参数.
- * @config {Boolean} button.enable 是否显示按钮，默认显示
+ * @addon
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.button.enable 插件开关，默认true
  * @author linlingyu
+ * @example
+ * /// for options.button.enable
+ * var instance = new magic.Carousel({
+ * 		button: {
+ * 			enable: true,
+ *      }
+ * });
  */
 baidu.lang.register(magic.control.Carousel, function(options){
     var me = this, prevHandler, nextHandler;
@@ -33,18 +39,17 @@ baidu.lang.register(magic.control.Carousel, function(options){
     function toggle(){
         var prev = me.getElement('prev'),
             next = me.getElement('next');
-        baidu.dom[me.isFirst() ? 'addClass' : 'removeClass'](prev, 'tang-carousel-btn-prev-disabled');
-        baidu.dom[me.isLast() ? 'addClass' : 'removeClass'](next, 'tang-carousel-btn-next-disabled');
-        baidu.dom[!me.isFirst() ? 'addClass' : 'removeClass'](prev, 'tang-carousel-btn-prev');
-        baidu.dom[!me.isLast() ? 'addClass' : 'removeClass'](next, 'tang-carousel-btn-next');
+        baidu.dom(prev)[me.isFirst() ? 'addClass' : 'removeClass']('tang-carousel-btn-prev-disabled');
+        baidu.dom(next)[me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next-disabled');
+        baidu.dom(prev)[!me.isFirst() ? 'addClass' : 'removeClass']('tang-carousel-btn-prev');
+        baidu.dom(next)[!me.isLast() ? 'addClass' : 'removeClass']('tang-carousel-btn-next');
     }
     me.on('onload', function(evt){
-        var query = magic._query;
-        me.mappingDom('prev', query('.tang-carousel-btn-prev', me.getElement())[0]).
-        mappingDom('next', query('.tang-carousel-btn-next', me.getElement())[0]);
+        me.$mappingDom('prev', baidu('.tang-carousel-btn-prev', me.getElement())[0]).
+        $mappingDom('next', baidu('.tang-carousel-btn-next', me.getElement())[0]);
         //
-        baidu.event.on(me.getElement('prev'), 'click', prevHandler);
-        baidu.event.on(me.getElement('next'), 'click', nextHandler);
+        baidu.dom(me.getElement('prev')).on('click', prevHandler);
+        baidu.dom(me.getElement('next')).on('click', nextHandler);
         toggle();
     });
     //
@@ -53,8 +58,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
     });
     //
     me.on('ondispose', function(){
-        baidu.event.un(me.getElement('prev'), 'click', prevHandler);
-        baidu.event.un(me.getElement('next'), 'click', nextHandler);
+    	baidu.dom(me.getElement('prev')).off('click', prevHandler);
+    	baidu.dom(me.getElement('next')).off('click', nextHandler);
     });
 }, 
 {
@@ -82,20 +87,33 @@ baidu.lang.register(magic.control.Carousel, function(options){
     
     
     /**
-     * 是否已经滚动到首项
+     * @description 是否已经滚动到首项
      * @name magic.control.Carousel.$button#isFirst
      * @function
+     * @grammar magic.control.Carousel.$button#isFirst()
+     * @function
      * @return {Boolean} 当已经滚动到首项时返回true，否则返回false
+     * @example
+     * var instance = new magic.Carousel({
+     * 		enable: true
+     * });
+     * instance.isFirst();	// true OR false
      */
     isFirst: function(){
         return this._isLimit('backward');
     },
-    
     /**
-     * 是否已经滚动到末项
+     * @description 是否已经滚动到末项
      * @name magic.control.Carousel.$button#isLast
      * @function
+     * @grammar magic.control.Carousel.$button#isLast()
+     * @function
      * @return {Boolean} 当已经滚动到末项时返回true，否则返回false
+     * @example
+     * var instance = new magic.Carousel({
+     * 		enable: true
+     * });
+     * instance.isLast();	// true OR false
      */
     isLast: function(){
         return this._isLimit('forward');

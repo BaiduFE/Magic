@@ -5,7 +5,7 @@
 <meta name="description" content="ComboBox 组件 render 模式示例" />
 <link rel="stylesheet" type="text/css" href="../../../resources/default/common/common.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/default/magic.control.ComboBox/magic.control.ComboBox.css">
-<script type="text/javascript" src="../../../src/import.php?f=baidu.json.stringify,baidu.json.parse,baidu.dom.g,baidu.dom.insertHTML,baidu.event.preventDefault,magic.ComboBox,magic.control.ComboBox.$suggestion"></script>
+<script type="text/javascript" src="../../../src/import.php?f=baidu.json.parse,baidu.dom.insertHTML,baidu.event.preventDefault,baidu.json.stringify,magic.ComboBox,magic.control.ComboBox.$suggestion"></script>
 <title>ComboBox 组件 render 模式示例</title>
 <style type="text/css">
 .combobox-container {
@@ -72,7 +72,7 @@ var testCase = (function(){
 		html += '<div style="clear:both"></div>';
 		baidu.dom.insertHTML('demo', 'beforeEnd', html);
 		var combobox = new magic.ComboBox(options);
-		combobox.render('combobox' + num);
+		combobox.render('#combobox' + num);
 		
 		combobox.log = function(content) {
 			baidu.g('combobox-log' + num).innerHTML += content + '<br>';

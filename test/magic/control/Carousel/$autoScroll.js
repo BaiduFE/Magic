@@ -61,7 +61,10 @@ test("render,default params", function(){
 			var scroll = 0; 
 			var c = new magic.Carousel({
 			    items: citems,
-			    originalIndex: 7
+			    originalIndex: 7,
+			    fx: {                   //保证release模式下Carousel不会被fx插件影响
+			    	enable: false
+			    }
 			});
 			c.on("onmouseenter", function(evt){
 		        evt.target.stop();
@@ -82,7 +85,7 @@ test("render,default params", function(){
 				}
 				if(scroll == 2){
 					equals(c._selectedIndex, 9, "scroll to 9");
-					c.dispose();
+					c.$dispose();
 					document.body.removeChild(div);
 					start();
 				}
@@ -101,13 +104,16 @@ test("render,all params", function(){
 	var scroll = 0; 
 	var time1 = 0;
 	var time2 = 0;
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var c = new magic.Carousel({
 	    items: citems,
 	    isLoop: true,
 	    autoScroll: {
 	    	interval:100,
 	    	direction: 'backward'
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
 	c.on("onmouseenter", function(evt){
@@ -135,8 +141,8 @@ test("render,all params", function(){
 			time2 = new Date();
 		    ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
-			c.dispose();
-			var l2 = baidu.event._listeners.length;
+			c.$dispose();
+			var l2 = baidu._util_.eventBase._getEventsLength();
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
 			start();
@@ -158,6 +164,9 @@ test("render, button", function(){
 	    items: citems,
 	    autoScroll: {
 	    	interval:100
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
 	c.on("onfocus", function(){
@@ -171,7 +180,7 @@ test("render, button", function(){
 		if(scroll == 4){
 			time2 = new Date();
 			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
-		    c.dispose();
+		    c.$dispose();
 			document.body.removeChild(div);
 			start();
 		}
@@ -190,6 +199,9 @@ test("render, disable", function(){
 	    items: citems,
 	    autoScroll: {
 	    	enable: false
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	});
     c.on("onfocus", function(){
@@ -197,7 +209,7 @@ test("render, disable", function(){
 	});
     c.render('one-carousel');
     ok(true);
-    c.dispose();
+    c.$dispose();
 	document.body.removeChild(div);
 	start();
 });
@@ -209,7 +221,10 @@ test("setup,default params", function(){
 	var scroll = 0; 
 	var options = {
 	    items: citems,
-	    originalIndex: 7
+	    originalIndex: 7,
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
 	c.on("onmouseenter", function(evt){
@@ -231,7 +246,7 @@ test("setup,default params", function(){
 		}
 		if(scroll == 2){
 			equals(c._selectedIndex, 9, "scroll to 9");
-			c.dispose();
+			c.$dispose();
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();
 		}
@@ -245,13 +260,16 @@ test("setup, all params", function(){
 	var scroll = 0; 
 	var time1 = 0;
 	var time2 = 0;
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var options = {
 	    items: citems,
 	    isLoop: true,
 	    autoScroll: {
 	    	interval: 100,
 	    	direction: 'backward'
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
@@ -280,8 +298,8 @@ test("setup, all params", function(){
 			time2 = new Date();
 			ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
-			c.dispose();
-			var l2 = baidu.event._listeners.length;
+			c.$dispose();
+			var l2 = baidu._util_.eventBase._getEventsLength();
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();
@@ -300,6 +318,9 @@ test("setup, button", function(){
 	    items: citems,
 	    autoScroll: {
 	    	interval:100
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
@@ -314,7 +335,7 @@ test("setup, button", function(){
 		if(scroll == 4){
 			time2 = new Date();
 			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
-			c.dispose();
+			c.$dispose();
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();
 		}
@@ -330,6 +351,9 @@ test("setup, disable", function(){
 	    items: citems,
 	    autoScroll: {
 	    	enable: false
+	    },
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
 	    }
 	};
 	var c = magic.setup.carousel('one-carousel', options);
@@ -337,7 +361,7 @@ test("setup, disable", function(){
     	ok(true, "not auto scroll");
 	});
     ok(true);
-    c.dispose();
+    c.$dispose();
     document.body.removeChild(baidu.dom.g("one-carousel"));
 	start();
 });

@@ -12,20 +12,41 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.insertHTML;
 ///import baidu.string.format;
-///import baidu.dom.g;
 ///import baidu.object.extend;
 
 /**
- * Slider滑动条。
+ * @description 滑动条组件。
  * @class
- * @superClass  magic.control.Slider
- * @grammar     new magic.Slider(options)
- * @param       {Object}                  options           选项。参数的详细说明如下表所示
- * @config      {String}                  orientation       决定sider是水平还是垂直，'horizontal' || 'vertical'
- * @config      {String}                  direction         决定从哪一端开始移动，'forwrad' || 'backward'
- * @config      {Float}                   accuracy          精确度，0-1之间的小数
- * @config      {Number}                  currentValue      Slider的初始值，即游标初始位置
- * @author      qiaoyue
+ * @name magic.Slider
+ * @superClass magic.control.Slider
+ * @grammar new magic.Slider(options)
+ * @param {Object} options 选项
+ * @param {String} options.orientation 决定滑动条是水平还是垂直，'horizontal' || 'vertical'，默认vertical
+ * @param {String} options.direction 决定从哪一端开始移动，'forward'或'backward'，默认backward
+ * @param {Float} options.accuracy 精确度，0-1之间的小数，滑动条滑动时会按精确度匹配位置，默认0
+ * @param {Number} options.currentValue 滑动条的初始值，即游标初始位置，默认0
+ * @author qiaoyue
+ * @return {magic.Slider} Slider实例
+ * @example
+ * /// for options.orientation
+ * var instance = new magic.Slider({
+ * 		orientation: 'horizontal'	// 水平滑动条
+ * });
+ * @example
+ * /// for options.direction
+ * var instance = new magic.Slider({
+ * 		direction: 'forward'
+ * });
+ * @example
+ * /// for options.accuracy
+ * var instance = new magic.Slider({
+ * 		accuracy: 0.25
+ * });
+ * @example
+ * /// for options.currentValue
+ * var instance = new magic.Slider({
+ * 		currentValue: 10
+ * });
  */
 magic.Slider = baidu.lang.createClass(function(options){
 
@@ -34,21 +55,27 @@ magic.Slider = baidu.lang.createClass(function(options){
 
 /** @lends magic.Slider.prototype */
 magic.Slider.extend({
-
 	/**
-	 * 渲染Slider
-	 * @param  {HtmlElement} el 存放slider的容器对象
-	 * @return none
-	 */
+     * @description 渲染Slider
+     * @name magic.Slider#render
+     * @function
+     * @grammar magic.Slider#render(el)
+     * @param {HtmlElement} el 存放slider的容器对象
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');		// 渲染
+     */
     render: function(el){
         var me = this;
-    	el = baidu.dom.g(el);
+    	el = baidu.dom('#'+el).get(0);
         el || document.body.appendChild(el = document.createElement("div"));  	
         if(/tang-slider/.test(el.className)) return;
 
-        baidu.dom.addClass(el, 'tang-ui tang-slider tang-slider-' + me._info._suffix);
+        baidu.dom(el).addClass('tang-ui tang-slider tang-slider-' + me._info._suffix);
         el.innerHTML = me.toHTMLString();
-        me.mappingDom("", el);
+        me.$mappingDom("", el);
 
         me.fire("load");
 
@@ -63,27 +90,36 @@ magic.Slider.extend({
             processClass = 'tang-process-' + info.direction,
             cornerClass = info._oppsite ? '-backward' : '',
             template = baidu.string.format(magic.Slider.template, {
-                id: me.getId(),
-                viewId: me.getId('view'),
-                innerId: me.getId('inner'),
+                id: me.$getId(),
+                viewId: me.$getId('view'),
+                innerId: me.$getId('inner'),
                 cornerClass: cornerClass,
-                processId: me.getId("process"),
+                processId: me.$getId("process"),
                 processClass: processClass,
-                knobId: me.getId("knob")
+                knobId: me.$getId("knob")
         });
 
         return template;
     },
 
     /**
-     * 析构
+     * @description 析构
+     * @name magic.Slider#$dispose
+     * @function
+     * @grammar magic.Slider#$dispose()
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.$dispose();	// 销毁组件
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this, slider;
         if(me.disposed){ return; }
         slider = me.getElement('');
-        magic.Base.prototype.dispose.call(me);
-        baidu.dom.remove(slider);
+        magic.Base.prototype.$dispose.call(me);
+        baidu.dom(slider).remove();
         slider = null;
     }
 });

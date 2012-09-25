@@ -9,11 +9,12 @@
 
 
 ///import magic;
-///import baidu.event.on;
+///import baidu.dom.on;
 
 /**
  * 各种UI组件反向创建的模块集合
  * @namespace magic.setup
+ * @name magic.setup
  */
 (function(){
 	magic.setup = magic.setup || function(el, Type, options){
@@ -24,7 +25,7 @@
 		for (var i in options) opt[i] = options[i];
 
 		var ui = new Type(opt);
-		ui.mappingDom("", el);
+		ui.$mappingDom("", el);
 
 		// 添加DOM元素直接调用实例方法的模式	20111205 meizz
 		// tang-event="onclick:$.hide()"
@@ -77,7 +78,7 @@
 				var method = json[i].substr(1);
 				// 如果用户已经指定参数，有效
 				method.indexOf("(") < 0 && (method += "()");
-				baidu.event.on(el, i, new Function("baiduInstance('"+guid+"') && baiduInstance('"+guid+"')"+method));
+				baidu.dom(el).on(i, new Function("baiduInstance('"+guid+"') && baiduInstance('"+guid+"')"+method));
 			}
 		}
 	}

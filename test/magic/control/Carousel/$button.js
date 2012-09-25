@@ -29,8 +29,11 @@ test("enable", function(){
 	ua.importsrc("magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel.css", function(){
 			enSetup();
-			var l1 = baidu.event._listeners.length;
+			var l1 = baidu._util_.eventBase._getEventsLength();
 			var options = {
+			    fx: {                   //保证release模式下Carousel不会被fx插件影响
+			    	enable: false
+			    }
 			};
 		    var c = magic.setup.carousel('one-carousel', options);
 		    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
@@ -62,8 +65,8 @@ test("enable", function(){
 		    c.focusPrev();
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
-		    c.dispose();
-		    var l2 = baidu.event._listeners.length;
+		    c.$dispose();
+		    var l2 = baidu._util_.eventBase._getEventsLength();
 		    equals(l2, l1, "The events are un");
 		    document.body.removeChild(baidu.dom.g("one-carousel"));
 		    start();
@@ -75,6 +78,9 @@ test("enable", function(){
 test("click", function(){
 	enSetup();
 	var options = {
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     ua.click(c.getElement().childNodes[2]);
@@ -96,7 +102,10 @@ test("click, vertical", function(){
 	ua.loadcss(upath + "../../setup/carousel/carousel-vertical.css", function(){
 		enSetup();
 		var options = {
-			orientation: 'vertical'
+			orientation: 'vertical',
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
+		    }
 		};
 	    var c = magic.setup.carousel('one-carousel', options);
 	    ua.click(c.getElement().childNodes[2]);

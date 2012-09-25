@@ -25,13 +25,13 @@ test('default params', function() {
                     'content' : 'abcde'
                 }]
             });
-            combobox1.render('div1');
+            combobox1.render('#div1');
             equals(combobox1._options.suggestion.enable, true, "The enable is right");
             combobox1.getElement('input').value = 'abc';
             setTimeout(function() {
                 equals(combobox1.menu.visible, true, "The menu is right");
                 equals($('li', combobox1.getElement('menu')).length, 3, "The menu is right");
-                combobox1.dispose();
+                combobox1.$dispose();
                 document.body.removeChild(div1);
                 start();             
             }, 200);
@@ -39,6 +39,7 @@ test('default params', function() {
         }, 'magic.ComboBox', 'magic.control.ComboBox.$suggestion');
     });
 });
+
 
 test('params', function() {
     stop();
@@ -66,13 +67,13 @@ test('params', function() {
             enable : false
         }
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
     equals(combobox1._options.suggestion.enable, false, "The enable is right");
     combobox1.getElement('input').value = 'abc';
     setTimeout(function() {
         equals(combobox1.menu.visible, false, "The menu is right");
         equals($('li', combobox1.getElement('menu')).length, 5, "The menu is right");
-        combobox1.dispose();
+        combobox1.$dispose();
         document.body.removeChild(div1);
         start();
     }, 200)
@@ -103,7 +104,7 @@ test('suggstion basic action change value of input', function() {
             'content' : 'abcde'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
         
     combobox1.getElement('input').value = 'a';
     setTimeout(function() {
@@ -130,7 +131,7 @@ test('suggstion basic action change value of input', function() {
                         combobox1.getElement('input').value = 'f';
                         setTimeout(function(){
                             equals(combobox1.menu.visible, false, 'suggestion is hiding');
-                            combobox1.dispose();
+                            combobox1.$dispose();
                             document.body.removeChild(div1);
                             start();                           
                         }, 200)                        
@@ -164,7 +165,7 @@ test('suggstion change value of input + keyboard action', function() {
             'content' : '选项5'
         }]
     });
-    combobox1.render('div1');
+    combobox1.render('#div1');
     combobox1.getElement('input').value = '选项';
     setTimeout(function() {
         equals(combobox1.menu.visible, true, 'suggestion auto show');
@@ -182,12 +183,54 @@ test('suggstion change value of input + keyboard action', function() {
                     setTimeout(function() {
                         equals($('li', combobox1.getElement('menu')).length, 1, '1 items displayed');
                         equals($('li', combobox1.getElement('menu'))[0].innerHTML, '选项1', '1 items displayed');
-                        combobox1.dispose();
+                        combobox1.$dispose();
                         document.body.removeChild(div1);
                         start(); 
                     }, 200);                
                 }, 200);
             }, 200);            
         }, 200);
+    }, 200);
+});
+
+test('use keyboard select items, suggestion should wait for select.', function() {
+    stop();
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var combobox1 = new magic.ComboBox({
+        'items' : [{
+            'value' : 0,
+            'content' : '选项1'
+        },{
+            'value' : 1,
+            'content' : '选项2'
+        },{
+            'value' : 2,
+            'content' : '选项3'
+        }]
+    });
+    combobox1.render('#div1');
+    combobox1.getElement('input').value = 'my value';
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 13
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    ua.keydown(combobox1.getElement('input'), {
+        keyCode : 40
+    });
+    setTimeout(function() {
+        equals($('li', combobox1.getElement('menu')).length, 3, '3 items displayed');
+        combobox1.$dispose();
+        document.body.removeChild(div1);
+        start();
     }, 200);
 });

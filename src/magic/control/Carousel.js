@@ -11,21 +11,19 @@
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.fn.bind;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.getTarget;
+///import baidu.makeArray;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
-///import magic._query;
 ///import baidu.dom.children;
-///import baidu.dom.g;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.remove;
-///import baidu.dom.getStyle;
 ///import baidu.dom.contains;
-///import baidu.dom.getAncestorByClass;
+///import baidu.dom.closest;
+///import baidu.dom.css;
+///import baidu.dom.on;
+///import baidu.dom.off;
 
 
 void function(){
@@ -60,17 +58,16 @@ void function(){
         if(this._element){return;}
         var me = this,
             opt = me._options,
-            child = baidu.dom.children(target),
+            child = baidu.dom(target).children(),
             tagName = child[0] ? child[0].tagName : 'li',
             template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>';
-        baidu.dom.insertHTML(target,
-            direction == 'forward' ? 'beforeEnd' : 'afterBegin',
+        baidu.dom(target).insertHTML(direction == 'forward' ? 'beforeEnd' : 'afterBegin',
             baidu.string.format(template, {
                 rsid: me.guid,
                 'class': 'tang-carousel-item' + (opt.empty ? ' tang-carousel-item-empty' : ''),
                 content: opt.empty ? '&nbsp;' : ''
             }));
-        me._element = baidu.dom.g(me.guid);
+        me._element = baidu.dom('#'+me.guid).get(0);
     }
     /**
      * 将已经存在或是末曾渲染的滚动项插入到指定位置
@@ -98,27 +95,54 @@ void function(){
      */
     Item.prototype.getElement = function(){
         var me = this;
-        return me._element || baidu.dom.g(this.guid);
+        return me._element || baidu.dom('#'+this.guid).get(0);
     }
     
     
 /**
- * Carousel图片滚动组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
+ * @description Carousel图片轮播组件的控制器.（关于单个滚动项的宽高尺寸说明：单个滚动项由li元素组成，内容的尺寸由用户自定义（这里请确保每个滚动项的内容尺寸都是相同，否则滚动的运算会出错），则单个滚动项的尺寸应该为：内容尺寸 + li元素的padding + li元素的margin + li元素的border）
  * @class
  * @name magic.control.Carousel
  * @superClass magic.Base
  * @grammar new magic.control.Carousel(options)
  * @param {Object} options 选项.
- * @config {Number} orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认是horizontal.
- * @config {Number} originalIndex 默认选项卡的聚焦项，默认值是0.
- * @config {Number} viewSize 描述一页显示多少个滚动项，默认值是3
- * @config {Object} focusRange 描述焦点在viewSize参数中的滚动范围，最小值从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发滚动动作.
- * @config {Boolean} isLoop 是否支持循环滚动，默认不支持
- * @config {Number} step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认是滚动1项
+ * @param {Number} options.orientation 描述该组件是创建一个横向滚动组件或是竖向滚动组件，取值：{horizontal: 横向, vertical: 竖向}，默认horizontal
+ * @param {Number} options.originalIndex 默认选项卡的聚焦项，默认0
+ * @param {Number} options.viewSize 描述一页显示多少个滚动项，默认3
+ * @param {Object} options.focusRange 描述焦点在viewSize参数中的滚动范围，区域起始位从0开始，格式：{min: 0, max: 4}，当焦点超出focusRange指定的范围时才会触发可视区域的滚动动作，默认{min: 0, max: options.viewSize - 1 || 2}
+ * @param {Boolean} options.isLoop 是否支持循环滚动，默认false
+ * @param {Number} options.step 描述每次调用focusPrev或focusNext方法时一次滚动过多少个项，默认1
  * @plugin button 为滚动组件添加控制按钮插件
  * @plugin fx 为滚动组件增加动画滚动功能
  * @plugin autoScroll 为滚动组件增加自动滚动功能
  * @author linlingyu
+ * @return {magic.control.Carousel} Carousel实例
+ * @example
+ * /// for options.orientation,options.isLoop
+ * var instance = new magic.Carousel({
+ * 		orientation: 'vertical',	// 竖向滚动
+ * 		isLoop: true				// 循环滚动
+ * });
+ * @example
+ * /// for options.originalIndex
+ * var instance = new magic.Carousel({
+ * 		originalIndex: 2,
+ * });
+ * @example
+ * /// for options.viewSize
+ * var instance = new magic.Carousel({
+ * 		viewSize: 2,
+ * });
+ * @example
+ * /// for options.focusRange
+ * var instance = new magic.Carousel({
+ * 		focusRange: {min: 1, max: 2},	// 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
+ * });
+ * @example
+ * /// for options.step
+ * var instance = new magic.Carousel({
+ * 		step: 4
+ * });
  */
     magic.control.Carousel = baidu.lang.createClass(function(options){
         var me = this,
@@ -149,30 +173,26 @@ void function(){
                 selectedIndex = me._selectedIndex,
                 opt = me._options,
                 focusRange = opt.focusRange,
-                query = magic._query,
                 handler = baidu.fn.bind('_onEventHandler', me);
-            me.mappingDom('container', query('.tang-carousel-container', me.getElement())[0]).
-            mappingDom('element', query('.tang-carousel-element', me.getElement())[0]);
+            me.$mappingDom('container', baidu('.tang-carousel-container', me.getElement())[0]).
+            $mappingDom('element', baidu('.tang-carousel-element', me.getElement())[0]);
             //data
-            baidu.array.each(//pick data
-                baidu.dom.children(me.getElement('element')),
-                function(ele, index){
-                    var item = new Item({content: ele});
-                    me._dataIds.push(item.guid);
-                    me._datas[item.guid] = item;
-                    baidu.dom[selectedIndex == index ? 'addClass' : 'removeClass'](ele, 'tang-carousel-item-selected');
-                }
-            );
+            baidu.dom(baidu.dom(me.getElement('element')).children()).each(function(index, ele){
+            	var item = new Item({content: ele});
+                me._dataIds.push(item.guid);
+                me._datas[item.guid] = item;
+                baidu.dom(ele)[selectedIndex == index ? 'addClass' : 'removeClass']('tang-carousel-item-selected');
+            });
             me._clear(selectedIndex, focusRange[selectedIndex > (me._dataIds.length - 1) / 2 ? 'max' : 'min'], true);
             me._resize();
             //event
-            baidu.event.on(me.getElement('element'), 'click', handler);
-            baidu.event.on(me.getElement('element'), 'mouseover', handler);
-            baidu.event.on(me.getElement('element'), 'mouseout', handler);
+            baidu.dom(me.getElement('element')).on('click', handler);
+            baidu.dom(me.getElement('element')).on('mouseover', handler);
+            baidu.dom(me.getElement('element')).on('mouseout', handler);
             me.on('ondispose', function(){
-                baidu.event.un(me.getElement('element'), 'click', handler);
-                baidu.event.un(me.getElement('element'), 'mouseover', handler);
-                baidu.event.un(me.getElement('element'), 'mouseout', handler);
+                baidu.dom(me.getElement('element')).off('click', handler);
+                baidu.dom(me.getElement('element')).off('mouseover', handler);
+                baidu.dom(me.getElement('element')).off('mouseout', handler);
             });
         });
         
@@ -188,31 +208,64 @@ void function(){
         },
         
         /**
-         * 鼠标点击单个滚动项时触发
+         * @description 鼠标点击单个滚动项时触发
          * @name magic.control.Carousel#onclickitem
          * @event 
+         * @grammar magic.control.Carousel#onclickitem(evt)
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} index 取得触发时该滚动项的索引值
-         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         * @param {Number} evt.index 取得触发时该滚动项的索引值
+         * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.onclickitem = function(evt){
+         * 		// do something...
+         * }
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.on("clickitem",function(evt){
+         * 		// do something...
+         * });
          */
         /**
-         * 鼠标划入单个滚动项时触发
+         * @description 鼠标划入单个滚动项时触发
          * @name magic.control.Carousel#onmouseoveritem
          * @event 
+         * @grammar magic.control.Carousel#onmouseoveritem(evt)
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} index 取得触发时该滚动项的索引值
-         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         * @param {Number} evt.index 取得触发时该滚动项的索引值
+         * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.onmouseoveritem = function(evt){
+         * 		// do something...
+         * }
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.on("mouseoveritem",function(evt){
+         * 		// do something...
+         * });
          */
         /**
-         * 鼠标划出单个滚动项时触发
+         * @description 鼠标划出单个滚动项时触发
          * @name magic.control.Carousel#onmouseoutitem
          * @event 
+         * @grammar magic.control.Carousel#onmouseoutitem(evt)
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {Number} index 取得触发时该滚动项的索引值
-         * @config {Event} DOMEvent 取得当时触发的浏览器事件对象
+         * @param {Number} evt.index 取得触发时该滚动项的索引值
+         * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.onmouseoveritem = function(evt){
+         * 		// do something...
+         * }
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.on("mouseoveritem",function(evt){
+         * 		// do something...
+         * });
          */
         /**
-         * 用于处理滚动项的鼠标划过，鼠标移出，鼠标点击事件，该事件以代理方式挂在所有滚动项的外层
+         * @description 用于处理滚动项的鼠标划过，鼠标移出，鼠标点击事件，该事件以代理方式挂在所有滚动项的外层
          * @private
          * @param {DOMEvent} evt 事件触发时的事件对象
          */
@@ -220,12 +273,20 @@ void function(){
             var me = this,
                 opt = me._options,
                 element = me.getElement('element'),
-                target = baidu.event.getTarget(evt);
+                target = evt.target;
             if(!baidu.dom.contains(me.getElement('element'), target)){return;}
-            target = baidu.dom.getAncestorByClass(target, 'tang-carousel-item') || target;
+        	var item = baidu.dom(target).closest('.tang-carousel-item').get(0);
+        	
+            if(evt.type === 'mouseover'){
+            	var relatedTarget = evt.fromElement || evt.relatedTarget;
+            }else if(evt.type === 'mouseout'){
+            	var relatedTarget = evt.toElement || evt.relatedTarget;
+            }
+            if(baidu.dom(relatedTarget).closest(item).size() > 0) return;
+            
             me.fire('on' + evt.type.toLowerCase() + 'item', {
                 DOMEvent: evt,
-                index: baidu.array.indexOf(me._dataIds, target.id)
+                index: baidu.array.indexOf(me._dataIds, item.id)
             });
         },
         
@@ -243,11 +304,11 @@ void function(){
                 val = me._bound,
                 child;
             if(!val){
-                child = baidu.dom.children(me.getElement('element'))[0];
+                child = baidu.dom(me.getElement('element')).children().get(0);
                 if(child){
                     val = me._bound = {
-                        marginPrev: parseInt(baidu.dom.getStyle(child, 'margin' + (orie ? 'Left' : 'Top')), 10),
-                        marginNext: parseInt(baidu.dom.getStyle(child, 'margin' + (orie ? 'Right' : 'Bottom')), 10),
+                        marginPrev: parseInt(baidu.dom(child).css('margin' + (orie ? 'Left' : 'Top')), 10),
+                        marginNext: parseInt(baidu.dom(child).css('margin' + (orie ? 'Right' : 'Bottom')), 10),
                         size: child[axis.offsetSize]
                     };
                     val.bound = val.size + (orie ? (val.marginPrev + val.marginNext) : Math.max(val.marginPrev, val.marginNext));
@@ -264,7 +325,7 @@ void function(){
             var me = this,
                 axis = me._axis[me._options.orientation],
                 el = me.getElement('element'),
-                child = baidu.dom.children(el);
+                child = baidu.dom(el).children();
             el.style[axis.size] = child.length * me._getItemBound().bound + 'px';
         },
         
@@ -282,17 +343,17 @@ void function(){
                 viewSize = opt.viewSize,
                 focusRange = opt.focusRange,
                 totalCount = me._dataIds.length,
-                child = baidu.dom.children(me.getElement('element')),
-                posIndex = baidu.array.indexOf(child,
-                    me._getItem(index).getElement());
+                child = baidu.makeArray(baidu.dom(me.getElement('element')).children()),
+                posIndex = baidu.array(child).indexOf(me._getItem(index).getElement());
             if(isLimit){
                 index - focusRange.min < 0 && (offset = index);
                 index + viewSize - focusRange.max > totalCount
                     && (offset = viewSize - totalCount + index);
             }
-            baidu.array.each(child, function(item, index){
-                (index < posIndex - offset || index > posIndex + viewSize - offset - 1)
-                    && baidu.dom.remove(item);
+            
+            baidu.array(child).each(function(index, item){
+            	(index < posIndex - offset || index > posIndex + viewSize - offset - 1)
+                    && baidu.dom(item).remove();
             });
             me.getElement('container')[axis.scrollPos] = 0;//init
         },
@@ -315,17 +376,30 @@ void function(){
          */
         _toggle: function(index){
             var me = this;
-            baidu.dom.removeClass(me._dataIds[me._selectedIndex], 'tang-carousel-item-selected');
+            baidu.dom('#'+me._dataIds[me._selectedIndex]).removeClass('tang-carousel-item-selected');
             me._selectedIndex = index;
-            baidu.dom.addClass(me._dataIds[index], 'tang-carousel-item-selected');
+            baidu.dom('#'+me._dataIds[index]).addClass('tang-carousel-item-selected');
         },
         
         /**
-         * 当一个滚动结束时触发
+         * @description 当一个滚动结束时触发
          * @name magic.control.Carousel#onfocus
          * @event 
+         * @grammar magic.control.Carousel#onfocus(evt)
          * @param {baidu.lang.Event} evt 事件参数
-         * @config {String} direction 可以取得当次的滚动方向，取值：forward|backward
+         * @param {String} evt.direction 可以取得当次的滚动方向，取值：forward|backward
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.onfocus = function(evt){
+         * 		alert("当次的滚动方向为：" + evt.direction);
+         *		// do something...
+         * }
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.on("focus",function(evt){
+         * 		alert("当次的滚动方向为：" + evt.direction);
+         * 		// do something...
+         * });
          */
         /**
          * 从当前项依据指定方向滚动到index指定的项.
@@ -344,9 +418,9 @@ void function(){
                 container = me.getElement('container'),
                 element = me.getElement('element'),
                 bound = me._getItemBound(),
-                target = baidu.dom.g(me._getItem(index).guid),
+                target = baidu.dom('#'+me._getItem(index).guid).get(0),
                 totalCount = me._dataIds.length,
-                child = baidu.dom.children(element),
+                child = baidu.makeArray(baidu.dom(element).children()),
                 posIndex = baidu.array.indexOf(child, me._getItem(selectedIndex).getElement()),//当前焦点在viewSize中的位置
                 len = ((vector ? 1 : -1) * (index - selectedIndex) + totalCount) % totalCount
                     + (vector ? opt.viewSize - focusRange.max - 1 : focusRange.min)
@@ -364,7 +438,7 @@ void function(){
                 for(var i = 0; i < len; i++){
                     count = (selectedIndex + (vector ? child.length - posIndex - 1 : -posIndex)
                         + (vector ? 1 : -1) * (i + 1) + totalCount) % totalCount;
-                    ele = baidu.dom.g(me._dataIds[count]);
+                    ele = baidu.dom('#'+me._dataIds[count]).get(0);
                     insertItem = ele ? new Item({empty: true}) : me._getItem(count);
                     insertItem.insert(element, direction);
                     insertItem.loadContent();
@@ -378,7 +452,7 @@ void function(){
                     while(empty.length > 0){//clear empty
                         entry = empty.shift();
                         element.replaceChild(entry.item, entry.empty);
-                        baidu.dom.remove(entry.empty);
+                        baidu.dom(entry.empty).remove();
                     }
                     me._clear(index, focusRange[vector ? 'max' : 'min']);
                     me._resize();
@@ -410,23 +484,41 @@ void function(){
         
         //public
         /**
-         * 以step为单位翻到上一项
+         * @description 以step为单位翻到上一项
+         * @name magic.control.Carousel#focusPrev
+         * @function 
+         * @grammar magic.control.Carousel#focusPrev()
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.focusPrev();
          */
         focusPrev: function(){
             this._basicFlip('backward');
         },
         
         /**
-         * 以step为单位翻到下一项
+         * @description 以step为单位翻到下一项
+         * @name magic.control.Carousel#focusNext
+         * @function 
+         * @grammar magic.control.Carousel#focusNext()
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.focusNext();
          */
         focusNext: function(){
             this._basicFlip('forward');
         },
         
         /**
-         * 根据方向从当前项聚焦到index指定的项
+         * @description 根据方向从当前项聚焦到index指定的项
+         * @name magic.control.Carousel#focus
+         * @function 
+         * @grammar magic.control.Carousel#focus(index, direction)
          * @param {Number} index 滚动项的索引
          * @param {String} direction 可选，滚动方向，取值：forward|backward
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.focus(2, "forward");
          */
         focus: function(index, direction){
             var index = Math.min(Math.max(0, index), this._dataIds.length - 1);
@@ -434,28 +526,46 @@ void function(){
         },
         
         /**
-	     * 取得当前得到焦点项在所有数据项中的索引值
+	     * @description 取得当前得到焦点项在所有数据项中的索引值
+	     * @name magic.control.Carousel#getCurrentIndex
+         * @function 
+         * @grammar magic.control.Carousel#getCurrentIndex()
 	     * @return {Number} 索引值.
+	     * @example
+         * var instance = new magic.Carousel(option);
+         * var currenetIndex = instance.getCurrentIndex();
 	     */
         getCurrentIndex: function(){
             return this._selectedIndex;
         },
         
         /**
-	     * 取得数据项的总数目
+	     * @description 取得数据项的总数目
+	     * @name magic.control.Carousel#getTotalCount
+         * @function 
+         * @grammar magic.control.Carousel#getTotalCount()
 	     * @return {Number} 总数.
+	     * @example
+         * var instance = new magic.Carousel(option);
+         * var totalCount = instance.getTotalCount();	// 总条数
 	     */
         getTotalCount: function(){
             return this._dataIds.length;
         },
         
         /**
-         * 析构
+         * @description 析构
+         * @name magic.control.Carousel#$dispose
+         * @function 
+         * @grammar magic.control.Carousel#$dispose()
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.$dispose();	// 销毁 carousel
          */
-        dispose: function(){
+        $dispose: function(){
             var me = this;
             if(me.disposed){return;}
-            magic.Base.prototype.dispose.call(me);
+            magic.Base.prototype.$dispose.call(me);
         }
     });
 }();

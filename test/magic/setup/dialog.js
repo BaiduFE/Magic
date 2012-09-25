@@ -33,13 +33,20 @@ module("magic.setup.dialog");
 })();
 
 // case 1
-test("default params", function(){
-	expect(10);
+test("default params, default position", function(){
+	expect(14);
 	enSetup();
 	var dialog = magic.setup.dialog("one-dialog");
 	equals(dialog.draggable, true, "The draggable is right");
-	equals(dialog.left, 0, "The left is right");
-	equals(dialog.top, 0, "The top is right");
+	//Attention  Tangram2.0中的css方法跟1.X中的逻辑不一样，需要按情况判断
+	if(baidu('#one-dialog').css('left') == 'auto'){
+		equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
+		equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
+	}else{
+		equals(parseInt(dialog.left), parseInt(baidu('#one-dialog').css('left')), "The left is right");
+		equals(parseInt(dialog.top), parseInt(baidu('#one-dialog').css('top')), "The top is right");
+	}
+	
 	equals(dialog.height, 300, "The height is right");
 	equals(dialog.width, 400, "The width is right");
 	equals(dialog.getElement().offsetHeight, "300", "The height is right");
@@ -47,7 +54,17 @@ test("default params", function(){
 	equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
 	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
 	equals(dialog.getElement("body").className, "tang-body", "The body is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
+
+	//页面容器已经设置样式的情况
+	enSetup();
+	$('#one-dialog').css('left', '80px').css('top', '60px');
+	var dialog = magic.setup.dialog("one-dialog");
+	equals(dialog.left, '80px', "The left is right");
+	equals(dialog.top, '60px', "The top is right");
+	equals($('#one-dialog').css('left'), '80px', "The left is right");
+	equals($('#one-dialog').css('top'), '60px', "The top is right");
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 2
@@ -62,7 +79,7 @@ test("default params, title & content, text", function(){
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "&lt;span&gt;dialog内容&lt;/span&gt;", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 3
@@ -76,7 +93,7 @@ test("default params, title & content, html", function(){
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML.toLowerCase(), "<span>dialog内容</span>", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 4
@@ -94,7 +111,7 @@ test("default params, title & content, dom", function(){
 	var dialog = magic.setup.dialog("one-dialog", options);
 	equals(dialog.getElement("titleText").innerHTML, "&lt;span&gt;标题&lt;/span&gt;", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 5
@@ -126,7 +143,7 @@ test("all params", function(){
 	equals(dialog.draggable, false, "The draggable is right");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 6
@@ -165,7 +182,7 @@ test("hide & isShowing", function(){
 	equals(dialog.getElement().style.display, "", "The dialog shows");
 	equals(dialog.isShowing(), true, "The dialog shows");
 	dialog.hide();
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 7
@@ -203,7 +220,7 @@ test("setTitleText & setContent, text, html, dom", function(){
 	dialog.setContent("");
 	equals(dialog.getElement("titleText").innerHTML, "&nbsp;", "The titleText is right");
 	equals(dialog.getElement("content").innerHTML, "", "The content is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 8
@@ -243,7 +260,7 @@ test("setSize & getSize", function(){
 	dialog.setSize({ height: 70 });
 	equals(dialog.getSize().width, 50, "The getSize() is right");
 	equals(dialog.getSize().height, 70, "The getSize() is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 9
@@ -283,7 +300,7 @@ test("setPosition & getPosition", function(){
 	dialog.setPosition({left:70});
 	equals(dialog.getPosition().left, 70, "The getPosition() is right");
 	equals(dialog.getPosition().top, 100, "The getPosition() is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 // case 10
@@ -292,7 +309,9 @@ test("center, auto width & height", function(){
 	stop();
 	ua.frameExt(function(w, f){
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
-		enSetup(w);
+        var ww = w.document.body.clientWidth;
+        var wh = w.document.body.clientHeight;
+        enSetup(w);
 		var cdiv = w.document.createElement("div");
 		cdiv.id = "cdiv";
 		$(cdiv).html("dialog内容");
@@ -303,11 +322,11 @@ test("center, auto width & height", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, 50, "The left is right");
-		equals(dialog.top, 100, "The top is right");
-		equals(dialog.getElement().style.left, "50px", "The left is right");
-		equals(dialog.getElement().style.top, "100px", "The top is right");
-		w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+		equals(dialog.left, (ww - 400) / 2, "The left is right");
+	    equals(dialog.top, (wh - 300) / 2, "The top is right");
+	    equals(dialog.getElement().style.left, (ww - 400) / 2 + "px", "The left is right");
+	    equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");    
+		w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 		this.finish();
 		document.body.removeChild(f.parentNode);
 	})	
@@ -315,11 +334,13 @@ test("center, auto width & height", function(){
 
 // case 11
 test("center", function(){
-	expect(4);
+	expect(8);
 	stop();
 	ua.frameExt(function(w, f){
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
-		enSetup(w);
+        var ww = w.document.body.clientWidth;
+        var wh = w.document.body.clientHeight;
+        enSetup(w);
 		var cdiv = w.document.createElement("div");
 		cdiv.id = "cdiv";
 		$(cdiv).html("dialog内容");
@@ -332,11 +353,28 @@ test("center", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, 100, "The left is right");
-		equals(dialog.top, 100, "The top is right");
-		equals(dialog.getElement().style.left, "100px", "The left is right");
-		equals(dialog.getElement().style.top, "100px", "The top is right");
-		w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+		equals(dialog.left, (ww - 300) / 2, "The left is right");
+        equals(dialog.top, (wh - 300) / 2, "The top is right");
+        equals(dialog.getElement().style.left, (ww - 300) / 2 + "px", "The left is right");
+        equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");     
+        
+        var largeDiv = w.document.createElement('div');
+        w.document.body.appendChild(largeDiv);
+        largeDiv.style.position = 'absolute';
+        largeDiv.style.top = largeDiv.style.left = 0;
+        largeDiv.style.width = largeDiv.style.height = '2000px';
+        w.document.body.scrollTop = w.document.body.scrollLeft = 2000;
+        var st = w.document.documentElement.scrollTop || w.document.body.scrollTop;
+        var ww = w.document.body.clientWidth;
+        var wh = w.document.body.clientHeight;
+        dialog.center();
+        equals(dialog.left, parseInt(st + (ww - 300) / 2), "The left is right");
+        equals(dialog.top, parseInt(st + (wh - 300) / 2), "The top is right");
+        equals(dialog.getElement().style.left, parseInt(st + (ww - 300) / 2) + "px", "The left is right");
+        equals(dialog.getElement().style.top, parseInt(st + (wh - 300) / 2) + "px", "The top is right");
+
+		
+		w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 		this.finish();
 		document.body.removeChild(f.parentNode);
 	})	
@@ -377,7 +415,7 @@ test("focus", function(){
 		ok(dialog2.getElement().style["zIndex"] < dialog1.getElement().style["zIndex"], "The z-index is right");
 		dialog2.focus();
 		ok(dialog2.getElement().style["zIndex"] > dialog1.getElement().style["zIndex"], "The z-index is right");		
-		w.document.body.removeChild(w.baidu.dom.g("dialog-1"));
+		w.document.body.removeChild(w.baidu("#dialog-1")[0]);
 		this.finish();
 		document.body.removeChild(f.parentNode);
 	})	
@@ -390,7 +428,8 @@ test("drag", function(){
 	ua.frameExt(function(w, f){
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 		enSetup(w);
-		w.baidu.dom.g("one-dialog").style.position = "relative";
+		w.baidu("#one-dialog")[0].style.position = "relative";
+		w.baidu("#one-dialog")[0].style.width = '400px';
 		var options = {
 				titleText : '标题',
 				content : '内容'
@@ -406,7 +445,40 @@ test("drag", function(){
 			setTimeout(function(){
 				equals(dialog.getElement().style.left, "50px", "The left is right");
 				equals(dialog.getElement().style.top, "50px", "The top is right");
-				w.document.body.removeChild(w.baidu.dom.g("one-dialog"));
+				w.document.body.removeChild(w.baidu("#one-dialog")[0]);
+				me.finish();
+				document.body.removeChild(f.parentNode);
+			}, 200);
+		}, 50);
+	})	
+});
+
+// case 14
+test("drag range", function(){
+	expect(2);
+	stop();
+	ua.frameExt(function(w, f){
+		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 800).css("width", 800);
+		enSetup(w);
+		w.baidu("#one-dialog")[0].style.position = "relative";
+		w.baidu("#one-dialog")[0].style.width = '400px';
+		w.baidu("#one-dialog")[0].style.height = '400px';
+		var options = {
+				titleText : '标题',
+				content : '内容'
+		};
+		var dialog = w.magic.setup.dialog("one-dialog", options);
+		ua.mousedown(dialog.getElement("title"));
+		var me = this;
+		setTimeout(function(){
+			ua.mousemove(dialog.getElement("title"), {
+				clientX : 500,
+				clientY : 500
+			});
+			setTimeout(function(){
+				equals(dialog.getElement().style.left, "400px", "The left is right");
+				equals(dialog.getElement().style.top, "400px", "The top is right");
+				w.document.body.removeChild(w.baidu("#one-dialog")[0]);
 				me.finish();
 				document.body.removeChild(f.parentNode);
 			}, 200);
@@ -430,7 +502,7 @@ test("getElement", function(){
 		equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
 		equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
 		equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
-		document.body.removeChild(baidu.dom.g("one-dialog"));
+		document.body.removeChild(baidu("#one-dialog")[0]);
 		start();
 	});
 });
@@ -452,6 +524,6 @@ test("getElements", function(){
 		num++;
 	}
 	equals(num, 8, "The getElements() is right");
-	document.body.removeChild(baidu.dom.g("one-dialog"));
+	document.body.removeChild(baidu("#one-dialog")[0]);
 	start();
 });

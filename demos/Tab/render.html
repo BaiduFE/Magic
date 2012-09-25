@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="选项卡组件">
+        <title>选项卡组件 --- render模式</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Tab/magic.control.Tab.css">
+		<style type='text/css'>
+			.tang-tab {
+			    width: 400px;
+			    margin:20px 0;
+			}
+			.tang-tab .tang-body .tang-body-item{
+			    height: 50px;
+			    border: #a9a9a9 solid 1px;
+			    border-top: none;
+			    padding: 5px;
+			}
+			
+			.tab-container {
+				margin-bottom : 20px;
+			}
+			
+			.tab-container .tab-title {
+				font-weight : bold;
+				font-size : 13px;
+				padding : 0;
+				margin : 5px;
+			}
+			.try-main .tang-tab ul,
+			.try-main .tang-tab ul li {
+			    list-style:none;
+			    margin: 0px;
+			    padding: 0px;
+			}
+		</style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tab'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                	<li><a href="./render.html">render模式</a></li>
+                	<li><a href="./setup.html">setup模式</a></li>
+                	<li><a href="./items.html">items</a></li>
+                	<li><a href="./originalIndex.html">originalIndex</a></li>
+                	<li><a href="./selectEvent.html">selectEvent</a></li>
+                	<li><a href="./selectDelay.html">selectDelay</a></li>
+                	<li><a href="./event.html">常用事件</a></li>
+                	<li><a href="./method.html">常用方法</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>选项卡组件 --- render 模式</h3>
+                    <p>Render 模式: 通过向配置项 items 传递参数，并调用 render 方法创建组件。</p>
+                    <div class="demo-view">
+                    </div>
+                </div>
+               	<div id='tab'></div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        	var options = {
+		        items: [
+		            {title: '项目一', content: 'hello world~1'},
+		            {title: '项目二', content: 'hello world~2'},
+		            {title: '项目三', content: 'hello world~3'}
+		        ]
+		    }
+		    var instance = new magic.Tab(options);
+			instance.render('tab');
+        </script>
+    </body>
+</html>

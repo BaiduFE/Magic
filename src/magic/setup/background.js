@@ -8,13 +8,13 @@
  */
 
 ///import magic.setup;
-///import baidu.dom.g;
 ///import magic.Background;
 ///import baidu.dom.getCurrentStyle;
 
 /**
  * 在页面已有 html 结构的基础上创建 background 组件
  * @function magic.setup.background
+ * @name magic.setup.background
  * @param {dom-id|HTMLElement} el 容器对象
  * @grammar magic.setup.background(el, options)
  * @param   {Object}    options 参数设置
@@ -25,7 +25,7 @@
 magic.setup.background = function(el, options){
 	var opt = options || {};
 
-	var bg = magic.setup(baidu.dom.g(el), magic.Background, opt);
+	var bg = magic.setup(baidu.dom(el).get(0)||el, magic.Background, opt);
 
 	var y = bg.getElement(), s=y.style, yp=y.parentNode;
 	s.top = "0px";
@@ -35,9 +35,9 @@ magic.setup.background = function(el, options){
 	s.position = "absolute";
 	s.zIndex = -9;
 
-	bg.coverable && baidu.dom.insertHTML(y, "beforeend", bg._coverDom||"");
+	bg.coverable && baidu.dom(y).insertHTML("beforeend", bg._coverDom||"");
 	yp != document.body
-		&& baidu.dom.getCurrentStyle(yp,"position")=="static"
+		&& baidu.dom(yp).getCurrentStyle("position")=="static"
 		&& (yp.style.position="relative");
 
 	return bg;

@@ -6,30 +6,51 @@
 ///import magic.Base;
 ///import magic.control;
 ///import baidu.lang.createClass;
-///import baidu.event.on;
-///import baidu.event.un;
-///import baidu.event.get;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.dom.drag;
-///import baidu.dom.setStyle;
+///import baidu.dom.css;
 ///import baidu.object.extend;
 ///import baidu.array.each;
 ///import baidu.fn.bind;
-///import baidu.dom.getPosition;
+///import baidu.dom.offset;
 
 
 /**
- * Slider控制器。
+ * @description 滑动条控制器。
  * @class
+ * @name magic.control.Slider
  * @superClass  magic.control.Layer
  * @grammar     new magic.control.Slider(options)
- * @param       {Object}                  options           选项。参数的详细说明如下表所示
- * @config      {String}                  orientation       决定sider是水平还是垂直，'horizontal' || 'vertical'
- * @config      {String}                  direction         决定从哪一端开始移动，'forwrad' || 'backward'
- * @config      {Float}                   accuracy          精确度，0-1之间的小数
- * @config      {Number}                  currentValue      Slider的初始值，即游标初始位置
- * @plugin      fx                        为Slider组件增加动画滚动功能
- * @plugin      cache                     为Slider组件增加缓存进度功能
+ * @param {Object} options 选项
+ * @param {String} options.orientation 决定滑动条是水平还是垂直，'horizontal' || 'vertical'，默认vertical
+ * @param {String} options.direction 决定从哪一端开始移动，'forward'或'backward'，默认backward
+ * @param {Float} options.accuracy 精确度，0-1之间的小数，默认0
+ * @param {Number} options.currentValue 滑动条的初始值，即游标初始位置，默认0
+ * @plugin fx 为滑动条组件增加动画滚动功能
+ * @plugin cache 为滑动条组件增加缓存进度功能
  * @author      qiaoyue
+ * @return {magic.control.Slider} Slider实例
+ * @example
+ * /// for options.orientation
+ * var instance = new magic.Slider({
+ * 		orientation: 'horizontal'	// 水平滑动条
+ * });
+ * @example
+ * /// for options.direction
+ * var instance = new magic.Slider({
+ * 		direction: 'forward'
+ * });
+ * @example
+ * /// for options.accuracy
+ * var instance = new magic.Slider({
+ * 		accuracy: 0.25
+ * });
+ * @example
+ * /// for options.currentValue
+ * var instance = new magic.Slider({
+ * 		currentValue: 10
+ * });
  */
 magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options){
     var me = this,
@@ -68,13 +89,13 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
         info._const = (info._range[1] - info._limit) / 2;
 
         baidu.array.each(eventsList, function(type, i){
-            baidu.event.on(view, type, eventHandler);
+            baidu.dom(view).on(type, eventHandler);
         });
 
         // 解除dom events绑定
         me.on('dispose', function(){
             baidu.array.each(eventsList, function(type, i){
-                baidu.event.un(view, type, eventHandler);
+                baidu.dom(view).off(type, eventHandler);
             });
         }) ;
 
@@ -92,25 +113,49 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
 magic.control.Slider.extend({
 
     /**
-     * 禁用组件
-     * @return {}   none
+     * @description 禁用组件
+     * @name magic.control.Slider#disable
+     * @function
+     * @grammar magic.control.Slider#disable()
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.disable();	// 禁用
      */
     disable: function(){
         this._info._status = 'disabled';
     },
-
-    /**
-     * 启用组件
-     * @return {}   none
+	/**
+     * @description 启用组件
+     * @name magic.control.Slider#enable
+     * @function
+     * @grammar magic.control.Slider#enable()
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.disable();	// 禁用
+     * instance.enable();	// 启用
      */
     enable: function(){
         this._info._status = 'enable';
     },
 
-    /**
-     * 设置组件的值，无动画效果
-     * @param  {float}   value    要设置的值
-     * @return {}        none
+	/**
+     * @description 设置组件的值，无动画效果
+     * @name magic.control.Slider#setValue
+     * @function
+     * @grammar magic.control.Slider#setValue(value)
+     * @param {float} value 要设置的值
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.setValue(20);		// 设置值
      */
     setValue: function(value){
         var me = this,
@@ -127,19 +172,34 @@ magic.control.Slider.extend({
         me._setPosition({target: null, noAccuracy: true, noFx: true}, pos);
         info.currentValue = value;       
     },
-
-    /**
-     * 获取组件的值
-     * @return {float}    value    组件当前值
+	/**
+     * @description 获取组件的值
+     * @name magic.control.Slider#getValue
+     * @function
+     * @grammar magic.control.Slider#getValue()
+     * @return {float} value 组件当前值
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.getValue();	// 获取值
      */
     getValue: function(){
         return this._info.currentValue;
     },
-
-    /**
-     * 设置范围
-     * @param  {float}    value    设置组件的取值范围(0-1)
-     * @return {}         none
+	/**
+     * @description 设置范围
+     * @name magic.control.Slider#setRange
+     * @function
+     * @grammar magic.control.Slider#setRange(value)
+     * @param {float} value 设置组件的取值范围(0-1)
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.setRange(0.5);	// 设置范围
      */
     setRange: function(value){
         var me = this,
@@ -156,12 +216,21 @@ magic.control.Slider.extend({
     },
 
     /**
-     * 析构
+     * @description 析构
+     * @name magic.control.Slider#$dispose
+     * @function
+     * @grammar magic.control.Slider#$dispose()
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.$dispose();	// 销毁组件
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this;
         if(me.disposed) return;
-        magic.Base.prototype.dispose.call(me);
+        magic.Base.prototype.$dispose.call(me);
     },
 
     /**
@@ -194,7 +263,7 @@ magic.control.Slider.extend({
             extra = knob[info._val],
             range = info._range,
             rect = [],
-            offset = parseInt(baidu.dom.getStyle(knob, 'margin-' + info._knobKey));
+            offset = parseInt(baidu.dom(knob).css('margin-' + info._knobKey));
 
         if(info._isVertical){ // 计算拖拽的范围
             r2 = range[1] + extra;
@@ -215,7 +284,7 @@ magic.control.Slider.extend({
 
             ondrag: function(){
                 var pos = me._getRealPos(knob, info._knobKey);
-                baidu.dom.setStyle(process, info._accuracyKey, me._getProcessPos(pos));
+                baidu.dom(process).css(info._accuracyKey, me._getProcessPos(pos));
                 me._setCurrentValue(pos);
 
                 me.fire('onslide');
@@ -238,7 +307,7 @@ magic.control.Slider.extend({
     _resize: function(){
         var me = this,
             info = me._info,
-            percent = info._percent || 1,
+            percent = isNaN(Math.min(info._percent, 1)) ? 1 : Math.min(info._percent, 1),
             inner = me.getElement('inner'),
             view = me.getElement('view'), max;
 
@@ -266,14 +335,15 @@ magic.control.Slider.extend({
             knob = me.getElement('knob'),
             process = me.getElement('process'),
             _accuracyKey = info._accuracyKey,
-            pos1 = baidu.dom.getStyle(knob, info._knobKey),
-            pos2 = baidu.dom.getStyle(process, _accuracyKey);
-
+            pos1 = knob.style[info._knobKey],
+            pos2 = process.style[_accuracyKey];
         if(/px|auto/.test(pos1)) return;
+        if(!pos1.length) pos1 = 0;
+        if(!pos2.length) pos2 = 0;
         pos1 = parseFloat(pos1) / 100 * info[_accuracyKey] + 'px';
         pos2 = parseFloat(pos2) / 100 * info._limit + 'px';
-        baidu.dom.setStyle(knob, info._knobKey, pos1);
-        baidu.dom.setStyle(process, _accuracyKey, pos2);;
+        baidu.dom(knob).css(info._knobKey, pos1);
+        baidu.dom(process).css(_accuracyKey, pos2);;
     },
 
     /**
@@ -288,8 +358,8 @@ magic.control.Slider.extend({
 
         if(/%/.test(pos)) return;
 
-        baidu.dom.setStyle(knob, info._knobKey, me._knobPercent(pos));
-        baidu.dom.setStyle(process, info._accuracyKey, me._processPercent(me._getProcessPos(pos)));
+        baidu.dom(knob).css(info._knobKey, me._knobPercent(pos));
+        baidu.dom(process).css(info._accuracyKey, me._processPercent(me._getProcessPos(pos)));
     },
 
     /**
@@ -316,7 +386,7 @@ magic.control.Slider.extend({
      * @private
      */
     _getRealPos: function(elem, key){
-        return baidu.dom.getStyle(elem, key);
+        return elem.style[key];
     },
 
     /**
@@ -370,8 +440,8 @@ magic.control.Slider.extend({
     _getMousePos: function(){
         var view = this.getElement('view'),
             xy = baidu.page.getMousePosition(),
-            page = baidu.dom.getPosition(view);
-
+            page = baidu.dom(view).offset();
+		
         if(this._info._mouseKey == 'x'){
             return xy.x - page.left;
         }else{
@@ -391,8 +461,8 @@ magic.control.Slider.extend({
             processPos = me._getProcessPos(pos);
 
         me._setCurrentValue(mousePos);
-        baidu.dom.setStyle(knob, info._knobKey, me._knobPercent(mousePos));
-        baidu.dom.setStyle(process, info._accuracyKey, me._processPercent(processPos));
+        baidu.dom(knob).css(info._knobKey, me._knobPercent(mousePos));
+        baidu.dom(process).css(info._accuracyKey, me._processPercent(processPos));
     },
 
     /**
@@ -401,7 +471,7 @@ magic.control.Slider.extend({
      */
     _setCurrentValue: function(pos){
         var info = this._info;
-        info.currentValue = parseFloat(pos) / info[info._accuracyKey];
+        info.currentValue = (parseFloat(pos) * 10) / (info[info._accuracyKey] * 10);
     },
 
     /** 
@@ -505,30 +575,101 @@ magic.control.Slider.extend({
         info._accuracyZone = accuracyZone.concat(info[_accuracyKey]);
     },
 
-    /**
-     * 拖动开始触发
+	
+	/**
+     * @description 拖动开始触发
      * @name magic.control.Slider#onslidestart
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onslidestart(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onslidestart = function(evt){
+     * 		alert("开始拖动");
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('slidestart', function(evt){
+     * 		alert("开始拖动");
+     * });
      */
-    /**
-     * 拖动中触发
+	
+	/**
+     * @description 拖动中触发
      * @name magic.control.Slider#onslide
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onslide(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onslide = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('slide', function(evt){
+     * 		// do something...
+     * });
      */
-    /**
-     * 拖动结束触发
+	
+	/**
+     * @description 拖动结束触发
      * @name magic.control.Slider#onslidestop
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onslidestop(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onslidestop = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('slidestop', function(evt){
+     * 		// do something...
+     * });
      */
     /**
-     * 当组件值发生改变时触发
+     * @description 当组件值发生改变时触发
      * @name magic.control.Slider#onchange
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
-     * @config  {Number}             value      组件当前值
+     * @event
+     * @grammar magic.control.Slider#onchange(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @param {Number} evt.value 组件当前值
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onchange = function(evt){
+     * 		log(evt.value);		// 记录值的每一次变动
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('change', function(evt){
+     * 		log(evt.value);		// 记录值的每一次变动
+     * });
      */
     /**
      * 事件控制器
@@ -539,7 +680,6 @@ magic.control.Slider.extend({
             knob = me.getElement('knob'),
             process = me.getElement('process');
 
-        evt = baidu.event.get(evt);
         evt.preventDefault(); // 阻止默认行为
         me._resize(); // 重新设置范围
 
@@ -548,6 +688,7 @@ magic.control.Slider.extend({
                 me._startDrag(evt);
             }else if(evt.type == 'mousedown'){
                 me._setPosition(evt);
+                me.fire('onslideclick');
             }
         }
 

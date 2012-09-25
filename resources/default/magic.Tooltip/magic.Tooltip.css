@@ -24,7 +24,7 @@
 	z-index:1;
 	font-size:1px;
 	position:absolute;
-	background:transparent url(./arrow.png) no-repeat 20px top;
+	background:transparent url(arrow.png) no-repeat 20px top;
 }
 .tang-tooltip .arrow_bottom{
 	top:100%;
@@ -35,15 +35,15 @@
 	font-size:1px;
 	position:absolute;
 	margin-top:-5px;
-	background:transparent url(./arrow.png) no-repeat center -10px;
+	background:transparent url(arrow.png) no-repeat center -10px;
 }
 .tang-tooltip .ie6__ .arrow_bottom{margin-top:-4px;}
 .tang-tooltip-close{position:absolute; width:10px; height:9px; top:8px; right:11px;}
-.tang-tooltip-close a{display:block; width:100%; height:100%; background:url(./close.gif) no-repeat center center; text-decoration:none;}
+.tang-tooltip-close a{display:block; width:100%; height:100%; background:url(close.gif) no-repeat center center; text-decoration:none;}
 .tang-tooltip-close a:hover{background-color:yellow;}
 
 .tang-tooltip .ie6__ .arrow_top,
-.tang-tooltip .ie6__ .arrow_bottom{background-image:url(./arrow.gif);}
+.tang-tooltip .ie6__ .arrow_bottom{background-image:url(arrow.gif);}
 
 .tang-tooltip .align_left .arrow_top{background-position:20px top;}
 .tang-tooltip .align_center .arrow_top{background-position:center top;}

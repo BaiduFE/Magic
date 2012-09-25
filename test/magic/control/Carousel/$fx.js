@@ -49,7 +49,7 @@ test("render", function(){
 			var time2 = 0;
 			var time3 = 0;
 			var time4 = 0;
-			var l1 = baidu.event._listeners.length;
+			var l1 = baidu._util_.eventBase._getEventsLength();
 			var c = new magic.Carousel({
 			    items: citems,
 			    fx: {
@@ -87,8 +87,8 @@ test("render", function(){
 				    ok(time5 - time4 >= 100 && time5 - time4 < 500, "The duration is right");
 					setTimeout(function(){
 						equals(c._selectedIndex, 0, "Scroll to 0");
-						c.dispose();
-						var l2 = baidu.event._listeners.length;
+						c.$dispose();
+						var l2 = baidu._util_.eventBase._getEventsLength();
 						equals(l2, l1, "The events are un");
 						document.body.removeChild(div);
 						start();
@@ -121,7 +121,7 @@ test("render, disable", function(){
     	 time2 = new Date();
 	     ok(time2 - time1 < 500, "The duration is right");
 		 equals(c._selectedIndex, 3, "Scroll to 3");
-		 c.dispose();
+		 c.$dispose();
 		 document.body.removeChild(div);
 	     start();
 	});
@@ -145,7 +145,7 @@ test("setup", function(){
 	    	duration:100
 	    }
 	};
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var c = magic.setup.carousel('one-carousel', options);
     c.on("onfocus", function(){
 		scroll ++;
@@ -178,8 +178,8 @@ test("setup", function(){
 		    ok(time5 - time4 >= 100 && time5 - time4 < 500, "The duration is right");
 			setTimeout(function(){
 				equals(c._selectedIndex, 0, "Scroll to 0");
-				c.dispose();
-				var l2 = baidu.event._listeners.length;
+				c.$dispose();
+				var l2 = baidu._util_.eventBase._getEventsLength();
 				equals(l2, l1, "The events are un");
 				document.body.removeChild(baidu.dom.g("one-carousel"));
 				start();
@@ -208,7 +208,7 @@ test("setup, disable", function(){
    	 time2 = new Date();
 	     ok(time2 - time1 < 500, "The duration is right");
 		 equals(c._selectedIndex, 3, "Scroll to 3");
-		 c.dispose();
+		 c.$dispose();
 		 document.body.removeChild(baidu.dom.g("one-carousel"));
 	     start();
 	});

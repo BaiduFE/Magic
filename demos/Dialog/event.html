@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Dialog 组件自定义事件示例">
+        <title>对话框组件自定义事件示例</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
+        <style type="text/css" media="screen">
+            /* 对话框初始信息 */
+            #one-dialog .tang-body{ font-size: 12px; }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./complex.html">对话框组件多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">对话框组件frame 类型内容示例</a></li>
+                    <li><a href="./mask.html">对话框组件 mask 插件示例</a></li>
+                    <li><a href="./methods.html">对话框组件各个接口的使用示例</a></li>
+                    <li><a href="./event.html">对话框组件自定义事件的使用示例</a></li>
+                    <li><a href="./render.html">对话框组件render模式示例</a></li>
+                    <li><a href="./setup.html">对话框组件setup模式示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>对话框组件自定义事件示例</h3>
+                    <p>本例演示了dialog组件render模式的各个自定义事件，对setup模式同样适用（除onload以外）。</p>
+                    <div class="demo-view">
+                        <p><button id="J_dialog">创建一个Dialog</button><button id="J_resize">改变Dialog尺寸</button><button id="J_position">改变Dialog位置</button></p>
+                    </div>
+                </div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        	var dialog;
+        	baidu("#J_dialog").on("click", function(){
+        		dialog = new magic.Dialog({
+					draggable: true,
+					titleText: "对话框标题",
+					content: "对话框内容",
+					left: 80,
+					top: 80,
+					width: 400,
+					height: 300
+				});
+
+        		//onload
+        		dialog.on("onload", function(){
+        			log("event", "窗口节点渲染完成, onload fired");
+        		});
+        		//onbeforeshow
+        		dialog.on("onbeforeshow", function(){
+        			log("event", "即将显示窗口（如果事件回调函数返回值为 false，则阻止显示窗口）, onbeforeshow fired");
+        		});
+        		//onshow
+        		dialog.on("onshow", function(){
+        			log("event", "窗口显示, onshow fired");
+        		});
+        		//onbeforehide
+        		dialog.on("onbeforehide", function(){
+        			log("event", "即将关闭窗口（如果事件回调函数返回值为 false，则阻止关闭窗口）, onbeforehide fired");
+        		});
+        		//onhide
+        		dialog.on("onhide", function(){
+        			log("event", "窗口关闭, onhide fired");
+        		});
+        		//onfocus
+        		dialog.on("onfocus", function(){
+        			log("event", "窗口获得焦点, onfocus fired");
+        		});
+        		//onresize
+        		dialog.on("onresize", function(){
+        			log("event", "调整窗口尺寸, onresize fired");
+        		});
+        		//onfocus
+        		dialog.on("onmove", function(){
+        			log("event", "窗口移动, onmove fired");
+        		});
+
+				dialog.render();
+        	});
+
+			baidu("#J_resize").on("click", function(){
+				if(!dialog){
+					alert("请先初始化Dialog");
+					return;
+				}
+				log("info", "Dialog当前高度：" + dialog.height + "，宽度" + dialog.width);
+				dialog.setSize({
+					height: 200,
+					width: 200
+				});
+				log("info", "Dialog当前高度：" + dialog.height + "，宽度" + dialog.width);
+			});
+
+			baidu("#J_position").on("click", function(){
+				if(!dialog){
+					alert("请先初始化Dialog");
+					return;
+				}
+				log("info", "Dialog当前左侧距离：" + baidu(dialog.getElement()).css("left") + "，上侧距离" + baidu(dialog.getElement()).css("top"));
+				dialog && dialog.setPosition({
+					left: 200, 
+					top: 300
+				});
+				log("info", "Dialog当前左侧距离：" + baidu(dialog.getElement()).css("left") + "，上侧距离" + baidu(dialog.getElement()).css("top"));
+			});
+        </script>
+    </body>
+</html>

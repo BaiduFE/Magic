@@ -4,8 +4,8 @@ require_once 'config.php';
 if(array_key_exists('debug', $_GET))
 Config::$DEBUG = true;
 if(!Config::$DEBUG){
-	header("Content-type: text/javascript; charset=utf-8");
-	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+	@header("Content-type: text/javascript; charset=utf-8");
+	@header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 }
 /*
  * Tangram

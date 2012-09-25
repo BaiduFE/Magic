@@ -761,6 +761,8 @@ var UserAction = {
 			}
 		});
 		url='?f='+f.substr(1)+'&e='+e;
+		if(pw.location.href.indexOf("release=true") > -1)
+			url += '&release=true';
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");
@@ -845,7 +847,7 @@ var UserAction = {
 		/**
 		 * 支持release分之，此处应该直接返回
 		 */
-		if (location.search.indexOf("release=true") >= 0) {
+		if (location.search.indexOf("release=true") >= 0 && src.indexOf("baidu") == -1) {
 			if (callback && typeof callback == "function")
 				callback();
 			return;
@@ -914,33 +916,39 @@ var UserAction = {
 	},
 
 	/* 用于加载css文件，如果没有加载完毕则不执行回调函数 */
-	loadcss : function(url, callback, classname, style, value) {
-		var links = document.getElementsByTagName('link');
-		for ( var link in links) {
-			if (link.href == url) {
-				callback();
-				return;
-			}
-		}
-		var head = document.getElementsByTagName('head')[0];
-		var link = head.appendChild(document.createElement('link'));
-		link.setAttribute("rel", "stylesheet");
-		link.setAttribute("type", "text/css");
-		link.setAttribute("href", url);
-		var div = document.body.appendChild(document.createElement("div"));
-		$(document).ready(
-				function() {
-					div.className = classname || 'cssloaded';
-					var h = setInterval(function() {
-						if ($(div).css(style || 'width') == value
-								|| $(div).css(style || 'width') == '20px') {
-							clearInterval(h);
-							document.body.removeChild(div);
-							setTimeout(callback, 20);
-						}
-					}, 20);
-				});
-	},
+    loadcss : function(urls, callback, w, classname, style, value) {
+        var w = w || window;
+        var document = w.document;
+        var links = document.getElementsByTagName('link');
+        if(typeof urls == "string")
+            var urls = [urls];
+        for(var i=0; i< urls.length; i++){
+            for ( var link in links) {
+                if (link.href == urls[i]) {
+                    callback();
+                    return;
+                }
+            }
+            var head = document.getElementsByTagName('head')[0];
+            var link = head.appendChild(document.createElement('link'));
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("type", "text/css");
+            link.setAttribute("href", urls[i]);
+        }
+        var div = document.body.appendChild(document.createElement("div"));
+        $(document).ready(
+                function() {
+                    div.className = classname || 'cssloaded';
+                    var h = setInterval(function() {
+                        if ($(div).css(style || 'width') == value
+                                || $(div).css(style || 'width') == '20px') {
+                            clearInterval(h);
+                            document.body.removeChild(div);
+                            setTimeout(callback, 20);
+                        }
+                    }, 20);
+                });
+    },
 
 	/**
 	 * options supported

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Suggestion 组件">
+        <title>输入框提示组件</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel='stylesheet' type='text/css' href='../../resources/default/magic.control.Suggestion/magic.control.Suggestion.css'>
+        <style type="text/css" media="screen">
+            .console-wrap {
+                margin-top: 150px;
+            }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.suggestion,baidu.ajax.request'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./demo.html">输入框提示组件示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>输入框提示组件示例</h3>
+                    <p>根据输入框的内容在其下方通过弹出层的方式展示建议数据，多用于搜索引擎的搜索框。</p>
+                    <div class="demo-view">
+                        <div id='one-suggestion' class='tang-ui tang-suggestion' tang-param=''>
+                            <p class="action-wrap">
+                                <button id="J_init">初始化Suggestion</button>
+                                <button id="J_show">显示建议数据</button>
+                                <button id="J_hide">隐藏建议数据</button>
+                                <button id="J_getInputValue">获取输入框中的值</button>
+                            </p>
+                            <form action="#" id="form" autocomplete="off">
+                                请输入搜索关键字：<input type="text" class="tang-suggestion-input" id="J_input" name="q">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var options = {
+                getData: function(key){
+                    var me = this;
+                    baidu.ajax.request("../../demos/Suggestion/service.json", {
+                        'method': 'GET',
+                        'timeout': 2000,
+                        'onsuccess': function(xhr, response){
+                            var a = eval(response);
+                            me.receiveData(key, a);
+                        }
+                    });
+                }
+            };
+            var instance;
+
+            baidu("#J_init").on("click", function(){
+                instance = magic.setup.suggestion('J_input', options);
+                log('info', 'Suggestion已初始化');
+
+                //onrender
+                instance.on("onrender", function(){
+                    log("event", "Suggestion已渲染， onrender fired");
+                });
+                //onbeforeshow
+                instance.on("onbeforeshow", function(){
+                    log("event", "试图显示Suggestion， onbeforeshow fired");
+                });
+                //onshow
+                instance.on("onshow", function(){
+                    log("event", "显示Suggestion， onshow fired");
+                });
+                //onhide
+                instance.on("onhide", function(){
+                    log("event", "隐藏Suggestion， onhide fired");
+                });
+                //onhighlight
+                instance.on("onhighlight", function(e){
+                    log("event", "高亮了第" + (e.index + 1) + "个候选项，值为'" + e.value + "'， onhighlight fired");
+                });
+                //onclearhighlight
+                instance.on("onclearhighlight", function(e){
+                    log("event", "取消第" + (e.index + 1) + "个候选项的高亮状态，值为'" + e.value + "'， onclearhighlight fired");
+                });
+                //onbeforepick
+                instance.on("onbeforepick", function(e){
+                    log("event", "试图将第" + (e.index + 1) + "个候选项上框（填入输入框），值为'" + e.value + "'， onbeforepick fired");
+                });
+                //onpick
+                instance.on("onpick", function(e){
+                    log("event", "将第" + (e.index + 1) + "个候选项上框（填入输入框），值为'" + e.value + "'， onpick fired");
+                });
+                //onconfirm
+                instance.on("onconfirm", function(e){
+                    log("event", "提交第" + (e.index + 1) + "个候选项，值为'" + e.value + "'， onconfirm fired");
+                });
+                //onmouseoveritem
+                instance.on("onmouseoveritem", function(e){
+                    log("event", "鼠标移动到第" + (e.index + 1) + "个候选项上，值为'" + e.value + "'， onmouseoveritem fired");
+                });
+                //onmouseoutitem
+                instance.on("onmouseoutitem", function(e){
+                    log("event", "鼠标移出第" + (e.index + 1) + "个候选项，值为'" + e.value + "'， onmouseoutitem fired"); });
+                //onmousedownitem
+                instance.on("onmousedownitem", function(e){
+                    log("event", "鼠标在第" + (e.index + 1) + "个候选项上按下，值为'" + e.value + "'， onmousedownitem fired");
+                });
+                //onmouseclick
+                instance.on("onmouseclick", function(e){
+                    log("event", "点击了第" + (e.index + 1) + "个候选项，值为'" + e.value + "'， onmouseclick fired");
+                });
+
+            });
+            
+            baidu("#J_show").on("click", function(){
+                setTimeout(function(){
+                    if(!instance){
+                        alert("需要先初始化Suggestion");
+                        return;
+                    }
+					if(!baidu.string.trim(instance.getInputValue()).length){
+						alert("请先输入搜索关键字");
+						return;
+					}
+                    if(instance.dataCache[instance.getInputValue()]){
+                        instance.show();
+                    }else{
+                        instance.getData(instance.getInputValue());
+                    }
+                }, 10);
+            });
+
+            baidu("J_hide").on("click", function(){
+                if(!instance){
+                    alert("需要先初始化Suggestion");
+                    return;
+                }
+                instance.hide();
+            });
+
+            baidu("#J_getInputValue").on("click", function(){
+                if(!instance){
+                    alert("需要先初始化Suggestion");
+                    return;
+                }
+                log('info', "输入框中的值为：'" + instance.getInputValue() + "'");
+            });
+
+        </script>
+    </body>
+</html>

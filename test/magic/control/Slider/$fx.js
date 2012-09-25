@@ -49,7 +49,7 @@ test("render, default params&events", function(){
 			div.id = "div1";
 			$(div).css("width", "222px");
 			var num = 0;
-			var l1 = baidu.event._listeners.length;
+			var l1 = baidu._util_.eventBase._getEventsLength();
 			var slider = new magic.Slider({
 				fx:{
 					enable: true
@@ -70,14 +70,14 @@ test("render, default params&events", function(){
 
 			setTimeout(function(){
 				ua.mousemove(slider.getElement("view"), {
-					clientX : baidu.dom.getPosition(slider.getElement("view")).left + 38,
-					clientY : baidu.dom.getPosition(slider.getElement("view")).top
+					clientX : baidu.dom(slider.getElement("view")).offset().left + 38,
+					clientY : baidu.dom(slider.getElement("view")).offset().top
 				});
 				ua.mousedown(slider.getElement("view"));
 				setTimeout(function(){
-					equals(baidu.dom.getPosition(slider.getElement("knob")).left, baidu.dom.getPosition(slider.getElement("view")).left + 38 - 11, "The position of The knob is right");
-					slider.dispose();
-					var l2 = baidu.event._listeners.length;
+					equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 38 - 11, "The position of The knob is right");
+					slider.$dispose();
+					var l2 = baidu._util_.eventBase._getEventsLength();
 					equals(l2, l1, "The events are un");
 					start();
 				}, 600);
@@ -104,13 +104,13 @@ test("render, orientation&accuracy&duration", function(){
 	slider.render('div1');
 	setTimeout(function(){
 		ua.mousemove(slider.getElement("view"), {
-			clientX : baidu.dom.getPosition(slider.getElement("view")).left,
-			clientY : baidu.dom.getPosition(slider.getElement("view")).top + 42
+			clientX : baidu.dom(slider.getElement("view")).offset().left,
+			clientY : baidu.dom(slider.getElement("view")).offset().top + 42
 		});
 		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
-			equals(baidu.dom.getPosition(slider.getElement("knob")).top, baidu.dom.getPosition(slider.getElement("view")).top + 40 - 11, "The position of The knob is right");
-			slider.dispose();
+			equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 40 - 11, "The position of The knob is right");
+			slider.$dispose();
 			start();
 		}, 150);
 	}, 150);
@@ -121,7 +121,7 @@ test("setup, default params&events", function(){
     expect(5);
 	enSetupH();
 	var num = 0;
-	var l1 = baidu.event._listeners.length;
+	var l1 = baidu._util_.eventBase._getEventsLength();
 	var slider = new magic.setup.slider("s1", {
 		fx: {
 			enable: true
@@ -140,14 +140,14 @@ test("setup, default params&events", function(){
 	});
 	setTimeout(function(){
 		ua.mousemove(slider.getElement("view"), {
-			clientX : baidu.dom.getPosition(slider.getElement("view")).left + 42,
-			clientY : baidu.dom.getPosition(slider.getElement("view")).top
+			clientX : baidu.dom(slider.getElement("view")).offset().left + 42,
+			clientY : baidu.dom(slider.getElement("view")).offset().top
 		});
 		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
-			equals(baidu.dom.getPosition(slider.getElement("knob")).left, baidu.dom.getPosition(slider.getElement("view")).left + 42 - 11, "The position of The knob is right");
-			slider.dispose();
-			var l2 = baidu.event._listeners.length;
+			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 42 - 11, "The position of The knob is right");
+			slider.$dispose();
+			var l2 = baidu._util_.eventBase._getEventsLength();
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
 			start();
@@ -169,13 +169,13 @@ test("setup, orientation&accuracy&duration", function(){
 	});
 	setTimeout(function(){
 		ua.mousemove(slider.getElement("view"), {
-			clientX : baidu.dom.getPosition(slider.getElement("view")).left,
-			clientY : baidu.dom.getPosition(slider.getElement("view")).top + 42
+			clientX : baidu.dom(slider.getElement("view")).offset().left,
+			clientY : baidu.dom(slider.getElement("view")).offset().top + 42
 		});
 		ua.mousedown(slider.getElement("view"));
 		setTimeout(function(){
-			equals(baidu.dom.getPosition(slider.getElement("knob")).top, baidu.dom.getPosition(slider.getElement("view")).top + 40 - 11, "The position of The knob is right");
-			slider.dispose();
+			equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 40 - 11, "The position of The knob is right");
+			slider.$dispose();
 			document.body.removeChild(div);
 			start();
 		}, 150);

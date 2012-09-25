@@ -6,15 +6,24 @@
 ///import baidu.lang.register;
 ///import magic.control.Slider;
 ///import baidu.fx.moveTo;
-
+///import baidu.dom.css;
 /**
- * 为Slider组件增加动画滚动功能
+ * @description 为滑动条组件增加动画滚动功能
  * @name magic.control.Slider.$fx
- * @addon magic.control.Slider
- * @param {Object} options config参数.
- * @config      {Boolean}           fx.enable            是否开启动画效果，true || false, 默认为false
- * @config      {Number}            fx.duration          动画持续时间
+ * @addon
+ * @param {Object} options 插件选项
+ * @param {Boolean} options.fx.enable 插件开关， 默认false
+ * @param {Boolean} options.fx.duration 动画持续时间(毫秒)，默认200
  * @author qiaoyue
+ * @example
+ * /// for options.fx.enable,options.fx.duration
+ * var instance = new magic.Slider({
+ * 		orientation:'horizonal',
+ * 		fx:{
+ * 			enable: true,	// 启用动画
+ * 			duration: 2000	// 动画持续时间 2 秒
+ * 		}		
+ * }); 
  */
 baidu.lang.register(magic.control.Slider, function(options){
     var me = this,
@@ -30,12 +39,19 @@ baidu.lang.register(magic.control.Slider, function(options){
     });
     
 }, {
-
-    /**
-     * 设置组件的值
-     * @param  {float}     value    要设置的值
-     * @param  {boolean}   noFx     不使用动画，true || false 默认会使用
-     * @return {}          none
+	/**
+     * @description 设置组件的值
+     * @name magic.control.Slider.$fx#setValue
+     * @function
+     * @grammar magic.control.Slider.$fx#setValue(value, noFx)
+     * @param {float} value 要设置的值
+     * @param {boolean} noFx 不使用动画，true || false 默认会使用
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.setValue(20, true);
      */
     setValue: function(value, noFx){
         var me = this,
@@ -53,24 +69,75 @@ baidu.lang.register(magic.control.Slider, function(options){
         info.currentValue = value;    
     },
 
-
-    /**
-     * 动画开始触发
+	
+	/**
+     * @description 动画开始触发
      * @name magic.control.Slider.$fx#onfxstart
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onfxstart(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onfxstart = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('fxstart', function(evt){
+     * 		// do something...
+     * });
      */
-    /**
-     * 动画中触发
+	/**
+     * @description 动画中触发
      * @name magic.control.Slider.$fx#onfx
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onfx(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onfx = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('fx', function(evt){
+     * 		// do something...
+     * });
      */
-    /**
-     * 动画结束触发
+	/**
+     * @description 动画结束触发
      * @name magic.control.Slider.$fx#onfxstop
-     * @event 
-     * @param   {baidu.lang.Event}   evt        事件参数
+     * @event
+     * @grammar magic.control.Slider#onfxstop(evt)
+     * @param {baidu.lang.Event} evt 事件参数
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.onfxstop = function(evt){
+     * 		// do something...
+     * }
+     * @example
+     * var instance = new magic.Slider({
+     * 		orientation: 'vertical'
+     * });
+     * instance.render('s1');
+     * instance.on('fxstop', function(evt){
+     * 		// do something...
+     * });
      */
     /**
      * 动画移动
@@ -95,7 +162,7 @@ baidu.lang.register(magic.control.Slider, function(options){
             },
             onafterupdate: function(){
                 var pos = me._getProcessPos(me._getRealPos(knob, _knobKey));
-                baidu.dom.setStyle(process, _accuracyKey, pos);
+                baidu.dom(process).css(_accuracyKey, pos);
                 me.fire('onfx');
             },
             onafterfinish: function(){

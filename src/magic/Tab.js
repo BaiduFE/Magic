@@ -14,18 +14,31 @@
 ///import baidu.dom.remove;
 
 /**
- * Tab选项卡组件
+ * @description 选项卡组件
  * @class
  * @name magic.Tab
  * @superClass magic.control.Tab
  * @grammar new magic.Tab(options)
  * @param {Object} options 选项.
- * @config {Array} items 数据项，格式如：[{title: 'text-0', content: 'content-0'}, {title: 'text-1', content: 'content-1'}...]
- * @config {String} selectEvent 触发选项卡切换的事件名称,取值click或mouseover，默认值是click
- * @config {Number} selectDelay 当selectEvent是mouseover时，选项卡之间切换的延迟时间，以毫秒为单位，默认值是0.
- * @config {Number} originalIndex 默认选项卡的打开项，默认值是0
+ * @param {Array} options.items 数据项，格式如：[{title: 'text-0', content: 'content-0'}, {title: 'text-1', content: 'content-1'}...]
+ * @param {String} options.selectEvent 触发选项卡切换的事件名称,取值click或mouseover，默认click
+ * @param {Number} options.selectDelay 当selectEvent是mouseover时，选项卡之间切换的延迟时间，以毫秒为单位，默认0
+ * @param {Number} options.originalIndex 默认选项卡的打开项，默认0
  * @return {magic.control.Tab} Tab实例.
  * @author linlingyu
+ * @example
+ * /// for options.selectEvent,options.selectDelay
+ * var instance = new magic.Tab({
+ * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
+ * 		selectEvent : 'mouseover',	// mouseover 触发切换
+ * 		selectDelay : 500	切换延时500毫秒
+ * });
+ * @example
+ * /// for options.items,options.originalIndex
+ * var instance = new magic.Tab({
+ * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
+ * 		originalIndex: 2	// 默认打开第三个tab
+ * });
  */
 magic.Tab = baidu.lang.createClass(function(options) {
     var me = this;
@@ -69,34 +82,46 @@ magic.Tab = baidu.lang.createClass(function(options) {
             bodyContent: tplBodies.join('')
         });
     },
-
-    /**
-     * 将Tab选择卡渲染到指定的容器中
+	/**
+     * @description 将Tab选择卡渲染到指定的容器中
+     * @name magic.Tab#render
+     * @function 
+     * @grammar magic.Tab#render()
      * @param {String|HTMLElement} target 一个用来渲染组件的容器对象.
+     * @example
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
      */
     render: function(target) {
         var me = this,
             container;
         if (me.getElement()) {return;}//已经渲染过
-        me.mappingDom('', baidu.dom.g(target) || document.body);
+        me.$mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
-        baidu.dom.addClass(container, 'tang-ui tang-tab');
-        baidu.dom.insertHTML(container, 'beforeEnd', me.toHTMLString());
+        baidu.dom(container).addClass('tang-ui tang-tab');
+        baidu.dom(container).insertHTML('beforeEnd', me.toHTMLString());
         me.fire('onload');
     },
     
     /**
-     * 析构
+     * @description 析构
+     * @name magic.Tab#$dispose
+     * @function 
+     * @grammar magic.Tab#$dispose()
+     * @example
+     * var instance = new magic.Tab(option);
+     * instance.render('tab-container');
+     * instance.$dispose();
      */
-    dispose: function(){
+    $dispose: function(){
         var me = this, title, body;
         if(me.disposed){return;}
         title = me.getElement('title');
         body = me.getElement('body');
-        baidu.dom.removeClass(me.getElement(), 'tang-ui tang-tab');
-        magic.Base.prototype.dispose.call(me);
-        baidu.dom.remove(title);
-        baidu.dom.remove(body);
+        baidu.dom(me.getElement()).removeClass('tang-ui tang-tab');
+        magic.Base.prototype.$dispose.call(me);
+        baidu.dom(title).remove();
+        baidu.dom(body).remove();
         title = body = null;
     }
 });
