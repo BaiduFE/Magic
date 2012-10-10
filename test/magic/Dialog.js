@@ -282,7 +282,9 @@ test("center, auto width & height", function(){
 	stop();
 	ua.frameExt(function(w, f){
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);;
-		var div = w.document.createElement("div");
+		var ww = w.document.body.clientWidth;
+	    var wh = w.document.body.clientHeight;
+	    var div = w.document.createElement("div");
 		w.document.body.appendChild(div);
 		div.id = "one-dialog";
 		var cdiv = w.document.createElement("div");
@@ -294,10 +296,10 @@ test("center, auto width & height", function(){
 		});
 		dialog.render("one-dialog");
 		dialog.center();
-		equals(dialog.left, 50, "The left is right");
-		equals(dialog.top, 100, "The top is right");
-		equals(dialog.getElement().style.left, "50px", "The left is right");
-		equals(dialog.getElement().style.top, "100px", "The top is right");
+		equals(dialog.left, (ww - 400) / 2, "The left is right");
+	    equals(dialog.top, (wh - 300) / 2, "The top is right");
+	    equals(dialog.getElement().style.left, (ww - 400) / 2 + "px", "The left is right");
+	    equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");     
 		w.document.body.removeChild(div);
 		this.finish();
 		document.body.removeChild(f.parentNode);
@@ -312,6 +314,8 @@ test("center", function(){
         var me = this;
         ua.loadcss(upath + "setup/dialog/demo.css", function(){
         $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500).css('margin',0).css('padding',0).css('border',0);
+        var ww = w.document.body.clientWidth;
+        var wh = w.document.body.clientHeight;
         var div = w.document.createElement("div");
         w.document.body.appendChild(div);
         div.id = "one-dialog";
@@ -326,10 +330,10 @@ test("center", function(){
         });
         dialog.render("one-dialog");
         dialog.center();
-        equals(dialog.left, 200, "The left is right");
-        equals(dialog.top, 200, "The top is right");
-        equals(dialog.getElement().style.left, "200px", "The left is right");
-        equals(dialog.getElement().style.top, "200px", "The top is right");     
+        equals(dialog.left, (ww - 100) / 2, "The left is right");
+        equals(dialog.top, (wh - 100) / 2, "The top is right");
+        equals(dialog.getElement().style.left, (ww - 100) / 2 + "px", "The left is right");
+        equals(dialog.getElement().style.top, (wh - 100) / 2 + "px", "The top is right");     
         
         var largeDiv = w.document.createElement('div');
         w.document.body.appendChild(largeDiv);
@@ -337,12 +341,14 @@ test("center", function(){
         largeDiv.style.top = largeDiv.style.left = 0;
         largeDiv.style.width = largeDiv.style.height = '2000px';
         w.document.body.scrollTop = w.document.body.scrollLeft = 2000;
-        var diff = (w.document.documentElement.scrollTop || w.document.body.scrollTop) - 1500;
+        var st = w.document.documentElement.scrollTop || w.document.body.scrollTop;
+        var ww = w.document.body.clientWidth;
+        var wh = w.document.body.clientHeight;
         dialog.center();
-        equals(dialog.left, 1700 + Math.floor(diff / 2), "The left is right");
-        equals(dialog.top, 1700 + Math.floor(diff / 2), "The top is right");
-        equals(dialog.getElement().style.left, 1700 + Math.floor(diff / 2) + "px", "The left is right");
-        equals(dialog.getElement().style.top, 1700 + Math.floor(diff / 2) + "px", "The top is right");
+        equals(dialog.left, parseInt(st + (ww - 100) / 2), "The left is right");
+        equals(dialog.top, parseInt(st + (wh - 100) / 2), "The top is right");
+        equals(dialog.getElement().style.left, parseInt(st + (ww - 100) / 2) + "px", "The left is right");
+        equals(dialog.getElement().style.top, parseInt(st + (wh - 100) / 2) + "px", "The top is right");
         
         w.document.body.removeChild(div);
         me.finish();

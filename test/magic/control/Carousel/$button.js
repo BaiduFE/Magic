@@ -31,6 +31,9 @@ test("enable", function(){
 			enSetup();
 			var l1 = baidu._util_.eventBase._getEventsLength();
 			var options = {
+			    fx: {                   //保证release模式下Carousel不会被fx插件影响
+			    	enable: false
+			    }
 			};
 		    var c = magic.setup.carousel('one-carousel', options);
 		    equals(c.getElement("element").childNodes.length, 3, "The pageSize is right");
@@ -75,6 +78,9 @@ test("enable", function(){
 test("click", function(){
 	enSetup();
 	var options = {
+	    fx: {                   //保证release模式下Carousel不会被fx插件影响
+	    	enable: false
+	    }
 	};
     var c = magic.setup.carousel('one-carousel', options);
     ua.click(c.getElement().childNodes[2]);
@@ -96,7 +102,10 @@ test("click, vertical", function(){
 	ua.loadcss(upath + "../../setup/carousel/carousel-vertical.css", function(){
 		enSetup();
 		var options = {
-			orientation: 'vertical'
+			orientation: 'vertical',
+		    fx: {                   //保证release模式下Carousel不会被fx插件影响
+		    	enable: false
+		    }
 		};
 	    var c = magic.setup.carousel('one-carousel', options);
 	    ua.click(c.getElement().childNodes[2]);

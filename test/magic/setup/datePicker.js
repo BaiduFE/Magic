@@ -54,54 +54,51 @@ function getListenersOnInput(inputEl){
 test('默认参数、show接口、show自定义事件、hide自定义事件', function(){
     expect(8);
     stop();
-    ua.importsrc('baidu.dom.offset,baidu.date.format', function() {
-        ua.loadcss(upath + "../Calendar/magic.Calendar.css", function(){
-            var input = document.createElement('input');
-            input.id = 'input_test';
-            document.body.appendChild(input);
-            input.value = '2012/05/06';
+    ua.loadcss(upath + "../Calendar/magic.Calendar.css", function(){
+        var input = document.createElement('input');
+        input.id = 'input_test';
+        document.body.appendChild(input);
+        input.value = '2012/05/06';
+        
+        var listeners = getListenersOnInput(input);
+        
+        var dp = magic.setup.datePicker(input, {});
             
-            var listeners = getListenersOnInput(input);
+        
+        dp.on('show', function(){
+            ok(true, "自定义事件show被触发");
             
-            var dp = magic.setup.datePicker(input, {});
-                
+            same(dp.calendar.currentDate, new Date(2012, 04, 06), "input中有值时，初始化后当前显示的日期为2012年5月");
             
-            dp.on('show', function(){
-                ok(true, "自定义事件show被触发");
-                
-                same(dp.calendar.currentDate, new Date(2012, 04, 06), "input中有值时，初始化后当前显示的日期为2012年5月");
-                
-                equals(dp.popup.getElement("").style.display, '', "测试日历已显示");
-                
-                var dpTop = dp.popup.getElement("").style.top,
-                    dpLeft = dp.popup.getElement("").style.left;
+            equals(dp.popup.getElement("").style.display, '', "测试日历已显示");
+            
+            var dpTop = dp.popup.getElement("").style.top,
+                dpLeft = dp.popup.getElement("").style.left;
 
-                equals(dpTop, baidu(input).offset().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
-                
-                equals(dpLeft, baidu(input).offset().left + "px", '测试默认状态下日历的位置');
-                
-                var dateDoms = baidu(".tang-calendar-date", document);
-                
-                ua.click(dateDoms[0]);
-                
-            });
+            equals(dpTop, baidu(input).offset().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
             
-            dp.on('hide', function(){
-                ok(true, "自定义事件hide被触发");
-                equals(dp.popup.getElement("").style.display, 'none', "测试日历已隐藏");
-                var inputvalue = input.value;
-
-                equals(input.value,'2012-04-29', '测试默认返回的date的格式');
-                
-                document.body.removeChild(input);
-                dp.$dispose();
-                start();
-            });
+            equals(dpLeft, baidu(input).offset().left + "px", '测试默认状态下日历的位置');
             
-            dp.show();
+            var dateDoms = baidu(".tang-calendar-date", document);
+            
+            ua.click(dateDoms[0]);
+            
         });
+        
+        dp.on('hide', function(){
+            ok(true, "自定义事件hide被触发");
+            equals(dp.popup.getElement("").style.display, 'none', "测试日历已隐藏");
+            var inputvalue = input.value;
+
+            equals(input.value,'2012-04-29', '测试默认返回的date的格式');
+            
+            document.body.removeChild(input);
+            dp.$dispose();
+            start();
+        });
+        
+        dp.show();
     });
-    
 });
 
 
@@ -115,7 +112,7 @@ test('自定义参数', function(){
     var dp = magic.setup.datePicker(input, {
         'format': 'yyyy/MM/dd',
         'popupOptions': {
-            'offsetX': 20,
+            'offsetX': 50,
             'offsetY': 20
         },
         'calendarOptions': {
@@ -137,7 +134,7 @@ test('自定义参数', function(){
         }else{
             equals(dpTop, baidu(input).offset().top + input.offsetHeight + 20 + "px", '测试默认状态下日历的位置');
         }
-        equals(dpLeft, baidu(input).offset().left + 20 + "px", '测试自定义日历的位置');
+        equals(dpLeft, baidu(input).offset().left + 50 + "px", '测试自定义日历的位置');
         
         var dateDoms = baidu(".tang-calendar-date", document);
         ua.click(dateDoms[0]);
