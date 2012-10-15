@@ -1,4 +1,4 @@
-module("magic.setup.combobox");
+module("magic.setup.comboBox");
 //1
 
 test('setup, init from select', function() {
@@ -11,7 +11,7 @@ test('setup, init from select', function() {
         var pos = baidu.dom(s).offset();
         var width = s.offsetWidth;
 
-        var cb = magic.setup.combobox(s);
+        var cb = magic.setup.comboBox(s);
         equals(Math.abs(baidu.dom(cb.getElement('container')).offset().left - pos.left) <= 2, true, 'left error in 2px is right.');
 
         equals(Math.abs(baidu.dom(cb.getElement('container')).offset().top - pos.top) <= 5, true, 'top error in 5px is right.');
@@ -36,7 +36,7 @@ test('setup, init from select selected item is the second item', function() {
     var s = baidu.dom.g('s');
     var pos = baidu.dom(s).offset();
     var width = s.offsetWidth;
-    var cb = magic.setup.combobox(s, {
+    var cb = magic.setup.comboBox(s, {
         readonly : true
     });
     equals(Math.abs(baidu.dom(cb.getElement('container')).offset().left - pos.left) <= 2, true, 'left error in 2px is right.');
@@ -55,7 +55,7 @@ test('setup, init from disabled select', function() {
     document.body.appendChild(d);
     d.innerHTML = '<select id="s" disabled><option value="f">女</option><option value="m" selected>男</option></select>';
     var s = baidu.dom.g('s');
-    var cb = magic.setup.combobox(s, {
+    var cb = magic.setup.comboBox(s, {
         readonly : true
     });
     equals(baidu.dom.hasClass(cb.getElement('container'), 'magic-combobox-disable'), true, "The disable style is right");
@@ -73,7 +73,7 @@ test('setup, change', function() {
     var s = baidu.dom.g('s');
     var pos = baidu.dom(s).offset();
     var width = s.clientWidth;
-    var cb = magic.setup.combobox(s);
+    var cb = magic.setup.comboBox(s);
     var change = 0;
     cb.on('change', function(e) {
         change ++;
@@ -106,7 +106,7 @@ test('setup, dispose', function() {
     document.body.appendChild(d);
     d.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var cb = magic.setup.combobox(s);
+    var cb = magic.setup.comboBox(s);
     equals(s.style.visibility, 'hidden', 'select is hidden is right');
     cb.$dispose();
     equals(s.style.display, '', 'select is showing is right');
@@ -120,7 +120,7 @@ test("render, default param", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     equals(combobox1._options.items.length, 2, "The items is right");
     combobox1.menu.show();
     equals(combobox1.getElement('menu').getElementsByTagName('LI').length, 2, "The items displayed is right");
@@ -143,7 +143,7 @@ test("render, all param", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s, {
+    var combobox1 = magic.setup.comboBox(s, {
         'items' : [{
             'value' : 'beijing',
             'content' : '北京'
@@ -198,7 +198,7 @@ test("render, events", function() {
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
     var l1 = baidu._util_.eventBase._getEventsLength();
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var highlight = pick = change = 0;
     
     combobox1.on("show", function(e, data){
@@ -321,7 +321,7 @@ test('render event beforeshow beforehide', function() {
         div1.id = "div1";
         div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
         var s = baidu.dom.g('s');
-        var combobox1 = magic.setup.combobox(s);
+        var combobox1 = magic.setup.comboBox(s);
         
         function f1(e) {
             equals('beforeshow', 'beforeshow', "The beforeshow Event is right");
@@ -363,7 +363,7 @@ test('render event beforepick', function() {
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     function f1(e) {
         equals('beforepick', 'beforepick', "The beforepick Event is right");
         e.returnValue = false;
@@ -389,7 +389,7 @@ test("render, getValue", function(){
     document.body.appendChild(div1);
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.focus();
     combobox1.getElement('input').value = 'abc';
     combobox1.blur();
@@ -412,7 +412,7 @@ test("render, getSelectIndex", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var input = combobox1.getElement('input');
     combobox1.focus();
     $(input).attr('value', 'abc');
@@ -433,7 +433,7 @@ test("render, setByValue", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.setByValue('m');
     var input = combobox1.getElement('input');
     equals(combobox1.getElement('input').value, '男', "setByValue(), the value in the inputbox is right.");
@@ -451,7 +451,7 @@ test("render, focus", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var focus = 0;
     combobox1.on('focus', function() {
         focus ++;
@@ -481,7 +481,7 @@ test("render, blur", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var blur = 0;
     combobox1.on('blur', function() {
         blur ++;
@@ -510,7 +510,7 @@ test("render, reset", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m" select>男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.focus();
     combobox1.getElement('input').value = 'abx';
     combobox1.blur();
@@ -527,7 +527,7 @@ test("render, reset originIndex=-1 readonly=false", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m" select>男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s, {
+    var combobox1 = magic.setup.comboBox(s, {
         originIndex : -1
     });
     combobox1.getElement('input').value = 'abx';
@@ -544,7 +544,7 @@ test("render, reset originIndex=-1 readonly=true", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m" select>男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s, {
+    var combobox1 = magic.setup.comboBox(s, {
         originIndex : -1,
         readonly : true
     });
@@ -563,7 +563,7 @@ test("render, reload", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var reloadData = [{
         'value' : 'beijing',
         'content' : '北京'
@@ -595,7 +595,7 @@ test("render, disable", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.disable();
     equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), true, "The disable style is right");
     equals(combobox1.getElement('input').disabled, true, "input disabled right");
@@ -611,7 +611,7 @@ test("render, enable", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s" disabled><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.enable();
     equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), false, "The enable style is right");
     equals(combobox1.getElement('input').disabled, false, "input enable right");
@@ -627,7 +627,7 @@ test("render, setWidth", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.setWidth(200);
     equals(combobox1.getElement('container').clientWidth, 200, 'width of input container is right');
     ua.click(combobox1.getElement('arrow'));
@@ -645,7 +645,7 @@ test("render, dispose", function() {
         div1.id = "div1";
         div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
         var s = baidu.dom.g('s');
-        var combobox1 = magic.setup.combobox(s);
+        var combobox1 = magic.setup.comboBox(s);
         var comboid = combobox1.guid,
             popguid = combobox1.menu.guid,
             popdomid = combobox1.menu.$getId(),
@@ -673,7 +673,7 @@ test("render, keyboard action", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var focus = 0;
     combobox1.on('menufocus', function(e) {
         focus ++;
@@ -734,7 +734,7 @@ test("render, mouse action in readonly = false combobox", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     var mouseover = 0;
     combobox1.on('highlight', function(e) {
         mouseover ++;
@@ -784,7 +784,7 @@ test('render mouse action in readonly = true combobox', function() {
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s, {
+    var combobox1 = magic.setup.comboBox(s, {
         readonly : true
     });
     ua.click(combobox1.getElement('input'));
@@ -800,7 +800,7 @@ test("render, viewSize", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="beijing">北京</option><option value="shanghai">上海</option><option value="guangzhou">广州</option><option value="tianjin">天津</option><option value="chongqing">重庆</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s, {
+    var combobox1 = magic.setup.comboBox(s, {
         'viewSize' : 3
     });
     combobox1.menu.show();
@@ -833,7 +833,7 @@ test("setup, setByValue should change origin select's value.", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="beijing">北京</option><option value="shanghai">上海</option><option value="guangzhou">广州</option><option value="tianjin">天津</option><option value="chongqing">重庆</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     equals(s.value, 'beijing', 'test origin select\'s value should be "beijing".');
     equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.setByValue('shanghai');
@@ -852,7 +852,7 @@ test("setup, setByIndex should change origin select's value.", function(){
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="beijing">北京</option><option value="shanghai">上海</option><option value="guangzhou">广州</option><option value="tianjin">天津</option><option value="chongqing">重庆</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     equals(s.value, 'beijing', 'test origin select\'s value should be "beijing".');
     equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.$setByIndex(1);
@@ -871,7 +871,7 @@ test("setup, ComboBox reload action should reload origin select too.", function(
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="beijing">北京</option><option value="shanghai">上海</option><option value="guangzhou">广州</option><option value="tianjin">天津</option><option value="chongqing">重庆</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     equals(s.value, 'beijing', 'test origin select\'s value should be "beijing".');
     equals(getSelectedText(s), '北京', 'test origin select\'s text should be "北京".');
     combobox1.reload([{
@@ -894,7 +894,7 @@ test('use keyboard select items, press enter should be right while select the la
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="beijing">北京</option><option value="shanghai">上海</option></select>';
     var s = baidu.dom.g('s');
-    var combobox1 = magic.setup.combobox(s);
+    var combobox1 = magic.setup.comboBox(s);
     combobox1.getElement('input').value = 'my value';
     ua.keydown(combobox1.getElement('input'), {
         keyCode : 40
