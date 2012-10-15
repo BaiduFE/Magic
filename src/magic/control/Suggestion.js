@@ -241,7 +241,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         
         me.suggestion = popup;  //指向suggestion的popup实例
         
-        baidu.dom(me.getElement("input")).attr("autocomplete", "false");
+        baidu.dom(me.getElement("input")).attr("autocomplete", "off");
         
         /**
          * @description 渲染输入框提示容器时触发
