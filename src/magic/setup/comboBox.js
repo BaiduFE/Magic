@@ -13,9 +13,9 @@
 (function() {
 /**
  * @description 由原生select反向创建 组合框
- * @name magic.setup.combobox
+ * @name magic.setup.comboBox
  * @function
- * @grammar magic.setup.combobox(node, options)
+ * @grammar magic.setup.comboBox(node, options)
  * @param {String|HTMLElement} node 原生select的id或者dom元素
  * @param {Object} options 选项
  * @param {Array<Object>} items ComboBox下拉菜单的数据，每项由value和content组成，如[{"value":0,"content":"女"},{"value":1,"content":"男"}]，默认[]。
@@ -27,7 +27,7 @@
  * @return {magic.ComboBox} 组合框实例.
  * @author 夏登平(xiadengping@baidu.com)
  */
-magic.setup.combobox = function(el, options) {
+magic.setup.comboBox = function(el, options) {
     options = options || {};
     var el = baidu.dom.g(el),
         optData = parseSelectOptions(el),
@@ -41,7 +41,7 @@ magic.setup.combobox = function(el, options) {
    /**
     * @descript 组合框
     * @instace
-    * @name magic.setup.combobox!
+    * @name magic.setup.comboBox!
     * @superClass magic.ComboBox
     * @return {magic.ComboBox} 组合框实例
     */
