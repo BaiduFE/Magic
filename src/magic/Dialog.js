@@ -17,6 +17,8 @@
 ///import baidu.string.encodeHTML;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
+///import baidu.dom.hide;
+///import baidu.dom.show;
 ///import baidu.fn.bind;
 ///import baidu.dom;
 ///import magic.Background;
@@ -73,22 +75,21 @@
  * @superClass magic.control.Dialog
  */
 magic.Dialog = baidu.lang.createClass(function(options){
+    var me = this;
+    options = baidu.object.extend({
+        width: 400,
+        height: 300,
+        left: 0,
+        top: 0,
+        contentType: "html"
+    }, options||{});
 
-	var defaultOptions = {
-		width: 400,
-		height: 300,
-		left: 0,
-		top: 0,
-		contentType: "html"
-	};
-	
-	baidu.object.extend(defaultOptions, options || {});
-	baidu.object.extend(this, defaultOptions);
+    baidu.object.extend(me._options||(me._options = {}),options);
 
-	if(this.width < 100)
-		this.width = 100;
-	if(this.height < 100)
-		this.height = 100;
+	if(options.width < 100)
+		options.width = 100;
+	if(options.height < 100)
+		options.height = 100;
 
 }, { type: "magic.Dialog", superClass : magic.control.Dialog });
 
@@ -119,7 +120,7 @@ magic.Dialog.extend(
         }
     	el = baidu(el)[0];
     	el || document.body.appendChild(el = document.createElement("div"));
-    	var template = magic.Dialog.template.join("");
+    	var template = magic.Dialog.template.join(""),options = this._options;
         baidu(el).addClass("tang-ui tang-dialog");
 
         // var content = "";
@@ -127,30 +128,33 @@ magic.Dialog.extend(
         //     content = this.content;
 
         baidu(el).insertHTML("beforeEnd", baidu.string.format(template, {
-        	title: baidu.string.encodeHTML(this.titleText || "") || "&nbsp;",
         	content: "",
         	titleId: this.$getId("title"),
-        	titleTextId: this.$getId("titleText"),
-        	titleButtonsId: this.$getId("titleButtons"),
         	bodyId: this.$getId("body"),
         	contentId: this.$getId("content"),
-        	closeBtnId: this.$getId("closeBtn"),
-        	foregroundId: this.$getId("foreground")
+        	foregroundId: this.$getId("foreground"),
+            footerId: this.$getId("footer"),
+            footerContainerId: this.$getId("footerContainer")
         }));
         this._background = new magic.Background({ coverable: true });
         this._background.render(el);
 
 		this.$mappingDom("", el);
 
+        this._renderHeader();
 		this._titleHeight = this.getElement("title").offsetHeight || 30;
 
-		baidu(this.getElement("closeBtn")).on("click", this._closeBtnFn = baidu.fn.bind(this.hide, this));
+        this._renderFooter();
+        
+        (options.buttons && options.buttons.enable) ? baidu(this.getElement("footer")).addClass("tang-footer")
+            :baidu(this.getElement("footer")).hide();
+		this._footerHeight = this.getElement("footer").offsetHeight;
 
-		this.setSize(this);
-		this.setPosition(this.left, this.top);
+        this.setSize(options);
+		this.setPosition(options.left, options.top);
 
-		if(this.content)
-		    this.setContent(this.content, this.contentType);
+		if(options.content)
+		    this.setContent(options.content, options.contentType);
 		/**
         * @description 当窗口节点渲染完成后触发
         * @name magic.control.Dialog#onload
@@ -189,23 +193,44 @@ magic.Dialog.extend(
         		baidu(this.getElement("closeBtn")).off("click", this._closeBtnFn);
         		this._background.$dispose();
         		el.innerHTML = "";
-        	    baidu(el).addClass("tang-ui tang-dialog");
+        	    baidu(el).removeClass("tang-ui tang-dialog");
         	}
         );
+    },
+    /**
+     * @description 窗口头部构建,内部方法调用
+     * @name magic.Dialog#_renderHeader
+     * @function
+     */
+    _renderHeader:function(){
+        var template = [
+            "<div class='buttons' id='",this.$getId("titleButtons"),"'>",
+                "<a id='",this.$getId("closeBtn"),"' class='close-btn' href='' onmousedown='event.stopPropagation && event.stopPropagation(); event.cancelBubble = true; return false;' onclick='return false;'></a>",
+            "</div>",
+            "<span id='",this.$getId("titleText"),"'>",baidu.string.encodeHTML(this._options.titleText || "") || "&nbsp;","</span>"];
+        baidu(this.getElement("title")).insertHTML("beforeEnd", template.join(""));
+        baidu(this.getElement("closeBtn")).on("click", this._closeBtnFn = baidu.fn.bind(this.hide, this));
+    },
+    /**
+     * @description 窗口底部构建,内部方法调用
+     * @name magic.Dialog#_renderFooter
+     * @function
+     */
+    _renderFooter:function(){
+        //render footer for plugin
     }
 });
 
 magic.Dialog.template = [
 	"<div class='tang-foreground' id='#{foregroundId}'>",
 		"<div class='tang-title' id='#{titleId}'>",
-			"<div class='buttons' id='#{titleButtonsId}'>",
-				"<a id='#{closeBtnId}' class='close-btn' href='' onmousedown='event.stopPropagation && event.stopPropagation(); event.cancelBubble = true; return false;' onclick='return false;'></a>",
-			"</div>",
-			"<span id='#{titleTextId}'>#{title}</span>",
 		"</div>",
 		"<div class='tang-body' id='#{bodyId}'>",
 			"<div class='tang-content' id='#{contentId}'>#{content}</div>",
 		"</div>",
+        "<div id='#{footerId}'>",
+            "<div id='#{footerContainerId}'></div>",,
+        "</div>",
 	"</div>"];
 
 

@@ -54,10 +54,77 @@
 	text-overflow: ellipsis;
 }
 
-.tang-dialog .tang-body{
+.tang-dialog .tang-body,.tang-dialog .tang-footer{
 	background-color: #f4f4f4;
 	border: 1px solid #a9a9a9;
 	border-width: 0 1px 1px 1px;
+}
+
+.tang-dialog .tang-footer{
+	margin: 0 auto;
+	padding: 5px 10px;
+}
+
+.tang-dialog .tang-button-left{
+	text-align: left;
+}
+
+.tang-dialog .tang-button-center{
+	text-align: center;
+}
+
+.tang-dialog .tang-button-right{
+	text-align: right;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button{
+	display: inline-block;
+	border-width: 1px 0;
+	border-color: #bbbbbb;
+	border-style: solid;
+	vertical-align: middle;
+	color: #333;
+	text-decoration: none;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button:hover{
+	border-color: #999999;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button-disabled{
+	color: #A59797;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button-carrier {
+	padding-right: 10px;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s{
+	float: left;
+	position: relative;
+	border-width: 0 1px;
+	border-color: #bbbbbb;
+	border-style: solid;
+	background: #e3e3e3;
+	margin: 0 -1px;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s:hover{
+	border-color: #999999;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s .tang-dialog-button-s-space{
+	display: block; 
+	line-height: 0.6em; 
+	background: #f9f9f9; 
+	border-bottom: 2px solid #eeeeee;
+}
+
+.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s .tang-dialog-button-s-text{
+	display: block;
+	padding: 0.1em 0.6em; 
+	margin-top: -0.6em; 
+	cursor:pointer;
 }
 
 .tang-dialog .tang-body .tang-content{

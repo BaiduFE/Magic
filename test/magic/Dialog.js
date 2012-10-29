@@ -7,13 +7,14 @@ test("default params", function(){
 	document.body.appendChild(div);
 	div.id = "one-dialog";
 	div.style.position = "absolute";
-	var dialog = new magic.Dialog();
+	var dialog = new magic.Dialog(),
+		options = dialog._options;
 	dialog.render("one-dialog");
-	equals(dialog.draggable, true, "The draggable is right");
-	equals(dialog.left, 0, "The left is right");
-	equals(dialog.top, 0, "The top is right");
-	equals(dialog.height, 300, "The height is right");
-	equals(dialog.width, 400, "The width is right");
+	equals(options.draggable, true, "The draggable is right");
+	equals(options.left, 0, "The left is right");
+	equals(options.top, 0, "The top is right");
+	equals(options.height, 300, "The height is right");
+	equals(options.width, 400, "The width is right");
 	equals(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
 	equals(dialog.getElement().id, "one-dialog", "The dialog container is right");
@@ -87,25 +88,26 @@ test("all params", function(){
 	cdiv.id = "cdiv";
 	$(cdiv).html("dialog内容");
 	var dialog = new magic.Dialog({
-		titleText : '标题',
-		content : cdiv,
-		contentType: "element",
-		left : 10,
-		top : 20,
-		height : 200,
-		width : 300,
-		draggable : false
-	});
+			titleText : '标题',
+			content : cdiv,
+			contentType: "element",
+			left : 10,
+			top : 20,
+			height : 200,
+			width : 300,
+			draggable : false
+		}),
+		options = dialog._options;
 	dialog.render("one-dialog");
-	equals(dialog.left, 10, "The left is right");
-	equals(dialog.top, 20, "The top is right");
-	equals(dialog.height, 200, "The height is right"); // 最小为  100，下同
-	equals(dialog.width, 300, "The width is right"); 
+	equals(options.left, 10, "The left is right");
+	equals(options.top, 20, "The top is right");
+	equals(options.height, 200, "The height is right"); // 最小为  100，下同
+	equals(options.width, 300, "The width is right"); 
 	equals(dialog.getElement().style.left, "10px", "The left is right");
 	equals(dialog.getElement().style.top, "20px", "The top is right");
 	equals(dialog.getElement().offsetHeight, 200, "The height is right");
 	equals(dialog.getElement().offsetWidth, 300, "The width is right");
-	equals(dialog.draggable, false, "The draggable is right");
+	equals(options.draggable, false, "The draggable is right");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
 	document.body.removeChild(div);
@@ -213,16 +215,16 @@ test("setSize & getSize", function(){
 		if(resize == 3){
 			equals(size.width, 50, "The x is right");
 			equals(size.height, 100, "The y is right");
-			equals(dialog.height, 100, "The height is right");
-			equals(dialog.width, 50, "The width is right");
+			equals(dialog._options.height, 100, "The height is right");
+			equals(dialog._options.width, 50, "The width is right");
 			equals(dialog.getElement().offsetHeight, "100", "The height is right");
 			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
 		if(resize == 4){
 			equals(size.width, undefined, "The x is right");
 			equals(size.height, 70, "The y is right");
-			equals(dialog.height, 70, "The height is right");
-			equals(dialog.width, 50, "The width is right");
+			equals(dialog._options.height, 70, "The height is right");
+			equals(dialog._options.width, 50, "The width is right");
 			equals(dialog.getElement().offsetHeight, "70", "The height is right");
 			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
@@ -254,16 +256,16 @@ test("setPosition & getPosition", function(){
 		if(move == 3){
 			equals(pos.left, 50, "The x is right");
 			equals(pos.top, 100, "The y is right");
-			equals(dialog.left, 50, "The left is right");
-			equals(dialog.top, 100, "The top is right");
+			equals(dialog._options.left, 50, "The left is right");
+			equals(dialog._options.top, 100, "The top is right");
 			equals(dialog.getElement().style.left, "50px", "The left is right");
 			equals(dialog.getElement().style.top, "100px", "The top is right");
 		}
 		if(move == 4){
 			equals(pos.left, 70, "The x is right");
 			equals(pos.top, undefined, "The y is right");
-			equals(dialog.left, 70, "The left is right");
-			equals(dialog.top, 100, "The top is right");
+			equals(dialog._options.left, 70, "The left is right");
+			equals(dialog._options.top, 100, "The top is right");
 			equals(dialog.getElement().style.left, "70px", "The left is right");
 			equals(dialog.getElement().style.top, "100px", "The top is right");
 		}
@@ -296,8 +298,8 @@ test("center, auto width & height", function(){
 		});
 		dialog.render("one-dialog");
 		dialog.center();
-		equals(dialog.left, (ww - 400) / 2, "The left is right");
-	    equals(dialog.top, (wh - 300) / 2, "The top is right");
+		equals(dialog._options.left, (ww - 400) / 2, "The left is right");
+	    equals(dialog._options.top, (wh - 300) / 2, "The top is right");
 	    equals(dialog.getElement().style.left, (ww - 400) / 2 + "px", "The left is right");
 	    equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");     
 		w.document.body.removeChild(div);
@@ -330,8 +332,8 @@ test("center", function(){
         });
         dialog.render("one-dialog");
         dialog.center();
-        equals(dialog.left, (ww - 100) / 2, "The left is right");
-        equals(dialog.top, (wh - 100) / 2, "The top is right");
+        equals(dialog._options.left, (ww - 100) / 2, "The left is right");
+        equals(dialog._options.top, (wh - 100) / 2, "The top is right");
         equals(dialog.getElement().style.left, (ww - 100) / 2 + "px", "The left is right");
         equals(dialog.getElement().style.top, (wh - 100) / 2 + "px", "The top is right");     
         
@@ -345,8 +347,8 @@ test("center", function(){
         var ww = w.document.body.clientWidth;
         var wh = w.document.body.clientHeight;
         dialog.center();
-        equals(dialog.left, parseInt(st + (ww - 100) / 2), "The left is right");
-        equals(dialog.top, parseInt(st + (wh - 100) / 2), "The top is right");
+        equals(dialog._options.left, parseInt(st + (ww - 100) / 2), "The left is right");
+        equals(dialog._options.top, parseInt(st + (wh - 100) / 2), "The top is right");
         equals(dialog.getElement().style.left, parseInt(st + (ww - 100) / 2) + "px", "The left is right");
         equals(dialog.getElement().style.top, parseInt(st + (wh - 100) / 2) + "px", "The top is right");
         
@@ -522,7 +524,8 @@ test("getElements", function(){
 	for(var i in dialog.getElements()){
 		num++;
 	}
-	equals(num, 8, "The getElements() is right");
+	//add footer region for button plugin,so nodes add 2.
+	equals(num, 10, "The getElements() is right");
 	document.body.removeChild(div);
 	start();
 });
