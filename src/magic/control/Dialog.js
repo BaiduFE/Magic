@@ -52,19 +52,19 @@ magic.control.Dialog = baidu.lang.createClass(
 
 
         baidu.object.extend(defaultOptions, options = options || {});
-        baidu.object.extend(this, defaultOptions);
+        baidu.object.extend(this._options||(this._options = {}), defaultOptions);
 
         this.zIndex = baidu.global.getZIndex("dialog", 5);
         
         this.disposeProcess = [];
 
         this.on("load", function(){
-            var container = this.getElement(), me = this;
+            var container = this.getElement(), me = this,options = me._options;
             
-            if(typeof this.left == "number" || typeof this.top == "number")
-                this.setPosition(this);
-            if(typeof this.width == "number" || typeof this.height == "number")
-                this.setSize(this);
+            if(typeof options.left == "number" || typeof options.top == "number")
+                this.setPosition(options);
+            if(typeof options.width == "number" || typeof options.height == "number")
+                this.setSize(this._options);
 
             this._isShown = true;
             this.focus();
@@ -82,7 +82,7 @@ magic.control.Dialog = baidu.lang.createClass(
             });
 
             // 定义拖拽事件
-            if(this.draggable){
+            if(options.draggable){
                 var title = this.getElement("title"), dragFn;
                 var bind = baidu.fn.bind;
                 var me = this;
@@ -546,10 +546,10 @@ magic.control.Dialog.extend(
     setSize: function(size){
         var foreground = this.getElement("foreground");
         if(typeof size.width == "number")
-            baidu(foreground).css("width", (this.width = size.width) + "px");
+            baidu(foreground).css("width", (this._options.width = size.width) + "px");
         if(typeof size.height == "number"){
-            baidu(foreground).css("height", (this.height = size.height) + "px");
-            var height = Math.max(0, this.height - this._titleHeight) + "px";
+            baidu(foreground).css("height", (this._options.height = size.height) + "px");
+            var height = Math.max(0, this._options.height - this._titleHeight - this._footerHeight) + "px";
             baidu(this.getElement("body")).css("height", height);
             baidu(this.getElement("content")).css("height", height);
         }
@@ -608,8 +608,8 @@ magic.control.Dialog.extend(
      */
     getSize: function(){
         return {
-            width: this.width,
-            height: this.height
+            width: this._options.width,
+            height: this._options.height
         }
     },
 
@@ -636,9 +636,9 @@ magic.control.Dialog.extend(
     setPosition: function(pos){
 
         if(typeof pos.left == "number")
-            baidu(this.getElement()).css("left", (this.left = pos.left) + "px");
+            baidu(this.getElement()).css("left", (this._options.left = pos.left) + "px");
         if(typeof pos.top == "number")
-            baidu(this.getElement()).css("top", (this.top = pos.top) + "px");
+            baidu(this.getElement()).css("top", (this._options.top = pos.top) + "px");
         /**
          * @description 当窗口发生位置移动时触发
          * @name magic.control.Dialog#onmove
@@ -694,8 +694,8 @@ magic.control.Dialog.extend(
      */
     getPosition: function(){
         return {
-            left: this.left,
-            top: this.top
+            left: this._options.left,
+            top: this._options.top
         }
     },
 
@@ -722,8 +722,8 @@ magic.control.Dialog.extend(
         //在Chrome下，document.documentElement.scrollTop取值为0，所以改用已经做过兼容的baidu.page.getScrollTop()。
         //scrollLeft同上
         //fixed by Dengping
-        var left = (((bodyWidth - this.width) / 2) | 0) + baidu.page.getScrollLeft();
-        var top = (((bodyHeight - this.height) / 2) | 0) + baidu.page.getScrollTop();
+        var left = (((bodyWidth - this._options.width) / 2) | 0) + baidu.page.getScrollLeft();
+        var top = (((bodyHeight - this._options.height) / 2) | 0) + baidu.page.getScrollTop();
         this.setPosition({ left: left, top: top });
     },
 
