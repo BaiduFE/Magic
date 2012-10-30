@@ -45,14 +45,22 @@
  */
 magic.control.Dialog = baidu.lang.createClass(
     /* constructor */ function(options){
-
-        var defaultOptions = {
+        var me = this;
+        options = baidu.object.extend({
+            width: 400,
+            height: 300,
+            left: 0,
+            top: 0,
+            contentType: "html",
             draggable: true
-        };
+        }, options || {});
 
+        baidu.object.extend(me._options || (me._options = {}), options);
 
-        baidu.object.extend(defaultOptions, options = options || {});
-        baidu.object.extend(this._options||(this._options = {}), defaultOptions);
+        if(options.width < 100)
+            options.width = 100;
+        if(options.height < 100)
+            options.height = 100;
 
         this.zIndex = baidu.global.getZIndex("dialog", 5);
         

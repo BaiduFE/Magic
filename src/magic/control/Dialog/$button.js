@@ -52,7 +52,7 @@
 
  baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
-	    options.buttons && (this._renderFooter = function(){
+	    options.buttons && options.buttons.enable && (this._renderFooter = function(){
 	    	this._createButton(options.buttons);
 	    });
 	},
@@ -70,41 +70,39 @@
 		 */
 		/* methods */_createButton: function(){
 		    var btnConfig = arguments.length > 0 ? arguments[0] : {},
-		    	footer = baidu(this.getElement("footer")),
 		    	footerContainer = baidu(this.getElement("footerContainer")),
 		    	buttons = this.buttons || (this.buttons = []),
+		    	hasFocused = false,
 		    	_defaultCreator = (function(){
-		    		var hasFocused = false,
-		    			btnTemplate = ['<a href="#" onClick="return false;" class="tang-dialog-button ','','">',
+		    		var btnTemplate = ['<a href="#" onClick="return false;" class="tang-dialog-button ','','">',
 		    							'<span class="tang-dialog-button-s">',
 		    								'<span class="tang-dialog-button-s-space">&nbsp;</span>',
 		    								'<span class="tang-dialog-button-s-text">','','</span>',
 		    							'</span>',
 		    							'</a>'];
-		    		return function(btnOptions,anchor){
-		    			btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
-		    			btnTemplate[6] = btnOptions.text||'&nbsp;';
+		    		return function(btnOptions, anchor){
+		    			btnOptions.disabled ? (btnTemplate[1] = 'tang-dialog-button-disabled') : (btnTemplate[1] = '');
+		    			btnTemplate[6] = btnOptions.text || '&nbsp;';
 		    			baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
-		    			!hasFocused && btnOptions.focused && !btnOptions.disabled 
-		    				&& (hasFocused = false) || anchor.focus();
 				        return 	anchor;					        
 		    		};
 		    	})(),
 		    	node;
-		    baidu.forEach(btnConfig.items||[],function(item,index){
+		    baidu.forEach(btnConfig.items || [], function(item, index){
 		    	var clickFn;
 		    	footerContainer.append(node = baidu('<span class="tang-dialog-button-carrier"></span>')[0]);
-		    	node = typeof item == "object"?(item.builder||_defaultCreator).call(this,item,node,this,index):item;
+		    	node = typeof item == "object" ? (item.builder || _defaultCreator).call(this, item, node, this, index) : item;
 		    	buttons.push(node);
+		    	!hasFocused && item.focused && !item.disabled && (hasFocused = true) && node.focus();
 		    	item.disabled || item.click && baidu(node).on('click', clickFn = function(){
                     item.click.call(this);
                 });
                 clickFn && this.disposeProcess.push(function(){
 		            baidu(node).off('click', clickFn);
 		        });
-		    },this);
+		    }, this);
 		    
-		    footer.addClass("tang-button-" + (btnConfig.align||'left'));
+		    footerContainer.addClass("tang-button-" + (btnConfig.align||'left'));
 		}
 	}
 );

@@ -75,22 +75,7 @@
  * @superClass magic.control.Dialog
  */
 magic.Dialog = baidu.lang.createClass(function(options){
-    var me = this;
-    options = baidu.object.extend({
-        width: 400,
-        height: 300,
-        left: 0,
-        top: 0,
-        contentType: "html"
-    }, options||{});
-
-    baidu.object.extend(me._options||(me._options = {}),options);
-
-	if(options.width < 100)
-		options.width = 100;
-	if(options.height < 100)
-		options.height = 100;
-
+    
 }, { type: "magic.Dialog", superClass : magic.control.Dialog });
 
 
@@ -229,7 +214,7 @@ magic.Dialog.template = [
 			"<div class='tang-content' id='#{contentId}'>#{content}</div>",
 		"</div>",
         "<div id='#{footerId}'>",
-            "<div id='#{footerContainerId}'></div>",,
+            "<div id='#{footerContainerId}'></div>",
         "</div>",
 	"</div>"];
 

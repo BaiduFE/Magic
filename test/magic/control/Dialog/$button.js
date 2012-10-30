@@ -74,27 +74,38 @@ test("render, default and custom params,using default button builder", function(
 			});
 			dialog.render("one-dialog");
 			//test the dialog.buttons is a array contains the node information.
-			var buttons = dialog.buttons||[];
-			equals(buttons.length,3,"Dialog contains three buttons");
+			var buttons = dialog.buttons || [];
+			equals(buttons.length, 3, "Dialog contains three buttons");
+			var btnCheck = function(){
+				var first = function(item){
+						equals(baidu(item).text(), '&nbsp;', 'the first button\'s text is space');
+						baidu(item).children()[0].hasClass('tang-dialog-button-disabled', false, 'the first button is enable');
+					},
+					second = function(item){
+						equals(baidu(item).text(), '无效', 'the second button\'s text is space');	
+						baidu(item).children()[0].hasClass('tang-dialog-button-disabled', true, 'the second button is disabled');
+					},
+					third = function(item){
+						equals(baidu(item).text(), '有效', 'the third button\'s text is space');
+						baidu(item).children()[0].hasClass('tang-dialog-button-disabled', false, 'the third button is enable');
+					};
+				return function(item,index){
+					equals(item.nodeType,1,["The ", index, " button is a Node."].join('') );
+					switch(index){
+						case 0:
+							first(item);
+						case 1:
+							second(item);
+						case 2:
+							third(item);
+						default:
+							break;
+					}
+				}
+			}();
+			//test button
 			baidu.forEach(buttons,function(item,index){
-				equals(item.nodeType,1,["The ",index," button is a Node."].join('') );
-			});
-
-			//test the button text
-			var getRightText = function(index){
-				if(index == 0){
-					return "&nbsp;";
-				}
-				if(index == 1){
-					return "无效";
-				}
-				if(index == 2){
-					return "有效";
-				}
-			};
-
-			baidu(".tang-dialog-button-s-text",div).each(function(index,item){
-				equals(item.innerHTML,getRightText(index),["The text of ", index ," button"].join(''));
+				btnCheck(item,index);
 			});
 
 			//test clic event
@@ -105,8 +116,8 @@ test("render, default and custom params,using default button builder", function(
 			equals(baidu(".tang-dialog-button-disabled",buttons[1]).length,1,"Disabled property is validated");
 
 			//test dialog align
-			equals(baidu(".tang-button-left",div).length,1,"The value of dialog alignment is left");
-
+			equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-left'), true, "The value of dialog alignment is left");
+			
 			w.document.body.removeChild(div);
 			me.finish();
 			document.body.removeChild(f.parentNode);
@@ -213,7 +224,7 @@ test("render, button plugin invalidate", function(){
 	 *			}
 	 *		],
 	 *		align: 'right'
-	 *		//enable:false 	default value
+	 *		enable:true
 	 *	}
 	 */
 	expect(2);
@@ -241,7 +252,8 @@ test("render, button plugin invalidate", function(){
 						items: [
 							btnConfig
 						],
-						align: 'right'
+						align: 'right',
+						enable: true
 					}
 				});
 			dialog.render("one-dialog");
@@ -257,4 +269,54 @@ test("render, button plugin invalidate", function(){
 			document.body.removeChild(f.parentNode);
 		}, "magic.Dialog", "magic.control.Dialog.$button",w);
 	});
+});
+
+test("render, button plugin disabled", function(){
+	/**
+	 *	this test case will test enable property which will cause the button plugin disabled as below:
+	 *  button:{
+	 *		items:[
+	 *			{
+	 *				text: '确定' 
+	 *              click: Function
+	 *			}
+	 *		],
+	 *		align: 'right'
+	 *		//enable:false default value
+	 *	}
+	 */
+	expect(1);
+	stop();
+	var me = this,
+		div = w.document.createElement("div");
+	w.document.body.appendChild(div);
+	div.id = "one-dialog";
+	div.style.position = "absolute";
+	var cdiv = w.document.createElement("div");
+	cdiv.id = "cdiv";
+	$(cdiv).html("dialog内容");
+	var btnConfig = {
+			text: '确定',
+			click: function(){
+				ok(true,"Event of custom button called");
+			}
+		},
+		dialog = new w.magic.Dialog({
+			titleText: '标题',
+			content: cdiv,
+			buttons: {
+				items: [
+					btnConfig
+				],
+				align: 'right'
+			}
+		});
+	dialog.render("one-dialog");
+
+	//test enable
+	equals(baidu(dialog.getElement("footerContainer")).length,0,"The button plugin is disabled");			
+
+	w.document.body.removeChild(div);
+	me.finish();
+	document.body.removeChild(f.parentNode);
 });
