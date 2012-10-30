@@ -34,37 +34,41 @@ module("magic.setup.dialog");
 
 // case 1
 test("default params, default position", function(){
+	stop();
 	expect(14);
-	enSetup();
-	var dialog = magic.setup.dialog("one-dialog");
-	equals(dialog.draggable, true, "The draggable is right");
-	//Attention  Tangram2.0中的css方法跟1.X中的逻辑不一样，需要按情况判断
-	if(baidu('#one-dialog').css('left') == 'auto'){
-		equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
-		equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
-	}else{
-		equals(parseInt(dialog.left), parseInt(baidu('#one-dialog').css('left')), "The left is right");
-		equals(parseInt(dialog.top), parseInt(baidu('#one-dialog').css('top')), "The top is right");
-	}
+	ua.loadcss(upath + "dialog/dialog.css", function(){
+		enSetup();
+		var dialog = magic.setup.dialog("one-dialog");
+		equals(dialog.draggable, true, "The draggable is right");
+		//Attention  Tangram2.0中的css方法跟1.X中的逻辑不一样，需要按情况判断
+		if(baidu('#one-dialog').css('left') == 'auto'){
+			equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
+			equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
+		}else{
+			equals(parseInt(dialog.left), parseInt(baidu('#one-dialog').css('left')), "The left is right");
+			equals(parseInt(dialog.top), parseInt(baidu('#one-dialog').css('top')), "The top is right");
+		}
+		
+		equals(dialog.height, 300, "The height is right");
+		equals(dialog.width, 400, "The width is right");
+		equals(dialog.getElement().offsetHeight, "300", "The height is right");
+		equals(dialog.getElement().offsetWidth, "400", "The width is right");
+		equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
+		equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
+		equals(dialog.getElement("body").className, "tang-body", "The body is right");
+		document.body.removeChild(baidu("#one-dialog")[0]);
 	
-	equals(dialog.height, 300, "The height is right");
-	equals(dialog.width, 400, "The width is right");
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
-	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
-	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
-	equals(dialog.getElement("body").className, "tang-body", "The body is right");
-	document.body.removeChild(baidu("#one-dialog")[0]);
-
-	//页面容器已经设置样式的情况
-	enSetup();
-	$('#one-dialog').css('left', '80px').css('top', '60px');
-	var dialog = magic.setup.dialog("one-dialog");
-	equals(dialog.left, '80px', "The left is right");
-	equals(dialog.top, '60px', "The top is right");
-	equals($('#one-dialog').css('left'), '80px', "The left is right");
-	equals($('#one-dialog').css('top'), '60px', "The top is right");
-	document.body.removeChild(baidu("#one-dialog")[0]);
+		//页面容器已经设置样式的情况
+		enSetup();
+		$('#one-dialog').css('left', '80px').css('top', '60px');
+		var dialog = magic.setup.dialog("one-dialog");
+		equals(dialog.left, '80px', "The left is right");
+		equals(dialog.top, '60px', "The top is right");
+		equals($('#one-dialog').css('left'), '80px', "The left is right");
+		equals($('#one-dialog').css('top'), '60px', "The top is right");
+		document.body.removeChild(baidu("#one-dialog")[0]);
+		start();
+	});
 });
 
 // case 2
@@ -488,23 +492,19 @@ test("drag range", function(){
 
 // case 14
 test("getElement", function(){
-	stop();
 	expect(3);
-	ua.loadcss(upath + "dialog/demo.css", function(){
-		enSetup();
-		var options = {
-				titleText : 'title',
-				content : 'content',
-				height : 100,
-				width : 100
-		};
-		var dialog = magic.setup.dialog("one-dialog", options);
-		equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
-		equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
-		equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
-		document.body.removeChild(baidu("#one-dialog")[0]);
-		start();
-	});
+	enSetup();
+	var options = {
+			titleText : 'title',
+			content : 'content',
+			height : 100,
+			width : 100
+	};
+	var dialog = magic.setup.dialog("one-dialog", options);
+	equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
+	equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
+	equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 //case 15
