@@ -87,20 +87,21 @@ magic.setup.dialog = function(el, options){
 	// instance.$mappingDom("background", baidu(".tang-background", container)[0]);
 	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
-	if(typeof instance.left == "undefined")
-		instance.left = baidu(container).css("left") == "auto" ? 0 : baidu(container).css("left");
-	if(typeof instance.top == "undefined")
-		instance.top = baidu(container).css("top") == "auto" ? 0 : baidu(container).css("top");
+	var opts = instance._options;
+	if(typeof opts.left == "undefined")
+		opts.left = baidu(container).css("left") == "auto" ? 0 : baidu(container).css("left");
+	if(typeof opts.top == "undefined")
+		opts.top = baidu(container).css("top") == "auto" ? 0 : baidu(container).css("top");
 
-	if(typeof instance.width != "number")
-		instance.width = container.clientWidth;
-	if(typeof instance.height != "number")
-		instance.height = container.clientHeight;
+	if(typeof opts.width != "number")
+		opts.width = container.clientWidth;
+	if(typeof opts.height != "number")
+		opts.height = container.clientHeight;
 
-	if(instance.width < 100)
-		instance.width = 100;
-	if(instance.height < 100)
-		instance.height = 100;
+	if(opts.width < 100)
+		opts.width = 100;
+	if(opts.height < 100)
+		opts.height = 100;
     /**
     * @description 当窗口节点渲染完成后触发
     * @name magic.control.Dialog#onload
