@@ -22,7 +22,23 @@
  * @param {String} options.buttons.align 按钮整体布局，默认left,可选值为left,center,right
  * @example
  * /// for options.buttons.items.text,options.buttons.items.disabled,options.buttons.items.callback,options.buttons.items.builder,options.buttons.align
- * var instance = new magic.Dialog({
+ * var  creator = (function(){
+ *			        var hasFocused = false,
+ *			            btnTemplate = ['<a href="#" onClick="return false;" style="border-radius:5px;" class="tang-dialog-button ','','">',
+ *		    							'<span style="border-radius:5px;padding:0.2em 0.6em" class="tang-dialog-button-s">',
+ *		    								'',
+ *		    							'</span>',
+ *		    							'</a>'];
+ *			        return function(btnOptions,anchor,instance,index){
+ *			          btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
+ *			          btnTemplate[4] = btnOptions.text;
+ *			          baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+ *			          !hasFocused && btnOptions.focused && !btnOptions.disabled 
+ *			            && (hasFocused = false) || anchor.focus();
+ *			            return  anchor;                 
+ *			        };
+ *			    })(),
+ *		instance = new magic.Dialog({
  * 		buttons: {
  *			items:[
  *				{
@@ -30,7 +46,7 @@
  * 					click: function(){
  *						alert("sure");
  *					},
- *					focused:true
+ *					focused: true
  *      		},
  *				{
  *					text: '失效',
@@ -38,15 +54,14 @@
  *				},
  *				{
  *					text: '自定义',
- * 					click:function(){
+ * 					click: function(){
  *						alert("custome");
  *					},
- * 					builder:function(){
- *						alert("custome");
- *					}
+ * 					builder: creator
  *				}
  *			],
- *			align:'left'
+ *			align:'left',
+ *          enable: true
  *		}
  * });
  */
