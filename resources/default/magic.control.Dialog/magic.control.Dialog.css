@@ -60,24 +60,24 @@
 	border-width: 0 1px 1px 1px;
 }
 
-.tang-dialog .tang-footer{
-	margin: 0 auto;
+.tang-dialog .tang-footer .tang-footerContainer{
 	padding: 5px 10px;
+	margin: 0 auto;
 }
 
-.tang-dialog .tang-button-left{
+.tang-dialog .tang-footer .tang-button-left{
 	text-align: left;
 }
 
-.tang-dialog .tang-button-center{
+.tang-dialog .tang-footer .tang-button-center{
 	text-align: center;
 }
 
-.tang-dialog .tang-button-right{
+.tang-dialog .tang-footer .tang-button-right{
 	text-align: right;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button{
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button{
 	display: inline-block;
 	border-width: 1px 0;
 	border-color: #bbbbbb;
@@ -87,19 +87,19 @@
 	text-decoration: none;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button:hover{
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button:hover{
 	border-color: #999999;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button-disabled{
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button-disabled{
 	color: #A59797;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button-carrier {
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button-carrier {
 	padding-right: 10px;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s{
+.tang-dialog .tang-footer .tang-footerContainer  .tang-dialog-button .tang-dialog-button-s{
 	float: left;
 	position: relative;
 	border-width: 0 1px;
@@ -109,18 +109,18 @@
 	margin: 0 -1px;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s:hover{
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button .tang-dialog-button-s:hover{
 	border-color: #999999;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s .tang-dialog-button-s-space{
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button .tang-dialog-button-s .tang-dialog-button-s-space{
 	display: block; 
 	line-height: 0.6em; 
 	background: #f9f9f9; 
 	border-bottom: 2px solid #eeeeee;
 }
 
-.tang-dialog .tang-footer .tang-dialog-button-carrier .tang-dialog-button .tang-dialog-button-s .tang-dialog-button-s-text{
+.tang-dialog .tang-footer .tang-footerContainer .tang-dialog-button .tang-dialog-button-s .tang-dialog-button-s-text{
 	display: block;
 	padding: 0.1em 0.6em; 
 	margin-top: -0.6em; 

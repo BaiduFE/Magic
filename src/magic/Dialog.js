@@ -105,7 +105,7 @@ magic.Dialog.extend(
         }
     	el = baidu(el)[0];
     	el || document.body.appendChild(el = document.createElement("div"));
-    	var template = magic.Dialog.template.join(""), options = this._options, h;
+    	var template = magic.Dialog.template.join(""), options = this._options, h, enable;
         baidu(el).addClass("tang-ui tang-dialog");
 
         // var content = "";
@@ -132,8 +132,11 @@ magic.Dialog.extend(
         this._renderFooter();
         
         h = 0;
-        (options.buttons && options.buttons.enable) ? baidu(this.getElement("footer")).addClass("tang-footer") && (h = this.getElement("footer").offsetHeight || 30)
+        enable = (options.buttons && options.buttons.enable);
+        enable ? baidu(this.getElement("footer")).addClass("tang-footer") && (baidu(this.getElement("footerContainer")).addClass("tang-footerContainer")) && (h = this.getElement("footer").offsetHeight)
             :baidu(this.getElement("footer")).hide();
+
+        enable && (!this.buttons || this.buttons.length == 0) && (h = 30) && baidu(this.getElement("footer")).css('height',30); 
 		this._footerHeight = h;
 
         this.setSize(options);

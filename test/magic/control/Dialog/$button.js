@@ -306,7 +306,46 @@ test("render, button plugin disabled", function(){
 	dialog.render("one-dialog");
 
 	//test enable
-	equals(baidu('.tang-dialog-button-carrier',dialog.getElement("footerContainer")).length,0,"The button plugin is disabled");			
+	equals(baidu('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
+
+	document.body.removeChild(div);
+	start();
+});
+
+test("render, button plugin enable but not buttons", function(){
+	/**
+	 *	this test case will test enable property which will cause the button plugin disabled as below:
+	 *  button:{
+	 *		items:[
+	 *		],
+	 *		align: 'right'
+	 *		//enable:false default value
+	 *	}
+	 */
+	expect(1);
+	stop();
+	var me = this,
+		div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "one-dialog";
+	div.style.position = "absolute";
+	var cdiv = document.createElement("div");
+	cdiv.id = "cdiv";
+	$(cdiv).html("dialog内容");
+	var dialog = new magic.Dialog({
+			titleText: '标题',
+			content: cdiv,
+			buttons: {
+				items: [
+				],
+				enable: true,
+				align: 'right'
+			}
+		});
+	dialog.render("one-dialog");
+
+	//test enable
+	equals(dialog.getElement('footer').style.height, '30px', "The height of the footer region is right");			
 
 	document.body.removeChild(div);
 	start();
