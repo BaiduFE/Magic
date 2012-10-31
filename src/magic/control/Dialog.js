@@ -40,6 +40,7 @@
  * @param {Number} options.top Dialog 的上边距，默认0
  * @param {Boolean} options.draggable Dialog 是否可以被拖动，默认 true
  * @plugin  mask              对话框遮罩插件
+ * @plugin  button            对话框按钮插件
  * @author dron
  * @return {magic.control.Dialog} Dialog实例对象
  */
@@ -560,7 +561,6 @@ magic.control.Dialog.extend(
             baidu(foreground).css("height", (this._options.height = size.height) + "px");
             var height = Math.max(0, this._options.height - this._titleHeight - this._footerHeight) + "px";
             baidu(this.getElement("body")).css("height", height);
-            // baidu(this.getElement("content")).css("height", height);
         }
         /**
          * @description 当窗口发生尺寸修改时触发
