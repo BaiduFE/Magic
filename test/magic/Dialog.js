@@ -2,9 +2,7 @@ module("magic.Dialog")
 
 // case 1
 test("default params", function(){
-	stop();
 	expect(11);
-<<<<<<< HEAD
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-dialog";
@@ -22,31 +20,8 @@ test("default params", function(){
 	equals(dialog.getElement().id, "one-dialog", "The dialog container is right");
 	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
 	equals(dialog.getElement("body").className, "tang-body", "The body is right");
-	equals(dialog.getElement("body").offsetHeight, dialog.getElement("content").offsetHeight, "The content height is right");
+	equals(dialog.getElement("body").offsetHeight, dialog.getElement().offsetHeight - dialog.getElement('title').offsetHeight, "The content height is right");
 	document.body.removeChild(div);
-=======
-	ua.loadcss(upath + "setup/dialog/dialog.css", function(){
-		var div = document.createElement("div");
-		document.body.appendChild(div);
-		div.id = "one-dialog";
-		div.style.position = "absolute";
-		var dialog = new magic.Dialog();
-		dialog.render("one-dialog");
-		equals(dialog.draggable, true, "The draggable is right");
-		equals(dialog.left, 0, "The left is right");
-		equals(dialog.top, 0, "The top is right");
-		equals(dialog.height, 300, "The height is right");
-		equals(dialog.width, 400, "The width is right");
-		equals(dialog.getElement().offsetHeight, "300", "The height is right");
-		equals(dialog.getElement().offsetWidth, "400", "The width is right");
-		equals(dialog.getElement().id, "one-dialog", "The dialog container is right");
-		equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
-		equals(dialog.getElement("body").className, "tang-body", "The body is right");
-		equals(dialog.getElement("body").offsetHeight, dialog.getElement("content").offsetHeight + 1, "The content height is right");
-		document.body.removeChild(div);
-		start();
-	});
->>>>>>> c894de90b90232eb935d58004604f81c5bad25bd
 });
 
 // case 2
@@ -510,21 +485,25 @@ test("drag range", function(){
 
 // case 14
 test("getElement", function(){
+	stop();
 	expect(3);
-	var div = document.createElement("div");
-	document.body.appendChild(div);
-	div.id = "one-dialog";
-	var dialog = new magic.Dialog({
-			titleText : 'title',
-			content : 'content',
-			height : 100,
-			width : 100
-		});
-	dialog.render("one-dialog");
-	equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
-	equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
-	equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
-	document.body.removeChild(div);
+	ua.loadcss(upath + "setup/dialog/dialog.css", function(){
+		var div = document.createElement("div");
+		document.body.appendChild(div);
+		div.id = "one-dialog";
+		var dialog = new magic.Dialog({
+				titleText : 'title',
+				content : 'content',
+				height : 100,
+				width : 100
+			});
+		dialog.render("one-dialog");
+		equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
+		equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
+		equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
+		document.body.removeChild(div);
+		start();
+	});
 });
 
 //case 15

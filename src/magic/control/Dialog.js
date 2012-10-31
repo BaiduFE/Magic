@@ -447,6 +447,7 @@ magic.control.Dialog.extend(
                 contentEl.appendChild(content);         
                 break;            
             case "frame":
+                baidu(contentEl).css("height", baidu(this.getElement('body')).css('height'));
                 contentEl.innerHTML = "<iframe frameborder='no' src='" + content + "'></iframe>";
                 baidu(contentEl).hasClass("contentFrame") || 
                     baidu(contentEl).addClass("contentFrame");        
@@ -559,7 +560,7 @@ magic.control.Dialog.extend(
             baidu(foreground).css("height", (this._options.height = size.height) + "px");
             var height = Math.max(0, this._options.height - this._titleHeight - this._footerHeight) + "px";
             baidu(this.getElement("body")).css("height", height);
-            baidu(this.getElement("content")).css("height", height);
+            // baidu(this.getElement("content")).css("height", height);
         }
         /**
          * @description 当窗口发生尺寸修改时触发

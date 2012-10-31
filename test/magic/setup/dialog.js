@@ -490,7 +490,7 @@ test("drag range", function(){
 test("getElement", function(){
 	stop();
 	expect(3);
-	ua.loadcss(upath + "dialog/demo.css", function(){
+	ua.loadcss(upath + "dialog/dialog.css", function(){
 		enSetup();
 		var options = {
 				titleText : 'title',
