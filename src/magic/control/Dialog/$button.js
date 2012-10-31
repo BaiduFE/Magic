@@ -75,7 +75,7 @@
 
  baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
-	    options.buttons && options.buttons.enable && (this._renderFooter = function(){
+	    options.buttons && options.buttons.enable && this.on("footer", function(){
 	    	baidu(this.getElement("footer")).show();
 	    	this._createButton(options.buttons);
 	        baidu(this.getElement("footer")).addClass("tang-footer");

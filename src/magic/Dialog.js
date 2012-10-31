@@ -131,7 +131,8 @@ magic.Dialog.extend(
 
         this._footerHeight = 0;
         baidu(this.getElement("footer")).hide();
-        this._renderFooter();
+        //派发底部渲染事件，仅供内部使用
+        this.fire("footer");
 
         this.setSize(options);
 		this.setPosition(options);
@@ -193,14 +194,6 @@ magic.Dialog.extend(
             "<span id='",this.$getId("titleText"),"'>",baidu.string.encodeHTML(this._options.titleText || "") || "&nbsp;","</span>"];
         baidu(this.getElement("title")).insertHTML("beforeEnd", template.join(""));
         baidu(this.getElement("closeBtn")).on("click", this._closeBtnFn = baidu.fn.bind(this.hide, this));
-    },
-    /**
-     * @description 窗口底部构建,内部方法调用
-     * @name magic.Dialog#_renderFooter
-     * @function
-     */
-    _renderFooter:function(){
-        //render footer for plugin
     }
 });
 
