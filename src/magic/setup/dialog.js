@@ -135,10 +135,10 @@ magic.setup.dialog = function(el, options){
 	instance.fire("load");
 	instance.show();
 
-	if(opt.titleText)
-		instance.setTitleText(opt.titleText);
-	if(opt.content)
-		instance.setContent(opt.content, opt.contentType || "html");
+	if(opts.titleText)
+		instance.setTitleText(opts.titleText);
+	if(opts.content)
+		instance.setContent(opts.content, opts.contentType || "html");
 			
 	return instance;
 };
