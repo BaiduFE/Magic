@@ -75,6 +75,7 @@
 }
 .tang-dialog .tang-body {
     position: relative;
+	overflow: hidden;
 }
 .tang-dialog .tang-buttons {
     position: absolute;
