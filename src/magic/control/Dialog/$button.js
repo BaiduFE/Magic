@@ -54,7 +54,13 @@
  baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
 	    options.buttons && options.buttons.enable && (this._renderFooter = function(){
+	    	baidu(this.getElement("footer")).show();
 	    	this._createButton(options.buttons);
+	        baidu(this.getElement("footer")).addClass("tang-footer");
+	        baidu(this.getElement("footerContainer")).addClass("tang-footerContainer");
+	        var h = this.getElement("footer").offsetHeight;
+	        (!this.buttons || this.buttons.length == 0) && (h = 30) && baidu(this.getElement("footer")).css('height', 30); 
+	        this._footerHeight = h;
 	    });
 	},
 	{
