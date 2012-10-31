@@ -76,6 +76,12 @@
  baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
 	    options.buttons && options.buttons.enable && this.on("footer", function(){
+	    	/**
+			 * @description 底部区域按钮节点集合
+			 * @name magic.control.Dialog.buttons
+			 * @property 
+			 */
+		 	this.buttons = null,
 	    	baidu(this.getElement("footer")).show();
 	    	this._createButton(options.buttons);
 	        baidu(this.getElement("footer")).addClass("tang-footer");
@@ -86,12 +92,6 @@
 	    });
 	},
 	{
-		/**
-		 * @description 底部区域按钮节点集合
-		 * @name magic.control.Dialog.buttons
-		 * @property 
-		 */
-		 buttons: null,
 		/**
 		 * @description 创建按钮,内部方法调用
 		 * @name magic.control.Dialog.$button#_createButton
