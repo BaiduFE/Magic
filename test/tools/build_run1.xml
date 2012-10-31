@@ -29,7 +29,7 @@
 	</target>
 	
 	<target name="close">
-		<exec executable="/home/work/soft/timer/stopbrow.sh">
+		<exec executable="/home/tangram/soft/timer/stopbrow.sh">
 		</exec> 
 	</target>
 
