@@ -38,8 +38,13 @@
  *			            return  anchor;                 
  *			        };
  *			    })(),
- *		instance = new magic.Dialog({
- * 		buttons: {
+ *	    dialog = new magic.Dialog({
+ *	     draggable: true,
+ *       titleText: "对话框一",
+ *       content: "我是内容", 
+ *       width: 400,
+ *       height: 300,
+ * 		 buttons: {
  *			items:[
  *				{
  *					text: '确定',
@@ -63,7 +68,9 @@
  *			align:'left',
  *          enable: true
  *		}
- * });
+ * 	   });
+ *     dialog.render();
+ *     dialog.center();
  */
 
  baidu.lang.register(magic.control.Dialog, 
