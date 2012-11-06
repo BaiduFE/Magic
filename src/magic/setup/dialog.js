@@ -10,9 +10,12 @@
 ///import magic.setup;
 ///import baidu.dom;
 ///import magic.control.Dialog;
+///import magic.control.Dialog.$button;
 ///import magic.Background;
 ///import magic.setup.background;
 ///import baidu.type;
+///import baidu.dom.children;
+///import baidu.dom.hide;
 
 /**
  * @description 在页面已有 html 结构的基础上创建对话框组件
@@ -65,11 +68,10 @@ magic.setup.dialog = function(el, options){
 	 *@superClass magic.control.Dialog
 	 *@return {instace} magic.control.Dialog 实例对象
 	 */
-	var instance = magic.setup(el, magic.control.Dialog, opt);
+	var instance = magic.setup(el, magic.control.Dialog, opt),
+		container = instance.getElement(),
+		cls = el.childNodes, node;
 
-	var container = instance.getElement();
-
-	var cls = el.childNodes;
 	for(var i = 0, l = cls.length; i < l; i ++){
 		if(cls[i].nodeType != 3 && ~ cls[i].className.indexOf("tang-background")){
 			magic.setup.background(cls[i], { coverable: true });
@@ -84,9 +86,16 @@ magic.setup.dialog = function(el, options){
 	instance.$mappingDom("content", baidu(".content", instance.getElement("body"))[0]);
 	instance.$mappingDom("closeBtn", baidu(".close-btn", instance.getElement("title"))[0]);
 	instance.$mappingDom("foreground", baidu(".tang-foreground", container)[0]);
+	instance.$mappingDom("footer", (node = baidu(".tang-footer", container))[0]);
+	instance.$mappingDom("footerContainer", node.children()[0]);
+	node.hide();
+
 	// instance.$mappingDom("background", baidu(".tang-background", container)[0]);
 	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
+	//派发底部渲染
+	instance.fire("footer");
+	
 	var opts = instance._options;
 	if(typeof opt.left == "undefined")
 		opts.left = baidu(container).css("left") == "auto" ? 0 : baidu(container).css("left");
@@ -102,6 +111,7 @@ magic.setup.dialog = function(el, options){
 		opts.width = 100;
 	if(opts.height < 100)
 		opts.height = 100;
+
     /**
     * @description 当窗口节点渲染完成后触发
     * @name magic.control.Dialog#onload

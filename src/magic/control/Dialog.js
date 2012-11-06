@@ -58,6 +58,8 @@ magic.control.Dialog = baidu.lang.createClass(
 
         baidu.object.extend(me._options || (me._options = {}), options);
 
+        me._footerHeight = 0;
+
         if(options.width < 100)
             options.width = 100;
         if(options.height < 100)

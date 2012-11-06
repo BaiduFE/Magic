@@ -9,9 +9,9 @@
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
         <style type="text/css" media="screen">
             /* 对话框初始信息 */
-			#one-dialog{ left: 80px; top: 140px; }
-			#one-dialog .tang-foreground{ width: 400px; height: 300px; }
-			#one-dialog .tang-body{ height: 270px; font-size: 12px; }
+            #one-dialog{ left: 80px; top: 140px; }
+            #one-dialog .tang-foreground{ width: 400px; height: 300px; }
+            #one-dialog .tang-body{ height: 270px; font-size: 12px; }
         </style>
         <script>
             function log(type, msg){
@@ -33,45 +33,48 @@
                     <li><a href="./event.html">对话框组件自定义事件的使用示例</a></li>
                     <li><a href="./render.html">对话框组件render模式示例</a></li>
                     <li><a href="./setup.html">对话框组件setup模式示例</a></li>
+                    <li><a href="./alert.html">Dialog.alert示例</a></li>
+                    <li><a href="./confirm.html">Dialog.confirm示例</a></li>
                 </ul>
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
                     <h3>对话框组件 setup 模式示例</h3>
                     <p>其中 class 为 tang-ui, tang-dialog, tang-title, tang-body 为必须元素，其它元素非必须，您可以做任意调整以满足使用需求。</p>
-					<p>setup 模式的好处在于 js 还没有加载之前，对话框样子已经呈现，保证 html 优先加载，并且能够较为灵活的改变它的外观。</p>
-					<p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
+                    <p>setup 模式的好处在于 js 还没有加载之前，对话框样子已经呈现，保证 html 优先加载，并且能够较为灵活的改变它的外观。</p>
+                    <p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
                 </div>
                 <!-- 对话框组件 Start -->
-				<div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true;">
-					<div class="tang-background">
-						<div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
-					</div>
-					<div class="tang-foreground">
-						<div class="tang-title">
-							<div class="buttons">
-								<a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
-							</div>
-							<span>对话框标题</span>
-						</div>
-						<div class="tang-body">
-							<div class="bars"><!-- bars 为各种条，可以任意添加 -->
-								<div class="bar"></div>
-								<div class="bar"></div>
-							</div>
-							<div class="tang-content">对话框内容</div>
-							<div class="bars"><!-- bars 为各种条，可以任意添加 -->
-								<div class="bar"></div>
-								<div class="bar"></div>
-							</div>
-						</div>
-					</div>
-				</div>
+                <div id="one-dialog" class="tang-ui tang-dialog" tang-param="draggable: true;">
+                    <div class="tang-background">
+                        <div class="tang-background-inner"><!-- 如果不需要阴影，这个 div 可以删去 --></div>
+                    </div>
+                    <div class="tang-foreground">
+                        <div class="tang-title">
+                            <div class="buttons">
+                                <a class="close-btn" href="" tang-event="click: $.hide;" onclick="return false;"></a>
+                            </div>
+                            <span>对话框标题</span>
+                        </div>
+                        <div class="tang-body">
+                            <div class="bars"><!-- bars 为各种条，可以任意添加 -->
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                            <div class="tang-content">对话框内容</div>
+                            <div class="bars"><!-- bars 为各种条，可以任意添加 -->
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                        <div class="tang-footer"><div></div></div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <script>
-        	var dialog = magic.setup.dialog("one-dialog");
+            var dialog = magic.setup.dialog("one-dialog",{buttons: {items: [{text: "确认", click: function(){ alert("ok"); }}], enable: true}});
         </script>
     </body>
 </html>
