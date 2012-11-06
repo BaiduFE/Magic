@@ -626,3 +626,233 @@ test("button plugin setup", function(){
 		start();
 	}, "baidu.string.trim", "magic.control.Dialog.$button");
 });
+
+
+// case 17
+test("render, custom params, using custom builder to create button", function(){
+	/**
+	 *	this test case will test the parameters of button plugin as below:
+	 *  buttons:{
+	 *		items:[
+	 *			{
+	 *				text: '自定义' 
+	 *              click: Function
+	 *				builder: Function
+	 *				//focused: true
+	 *				//disable: fasle
+	 *			}
+	 *		],
+	 *		align:'center',
+	 *		enable:true
+	 *	}
+	 */
+	expect(11);
+	stop();
+	enSetup();
+	var cdiv = document.createElement("div");
+	cdiv.id = "cdiv";
+	$(cdiv).html("dialog内容");
+	var btnConfig = {
+			text: "自定义",
+			click: function(){
+				ok(true,"event of custom button called");
+			}
+		},
+		dialogInstance,
+		creator = (function(){
+	        var hasFocused = false,
+	            btnTemplate = ['<a href="#" onClick="return false;" style="border-radius:5px;" class="tang-dialog-button ','','">',
+    							'<span style="border-radius:5px;padding:0.2em 0.6em" class="tang-dialog-button-s">',
+    								'',
+    							'</span>',
+    							'</a>'];
+	        return function(btnOptions,anchor,instance,index){
+	        	//test parameters the builder will receive
+	        	equals(btnOptions,btnConfig, "The first param of builder is a button configure");
+	          	equals(anchor.nodeType, 1, "The second param of builder is a button anchor node");
+	          	dialogInstance = instance;
+	          	equals(typeof index, 'number', "The fourth param of builder is button index");
+
+	          	btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
+	          	btnTemplate[4] = btnOptions.text;
+	          	anchor.innerHTML = btnTemplate.join('');
+	          	// baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+	          	!hasFocused && btnOptions.focused && !btnOptions.disabled 
+	            	&& (hasFocused = false) || anchor.focus();
+	            return  anchor;                 
+	        };
+	    })(),
+	    options = {
+			titleText: '标题',
+			content: cdiv,
+			buttons: {
+				items: [
+					((btnConfig.builder = creator) && btnConfig)
+				],
+				enable: true,
+				align: 'center'
+			}
+		},
+	    dialog = magic.setup.dialog("one-dialog", options);
+
+	equals(dialogInstance, dialog, "The third param of builder is a dialog instance");
+	//test click event
+	dialog.buttons && ua.click(dialog.buttons[0]);
+
+	//test dialog align
+	equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-center'), true, "The footer container of dialog container center css class");
+	equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'center', "The value of dialog alignment is center");
+
+	//test the footer region
+	equals((dialog.getElement("footer")||{}).nodeType,1,"Footer region exist in the bottom of the dialog");
+
+	//test height
+	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	equals(dialog.getElement().offsetWidth, "400", "The width is right");
+	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+	dialog.$dispose();
+
+	document.body.removeChild(baidu("#one-dialog")[0]);
+	start();
+});
+
+// case 18
+test("render, button plugin invalidate", function(){
+	/**
+	 *	this test case will test enable property which will cause the button plugin disabled as below:
+	 *  button:{
+	 *		items:[
+	 *			{
+	 *				text: '确定' 
+	 *              click: Function
+	 *			}
+	 *		],
+	 *		align: 'left'
+	 *		enable:true
+	 *	}
+	 */
+	expect(2);
+	stop();
+	enSetup();
+	var cdiv = document.createElement("div");
+	cdiv.id = "cdiv";
+	$(cdiv).html("dialog内容");
+	var btnConfig = {
+			text: '确定',
+			click: function(){
+				ok(true,"Event of custom button called");
+			}
+		},
+		options = {
+			titleText: '标题',
+			content: cdiv,
+			buttons: {
+				items: [
+					btnConfig
+				],
+				align: 'left',
+				enable: true
+			}
+		},
+		dialog = magic.setup.dialog("one-dialog", options);
+
+	//test dialog align
+	equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-left'), true, "The footer container of dialog container left css class");
+	equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'left', "The value of dialog alignment is left");
+
+	dialog.$dispose();
+
+	document.body.removeChild(baidu("#one-dialog")[0]);
+	start();
+});
+
+// case 19
+test("render, button plugin disabled", function(){
+	/**
+	 *	this test case will test enable property which will cause the button plugin disabled as below:
+	 *  button:{
+	 *		items:[
+	 *			{
+	 *				text: '确定' 
+	 *              click: Function
+	 *			}
+	 *		]
+	 *		//enable:false default value
+	 *	}
+	 */
+	expect(4);
+	stop();
+	enSetup();
+	var cdiv = document.createElement("div");
+	cdiv.id = "cdiv";
+	$(cdiv).html("dialog内容");
+	var btnConfig = {
+			text: '确定',
+			click: function(){
+				ok(true,"Event of custom button called");
+			}
+		},
+		options = {
+			titleText: '标题',
+			content: cdiv,
+			buttons: {
+				items: [
+					btnConfig
+				]
+			}
+		},
+		dialog = magic.setup.dialog("one-dialog", options);
+
+	//test enable
+	equals(baidu('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
+
+	//test height
+	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	equals(dialog.getElement().offsetWidth, "400", "The width is right");
+	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight + "px", "The height of content is right");
+
+	dialog.$dispose();
+	document.body.removeChild(baidu("#one-dialog")[0]);
+	start();
+});
+
+//case 20
+test("render, button plugin enable but not buttons", function(){
+	/**
+	 *	this test case will test enable property which will cause the button plugin disabled as below:
+	 *  button:{
+	 *		items:[
+	 *		]
+	 *		//enable:false default value
+	 *	}
+	 */
+	expect(4);
+	stop();
+	enSetup();
+	var cdiv = document.createElement("div");
+	cdiv.id = "cdiv";
+	$(cdiv).html("dialog内容");
+	var options = {
+			titleText: '标题',
+			content: cdiv,
+			buttons: {
+				items: [
+				],
+				enable: true
+			}
+		},
+		dialog = magic.setup.dialog("one-dialog", options);
+
+	//test enable
+	equals(dialog.getElement('footer').style.height, '30px', "The height of the footer region is right");			
+
+	//test height
+	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	equals(dialog.getElement().offsetWidth, "400", "The width is right");
+	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+
+	dialog.$dispose();
+
+	document.body.removeChild(baidu("#one-dialog")[0]);
+	start();
+});

@@ -184,10 +184,10 @@ test("render, custom params, using custom builder to create button", function(){
     							'</a>'];
 	        return function(btnOptions,anchor,instance,index){
 	        	//test parameters the builder will receive
-	        	equals(btnOptions,btnConfig,"The first param of builder is a button configure");
-	          	equals(anchor.nodeType,1,"The second param of builder is a button anchor node");
-	          	equals(instance,dialog,"The third param of builder is a dialog instance");
-	          	equals(typeof index,'number',"The fourth param of builder is button index");
+	        	equals(btnOptions,btnConfig, "The first param of builder is a button configure");
+	          	equals(anchor.nodeType, 1, "The second param of builder is a button anchor node");
+	          	equals(instance, dialog, "The third param of builder is a dialog instance");
+	          	equals(typeof index, 'number', "The fourth param of builder is button index");
 
 	          	btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
 	          	btnTemplate[4] = btnOptions.text;
@@ -342,7 +342,7 @@ test("render, button plugin disabled", function(){
 
 	dialog.$dispose();
 	var l2 = baidu._util_.eventBase._getEventsLength();
-	ok(l2 == l1, 'All events are dispose')
+	ok(l2 == l1, 'All events are dispose');
 	document.body.removeChild(div);
 	start();
 });
