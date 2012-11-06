@@ -26,6 +26,7 @@ module("magic.setup.dialog");
 			+'<div class="bar"></div>'
 			+'</div>'
 			+'</div>'
+			+'<div class="tang-footer"><div></div></div>'
 			+'</div>'
 			+'</div>';
 		$(w.document.body).append(html);
@@ -523,7 +524,105 @@ test("getElements", function(){
 	for(var i in dialog.getElements()){
 		num++;
 	}
-	equals(num, 8, "The getElements() is right");
+	equals(num, 10, "The getElements() is right");
 	document.body.removeChild(baidu("#one-dialog")[0]);
 	start();
+});
+
+//case 16
+test("button plugin setup", function(){
+	stop();
+	expect(17);
+	enSetup();
+	ua.importsrc("baidu.dom.text,baidu.dom.children,baidu.string.trim", function(){
+		var options = {
+					titleText : 'title',
+					content : 'content',
+					height : 100,
+					width : 100,
+					buttons : {
+						enable: true,
+						items: [
+							{},
+							{
+								text: "无效",
+								focused: true,
+								disabled: true,
+								click: function(){
+									ok(true,"Event of disabled button cann't be called, faild case!!!");
+								}
+							},
+							{
+								text: "有效",
+								focused: true,
+								click: function(){
+									ok(true,"Event of button called");
+								}
+							}
+
+						]
+					}
+			},
+			dialog = magic.setup.dialog("one-dialog", options);
+
+		var trim = baidu.string.trim;
+		//test focus element
+		equals(trim(baidu(document.activeElement).text()), '有效', 'the focused element is right');
+
+		//test the dialog.buttons is a array contains the node information.
+		var buttons = dialog.buttons || [];
+		equals(buttons.length, 3, "Dialog contains three buttons");
+		//test button
+		var btnCheck = function(){
+			var first = function(item){
+					equals(baidu.string.trim(baidu(item).text()), '', 'the first button\'s text is space');
+					equals(baidu(item).hasClass('tang-dialog-button-disabled'), false, 'the first button is enable');
+				},
+				second = function(item){
+					equals(baidu.string.trim(baidu(item).text()), '无效', 'the second button\'s text is 无效');	
+					equals(baidu(item).hasClass('tang-dialog-button-disabled'), true, 'the second button is disabled');
+				},
+				third = function(item){
+					equals(baidu.string.trim(baidu(item).text()), '有效', 'the third button\'s text is 有效');
+					equals(baidu(item).hasClass('tang-dialog-button-disabled'), false, 'the third button is enable');
+				};
+			return function(item,index){
+				equals(item.nodeType,1,["The ", index, " button is a Node."].join('') );
+				switch(index){
+					case 0:
+						first(item);
+						break;
+					case 1:
+						second(item);
+						break;
+					case 2:
+						third(item);
+						break;
+					default:
+						break;
+				}
+			}
+		}();
+		baidu.forEach(buttons,function(item,index){
+			btnCheck(item,index);
+		});
+
+		//test clic event
+		ua.click(buttons[0]);
+		ua.click(buttons[1]);
+		ua.click(buttons[2]);
+
+		//test dialog align
+		equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-right'), true, "The footer container of dialog container right css class");
+		equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
+
+		//test height
+		equals(dialog.getElement().offsetHeight, "100", "The height is right");
+		equals(dialog.getElement().offsetWidth, "100", "The width is right");
+		equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+
+		dialog.$dispose();
+		document.body.removeChild(baidu("#one-dialog")[0]);
+		start();
+	}, "baidu.string.trim", "magic.control.Dialog.$button");
 });
