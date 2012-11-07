@@ -380,7 +380,7 @@ test("render, button plugin enable but not buttons", function(){
 	 *		//enable:false default value
 	 *	}
 	 */
-	expect(4);
+	expect(6);
 	stop();
 	var me = this,
 		div = document.createElement("div");
@@ -408,6 +408,10 @@ test("render, button plugin enable but not buttons", function(){
 	equals(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
 	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+
+	//test buttons 
+	equals(dialog.buttons.length, 0, 'The count of buttons is 0');
+	equals(baidu(dialog.getElement("footerContainer")).children().size() , 0, 'The footerContainer doesn\'t have child');
 
 	dialog.$dispose();
 
