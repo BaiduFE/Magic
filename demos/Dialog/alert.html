@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta name="description" content="Dialog 组件 mask 插件示例">
-        <title>对话框组件 mask 插件示例</title>
+        <meta name="description" content="Dialog.alert示例">
+        <title>Dialog.alert示例</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
@@ -18,7 +18,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog,magic.setup.dialog,magic.control.Dialog.$mask,baidu.swf.create"></script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog,magic.control.Dialog.$button"></script>
     </head>
     <body>
         <div class="content">
@@ -39,56 +39,23 @@
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>对话框组件mask插件示例</h3>
-                    <p>使用 mask 插件必须在下载 tangram 代码时勾选了“mask”</p>
-					<p>mask 插件提供对话框背后的遮罩层。</p>
-					<p>mask 插件同时适用于 render 和 setup 模式，使用遮罩插件，请将 mask 选项设置为 true</p>
-					<p><input type="button" value="dialog.show();" onclick="dialog.show();"></p>
-					<p><select><option>这是一个 select 控件，用于测试 dialog 覆盖</option></select></p>
-					<div id="flashContainer1"></div>
-				    <div id="flashContainer2"></div>
-				    <div id="flashContainer3"></div>
-					<div>这里的文字用于测试占位。</div>
+                    <h3>Dialog.alert示例</h3>
+                    <p>使用 Dialog.alert 必须在下载 tangram 代码时勾选了“button” 插件</p>
+					<p><input type="button" value="magic.alert" onclick="malert();"></p>
                 </div>
                 
             </div>
         </div>
 
         <script>
-	        baidu.swf.create({
-		        id: "flash1",
-		        url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
-		        width:695,
-		        height:90,
-		        wmode:'transparent'
-		    }, "flashContainer1");
-		     
-		    baidu.swf.create({
-		        id: "flash2",
-		        url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
-		        width:695,
-		        height:90,
-		        wmode:'window'
-		    }, "flashContainer2");
-		     
-		    baidu.swf.create({
-		        id: "flash3",
-		        url: "http://drmcmm.baidu.com/media/id=nHcdrHRdP1m&gp=402&time=nHc4PjmzP16vn0.swf",
-		        width:695,
-		        height:90,
-		        wmode:'opaque'
-		    }, "flashContainer3");
-			var dialog = new magic.Dialog({
-				draggable: true,
-				titleText: "对话框二",
-				content: "我是一个由 render 模式创建的对话框", // 这里可以是 html 内容或直接是 dom 对象的引用
-				width: 400,
-				height: 300,
-				mask: {
-					enable: true
-				}
-			});
-			dialog.render();
+        	function malert(){
+		         magic.alert('内容', '标题', {
+	                'label': '好',
+	                'callback': function(){
+	                    alert('ok');
+	                }
+	            });
+	     	}
         </script>
     </body>
 </html>

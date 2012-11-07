@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Dialog 组件 mask 插件示例">
+        <title>对话框组件 mask 插件示例</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Dialog/magic.control.Dialog.css">
+        <style type="text/css" media="screen">
+            /* 对话框初始信息 */
+			#one-dialog{ left: 80px; top: 140px; }
+			#one-dialog .tang-foreground{ width: 400px; height: 300px; }
+			#one-dialog .tang-body{ height: 270px; font-size: 12px; }
+        </style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Dialog,magic.control.Dialog.$button"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./complex.html">对话框组件多对话框并存示例</a></li>
+                    <li><a href="./iframe.html">对话框组件frame 类型内容示例</a></li>
+                    <li><a href="./mask.html">对话框组件 mask 插件示例</a></li>
+                    <li><a href="./button.html">对话框组件 button 插件示例</a></li>
+                    <li><a href="./methods.html">对话框组件各个接口的使用示例</a></li>
+                    <li><a href="./event.html">对话框组件自定义事件的使用示例</a></li>
+                    <li><a href="./render.html">对话框组件render模式示例</a></li>
+                    <li><a href="./setup.html">对话框组件setup模式示例</a></li>
+                    <li><a href="./alert.html">Dialog.alert示例</a></li>
+                    <li><a href="./confirm.html">Dialog.confirm示例</a></li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>对话框组件button插件示例</h3>
+                    <p>使用 button 插件必须在下载 tangram 代码时勾选了“button”</p>
+					<p>button 插件提供对话框底部按钮添加。</p>
+					<p>button 插件适用于 render 模式，使用按钮插件，请将 button 选项设置为 true</p>
+					<p><input type="button" value="dialog.show();" onclick="dialog.show();"></p>
+                </div>
+                
+            </div>
+        </div>
+
+        <script>
+	        var creator = (function(){
+			        var hasFocused = false,
+			            btnTemplate = ['<a href="#" onClick="return false;" style="border-radius:5px;" class="tang-dialog-button ','','">',
+		    							'<span style="border-radius:5px;padding:0.2em 0.6em" class="tang-dialog-button-s">',
+		    								'',
+		    							'</span>',
+		    							'</a>'];
+			        return function(btnOptions,anchor,instance,index){
+			          btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
+			          btnTemplate[4] = btnOptions.text;
+			          baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+			          !hasFocused && btnOptions.focused && !btnOptions.disabled 
+			            && (hasFocused = false) || anchor.focus();
+			            return  anchor;                 
+			        };
+			    })(),
+			    dialog = new magic.Dialog({
+			        draggable: true,
+			        titleText: "对话框一",
+			        content: "我是内容", 
+			        width: 400,
+			        height: 300,
+			        buttons: {
+			            items: [
+			                {
+			                   text: '确定',
+			                   click: function(){
+			                       alert("sure");
+			                   },
+			                   focused:true
+			               },
+			               {
+			                   text: '失效',
+			                   disabled:true
+			               },
+			               {
+			                   text: '自定义',
+			                   click:function(){
+			                       alert("custome");
+			                   },
+			                   builder:creator
+			               }
+			            ],
+			            align: 'right',
+			            enable: true
+			        }
+			    });
+			dialog.render();
+			dialog.center();
+        </script>
+    </body>
+</html>

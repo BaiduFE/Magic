@@ -67,7 +67,7 @@ test("render, default params", function(){
 			    return client.clientWidth;
 			};
 			dialog.on("load", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
@@ -84,11 +84,11 @@ test("render, default params", function(){
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.on("hide", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.on("show", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
@@ -153,7 +153,7 @@ test("render, default mask params", function(){
 			    return client.clientWidth;
 			};
 			dialog.on("load", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
@@ -170,11 +170,11 @@ test("render, default mask params", function(){
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.on("hide", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.on("show", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.zIndex, 1004, "The zIndex is right");
 				equals(this._mask.bgColor, "#000", "The bgColor is right");
 				equals(this._mask.opacity, "0.15", "The opacity is right");
@@ -241,7 +241,7 @@ test("render, params", function(){
 			    return client.clientWidth;
 			};
 			dialog.render("one-dialog");
-			ok(dialog.mask, "The mask shows");
+			ok(dialog._options.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#fff", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.5", "The opacity is right");
@@ -295,7 +295,7 @@ test("setup, default params", function(){
 
 			    return client.clientWidth;
 			};
-			ok(dialog.mask, "The mask shows");
+			ok(dialog._options.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#000", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.15", "The opacity is right");
@@ -311,7 +311,7 @@ test("setup, default params", function(){
 			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
 			dialog.on("hide", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
@@ -358,7 +358,7 @@ test("setup, default mask params", function(){
 			    return client.clientWidth;
 			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
-			ok(dialog.mask, "The mask shows");
+			ok(dialog._options.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#000", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.15", "The opacity is right");
@@ -374,7 +374,7 @@ test("setup, default mask params", function(){
 			equals(dialog._mask.getElement().style.width, getViewWidth() + "px", "The width is right");
 			equals(dialog._mask.getElement().style.display, "", "The display is right");
 			dialog.on("hide", function(){
-				ok(this.mask, "The mask shows");
+				ok(this._options.mask, "The mask shows");
 				equals(this._mask.getElement().style.display, "none", "The display is right");
 			});
 			dialog.hide();
@@ -423,7 +423,7 @@ test("render, params", function(){
 			    return client.clientWidth;
 			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
-			ok(dialog.mask, "The mask shows");
+			ok(dialog._options.mask, "The mask shows");
 			equals(dialog._mask.zIndex, 1004, "The zIndex is right");
 			equals(dialog._mask.bgColor, "#fff", "The bgColor is right");
 			equals(dialog._mask.opacity, "0.5", "The opacity is right");
@@ -486,7 +486,7 @@ test("window resize, window scroll", function(){
 			    return client.clientWidth;
 			};
 			var dialog = w.magic.setup.dialog("one-dialog", options);
-			ok(dialog.mask, "The mask shows");
+			ok(dialog._options.mask, "The mask shows");
 			equals(dialog._mask.height, getViewHeight(), "The height is right");
 			equals(dialog._mask.width, getViewWidth(), "The width is right");
 			equals(dialog._mask.getElement().style.height, getViewHeight() + "px", "The height is right");
