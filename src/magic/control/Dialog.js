@@ -563,6 +563,7 @@ magic.control.Dialog.extend(
             baidu(foreground).css("height", (this._options.height = size.height) + "px");
             var height = Math.max(0, this._options.height - this._titleHeight - this._footerHeight) + "px";
             baidu(this.getElement("body")).css("height", height);
+            // baidu(this.getElement("content")).css("height", height);
         }
         /**
          * @description 当窗口发生尺寸修改时触发
