@@ -28,11 +28,11 @@
  */
 baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
-	    if(this.mask && this.mask.enable){
+	    if(options.mask && options.mask.enable){
 	    	this.renderMask();
 
 		    this.on("load", function(){
-		    	if(! this.left )
+		    	if(! this._options.left )
 		    	    this.center();
 		    });
 
@@ -67,9 +67,10 @@ baidu.lang.register(magic.control.Dialog,
 		renderMask: function(){
 		    if(this._mask)
 		        return this;
+		    var maskOpt = this._options.mask;
 		    this._mask = new magic.Mask({
-		    	opacity: this.mask.opacity || .15,
-		    	bgColor: this.mask.bgColor || "#000",
+		    	opacity: maskOpt.opacity || .15,
+		    	bgColor: maskOpt.bgColor || "#000",
 		    	zIndex: this.zIndex - 1
 		    });
 		    return this;
