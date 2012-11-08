@@ -26,6 +26,7 @@ module("magic.setup.dialog");
 			+'<div class="bar"></div>'
 			+'</div>'
 			+'</div>'
+			+'<div class="tang-footer"><div></div></div>'
 			+'</div>'
 			+'</div>';
 		$(w.document.body).append(html);
@@ -34,37 +35,41 @@ module("magic.setup.dialog");
 
 // case 1
 test("default params, default position", function(){
+	stop();
 	expect(14);
-	enSetup();
-	var dialog = magic.setup.dialog("one-dialog");
-	equals(dialog.draggable, true, "The draggable is right");
-	//Attention  Tangram2.0中的css方法跟1.X中的逻辑不一样，需要按情况判断
-	if(baidu('#one-dialog').css('left') == 'auto'){
-		equals(dialog.left, baidu('#one-dialog').css('left'), "The left is right");
-		equals(dialog.top, baidu('#one-dialog').css('top'), "The top is right");
-	}else{
-		equals(parseInt(dialog.left), parseInt(baidu('#one-dialog').css('left')), "The left is right");
-		equals(parseInt(dialog.top), parseInt(baidu('#one-dialog').css('top')), "The top is right");
-	}
+	ua.loadcss(upath + "dialog/dialog.css", function(){
+		enSetup();
+		var dialog = magic.setup.dialog("one-dialog");
+		equals(dialog._options.draggable, true, "The draggable is right");
+		//Attention  Tangram2.0中的css方法跟1.X中的逻辑不一样，需要按情况判断
+		if(baidu('#one-dialog').css('left') == 'auto'){
+			equals(dialog._options.left, baidu('#one-dialog').css('left'), "The left is right");
+			equals(dialog._options.top, baidu('#one-dialog').css('top'), "The top is right");
+		}else{
+			equals(parseInt(dialog._options.left), parseInt(baidu('#one-dialog').css('left')), "The left is right");
+			equals(parseInt(dialog._options.top), parseInt(baidu('#one-dialog').css('top')), "The top is right");
+		}
+		
+		equals(dialog._options.height, 300, "The height is right");
+		equals(dialog._options.width, 400, "The width is right");
+		equals(dialog.getElement().offsetHeight, "300", "The height is right");
+		equals(dialog.getElement().offsetWidth, "400", "The width is right");
+		equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
+		equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
+		equals(dialog.getElement("body").className, "tang-body", "The body is right");
+		document.body.removeChild(baidu("#one-dialog")[0]);
 	
-	equals(dialog.height, 300, "The height is right");
-	equals(dialog.width, 400, "The width is right");
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
-	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("").id, "one-dialog", "The dialog container is right");
-	equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
-	equals(dialog.getElement("body").className, "tang-body", "The body is right");
-	document.body.removeChild(baidu("#one-dialog")[0]);
-
-	//页面容器已经设置样式的情况
-	enSetup();
-	$('#one-dialog').css('left', '80px').css('top', '60px');
-	var dialog = magic.setup.dialog("one-dialog");
-	equals(dialog.left, '80px', "The left is right");
-	equals(dialog.top, '60px', "The top is right");
-	equals($('#one-dialog').css('left'), '80px', "The left is right");
-	equals($('#one-dialog').css('top'), '60px', "The top is right");
-	document.body.removeChild(baidu("#one-dialog")[0]);
+		//页面容器已经设置样式的情况
+		enSetup();
+		$('#one-dialog').css('left', '80px').css('top', '60px');
+		var dialog = magic.setup.dialog("one-dialog");
+		equals(dialog._options.left, '80px', "The left is right");
+		equals(dialog._options.top, '60px', "The top is right");
+		equals($('#one-dialog').css('left'), '80px', "The left is right");
+		equals($('#one-dialog').css('top'), '60px', "The top is right");
+		document.body.removeChild(baidu("#one-dialog")[0]);
+		start();
+	});
 });
 
 // case 2
@@ -132,15 +137,15 @@ test("all params", function(){
 			draggable : false
 	};
 	var dialog = magic.setup.dialog("one-dialog", options);
-	equals(dialog.left, 10, "The left is right");
-	equals(dialog.top, 20, "The top is right");
-	equals(dialog.height, 200, "The height is right");
-	equals(dialog.width, 300, "The width is right");
+	equals(dialog._options.left, 10, "The left is right");
+	equals(dialog._options.top, 20, "The top is right");
+	equals(dialog._options.height, 200, "The height is right");
+	equals(dialog._options.width, 300, "The width is right");
 	equals(dialog.getElement().style.left, "10px", "The left is right");
 	equals(dialog.getElement().style.top, "20px", "The top is right");
 	equals(dialog.getElement().offsetHeight, "200", "The height is right");
 	equals(dialog.getElement().offsetWidth, "300", "The width is right");
-	equals(dialog.draggable, false, "The draggable is right");
+	equals(dialog._options.draggable, false, "The draggable is right");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
 	equals(dialog.getElement("content").firstChild.id, "cdiv", "The content is right");
 	document.body.removeChild(baidu("#one-dialog")[0]);
@@ -242,16 +247,16 @@ test("setSize & getSize", function(){
 		if(resize == 1){
 			equals(size.width, 50, "The x is right");
 			equals(size.height, 100, "The y is right");
-			equals(dialog.height, 100, "The height is right");
-			equals(dialog.width, 50, "The width is right");
+			equals(dialog._options.height, 100, "The height is right");
+			equals(dialog._options.width, 50, "The width is right");
 			equals(dialog.getElement().offsetHeight, "100", "The height is right");
 			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
 		if(resize == 2){
 			equals(size.width, undefined, "The x is right");
 			equals(size.height, 70, "The y is right");
-			equals(dialog.height, 70, "The height is right");
-			equals(dialog.width, 50, "The width is right");
+			equals(dialog._options.height, 70, "The height is right");
+			equals(dialog._options.width, 50, "The width is right");
 			equals(dialog.getElement().offsetHeight, "70", "The height is right");
 			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
@@ -282,16 +287,16 @@ test("setPosition & getPosition", function(){
 		if(move == 1){
 			equals(pos.left, 50, "The x is right");
 			equals(pos.top, 100, "The y is right");
-			equals(dialog.left, 50, "The left is right");
-			equals(dialog.top, 100, "The top is right");
+			equals(dialog._options.left, 50, "The left is right");
+			equals(dialog._options.top, 100, "The top is right");
 			equals(dialog.getElement().style.left, "50px", "The left is right");
 			equals(dialog.getElement().style.top, "100px", "The top is right");
 		}
 		if(move == 2){
 			equals(pos.left, 70, "The x is right");
 			equals(pos.top, undefined, "The y is right");
-			equals(dialog.left, 70, "The left is right");
-			equals(dialog.top, 100, "The top is right");
+			equals(dialog._options.left, 70, "The left is right");
+			equals(dialog._options.top, 100, "The top is right");
 			equals(dialog.getElement().style.left, "70px", "The left is right");
 			equals(dialog.getElement().style.top, "100px", "The top is right");
 		}
@@ -322,8 +327,8 @@ test("center, auto width & height", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, (ww - 400) / 2, "The left is right");
-	    equals(dialog.top, (wh - 300) / 2, "The top is right");
+		equals(dialog._options.left, (ww - 400) / 2, "The left is right");
+	    equals(dialog._options.top, (wh - 300) / 2, "The top is right");
 	    equals(dialog.getElement().style.left, (ww - 400) / 2 + "px", "The left is right");
 	    equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");    
 		w.document.body.removeChild(w.baidu("#one-dialog")[0]);
@@ -353,8 +358,8 @@ test("center", function(){
 		};
 		var dialog = w.magic.setup.dialog("one-dialog", options);
 		dialog.center();
-		equals(dialog.left, (ww - 300) / 2, "The left is right");
-        equals(dialog.top, (wh - 300) / 2, "The top is right");
+		equals(dialog._options.left, (ww - 300) / 2, "The left is right");
+        equals(dialog._options.top, (wh - 300) / 2, "The top is right");
         equals(dialog.getElement().style.left, (ww - 300) / 2 + "px", "The left is right");
         equals(dialog.getElement().style.top, (wh - 300) / 2 + "px", "The top is right");     
         
@@ -368,8 +373,8 @@ test("center", function(){
         var ww = w.document.body.clientWidth;
         var wh = w.document.body.clientHeight;
         dialog.center();
-        equals(dialog.left, parseInt(st + (ww - 300) / 2), "The left is right");
-        equals(dialog.top, parseInt(st + (wh - 300) / 2), "The top is right");
+        equals(dialog._options.left, parseInt(st + (ww - 300) / 2), "The left is right");
+        equals(dialog._options.top, parseInt(st + (wh - 300) / 2), "The top is right");
         equals(dialog.getElement().style.left, parseInt(st + (ww - 300) / 2) + "px", "The left is right");
         equals(dialog.getElement().style.top, parseInt(st + (wh - 300) / 2) + "px", "The top is right");
 
@@ -488,23 +493,19 @@ test("drag range", function(){
 
 // case 14
 test("getElement", function(){
-	stop();
 	expect(3);
-	ua.loadcss(upath + "dialog/demo.css", function(){
-		enSetup();
-		var options = {
-				titleText : 'title',
-				content : 'content',
-				height : 100,
-				width : 100
-		};
-		var dialog = magic.setup.dialog("one-dialog", options);
-		equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
-		equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
-		equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
-		document.body.removeChild(baidu("#one-dialog")[0]);
-		start();
-	});
+	enSetup();
+	var options = {
+			titleText : 'title',
+			content : 'content',
+			height : 100,
+			width : 100
+	};
+	var dialog = magic.setup.dialog("one-dialog", options);
+	equals(dialog.getElement("titleButtons").className, "buttons", "The titleButtons is right");
+	equals(dialog.getElement("closeBtn").className, "close-btn", "The closeBtn is right");
+	equals(dialog.getElement("foreground").className, "tang-foreground", "The foreground is right");
+	document.body.removeChild(baidu("#one-dialog")[0]);
 });
 
 //case 15
@@ -523,7 +524,7 @@ test("getElements", function(){
 	for(var i in dialog.getElements()){
 		num++;
 	}
-	equals(num, 8, "The getElements() is right");
+	equals(num, 10, "The getElements() is right");
 	document.body.removeChild(baidu("#one-dialog")[0]);
 	start();
 });

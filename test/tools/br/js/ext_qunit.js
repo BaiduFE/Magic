@@ -33,4 +33,16 @@
 		_d(arguments);
 		d.apply(this, arguments);
 	};
+	
+	push = function(result, actual, expected, message) {
+    	message = message || (result ? "okay" : "failed");
+        QUnit.ok( result, result ? message + ": " + expected : message + ", expected: " + QUnit.jsDump.parse(expected) + " result: " + QUnit.jsDump.parse(actual) );
+    };
+    approximateEqual = function(actual, expected, difference, message){
+    	if(typeof difference == "string"){
+    		var message = difference;
+    		var difference = 1;
+    	}
+    	push(Math.abs(actual - expected) <= difference, actual, expected, message);
+    };
 })();
