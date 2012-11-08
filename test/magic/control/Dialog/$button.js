@@ -70,7 +70,7 @@ test("render, default and custom params,using default button builder", function(
 	 */
 	 expect(18);
 	 stop();
-	 ua.loadcss("../../magic/setup/dialog/dialog.css", function(){
+	 ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 		var me = this;
 		ua.importsrc("baidu.dom.text,baidu.dom.children,baidu.string.trim", function(){
 			var l1 = baidu._util_.eventBase._getEventsLength();
@@ -724,7 +724,7 @@ test("test mask", function(){
     stop();
     ua.frameExt(function(w, f){
         var me = this;
-        ua.loadcss("../../magic/setup/dialog/dialog.css", function(){
+        ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 
 		        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 400).css("width", 400).css('margin',0).css('padding',0).css('border',0);
 		        $(f).attr('allowtransparency', 'true');
