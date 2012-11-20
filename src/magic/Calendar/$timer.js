@@ -47,7 +47,7 @@
 	 				var timer = ['<input class="', getClass("timer-input"), , , '" ', , 'index="', , '"/>'],
 	 					updonw = ['<button class="', getClass("timer-img"), ' ', , '"/>'],
 	 					timeCharacter = me._options.language == 'zh-CN' ? '时间' : 'Time',
-	 					html = ['<table cellspacing="0" cellpadding="0" border="0" class="' + me._getClass("timer-table") + '"><tbody><tr><td rowSpan="2"><span class="', getClass("timer-character"), '">', timeCharacter,"&nbsp;</span>"],
+	 					html = ['<table cellspacing="0" cellpadding="0" border="0" class="' + me._getClass("timer-table") + '"><tbody><tr><td rowSpan="2" width="113px"><span class="', getClass("timer-character"), '">', timeCharacter,"&nbsp;</span>"],
 	 					i = 5, s; 					;
 	 				//构建时分秒区域
 	 				while(i-- > 0){
@@ -179,12 +179,13 @@
 	 		//键盘按下处理
 	 		register(timerIdty, 'keydown', function(e){
 	 			var e = baidu.event(e || window.event),
-	 				target = e.target;
+	 				target = baidu(e.target);
 	 			//时分秒区域处理
-	 			if(baidu(target).hasClass(getClass("timer-input"))){
+	 			if(target.hasClass(getClass("timer-input"))){
 	 				var keycode = e.keyCode;
 	 				//字母0-9的键码48-59,Backspace的键码为8,左上右下的键码是37-40
-	 				!((keycode >= 48 && keycode <= 59) || keycode == 8 ) && e.preventDefault();
+	 				!((keycode >= 48 && keycode <= 59) || keycode == 8) && e.preventDefault();
+	 				!target.hasClass(getClass("timer-hms")) && e.preventDefault();
 	 				if(keycode >= 37 && keycode <= 40 ){
 		 				switch(keycode){
 		 					case 37:    //左方向键

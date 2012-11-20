@@ -40,6 +40,7 @@
 }
 .tang-calendar-nextbtn {
     right: 15px;
+    _right: 23px;
     left: auto;
     background-position: -15px -44px;
 }
@@ -49,6 +50,7 @@
 }
 .tang-calendar-ynextbtn {
     right: 3px;
+    _right: 10px;
     left: auto;
     background-position:-27px -29px;
 }
@@ -58,6 +60,7 @@
 }
 .tang-calendar-ynextbtn:hover {
     right: 3px;
+    _right: 10px;
     left: auto;
     background-position:-40px -29px;
 }
@@ -157,7 +160,6 @@
  .tang-calendar-timer-table{
     table-layout: fixed;
     border-spacing: 0px;
-    _width: 226px;
  }
  .tang-calendar-timer-character{
     font-size: 14px;
