@@ -118,6 +118,124 @@
     padding-right: 12px;
 }
 
+.tang-calendar-yprebtn {
+    left: 1px;
+    background-position:-28px -44px;
+}
+.tang-calendar-ynextbtn {
+    right: 3px;
+    left: auto;
+    background-position:-27px -29px;
+}
+.tang-calendar-yprebtn:hover {
+    left: 1px;
+    background-position:-41px -44px;
+}
+.tang-calendar-ynextbtn:hover {
+    right: 3px;
+    left: auto;
+    background-position:-40px -29px;
+}
+/**
+ *      timer插件的样式
+ */
+ .tang-calendar-timer{
+    overflow: hidden;
+    padding: 5px;
+    background: url("bg.png") repeat-x scroll 0 0 #BFBFBF;
+    _background-position: 0 2px;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: #979797;
+    line-height: 20px;
+    _height: 20px;
+ }
+
+ .tang-calendar-timer-character{
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+ }
+
+ /* 浮动数值区域 */
+ .tang-calendar-timer-choosen{
+    position: absolute;
+    width: 120px;
+    background: white;
+    bottom: 25px;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+ }
+
+ .tang-calendar-timer-over{
+    background-color: #1F69FF;
+    color: #FFFFFF;
+ }
+
+ .tang-calendar-timer-ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+ }
+
+ .tang-calendar-timer-li{
+    list-style: none;
+    float: left;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+ }
+
+ /* 时分秒区域 */
+ .tang-calendar-timer-input{
+    height: 16px;
+    text-align: center;
+    float: left;
+    border: #CCC 1px solid;
+ }
+
+ .tang-calendar-timer-hms{
+    width: 18px;
+ }
+
+ .tang-calendar-timer-colon{
+    width: 7px;
+ }
+
+ .tang-calendar-timer .tang-calendar-input-both{
+    border-left: 0px;
+    border-right: 0px;
+ }
+
+ .tang-calendar-timer .tang-calendar-input-right{
+    border-right: 0px;
+ }
+
+ .tang-calendar-timer-img{
+    background-image: url(bg.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    float: left;
+    height: 10px;
+    width: 13px;
+    border: 0px;
+ }
+
+ .tang-calendar-timer-updown{
+    float: left;
+ }
+
+ .tang-calendar-timer-up{
+    background-position: -1px -74px;
+ }
+
+ .tang-calendar-timer-down{
+    background-position: -16px -75px;
+ }
+ 
 .cssloaded{
     width: 20px
 }

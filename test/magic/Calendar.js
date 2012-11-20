@@ -516,3 +516,59 @@ test("_datesContains", function(){
     
 });
 
+test("test disabledDay, previous year and next year", function(){
+    expect(10);
+    stop();
+    ua.importsrc('baidu.dom.hasClass' ,function(){
+        var container = document.createElement("div");
+        document.body.appendChild(container);
+        var ca = new magic.Calendar({
+            initDate : new Date("2012/2/29"),
+            disabledDayOfWeek : ['tue']
+        });
+        ca.render(container);
+        
+        ca.on("preyear", function(){
+            ok(true, 'preyear时间被调用');
+        });
+        ca.on("nextyear", function(){
+            ok(true, 'nextyear时间被调用');
+        });
+        var preYearBtn = ca.ypreBtn,
+            nextYearBtn = ca.ynextBtn,
+            getCurLastDay = function(month){
+                var days = ca.tableEl.getElementsByTagName("td"),
+                    len = days.length,
+                    i = len,
+                    date;
+                while(--i >= 0){
+                    date = new Date(baidu(days[i]).attr("date"));
+                    if(date.getMonth() + 1 == month){
+                        break;
+                    }
+                }
+                return date.getDate();
+            };
+        ua.click(preYearBtn);
+        equals(ca.titleEl.innerHTML, '2011年&nbsp;2月', '前一年为2011年2月');
+        equals(getCurLastDay(2), 28, '前一年2月的最后一天为28号');
+
+        ua.click(nextYearBtn);
+        equals(ca.titleEl.innerHTML, '2012年&nbsp;2月', '前一年为2012年2月');
+        equals(getCurLastDay(2), 29, '前一年2月的最后一天为29号');
+
+        var days = ca.tableEl.getElementsByTagName("td"),
+            i = 2, date,
+            disabled = ca._getClass("disable");
+        for(; i <= days.length - 1; i += 7){
+           date = new Date(baidu(days[i]).attr("date"));
+           if(date.getMonth() + 1 == 2){
+                ok(baidu(days[i]).hasClass(disabled), date + " 是不可选的");
+           }
+        }
+
+        start();
+        ca.$dispose();
+        document.body.removeChild(container);
+    });
+});

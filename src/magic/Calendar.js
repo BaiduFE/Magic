@@ -33,8 +33,10 @@
  * @param {Date} [options.initDate] 初始化日历的日期，默认为new Date()
  * @param {Array} [options.highlightDates] 需要高亮的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
  * @param {Array} [options.disabledDates] 不可用的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
+ * @param {Array} [options.disabledDayOfWeek] 不可用的星期或者星期区间， 格式:[String, {start:String, end:String}, String], 默认[]，取值为: 'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'
  * @param {String} [options.language] 日历语言，默认'zh-CN'
  * @plugin title 年份和月份select插件
+ * @plugin timer 时分秒插件
  * @example 
  * /// for options.weekStart,options.initDate,options.highlightDates,options.disabledDates,options.language
  * var instance = new magic.Calendar({
@@ -56,6 +58,7 @@ magic.Calendar = baidu.lang.createClass(function(options){
         initDate: baidu.i18n.date.toLocaleDate(new Date()),
         highlightDates: [],
         disabledDates: [],
+        disabledDayOfWeek: [],
         language: 'zh-CN'
     }, options || {});
     
@@ -251,20 +254,31 @@ magic.Calendar.extend(
     _renderNavBtn: function(){
         var me = this,
             calendarEl = baidu('#' + me._getId())[0],
-            preBtn = document.createElement("div"),
-            nextBtn = document.createElement("div");
+            doc = document,
+            preBtn = doc.createElement("div"),
+            nextBtn = doc.createElement("div"),
+            preYear = doc.createElement("div"),
+            nextYear = doc.createElement("div");
             
         preBtn.className = me._getClass('prebtn');
         nextBtn.className = me._getClass('nextbtn');
-        
+        preYear.className = me._getClass('yprebtn');
+        nextYear.className = me._getClass('ynextbtn');
+
         calendarEl.appendChild(preBtn);
         calendarEl.appendChild(nextBtn);
+        calendarEl.appendChild(preYear);
+        calendarEl.appendChild(nextYear);
 
         me.preBtn = preBtn;
         me.nextBtn = nextBtn;
+        me.ypreBtn = preYear;
+        me.ynextBtn = nextYear;
 
-        me.$mappingDom('premonthbtn', me.preBtn);
-        me.$mappingDom('nextmonthbtn', me.nextBtn);
+        me.$mappingDom('premonthbtn', preBtn);
+        me.$mappingDom('nextmonthbtn', nextBtn);
+        me.$mappingDom('preyearbtn', preYear);
+        me.$mappingDom('preyearhbtn', nextYear);
     },
 
     /**
@@ -274,11 +288,17 @@ magic.Calendar.extend(
         var me = this,
             preBtn = me.preBtn,
             nextBtn = me.nextBtn,
+            ypreBtn = me.ypreBtn,
+            ynextBtn = me.ynextBtn,
             mousedownrespond = false,
             preBtnClickHandler,
             nextBtnClickHandler,
+            ypreBtnClickHandler,
+            ynextBtnClickHandler,
             preBtnMouseHandler,
             nextBtnMouseHandler,
+            ypreBtnMouseHandler,
+            ynextBtnMouseHandler,
             documentHandler;
 
         baidu(preBtn).on('click', preBtnClickHandler = function(){
@@ -351,16 +371,87 @@ magic.Calendar.extend(
             */  
             me.fire("nextmonth");
         });
+        baidu(ypreBtn).on('click', ypreBtnClickHandler = function(){
+            !mousedownrespond && me.preYear();
+            mousedownrespond = false;
+            /**
+            * @description 跳转到上一年
+            * @name magic.Calendar#onpreyear
+            * @event
+            * @grammar magic.Calendar#onpreyear()
+            * @example
+            * var instance = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
+            * });
+            * instance.on("preyear", function(){
+            *     //do something...
+            * });
+            * instance.render('calendar-container');
+            * @example
+            * var instance = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
+            * });
+            * instance.onpreyear = function(){
+            *     //do something...
+            * };
+            * instance.render('calendar-container');
+            */  
+            me.fire("preyear");
+        });
+        baidu(ynextBtn).on('click', ynextBtnClickHandler = function(){
+            !mousedownrespond && me.nextYear();
+            mousedownrespond = false;
+            /**
+            * @description 跳转到下一年
+            * @name magic.Calendar#onnextyear
+            * @event
+            * @grammar magic.Calendar#onnextyear()
+            * @example
+            * var instance = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
+            * });
+            * instance.on("nextyear", function(){
+            *     //do something...
+            * });
+            * instance.render('calendar-container');
+            * @example
+            * var instance = new magic.Calendar({
+            *      weekStart: 'sat',
+            *      initDate: new Date()
+            *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+            *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            *      language: 'zh-CN'
+            * });
+            * instance.onnextyear = function(){
+            *     //do something...
+            * };
+            * instance.render('calendar-container');
+            */  
+            me.fire("nextyear");
+        });
 
         //响应鼠标一直按下的事件
         var timer = null;
-        var mouseDownHandler = function(direction){
+        var mouseDownHandler = function(direction, isYear){
             if(timer){
                 return;
             }
             function createTimer(){
                 timer = setTimeout(function(){
-                    direction == 'pre' ? me.preMonth() : me.nextMonth();
+                    isYear ? (direction == 'pre' ? me.preYear() : me.nextYear())
+                            : (direction == 'pre' ? me.preMonth() : me.nextMonth());
                     mousedownrespond = true;
                     createTimer();
                 }, 500);
@@ -380,6 +471,14 @@ magic.Calendar.extend(
             mouseDownHandler('next');
         });
         
+        baidu(ypreBtn).on('mousedown', ypreBtnMouseHandler = function(){
+            mouseDownHandler('pre', true);
+        });
+
+        baidu(ynextBtn).on('mousedown', ynextBtnMouseHandler = function(){
+            mouseDownHandler('next', true);
+        });
+
         baidu(document).on('mouseup', documentHandler = function(){
             if(me.disposed) return;
             
@@ -389,8 +488,12 @@ magic.Calendar.extend(
         me.on("dispose", function(){
             baidu(preBtn).off('click', preBtnClickHandler);
             baidu(nextBtn).off('click', nextBtnClickHandler);
+            baidu(ypreBtn).off('click', ypreBtnClickHandler);
+            baidu(ynextBtn).off('click', ynextBtnClickHandler);
             baidu(preBtn).off('mousedown', preBtnMouseHandler);
             baidu(nextBtn).off('mousedown', nextBtnMouseHandler);
+            baidu(ypreBtn).off('mousedown', ypreBtnMouseHandler);
+            baidu(ynextBtn).off('mousedown', ynextBtnMouseHandler);
             baidu(document).off('mouseup', documentHandler);
         });
           
@@ -472,6 +575,10 @@ magic.Calendar.extend(
                 }
                 //是否是不可用日期
                 if(me._datesContains(me._options.disabledDates, date)){
+                    classname += ' ' + me._getClass("disable");
+                }
+                //是否是不可用星期
+                if(me._dayOfWeekInDisabled(date.getDay())){
                     classname += ' ' + me._getClass("disable");
                 }
                 //是否是已选择的日期
@@ -613,6 +720,7 @@ magic.Calendar.extend(
             tbodyEl = baidu('#' + me._getId("table"))[0].getElementsByTagName("tbody")[0],
             target,
             dateStr,
+            date,
             _selectedEl,
             clickHandler;
 
@@ -623,11 +731,15 @@ magic.Calendar.extend(
             }
 
             dateStr = target.getAttribute('date');
+            date = new Date(dateStr);
             //判断日期是否处于不可用状态
-            if(me._datesContains(me._options.disabledDates, new Date(dateStr))){
+            if(me._datesContains(me._options.disabledDates, date)){
                 return;
             }
-
+            //判断星期是否处于不可用状态
+            if(me._dayOfWeekInDisabled(date.getDay())){
+                return;
+            }
             _selectedEl = baidu('#' + me._getId("selected"))[0];
             if(_selectedEl){
                 _selectedEl.id = '';
@@ -693,7 +805,8 @@ magic.Calendar.extend(
 
         function keystrokesHandler(e){
             e = e || window.event;
-            e.preventDefault();
+            //e.preventDefault();
+            var preventDefault =  true;
             switch (e.keyCode) {
                 case 33:    //Page Up键
                     me.preMonth();
@@ -714,8 +827,10 @@ magic.Calendar.extend(
                     me._nextDay();
                     break;
                 default:
+                    preventDefault =  false;
                     break;
             }
+            preventDefault && e.preventDefault();
         }
 
         baidu(document).on("click", clickHandler = function(e){
@@ -761,6 +876,30 @@ magic.Calendar.extend(
             date2 = d2.getDate();
 
         return (year1 == year2) && (month1 == month2) && (date1 == date2);
+    },
+
+    _days: {'mon':1, 'tue':2, 'wed':3, 'thu':4, 'fri':5, 'sat':6, 'sun':0},
+    /**
+     * 判断某星期是否在无效星期组中
+     * @param {int} day 当前星期几，数值表示
+     */
+    _dayOfWeekInDisabled: function(day){
+        var disabledDays = this._options.disabledDayOfWeek, 
+            days = this._days,
+            result = false,
+            i = 0, 
+            item;
+        for(; i < disabledDays.length; i++){
+                item = disabledDays[i];
+                typeof item == 'object' ?
+                    days[item.start] <= day && day <= days[item.end] && (result = true)
+                    : days[item] == day && (result = true);
+                if(result){
+                    break;
+                }
+
+        }
+        return result;
     },
 
     /**
@@ -880,6 +1019,10 @@ magic.Calendar.extend(
         if(me._datesContains(me._options.disabledDates, _date)){
             return;
         }
+        //判断星期是否处理不可用状态
+        if(me._dayOfWeekInDisabled(_date.getDay())){
+            return;
+        }
 
         me.currentDate = new Date(date);
         me.selectedDate = new Date(date);
@@ -936,6 +1079,52 @@ magic.Calendar.extend(
             currentYear = currentDate.getFullYear();
             
         me.go(currentYear, currentMonth + 1);
+    },
+
+    /**
+     * @description 将日历翻到上一年
+     * @name magic.Calendar#preYear
+     * @function
+     * @grammar magic.Calendar#preYear()
+     * @example
+     * var instance = new magic.Calendar({
+     *      weekStart: 'sat',
+     *      initDate: new Date()
+     *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+     *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+     *      language: 'zh-CN'
+     * });
+     * instance.render('calendar-container');
+     * instance.preYear();
+     */
+    preYear: function(){
+        var me = this,
+            currentDate = me.currentDate;
+            
+        me.go(currentDate.getFullYear() - 1, currentDate.getMonth() + 1);
+    },
+    
+    /**
+     * @description 将日历翻到下一年
+     * @name magic.Calendar#nextYear
+     * @function
+     * @grammar magic.Calendar#nextYear()
+     * @example
+     * var instance = new magic.Calendar({
+     *      weekStart: 'sat',
+     *      initDate: new Date()
+     *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+     *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+     *      language: 'zh-CN'
+     * });
+     * instance.render('calendar-container');
+     * instance.nextYear();
+     */
+    nextYear: function(){
+        var me = this,
+            currentDate = me.currentDate;
+            
+        me.go(currentDate.getFullYear() + 1, currentDate.getMonth() + 1);
     },
 
     /**

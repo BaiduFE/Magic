@@ -72,7 +72,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 	var me = this;
 	
 	me.language = options.language || "zh-CN";
-    me.format = options.format || baidu.i18n.cultures[me.language].calendar.dateFormat || 'yyyy-MM-dd';
+    me.format = options.format || baidu.i18n.cultures[me.language].calendar.dateFormat || 'yyyy-MM-dd HH:mm:ss';
     me.popupOption = baidu.object.merge({"autoHide": false, "autoTurn": false, 'disposeOnHide': false}, options.popupOptions);
     me.calendarOption = baidu.object.merge({}, options.calendarOptions);
     me.calendarOption.language = me.language;
@@ -275,14 +275,31 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         */
         me.fire("hide");
     },
-    
+    /**
+     * @description 获取当前日期
+     * @name magic.control.DatePicker#getDate
+     * @function
+     * @grammar magic.control.DatePicker#getDate()
+     */
+    getDate: function(){
+        return baidu.i18n.date.toLocaleDate(new Date());
+    },
+    /**
+     * @description 获取当前选中日期
+     * @name magic.control.DatePicker#getSelectedDate
+     * @function
+     * @grammar magic.control.DatePicker#getSelectedDate()
+     */
+    getSelectedDate: function(){
+        return new Date(this.calendar.getDate());
+    },
     /**
      * 取得从input到得字符按format分析得到的日期对象
      */
     _getInputDate: function(){
         var me = this,
             dateValue = me.input.value,
-            patrn = [/yyyy|yy/, /M{1,2}/, /d{1,2}/],//只支持到年月日的格式化，需要时分秒的请扩展此数组
+            patrn = [/yyyy|yy/, /M{1,2}/, /d{1,2}/,/H{1,2}/,/m{1,2}/,/s{1,2}/],//只支持到年月日的格式化，需要时分秒的请扩展此数组
             len = patrn.length,
             date = [],
             regExp,
@@ -297,7 +314,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
             }
         }
         
-        _return = new Date(date[0], date[1] - 1, date[2]);  //需要时分秒的则扩展参数
+        _return = new Date(date[0], date[1] - 1, date[2], date[3] || null, date[4] || null, date[5] || null);  //需要时分秒的则扩展参数
         if(baidu.lang.isDate(_return))
             return _return;
         else
