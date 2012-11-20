@@ -14,7 +14,7 @@ $release = preg_match('/release=true/i', $_SERVER['QUERY_STRING']);
 if($release == 0 && array_key_exists('f', $_GET))
 print "<script type='text/javascript' src='../br/import.php?f={$_GET['f']}'></script>";
 else{
-	print "<script type='text/javascript' src='../../../Magic.js'></script>";	
+	print "<script type='text/javascript' src='../../../magic.js'></script>";	
 }
 ?>
 <script type="text/javascript">
