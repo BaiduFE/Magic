@@ -154,8 +154,12 @@
     _height: 20px;
  }
 
+ .tang-calendar-timer-table{
+    table-layout: fixed;
+    border-spacing: 0px;
+    _width: 226px;
+ }
  .tang-calendar-timer-character{
-    float: left;
     font-size: 14px;
     font-weight: bold;
     color: #FFFFFF;
@@ -196,7 +200,6 @@
  .tang-calendar-timer-input{
     height: 16px;
     text-align: center;
-    float: left;
     border: #CCC 1px solid;
  }
 
@@ -232,9 +235,9 @@
  }
 
  .tang-calendar-timer-up{
-    background-position: -1px -74px;
+    background-position: 0px -75px;
  }
 
  .tang-calendar-timer-down{
-    background-position: -17px -75px;
+    background-position: -16px -75px;
  }

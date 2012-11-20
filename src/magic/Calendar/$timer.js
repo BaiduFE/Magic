@@ -47,7 +47,7 @@
 	 				var timer = ['<input class="', getClass("timer-input"), , , '" ', , 'index="', , '"/>'],
 	 					updonw = ['<button class="', getClass("timer-img"), ' ', , '"/>'],
 	 					timeCharacter = me._options.language == 'zh-CN' ? '时间' : 'Time',
-	 					html = ['<span class="', getClass("timer-character"), '">', timeCharacter,"&nbsp;</span>"],
+	 					html = ['<table cellspacing="0" cellpadding="0" border="0" class="' + me._getClass("timer-table") + '"><tbody><tr><td rowSpan="2"><span class="', getClass("timer-character"), '">', timeCharacter,"&nbsp;</span>"],
 	 					i = 5, s; 					;
 	 				//构建时分秒区域
 	 				while(i-- > 0){
@@ -60,7 +60,7 @@
 	 					html.push(timer.join(''));
 	 				}
 	 				//构建up和down区域
-	 				html.push('<table cellspacing="0" cellpadding="0" border="0" class="' + getClass("timer-updown") + '"><tbody><tr></td><td>');
+	 				html.push("</td><td>");
 	 				html.push((updonw[3] = getClass("timer-up")) && updonw.join(''));
 	 				html.push('</td></tr><tr><td>');
 	 				html.push((updonw[3] = getClass("timer-down")) && updonw.join(''));
@@ -149,8 +149,8 @@
 	 		baidu(me.getElement(timerIdty)).append(fs[0]);
 
 	 		//存储时分秒节点
-	 		var nodes = baidu(me.getElement(timerIdty)).children(),
-	 			hms = me._hms = [nodes[1], nodes[3], nodes[5]],
+	 		var nodes = me.getElement(timerIdty).getElementsByTagName("input"),
+	 			hms = me._hms = [nodes[0], nodes[2], nodes[4]],
 	 			hmsDeal = function(next){
 	 					if(next){
 		 					hms[0] == focused && me._nextHour();
