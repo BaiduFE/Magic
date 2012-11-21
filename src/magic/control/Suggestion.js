@@ -84,7 +84,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     me.on('onload', function() {
         var input_el = me.getElement("input"),
             timer = null;
-            
+        baidu.dom(me.getElement("input")).attr("autocomplete", "off");
         me.oldInputValue = me.getElement("input").value;
         
         //轮询器，检查input中值的变化
@@ -241,7 +241,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         
         me.suggestion = popup;  //指向suggestion的popup实例
         
-        baidu.dom(me.getElement("input")).attr("autocomplete", "off");
+        
         
         /**
          * @description 渲染输入框提示容器时触发
