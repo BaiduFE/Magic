@@ -733,6 +733,12 @@ magic.Calendar.extend(
 
             dateStr = target.getAttribute('date');
             date = new Date(dateStr);
+
+            var curDate = me.selectedDate;
+            date.setHours(curDate.getHours());
+            date.setMinutes(curDate.getMinutes());
+            date.setSeconds(curDate.getSeconds());
+
             //判断日期是否处于不可用状态
             if(me._datesContains(me._options.disabledDates, date)){
                 return;
@@ -750,6 +756,7 @@ magic.Calendar.extend(
             target.id = me._getId("selected");
             baidu(target).addClass(me._getClass("selected"));
 
+            dateStr = me._formatDate(date);
             me.selectedDate = new Date(dateStr);
 
             /**

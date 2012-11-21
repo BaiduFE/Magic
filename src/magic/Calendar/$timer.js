@@ -213,14 +213,10 @@
 	 				if(value < 0){ target.value = 0;return; }
 	 				if(index == 4 ){
 	 					value > 23 && (target.value = 23);
-	 					// fs.hide();
-	 					// regionActive = false;
 	 					me._fireSelectedDate();
 	 					return;
 	 				}
 	 				value > 59 && (target.value = 59);
-	 				// fs.hide();
-	 				// regionActive = false;
 	 				me._fireSelectedDate();
 		 		};
 		 	baidu.forEach(hms, function(item){

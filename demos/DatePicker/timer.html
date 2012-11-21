@@ -3,13 +3,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="description" content="DatePicker 组件插件示例">
-        <title>日历组件时分秒插件示例</title>
+        <title>日历组件插件示例</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css">
         <style>
-        	.datepicker_describe span{
-        		padding-right:20px;
+            .datepicker_describe span{
+                padding-right:20px;
             }
             .datepicker_describe em {
                 display: inline-block;
@@ -60,18 +60,18 @@
                     <p>启用时分秒插件后</p>
                     <div class="demo-view">
                         <form autocomplete="off">
-                        	<p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
+                            <p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
                         </form>
                     </div>
                 </div>
                 <div class="datepicker_describe">
-		            <h4>日期各状态颜色说明：</h4>
-		            <span><em class="disable">21</em>不可选日期</span>
-		            <span><em class="selected">21</em>当前选中日期</span>
-		            <span><em class="highlight">21</em>高亮日期</span>
-		            <span><em class="hover">21</em>鼠标悬停日期</span>
-		            <span><em class="other">21</em>非当前月份日期</span>
-		        </div>
+                    <h4>日期各状态颜色说明：</h4>
+                    <span><em class="disable">21</em>不可选日期</span>
+                    <span><em class="selected">21</em>当前选中日期</span>
+                    <span><em class="highlight">21</em>高亮日期</span>
+                    <span><em class="hover">21</em>鼠标悬停日期</span>
+                    <span><em class="other">21</em>非当前月份日期</span>
+                </div>
                 <div class="console-wrap">
                     <h3>控制台</h3>
                     <div id="J_console" class="console"></div>
@@ -98,7 +98,7 @@
                 log('event', 'custom event fired: onhide.');
             });
             datepicker.on("selectdate", function(e){
-                log('info', 'date selected: ' + baidu.date.format(e.date, 'yyyy-MM-dd'));
+                log('info', 'date selected: ' + baidu.date.format(e.date, 'yyyy-MM-dd HH:mm:ss'));
             })
         </script>
     </body>

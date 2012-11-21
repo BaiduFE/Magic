@@ -30,7 +30,7 @@ test("test parameters and shown", function(){
 
             //时分秒区域
             ok(ca.getElement(ca._getId("timer")) != undefined, "启用插件，时分秒区域已创建");
-            equals(ca.getElement(ca._getId("timer")).display, undefined, "启用插件，时分秒区域已创建");
+            equals(ca.getElement(ca._getId("timer")).style.display, '', "启用插件，时分秒区域已创建");
             
             equals(ca.getElement(ca._getId("timer")).getElementsByTagName("input").length, 5, "测试时分秒区域输入框个数。");
             
@@ -294,7 +294,7 @@ test("test basic operation for float panel ", function(){
 });
 
 test("test getDate and setDate", function(){
-    expect(6);
+    expect(12);
     stop();
     var container = document.createElement("div");
     document.body.appendChild(container);
@@ -308,12 +308,19 @@ test("test getDate and setDate", function(){
     ca.render(container);
 
     var date = ca.getDate();
+    equals(date.getFullYear(), 2012, '当前年正确');
+    equals(date.getMonth() + 1, 5, '当前年正确');
+    equals(date.getDate(), 6, '当前年正确');
     equals(date.getHours(), 10, '当前小时正确');
     equals(date.getMinutes(), 11, '当前分钟正确');
     equals(date.getSeconds(), 12, '当前秒正确');
 
     date = new Date(2012, 10, 6, 20, 21, 22);
     ca.setDate(date);
+    date = ca.getDate();
+    equals(date.getFullYear(), 2012, '当前年正确');
+    equals(date.getMonth(), 10, '当前年正确');
+    equals(date.getDate(), 6, '当前年正确');
     equals(date.getHours(), 20, '当前小时正确');
     equals(date.getMinutes(), 21, '当前分钟正确');
     equals(date.getSeconds(), 22, '当前秒正确');

@@ -624,7 +624,7 @@ test("test render with id", function(){
     container.setAttribute('id', 'calendarIdty');
     document.body.appendChild(container);
     var ca = new magic.Calendar({});
-    ca.render(calendarIdty);
+    ca.render('calendarIdty');
     
     equals(getWeekNames(ca)[0], '日', "测试每周第一天是否是周日");
     ok(ca._datesEqual(ca.selectedDate, new Date()), "测试当前选中日期是否是当天");
