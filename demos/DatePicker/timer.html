@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="description" content="DatePicker 组件插件示例">
-        <title>日历组件插件示例</title>
+        <title>日历组件时分秒插件示例</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css">
@@ -41,7 +41,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker,magic.Calendar.$title'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker,magic.Calendar.$timer'></script>
     </head>
     <body>
         <div class="content">
@@ -56,8 +56,8 @@
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>日历组件 title插件示例</h3>
-                    <p>启用title插件后，用户可以通过select控件直接选择日历的年份和月份</p>
+                    <h3>日历组件 时分秒插件示例</h3>
+                    <p>启用时分秒插件后</p>
                     <div class="demo-view">
                         <form autocomplete="off">
                         	<p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
@@ -81,12 +81,12 @@
 
         <script>
             var datepicker = new magic.setup.datePicker('J_input', {
-                'format': 'yyyy/MM/dd',
+                'format': 'yyyy/MM/dd HH:mm:ss',
                 'calendarOptions': {
                     'initDate': new Date(),
                     'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
                     'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
-                    'title': {
+                    'timer': {
                         enable: true
                     }
                 }

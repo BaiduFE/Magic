@@ -29,11 +29,11 @@
  * @class
  * @grammar new magic.Calendar(options)
  * @param {Object} options 自定义选项
- * @param {String} [options.weekStart] 定义一周的第一天取值:'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'，默认'Sun'
+ * @param {String} [options.weekStart] 定义一周的第一天取值:'Mon'|'Tue'|'Wed'|'Thu'|'Fri'|'Sat'|'Sun'，默认'Sun'
  * @param {Date} [options.initDate] 初始化日历的日期，默认为new Date()
  * @param {Array} [options.highlightDates] 需要高亮的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
  * @param {Array} [options.disabledDates] 不可用的日期或者日期区间，格式:[date, {start:date, end:date}, date, date...]，默认[]
- * @param {Array} [options.disabledDayOfWeek] 不可用的星期或者星期区间， 格式:[String, {start:String, end:String}, String], 默认[]，取值为: 'Mon'|'Tue'|'Web'|'Thu'|'Fri'|'Sat'|'Sun'
+ * @param {Array} [options.disabledDayOfWeek] 不可用的星期或者星期区间， 格式:[String, {start:String, end:String}, String], 默认[]，取值为: 'Mon'|'Tue'|'Wed'|'Thu'|'Fri'|'Sat'|'Sun'
  * @param {String} [options.language] 日历语言，默认'zh-CN'
  * @plugin title 年份和月份select插件
  * @plugin timer 时分秒插件
@@ -44,6 +44,7 @@
  *      initDate: new Date()
  *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
  *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+ *      disabledDayOfWeek : ['fri', {end : 'tue'}],
  *      language: 'zh-CN'
  * });
  * instance.render('calendar-container');
@@ -892,7 +893,7 @@ magic.Calendar.extend(
         for(; i < disabledDays.length; i++){
                 item = disabledDays[i];
                 typeof item == 'object' ?
-                    days[item.start] <= day && day <= days[item.end] && (result = true)
+                    (days[item.start] || 0) <= day && day <= days[item.end] && (result = true)
                     : days[item] == day && (result = true);
                 if(result){
                     break;

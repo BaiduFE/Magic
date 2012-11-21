@@ -97,10 +97,12 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 			
 		calendar.render(popup.getElement("content"));
 		
-		me.calendar.on("selectdate", function(e){
+		me.calendar.on("selectdate", function(e, param){
 	    	//格式化日期
 	    	input.value = baidu.date.format(e.date, me.format);
-	    	me.hide();
+            if(!(param && param.ignoreHide)){
+                me.hide();
+            }
 
             /**
             * @description 选中某个日期时触发

@@ -47,7 +47,7 @@
 	 				var timer = ['<input class="', getClass("timer-input"), , , '" ', , 'index="', , '"/>'],
 	 					updonw = ['<button class="', getClass("timer-img"), ' ', , '"/>'],
 	 					timeCharacter = me._options.language == 'zh-CN' ? '时间' : 'Time',
-	 					html = ['<table cellspacing="0" cellpadding="0" border="0" class="' + me._getClass("timer-table") + '"><tbody><tr><td rowSpan="2" width="113px"><span class="', getClass("timer-character"), '">', timeCharacter,"&nbsp;</span>"],
+	 					html = ['<table cellspacing="0" cellpadding="0" border="0" class="' + me._getClass("timer-table") + '"><tbody><tr><td rowSpan="2" ', baidu.browser.ie < 7 ? 'width="113px"' : '','><span class="', getClass("timer-character"), '">', timeCharacter,"&nbsp;</span>"],
 	 					i = 5, s; 					;
 	 				//构建时分秒区域
 	 				while(i-- > 0){
@@ -213,10 +213,14 @@
 	 				if(value < 0){ target.value = 0;return; }
 	 				if(index == 4 ){
 	 					value > 23 && (target.value = 23);
+	 					// fs.hide();
+	 					// regionActive = false;
 	 					me._fireSelectedDate();
 	 					return;
 	 				}
 	 				value > 59 && (target.value = 59);
+	 				// fs.hide();
+	 				// regionActive = false;
 	 				me._fireSelectedDate();
 		 		};
 		 	baidu.forEach(hms, function(item){
@@ -271,7 +275,7 @@
 	 		});
 
 			//鼠标弹起处理
-	 		register(timerIdty, 'mouseup', function(e){
+	 		register(document, 'mouseup', function(e){
 	 			continueEnd = true;
 	 		});
 
@@ -450,7 +454,8 @@
 	     */
 	    _fireSelectedDate: function(){
     		this.fire("selectdate", {
-		            'date': this.getDate()
+		            'date': this.getDate(),
+		            'ignoreHide': true
 		        });
 	    }
  	}

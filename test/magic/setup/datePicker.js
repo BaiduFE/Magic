@@ -324,7 +324,7 @@ test('测试focus input框', function(){
 
 
 test('测试日历上有效日期和无效日期的点击', function(){
-    expect(2);
+    expect(3);
     stop();
     
     var input = document.createElement('input');
@@ -334,7 +334,8 @@ test('测试日历上有效日期和无效日期的点击', function(){
     var dp = magic.setup.datePicker(input, {
         'calendarOptions': {
             initDate: new Date('2012/05/08'),
-            disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+            disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            disabledDayOfWeek : ['wed']
         }
     });
     
@@ -344,6 +345,9 @@ test('测试日历上有效日期和无效日期的点击', function(){
         ua.click(dateDoms[0]);
         equals(input.value, '', "点击不可选日期时，input值不变");
         
+        ua.click(dateDoms[10]);
+        equals(input.value, '', "点击不可选日期时，input值不改变");
+
         ua.click(dateDoms[7]);
         equals(input.value, '2012-05-06', "点击可选日期时，input值改变");
         
