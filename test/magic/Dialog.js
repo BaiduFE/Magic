@@ -17,7 +17,7 @@ test("default params", function(){
 		equals(options.top, 0, "The top is right");
 		equals(options.height, 300, "The height is right");
 		equals(options.width, 400, "The width is right");
-		equals(dialog.getElement().offsetHeight, "300", "The height is right");
+		approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
 		equals(dialog.getElement().offsetWidth, "400", "The width is right");
 		equals(dialog.getElement().id, "one-dialog", "The dialog container is right");
 		equals(dialog.getElement("title").className.indexOf("tang-title") > -1, true, "The draggable is right");
@@ -115,7 +115,7 @@ test("all params", function(){
 	equals(options.width, 300, "The width is right"); 
 	equals(dialog.getElement().style.left, "10px", "The left is right");
 	equals(dialog.getElement().style.top, "20px", "The top is right");
-	equals(dialog.getElement().offsetHeight, 200, "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, 200, "The height is right");
 	equals(dialog.getElement().offsetWidth, 300, "The width is right");
 	equals(options.draggable, false, "The draggable is right");
 	equals(dialog.getElement("titleText").innerHTML, "标题", "The titleText is right");
@@ -214,11 +214,12 @@ test("setSize & getSize", function(){
 	div.style.position = "absolute";
 	var cdiv = document.createElement("div");
 	cdiv.id = "cdiv";
-	$(cdiv).html("dialog内容");
+	$(cdiv).html("内容");
 	var resize = 0;
 	var dialog = new magic.Dialog({
 		titleText : '标题',
-		content : cdiv
+		content : cdiv,
+		contentType: "element"
 	});
 	dialog.on("resize", function(e, size){
 		resize ++;
@@ -227,7 +228,7 @@ test("setSize & getSize", function(){
 			equals(size.height, 100, "The y is right");
 			equals(dialog._options.height, 100, "The height is right");
 			equals(dialog._options.width, 50, "The width is right");
-			equals(dialog.getElement().offsetHeight, "100", "The height is right");
+			approximateEqual(dialog.getElement().offsetHeight, "100", "The height is right");
 			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
 		if(resize == 4){
@@ -235,7 +236,7 @@ test("setSize & getSize", function(){
 			equals(size.height, 70, "The y is right");
 			equals(dialog._options.height, 70, "The height is right");
 			equals(dialog._options.width, 50, "The width is right");
-			equals(dialog.getElement().offsetHeight, "70", "The height is right");
+			approximateEqual(dialog.getElement().offsetHeight, "70", "The height is right");
 			equals(dialog.getElement().offsetWidth, "50", "The width is right");
 		}
 	});

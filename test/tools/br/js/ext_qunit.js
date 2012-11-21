@@ -43,6 +43,6 @@
     		var message = difference;
     		var difference = 1;
     	}
-    	push(Math.abs(actual - expected) <= difference, actual, expected, message);
+    	push(Math.abs(parseInt(actual) - parseInt(expected)) <= difference, actual, expected, message);
     };
 })();
