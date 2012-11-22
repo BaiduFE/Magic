@@ -41,7 +41,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker,magic.Calendar.$title'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker'></script>
     </head>
     <body>
         <div class="content">
@@ -82,14 +82,14 @@
         <script>
             var datepicker = new magic.setup.datePicker('J_input', {
                 'format': 'yyyy/MM/dd',
+                'popupOptions': {
+                    offsetY: 20
+                },
                 'calendarOptions': {
                     'weekStart': 'sat',
                     'initDate': new Date(),
                     'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
-                    'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
-                    'title': {
-                        enable: false
-                    }
+                    'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
                 }
             });
             datepicker.on("show", function(){

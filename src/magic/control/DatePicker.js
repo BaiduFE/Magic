@@ -70,6 +70,8 @@
  */
 magic.control.DatePicker = baidu.lang.createClass(function(options){
 	var me = this;
+
+    me._options = options;
 	
 	me.language = options.language || "zh-CN";
     me.format = options.format || baidu.i18n.cultures[me.language].calendar.dateFormat || 'yyyy-MM-dd HH:mm:ss';
@@ -94,7 +96,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 			popup = me.popup = new magic.Popup(me.popupOption),
 			calendar = me.calendar = new magic.Calendar(me.calendarOption),
 			input = me.input = me.getElement("input");
-			
+		
+        //如果开启title插件，初始化该插件
+        if(me._options.title && me._options.title.enable){
+            me.init$title();
+        }
 		calendar.render(popup.getElement("content"));
 		
 		me.calendar.on("selectdate", function(e, param){
