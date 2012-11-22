@@ -6,7 +6,7 @@
         <title>日历组件quickStart</title>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css">
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker,magic.control.DatePicker.$title'></script>
     </head>
     <body>
         <div class='demo'>
@@ -16,7 +16,12 @@
         	</form>
         </div>
         <script type="text/javascript" charset="utf-8">
-            var datepicker1 = new magic.setup.datePicker('J_input');
+            var datepicker = new magic.setup.datePicker('J_input', {
+                    'title': {
+                        enable: false
+                    }
+                }
+            );
         </script>
     </body>
 </html>
