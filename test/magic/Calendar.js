@@ -627,13 +627,13 @@ test("test render with id", function(){
     ca.render('calendarIdty');
     
     equals(getWeekNames(ca)[0], '日', "测试每周第一天是否是周日");
-    ok(ca._datesEqual(ca.selectedDate, new Date()), "测试当前选中日期是否是当天");
+    ok(ca._datesEqual(ca.selectedDate, baidu.i18n.date.toLocaleDate(new Date())), "测试当前选中日期是否是当天");
     
     var selectedDateTD = baidu('.tang-calendar-selected')[0];
     var dateStr = baidu(selectedDateTD).attr("date");
-    equals(dateStr, baidu.date.format(new Date(), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
+    equals(dateStr, baidu.date.format(baidu.i18n.date.toLocaleDate(new Date()), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
     
-    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;' + ((new Date()).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
+    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;' + ((baidu.i18n.date.toLocaleDate(new Date())).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
 
     var disableDateTD = baidu('.tang-calendar-disable');
     equals(disableDateTD.length, 0, "不存在不可用的日期");
@@ -642,12 +642,12 @@ test("test render with id", function(){
     equals(highlightTD.length, 0, "不存在高亮的日期");
     
     equals(ca._options.weekStart, 'sun', "检查默认参数weekStart");
-    ok(ca._datesEqual(ca._options.initDate, new Date()), "检查默认参数initDate");
+    ok(ca._datesEqual(ca._options.initDate, baidu.i18n.date.toLocaleDate(new Date())), "检查默认参数initDate");
     same(ca._options.highlightDates, [], "检查默认参数highlightDates");
     same(ca._options.disabledDates, [], "检查默认参数disabledDates");
     equals(ca._options.language, 'zh-CN', "检查默认参数language");
 
-    ok(ca._datesEqual(ca.currentDate, new Date()), "检查currentDate");
+    ok(ca._datesEqual(ca.currentDate, baidu.i18n.date.toLocaleDate(new Date())), "检查currentDate");
 
     start();
     ca.$dispose();

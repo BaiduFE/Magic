@@ -205,7 +205,9 @@
 	 		});
 
 	 		//时分秒文本内容处理
-	 		var blurDeal = function(e){
+	 		var enableBlur = true,
+	 			blurDeal = function(e){
+	 				if(!enableBlur && (enableBlur = true)){ return; } 
 		 			var e = baidu.event(e || window.event),
 		 				target = e.target,
 	 					index = target.getAttribute("index"),
@@ -244,6 +246,7 @@
 	 			if(baidu(target).hasClass(getClass("timer-li"))){
 	 				focused && (focused.value = baidu(target).text());
 	 				me._fireSelectedDate();
+	 				enableBlur = false;
 	 				return;
 	 			}
 	 			!focused && (focused = hms[0]);
