@@ -159,9 +159,9 @@ test("render, default and custom params,using default button builder", function(
 			equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
 
 			//test height
-			equals(dialog.getElement().offsetHeight, "300", "The height is right");
+			approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
 			equals(dialog.getElement().offsetWidth, "400", "The width is right");
-			equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+			approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 
 			dialog.$dispose();
 			var l2 = baidu._util_.eventBase._getEventsLength();
@@ -253,9 +253,9 @@ test("render, custom params, using custom builder to create button", function(){
 	equals((dialog.getElement("footer")||{}).nodeType,1,"Footer region exist in the bottom of the dialog");
 
 	//test height
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 	dialog.$dispose();
 
 	document.body.removeChild(div);
@@ -361,9 +361,9 @@ test("render, button plugin disabled", function(){
 	equals(baidu('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
 
 	//test height
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight + "px", "The height of content is right");
+	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight + "px", "The height of content is right");
 
 	dialog.$dispose();
 	document.body.removeChild(div);
@@ -405,9 +405,9 @@ test("render, button plugin enable but not buttons", function(){
 	equals(dialog.getElement('footer').style.height, '30px', "The height of the footer region is right");			
 
 	//test height
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, "300", 2, "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", 2, "The height of content is right");
 
 	//test buttons 
 	equals(dialog.buttons.length, 0, 'The count of buttons is 0');
@@ -895,9 +895,9 @@ test("button plugin setup", function(){
 		equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
 
 		//test height
-		equals(dialog.getElement().offsetHeight, "100", "The height is right");
+		approximateEqual(dialog.getElement().offsetHeight, "100", "The height is right");
 		equals(dialog.getElement().offsetWidth, "300", "The width is right");
-		equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+		approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 
 		dialog.$dispose();
 		document.body.removeChild(baidu("#one-dialog")[0]);
@@ -907,7 +907,7 @@ test("button plugin setup", function(){
 
 
 // case 12
-test("render, custom params, using custom builder to create button", function(){
+test("setup, custom params, using custom builder to create button", function(){
 	/**
 	 *	this test case will test the parameters of button plugin as below:
 	 *  buttons:{
@@ -985,9 +985,9 @@ test("render, custom params, using custom builder to create button", function(){
 	equals((dialog.getElement("footer")||{}).nodeType,1,"Footer region exist in the bottom of the dialog");
 
 	//test height
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 	dialog.$dispose();
 
 	document.body.removeChild(baidu("#one-dialog")[0]);
@@ -995,7 +995,7 @@ test("render, custom params, using custom builder to create button", function(){
 });
 
 // case 13
-test("render, button plugin alignment", function(){
+test("setup, button plugin alignment", function(){
 	/**
 	 *	this test case will test enable property which will cause the button plugin disabled as below:
 	 *  button:{
@@ -1045,7 +1045,7 @@ test("render, button plugin alignment", function(){
 });
 
 // case 14
-test("render, button plugin disabled", function(){
+test("setup, button plugin disabled", function(){
 	/**
 	 *	this test case will test enable property which will cause the button plugin disabled as below:
 	 *  button:{
@@ -1085,9 +1085,9 @@ test("render, button plugin disabled", function(){
 	equals(baidu('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
 
 	//test height
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight + "px", "The height of content is right");
+	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight + "px", "The height of content is right");
 
 	dialog.$dispose();
 	document.body.removeChild(baidu("#one-dialog")[0]);
@@ -1095,7 +1095,7 @@ test("render, button plugin disabled", function(){
 });
 
 //case 15
-test("render, button plugin enable but not buttons", function(){
+test("setup, button plugin enable but not buttons", function(){
 	/**
 	 *	this test case will test enable property which will cause the button plugin disabled as below:
 	 *  button:{
@@ -1125,9 +1125,9 @@ test("render, button plugin enable but not buttons", function(){
 	equals(dialog.getElement('footer').style.height, '30px', "The height of the footer region is right");			
 
 	//test height
-	equals(dialog.getElement().offsetHeight, "300", "The height is right");
+	approximateEqual(dialog.getElement().offsetHeight, "300", 2, "The height is right");
 	equals(dialog.getElement().offsetWidth, "400", "The width is right");
-	equals(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
+	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", 2, "The height of content is right");
 
 	dialog.$dispose();
 

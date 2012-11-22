@@ -75,7 +75,7 @@ test('默认参数、show接口、show自定义事件、hide自定义事件', fu
             var dpTop = dp.popup.getElement("").style.top,
                 dpLeft = dp.popup.getElement("").style.left;
 
-            equals(dpTop, baidu(input).offset().top + input.offsetHeight - 1 + "px", '测试默认状态下日历的位置');
+            equals(Math.round(parseFloat(dpTop)), Math.round(baidu(input).offset().top + input.offsetHeight - 1), '测试默认状态下日历的位置');
             
             equals(dpLeft, baidu(input).offset().left + "px", '测试默认状态下日历的位置');
             
@@ -324,7 +324,7 @@ test('测试focus input框', function(){
 
 
 test('测试日历上有效日期和无效日期的点击', function(){
-    expect(2);
+    expect(3);
     stop();
     
     var input = document.createElement('input');
@@ -334,7 +334,8 @@ test('测试日历上有效日期和无效日期的点击', function(){
     var dp = magic.setup.datePicker(input, {
         'calendarOptions': {
             initDate: new Date('2012/05/08'),
-            disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+            disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+            disabledDayOfWeek : ['wed']
         }
     });
     
@@ -344,6 +345,9 @@ test('测试日历上有效日期和无效日期的点击', function(){
         ua.click(dateDoms[0]);
         equals(input.value, '', "点击不可选日期时，input值不变");
         
+        ua.click(dateDoms[10]);
+        equals(input.value, '', "点击不可选日期时，input值不改变");
+
         ua.click(dateDoms[7]);
         equals(input.value, '2012-05-06', "点击可选日期时，input值改变");
         
@@ -351,4 +355,37 @@ test('测试日历上有效日期和无效日期的点击', function(){
         dp.$dispose();
         document.body.removeChild(input);
     }, 100);
+});
+
+test('测试获取当前日期和当前选中日期', function(){
+    expect(5);
+    stop();
+    ua.importsrc('baidu.i18n.cultures.en-US' ,function(){
+        var input = document.createElement('input');
+        input.id = 'input_test';
+        document.body.appendChild(input);
+        
+        var dp = magic.setup.datePicker(input, {
+            'calendarOptions': {
+                initDate: new Date('2012/05/08 10:11:12'),
+                disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+            }
+        });
+        
+        var cndate = baidu.i18n.date.toLocaleDate(new Date(), null, 'zh-CN'),
+            endate = baidu.i18n.date.toLocaleDate(new Date(), null, 'en-US'),
+            curLocal = baidu.i18n.currentLocale;
+        baidu.i18n.currentLocale = 'zh-CN'
+        equals(dp.getDate().getHours(), cndate.getHours(), "当前中文时间正确");
+        baidu.i18n.currentLocale = 'en-US';
+        equals(dp.getDate().getHours(), endate.getHours(), "当前英文时间正确");
+        baidu.i18n.currentLocale = curLocal;
+
+        equals(dp.getSelectedDate().getHours(), 10, "当前选中时间小时正确");
+        equals(dp.getSelectedDate().getMinutes(), 11, "当前选中时间分钟正确");
+        equals(dp.getSelectedDate().getSeconds(), 12, "当前选中时间秒正确");
+        start();
+        dp.$dispose();
+        document.body.removeChild(input);
+    });
 });
