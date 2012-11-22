@@ -28,7 +28,7 @@
  */
 baidu.lang.register(magic.control.Dialog, 
 	/* constructor */ function(options){
-	    if(options.mask && options.mask.enable){
+	    if(options && options.mask && options.mask.enable){
 	    	this.renderMask();
 
 		    this.on("load", function(){
