@@ -6,6 +6,10 @@ if(!array_key_exists('quirk', $_GET)){
 };
 require_once "case.class.php";
 $c = new Kiss('../../../', $_GET['case']);
+if($c->fileunexist){
+	echo '该接口无用例<script type="text/javascript">if(parent && parent.testDoneCallBack){parent.testDoneCallBack({});}</script>';
+	return;
+}
 $title = $c->name;
 $cov = array_key_exists('cov', $_GET);
 $release = array_key_exists('release', $_GET);
@@ -17,7 +21,7 @@ $release = array_key_exists('release', $_GET);
 <?php $c->print_js($cov, $release); ?>
 </head>
 <body>
-<h1 id="qunit-header"><?php print($c->name);?></h1>
+<h1 id="qunit-header"><span><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];?>" target="_blank">新窗口打开</a></span><?php print($c->name);?></h1>
 <h2 id="qunit-banner"></h2>
 <h2 id="qunit-userAgent"></h2>
 <ol id="qunit-tests"></ol>
