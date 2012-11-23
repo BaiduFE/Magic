@@ -21,8 +21,9 @@
  * @param {Function} options.buttons.items.click 按钮点击click事件，默认null
  * @param {Function} options.buttons.items.builder 按钮构造，默认null，该属性会读取其他button属性
  * @param {String} options.buttons.align 按钮整体布局，默认right,可选值为left,center,right
+ * @param {String} options.buttons.enable 插件开关，默认false
  * @example
- * /// for options.buttons.items.text,options.buttons.items.disabled,options.buttons.items.callback,options.buttons.items.builder,options.buttons.align
+ * /// for options.buttons.items.text,options.buttons.items.disabled,options.buttons.items.callback,options.buttons.items.builder,options.buttons.align,options.buttons.enable
  * var  creator = (function(){
  *			        var hasFocused = false,
  *			            btnTemplate = ['<a href="#" onClick="return false;" style="border-radius:5px;" class="tang-dialog-button ','','">',
