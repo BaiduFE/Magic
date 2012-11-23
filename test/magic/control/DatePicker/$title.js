@@ -19,7 +19,7 @@ function checkYear(year){
 test("测试参数", function(){
     expect(5);
     stop();
-    ua.importsrc('magic.setup.datePicker,magic.control.DatePicker.$title,baidu.dom.trigger,baidu.dom.css,baidu.dom.attr,baidu.i18n.cultures.en-US', function() {
+    ua.importsrc('magic.setup.datePicker,baidu.dom.trigger,baidu.dom.css,baidu.dom.attr,baidu.i18n.cultures.en-US', function() {
         ua.loadcss(upath + "../../Calendar/magic.Calendar.css", function(){
             var container = document.createElement("div");
             document.body.appendChild(container);
@@ -55,7 +55,7 @@ test("测试参数", function(){
             datepicker.$dispose();
             document.body.removeChild(container);
         });
-    });
+    }, "baidu.dom.attr", "magic.control.DatePicker.$title");
 });
 
 test("测试基本操作", function(){
