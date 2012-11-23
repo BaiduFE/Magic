@@ -855,3 +855,71 @@ test("encode", function(){
 	$("input").focus();
 	$("input").attr("value", "c");
 });
+
+test("key event for begin and end of value", function(){
+	expect(10);
+	stop();
+	enSetup();
+	var index = 0,
+		doKey = function(keyCode, interval){
+			setTimeout(function(){
+		    			ua.keydown(input, {
+								keyCode : keyCode
+							});
+			        	}, interval || 200);
+		},
+		options = {
+		getData: function(key){
+	        var me = this;
+	        me.receiveData(key, getContentByKey(key));
+	    },
+        onshow: function(){
+        	setTimeout(function(){
+        		ua.keydown(input, {
+					keyCode : 40
+				});
+        	}, 0);
+        },
+        onhighlight: function(){
+        	index++;
+        	if(index == 1){
+        		equals($(input).attr("value"), "a+1", "The input value is right");
+        		equals(this.selectedIndex, 0, "The selectedIndex is right");
+        		doKey(38);
+        		setTimeout(function(){
+        			equals($(input).attr("value"), "a", "The input value is right");
+        			equals(this.selectedIndex, undefined, "The selectedIndex is right");
+        		}, 500);
+        		doKey(38, 1000);
+        	}
+        	if(index == 2){
+        		equals($(input).attr("value"), "北海5", "The input value is right");
+        		//如果颜色是深灰色非浅灰色会被过滤
+        		equals(this.selectedIndex, 3, "The selectedIndex is right");
+        		doKey(40);
+        		setTimeout(function(){
+        			equals($(input).attr("value"), "a", "The input value is right");
+        			equals(this.selectedIndex, undefined, "The selectedIndex is right");
+        		}, 500);
+        		doKey(40, 1000);
+        	}
+        	if(index == 3){
+        		equals($(input).attr("value"), "a+1", "The input value is right");
+        		equals(this.selectedIndex, 0, "The selectedIndex is right");
+        		doKey(40);
+        	}
+        	if(index == 4){
+        		doKey(27);
+        	}
+        },
+        onhide : function(){
+    		this.$dispose();
+	       	document.body.removeChild(div);
+	       	start();
+        }
+	}
+	var s = magic.setup.suggestion('tang-suggestion-input', options);
+	$("input").focus();
+	$("input").attr("value", "a");
+
+});

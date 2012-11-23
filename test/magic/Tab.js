@@ -174,3 +174,33 @@ test("getElement", function(){
 	tab.$dispose();
 	document.body.removeChild(div);
 });
+
+test("test getCurrentContent and getCurrentTitle interface", function(){
+	expect(6);
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "div1";
+	var tab = new magic.Tab({
+        'items': [
+            {title: '项目一', content: 'hello world~1'},
+            {title: '项目二', content: 'hello world~2'},
+            {title: '项目三', content: 'hello world~3'}
+        ]
+    });
+	tab.render('div1');
+
+	var titles = tab.getElement("title").getElementsByTagName("li"),
+		body = tab.getElement("body").getElementsByTagName("div");
+	tab.select(0);
+	equals(tab.getCurrentTitle(), titles[0], "当前tab标题正确");
+	equals(tab.getCurrentContent(), body[0], "当前tab内容正确");
+	tab.select(1);
+	equals(tab.getCurrentTitle(), titles[1], "当前tab标题正确");
+	equals(tab.getCurrentContent(), body[1], "当前tab内容正确");
+	tab.select(2);
+	equals(tab.getCurrentTitle(), titles[2], "当前tab标题正确");
+	equals(tab.getCurrentContent(), body[2], "当前tab内容正确");
+
+	tab.$dispose();
+	document.body.removeChild(div);
+});
