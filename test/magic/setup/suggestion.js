@@ -18,8 +18,6 @@ module("magic.setup.suggestion");
 			var content = "[{value:'b+1',content:'<b>b+1</b>'},{value:'北海6',content:'<b>北海6</b>'}]";
 		if(key == "c")
 			var content = "['<input>']";
-        if(key == "autofix")//自适应宽度
-            var content = "[{value:'b+1',content:'<b>b+1</b>'},{value:'北海6',content:'<b>超长的Suggestion啊啊啊啊啊啊</b>'}]";
 		return eval(content);
 	}
 	getCurrentItem = function(s){
@@ -176,36 +174,6 @@ test('default params', function(){
 	}, "baidu.ajax.request", "magic.setup.suggestion");
 });
 
-test('width autofix', function(){
-    expect(1);
-    stop();
-    ua.importsrc("baidu.ajax.request", function(){
-        ua.loadcss(upath + "suggestion/suggestion.css", function(){
-            enSetup();
-            var options = {
-                getData: function(key){
-                    var me = this;
-                    me.receiveData(key, getContentByKey(key));
-                },
-                onshow: function(){
-                    // 每个浏览器显示的宽度不一样，大概在这个范围内
-                    ok(this.getElement("suggestion").offsetWidth > input.offsetWidth && this.getElement("suggestion").offsetWidth < 300, "The Width is right");
-                    start();
-                    this.$dispose();
-                },
-                onhide: function(){
-                    this.on("ondispose", function(){//不能在ondispose中写，因为ondispose在代码解绑监听函数之前运行，那时还有一些监听函数没有解绑
-                        document.body.removeChild(div);
-                    })
-                }
-            };
-            var s = magic.setup.suggestion('tang-suggestion-input', options);
-            $("input").focus();
-            $("input").attr("value", "autofix");
-        });
-    }, "baidu.ajax.request", "magic.setup.suggestion");
-});
-
 test("all params", function(){
 	expect(31);
 	stop();
@@ -227,9 +195,9 @@ test("all params", function(){
         holdHighLight : true,
         onshow: function(){
         	var s = this;
-        	approximateEqual(baidu.dom(this.getElement("suggestion")).offset().top, baidu.dom(this.getElement("input")).offset().top + input.offsetHeight + 200, "The offsetX is right");
+        	equals(baidu.dom(this.getElement("suggestion")).offset().top, baidu.dom(this.getElement("input")).offset().top + input.offsetHeight + 200, "The offsetX is right");
         	equals(baidu.dom(this.getElement("suggestion")).offset().left, baidu.dom(this.getElement("input")).offset().left + 200, "The offsetY is right");
-            equals(this.getElement("suggestion").offsetWidth, 200, "The Width is right");
+        	equals(this.getElement("suggestion").offsetWidth, 200, "The Width is right");
         	
         	setTimeout(function(){
         		ua.mouseover(s._getItemDom(0));
@@ -889,7 +857,7 @@ test("encode", function(){
 });
 
 test("key event for begin and end of value", function(){
-	expect(10);
+	expect(8);
 	stop();
 	enSetup();
 	var index = 0,
@@ -906,11 +874,7 @@ test("key event for begin and end of value", function(){
 	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
-        	setTimeout(function(){
-        		ua.keydown(input, {
-					keyCode : 40
-				});
-        	}, 0);
+        	doKey(40, 0);
         },
         onhighlight: function(){
         	index++;
@@ -921,8 +885,8 @@ test("key event for begin and end of value", function(){
         		setTimeout(function(){
         			equals($(input).attr("value"), "a", "The input value is right");
         			equals(this.selectedIndex, undefined, "The selectedIndex is right");
-        		}, 500);
-        		doKey(38, 1000);
+        			doKey(38);
+        		}, 200);
         	}
         	if(index == 2){
         		equals($(input).attr("value"), "北海5", "The input value is right");
@@ -932,16 +896,8 @@ test("key event for begin and end of value", function(){
         		setTimeout(function(){
         			equals($(input).attr("value"), "a", "The input value is right");
         			equals(this.selectedIndex, undefined, "The selectedIndex is right");
-        		}, 500);
-        		doKey(40, 1000);
-        	}
-        	if(index == 3){
-        		equals($(input).attr("value"), "a+1", "The input value is right");
-        		equals(this.selectedIndex, 0, "The selectedIndex is right");
-        		doKey(40);
-        	}
-        	if(index == 4){
-        		doKey(27);
+        			doKey(27);
+        		}, 200);
         	}
         },
         onhide : function(){

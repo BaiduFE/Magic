@@ -391,45 +391,18 @@ test('测试获取当前日期和当前选中日期', function(){
 });
 
 
-test('测试自定义参数，通过id字符串来渲染DatePicker', function(){
-    expect(6);
+test('测试通过id字符串来渲染DatePicker', function(){
+    expect(2);
     stop();
     var input = document.createElement('input');
     input.id = 'input_test';
     document.body.appendChild(input);
     
-    var dp = magic.setup.datePicker('input_test', {
-        'format': 'yyyy/MM/dd',
-        'popupOptions': {
-            'offsetX': 50,
-            'offsetY': 20
-        },
-        'calendarOptions': {
-            'weekStart': 'sat',
-            'initDate': new Date(2012, 05, 06)
-        }
-    });
+    var dp = magic.setup.datePicker('input_test', {});
     
     dp.on('show', function(){
-        same(dp.calendar.currentDate, new Date(2012, 05, 06), "input中无值时，初始化后当前显示的日期为2012年6月");
-        same(dp.calendar._options.initDate, new Date(2012, 05, 06), "initDate为2012年6月6日");
-        
-        var dpTop = dp.popup.getElement("").style.top,
-            dpLeft = dp.popup.getElement("").style.left;
-
-        //Attention: 火狐在设置样式时遇到浮点数值会直接阶段，此处取整来判断
-        if(/Firefox/.test(window.navigator.userAgent)){
-            equals(parseInt(dpTop), parseInt(baidu(input).offset().top + input.offsetHeight + 20), '测试默认状态下日历的位置');
-        }else{
-            equals(dpTop, baidu(input).offset().top + input.offsetHeight + 20 + "px", '测试默认状态下日历的位置');
-        }
-        equals(dpLeft, baidu(input).offset().left + 50 + "px", '测试自定义日历的位置');
-        
-        var dateDoms = baidu(".tang-calendar-date", document);
-        ua.click(dateDoms[0]);
-
-        equals((new Date(input.value)).getDay(), 6, '测试自定义的weekStart' );
-        equals(input.value, "2012/05/26", '测试自定义的date的格式' );
+        ok(isShown(dp.getElement()), "The datePicker shows");
+        equals(dp.getElement().id, "input_test", "The container is right");
         start();
         dp.$dispose();
         document.body.removeChild(input);
