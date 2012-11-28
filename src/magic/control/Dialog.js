@@ -481,22 +481,32 @@ magic.control.Dialog.extend(
      * instance.focus();
      */
     focus: function(e){
+        var  focusedMap = baidu.global.get("dialogFocused").map,
+             idty = this.$getId() + "focus",
+             updateStatus = function(){
+                for(var attr in focusedMap){
+                    attr != idty && (focusedMap[attr] = false);
+                }
+             };
+        focusedMap || (baidu.global.get("dialogFocused").map = focusedMap = {});
         if(arguments.length){
             var target = e.target;
             if(baidu(target).closest(this.getElement()).size() > 0){
                 baidu(this.getElement()).css("zIndex", 
                     this.zIndex = baidu.global.getZIndex("dialog", 5));
-                if(baidu.global.get(this.$getId() + "focus") != true){
+                if(focusedMap[idty] != true){
                     this.fire("focus");
-                    baidu.global.set(this.$getId() + "focus", true);
+                    updateStatus();
+                    focusedMap[idty] = true;
                 }
             }else{
-                baidu.global.set(this.$getId() + "focus", false);
+                focusedMap[idty] = false;
             }
         }else{
             baidu(this.getElement()).css("zIndex", 
                     this.zIndex = baidu.global.getZIndex("dialog", 5));
-            baidu.global.set(this.$getId() + "focus", true);
+            focusedMap[idty] = true;
+            updateStatus();
             this.fire("focus");
         }
         
@@ -756,6 +766,8 @@ magic.control.Dialog.extend(
      * instance.$dispose();
      */
     $dispose: function(){
+        var focusedMap = baidu.global.get("dialogFocused").map;
+        if(focusedMap){ delete focusedMap[this.$getId() + "focus"] };
         for(var i = 0, l = this.disposeProcess.length; i < l; i ++)
             this.disposeProcess[i].call(this);
         magic.Base.prototype.$dispose.call(this);
