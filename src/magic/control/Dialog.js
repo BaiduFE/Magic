@@ -146,7 +146,7 @@ magic.control.Dialog = baidu.lang.createClass(
                 };
 
                 baidu(title).on("mousedown", dragFn = bind(function(evt){
-                	evt.preventDefault();
+                    evt.preventDefault();
                     baidu.dom.drag(container, {
                         ondragstart: bind(function(){ this.fire("dragstart"); }, this),
                         ondrag: bind(function(){ this.fire("drag"); }, this),
@@ -207,7 +207,7 @@ magic.control.Dialog.extend(
 
     /**
      * @description 显示对话框
-	 * @name magic.control.Dialog#show
+     * @name magic.control.Dialog#show
      * @function
      * @example
      * var instance = new magic.Dialog({
@@ -223,35 +223,35 @@ magic.control.Dialog.extend(
      */
     show: function(){
        /**
-		* @description 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
-		* @name magic.control.Dialog#onbeforeshow
-		* @event
-		* @grammar magic.control.Dialog#onbeforeshow(evt)
-		* @example
-		* var instance = new magic.Dialog({
-		*      titleText: "对话框标题",
-		*      content: "对话框内容",
-		*      left: 80,
-		*      top: 140,
-		*      width: 400,
-		*      height: 300
-		* });
-		* instance.on("beforeshow", function(){
-		*     //do something...
-		*     return false;		// 阻止显示窗口
-		* });
-		* @example
-		* var instance = new magic.Dialog({
-		*      titleText: "对话框标题",
-		*      content: "对话框内容",
-		*      left: 80,
-		*      top: 140,
-		*      width: 400,
-		*      height: 300
-		* });
-		* instance.onbeforeshow = function(){
-		*     //do something...
-		* };
+        * @description 当即将显示窗口时触发，如果事件回调函数返回值为 false，则阻止显示窗口
+        * @name magic.control.Dialog#onbeforeshow
+        * @event
+        * @grammar magic.control.Dialog#onbeforeshow(evt)
+        * @example
+        * var instance = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * instance.on("beforeshow", function(){
+        *     //do something...
+        *     return false;     // 阻止显示窗口
+        * });
+        * @example
+        * var instance = new magic.Dialog({
+        *      titleText: "对话框标题",
+        *      content: "对话框内容",
+        *      left: 80,
+        *      top: 140,
+        *      width: 400,
+        *      height: 300
+        * });
+        * instance.onbeforeshow = function(){
+        *     //do something...
+        * };
         */
         if(this.fire("beforeshow") === false)
             return this;
@@ -325,7 +325,7 @@ magic.control.Dialog.extend(
          * });
          * instance.on("beforehide", function(){
          *     //do something...
-         *     return false;	//阻止关闭窗口
+         *     return false;    //阻止关闭窗口
          * });
          * @example
          * var instance = new magic.Dialog({
@@ -481,36 +481,26 @@ magic.control.Dialog.extend(
      * instance.focus();
      */
     focus: function(e){
-        var  focusedMap = baidu.global.get("dialogFocused").map,
-             idty = this.$getId() + "focus",
-             updateStatus = function(){
-                for(var attr in focusedMap){
-                    attr != idty && (focusedMap[attr] = false);
+        if(arguments.length){
+            var target = e.target;
+            if(baidu(target).closest(this.getElement()).size() > 0){
+                baidu(this.getElement()).css("zIndex", 
+                    this.zIndex = baidu.global.getZIndex("dialog", 5));
+                if(baidu.global.get(this.$getId() + "focus") != true){
+                    this.fire("focus");
+                    baidu.global.set(this.$getId() + "focus", true);
                 }
-             };
-        focusedMap || (baidu.global.get("dialogFocused").map = focusedMap = {});
-    	if(arguments.length){
-    		var target = e.target;
-    		if(baidu(target).closest(this.getElement()).size() > 0){
-    			baidu(this.getElement()).css("zIndex", 
-            		this.zIndex = baidu.global.getZIndex("dialog", 5));
-            	if(focusedMap[idty] != true){
-            		this.fire("focus");
-                    updateStatus();
-                    focusedMap[idty] = true;
-            	}
-    		}else{
-                focusedMap[idty] = false;
-    		}
-    	}else{
-    		baidu(this.getElement()).css("zIndex", 
-            		this.zIndex = baidu.global.getZIndex("dialog", 5));
-            focusedMap[idty] = true;
-            updateStatus();
+            }else{
+                baidu.global.set(this.$getId() + "focus", false);
+            }
+        }else{
+            baidu(this.getElement()).css("zIndex", 
+                    this.zIndex = baidu.global.getZIndex("dialog", 5));
+            baidu.global.set(this.$getId() + "focus", true);
             this.fire("focus");
-    	}
-    	
-    	
+        }
+        
+        
         
         /**
          * @description 当窗口获得焦点时触发
@@ -766,8 +756,6 @@ magic.control.Dialog.extend(
      * instance.$dispose();
      */
     $dispose: function(){
-        var focusedMap = baidu.global.get("dialogFocused").map;
-        if(focusedMap){ delete focusedMap[this.$getId() + "focus"] };
         for(var i = 0, l = this.disposeProcess.length; i < l; i ++)
             this.disposeProcess[i].call(this);
         magic.Base.prototype.$dispose.call(this);
