@@ -8,8 +8,12 @@
 ///import magic.Popup;
 ///import baidu.lang.createClass;
 ///import baidu.dom.css;
+///import baidu.dom.styleFixer;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
+///import baidu.dom.attr;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.array.remove;
 ///import baidu.object.extend;
 
