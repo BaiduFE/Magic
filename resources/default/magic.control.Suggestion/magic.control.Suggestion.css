@@ -28,6 +28,7 @@
 }
 .tang-suggestion-popup .tang-foreground {
     border: 1px solid #817f82;
+    overflow: hidden;
 }
 .tang-suggestion-popup .tang-suggestion-prepend,
 .tang-suggestion-popup .tang-suggestion-append {
@@ -46,7 +47,8 @@
     width: 100%;
 }
 .tang-suggestion-popup .tang-suggestion-table td {
-    padding: 6px 0 6px 8px;
+    padding: 6px 8px;
+    white-space: nowrap;
 }
 
 .tang-suggestion-popup .tang-suggestion-table td.tang-suggestion-current {
