@@ -184,6 +184,40 @@ test('自定义参数', function(){
     });
 });
 
+
+test("test control calendar by keyboard to change day and month", function(){
+    expect(6);
+    stop();
+    var container = document.createElement("div");
+    document.body.appendChild(container);
+    var ca = new magic.Calendar({
+        initDate : new Date("2012/2/29")
+    });
+    ca.render(container);
+
+    var calendar = ca.getElement("calendar"),
+        date = ca.currentDate;
+    ua.click(calendar);
+    ua.keydown(calendar, {keyCode : 34});
+    equals(date.getMonth() + 1, 3, "下一月操作后为2月");
+    ua.keydown(calendar, {keyCode : 33});
+    equals(date.getMonth() + 1, 2, "上一月操作后为2月");
+    
+
+    ua.keydown(calendar, {keyCode : 37});
+    equals(ca.getDate().getDate(), 28, "上一天操作后是28号");
+    ua.keydown(calendar, {keyCode : 39});
+    equals(ca.getDate().getDate(), 29, "下一天操作后是29号");
+    ua.keydown(calendar, {keyCode : 38});
+    equals(ca.getDate().getDate(), 28, "上一天操作后是28号");
+    ua.keydown(calendar, {keyCode : 40});
+    equals(ca.getDate().getDate(), 29, "下一天操作后是29号");
+
+    start();
+    ca.$dispose();
+    document.body.removeChild(container);
+});
+
 test("自定义参数1", function(){
     expect(1);
     var container = document.createElement("div");

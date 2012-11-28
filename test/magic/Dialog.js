@@ -535,3 +535,53 @@ test("getElements", function(){
 	document.body.removeChild(div);
 	start();
 });
+
+//case 16
+test("focus by click", function(){
+	expect(7);
+	stop();
+	ua.frameExt(function(w, f){
+		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+		var div = w.document.createElement("div");
+		w.document.body.appendChild(div);
+		div.id = "dialog-1";
+		$(div).css("position", "absolute").css('backgroundColor', 'green');
+		var div1 = w.document.createElement("div");
+		w.document.body.appendChild(div1);
+		div1.id = "dialog-2";
+		$(div1).css("position", "absolute").css('backgroundColor', 'red');
+		var focus = 0;
+		var dialog1 = new w.magic.Dialog({
+			titleText : '标题',
+			content : '内容',
+			height : 100,
+			width : 100
+		});
+		dialog1.on("focus", function(){
+			ok(true, "The focus is fire");
+		})
+		dialog1.render("dialog-1");
+
+		var dialog2 = new w.magic.Dialog({
+			titleText : 'title',
+			content : 'content',
+			left : 50,
+			top : 50,
+			height : 100,
+			width : 100
+		});
+		dialog2.on("focus", function(){
+			ok(true, "The focus is fire");
+		})
+		dialog2.render("dialog-2");
+		ok(dialog2.getElement().style["zIndex"] > dialog1.getElement().style["zIndex"], "The z-index is right");
+		ua.click(dialog1.getElement("title"));
+		ok(dialog2.getElement().style["zIndex"] < dialog1.getElement().style["zIndex"], "The z-index is right");
+		ua.click(dialog2.getElement("title"));
+		ok(dialog2.getElement().style["zIndex"] > dialog1.getElement().style["zIndex"], "The z-index is right");		
+		w.document.body.removeChild(div);
+		w.document.body.removeChild(div1);
+		this.finish();
+		document.body.removeChild(f.parentNode);
+	})	
+});
