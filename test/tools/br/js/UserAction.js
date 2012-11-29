@@ -783,7 +783,7 @@ var UserAction = {
 
 	/**
 	 * 
-	 * 判断2个数组是否相�
+	 * 判断2个数组是否相
 	 * 
 	 * @static
 	 */
@@ -809,7 +809,7 @@ var UserAction = {
 	 * @static
 	 * 
 	 **************************************************************************/
-	commonData : {// 针对测试文件的路径而不是UserAction的路�
+	commonData : {// 针对测试文件的路径而不是UserAction的路
 		"testdir" : '../../',
 		datadir : (function() {
 			var href = '';
@@ -845,7 +845,7 @@ var UserAction = {
 
 	importsrc : function(src, callback, matcher, exclude, win) {
 		/**
-		 * 支持release分之，此处应该直接返�
+		 * 支持release分之，此处应该直接返
 		 */
 		if (location.search.indexOf("release=true") >= 0 && src.indexOf("baidu") == -1) {
 			if (callback && typeof callback == "function")
@@ -891,8 +891,8 @@ var UserAction = {
 		var h = setInterval(function() {
 			var p = win;
 			for ( var i = 0; i < mm.length; i++) {
-				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插�
-                    if (p._addons && p._addons.length == 1) { //ui的插�
+				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插
+                    if (p._addons && p._addons.length == 1) { //ui的插
                         // console.log(mm[i]);
                         return;
                     }   
@@ -915,7 +915,7 @@ var UserAction = {
 		}, 20);
 	},
 
-	/* 用于加载css文件，如果没有加载完毕则不执行回调函�?*/
+	/* 用于加载css文件，如果没有加载完毕则不执行回调函?*/
     loadcss : function(urls, callback, w, classname, style, value) {
         var w = w || window;
         var document = w.document;
@@ -1213,7 +1213,7 @@ var UserAction = {
 	})(),
 
 	/**
-	 * 提供队列方式执行用例的方案，接口包括start、add、next，方法全部执行完毕时会启动用例继续执�
+	 * 提供队列方式执行用例的方案，接口包括start、add、next，方法全部执行完毕时会启动用例继续执
 	 */
 	functionListHelper : function() {
 		var check = {
@@ -1221,7 +1221,7 @@ var UserAction = {
 			start : function() {
 				var self = this;
 				$(this).bind('next', function() {
-					setTimeout(function() {// 避免太深的堆�
+					setTimeout(function() {// 避免太深的堆
 						if (self.list.length == 0)
 							start();
 						else
