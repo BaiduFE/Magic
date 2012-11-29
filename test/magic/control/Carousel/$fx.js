@@ -49,7 +49,7 @@ test("render", function(){
 			var time2 = 0;
 			var time3 = 0;
 			var time4 = 0;
-			var l1 = baidu._util_.eventBase._getEventsLength();
+			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			var c = new magic.Carousel({
 			    items: citems,
 			    fx: {
@@ -88,7 +88,7 @@ test("render", function(){
 					setTimeout(function(){
 						equals(c._selectedIndex, 0, "Scroll to 0");
 						c.$dispose();
-						var l2 = baidu._util_.eventBase._getEventsLength();
+						var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
 						equals(l2, l1, "The events are un");
 						document.body.removeChild(div);
 						start();
@@ -145,7 +145,7 @@ test("setup", function(){
 	    	duration:100
 	    }
 	};
-	var l1 = baidu._util_.eventBase._getEventsLength();
+	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 	var c = magic.setup.carousel('one-carousel', options);
     c.on("onfocus", function(){
 		scroll ++;
@@ -179,7 +179,7 @@ test("setup", function(){
 			setTimeout(function(){
 				equals(c._selectedIndex, 0, "Scroll to 0");
 				c.$dispose();
-				var l2 = baidu._util_.eventBase._getEventsLength();
+				var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
 				equals(l2, l1, "The events are un");
 				document.body.removeChild(baidu.dom.g("one-carousel"));
 				start();

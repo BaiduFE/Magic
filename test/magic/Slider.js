@@ -308,7 +308,7 @@ test("render, events&dispose", function(){
 	document.body.appendChild(div);
 	div.id = "div1";
 	$(div).css("width", "222px");
-	var l1 = baidu._util_.eventBase._getEventsLength();
+	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 	var slider = new magic.Slider({
 		accuracy: 0.1
 	});
@@ -341,9 +341,9 @@ test("render, events&dispose", function(){
 		});
 		setTimeout(function(){
 			ua.mouseup(slider.getElement("knob"));
-			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");//本应是49，根据精确度定位到40
+			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");//本应�?9，根据精确度定位�?0
 			slider.$dispose();
-			var l2 = baidu._util_.eventBase._getEventsLength();
+			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			ok(!isShown(div), "The dom is clear");
 			equals(l2, l1, "The events are un");
 			start();

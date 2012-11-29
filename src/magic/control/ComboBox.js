@@ -12,8 +12,10 @@
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.attr;
+///import baidu.dom.text;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
+///import baidu.event.shortcut;
 ///import baidu.array.remove;
 ///import baidu.object.extend;
 
