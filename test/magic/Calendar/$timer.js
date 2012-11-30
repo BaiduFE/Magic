@@ -72,7 +72,7 @@ test("test parameters and shown", function(){
             ca.$dispose();
             document.body.removeChild(container);
         });
-    },'baidu.i18n.cultures.en-US');
+    },'baidu.i18n.cultures.en-US', 'magic.Calendar.$timer');
 });
 
 // case 2

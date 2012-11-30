@@ -215,3 +215,49 @@ test("setup, disable", function(){
     time1 = new Date();
     c.focus(3);
 });
+
+
+test("test call onbeforescroll event for the length of empty greater than zero", function(){
+	stop();
+	expect(2);
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.id = "one-carousel";
+	var scroll = 0;
+	var c = new magic.Carousel({
+		        viewSize: 3,
+		        originalIndex: 1,
+		        focusRange: {min: 1, max: 1},
+		        isLoop: true,
+		        step: 3,//翻页
+		        items: [
+		            {content: 'text1'},
+		            {content: 'text2'},
+		            {content: 'text3'},
+		            {content: 'text4'}
+		        ],
+		        fx: {
+			    	duration:100
+			    }
+		    });
+	c.on('beforescroll', function(index, obj){
+		ok(obj && obj.empty && (obj.empty.length > 0), "the length of empty is greater than zero");
+	});
+    c.on("onfocus", function(){
+		scroll++;
+		if(scroll == 1){
+			setTimeout(function(){
+				c.focusNext();
+			}, 0);
+		}
+		if(scroll == 2){
+			setTimeout(function(){
+				c.$dispose();
+				document.body.removeChild(div);
+				start();
+			}, 0);
+		}
+	});
+    c.render('one-carousel');
+    c.focus(4);
+});

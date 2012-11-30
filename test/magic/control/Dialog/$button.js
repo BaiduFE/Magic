@@ -718,6 +718,56 @@ test('magic.confirm 英文环境', function(){
 });
 
 
+
+//case 16
+test('magic.alert with multiple parameters', function(){
+  expect(6);
+  var instance = magic.alert('内容', '标题',
+      {
+          'label': '好',
+          'callback': function(){
+          	ok(true, '确定按钮回调执行成功');
+          }
+      }
+  );
+  ok(isShown(instance.getElement(), "The dialog shows"));
+  ok(isShown($('.tang-mask')[0]), '遮罩层已render');
+  ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+  ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+  ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == '好', '按钮文案显示正确');
+
+  //测试确定按钮
+  ua.click(instance.buttons[0]);
+});
+
+//case 17
+test('magic.confirm with multiple parameters', function(){
+  expect(7);
+  var instance = magic.confirm('内容', '标题',
+      {
+          'label': '是',
+          'callback': function(){
+          	ok(true, '确定按钮回调执行成功');
+          }
+      },
+      {
+          'label': '否',
+          'callback': function(){
+          	ok(true, '取消按钮回调执行成功');
+          }
+      }
+  );
+  ok(isShown(instance.getElement(), "The dialog shows"));
+  ok(isShown($('.tang-mask')[0]), '遮罩层已render');
+  
+  ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+  ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+  ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == '是', '按钮文案显示正确');
+  ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == '否', '按钮文案显示正确');
+  //测试取消按钮
+  ua.click(instance.buttons[1]);
+});
+
 // case 10
 test("test mask", function(){
     expect(12);

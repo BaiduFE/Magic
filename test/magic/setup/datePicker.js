@@ -389,3 +389,24 @@ test('测试获取当前日期和当前选中日期', function(){
         document.body.removeChild(input);
     });
 });
+
+
+test('测试通过id字符串来渲染DatePicker', function(){
+    expect(2);
+    stop();
+    var input = document.createElement('input');
+    input.id = 'input_test';
+    document.body.appendChild(input);
+    
+    var dp = magic.setup.datePicker('input_test', {});
+    
+    dp.on('show', function(){
+        ok(isShown(dp.getElement()), "The datePicker shows");
+        equals(dp.getElement().id, "input_test", "The container is right");
+        start();
+        dp.$dispose();
+        document.body.removeChild(input);
+    });
+    
+    input.click();
+});
