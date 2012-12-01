@@ -8,6 +8,7 @@
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.remove;
 ///import baidu.array.each;
+///import baidu.event.shortcut;
 
  /**
  * @description 组合框，由一个文本输入控件和一个下拉菜单组成。

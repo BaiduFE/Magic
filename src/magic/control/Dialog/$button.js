@@ -10,6 +10,7 @@
  ///import baidu.forEach;
  ///import baidu.dom.children;
  ///import baidu.dom.show;
+ ///import baidu.dom.append;
  
  /**
  * @description 对话框按钮插件
