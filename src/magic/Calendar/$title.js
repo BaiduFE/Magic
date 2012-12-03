@@ -92,6 +92,8 @@ baidu.lang.register(magic.Calendar, function(){
             date = me.currentDate,
             year = date.getFullYear(),
             month = date.getMonth() + 1,
+            yearStr = '',
+            monthStr = '',
             yearselect = '<select id="' + me._getId("yearselect") + '" style="display:none"></select>',
             monthselect = '<select id="' + me._getId("monthselect") + '" style="display:none"></select>';
             
