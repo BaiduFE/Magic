@@ -244,7 +244,7 @@ magic.control.Slider.extend({
         m = Math.pow(10, Math.max(r1, r2));
 
         n = (r1 >= r2) ? r1 : r2;
-        return ((arg1 * m - arg2 * m) / m).toFixed(n);
+        return +((arg1 * m - arg2 * m) / m).toFixed(n);
     },
 
     /**
@@ -470,8 +470,13 @@ magic.control.Slider.extend({
      * @private
      */
     _setCurrentValue: function(pos){
-        var info = this._info;
-        info.currentValue = (parseFloat(pos) * 10) / (info[info._accuracyKey] * 10);
+        var me = this,
+        	info = me._info,
+        	value = (parseFloat(pos) * 10) / (info[info._accuracyKey] * 10);
+        if(info._oppsite){
+        	value = me._accSub(1, value);
+        }
+        info.currentValue = value;
     },
 
     /** 
