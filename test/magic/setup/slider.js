@@ -234,14 +234,13 @@ test("setup, getValue&setValue, backward", function(){
 	equals(slider.getValue(), 0.55, "The getValue is right");
 	equals(slider._info.currentValue, 0.55, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 200 - 110 - 11, "The position of The knob is right");
+	slider.on('change', function(evt){
+		equals(evt.value, 0.1, "The value in event is right");
+	});
 	slider.setValue(0.1);
 	equals(slider.getValue(), 0.1, "The setValue is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 200 - 20 - 11, "The position of The knob is right");
-	slider.on('change', function(evt){
-		equals(evt.value, 0.8, "The getValue in event is right");
-	});
-	slider.setValue(.8);
 	slider.$dispose();	document.body.removeChild(div);});
 
 test("setup, setRange, forward", function(){
