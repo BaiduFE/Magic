@@ -11,6 +11,7 @@
                                 '<li class="{{encodingCheck.status}}"><span>文件编码检查：{{encodingCheck.status}}；当前文件编码：{{encodingCheck.msg}}</span></li>' +
                                 '<li class="{{BombCheck.status}}"><span>文件Bomb头检查：{{BombCheck.status}}</span></li>' +
                                 '<li class="{{tabCheck.status}}"><span>文件缩进检查：{{tabCheck.status}}</span></li>' +
+                                '<li class="{{conflictCheck.status}}"><span>文件冲突检查：{{conflictCheck.status}}</span></li>' +
                                 '<li class="{{testCaseCheck.status}}">' +
                                     '<span>关联用例检查：{{testCaseCheck.status}}；</span>' +
                                     '<span>源码最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
@@ -123,6 +124,9 @@
                 return;
             }
 
+            // 清除当前节点的状态
+            currentNode.el.css('color', '');
+
             $(".tabs li").removeClass("current");
             $(this).addClass("current");
             var tabId = $(this).attr('id');
@@ -212,7 +216,7 @@
     // 单元测试
     function unitTest(node){
         var api = node.data.dir.replace('../../../src/', '').replace('.js', ''),
-            unitUrl = location.href + '../br/run.php?case=' + api;
+            unitUrl = location.href.replace('index.php', '') + '../br/run.php?case=' + api;
         
         $("#J_unitTestFrame").attr('src', unitUrl);
         var interval = setInterval(function(){
@@ -250,29 +254,49 @@
                     });
     }
 
+    // 编码HTML
+    function encodeHTML(source) {
+        return String(source)
+                    .replace(/&/g,'&amp;')
+                    .replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;')
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+    };
+
     //语法检查
     function syntaxCheck(node){
         $.get('./getFileContent.php?file=' + node.data.dir, function(content){
             $("#J_syntaxCheck").html('');
             var filename = node.data.dir.replace('../../../src/', '');
             var html = '<h1 class="test-header">' + filename + '</h1><ul>';
+            var errors = 0;
 
-            if(!JSHINT(content, {
+            JSHINT(content, {
                 boss: true,
                 eqnull: true,
                 evil: true,
+                browser: true,
                 tangram: true,
                 magic: true,
                 laxbreak: true,
                 loopfunc: true,
                 nonew: true,
-                undef: true
-            })){
-                $(JSHINT.errors).each(function(index, item){
-                    if(!item) return;
-                    html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + item.evidence + '</span></p>'+
-                            '<p>' + item.reason + '</p></li>';
-                });
+                undef: true,
+                maxerr: 200
+            });
+
+            
+            $(JSHINT.errors).each(function(index, item){
+                if(!item){return};
+                if(/(debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
+                    errors++;
+                    html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + encodeHTML(item.evidence) + '</span></p>'+
+                        '<p>' + item.reason + '</p></li>';
+                }
+            });
+
+            if(errors > 0){
                 // 在节点上标出检查结果
                 node.el.css('color', '#FF0000');
             }else{

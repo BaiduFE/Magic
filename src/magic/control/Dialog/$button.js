@@ -244,7 +244,7 @@
                 }
             },
             customOptions = {}, 
-            ok_button_callback, keyFn, alert_el;
+            ok_button_callback, closeclickFn, keyFn, alert_el;
         
         //将参数列表转化为配置项
         if(!baidu.object.isPlain(arguments[0])){
