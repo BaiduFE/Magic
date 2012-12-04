@@ -99,9 +99,10 @@
 		 * @function
 		 */
 		/* methods */_createButton: function(){
-		    var btnConfig = arguments.length > 0 ? arguments[0] : {},
-		    	footerContainer = baidu(this.getElement("footerContainer")),
-		    	buttons = this.buttons || (this.buttons = []),
+		    var me = this,
+                btnConfig = arguments.length > 0 ? arguments[0] : {},
+		    	footerContainer = baidu(me.getElement("footerContainer")),
+		    	buttons = me.buttons || (me.buttons = []),
 		    	hasFocused = false,
 		    	_defaultCreator = (function(){
 		    		var btnTemplate = ['<a href="#" onClick="return false;" class="tang-dialog-button ','','">',
@@ -120,16 +121,16 @@
 		    baidu.forEach(btnConfig.items || [], function(item, index){
 		    	var clickFn, node;
 		    	footerContainer.append(node = baidu('<span class="tang-dialog-button-carrier"></span>')[0]);
-		    	node = typeof item == "object" ? (item.builder || _defaultCreator).call(this, item, node, this, index) : item;
+		    	node = typeof item == "object" ? (item.builder || _defaultCreator).call(this, item, node, me, index) : item;
 		    	!hasFocused && item.focused && !item.disabled && (hasFocused = true) && node.focus();
 		    	buttons.push(node);
 		    	item.disabled || item.click && baidu(node).on('click', clickFn = function(){
-                    item.click.call(this);
+                    item.click.call(this, me);
                 });
                 clickFn && this.disposeProcess.push(function(){
 		            baidu(node).off('click', clickFn);
 		        });
-		    }, this);
+		    }, me);
 		    
 		    footerContainer.addClass("tang-button-" + (btnConfig.align||'right'));
 		}
