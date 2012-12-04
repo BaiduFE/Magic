@@ -549,7 +549,7 @@ test("focus, next, prev", function(){
 test("events & dispose", function(){
 	expect(6);
 	enSetup();
-	var l1 = baidu._util_.eventBase._getEventsLength();
+	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 	var options = {
 	    fx: {                   //保证release模式下Carousel不会被fx插件影响
 	    	enable: false
@@ -569,7 +569,7 @@ test("events & dispose", function(){
     	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
-    	var l2 = baidu._util_.eventBase._getEventsLength();
+    	var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
     	equals(l2, l1, "The events are un");
     });
     c.focus(8, "backward");

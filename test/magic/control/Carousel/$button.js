@@ -29,7 +29,7 @@ test("enable", function(){
 	ua.importsrc("magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel.css", function(){
 			enSetup();
-			var l1 = baidu._util_.eventBase._getEventsLength();
+			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			var options = {
 			    fx: {                   //保证release模式下Carousel不会被fx插件影响
 			    	enable: false
@@ -66,7 +66,7 @@ test("enable", function(){
 		    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 		    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
 		    c.$dispose();
-		    var l2 = baidu._util_.eventBase._getEventsLength();
+		    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
 		    equals(l2, l1, "The events are un");
 		    document.body.removeChild(baidu.dom.g("one-carousel"));
 		    start();

@@ -21,7 +21,7 @@ test("enable", function(){
 		var div = document.createElement("div");
 		document.body.appendChild(div);
 		div.id = "one-carousel";
-		var l1 = baidu._util_.eventBase._getEventsLength();
+		var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 		var c = new magic.Carousel({
 		    items: citems,
 		    button: {
@@ -62,7 +62,7 @@ test("enable", function(){
 	    equals(c.getElement().childNodes[0].className, "tang-carousel-btn tang-carousel-btn-prev-disabled", "The left button is right");
 	    equals(c.getElement().childNodes[2].className, "tang-carousel-btn tang-carousel-btn-next", "The right button is right");
 	    c.$dispose();
-	    var l2 = baidu._util_.eventBase._getEventsLength();
+	    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
 	    equals(l2, l1, "The events are un");
 	    document.body.removeChild(div);
 	    start();

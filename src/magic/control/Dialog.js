@@ -26,6 +26,7 @@
 ///import baidu.page.getHeight;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
+///import baidu.dom.closest;
 
 /**
  * @description 对话框组件的控制器
