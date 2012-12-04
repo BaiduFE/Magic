@@ -857,7 +857,7 @@ test("encode", function(){
 });
 
 test("key event for begin and end of value", function(){
-	expect(10);
+	expect(8);
 	stop();
 	enSetup();
 	var index = 0,
@@ -874,11 +874,7 @@ test("key event for begin and end of value", function(){
 	        me.receiveData(key, getContentByKey(key));
 	    },
         onshow: function(){
-        	setTimeout(function(){
-        		ua.keydown(input, {
-					keyCode : 40
-				});
-        	}, 0);
+        	doKey(40, 0);
         },
         onhighlight: function(){
         	index++;
@@ -889,8 +885,8 @@ test("key event for begin and end of value", function(){
         		setTimeout(function(){
         			equals($(input).attr("value"), "a", "The input value is right");
         			equals(this.selectedIndex, undefined, "The selectedIndex is right");
-        		}, 500);
-        		doKey(38, 1000);
+        			doKey(38);
+        		}, 200);
         	}
         	if(index == 2){
         		equals($(input).attr("value"), "北海5", "The input value is right");
@@ -900,16 +896,8 @@ test("key event for begin and end of value", function(){
         		setTimeout(function(){
         			equals($(input).attr("value"), "a", "The input value is right");
         			equals(this.selectedIndex, undefined, "The selectedIndex is right");
-        		}, 500);
-        		doKey(40, 1000);
-        	}
-        	if(index == 3){
-        		equals($(input).attr("value"), "a+1", "The input value is right");
-        		equals(this.selectedIndex, 0, "The selectedIndex is right");
-        		doKey(40);
-        	}
-        	if(index == 4){
-        		doKey(27);
+        			doKey(27);
+        		}, 200);
         	}
         },
         onhide : function(){

@@ -225,19 +225,16 @@ test("test call onbeforescroll event for the length of empty greater than zero",
 	div.id = "one-carousel";
 	var scroll = 0;
 	var c = new magic.Carousel({
-		        viewSize: 4,
+		        viewSize: 3,
 		        originalIndex: 1,
 		        focusRange: {min: 1, max: 1},
 		        isLoop: true,
-		        step: 4,//翻页
+		        step: 3,//翻页
 		        items: [
 		            {content: 'text1'},
 		            {content: 'text2'},
 		            {content: 'text3'},
-		            {content: 'text4'},
-		            {content: 'text5'},
-		            {content: 'text6'},
-		            {content: 'text7'}
+		            {content: 'text4'}
 		        ],
 		        fx: {
 			    	duration:100
@@ -262,5 +259,5 @@ test("test call onbeforescroll event for the length of empty greater than zero",
 		}
 	});
     c.render('one-carousel');
-    c.focusNext();
+    c.focus(4);
 });
