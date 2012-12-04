@@ -233,8 +233,9 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     render: function(){
         var me = this,
-            popup = new magic.Popup({"autoHide": false, "autoTurn": false, 'disposeOnHide': false});
-        popupContainer = popup.getElement();
+            popup = new magic.Popup({"autoHide": false, "autoTurn": false, 'disposeOnHide': false}),
+            popupContainer = popup.getElement();
+
         baidu.dom(popupContainer).addClass("tang-suggestion-popup");
         
         me.$mappingDom("suggestion", popupContainer);
@@ -591,8 +592,9 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     $clearHighlight: function() {
         var me = this,
             selectedIndex = me.selectedIndex,
-            item = null;
+            item = null,
             index = 0;
+
         index = me.enableIndexs[selectedIndex];
         if (selectedIndex >= 0) {
             item = me._getItemDom(index);
@@ -736,7 +738,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	 * @return {Array} 包装后的标准格式data {value:value, content:content [, disable:true]}
 	 */
 	_wrapData: function(data){
-	    var me = this;
+	    var me = this,
 	        _data = [],
 	        i = 0,
 	        len = data.length;
