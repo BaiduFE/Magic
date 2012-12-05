@@ -154,7 +154,7 @@ test('default params', function(){
 		        onhide: function(){
 		        	ok(!isShown(this.getElement("suggestion")), "hide");
 		        	this.on("ondispose", function(){//不能在ondispose中写，因为ondispose在代码解绑监听函数之前运行，那时还有一些监听函数没有解绑
-		        		var l2 = baidu._util_.eventBase._getEventsLength();
+		        		var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			        	equals(l2, l1, "The events are un");
 			        	equals(this.getElement("suggestion").style.display, "none", "The dom is hide");
 			        	document.body.removeChild(div);
@@ -166,7 +166,7 @@ test('default params', function(){
 		        	
 		        }
 		    };
-			var l1 = baidu._util_.eventBase._getEventsLength();
+			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			var s = magic.setup.suggestion('tang-suggestion-input', options);
 			$("input").focus();
 			$("input").attr("value", "a");

@@ -357,7 +357,7 @@ test("dispose", function(){
     var container = document.createElement("div");
     document.body.appendChild(container);
     
-    var listenerLenth = baidu._util_.eventBase._getEventsLength();
+    var listenerLenth = ua.getEventsLength(baidu._util_.eventBase.queue);
     
     var ca = new magic.Calendar({
         weekStart: 'sun',
@@ -371,7 +371,7 @@ test("dispose", function(){
     ca.$dispose();
     
     ok(baidu('#' + caID).length == 0, "日历节点已被移除");
-    equals(baidu._util_.eventBase._getEventsLength(), listenerLenth, "所有事件已移除");
+    equals(ua.getEventsLength(baidu._util_.eventBase.queue), listenerLenth, "所有事件已移除");
     
     document.body.removeChild(container);
 });
@@ -660,8 +660,8 @@ test("test render with id", function(){
     var ca = new magic.Calendar({});
     ca.render('calendarIdty');
 
-    ok(isShown(ca.getElement("calendar")), "The calendar shows");
-    equals(ca.getElement("calendar").parentNode.id, "calendarIdty", "The container is right");
+    ok(isShown(ca.getElement()), "The calendar shows");
+    equals(ca.getElement().parentNode.id, "calendarIdty", "The container is right");
     start();
     ca.$dispose();
     document.body.removeChild(container);

@@ -1244,7 +1244,26 @@ var UserAction = {
 			}
 		};
 		return check;
-	}
+	},
+	
+    getEventsLength: function(evtQueue, target){
+        var ret = 0,
+            has = target === undefined,
+            handlers = has ? evtQueue.get(target) : evtQueue.attachCache,
+            item;
+        for(var i in handlers){
+            item = handlers[i];
+            if(has){
+                ret += item.length;
+            }else{
+                for(var j in item){
+                    ret += item[j].length;
+                }
+            }
+        }
+        return ret;
+//        return baidu._util_.eventBase._getEventsLength(target);
+    }
 };
 var ua = UserAction;
 var upath = ua.commonData.currentPath();
