@@ -7,6 +7,7 @@
 ///import baidu.fn.bind;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
+///import baidu.event.simulate;
 
 /**
  * @description 为图片轮播组件增加自动滚动功能
