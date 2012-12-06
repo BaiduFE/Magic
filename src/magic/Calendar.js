@@ -187,7 +187,7 @@ magic.Calendar.extend(
      * @return {String} 以TANGRAM$1__tang_calendar_为前缀的ID字符串
      */
     _getId: function(name){
-        return this.$getId() + (name === undefined ? 'tang_calendar' : 'tang_calendar_' + name);
+        return this._eid + (name === undefined ? 'tang_calendar' : 'tang_calendar_' + name);
     },
     
     /**
@@ -218,6 +218,7 @@ magic.Calendar.extend(
         me.titleEl = baidu('#' + me._getId('title'))[0];
         me.tableEl = baidu('#' + me._getId('table'))[0];
 
+        me.$mappingDom('', baidu('#' + me._getId())[0]);
         me.$mappingDom('calendar', baidu('#' + me._getId())[0]);
         me.$mappingDom('title', me.titleEl);
         me.$mappingDom('table', me.tableEl);
@@ -1196,6 +1197,16 @@ magic.Calendar.extend(
      * @name magic.Calendar#getElement
      * @function
      * @param {String} name 可选的值包括：calendar(calendar节点)|title(标题部分)|table(日期表的父容器)|premonthbtn(跳转到上个月的按钮)|nextmonthbtn(跳转到下个月的按钮)
+     * @example
+     * var instance = new magic.Calendar({
+     *      weekStart: 'sat',
+     *      initDate: new Date()
+     *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
+     *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+     *      language: 'zh-CN'
+     * });
+     * instance.render('calendar-container');
+     * var calendar_el = instance.getElement();//获取calendar节点
      * @example
      * var instance = new magic.Calendar({
      *      weekStart: 'sat',

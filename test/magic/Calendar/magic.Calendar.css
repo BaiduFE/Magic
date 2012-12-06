@@ -149,7 +149,7 @@
  .tang-calendar-timer{
     overflow: hidden;
     padding: 5px;
-    background: url("bg.png") repeat-x scroll 0 0 #BFBFBF;
+    background: url(bg.png) repeat-x scroll 0 0 #BFBFBF;
     _background-position: 0 2px;
     border-width: 0px 1px 1px 1px;
     border-style: solid;

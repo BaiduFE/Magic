@@ -74,7 +74,7 @@ magic.setup.datePicker = function(el, options){
 	if(baidu.type(el) === "string"){
         el = '#' + el;
     }
-	var el = baidu(el)[0];
+	var el = baidu(el)[0],
    /**
     * @descript 日历
     * @instace
@@ -82,7 +82,7 @@ magic.setup.datePicker = function(el, options){
     * @superClass magic.control.DatePicker
     * @return {magic.control.DatePicker} 日历实例
     */	
-	instance = magic.setup(el, magic.control.DatePicker, options);
+	   instance = magic.setup(el, magic.control.DatePicker, options);
 	instance.$mappingDom('input', el);
 	instance.init();
 	

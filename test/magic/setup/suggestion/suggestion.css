@@ -6,7 +6,18 @@
     font-size: 14px;
     color: #000;
 }
-
+.tang-suggestion input.tang-suggestion-input {
+    border: 1px solid #817f82;
+    height: 22px;
+    padding-top: 6px;
+    padding-bottom: 2px;
+    width: 534px;
+    background: url(suggestion-input-bg.gif) no-repeat 0 0 #FFF;
+    font-family: Arial, '宋体';
+    font-size: 14px;
+    color: #000;
+    padding-left: 8px;
+}
 .tang-suggestion-popup {
     display: none;
     font-size: 14px;
@@ -17,6 +28,7 @@
 }
 .tang-suggestion-popup .tang-foreground {
     border: 1px solid #817f82;
+    overflow: hidden;
 }
 .tang-suggestion-popup .tang-suggestion-prepend,
 .tang-suggestion-popup .tang-suggestion-append {
@@ -35,7 +47,8 @@
     width: 100%;
 }
 .tang-suggestion-popup .tang-suggestion-table td {
-    padding: 6px 0 6px 8px;
+    padding: 6px 8px;
+    white-space: nowrap;
 }
 
 .tang-suggestion-popup .tang-suggestion-table td.tang-suggestion-current {

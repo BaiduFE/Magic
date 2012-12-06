@@ -184,6 +184,40 @@ test('自定义参数', function(){
     });
 });
 
+
+test("test control calendar by keyboard to change day and month", function(){
+    expect(6);
+    stop();
+    var container = document.createElement("div");
+    document.body.appendChild(container);
+    var ca = new magic.Calendar({
+        initDate : new Date("2012/2/29")
+    });
+    ca.render(container);
+
+    var calendar = ca.getElement("calendar"),
+        date = ca.currentDate;
+    ua.click(calendar);
+    ua.keydown(calendar, {keyCode : 34});
+    equals(date.getMonth() + 1, 3, "下一月操作后为2月");
+    ua.keydown(calendar, {keyCode : 33});
+    equals(date.getMonth() + 1, 2, "上一月操作后为2月");
+    
+
+    ua.keydown(calendar, {keyCode : 37});
+    equals(ca.getDate().getDate(), 28, "上一天操作后是28号");
+    ua.keydown(calendar, {keyCode : 39});
+    equals(ca.getDate().getDate(), 29, "下一天操作后是29号");
+    ua.keydown(calendar, {keyCode : 38});
+    equals(ca.getDate().getDate(), 28, "上一天操作后是28号");
+    ua.keydown(calendar, {keyCode : 40});
+    equals(ca.getDate().getDate(), 29, "下一天操作后是29号");
+
+    start();
+    ca.$dispose();
+    document.body.removeChild(container);
+});
+
 test("自定义参数1", function(){
     expect(1);
     var container = document.createElement("div");
@@ -322,7 +356,8 @@ test("dispose", function(){
     expect(2);
     var container = document.createElement("div");
     document.body.appendChild(container);
-    var listenerLenth= ua.getEventsLength(baidu._util_.eventBase.queue);
+    
+    var listenerLenth = ua.getEventsLength(baidu._util_.eventBase.queue);
     
     var ca = new magic.Calendar({
         weekStart: 'sun',
@@ -617,37 +652,16 @@ test("test disabled day of week", function(){
 });
 
 test("test render with id", function(){
-    expect(12);
+    expect(2);
     stop();
     var container = document.createElement("div");
     container.setAttribute('id', 'calendarIdty');
     document.body.appendChild(container);
     var ca = new magic.Calendar({});
     ca.render('calendarIdty');
-    
-    equals(getWeekNames(ca)[0], '日', "测试每周第一天是否是周日");
-    ok(ca._datesEqual(ca.selectedDate, baidu.i18n.date.toLocaleDate(new Date())), "测试当前选中日期是否是当天");
-    
-    var selectedDateTD = baidu('.tang-calendar-selected')[0];
-    var dateStr = baidu(selectedDateTD).attr("date");
-    equals(dateStr, baidu.date.format(baidu.i18n.date.toLocaleDate(new Date()), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
-    
-    equals(baidu(ca.getElement("title"))[0].innerHTML, '2012年&nbsp;' + ((baidu.i18n.date.toLocaleDate(new Date())).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
 
-    var disableDateTD = baidu('.tang-calendar-disable');
-    equals(disableDateTD.length, 0, "不存在不可用的日期");
-
-    var highlightTD = baidu('.tang-calendar-highlight');
-    equals(highlightTD.length, 0, "不存在高亮的日期");
-    
-    equals(ca._options.weekStart, 'sun', "检查默认参数weekStart");
-    ok(ca._datesEqual(ca._options.initDate, baidu.i18n.date.toLocaleDate(new Date())), "检查默认参数initDate");
-    same(ca._options.highlightDates, [], "检查默认参数highlightDates");
-    same(ca._options.disabledDates, [], "检查默认参数disabledDates");
-    equals(ca._options.language, 'zh-CN', "检查默认参数language");
-
-    ok(ca._datesEqual(ca.currentDate, baidu.i18n.date.toLocaleDate(new Date())), "检查currentDate");
-
+    ok(isShown(ca.getElement()), "The calendar shows");
+    equals(ca.getElement().parentNode.id, "calendarIdty", "The container is right");
     start();
     ca.$dispose();
     document.body.removeChild(container);
