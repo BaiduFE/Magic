@@ -9,10 +9,7 @@ test("test parameters and shown", function(){
             document.body.appendChild(container);
             //插件不启用
             var ca = new magic.Calendar({
-                initDate: new Date("2012/05/06"),
-                timer: {
-                    enable: false
-                }
+                initDate: new Date("2012/05/06")
             });
             ca.render(container);
             
@@ -75,7 +72,7 @@ test("test parameters and shown", function(){
             ca.$dispose();
             document.body.removeChild(container);
         });
-    },'baidu.i18n.cultures.en-US');
+    },'baidu.i18n.cultures.en-US', 'magic.Calendar.$timer');
 });
 
 // case 2

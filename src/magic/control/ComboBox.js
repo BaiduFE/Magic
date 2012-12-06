@@ -18,6 +18,8 @@
 ///import baidu.event.shortcut;
 ///import baidu.array.remove;
 ///import baidu.object.extend;
+///import baidu.event.shortcut;
+///import baidu.dom.text;
 
 /**
  * @description 组合框组件的控制器。

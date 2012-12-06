@@ -233,8 +233,9 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
      */
     render: function(){
         var me = this,
-            popup = new magic.Popup({"autoHide": false, "autoTurn": false, 'disposeOnHide': false});
-        popupContainer = popup.getElement();
+            popup = new magic.Popup({"autoHide": false, "autoTurn": false, 'disposeOnHide': false}),
+            popupContainer = popup.getElement();
+
         baidu.dom(popupContainer).addClass("tang-suggestion-popup");
         
         me.$mappingDom("suggestion", popupContainer);
@@ -291,7 +292,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
         var me = this,
             suggestion_el = me.getElement("suggestion") || me.render(),
             input_el = me.getElement("input"),
-            customWidth = (me.offset && me.offset.width) || input_el.offsetWidth;
+            customWidth;
         /**
          * @description 试图显示输入框提示时触发
          * @name magic.control.Suggestion#onbeforeshow
@@ -319,8 +320,15 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             "offsetX": (me.offset && me.offset.offsetX) || 0,
             "offsetY": (me.offset && me.offset.offsetY) || -1
         });
-        //设置suggestion的宽度
-        baidu.dom(suggestion_el).css("width", parseInt(customWidth) + 'px');
+
+        if(me.offset && me.offset.width){   //如果在offset中设置了宽度，则将宽度设置到Suggestion的容器上
+            customWidth = me.offset.width;
+            baidu.dom('#' + me.suggestion.$getId('content')).css("width", parseInt(customWidth) - 2 + 'px');
+        }else{  //如果没有在offset中设置宽度，则将宽度设置到Suggestion的table上，使Suggestion能自适应宽度
+            customWidth = input_el.offsetWidth;
+            baidu.dom(suggestion_el.getElementsByTagName('table')[0]).css("width", parseInt(customWidth) - 2 + 'px');
+        }
+        
         //显示suggestion
         baidu.dom(suggestion_el).css("display", "block");
         
@@ -584,8 +592,9 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
     $clearHighlight: function() {
         var me = this,
             selectedIndex = me.selectedIndex,
-            item = null;
+            item = null,
             index = 0;
+
         index = me.enableIndexs[selectedIndex];
         if (selectedIndex >= 0) {
             item = me._getItemDom(index);
@@ -729,7 +738,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
 	 * @return {Array} 包装后的标准格式data {value:value, content:content [, disable:true]}
 	 */
 	_wrapData: function(data){
-	    var me = this;
+	    var me = this,
 	        _data = [],
 	        i = 0,
 	        len = data.length;
