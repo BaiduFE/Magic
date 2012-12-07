@@ -30,22 +30,22 @@
  * @example
  * /// for options.orientation
  * var instance = new magic.Slider({
- * 		orientation: 'horizontal'	// 水平滑动条
+ *         orientation: 'horizontal'    // 水平滑动条
  * });
  * @example
  * /// for options.direction
  * var instance = new magic.Slider({
- * 		direction: 'forward'
+ *         direction: 'forward'
  * });
  * @example
  * /// for options.accuracy
  * var instance = new magic.Slider({
- * 		accuracy: 0.25
+ *         accuracy: 0.25
  * });
  * @example
  * /// for options.currentValue
  * var instance = new magic.Slider({
- * 		currentValue: 10
+ *         currentValue: 10
  * });
  */
 magic.Slider = baidu.lang.createClass(function(options){
@@ -55,7 +55,7 @@ magic.Slider = baidu.lang.createClass(function(options){
 
 /** @lends magic.Slider.prototype */
 magic.Slider.extend({
-	/**
+    /**
      * @description 渲染Slider
      * @name magic.Slider#render
      * @function
@@ -63,14 +63,14 @@ magic.Slider.extend({
      * @param {HtmlElement} el 存放slider的容器对象
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
-     * instance.render('s1');		// 渲染
+     * instance.render('s1');        // 渲染
      */
     render: function(el){
         var me = this;
-    	el = baidu.dom('#'+el).get(0);
-        el || document.body.appendChild(el = document.createElement("div"));  	
+        el = baidu.dom('#'+el).get(0);
+        el || document.body.appendChild(el = document.createElement("div"));      
         if(/tang-slider/.test(el.className)) return;
 
         baidu.dom(el).addClass('tang-ui tang-slider tang-slider-' + me._info._suffix);
@@ -109,10 +109,10 @@ magic.Slider.extend({
      * @grammar magic.Slider#$dispose()
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.$dispose();	// 销毁组件
+     * instance.$dispose();    // 销毁组件
      */
     $dispose: function(){
         var me = this, slider;

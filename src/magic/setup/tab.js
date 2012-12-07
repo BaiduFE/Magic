@@ -22,23 +22,23 @@
  * @example
  * /// for el, options.originalIndex
  * var tab = magic.setup.tab('tab-container',{
- * 		originalIndex: 2	// 默认打开第三个tab
+ *         originalIndex: 2    // 默认打开第三个tab
  * });
  * @example
  * /// for options.selectEvent,options.selectDelay
  * var tab = magic.setup.tab('tab-container',{
- * 		selectEvent : 'mouseover',	// mouseover 触发切换
- * 		selectDelay : 500	切换延时500毫秒
+ *         selectEvent : 'mouseover',    // mouseover 触发切换
+ *         selectDelay : 500    切换延时500毫秒
  * });
  */
 magic.setup.tab = function(el, options) {
-	/**
-	 * @description tab 组件 setup 模式的实例对象
-	 * @instace
-	 * @name magic.setup.tab!
-	 * @superClass magic.control.Tab
-	 * @return {instace} magic.control.Tab 实例对象
-	 */
+    /**
+     * @description tab 组件 setup 模式的实例对象
+     * @instace
+     * @name magic.setup.tab!
+     * @superClass magic.control.Tab
+     * @return {instace} magic.control.Tab 实例对象
+     */
     var instance = magic.setup(baidu.dom('#'+el).get(0), magic.control.Tab, options);
     instance.fire('onload');
     return instance;

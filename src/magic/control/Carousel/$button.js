@@ -23,8 +23,8 @@
  * @example
  * /// for options.button.enable
  * var instance = new magic.Carousel({
- * 		button: {
- * 			enable: true,
+ *         button: {
+ *             enable: true,
  *      }
  * });
  */
@@ -58,8 +58,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
     });
     //
     me.on('ondispose', function(){
-    	baidu.dom(me.getElement('prev')).off('click', prevHandler);
-    	baidu.dom(me.getElement('next')).off('click', nextHandler);
+        baidu.dom(me.getElement('prev')).off('click', prevHandler);
+        baidu.dom(me.getElement('next')).off('click', nextHandler);
     });
 }, 
 {
@@ -95,9 +95,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @return {Boolean} 当已经滚动到首项时返回true，否则返回false
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
-     * instance.isFirst();	// true OR false
+     * instance.isFirst();    // true OR false
      */
     isFirst: function(){
         return this._isLimit('backward');
@@ -111,9 +111,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @return {Boolean} 当已经滚动到末项时返回true，否则返回false
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
-     * instance.isLast();	// true OR false
+     * instance.isLast();    // true OR false
      */
     isLast: function(){
         return this._isLimit('forward');

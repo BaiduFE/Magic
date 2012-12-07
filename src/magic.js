@@ -23,7 +23,7 @@
 
 if(typeof magic != "function"){
     var magic = function(){
-    	// TODO: 
+        // TODO: 
     };
 }
 

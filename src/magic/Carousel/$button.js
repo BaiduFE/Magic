@@ -19,13 +19,13 @@
  * @example
  * /// for options.button.enable,options.button.buttonLabel
  * var instance = magic.setup.carousel('one-carousel', {
- * 		button: {
- * 			enable: true,
- * 			buttonLabel: {
- * 				prev: '上一张',
- * 				next: '下一张'
- * 			}
- * 		}
+ *         button: {
+ *             enable: true,
+ *             buttonLabel: {
+ *                 prev: '上一张',
+ *                 next: '下一张'
+ *             }
+ *         }
  * });
  */
 baidu.lang.register(magic.Carousel, function(options){
