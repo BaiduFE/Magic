@@ -660,8 +660,8 @@ test("test render with id", function(){
     var ca = new magic.Calendar({});
     ca.render('calendarIdty');
 
-    ok(isShown(ca.getElement("calendar")), "The calendar shows");
-    equals(ca.getElement("calendar").parentNode.id, "calendarIdty", "The container is right");
+    ok(isShown(ca.getElement()), "The calendar shows");
+    equals(ca.getElement().parentNode.id, "calendarIdty", "The container is right");
     start();
     ca.$dispose();
     document.body.removeChild(container);
