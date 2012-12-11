@@ -29,15 +29,15 @@
  * @example
  * /// for options.selectEvent,options.selectDelay
  * var instance = new magic.Tab({
- * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
- * 		selectEvent : 'mouseover',	// mouseover 触发切换
- * 		selectDelay : 500	切换延时500毫秒
+ *         items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
+ *         selectEvent : 'mouseover',    // mouseover 触发切换
+ *         selectDelay : 500    切换延时500毫秒
  * });
  * @example
  * /// for options.originalIndex
  * var instance = new magic.Tab({
- * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
- * 		originalIndex: 2	// 默认打开第三个tab
+ *         items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
+ *         originalIndex: 2    // 默认打开第三个tab
  * });
  */
 magic.control.Tab = baidu.lang.createClass(function(options) {
@@ -108,12 +108,12 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @example
      * var instance = new magic.Tab(option);
      * instance.onbeforeselect = function(evt){
-     * 		alert("切换前的焦点索引："+evt.index);
+     *         alert("切换前的焦点索引："+evt.index);
      * }
      * @example
      * var instance = new magic.Tab(option);
      * instance.on("beforeselect",function(evt){
-     * 		alert("切换前的焦点索引："+evt.index);
+     *         alert("切换前的焦点索引："+evt.index);
      * });
      */
     /**
@@ -126,12 +126,12 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @example
      * var instance = new magic.Tab(option);
      * instance.onselect = function(evt){
-     * 		alert("切换后的焦点索引："+evt.index);
+     *         alert("切换后的焦点索引："+evt.index);
      * }
      * @example
      * var instance = new magic.Tab(option);
      * instance.on("select",function(evt){
-     * 		alert("切换后的焦点索引："+evt.index);
+     *         alert("切换后的焦点索引："+evt.index);
      * });
      */
     
@@ -144,7 +144,7 @@ magic.control.Tab = baidu.lang.createClass(function(options) {
      * @example
      * var instance = new magic.Tab(option);
      * instance.render('tab-container');
-     * instance.select(2);	// 切换到第三个tab
+     * instance.select(2);    // 切换到第三个tab
      */
     select: function(index) {
         var me = this,

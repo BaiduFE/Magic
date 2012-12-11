@@ -29,15 +29,15 @@
  * @example
  * /// for options.selectEvent,options.selectDelay
  * var instance = new magic.Tab({
- * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
- * 		selectEvent : 'mouseover',	// mouseover 触发切换
- * 		selectDelay : 500	切换延时500毫秒
+ *         items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
+ *         selectEvent : 'mouseover',    // mouseover 触发切换
+ *         selectDelay : 500    切换延时500毫秒
  * });
  * @example
  * /// for options.items,options.originalIndex
  * var instance = new magic.Tab({
- * 		items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
- * 		originalIndex: 2	// 默认打开第三个tab
+ *         items: [{title: '一', content: '内容1'},{title: '二', content: '内容2'}],
+ *         originalIndex: 2    // 默认打开第三个tab
  * });
  */
 magic.Tab = baidu.lang.createClass(function(options) {
@@ -82,7 +82,7 @@ magic.Tab = baidu.lang.createClass(function(options) {
             bodyContent: tplBodies.join('')
         });
     },
-	/**
+    /**
      * @description 将Tab选择卡渲染到指定的容器中
      * @name magic.Tab#render
      * @function 

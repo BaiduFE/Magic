@@ -74,7 +74,7 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
     ,setWidth :  function(width) {
         baidu.dom.setPixel(this.getElement(), "width",(this.width=width));
     }
-	
+    
     /**
      * @description 通用设置高度
      * @name magic.control.Layer#setHeight

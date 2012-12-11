@@ -64,27 +64,28 @@
  *      'language': 'en-US',
  *      'calendarOptions': {
  *          'initDate': new Date(),
- * 			'weekStart': 'Mon',
+ *             'weekStart': 'Mon',
  *          'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
  *          'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
  *      }
  * });
  */
 magic.setup.datePicker = function(el, options){
-	if(baidu.type(el) === "string"){
+    if(baidu.type(el) === "string"){
         el = '#' + el;
     }
-	var el = baidu(el)[0],
+    var el = baidu(el)[0],
    /**
     * @descript 日历
     * @instace
     * @name magic.setup.datePicker!
     * @superClass magic.control.DatePicker
     * @return {magic.control.DatePicker} 日历实例
-    */	
-	   instance = magic.setup(el, magic.control.DatePicker, options);
-	instance.$mappingDom('input', el);
-	instance.init();
-	
-	return instance;
+    */    
+       instance = magic.setup(el, magic.control.DatePicker, options);
+
+    instance.$mappingDom('input', el);
+    instance.init();
+    
+    return instance;
 };

@@ -20,16 +20,16 @@
  * @example
  * /// for options.autoScroll.enable,options.autoScroll.direction
  * var instance = new magic.Carousel({
- * 		autoScroll: {
- * 			enable: true,
+ *         autoScroll: {
+ *             enable: true,
  *          direction: 'backward'
  *      }
  * });
  * @example
  * /// for options.autoScroll.interval
  * var instance = new magic.Carousel({
- * 		autoScroll: {
- * 			enable: true,
+ *         autoScroll: {
+ *             enable: true,
  *          interval: 2000
  *      }
  * });
@@ -50,8 +50,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
         baidu.dom(me.getElement('element')).on('mouseenter', handler);
         baidu.dom(me.getElement('element')).on('mouseleave', handler);
         me.on('ondispose', function(){
-        	baidu.dom(me.getElement('element')).off('mouseenter', handler);
-        	baidu.dom(me.getElement('element')).off('mouseleave', handler);
+            baidu.dom(me.getElement('element')).off('mouseenter', handler);
+            baidu.dom(me.getElement('element')).off('mouseleave', handler);
         });
         me.start();
     });
@@ -73,17 +73,17 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
      * instance.on('mouseenter', function(evt){
-     * 		alert("鼠标移入");
+     *         alert("鼠标移入");
      * });
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
      * instance.onmouseenter = function(evt){
-     * 		alert("鼠标移入");
+     *         alert("鼠标移入");
      * };
      */
     /**
@@ -95,17 +95,17 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @param {Event} evt.DOMEvent 取得当时触发的浏览器事件对象
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
      * instance.on('mouseleave', function(evt){
-     * 		alert("鼠标移入");
+     *         alert("鼠标移入");
      * });
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
      * instance.onmouseleave = function(evt){
-     * 		alert("鼠标移入");
+     *         alert("鼠标移入");
      * };
      */
     /**
@@ -127,9 +127,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @grammar magic.control.Carousel.$autoScroll#start()
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
-     * instance.start();	//启动滚动
+     * instance.start();    //启动滚动
      */
     start: function(){
         var me = this,
@@ -148,9 +148,9 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * @grammar magic.control.Carousel.$autoScroll#stop()
      * @example
      * var instance = new magic.Carousel({
-     * 		enable: true
+     *         enable: true
      * });
-     * instance.stop();	//停止滚动
+     * instance.stop();    //停止滚动
      */
     stop: function(){
         var me = this,
