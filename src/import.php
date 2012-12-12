@@ -15,7 +15,7 @@
  * IE下，get请求不能超过2083字节，请注意。
  */
 
-//$DEBUG = true;
+// $DEBUG = true;
 $DEBUG = false;
 
 $MATCHED = array();

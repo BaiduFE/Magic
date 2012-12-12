@@ -56,61 +56,61 @@
  * @return {magic.control.Dialog} magic.control.Dialog 实例
  */
 magic.setup.dialog = function(el, options){
-	if(baidu.type(el) === "string"){
+    if(baidu.type(el) === "string"){
         el = '#' + el;
     }
-	el = baidu(el)[0];
-	var opt = options || {};
-	/**
-	 *@description dialog 组件 setup 模式的实例对象
-	 *@instace
-	 *@name magic.setup.dialog!
-	 *@superClass magic.control.Dialog
-	 *@return {instace} magic.control.Dialog 实例对象
-	 */
-	var instance = magic.setup(el, magic.control.Dialog, opt),
-		container = instance.getElement(),
-		cls = el.childNodes, node;
+    el = baidu(el)[0];
+    var opt = options || {};
+    /**
+     *@description dialog 组件 setup 模式的实例对象
+     *@instace
+     *@name magic.setup.dialog!
+     *@superClass magic.control.Dialog
+     *@return {instace} magic.control.Dialog 实例对象
+     */
+    var instance = magic.setup(el, magic.control.Dialog, opt),
+        container = instance.getElement(),
+        cls = el.childNodes, node;
 
-	for(var i = 0, l = cls.length; i < l; i ++){
-		if(cls[i].nodeType != 3 && ~ cls[i].className.indexOf("tang-background")){
-			magic.setup.background(cls[i], { coverable: true });
-			break;
-		}
-	}
+    for(var i = 0, l = cls.length; i < l; i ++){
+        if(cls[i].nodeType != 3 && ~ cls[i].className.indexOf("tang-background")){
+            magic.setup.background(cls[i], { coverable: true });
+            break;
+        }
+    }
 
-	instance.$mappingDom("title", baidu(".tang-title", container)[0]);
-	instance.$mappingDom("titleText", baidu("span", instance.getElement("title"))[0]);
-	instance.$mappingDom("titleButtons", baidu(".buttons", instance.getElement("title"))[0]);
-	instance.$mappingDom("body", baidu(".tang-body", container)[0]);
-	instance.$mappingDom("content", baidu(".content", instance.getElement("body"))[0]);
-	instance.$mappingDom("closeBtn", baidu(".close-btn", instance.getElement("title"))[0]);
-	instance.$mappingDom("foreground", baidu(".tang-foreground", container)[0]);
-	instance.$mappingDom("footer", (node = baidu(".tang-footer", container))[0]);
-	instance.$mappingDom("footerContainer", node.children()[0]);
-	node.hide();
+    instance.$mappingDom("title", baidu(".tang-title", container)[0]);
+    instance.$mappingDom("titleText", baidu("span", instance.getElement("title"))[0]);
+    instance.$mappingDom("titleButtons", baidu(".buttons", instance.getElement("title"))[0]);
+    instance.$mappingDom("body", baidu(".tang-body", container)[0]);
+    instance.$mappingDom("content", baidu(".content", instance.getElement("body"))[0]);
+    instance.$mappingDom("closeBtn", baidu(".close-btn", instance.getElement("title"))[0]);
+    instance.$mappingDom("foreground", baidu(".tang-foreground", container)[0]);
+    instance.$mappingDom("footer", (node = baidu(".tang-footer", container))[0]);
+    instance.$mappingDom("footerContainer", node.children()[0]);
+    node.hide();
 
-	// instance.$mappingDom("background", baidu(".tang-background", container)[0]);
-	instance._titleHeight = instance.getElement("title").offsetHeight || 30;
+    // instance.$mappingDom("background", baidu(".tang-background", container)[0]);
+    instance._titleHeight = instance.getElement("title").offsetHeight || 30;
 
-	//派发底部渲染
-	instance.fire("footer");
-	
-	var opts = instance._options;
-	if(typeof opt.left == "undefined")
-		opts.left = baidu(container).css("left") == "auto" ? 0 : baidu(container).css("left");
-	if(typeof opt.top == "undefined")
-		opts.top = baidu(container).css("top") == "auto" ? 0 : baidu(container).css("top");
+    //派发底部渲染
+    instance.fire("footer");
+    
+    var opts = instance._options;
+    if(typeof opt.left == "undefined")
+        opts.left = baidu(container).css("left") == "auto" ? 0 : baidu(container).css("left");
+    if(typeof opt.top == "undefined")
+        opts.top = baidu(container).css("top") == "auto" ? 0 : baidu(container).css("top");
 
-	if(typeof opts.width != "number")
-		opts.width = container.clientWidth;
-	if(typeof opts.height != "number")
-		opts.height = container.clientHeight;
+    if(typeof opts.width != "number")
+        opts.width = container.clientWidth;
+    if(typeof opts.height != "number")
+        opts.height = container.clientHeight;
 
-	if(opts.width < 100)
-		opts.width = 100;
-	if(opts.height < 100)
-		opts.height = 100;
+    if(opts.width < 100)
+        opts.width = 100;
+    if(opts.height < 100)
+        opts.height = 100;
 
     /**
     * @description 当窗口节点渲染完成后触发
@@ -142,13 +142,13 @@ magic.setup.dialog = function(el, options){
     *     //do something...
     * };
     */  
-	instance.fire("load");
-	instance.show();
+    instance.fire("load");
+    instance.show();
 
-	if(opts.titleText)
-		instance.setTitleText(opts.titleText);
-	if(opts.content)
-		instance.setContent(opts.content, opts.contentType || "html");
-			
-	return instance;
+    if(opts.titleText)
+        instance.setTitleText(opts.titleText);
+    if(opts.content)
+        instance.setContent(opts.content, opts.contentType || "html");
+            
+    return instance;
 };

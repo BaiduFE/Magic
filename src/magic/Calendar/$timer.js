@@ -31,9 +31,9 @@
  *      highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
  *      disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
  *      language: 'zh-CN'
- *		timer: {
- *			enable: true
- *		}
+ *        timer: {
+ *            enable: true
+ *        }
  * });
  * instance.render('calendar-container');
  */
@@ -138,20 +138,20 @@
                                 }));
 	 		footer.show();
 
-	 		/**
-	 		 *	浮动框骨架
-	 		 */
-	 		 me.floatSkeleton = '<div id="#{id}" class="#{class}">#{content}</div>';
-	 		
-	 		//构建浮动区域
-	 		var fs = baidu(baidu.string.format(me.timerSkeleton, 
-	 				{
-	                    "id": me.$getId(me._getId("choosen")),
-	                    "class": getClass("timer-choosen"),
-	                    "content": ''
-	                }));
-	 		fs.hide();
-	 		baidu(me.getElement(timerIdty)).append(fs[0]);
+             /**
+              *    浮动框骨架
+              */
+              me.floatSkeleton = '<div id="#{id}" class="#{class}">#{content}</div>';
+             
+             //构建浮动区域
+             var fs = baidu(baidu.string.format(me.timerSkeleton, 
+                     {
+                        "id": me.$getId(me._getId("choosen")),
+                        "class": getClass("timer-choosen"),
+                        "content": ''
+                    }));
+             fs.hide();
+             baidu(me.getElement(timerIdty)).append(fs[0]);
 
 	 		//存储时分秒节点
 	 		var nodes = me.getElement(timerIdty).getElementsByTagName("input"),
@@ -177,37 +177,37 @@
 			hms[1].value = fillZero(curDate.getMinutes());
 			hms[2].value = fillZero(curDate.getSeconds());
 
-	 		/**
-	 		 * 事件处理
-	 		 */
+             /**
+              * 事件处理
+              */
 
-	 		//键盘按下处理
-	 		register(timerIdty, 'keydown', function(e){
-	 			var e = baidu.event(e || window.event),
-	 				target = baidu(e.target);
-	 			//时分秒区域处理
-	 			if(target.hasClass(getClass("timer-input"))){
-	 				var keycode = e.keyCode;
-	 				//字母0-9的键码48-59,Backspace的键码为8,左上右下的键码是37-40
-	 				!((keycode >= 48 && keycode <= 59) || keycode == 8) && e.preventDefault();
-	 				!target.hasClass(getClass("timer-hms")) && e.preventDefault();
-	 				if(keycode >= 37 && keycode <= 40 ){
-		 				switch(keycode){
-		 					case 37:    //左方向键
-			                case 38:    //上方向键
-			                    hmsDeal(true);
-			                    break;
-			                case 39:    //右方向键
-			                case 40:    //下方向键
-			                    hmsDeal();
-			                    break;
-			                default:
-			                    break;
-		 				}
-		 				e.stopPropagation();
-	 				}
-	 			}
-	 		});
+             //键盘按下处理
+             register(timerIdty, 'keydown', function(e){
+                 var e = baidu.event(e || window.event),
+                     target = baidu(e.target);
+                 //时分秒区域处理
+                 if(target.hasClass(getClass("timer-input"))){
+                     var keycode = e.keyCode;
+                     //字母0-9的键码48-59,Backspace的键码为8,左上右下的键码是37-40
+                     !((keycode >= 48 && keycode <= 59) || keycode == 8) && e.preventDefault();
+                     !target.hasClass(getClass("timer-hms")) && e.preventDefault();
+                     if(keycode >= 37 && keycode <= 40 ){
+                         switch(keycode){
+                             case 37:    //左方向键
+                            case 38:    //上方向键
+                                hmsDeal(true);
+                                break;
+                            case 39:    //右方向键
+                            case 40:    //下方向键
+                                hmsDeal();
+                                break;
+                            default:
+                                break;
+                         }
+                         e.stopPropagation();
+                     }
+                 }
+             });
 
 	 		//时分秒文本内容处理
 	 		var enableBlur = true,
@@ -280,16 +280,16 @@
 	 			}
 	 		});
 
-			//鼠标弹起处理
-	 		register(document, 'mouseup', function(e){
-	 			continueEnd = true;
-	 		});
+            //鼠标弹起处理
+             register(document, 'mouseup', function(e){
+                 continueEnd = true;
+             });
 
-	 		register(document, 'mousedown', function(){
-				//隐藏浮动数值区域
-	 			!regionActive && fs.hide();
-	 			regionActive = false;
-	 		});
+             register(document, 'mousedown', function(){
+                //隐藏浮动数值区域
+                 !regionActive && fs.hide();
+                 regionActive = false;
+             });
 
 	 		//鼠标悬浮处理
 	 		register(timerIdty, 'mouseover', (function(){
@@ -378,12 +378,12 @@
 		        hms[1].value = fillZero(date.getMinutes());
 		        hms[2].value = fillZero(date.getSeconds());
 		    }
-	        me.currentDate = new Date(date);
-	        me.selectedDate = new Date(date);
-	        
-	        me._rerender();
-	        return true;
-	    },
+            me.currentDate = new Date(date);
+            me.selectedDate = new Date(date);
+            
+            me._rerender();
+            return true;
+        },
 
 	    /**
 	     * 选中前一小时
@@ -473,17 +473,17 @@
 	        minute = fillZero(minute);
 	        second = fillZero(second);
 
-	        return [year, '/', month, '/', date, ' ', hour, ':', minute, ':', second].join('');
-	    },
+            return [year, '/', month, '/', date, ' ', hour, ':', minute, ':', second].join('');
+        },
 
-	    /**
-	     * 触发选中时间日期事件
-	     */
-	    _fireSelectedDate: function(){
-    		this.fire("selectdate", {
-		            'date': this.getDate(),
-		            'ignoreHide': true
-		        });
-	    }
- 	}
+        /**
+         * 触发选中时间日期事件
+         */
+        _fireSelectedDate: function(){
+            this.fire("selectdate", {
+                    'date': this.getDate(),
+                    'ignoreHide': true
+                });
+        }
+     }
  );

@@ -56,11 +56,13 @@
             var options = {
                 getData: function(key){
                     var me = this;
-                    baidu.ajax.request("../../demos/Suggestion/service.json", {
+                    
+                    baidu.ajax("../../demos/Suggestion/service.json", {
                         'method': 'GET',
                         'timeout': 2000,
-                        'onsuccess': function(xhr, response){
-                            var a = eval(response);
+                        'dataType': 'text',
+                        'success': function(data, status, xhr){
+                            var a = eval(data);
                             me.receiveData(key, a);
                         }
                     });

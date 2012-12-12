@@ -78,7 +78,7 @@ magic.Calendar = baidu.lang.createClass(function(options){
 magic.Calendar.extend(
 /** @lends magic.Calendar.prototype */
 {
-	/**
+    /**
      * 日历骨架模板
      */
     tplSkeleton: '<div id="#{calendarId}" class="#{calendarClass}"><div id="#{titleId}" class="#{titleClass}"></div><div id="#{tableId}" class="#{tableClass}"></div><div id="#{footerId}" class="#{footerClass}"></div></div>',

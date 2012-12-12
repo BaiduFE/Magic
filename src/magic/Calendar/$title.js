@@ -17,9 +17,9 @@
  * @example
  * for options.title.enable
  * var instance = magic.setup.calendar('calendar', {
- * 		title: {
- * 			enable: true
- * 		}
+ *         title: {
+ *             enable: true
+ *         }
  * });
  */
 baidu.lang.register(magic.Calendar, function(){

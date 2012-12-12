@@ -41,25 +41,25 @@
  * @example
  * /// for options.autoHide,options.visible,options.smartPosition
  * var instance = new magic.Popup({
- * 		autoHide: true,		// 自动隐藏
- * 		visible: true,		// 显示弹出层
- * 		smartPosition: true		// 自动向下或向上翻转
+ *         autoHide: true,        // 自动隐藏
+ *         visible: true,        // 显示弹出层
+ *         smartPosition: true        // 自动向下或向上翻转
  * });
  * @example
  * /// for options.disposeOnHide,options.hideOnEscape
  * var instance = new magic.Popup({
- * 		disposeOnHide: true,		// 在 hide 方法执行的时候自动析构
- * 		hideOnEscape: true		// 在用户按[ESC]键时是否隐藏当前弹出层
+ *         disposeOnHide: true,        // 在 hide 方法执行的时候自动析构
+ *         hideOnEscape: true        // 在用户按[ESC]键时是否隐藏当前弹出层
  * });
  * @example
  * /// for options.offsetX,options.offsetY,options.top,options.left,options.width,options.height
  * var instance = new magic.Popup({
- * 		offsetX: 10,		// X方向偏移10px
- * 		offsetY: 20,		// Y方向偏移20px
- * 		left: 200,			// X轴坐标 200px
- * 		top: 500,			// Y轴坐标 500px
- * 		width: 300,			// 宽 300px
- * 		height:80			// 高 80px
+ *         offsetX: 10,        // X方向偏移10px
+ *         offsetY: 20,        // Y方向偏移20px
+ *         left: 200,            // X轴坐标 200px
+ *         top: 500,            // Y轴坐标 500px
+ *         width: 300,            // 宽 300px
+ *         height:80            // 高 80px
  * });
  */
 

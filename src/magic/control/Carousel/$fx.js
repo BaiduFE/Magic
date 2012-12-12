@@ -19,24 +19,24 @@
  * @example
  * /// for options.fx.enable
  * var instance = new magic.Carousel({
- * 		fx: {
- * 			enable: true
+ *         fx: {
+ *             enable: true
  *      }
  * });
  * @example
  * /// for options.fx.duration
  * var instance = new magic.Carousel({
- * 		fx: {
- * 			enable: true,
- * 			duration: 1000	// 执行一次动画的时间1秒
+ *         fx: {
+ *             enable: true,
+ *             duration: 1000    // 执行一次动画的时间1秒
  *      }
  * });
  * @example
  * /// for options.fx.interval
  * var instance = new magic.Carousel({
- * 		fx: {
- * 			enable: true,
- * 			interval: 20	// 动画脉冲间隔时间20毫秒
+ *         fx: {
+ *             enable: true,
+ *             interval: 20    // 动画脉冲间隔时间20毫秒
  *      }
  * });
  */
@@ -70,8 +70,8 @@ baidu.lang.register(magic.control.Carousel, function(options){
                 },
                 
                 onafterfinish: function(){
-                	if(me.disposed)
-                		return;
+                    if(me.disposed)
+                        return;
                     me._toggle(evt.index);
                     me._clear(evt.index, opt.focusRange[evt.distance < 0 ? 'min' : 'max']);
                     me._resize();

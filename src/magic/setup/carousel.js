@@ -25,38 +25,38 @@
  * @example
  * /// for el,options.orientation,options.isLoop
  * var carousel = magic.setup.carousel('one-carousel', {
- * 		orientation: 'vertical',	// 竖向滚动
- * 		isLoop: true,				// 循环滚动
+ *         orientation: 'vertical',    // 竖向滚动
+ *         isLoop: true,                // 循环滚动
  * });
  * @example
  * /// for options.originalIndex
  * var carousel = magic.setup.carousel('one-carousel', {
- * 		originalIndex: 2,
+ *         originalIndex: 2,
  * });
  * @example
  * /// for options.viewSize
  * var carousel = magic.setup.carousel('one-carousel', {
- * 		viewSize: 2,
+ *         viewSize: 2,
  * });
  * @example
  * /// for options.focusRange
  * var carousel = magic.setup.carousel('one-carousel', {
- * 		focusRange: {min: 1, max: 2}	// 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
+ *         focusRange: {min: 1, max: 2}    // 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
  * });
  * @example
  * /// for options.step
  * var carousel = magic.setup.carousel('one-carousel', {
- * 		step: 4
+ *         step: 4
  * });
  */
 magic.setup.carousel = function(el, options) {
-	/**
-	 *@description carousel 组件 setup 模式的实例对象
-	 *@instace
-	 *@name magic.setup.carousel!
-	 *@superClass magic.control.Carousel
-	 *@return {instace} magic.control.Carousel 实例对象
-	 */
+    /**
+     *@description carousel 组件 setup 模式的实例对象
+     *@instace
+     *@name magic.setup.carousel!
+     *@superClass magic.control.Carousel
+     *@return {instace} magic.control.Carousel 实例对象
+     */
     var instance = magic.setup(baidu.dom('#'+el).get(0), magic.control.Carousel, options);
     instance.fire('onload');
     return instance;
