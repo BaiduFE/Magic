@@ -13,6 +13,7 @@
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.text;
+///import baidu.dom.css;
 ///import baidu.dom.children;
 ///import baidu.event;
 
@@ -120,6 +121,8 @@
 	 			regionActive = false,
 	 			//当前定焦的时分秒
 	 			focused,
+	 			//补零
+	 			fillZero = me._fillZero,
 	 			timerIdty = me._getId("timer");
 	 		/**
 	 		 *	timer骨架
@@ -127,11 +130,13 @@
 	 		me.timerSkeleton = '<div id="#{id}" class="#{class}">#{content}</div>';
 
 	 		//构建时间区域和浮动区域
-	 		baidu(me.getElement("calendar")).insertHTML('beforeEnd', baidu.string.format(me.timerSkeleton, {
+	 		var footer = baidu(me.footerEl);
+	 		footer.insertHTML('beforeEnd', baidu.string.format(me.timerSkeleton, {
                                     "id": me.$getId(timerIdty),
                                     "class": getClass("timer"),
                                     "content": buildTimer
                                 }));
+	 		footer.show();
 
 	 		/**
 	 		 *	浮动框骨架
@@ -168,9 +173,9 @@
 	 		/**
 	 		 * 初始时分秒处理
 	 		 */
-	 		hms[0].value = curDate.getHours();
-			hms[1].value = curDate.getMinutes();
-			hms[2].value = curDate.getSeconds();
+	 		hms[0].value = fillZero(curDate.getHours());
+			hms[1].value = fillZero(curDate.getMinutes());
+			hms[2].value = fillZero(curDate.getSeconds());
 
 	 		/**
 	 		 * 事件处理
@@ -212,13 +217,15 @@
 		 				target = e.target,
 	 					index = target.getAttribute("index"),
 	 					value = target.value;
-	 				if(value < 0){ target.value = 0;return; }
+	 				if(value < 0){ target.value = '00';return; }
 	 				if(index == 4 ){
-	 					value > 23 && (target.value = 23);
+	 					value > 23 && (value = 23);
+	 					target.value = fillZero(value);
 	 					me._fireSelectedDate();
 	 					return;
 	 				}
-	 				value > 59 && (target.value = 59);
+	 				value > 59 && (value = 59);
+	 				target.value = fillZero(value);
 	 				me._fireSelectedDate();
 		 		};
 		 	baidu.forEach(hms, function(item){
@@ -244,7 +251,7 @@
 	 				return;
 	 			}
 	 			if(baidu(target).hasClass(getClass("timer-li"))){
-	 				focused && (focused.value = baidu(target).text());
+	 				focused && (focused.value = fillZero(baidu(target).text()));
 	 				me._fireSelectedDate();
 	 				enableBlur = false;
 	 				return;
@@ -321,9 +328,11 @@
 	    getDate: function(){
 	    	var date = this.selectedDate,
 	    		hms = this._hms;
-	    	date.setHours(hms[0].value);
-	    	date.setMinutes(hms[1].value);
-	    	date.setSeconds(hms[2].value);
+	    	if(hms){
+		    	date.setHours(hms[0].value);
+		    	date.setMinutes(hms[1].value);
+		    	date.setSeconds(hms[2].value);
+		    }
 	        return new Date(date);
 	    },
 
@@ -347,7 +356,8 @@
 	     */
 	    setDate: function(date){
 	        var me = this,
-	            _date = new Date(date);
+	            _date = new Date(date),
+	            fillZero = me._fillZero;
 	            
 	        if(baidu.type(date) != 'date'){
 	            return false;
@@ -363,10 +373,11 @@
 	        }
 	        
 	        var hms = me._hms;
-	        hms[0].value = date.getHours();
-	        hms[1].value = date.getMinutes();
-	        hms[2].value = date.getSeconds();
-
+	        if(hms){
+		        hms[0].value = fillZero(date.getHours());
+		        hms[1].value = fillZero(date.getMinutes());
+		        hms[2].value = fillZero(date.getSeconds());
+		    }
 	        me.currentDate = new Date(date);
 	        me.selectedDate = new Date(date);
 	        
@@ -378,53 +389,65 @@
 	     * 选中前一小时
 	     */
 	    _preHour: function(){
-	    	var h = this._hms[0],
-	    		value = parseInt(h.value);
-	    	h.value = --value < 0 ? 0 : value; 
+	    	var me = this,
+	    		h = me._hms[0],
+	    		value = h.value;
+	    	h.value = me._fillZero(--value < 0 ? 0 : value); 
 	    },
 	    /**
 	     * 选中后一小时
 	     */
 	    _nextHour: function(){
-	    	var h = this._hms[0],
-	    		value = parseInt(h.value);
-	    	h.value = ++value > 23 ? 23 : value;
+	    	var me = this,
+	    		h = me._hms[0],
+	    		value = h.value;
+	    	h.value = me._fillZero(++value > 23 ? 23 : value);
 	    },
 
 	    /**
 	     * 选中前一分钟
 	     */
 	    _preMinute: function(){
-	    	var m = this._hms[1],
-	    		value = parseInt(m.value);
-	    	m.value = --value < 0 ? 0 : value;
+	    	var me = this,
+	    		m = me._hms[1],
+	    		value = m.value;
+	    	m.value = me._fillZero(--value < 0 ? 0 : value);
 	    },
 	    /**
 	     * 选中后一分钟
 	     */
-	    _nextMinute:function(){
-	    	var m = this._hms[1],
-	    		value = parseInt(m.value);
-	    	m.value = ++value > 59 ? 59 : value;
+	    _nextMinute: function(){
+	    	var me = this,
+	    		m = me._hms[1],
+	    		value = m.value;
+	    	m.value = me._fillZero(++value > 59 ? 59 : value);
 	    },
 
 	    /**
 	     * 选中前一秒
 	     */
-	    _preSecond:function(){
-	    	var s = this._hms[2],
-	    		value = parseInt(s.value);
-	    	s.value = --value < 0 ? 0 : value;
+	    _preSecond: function(){
+	    	var me = this,
+	    		s = me._hms[2],
+	    		value = s.value;
+	    	s.value = me._fillZero(--value < 0 ? 0 : value);
 	    },
 	    /**
 	     * 选中后一秒
 	     */
-	    _nextSecond:function(){
-	    	var s = this._hms[2],
-	    		value = parseInt(s.value);
-	    	s.value = ++value > 59 ? 59 : value;
+	    _nextSecond: function(){
+	    	var me = this,
+	    		s = me._hms[2],
+	    		value = s.value;
+	    	s.value = me._fillZero(++value > 59 ? 59 : value);
 	    },
-
+	    /**
+	     * 将数值为单个数字的前面补零
+	     */
+	    _fillZero: function(value){
+	    	if(new String(value || 0).length > 1){return value;}
+	    	return value >= 10 ? value : ('0' + value);
+	    },
 	     /**
 	     * 格式化日期，将给定日期格式化成2012/05/06 10:10:10
 	     */
@@ -432,15 +455,20 @@
 	        var year = d.getFullYear(),
 	            month = d.getMonth() + 1,
 	            date = d.getDate(),
-	            hour = d.getHours(),
-	            minute = d.getMinutes(),
-	            second = d.getSeconds(),
-	            fillZero = function(value){
-	            	return value >= 10 ? value : ('0' + value);
-	            };
+	            opt = this._options.timer,
+	            fillZero = this._fillZero;
 
 	        month = fillZero(month);
 	        date = fillZero(date);
+
+	        if(!opt || !opt.enable){
+	        	return [year, '/', month, '/', date].join('');
+	        }
+	        
+	        var hour = d.getHours(),
+	            minute = d.getMinutes(),
+	            second = d.getSeconds();
+	        
 	        hour = fillZero(hour);
 	        minute = fillZero(minute);
 	        second = fillZero(second);

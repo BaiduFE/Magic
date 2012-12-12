@@ -19,6 +19,7 @@
 ///import baidu.date.format;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
+///import baidu.dom.hide;
 ///import baidu.event;
 ///import magic.Base;
 ///import baidu.lang.isDate;
@@ -80,7 +81,7 @@ magic.Calendar.extend(
 	/**
      * 日历骨架模板
      */
-    tplSkeleton: '<div id="#{calendarId}" class="#{calendarClass}"><div id="#{titleId}" class="#{titleClass}"></div><div id="#{tableId}" class="#{tableClass}"></div></div>',
+    tplSkeleton: '<div id="#{calendarId}" class="#{calendarClass}"><div id="#{titleId}" class="#{titleClass}"></div><div id="#{tableId}" class="#{tableClass}"></div><div id="#{footerId}" class="#{footerClass}"></div></div>',
     
     /**
      * 日期单元格模板
@@ -212,16 +213,22 @@ magic.Calendar.extend(
             titleId: me._getId('title'),
             titleClass: me._getClass('title'),
             tableId: me._getId('table'),
-            tableClass: me._getClass('table')
+            tableClass: me._getClass('table'),
+            footerId: me._getId('footer'),
+            footerClass: me._getClass('footer')
         }));
         
         me.titleEl = baidu('#' + me._getId('title'))[0];
         me.tableEl = baidu('#' + me._getId('table'))[0];
+        var footer = baidu('#' + me._getId('footer'));
+        me.footerEl = footer[0];
+        footer.hide();
 
         me.$mappingDom('', baidu('#' + me._getId())[0]);
         me.$mappingDom('calendar', baidu('#' + me._getId())[0]);
         me.$mappingDom('title', me.titleEl);
         me.$mappingDom('table', me.tableEl);
+        me.$mappingDom('footer', me.footerEl);
     },
 
     /**
