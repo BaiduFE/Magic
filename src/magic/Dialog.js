@@ -19,6 +19,7 @@
 ///import baidu.dom.off;
 ///import baidu.dom.hide;
 ///import baidu.dom.show;
+///import baidu.dom.remove;
 ///import baidu.fn.bind;
 ///import baidu.dom;
 ///import magic.Background;
@@ -176,7 +177,8 @@ magic.Dialog.extend(
                 baidu(this.getElement("closeBtn")).off("click", this._closeBtnFn);
                 this._background.$dispose();
                 el.innerHTML = "";
-                baidu(el).removeClass("tang-ui tang-dialog");
+                // baidu(el).removeClass("tang-ui tang-dialog");
+                baidu(el).remove();
             }
         );
     },

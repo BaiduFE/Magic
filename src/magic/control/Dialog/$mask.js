@@ -43,6 +43,10 @@ baidu.lang.register(magic.control.Dialog,
             this.on("hide", function(){
                 this.hideMask();
             });
+
+            this.disposeProcess.push(function(){
+                this._mask.$dispose();
+            });
         }
     },
 
