@@ -14,6 +14,7 @@
 ///import baidu.makeArray;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
+///import baidu.array.removeAt;
 ///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
@@ -551,6 +552,53 @@ void function(){
          */
         getTotalCount: function(){
             return this._dataIds.length;
+        },
+
+        /**
+         * @description 删除某一项
+         * @name magic.control.Carousel#removeItem
+         * @function 
+         * @grammar magic.control.Carousel#removeItem()
+         * @param {Number} index 需要删除的索引项
+         * @example
+         * var instance = new magic.Carousel(option);
+         * instance.removeItem(0);    // 删除第0项
+         */
+        removeItem : function(index) {
+            if (index >= this._dataIds.length) {
+                return;
+            }
+            var me = this,
+                focusRange = me._options.focusRange,
+                viewSize = me._options.viewSize,
+                element = me.getElement('element'),
+                child = baidu.makeArray(baidu.dom(element).children()),
+                totalCount = me._dataIds.length,
+                removeTarget = baidu('#' + me._dataIds[index]),
+                viewIds = [],
+                count, insertItem;
+            baidu.array(child).each(function(index, item) {
+                viewIds.push(item.id);
+            })
+            if (baidu.array(viewIds).indexOf(me._dataIds[index]) != -1) {
+                baidu(removeTarget).remove();
+                count = baidu.array(me._dataIds).indexOf(child[viewSize - 1].id) + 1;
+                if (count == me._dataIds.length) {
+                    count = 0;
+                }
+                insertItem = me._getItem(count);
+                insertItem.insert(element, 'forward');
+                insertItem.loadContent();
+                me._resize();               
+            }
+            delete me._datas[me._getItem(index).guid];
+            baidu.array(me._dataIds).removeAt(index);
+            if (index >= me._dataIds.length) {
+                index = 0;
+            }
+            if(me._selectedIndex == index) {
+                me.focus(index);
+            } 
         },
         
         /**

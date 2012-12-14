@@ -22,7 +22,7 @@
                 baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
             }
         </script>
-        <script type="text/javascript" src='../../src/import.php?f=magic.Carousel'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Carousel,baidu.event.shortcut'></script>
     </head>
     <body>
         <div class="content">
@@ -55,6 +55,8 @@
                		<button id="focus">聚焦到第三项 (focus)</button><br />
                		<button id="getCurrentIndex">取得当前项的索引值 (getCurrentIndex)</button>
                		<button id="getTotalCount">取得数据项的总数目 (getTotalCount)</button>
+                    删除(removeItem)第<input id="removePos" value="0">项
+                    <button id="removeItem">删除</button>
                	</div>
                 <div class="console-wrap">
                     <h3>控制台</h3>
@@ -68,13 +70,13 @@
 		        viewSize: 4,
 		        isLoop: true,
 		        items: [
-		            {content: '<img src="../../demos/Carousel/item/0.png"/>'},
-		            {content: '<img src="../../demos/Carousel/item/1.png"/>'},
-		            {content: '<img src="../../demos/Carousel/item/2.png"/>'},
-		            {content: '<img src="../../demos/Carousel/item/3.png"/>'},
-		            {content: '<img src="../../demos/Carousel/item/4.png"/>'},
-		            {content: '<img src="../../demos/Carousel/item/5.png"/>'},
-		            {content: '<img src="../../demos/Carousel/item/6.png"/>'}
+		            {content: '1<img src="../../demos/Carousel/item/0.png"/>'},
+		            {content: '2<img src="../../demos/Carousel/item/1.png"/>'},
+		            {content: '3<img src="../../demos/Carousel/item/2.png"/>'},
+		            {content: '4<img src="../../demos/Carousel/item/3.png"/>'},
+		            {content: '5<img src="../../demos/Carousel/item/4.png"/>'},
+		            {content: '6<img src="../../demos/Carousel/item/5.png"/>'},
+		            {content: '7<img src="../../demos/Carousel/item/6.png"/>'}
 		        ]
 		    });
 		    instance.render('one-carousel');
@@ -109,6 +111,13 @@
 		    	var num = instance.getTotalCount();
 		    	log('info', 'instance.<b>getTotalCount()</b>: 数据项的总数目: ' + num);
 		    });
+
+            // removeItem 方法
+            baidu('#removeItem').click(function(){
+                var index = baidu('#removePos').get(0).value - 0;
+                var num = instance.removeItem(index);
+                log('info', 'instance.<b>removeItem()</b>');
+            });
 		    
         </script>
     </body>
