@@ -56,7 +56,7 @@ magic.Calendar = baidu.lang.createClass(function(options){
     var me = this;
     me._options = baidu.object.extend({
         weekStart: 'sun',
-        initDate: baidu.i18n.date.toLocaleDate(new Date()),
+        initDate: new Date(),
         highlightDates: [],
         disabledDates: [],
         disabledDayOfWeek: [],
@@ -574,7 +574,7 @@ magic.Calendar.extend(
                     classname += ' ' + me._getClass("weekend");
                 }
                 //是否当天
-                if(me._datesEqual(baidu.i18n.date.toLocaleDate(new Date()), date)){
+                if(me._datesEqual(new Date(), date)){
                     classname += ' ' + me._getClass("today");
                 }
                 //是否是高亮日期

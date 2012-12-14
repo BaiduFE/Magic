@@ -56,9 +56,7 @@ test("test operation", function(){
 	stop();
 	var container = document.createElement("div");
     document.body.appendChild(container);	
-    var language = baidu.i18n.currentLocale;
     //中文处理
-    baidu.i18n.currentLocale = 'zh-CN';
 	var ca = new magic.Calendar({
 	        initDate: new Date("2012/05/06"),
 	        today:{
@@ -69,7 +67,7 @@ test("test operation", function(){
 
 	ua.click(ca.getElement("today"));
 	var date = ca.getDate(),
-		curDate = baidu.i18n.date.toLocaleDate(new Date());
+		curDate = new Date();
 	equals(date.getFullYear(), curDate.getFullYear(), '当前年份');
 	equals(date.getMonth(), curDate.getMonth(), '当前月份');
 	equals(date.getDate(), curDate.getDate(), '当前日期');
@@ -87,7 +85,7 @@ test("test operation", function(){
 	    });
 	ca.render(container);
 
-	curDate = baidu.i18n.date.toLocaleDate(new Date(), null, 'zh-CN');
+	curDate = new Date();
 	ua.click(ca.getElement("today"));
 	var hms = ca._hms;
     equals(ca._hms[0].value, curDate.getHours(), "小时值为" + curDate.getHours());
@@ -96,7 +94,6 @@ test("test operation", function(){
     ca.$dispose();
 
     //英文处理
-    baidu.i18n.currentLocale = 'en-US';
     ca = new magic.Calendar({
 	        initDate: new Date("2012/05/06"),
 	        today: {
@@ -109,14 +106,13 @@ test("test operation", function(){
 	    });
 	ca.render(container);
 
-	curDate = baidu.i18n.date.toLocaleDate(new Date(), null, 'en-US');
+	curDate = new Date();
 	ua.click(ca.getElement("today"));
 	var hms = ca._hms;
     equals(ca._hms[0].value, curDate.getHours(), "小时值为" + curDate.getHours());
     equals(ca._hms[1].value, curDate.getMinutes(), "分钟值为" + curDate.getMinutes());
     approximateEqual(ca._hms[2].value, curDate.getSeconds(), "秒值为" + curDate.getSeconds());
 
-    baidu.i18n.currentLocale = language;
 	start();
     ca.$dispose();
     document.body.removeChild(container);

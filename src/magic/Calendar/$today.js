@@ -43,7 +43,7 @@
  			//事件处理
  			var	todayBtn = me.getElement('today'), eventHandler;
  			baidu(todayBtn).click(eventHandler = function(){
- 				me.setDate(baidu.i18n.date.toLocaleDate(new Date()));
+ 				me.setDate(new Date());
  				me.fire("selectdate", {
 		            'date': me.getDate()
 		        });
