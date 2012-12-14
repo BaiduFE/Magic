@@ -42,6 +42,7 @@ baidu.lang.register(magic.control.Carousel, function(options){
      * instance.removeItem(0);    // 删除第0项
      */
     removeItem : function(index) {
+        //debugger;
         if (index >= this._dataIds.length) {
             return;
         }
@@ -59,21 +60,24 @@ baidu.lang.register(magic.control.Carousel, function(options){
         })
         if (baidu.array(viewIds).indexOf(me._dataIds[index]) != -1) {
             baidu(removeTarget).remove();
-            count = baidu.array(me._dataIds).indexOf(child[viewSize - 1].id) + 1;
-            if (count == me._dataIds.length) {
-                count = 0;
+            if (me._dataIds.length > viewSize) {
+                count = baidu.array(me._dataIds).indexOf(child[viewSize - 1].id) + 1;
+                if (count == me._dataIds.length) {
+                    count = 0;
+                }
+                insertItem = me._getItem(count);
+                insertItem.insert(element, 'forward');
+                insertItem.loadContent();
+                me._resize();                 
             }
-            insertItem = me._getItem(count);
-            insertItem.insert(element, 'forward');
-            insertItem.loadContent();
-            me._resize();               
         }
         delete me._datas[me._getItem(index).guid];
         baidu.array(me._dataIds).removeAt(index);
         if (index >= me._dataIds.length) {
             index = 0;
         }
-        if(me._selectedIndex == index) {
+        if(me._selectedIndex == index && me._dataIds.length > 0) {
+            //me._selectedIndex = -1;
             me.focus(index);
         } 
     }  

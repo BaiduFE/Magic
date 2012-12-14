@@ -376,6 +376,7 @@ void function(){
          * @param {Number} index 滚动项索引
          */
         _toggle: function(index){
+            console.log('toggle' + index);
             var me = this;
             baidu.dom('#'+me._dataIds[me._selectedIndex]).removeClass('tang-carousel-item-selected');
             me._selectedIndex = index;
@@ -409,6 +410,7 @@ void function(){
          * @param {String} direction 可选，滚动方向，取值：forward|backward
          */
         _scrollTo: function(index, direction){
+            debugger;
             var me = this,
                 opt = me._options,
                 focusRange = opt.focusRange,
@@ -428,9 +430,9 @@ void function(){
                     - (vector ? child.length - posIndex - 1 : posIndex),//((vector ? -1 : 1) * y - x + len) % len.
                 empty = [],
                 count, ele, distance, insertItem, entry;
-            if(index == selectedIndex
+            if(/*index == selectedIndex
                 || me._dataIds.length <= opt.viewSize
-                || me._scrolling){//exit
+                ||*/ me._scrolling){//exit
                 return;
             }
             me._scrolling = true;
