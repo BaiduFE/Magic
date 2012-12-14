@@ -32,6 +32,7 @@ test("test plugin enable", function(){
 	    equals(baidu(ca.getElement("today")).text(), '今天', '回到今天区域label中文为：今天');
 	    ca.$dispose();
 
+	    //英文
 		ca = new magic.Calendar({
 	        initDate: new Date("2012/05/06"),
 	        today:{
@@ -51,10 +52,13 @@ test("test plugin enable", function(){
 
 //case 2
 test("test operation", function(){
-	expect(6);
+	expect(9);
 	stop();
 	var container = document.createElement("div");
     document.body.appendChild(container);	
+    var language = baidu.i18n.currentLocale;
+    //中文处理
+    baidu.i18n.currentLocale = 'zh-CN';
 	var ca = new magic.Calendar({
 	        initDate: new Date("2012/05/06"),
 	        today:{
@@ -65,13 +69,12 @@ test("test operation", function(){
 
 	ua.click(ca.getElement("today"));
 	var date = ca.getDate(),
-		curDate = new Date();
+		curDate = baidu.i18n.date.toLocaleDate(new Date());
 	equals(date.getFullYear(), curDate.getFullYear(), '当前年份');
 	equals(date.getMonth(), curDate.getMonth(), '当前月份');
 	equals(date.getDate(), curDate.getDate(), '当前日期');
 	ca.$dispose();
 
-	baidu.i18n.currentLocale = 'zh-CN';
 	//时分秒插件开启
 	ca = new magic.Calendar({
 	        initDate: new Date("2012/05/06"),
@@ -84,13 +87,36 @@ test("test operation", function(){
 	    });
 	ca.render(container);
 
-	curDate = baidu.i18n.date.toLocaleDate(new Date());
+	curDate = baidu.i18n.date.toLocaleDate(new Date(), null, 'zh-CN');
 	ua.click(ca.getElement("today"));
 	var hms = ca._hms;
     equals(ca._hms[0].value, curDate.getHours(), "小时值为" + curDate.getHours());
     equals(ca._hms[1].value, curDate.getMinutes(), "分钟值为" + curDate.getMinutes());
     equals(ca._hms[2].value, curDate.getSeconds(), "秒值为" + curDate.getSeconds());
+    ca.$dispose();
 
+    //英文处理
+    baidu.i18n.currentLocale = 'en-US';
+    ca = new magic.Calendar({
+	        initDate: new Date("2012/05/06"),
+	        today: {
+	            enable: true
+	        },
+	        timer: {
+	        	enable: true
+	        },
+	        language: 'en-US'
+	    });
+	ca.render(container);
+
+	curDate = baidu.i18n.date.toLocaleDate(new Date(), null, 'en-US');
+	ua.click(ca.getElement("today"));
+	var hms = ca._hms;
+    equals(ca._hms[0].value, curDate.getHours(), "小时值为" + curDate.getHours());
+    equals(ca._hms[1].value, curDate.getMinutes(), "分钟值为" + curDate.getMinutes());
+    approximateEqual(ca._hms[2].value, curDate.getSeconds(), "秒值为" + curDate.getSeconds());
+
+    baidu.i18n.currentLocale = language;
 	start();
     ca.$dispose();
     document.body.removeChild(container);
