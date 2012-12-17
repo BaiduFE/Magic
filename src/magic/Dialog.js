@@ -177,8 +177,7 @@ magic.Dialog.extend(
                 baidu(this.getElement("closeBtn")).off("click", this._closeBtnFn);
                 this._background.$dispose();
                 el.innerHTML = "";
-                // baidu(el).removeClass("tang-ui tang-dialog");
-                baidu(el).remove();
+                baidu(el).removeClass("tang-ui tang-dialog");
             }
         );
     },

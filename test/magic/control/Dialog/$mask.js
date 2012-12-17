@@ -531,5 +531,31 @@ test("window resize, window scroll", function(){
 			}, 50);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
+test("test dispose", function(){
+	expect(1);
+	stop();
+	ua.importsrc("baidu.dom.contains,magic.Dialog", function(){
+		var div = document.createElement("div");
+		document.body.appendChild(div);
+		div.id = "one-dialog";
+		div.style.position = "absolute";
+		var cdiv = document.createElement("div");
+		cdiv.id = "cdiv";
+		$(cdiv).html("dialog内容");
+		var dialog = new magic.Dialog({
+			titleText : '标题',
+			content : cdiv,
+			mask : {
+				enable: true
+			}
+		});
+		dialog.render("one-dialog");
+		var maskNode = dialog._mask.getElement();
+		dialog.$dispose();
+		ok(!baidu(document.body).contains(maskNode), 'the mask node is destroyed.');
+		document.body.removeChild(div);
+		start();
+	}, 'magic.Dialog', "magic.control.Dialog.$mask");
+});
