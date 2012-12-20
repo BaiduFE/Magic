@@ -22,7 +22,7 @@ a {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	width: 199px;
+	width: 219px;
 	background-color: #F8F8F8;
 	padding: 10px;
 	border-right: 1px solid #AAA;
@@ -38,6 +38,7 @@ a {
 }
 .demo-list li {
 	margin-bottom: 5px;
+	position: relative;
 }
 .demo-list a {
 	color: #666;
@@ -46,7 +47,22 @@ a {
 	padding-left: 25px;
 	height: 25px;
 	line-height: 25px;
-	display: block;
+	display: inline-block;
+}
+.demo-list a.open-blank{
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: url(fullscreen_toggle.png) no-repeat;
+	height: 20px;
+	width: 20px;
+	padding: 0;
+}
+.demo-list a.open-blank:hover {
+	background-position: 0 -20px;
+}
+.demo-list a.open-blank:active {
+	background-position: 0 -40px;
 }
 .demo-list a:hover {
 	color: #1590B3;
@@ -59,8 +75,8 @@ a {
 	cursor: text;
 }
 .main-wrap {
-	margin-left: 240px;
-	margin-right: 20px;
+	margin-left: 255px;
+	margin-right: 15px;
 }
 .demo-wrap {
 	background-color: #8899DD;

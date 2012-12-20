@@ -16,5 +16,6 @@ function log(type, msg){
         if(name == currentName) {
             a.className = "selected";
         }
+        baidu(a).insertHTML('afterEnd', '<a class="open-blank" href="' + a.href + '" target="_blank" title="在新窗口打开"></a>')
     };
 })();
