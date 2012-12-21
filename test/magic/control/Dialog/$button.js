@@ -515,7 +515,7 @@ test("button plugin setup", function(){
 		dialog.$dispose();
 		document.body.removeChild(baidu("#one-dialog")[0]);
 		start();
-	}, "magic.setup.dialog");
+	}, "magic.setup.dialog", "magic.control.Dialog.$button");
 });
 
 
@@ -852,7 +852,7 @@ test('magic.alert', function(){
             equals(l2, l1, '事件已全部移除');
 
             start();
-    });
+    }, "baidu.ajax.request", "magic.control.Dialog.$button");
 });
 
 //case 7
@@ -870,7 +870,7 @@ test('magic.alert 英文环境', function(){
 
        	start();
        	ua.click(instance.buttons[0]);
-    });
+    }, "baidu.i18n.cultures.en-US", "magic.control.Dialog.$button");
 });
 
 //case 8
@@ -1029,21 +1029,17 @@ test('magic.confirm', function(){
 //case 9
 test('magic.confirm 英文环境', function(){
     expect(2);
-    stop();
-    ua.importsrc("baidu.i18n.cultures.en-US", function(){
-    	var instance = magic.confirm({
-            'content': '内容',
-            'titleText': '标题',
-            'ok': function(){},
-            'cancel': function(){}
-        });
-
-        ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == 'ok', '确定按钮文案显示正确');
-        ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == 'cancel', '取消按钮文案显示正确');
-
-       	start();
-       	ua.click(instance.buttons[0]);
+	var instance = magic.confirm({
+        'content': '内容',
+        'titleText': '标题',
+        'ok': function(){},
+        'cancel': function(){}
     });
+
+    ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == 'ok', '确定按钮文案显示正确');
+    ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == 'cancel', '取消按钮文案显示正确');
+
+   	ua.click(instance.buttons[0]);
 });
 
 
