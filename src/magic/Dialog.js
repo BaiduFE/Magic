@@ -19,6 +19,7 @@
 ///import baidu.dom.off;
 ///import baidu.dom.hide;
 ///import baidu.dom.show;
+///import baidu.dom.remove;
 ///import baidu.fn.bind;
 ///import baidu.dom;
 ///import magic.Background;

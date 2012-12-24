@@ -44,9 +44,8 @@ baidu.lang.register(magic.control.Dialog,
                 this.hideMask();
             });
 
-            this.on("dispose", function(){
-                this.hideMask();
-                this._mask.container.removeChild(this._mask.getElement());
+            this.disposeProcess.push(function(){
+                this._mask.$dispose();
             });
         }
     },
