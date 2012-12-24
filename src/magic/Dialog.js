@@ -107,7 +107,7 @@ magic.Dialog.extend(
         el = baidu(el)[0];
         el || document.body.appendChild(el = document.createElement("div"));
         var template = magic.Dialog.template.join(""), options = this._options;
-        baidu(el).addClass("tang-ui tang-dialog");
+        baidu(el).addClass("tang-ui tang-dialog").css('display', 'block');
 
         // var content = "";
         // if(typeof this.content == "string")
