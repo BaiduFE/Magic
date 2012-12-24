@@ -55,11 +55,4 @@
 
 .tang-tooltip .dir_top .arrow_bottom{display:none;}
 .tang-tooltip .dir_bottom .arrow_top{display:none;}
-
-/* Tooltip */
-.magic-tooltip{
-	padding:16px 20px 16px 16px;
-}
-.magic-tooltip-close .close-btn{
-	background:url(close.gif) no-repeat center center;
-}	
+	
