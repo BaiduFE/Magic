@@ -585,3 +585,38 @@ test("focus by click", function(){
 		document.body.removeChild(f.parentNode);
 	})	
 });
+
+//case 17
+test("dispose and then create a new instance", function(){
+	expect(1);
+	stop();
+	ua.frameExt(function(w, f){
+		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+		var div = w.document.createElement("div");
+		w.document.body.appendChild(div);
+		div.id = "dialog-1";
+		$(div).css("position", "absolute").css('backgroundColor', 'green');
+		var dialog = new w.magic.Dialog({
+			titleText : '标题',
+			content : '内容',
+			height : 100,
+			width : 100
+		});
+		dialog.on("hide", function(){
+			this.$dispose();
+		});
+		dialog.render("dialog-1");
+
+		dialog = new w.magic.Dialog({
+			titleText : '标题',
+			content : '内容',
+			height : 100,
+			width : 100
+		});
+		dialog.render("dialog-1");
+		equal(dialog.getElement("title").offsetHeight, dialog.getElement("titleText").offsetHeight + (baidu.browser.ie ? 0 : 2) , 'title height is right');
+		w.document.body.removeChild(div);
+		this.finish();
+		document.body.removeChild(f.parentNode);
+	})	
+});
