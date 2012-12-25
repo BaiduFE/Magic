@@ -23,6 +23,7 @@
  * @param {Function} options.buttons.items.builder 按钮构造，默认null，该属性会读取其他button属性
  * @param {String} options.buttons.align 按钮整体布局，默认right,可选值为left,center,right
  * @param {String} options.buttons.enable 插件开关，默认false
+ * @properties {Array} instance.buttons 底部区域按钮节点集合
  * @example
  * /// for options.buttons.items.text,options.buttons.items.disabled,options.buttons.items.callback,options.buttons.items.builder,options.buttons.align,options.buttons.enable
  * var  creator = (function(){
@@ -84,7 +85,7 @@
              * @name magic.control.Dialog.buttons
              * @property 
              */
-             this.buttons = null,
+            this.buttons = null,
             baidu(this.getElement("footer")).show();
             this._createButton(options.buttons);
             baidu(this.getElement("footerContainer")).addClass("tang-footerContainer");
