@@ -544,8 +544,7 @@ test("test dispose", function(){
 		ua.importsrc("baidu.dom.contains,magic.Dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 			w.$("body").css("overflow", "hidden");
-			enSetup(w);
-
+			
 			var div = w.document.createElement("div");
 			w.document.body.appendChild(div);
 			div.id = "one-dialog";
@@ -563,10 +562,9 @@ test("test dispose", function(){
 			dialog.render("one-dialog");
 			var maskNode = dialog._mask.getElement();
 			dialog.$dispose();
-			ok(!baidu(w.document.body).contains(maskNode), 'the mask node is destroyed.');
+			ok(!w.baidu(w.document.body).contains(maskNode), 'the mask node is destroyed.');
 			w.document.body.removeChild(div);
 			me.finish();
-			document.body.removeChild(f.parentNode);
 		}, "magic.Dialog", "magic.control.Dialog.$mask", w);
 	});	
 });
