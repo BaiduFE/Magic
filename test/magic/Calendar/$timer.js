@@ -94,18 +94,20 @@ test("test basic operation for input text ", function(){
         hms = ca._hms,
         exeList = [],
         //focus and blur
-        fab = function(node, nextNode, evaluate, realValue, message){
+        fab = function(node, nextNode, evaluate, realValue, message, notconsider){
             node.focus();
             node.value = evaluate;
             nextNode.focus();
             setTimeout(function(){
-                equals(parseInt(node.value), realValue, message);
+                !notconsider && equals(parseInt(node.value), realValue, message);
                 exeList.splice(0, 1);
                 exeList[0] && exeList[0]();
             },100);
             
         };
     //小时操作
+    //第一个是多余的，在IE9以下，且在list.php方式下第一次执行fab方法的时候好像focus没有起作用。
+    exeList.push(function(){fab(hms[0], hms[1], 90, 23, "小时最大值为23", true)});
     exeList.push(function(){fab(hms[0], hms[1], 90, 23, "小时最大值为23")});
     exeList.push(function(){fab(hms[0], hms[1], -11, 0, "小时最小值为0")});
     exeList.push(function(){fab(hms[0], hms[1], 13, 13, "小时正常区间为0-23")});
