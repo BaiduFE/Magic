@@ -42,5 +42,21 @@ class Config{
 		 * @var string
 		 */
 		public static $COVERAGE_PATH = "../../../test/coverage/";
+		
+	/**
+	 * download dest
+	 */
+	public static $DL_DEST_DIR = "C:\\Documents and Settings\\tianlili\\My Documents\\Downloads\\";
+	
+	public static $DL_FILE_MAGIC = "magic.zip";
+	
+	public static $DL_FILE_TANGRAM = "tangram.zip";
+	
+	/**
+	 * release path
+	 */
+	public static $RELEASE_PATH = "D:\\Workplace\\Magic\\release\\";
+	
+	public static $RELEASE_FILE= "magic-min.js";
 }
 ?>

@@ -145,5 +145,21 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
             +"filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);"
             +"position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1' "
             +"src='about:blank'></iframe><div style='position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:-1;'>&nbsp;</div>") +"</div>";
+    },
+    /**
+     * @description 析构
+     * @name magic.Mask#$dispose
+     * @function
+     * @grammar magic.Mask#$dispose()
+     * @example
+     * var instance = new magic.Mask({
+     *         bgColor: '#ccc',    // 灰色背景
+     *         opacity: 0.5        // 50%透明度
+     * });
+     * instance.$dispose();
+     */
+    $dispose: function(){
+        var layout = this.getElement();
+        layout.parentNode.removeChild(layout);
     }
 });

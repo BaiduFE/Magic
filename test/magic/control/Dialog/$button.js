@@ -72,7 +72,7 @@ test("render, default and custom params,using default button builder", function(
 	 stop();
 	 ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 		var me = this;
-		ua.importsrc("baidu.dom.children,baidu.string.trim,baidu.dom.text", function(){
+		ua.importsrc("baidu.browser.ie,baidu.dom.children,baidu.string.trim,baidu.dom.text", function(){
 			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -1097,6 +1097,7 @@ test('magic.confirm with multiple parameters', function(){
 test("test mask", function(){
     expect(12);
     stop();
+    var ie = baidu.browser.ie || 1;
     ua.frameExt(function(w, f){
         var me = this;
         ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
@@ -1127,13 +1128,13 @@ test("test mask", function(){
 
 		        var getViewHeight = function () {
 				    var doc = w.document,
-				        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+				        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
 
 				    return client.clientHeight;
 				};
 				var getViewWidth = function () {
 				    var doc = w.document,
-				        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+				        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
 
 				    return client.clientWidth;
 				};
