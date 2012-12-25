@@ -14,18 +14,20 @@ module("magic.control.Carousel.$antoscroll");
 		        {content: 'text9'}
 		    ];
 	mouseenter = function(target){
-		if(ua.browser.ie)
-			ua.simulateMouseEvent(target, 'mouseenter', 0, 0, window, 1, 0, 0, 0, 0,
-				false, false, false, false, 0, document.documentElement);
-		else
-			ua.mouseover(target);
+		baidu.dom(target).trigger("mouseenter");
+		// if(ua.browser.ie)
+		// 	ua.simulateMouseEvent(target, 'mouseenter', 0, 0, window, 1, 0, 0, 0, 0,
+		// 		false, false, false, false, 0, document.documentElement);
+		// else
+		// 	ua.mouseover(target);
 	};
 	mouseleave = function(target){
-		if(ua.browser.ie)
-			ua.simulateMouseEvent(target, 'mouseleave', 0, 0, window, 1, 0, 0, 0, 0,
-				false, false, false, false, 0, document.documentElement);
-		else
-			ua.mouseout(target);
+		baidu.dom(target).trigger("mouseleave");
+		// if(ua.browser.ie)
+		// 	ua.simulateMouseEvent(target, 'mouseleave', 0, 0, window, 1, 0, 0, 0, 0,
+		// 		false, false, false, false, 0, document.documentElement);
+		// else
+		// 	ua.mouseout(target);
 	}
 	enSetup = function(){
 		var html = "<div id='one-carousel' class='tang-ui tang-carousel'>"
@@ -53,7 +55,7 @@ module("magic.control.Carousel.$antoscroll");
 test("render,default params", function(){
 	stop();
 	expect(4);
-	ua.importsrc("magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
+	ua.importsrc("baidu.dom.trigger,magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);

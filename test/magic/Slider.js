@@ -162,7 +162,7 @@ test("render, adaptive, vertical", function(){
 	$(div).css("height", "422px");
 	equals(slider.getElement("view").offsetHeight, 400, "The height is right");
 	equals(slider._info.currentValue, 0.55, "The currentValue is right");
-	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 220 - 11, "The position of The knob is right");
+	approximateEqual(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 220 - 11, "The position of The knob is right");
 	
 	ua.mousemove(slider.getElement("view"), {
 		clientX : baidu.dom(slider.getElement("view")).offset().left,
