@@ -91,7 +91,7 @@ class Kiss{
 		}
 	}
 
-	public function print_js($cov=false, $release=false){
+	public function print_js($cov=false, $release=false, $dep=false){
 		print '<script type="text/javascript" src="js/jquery-1.7.2.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/testrunner.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
@@ -104,6 +104,7 @@ class Kiss{
 			/* load case source*/
 			$importurl = "{$this->projroot}test/tools/br/import.php?f=$this->name\n";
 			if($cov) $importurl.='&cov=true';
+			if($dep) $importurl.='&dep='.$dep;
 			print "<script type='text/javascript' src='$importurl' ></script>\n";
 		}else{
 			print "<script type='text/javascript' src='{$this->projroot}magic.js'></script>\n";

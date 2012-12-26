@@ -22,6 +22,8 @@ if(!Config::$DEBUG){
  * IE下，get请求不能超过2083字节，请注意。
  */
 $cov = array_key_exists('cov', $_GET) ? $_GET['cov'] : false;
+$dep = array_key_exists('dep', $_GET) ? $_GET['dep'] : false;
+preg_match('/[?&,]dep=[A-Za-z]*[^(?&,)]/', $_SERVER['argv'][0], $urldep);
 $f = explode(',', $_GET['f']);//explode() 函数把字符串分割为数组,此处$f=baidu.ajax.form
 $e = (array_key_exists('e', $_GET) && $_GET['e']!='') ? explode(",", $_GET['e']) : array();
 require_once 'analysis.php';
@@ -33,20 +35,24 @@ foreach ($e as $d){
 }
 if(Config::$DEBUG)var_dump($IGNORE);
 
-function importSrc($d, $cov=false){
+function importSrc($d, $dep=false, $cov=false){
 	global $IGNORE;
 	foreach($IGNORE as $idx=>$domain)
-	if($domain == $d)
-	return "";
+		if((!$urldep[0] || preg_match("/^magic/", $domain)) && $domain == $d)
+			return "";
 	array_push($IGNORE, $d);
 	$ccnt = Analysis::get_src_cnt($d, $cov);
-	return preg_replace("/\/\/\/import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importSrc('\\1')", $ccnt['c']);
+	if($dep){
+		return preg_replace("/\/\/\/import\s+(magic(\.[\w\-\$]+)*);?/ies", "importSrc('\\1', $dep)", $ccnt['c']);
+	}
+	else
+   		return preg_replace("/\/\/\/import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importSrc('\\1')", $ccnt['c']);
 }
 //update by bell 2011-03-25, 更新覆盖率相关逻辑
 if(!$cov){
 	$cnt = "";
 	foreach($f as $d){
-		$cnt.=importSrc($d, $cov);
+		$cnt.=importSrc($d, $dep, $cov);
 	}
 	echo $cnt;
 }else{
