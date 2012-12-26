@@ -587,10 +587,11 @@ test("focus by click", function(){
 });
 
 //case 17
-test("dispose and then create a new instance", function(){
+test("dispose and then create a new instance,test title region", function(){
 	expect(1);
 	stop();
 	ua.frameExt(function(w, f){
+		var me = this;
 		$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 		var div = w.document.createElement("div");
 		w.document.body.appendChild(div);
@@ -614,9 +615,9 @@ test("dispose and then create a new instance", function(){
 			width : 100
 		});
 		dialog.render("dialog-1");
-		equal(dialog.getElement("title").offsetHeight, dialog.getElement("titleText").offsetHeight + (baidu.browser.ie ? 0 : 2) , 'title height is right');
+		approximateEqual(dialog.getElement("title").offsetHeight, dialog.getElement("titleText").offsetHeight , 2, 'title height is right');
 		w.document.body.removeChild(div);
-		this.finish();
+		me.finish();
 		document.body.removeChild(f.parentNode);
 	})	
 });
