@@ -8,11 +8,13 @@
 	padding: 0;
 }
 </style>
-<script type="text/javascript" src="../br/js/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="../br/js/jquery-1.7.2.js"></script>
 <?php
 $release = preg_match('/release=true/i', $_SERVER['QUERY_STRING']);
+preg_match('/[?&,]dep=[A-Za-z]*[^(?&,)]/', $_SERVER['QUERY_STRING'], $urldep);
+
 if($release == 0 && array_key_exists('f', $_GET))
-print "<script type='text/javascript' src='../br/import.php?f={$_GET['f']}'></script>";
+	print "<script type='text/javascript' src='../br/import.php?f={$_GET['f']}{$urldep[0]}'></script>";
 else{
 	print "<script type='text/javascript' src='../../../magic.js'></script>";	
 }
