@@ -197,7 +197,7 @@ test("render, default mask params", function(){
 			document.body.removeChild(f.parentNode);
 		}, "magic.Dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
 test("render, params", function(){
 	expect(12);
@@ -261,7 +261,7 @@ test("render, params", function(){
 			document.body.removeChild(f.parentNode);
 		}, "magic.Dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
 test("setup, default params", function(){
 	expect(14);
@@ -320,7 +320,7 @@ test("setup, default params", function(){
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
 test("setup, default mask params", function(){
 	expect(14);
@@ -383,7 +383,7 @@ test("setup, default mask params", function(){
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
 test("render, params", function(){
 	expect(12);
@@ -443,14 +443,15 @@ test("render, params", function(){
 			document.body.removeChild(f.parentNode);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
 test("window resize, window scroll", function(){
 	expect(17);
 	stop();
+	
 	ua.frameExt(function(w, f){
 		var me = this;
-		ua.importsrc("magic.setup.dialog", function(){
+		ua.importsrc("baidu.browser.ie,magic.setup.dialog", function(){
 			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
 			w.$("body").css("overflow", "hidden");
 			enSetup(w);
@@ -460,6 +461,7 @@ test("window resize, window scroll", function(){
 	        temp.innerHTML = '<div style="width:800px;height:800px;"></div>'
 	        w.document.body.appendChild(temp);
 
+	        var ie = baidu.browser.ie || 1;
 	        // w.document.body.style.height = '1000px';	//让iframe出滚动条
 			// w.document.body.style.width = '1000px';	//让iframe出滚动条
 
@@ -475,13 +477,13 @@ test("window resize, window scroll", function(){
 			};
 			var getViewHeight = function () {
 			    var doc = w.document,
-			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+			        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
 
 			    return client.clientHeight;
 			};
 			var getViewWidth = function () {
 			    var doc = w.document,
-			        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+			        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
 
 			    return client.clientWidth;
 			};
@@ -531,5 +533,38 @@ test("window resize, window scroll", function(){
 			}, 50);
 		}, "magic.setup.dialog", "magic.control.Dialog.$mask", w);
 	});
-})
+});
 
+
+test("test dispose", function(){
+	expect(1);
+	stop();
+	ua.frameExt(function(w, f){
+		var me = this;
+		ua.importsrc("magic.Dialog", function(){
+			$(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 500).css("width", 500);
+			w.$("body").css("overflow", "hidden");
+			
+			var div = w.document.createElement("div");
+			w.document.body.appendChild(div);
+			div.id = "one-dialog";
+			div.style.position = "absolute";
+			var cdiv = w.document.createElement("div");
+			cdiv.id = "cdiv";
+			$(cdiv).html("dialog内容");
+			var dialog = new w.magic.Dialog({
+				titleText : '标题',
+				content : cdiv,
+				mask : {
+					enable: true
+				}
+			});
+			dialog.render("one-dialog");
+			var maskNode = dialog._mask.getElement();
+			dialog.$dispose();
+			ok(!(maskNode.parentNode && maskNode.parentElement), 'the mask node is destroyed.');
+			w.document.body.removeChild(div);
+			me.finish();
+		}, "magic.Dialog", "magic.control.Dialog.$mask", w);
+	});	
+});

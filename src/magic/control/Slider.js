@@ -34,22 +34,22 @@
  * @example
  * /// for options.orientation
  * var instance = new magic.Slider({
- * 		orientation: 'horizontal'	// 水平滑动条
+ *         orientation: 'horizontal'    // 水平滑动条
  * });
  * @example
  * /// for options.direction
  * var instance = new magic.Slider({
- * 		direction: 'forward'
+ *         direction: 'forward'
  * });
  * @example
  * /// for options.accuracy
  * var instance = new magic.Slider({
- * 		accuracy: 0.25
+ *         accuracy: 0.25
  * });
  * @example
  * /// for options.currentValue
  * var instance = new magic.Slider({
- * 		currentValue: 10
+ *         currentValue: 10
  * });
  */
 magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options){
@@ -119,32 +119,32 @@ magic.control.Slider.extend({
      * @grammar magic.control.Slider#disable()
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.disable();	// 禁用
+     * instance.disable();    // 禁用
      */
     disable: function(){
         this._info._status = 'disabled';
     },
-	/**
+    /**
      * @description 启用组件
      * @name magic.control.Slider#enable
      * @function
      * @grammar magic.control.Slider#enable()
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.disable();	// 禁用
-     * instance.enable();	// 启用
+     * instance.disable();    // 禁用
+     * instance.enable();    // 启用
      */
     enable: function(){
         this._info._status = 'enable';
     },
 
-	/**
+    /**
      * @description 设置组件的值，无动画效果
      * @name magic.control.Slider#setValue
      * @function
@@ -152,10 +152,10 @@ magic.control.Slider.extend({
      * @param {float} value 要设置的值
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.setValue(20);		// 设置值
+     * instance.setValue(20);        // 设置值
      */
     setValue: function(value){
         var me = this,
@@ -172,7 +172,7 @@ magic.control.Slider.extend({
         me._setPosition({target: null, noAccuracy: true, noFx: true}, pos);
         info.currentValue = value;       
     },
-	/**
+    /**
      * @description 获取组件的值
      * @name magic.control.Slider#getValue
      * @function
@@ -180,15 +180,15 @@ magic.control.Slider.extend({
      * @return {float} value 组件当前值
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.getValue();	// 获取值
+     * instance.getValue();    // 获取值
      */
     getValue: function(){
         return this._info.currentValue;
     },
-	/**
+    /**
      * @description 设置范围
      * @name magic.control.Slider#setRange
      * @function
@@ -196,10 +196,10 @@ magic.control.Slider.extend({
      * @param {float} value 设置组件的取值范围(0-1)
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.setRange(0.5);	// 设置范围
+     * instance.setRange(0.5);    // 设置范围
      */
     setRange: function(value){
         var me = this,
@@ -222,10 +222,10 @@ magic.control.Slider.extend({
      * @grammar magic.control.Slider#$dispose()
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
-     * instance.$dispose();	// 销毁组件
+     * instance.$dispose();    // 销毁组件
      */
     $dispose: function(){
         var me = this;
@@ -442,7 +442,7 @@ magic.control.Slider.extend({
         var view = this.getElement('view'),
             xy = baidu.page.getMousePosition(),
             page = baidu.dom(view).offset();
-		
+        
         if(this._info._mouseKey == 'x'){
             return xy.x - page.left;
         }else{
@@ -472,10 +472,10 @@ magic.control.Slider.extend({
      */
     _setCurrentValue: function(pos){
         var me = this,
-        	info = me._info,
-        	value = (parseFloat(pos) * 10) / (info[info._accuracyKey] * 10);
+            info = me._info,
+            value = (parseFloat(pos) * 10) / (info[info._accuracyKey] * 10);
         if(info._oppsite){
-        	value = me._accSub(1, value);
+            value = me._accSub(1, value);
         }
         info.currentValue = value;
     },
@@ -581,8 +581,8 @@ magic.control.Slider.extend({
         info._accuracyZone = accuracyZone.concat(info[_accuracyKey]);
     },
 
-	
-	/**
+    
+    /**
      * @description 拖动开始触发
      * @name magic.control.Slider#onslidestart
      * @event
@@ -590,23 +590,23 @@ magic.control.Slider.extend({
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onslidestart = function(evt){
-     * 		alert("开始拖动");
+     *         alert("开始拖动");
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('slidestart', function(evt){
-     * 		alert("开始拖动");
+     *         alert("开始拖动");
      * });
      */
-	
-	/**
+    
+    /**
      * @description 拖动中触发
      * @name magic.control.Slider#onslide
      * @event
@@ -614,23 +614,23 @@ magic.control.Slider.extend({
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onslide = function(evt){
-     * 		// do something...
+     *         // do something...
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('slide', function(evt){
-     * 		// do something...
+     *         // do something...
      * });
      */
-	
-	/**
+    
+    /**
      * @description 拖动结束触发
      * @name magic.control.Slider#onslidestop
      * @event
@@ -638,19 +638,19 @@ magic.control.Slider.extend({
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onslidestop = function(evt){
-     * 		// do something...
+     *         // do something...
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('slidestop', function(evt){
-     * 		// do something...
+     *         // do something...
      * });
      */
     /**
@@ -662,19 +662,19 @@ magic.control.Slider.extend({
      * @param {Number} evt.value 组件当前值
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onchange = function(evt){
-     * 		log(evt.value);		// 记录值的每一次变动
+     *         log(evt.value);        // 记录值的每一次变动
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('change', function(evt){
-     * 		log(evt.value);		// 记录值的每一次变动
+     *         log(evt.value);        // 记录值的每一次变动
      * });
      */
     /**

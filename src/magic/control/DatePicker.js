@@ -62,18 +62,18 @@
  *      'language': 'en-US',
  *      'calendarOptions': {
  *          'initDate': new Date(),
- * 			'weekStart': 'Mon',
+ *             'weekStart': 'Mon',
  *          'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
  *          'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
  *      }
  * });
  */
 magic.control.DatePicker = baidu.lang.createClass(function(options){
-	var me = this;
+    var me = this;
 
     me._options = options;
-	
-	me.language = options.language || "zh-CN";
+    
+    me.language = options.language || "zh-CN";
     me.format = options.format || baidu.i18n.cultures[me.language].calendar.dateFormat || 'yyyy-MM-dd HH:mm:ss';
     me.popupOption = baidu.object.merge({"autoHide": false, "autoTurn": false, 'disposeOnHide': false}, options.popupOptions);
     me.calendarOption = baidu.object.merge({}, options.calendarOptions);
@@ -82,8 +82,8 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
     me.showing = false;
     
 },{
-	type: "magic.control.DatePicker",
-	superClass: magic.Base
+    type: "magic.control.DatePicker",
+    superClass: magic.Base
 })
 .extend(
      /**
@@ -92,20 +92,20 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 {
     
     init: function(){
-		var me = this,
-			popup = me.popup = new magic.Popup(me.popupOption),
-			calendar = me.calendar = new magic.Calendar(me.calendarOption),
-			input = me.input = me.getElement("input");
-		
+        var me = this,
+            popup = me.popup = new magic.Popup(me.popupOption),
+            calendar = me.calendar = new magic.Calendar(me.calendarOption),
+            input = me.input = me.getElement("input");
+        
         //如果开启title插件，初始化该插件
         if(me._options.title && me._options.title.enable){
             me.init$title();
         }
-		calendar.render(popup.getElement("content"));
-		
-		me.calendar.on("selectdate", function(e, param){
-	    	//格式化日期
-	    	input.value = baidu.date.format(e.date, me.format);
+        calendar.render(popup.getElement("content"));
+        
+        me.calendar.on("selectdate", function(e, param){
+            //格式化日期
+            input.value = baidu.date.format(e.date, me.format);
             if(!(param && param.ignoreHide)){
                 me.hide();
             }
@@ -137,9 +137,9 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
             me.fire("selectdate", {
                 'date': new Date(e.date)
             });
-	    });
-	    
-	    function focusHandler(){
+        });
+        
+        function focusHandler(){
             me.show();
         }
         
@@ -150,11 +150,11 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
                 me.hide();
             }
         }
-	    
-	    baidu(input).on("click focus", focusHandler);
-	    
-	    //input的值改变的时候，日历自动调整日期
-	    if (!("oninput" in document.body)) {
+        
+        baidu(input).on("click focus", focusHandler);
+        
+        //input的值改变的时候，日历自动调整日期
+        if (!("oninput" in document.body)) {
             input.onpropertychange = function() {
                 if(me.disposed) return;
                 if (event.propertyName == "value")
@@ -171,18 +171,18 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
             }
         }
         
-	    baidu(document).on("click", documentClickHandler);
-	    
-	    //dispose时，移除事件监听
-	    me.on("dispose", function(){
-	        baidu(input).off("click", focusHandler);
+        baidu(document).on("click", documentClickHandler);
+        
+        //dispose时，移除事件监听
+        me.on("dispose", function(){
+            baidu(input).off("click", focusHandler);
             baidu(input).off("focus", focusHandler);
             baidu(document).off("click", documentClickHandler);
         });
-	    
-	    
-	    //将calendar元素映射出来
-	    me.$mappingDom('calendar', calendar.getElement("calendar"));
+        
+        
+        //将calendar元素映射出来
+        me.$mappingDom('calendar', calendar.getElement("calendar"));
     },
 
     /**
@@ -198,8 +198,8 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * instance.show();
      */
     show: function(){
-		var me = this,
-			date = new Date();
+        var me = this,
+            date = new Date();
 
         if(me.showing){
             return;
@@ -207,12 +207,12 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 
         me.showing = true;
 
-		me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || baidu.i18n.date.toLocaleDate(new Date()));
-		me.popup.attach(me.input, {
-			'offsetY': me.popupOption.offsetY || -1,
-			'offsetX': me.popupOption.offsetX || 0
-		});
-		
+        me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || new Date());
+        me.popup.attach(me.input, {
+            'offsetY': me.popupOption.offsetY || -1,
+            'offsetX': me.popupOption.offsetX || 0
+        });
+        
         /**
         * @description 日历渲染完成
         * @name magic.control.DatePicker#onshow
@@ -235,7 +235,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         *     //do something...
         * };
         */
-		me.fire("show");
+        me.fire("show");
     },
 
     /**
@@ -251,15 +251,15 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * instance.hide();
      */
     hide: function(){
-		var me = this;
-		
+        var me = this;
+        
         if(!me.showing){
             return;
         }
         me.showing = false;
 
-		me.popup.hide();
-		
+        me.popup.hide();
+        
         /**
         * @description 隐藏日历
         * @name magic.control.DatePicker#onhide
@@ -291,7 +291,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @grammar magic.control.DatePicker#getDate()
      */
     getDate: function(){
-        return baidu.i18n.date.toLocaleDate(new Date());
+        return new Date();
     },
     /**
      * @description 获取当前选中日期
@@ -372,5 +372,5 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * var calendar_el = instance.getElement('calendar');//获取calendar节点
      * @return {HtmlElement} 得到的 HtmlElement 对象
      */
-	
+    
 });

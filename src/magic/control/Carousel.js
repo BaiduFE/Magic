@@ -120,28 +120,28 @@ void function(){
  * @example
  * /// for options.orientation,options.isLoop
  * var instance = new magic.Carousel({
- * 		orientation: 'vertical',	// 竖向滚动
- * 		isLoop: true				// 循环滚动
+ *         orientation: 'vertical',    // 竖向滚动
+ *         isLoop: true                // 循环滚动
  * });
  * @example
  * /// for options.originalIndex
  * var instance = new magic.Carousel({
- * 		originalIndex: 2,
+ *         originalIndex: 2,
  * });
  * @example
  * /// for options.viewSize
  * var instance = new magic.Carousel({
- * 		viewSize: 2,
+ *         viewSize: 2,
  * });
  * @example
  * /// for options.focusRange
  * var instance = new magic.Carousel({
- * 		focusRange: {min: 1, max: 2},	// 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
+ *         focusRange: {min: 1, max: 2},    // 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
  * });
  * @example
  * /// for options.step
  * var instance = new magic.Carousel({
- * 		step: 4
+ *         step: 4
  * });
  */
     magic.control.Carousel = baidu.lang.createClass(function(options){
@@ -178,7 +178,7 @@ void function(){
             $mappingDom('element', baidu('.tang-carousel-element', me.getElement())[0]);
             //data
             baidu.dom(baidu.dom(me.getElement('element')).children()).each(function(index, ele){
-            	var item = new Item({content: ele});
+                var item = new Item({content: ele});
                 me._dataIds.push(item.guid);
                 me._datas[item.guid] = item;
                 baidu.dom(ele)[selectedIndex == index ? 'addClass' : 'removeClass']('tang-carousel-item-selected');
@@ -200,8 +200,8 @@ void function(){
         type: 'magic.control.Carousel',
         superClass: magic.Base
     }).extend(
-	/** @lends magic.control.Carousel.prototype */
-	{
+    /** @lends magic.control.Carousel.prototype */
+    {
         _axis: {
             horizontal: {size: 'width',  offsetPos: 'offsetLeft', offsetSize: 'offsetWidth',  scrollPos: 'scrollLeft'},
             vertical:   {size: 'height', offsetPos: 'offsetTop',  offsetSize: 'offsetHeight', scrollPos: 'scrollTop'}
@@ -218,12 +218,12 @@ void function(){
          * @example
          * var instance = new magic.Carousel(option);
          * instance.onclickitem = function(evt){
-         * 		// do something...
+         *         // do something...
          * }
          * @example
          * var instance = new magic.Carousel(option);
          * instance.on("clickitem",function(evt){
-         * 		// do something...
+         *         // do something...
          * });
          */
         /**
@@ -237,12 +237,12 @@ void function(){
          * @example
          * var instance = new magic.Carousel(option);
          * instance.onmouseoveritem = function(evt){
-         * 		// do something...
+         *         // do something...
          * }
          * @example
          * var instance = new magic.Carousel(option);
          * instance.on("mouseoveritem",function(evt){
-         * 		// do something...
+         *         // do something...
          * });
          */
         /**
@@ -256,12 +256,12 @@ void function(){
          * @example
          * var instance = new magic.Carousel(option);
          * instance.onmouseoveritem = function(evt){
-         * 		// do something...
+         *         // do something...
          * }
          * @example
          * var instance = new magic.Carousel(option);
          * instance.on("mouseoveritem",function(evt){
-         * 		// do something...
+         *         // do something...
          * });
          */
         /**
@@ -275,12 +275,12 @@ void function(){
                 element = me.getElement('element'),
                 target = evt.target;
             if(!baidu.dom.contains(me.getElement('element'), target)){return;}
-        	var item = baidu.dom(target).closest('.tang-carousel-item').get(0);
-        	
+            var item = baidu.dom(target).closest('.tang-carousel-item').get(0);
+            
             if(evt.type === 'mouseover'){
-            	var relatedTarget = evt.fromElement || evt.relatedTarget;
+                var relatedTarget = evt.fromElement || evt.relatedTarget;
             }else if(evt.type === 'mouseout'){
-            	var relatedTarget = evt.toElement || evt.relatedTarget;
+                var relatedTarget = evt.toElement || evt.relatedTarget;
             }
             if(baidu.dom(relatedTarget).closest(item).size() > 0) return;
             
@@ -352,7 +352,7 @@ void function(){
             }
             
             baidu.array(child).each(function(index, item){
-            	(index < posIndex - offset || index > posIndex + viewSize - offset - 1)
+                (index < posIndex - offset || index > posIndex + viewSize - offset - 1)
                     && baidu.dom(item).remove();
             });
             me.getElement('container')[axis.scrollPos] = 0;//init
@@ -391,14 +391,14 @@ void function(){
          * @example
          * var instance = new magic.Carousel(option);
          * instance.onfocus = function(evt){
-         * 		alert("当次的滚动方向为：" + evt.direction);
-         *		// do something...
+         *         alert("当次的滚动方向为：" + evt.direction);
+         *        // do something...
          * }
          * @example
          * var instance = new magic.Carousel(option);
          * instance.on("focus",function(evt){
-         * 		alert("当次的滚动方向为：" + evt.direction);
-         * 		// do something...
+         *         alert("当次的滚动方向为：" + evt.direction);
+         *         // do something...
          * });
          */
         /**
@@ -526,29 +526,29 @@ void function(){
         },
         
         /**
-	     * @description 取得当前得到焦点项在所有数据项中的索引值
-	     * @name magic.control.Carousel#getCurrentIndex
+         * @description 取得当前得到焦点项在所有数据项中的索引值
+         * @name magic.control.Carousel#getCurrentIndex
          * @function 
          * @grammar magic.control.Carousel#getCurrentIndex()
-	     * @return {Number} 索引值.
-	     * @example
+         * @return {Number} 索引值.
+         * @example
          * var instance = new magic.Carousel(option);
          * var currenetIndex = instance.getCurrentIndex();
-	     */
+         */
         getCurrentIndex: function(){
             return this._selectedIndex;
         },
         
         /**
-	     * @description 取得数据项的总数目
-	     * @name magic.control.Carousel#getTotalCount
+         * @description 取得数据项的总数目
+         * @name magic.control.Carousel#getTotalCount
          * @function 
          * @grammar magic.control.Carousel#getTotalCount()
-	     * @return {Number} 总数.
-	     * @example
+         * @return {Number} 总数.
+         * @example
          * var instance = new magic.Carousel(option);
-         * var totalCount = instance.getTotalCount();	// 总条数
-	     */
+         * var totalCount = instance.getTotalCount();    // 总条数
+         */
         getTotalCount: function(){
             return this._dataIds.length;
         },
@@ -560,7 +560,7 @@ void function(){
          * @grammar magic.control.Carousel#$dispose()
          * @example
          * var instance = new magic.Carousel(option);
-         * instance.$dispose();	// 销毁 carousel
+         * instance.$dispose();    // 销毁 carousel
          */
         $dispose: function(){
             var me = this;

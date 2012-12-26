@@ -18,11 +18,11 @@
  * @example
  * /// for options.fx.enable,options.fx.duration
  * var instance = new magic.Slider({
- * 		orientation:'horizonal',
- * 		fx:{
- * 			enable: true,	// 启用动画
- * 			duration: 2000	// 动画持续时间 2 秒
- * 		}		
+ *         orientation:'horizonal',
+ *         fx:{
+ *             enable: true,    // 启用动画
+ *             duration: 2000    // 动画持续时间 2 秒
+ *         }        
  * }); 
  */
 baidu.lang.register(magic.control.Slider, function(options){
@@ -39,7 +39,7 @@ baidu.lang.register(magic.control.Slider, function(options){
     });
     
 }, {
-	/**
+    /**
      * @description 设置组件的值
      * @name magic.control.Slider.$fx#setValue
      * @function
@@ -48,7 +48,7 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @param {boolean} noFx 不使用动画，true || false 默认会使用
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.setValue(20, true);
@@ -69,8 +69,8 @@ baidu.lang.register(magic.control.Slider, function(options){
         info.currentValue = value;    
     },
 
-	
-	/**
+    
+    /**
      * @description 动画开始触发
      * @name magic.control.Slider.$fx#onfxstart
      * @event
@@ -78,22 +78,22 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onfxstart = function(evt){
-     * 		// do something...
+     *         // do something...
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('fxstart', function(evt){
-     * 		// do something...
+     *         // do something...
      * });
      */
-	/**
+    /**
      * @description 动画中触发
      * @name magic.control.Slider.$fx#onfx
      * @event
@@ -101,22 +101,22 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onfx = function(evt){
-     * 		// do something...
+     *         // do something...
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('fx', function(evt){
-     * 		// do something...
+     *         // do something...
      * });
      */
-	/**
+    /**
      * @description 动画结束触发
      * @name magic.control.Slider.$fx#onfxstop
      * @event
@@ -124,19 +124,19 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @param {baidu.lang.Event} evt 事件参数
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.onfxstop = function(evt){
-     * 		// do something...
+     *         // do something...
      * }
      * @example
      * var instance = new magic.Slider({
-     * 		orientation: 'vertical'
+     *         orientation: 'vertical'
      * });
      * instance.render('s1');
      * instance.on('fxstop', function(evt){
-     * 		// do something...
+     *         // do something...
      * });
      */
     /**

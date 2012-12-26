@@ -23,119 +23,120 @@
  * @param {Function} options.buttons.items.builder 按钮构造，默认null，该属性会读取其他button属性
  * @param {String} options.buttons.align 按钮整体布局，默认right,可选值为left,center,right
  * @param {String} options.buttons.enable 插件开关，默认false
+ * @properties {Array} instance.buttons 底部区域按钮节点集合
  * @example
  * /// for options.buttons.items.text,options.buttons.items.disabled,options.buttons.items.callback,options.buttons.items.builder,options.buttons.align,options.buttons.enable
  * var  creator = (function(){
- *			        var hasFocused = false,
- *			            btnTemplate = ['<a href="#" onClick="return false;" style="border-radius:5px;" class="tang-dialog-button ','','">',
- *		    							'<span style="border-radius:5px;padding:0.2em 0.6em" class="tang-dialog-button-s">',
- *		    								'',
- *		    							'</span>',
- *		    							'</a>'];
- *			        return function(btnOptions,anchor,instance,index){
- *			          btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
- *			          btnTemplate[4] = btnOptions.text;
- *			          baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
- *			          !hasFocused && btnOptions.focused && !btnOptions.disabled 
- *			            && (hasFocused = false) || anchor.focus();
- *			            return  anchor;                 
- *			        };
- *			    })(),
- *	    dialog = new magic.Dialog({
- *	     draggable: true,
+ *                    var hasFocused = false,
+ *                        btnTemplate = ['<a href="#" onClick="return false;" style="border-radius:5px;" class="tang-dialog-button ','','">',
+ *                                        '<span style="border-radius:5px;padding:0.2em 0.6em" class="tang-dialog-button-s">',
+ *                                            '',
+ *                                        '</span>',
+ *                                        '</a>'];
+ *                    return function(btnOptions,anchor,instance,index){
+ *                      btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
+ *                      btnTemplate[4] = btnOptions.text;
+ *                      baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+ *                      !hasFocused && btnOptions.focused && !btnOptions.disabled 
+ *                        && (hasFocused = false) || anchor.focus();
+ *                        return  anchor;                 
+ *                    };
+ *                })(),
+ *        dialog = new magic.Dialog({
+ *         draggable: true,
  *       titleText: "对话框一",
  *       content: "我是内容", 
  *       width: 400,
  *       height: 300,
- * 		 buttons: {
- *			items:[
- *				{
- *					text: '确定',
- * 					click: function(){
- *						alert("sure");
- *					},
- *					focused: true
- *      		},
- *				{
- *					text: '失效',
- * 					disabled:true
- *				},
- *				{
- *					text: '自定义',
- * 					click: function(){
- *						alert("custome");
- *					},
- * 					builder: creator
- *				}
- *			],
- *			align:'left',
+ *          buttons: {
+ *            items:[
+ *                {
+ *                    text: '确定',
+ *                     click: function(){
+ *                        alert("sure");
+ *                    },
+ *                    focused: true
+ *              },
+ *                {
+ *                    text: '失效',
+ *                     disabled:true
+ *                },
+ *                {
+ *                    text: '自定义',
+ *                     click: function(){
+ *                        alert("custome");
+ *                    },
+ *                     builder: creator
+ *                }
+ *            ],
+ *            align:'left',
  *          enable: true
- *		}
- * 	   });
+ *        }
+ *        });
  *     dialog.render();
  *     dialog.center();
  */
 
  baidu.lang.register(magic.control.Dialog, 
-	/* constructor */ function(options){
-	    options && options.buttons && options.buttons.enable && this.on("footer", function(){
-	    	/**
-			 * @description 底部区域按钮节点集合
-			 * @name magic.control.Dialog.buttons
-			 * @property 
-			 */
-		 	this.buttons = null,
-	    	baidu(this.getElement("footer")).show();
-	    	this._createButton(options.buttons);
-	        baidu(this.getElement("footerContainer")).addClass("tang-footerContainer");
-	        var h = this.getElement("footer").offsetHeight;
-	        (!this.buttons || this.buttons.length == 0) && (h = 30) && baidu(this.getElement("footer")).css('height', 30); 
-	        this._footerHeight = h;
-	    });
-	},
-	{
-		/**
-		 * @description 创建按钮,内部方法调用
-		 * @name magic.control.Dialog.$button#_createButton
-		 * @function
-		 */
-		/* methods */_createButton: function(){
-		    var me = this,
+    /* constructor */ function(options){
+        options && options.buttons && options.buttons.enable && this.on("footer", function(){
+            /**
+             * @description 底部区域按钮节点集合
+             * @name magic.control.Dialog.buttons
+             * @property 
+             */
+            this.buttons = null,
+            baidu(this.getElement("footer")).show();
+            this._createButton(options.buttons);
+            baidu(this.getElement("footerContainer")).addClass("tang-footerContainer");
+            var h = this.getElement("footer").offsetHeight;
+            (!this.buttons || this.buttons.length == 0) && (h = 30) && baidu(this.getElement("footer")).css('height', 30); 
+            this._footerHeight = h;
+        });
+    },
+    {
+        /**
+         * @description 创建按钮,内部方法调用
+         * @name magic.control.Dialog.$button#_createButton
+         * @function
+         */
+        /* methods */_createButton: function(){
+            var me = this,
                 btnConfig = arguments.length > 0 ? arguments[0] : {},
-		    	footerContainer = baidu(me.getElement("footerContainer")),
-		    	buttons = me.buttons || (me.buttons = []),
-		    	hasFocused = false,
-		    	_defaultCreator = (function(){
-		    		var btnTemplate = ['<a href="#" onClick="return false;" class="tang-dialog-button ','','">',
-		    							'<span class="tang-dialog-button-s">',
-		    								'<span class="tang-dialog-button-s-space">&nbsp;</span>',
-		    								'<span class="tang-dialog-button-s-text">','','</span>',
-		    							'</span>',
-		    							'</a>'];
-		    		return function(btnOptions, anchor){
-		    			btnOptions.disabled ? (btnTemplate[1] = 'tang-dialog-button-disabled') : (btnTemplate[1] = '');
-		    			btnTemplate[6] = btnOptions.text || '&nbsp;';
-		    			baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
-				        return 	baidu(anchor).children().get(0);					        
-		    		};
-		    	})();
-		    baidu.forEach(btnConfig.items || [], function(item, index){
-		    	var clickFn, node;
-		    	footerContainer.append(node = baidu('<span class="tang-dialog-button-carrier"></span>')[0]);
-		    	node = typeof item == "object" ? (item.builder || _defaultCreator).call(this, item, node, me, index) : item;
-		    	!hasFocused && item.focused && !item.disabled && (hasFocused = true) && node.focus();
-		    	buttons.push(node);
-		    	item.disabled || item.click && baidu(node).on('click', clickFn = function(){
+                footerContainer = baidu(me.getElement("footerContainer")),
+                buttons = me.buttons || (me.buttons = []),
+                hasFocused = false,
+                _defaultCreator = (function(){
+                    var btnTemplate = ['<a href="#" onClick="return false;" class="tang-dialog-button ','','">',
+                                        '<span class="tang-dialog-button-s">',
+                                            '<span class="tang-dialog-button-s-space">&nbsp;</span>',
+                                            '<span class="tang-dialog-button-s-text">','','</span>',
+                                        '</span>',
+                                        '</a>'];
+                    return function(btnOptions, anchor){
+                        btnOptions.disabled ? (btnTemplate[1] = 'tang-dialog-button-disabled') : (btnTemplate[1] = '');
+                        btnTemplate[6] = btnOptions.text || '&nbsp;';
+                        baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+                        return     baidu(anchor).children().get(0);                            
+                    };
+                })();
+            baidu.forEach(btnConfig.items || [], function(item, index){
+                var clickFn, node;
+                footerContainer.append(node = baidu('<span class="tang-dialog-button-carrier"></span>')[0]);
+                node = typeof item == "object" ? (item.builder || _defaultCreator).call(this, item, node, me, index) : item;
+                !hasFocused && item.focused && !item.disabled && (hasFocused = true) && node.focus();
+                buttons.push(node);
+                item.disabled || item.click && baidu(node).on('click', clickFn = function(){
                     item.click.call(this, me);
                 });
                 clickFn && this.disposeProcess.push(function(){
-		            baidu(node).off('click', clickFn);
-		        });
-		    }, me);
-		    
-		    footerContainer.addClass("tang-button-" + (btnConfig.align||'right'));
-		}
-	}
+                    baidu(node).off('click', clickFn);
+                });
+            }, me);
+            
+            footerContainer.addClass("tang-button-" + (btnConfig.align||'right'));
+        }
+    }
 );
 
 (function(){

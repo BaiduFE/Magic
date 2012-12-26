@@ -36,9 +36,9 @@ test("test parameters and shown", function(){
             equals(ca._hms.length, 3, "时分秒节点缓存");
 
             //测试时分秒的初始值为0:0:0
-            equals(ca._hms[0].value, 0, "小时值为0");
-            equals(ca._hms[1].value, 0, "小时值为0");
-            equals(ca._hms[2].value, 0, "小时值为0");
+            equals(ca._hms[0].value, '00', "小时值为00");
+            equals(ca._hms[1].value, '00', "分钟值为00");
+            equals(ca._hms[2].value, '00', "秒值为00");
 
             //浮动数值区域
             ok(ca.getElement(ca._getId("choosen")) != undefined, "浮动数值区域已创建");
@@ -54,8 +54,8 @@ test("test parameters and shown", function(){
             ca.render(container);
             //测试用户定义时分秒
             equals(ca._hms[0].value, 10, "小时值为10");
-            equals(ca._hms[1].value, 11, "小时值为11");
-            equals(ca._hms[2].value, 12, "小时值为12");
+            equals(ca._hms[1].value, 11, "分钟值为11");
+            equals(ca._hms[2].value, 12, "秒值为12");
             ca.$dispose();
 
             ca = new magic.Calendar({
@@ -94,18 +94,20 @@ test("test basic operation for input text ", function(){
         hms = ca._hms,
         exeList = [],
         //focus and blur
-        fab = function(node, nextNode, evaluate, realValue, message){
+        fab = function(node, nextNode, evaluate, realValue, message, notconsider){
             node.focus();
             node.value = evaluate;
             nextNode.focus();
             setTimeout(function(){
-                equals(parseInt(node.value), realValue, message);
+                !notconsider && equals(parseInt(node.value), realValue, message);
                 exeList.splice(0, 1);
                 exeList[0] && exeList[0]();
             },100);
             
         };
     //小时操作
+    //第一个是多余的，在IE9以下，且在list.php方式下第一次执行fab方法的时候好像focus没有起作用。
+    exeList.push(function(){fab(hms[0], hms[1], 90, 23, "小时最大值为23", true)});
     exeList.push(function(){fab(hms[0], hms[1], 90, 23, "小时最大值为23")});
     exeList.push(function(){fab(hms[0], hms[1], -11, 0, "小时最小值为0")});
     exeList.push(function(){fab(hms[0], hms[1], 13, 13, "小时正常区间为0-23")});
@@ -148,92 +150,92 @@ test("test basic operation for up and down operation", function(){
         downNode = baidu("." + ca._getClass("timer-down"))[0];
     ok(!baidu(document.activeElement).hasClass(ca._getClass("timer-input")), '当前时分秒没有获取焦点');
     ua.keydown(timer, {keyCode : 38});
-    equals(hms[0].value, 0, '小时没有变化');
+    equals(hms[0].value, '00', '小时没有变化');
     ua.click(upNode);
-    equals(hms[0].value, 1, '小时+1');
-    equals(hms[1].value, 0, '分钟没有变化');
-    equals(hms[2].value, 0, '秒没有变化');
+    equals(hms[0].value, '01', '小时+1');
+    equals(hms[1].value, '00', '分钟没有变化');
+    equals(hms[2].value, '00', '秒没有变化');
 
     ua.keydown(timer, {keyCode : 40});
-    equals(hms[0].value, 1, '小时没有变化');
+    equals(hms[0].value, '01', '小时没有变化');
     ua.click(downNode);
-    equals(hms[0].value, 0, '小时-1');
-    equals(hms[1].value, 0, '分钟没有变化');
-    equals(hms[2].value, 0, '秒没有变化');
+    equals(hms[0].value, '00', '小时-1');
+    equals(hms[1].value, '00', '分钟没有变化');
+    equals(hms[2].value, '00', '秒没有变化');
 
     hms[0].value = hms[1].value = hms[2].value = 0;
     ua.click(hms[0]);
     ua.click(upNode);
-    equals(hms[0].value, 1, '小时数值+1');
+    equals(hms[0].value, '01', '小时数值+1');
     ua.click(downNode);
-    equals(hms[0].value, 0, '小时数值-1');
+    equals(hms[0].value, '00', '小时数值-1');
     hms[0].value = 23;
     ua.click(upNode);
     equals(hms[0].value, 23, '小时数值+1,上限23');
     hms[0].value = 0;
     ua.click(downNode);
-    equals(hms[0].value, 0, '小时数值-1,下限0');
+    equals(hms[0].value, '00', '小时数值-1,下限0');
 
     ua.click(hms[1]);
     ua.click(upNode);
-    equals(hms[1].value, 1, '分钟数值+1');
+    equals(hms[1].value, '01', '分钟数值+1');
     ua.click(downNode);
-    equals(hms[1].value, 0, '分钟数值-1');
+    equals(hms[1].value, '00', '分钟数值-1');
     hms[1].value = 59;
     ua.click(upNode);
     equals(hms[1].value, 59, '分钟数值+1,上限59');
     hms[1].value = 0;
     ua.click(downNode);
-    equals(hms[1].value, 0, '分钟数值-1,下限0');
+    equals(hms[1].value, '00', '分钟数值-1,下限0');
     
     ua.click(hms[2]);
     ua.click(upNode);
-    equals(hms[2].value, 1, '秒数值+1');
+    equals(hms[2].value, '01', '秒数值+1');
     ua.click(downNode);
-    equals(hms[2].value, 0, '秒数值-1');
+    equals(hms[2].value, '00', '秒数值-1');
     hms[2].value = 59;
     ua.click(upNode);
     equals(hms[2].value, 59, '秒数值+1,上限59');
     hms[2].value = 0;
     ua.click(downNode);
-    equals(hms[2].value, 0, '秒数值-1,下限0');
+    equals(hms[2].value, '00', '秒数值-1,下限0');
 
     hms[0].value = hms[1].value = hms[2].value = 0;
     ua.click(hms[0]);
     ua.keydown(hms[0], {keyCode : 38});
-    equals(hms[0].value, 1, '小时数值+1');
+    equals(hms[0].value, '01', '小时数值+1');
     ua.keydown(hms[0], {keyCode : 40});
-    equals(hms[0].value, 0, '小时数值-1');
+    equals(hms[0].value, '00', '小时数值-1');
     hms[0].value = 23;
     ua.keydown(hms[0], {keyCode : 38});
     equals(hms[0].value, 23, '小时数值+1,上限23');
     hms[0].value = 0;
     ua.keydown(hms[0], {keyCode : 40});
-    equals(hms[0].value, 0, '小时数值-1,下限0');
+    equals(hms[0].value, '00', '小时数值-1,下限0');
 
     ua.click(hms[1]);
     ua.keydown(hms[1], {keyCode : 38});
-    equals(hms[1].value, 1, '分钟数值+1');
+    equals(hms[1].value, '01', '分钟数值+1');
     ua.keydown(hms[1], {keyCode : 40});
-    equals(hms[1].value, 0, '分钟数值-1');
+    equals(hms[1].value, '00', '分钟数值-1');
     hms[1].value = 59;
     ua.keydown(hms[1], {keyCode : 38});
     equals(hms[1].value, 59, '分钟数值+1,上限59');
     hms[1].value = 0;
     ua.keydown(hms[1], {keyCode : 40});
-    equals(hms[1].value, 0, '分钟数值-1,下限0');
+    equals(hms[1].value, '00', '分钟数值-1,下限0');
     
     ua.click(hms[2]);
     ua.keydown(hms[2], {keyCode : 38});
-    equals(hms[2].value, 1, '秒数值+1');
+    equals(hms[2].value, '01', '秒数值+1');
     ua.keydown(hms[2], {keyCode : 40});
-    equals(hms[2].value, 0, '秒数值-1');
+    equals(hms[2].value, '00', '秒数值-1');
     hms[2].value = 59;
     ua.keydown(hms[2], {keyCode : 38});
     equals(hms[2].value, 59, '秒数值+1,上限59');
     hms[2].value = 0;
     ua.keydown(hms[2], {keyCode : 40});
-    equals(hms[2].value, 0, '秒数值-1,下限0');
+    equals(hms[2].value, '00', '秒数值-1,下限0');
     start();
     ca.$dispose();
     document.body.removeChild(container);
@@ -306,8 +308,8 @@ test("test getDate and setDate", function(){
 
     var date = ca.getDate();
     equals(date.getFullYear(), 2012, '当前年正确');
-    equals(date.getMonth() + 1, 5, '当前年正确');
-    equals(date.getDate(), 6, '当前年正确');
+    equals(date.getMonth() + 1, 5, '当前月份正确');
+    equals(date.getDate(), 6, '当前日期正确');
     equals(date.getHours(), 10, '当前小时正确');
     equals(date.getMinutes(), 11, '当前分钟正确');
     equals(date.getSeconds(), 12, '当前秒正确');
@@ -316,8 +318,8 @@ test("test getDate and setDate", function(){
     ca.setDate(date);
     date = ca.getDate();
     equals(date.getFullYear(), 2012, '当前年正确');
-    equals(date.getMonth(), 10, '当前年正确');
-    equals(date.getDate(), 6, '当前年正确');
+    equals(date.getMonth(), 10, '当前月份正确');
+    equals(date.getDate(), 6, '当前日期正确');
     equals(date.getHours(), 20, '当前小时正确');
     equals(date.getMinutes(), 21, '当前分钟正确');
     equals(date.getSeconds(), 22, '当前秒正确');

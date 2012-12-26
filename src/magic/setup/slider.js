@@ -22,33 +22,33 @@
  * @example
  * /// for el,options.orientation
  * var slider = magic.setup.slider('s1' ,{
- * 		orientation: 'horizontal'	// 水平滑动条
+ *         orientation: 'horizontal'    // 水平滑动条
  * });
  * @example
  * /// for options.direction
  * var slider = magic.setup.slider('s1' ,{
- * 		direction: 'forward'
+ *         direction: 'forward'
  * });
  * @example
  * /// for options.accuracy
  * var slider = magic.setup.slider('s1' ,{
- * 		accuracy: 0.25
+ *         accuracy: 0.25
  * });
  * @example
  * /// for options.accuracy
  * var slider = magic.setup.slider('s1' ,{
- * 		currentValue: 10
+ *         currentValue: 10
  * });
  */
 
 magic.setup.slider = function(el, options){
-	/**
-	 *@description slider 组件 setup 模式的实例对象
-	 *@instace
-	 *@name magic.setup.slider!
-	 *@superClass magic.control.Slider
-	 *@return {instace} magic.control.Slider 实例对象
-	 */
+    /**
+     *@description slider 组件 setup 模式的实例对象
+     *@instace
+     *@name magic.setup.slider!
+     *@superClass magic.control.Slider
+     *@return {instace} magic.control.Slider 实例对象
+     */
     var me = magic.setup(baidu.dom('#'+el).get(0), magic.control.Slider, options),
         container = me.getElement();
 

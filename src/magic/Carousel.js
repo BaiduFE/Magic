@@ -32,56 +32,56 @@
  * @example
  * /// for options.items
  * var instance = new magic.Carousel({
- * 		items: [{
- * 			content: '<img src="0.png"/>',
- * 			content: '<img src="1.png"/>'
- * 		}]
+ *         items: [{
+ *             content: '<img src="0.png"/>',
+ *             content: '<img src="1.png"/>'
+ *         }]
  * });
  * @example
  * /// for options.orientation,options.isLoop
  * var instance = new magic.Carousel({
- * 		orientation: 'vertical',	// 竖向滚动
- * 		isLoop: true,				// 循环滚动
- * 		items: [{
- * 			content: '<img src="0.png"/>',
- * 			content: '<img src="1.png"/>'
- * 		}]
+ *         orientation: 'vertical',    // 竖向滚动
+ *         isLoop: true,                // 循环滚动
+ *         items: [{
+ *             content: '<img src="0.png"/>',
+ *             content: '<img src="1.png"/>'
+ *         }]
  * });
  * @example
  * /// for options.originalIndex
  * var instance = new magic.Carousel({
- * 		originalIndex: 2,
- *  	items: [{
- * 			content: '<img src="0.png"/>',
- * 			content: '<img src="1.png"/>'
- * 		}]
+ *         originalIndex: 2,
+ *      items: [{
+ *             content: '<img src="0.png"/>',
+ *             content: '<img src="1.png"/>'
+ *         }]
  * });
  * @example
  * /// for options.viewSize
  * var instance = new magic.Carousel({
- * 		viewSize: 2,
- *   	items: [{
- * 			content: '<img src="0.png"/>',
- * 			content: '<img src="1.png"/>'
- * 		}]
+ *         viewSize: 2,
+ *       items: [{
+ *             content: '<img src="0.png"/>',
+ *             content: '<img src="1.png"/>'
+ *         }]
  * });
  * @example
  * /// for options.focusRange
  * var instance = new magic.Carousel({
- * 		focusRange: {min: 1, max: 2},	// 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
- *   	items: [{
- * 			content: '<img src="0.png"/>',
- * 			content: '<img src="1.png"/>'
- * 		}]
+ *         focusRange: {min: 1, max: 2},    // 当焦点位置超过2(max),或小于1(min)时，可视区域将会滚动，否则不滚动，该项参数保证了焦点所在的位置相对于可视区域始终在{min: 1, max: 2}之间
+ *       items: [{
+ *             content: '<img src="0.png"/>',
+ *             content: '<img src="1.png"/>'
+ *         }]
  * });
  * @example
  * /// for options.step
  * var instance = new magic.Carousel({
- * 		step: 4,
- *   	items: [{
- * 			content: '<img src="0.png"/>',
- * 			content: '<img src="1.png"/>'
- * 		}]
+ *         step: 4,
+ *       items: [{
+ *             content: '<img src="0.png"/>',
+ *             content: '<img src="1.png"/>'
+ *         }]
  * });
  */
 magic.Carousel = baidu.lang.createClass(function(options){
@@ -124,7 +124,7 @@ magic.Carousel = baidu.lang.createClass(function(options){
      * @param {String|HTMLElement} target 被渲染的指定容器
      * @example
      * var instance = new magic.Carousel(option);
-     * instance.render('one-carousel');	// 销毁 carousel
+     * instance.render('one-carousel');    // 销毁 carousel
      */
     render: function(target){
         var me = this,
@@ -132,8 +132,8 @@ magic.Carousel = baidu.lang.createClass(function(options){
         if (me.getElement()) {return;}//已经渲染过
         me.$mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
-		baidu.dom(container).addClass('tang-ui tang-carousel')
-							.insertHTML('beforeEnd', me.toHTMLString());
+        baidu.dom(container).addClass('tang-ui tang-carousel')
+                            .insertHTML('beforeEnd', me.toHTMLString());
         me.fire('ondomready');
         me.fire('onload');
     },
@@ -145,7 +145,7 @@ magic.Carousel = baidu.lang.createClass(function(options){
      * @grammar magic.Carousel#$dispose()
      * @example
      * var instance = new magic.Carousel(option);
-     * instance.$dispose();	// 销毁 carousel
+     * instance.$dispose();    // 销毁 carousel
      */
     $dispose: function(){
         var me = this, container;

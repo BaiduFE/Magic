@@ -19,8 +19,8 @@
  * @example
  * /// for options.cache.enable
  * var instance = new magic.Slider({
- * 		orientation:'horizonal',
- * 		cache:{enable:true}		// 启用缓存条
+ *         orientation:'horizonal',
+ *         cache:{enable:true}        // 启用缓存条
  * }); 
  */
 baidu.lang.register(magic.control.Slider, function(options){
@@ -49,10 +49,10 @@ baidu.lang.register(magic.control.Slider, function(options){
      * @param {float} value 要设置的值
      * @example
      * var instance = new magic.Slider({
-     * 		cache:{enable:true}		// 启用缓存条
+     *         cache:{enable:true}        // 启用缓存条
      * });
      * instance.render('s1');
-     * instance.setCache(0.7);	//设置缓存在滑动条70%的位置
+     * instance.setCache(0.7);    //设置缓存在滑动条70%的位置
      */
     setCache: function(value){
         var me = this,

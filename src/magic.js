@@ -23,13 +23,13 @@
 
 if(typeof magic != "function"){
     var magic = function(){
-    	// TODO: 
+        // TODO: 
     };
 }
 
 magic.resourcePath = "";
 magic.skinName = "default";
-magic.version = "1.0.2.2";
+magic.version = "1.0.3.0";
 
 /msie 6/i.test(navigator.userAgent) && 
 document.execCommand("BackgroundImageCache", false, true);

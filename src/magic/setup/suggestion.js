@@ -27,7 +27,7 @@
  * @example
  * /// for options.offset
  * var sgt = magic.setup.suggestion('sgt', {
- * 		offset: {
+ *         offset: {
  *          'offsetX': 0,
  *          'offsetY': 0
  *      }
@@ -35,41 +35,43 @@
  * @example
  * /// for options.getData
  * var getData = function(key){
- * 		var me = this;
- * 		// 向服务器发送用户输入
- * 		baiud.ajax.get('search.php?'+key), function(xhr, rsp){
- * 			// 获取数据后, 传递给 receiveData
- * 			var data = eval(rsp);
- * 			me.receiveData(key, data);
- * 		});
+ *         var me = this;
+ *         // 向服务器发送用户输入
+ *         baiud.ajax.get('search.php?'+key), function(xhr, rsp){
+ *             // 获取数据后, 传递给 receiveData
+ *             var data = eval(rsp);
+ *             me.receiveData(key, data);
+ *         });
  * }
  * var sgt = magic.setup.suggestion('sgt', {
- * 		getData: getData
+ *         getData: getData
  * });
  * @example
  * /// for options.prependHTML,options.appendHTML
  * var sgt = magic.setup.suggestion('sgt', {
- * 		prependHTML: '写在下拉框列表前面的HTML',
- * 		appendHTML: '<span class="tang-suggestion-closeBtn">关闭</span>';
+ *         prependHTML: '写在下拉框列表前面的HTML',
+ *         appendHTML: '<span class="tang-suggestion-closeBtn">关闭</span>';
  * });
  * @example
  * /// for options.holdHighLight
  * var sgt = magic.setup.suggestion('sgt', {
- * 		getData: getData,
- * 		holdHighLight: false	//鼠标移出待选项区域后消除高亮状态
+ *         getData: getData,
+ *         holdHighLight: false    //鼠标移出待选项区域后消除高亮状态
  * });
  */
 magic.setup.suggestion = function(el, options){
-	/**
-	 *@description suggestion 组件 setup 模式的实例对象
-	 *@instace
-	 *@name magic.setup.suggestion!
-	 *@superClass magic.control.Suggestion
-	 *@return {instace} magic.control.Suggestion 实例对象
-	 */
+    /**
+     * @description suggestion 组件 setup 模式的实例对象
+     * @instace
+     * @name magic.setup.suggestion!
+     * @superClass magic.control.Suggestion
+     * @return {instace} magic.control.Suggestion 实例对象
+     */
     var el = baidu.dom('#'+el).get(0),
-	    instance = magic.setup(el, magic.control.Suggestion, options);
-	instance.$mappingDom('input', el);
-	instance.fire('onload');
-	return instance;
+        instance = magic.setup(el, magic.control.Suggestion, options);
+
+    instance.$mappingDom('input', el);
+    instance.fire('onload');
+
+    return instance;
 };

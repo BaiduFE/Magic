@@ -3,12 +3,10 @@ body {
 	font-size: 14px;
 	color: #333;
 	margin: 0;
-	padding: 20px;
+	min-height: 500px;
+	padding-bottom: 15px;
 }
-h3 {
-	margin: 0;
-	color: #6A84BB;
-}
+
 ul, li {
 	list-style: none;
 	padding: 0;
@@ -18,43 +16,111 @@ a {
 	text-decoration: none;
 }
 .content {
-	width: 960px;
-	overflow: hidden;
-	clear: both;
-	margin: 0 auto;
+	margin: 0;
 }
 .demo-list {
-	float: left;
-	width: 200px;
+	position: fixed;
+	*position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 219px;
+	background-color: #F8F8F8;
+	padding: 10px;
+	border-right: 1px solid #AAA;
+	box-shadow: inset -1px 0 white, 1px 0 8px #CCC;
+	z-index: 9999999999;
+}
+.demo-list h3 {
+	font-family: 'Microsoft Yahei';
+	margin: 5px 0 10px 0;
+	color: #333;
+	font-weight: normal;
+	font-size: 18px;
+	text-shadow: 1px 1px white;
 }
 .demo-list li {
-	line-height: 2em;
+	margin-bottom: 5px;
+	position: relative;
+}
+.demo-list a {
+	color: #666;
+	text-shadow: 0 -1px white;
+	background: url(demo.png) 0 6px no-repeat;
+	padding-left: 25px;
+	height: 25px;
+	line-height: 25px;
+	display: inline-block;
+}
+.demo-list a.open-blank{
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: url(fullscreen_toggle.png) no-repeat;
+	height: 20px;
+	width: 20px;
+	padding: 0;
+}
+.demo-list a.open-blank:hover {
+	background-position: 0 -20px;
+}
+.demo-list a.open-blank:active {
+	background-position: 0 -40px;
+}
+.demo-list a:hover {
+	color: #1590B3;
+	background-position: 0 -19px;
+}
+.demo-list a.selected {
+	font-weight: bold;
+	color: black;
+	background-position: 0 6px;
+	cursor: text;
 }
 .main-wrap {
-	float: left;
-	width: 740px;
-	margin-left: 20px;
+	margin-left: 255px;
+	margin-right: 15px;
 }
 .demo-wrap {
 	background-color: #8899DD;
 	color: #FFF;
 	padding: 15px;
+	margin-top: 15px;
+	border-radius: 10px;
 	*zoom:1;
 }
 .demo-wrap h3 {
 	color: #FFF;
+	font-family: 'Microsoft Yahei';
+	margin: 10px 0 20px;
+	font-weight: normal;
+	text-shadow: 1px 1px #0C1EA7;
 }
 .console-wrap {
-	margin-top: 20px;
+	margin: 20px 0;
+	border: 1px solid #999;
 }
-
+.console-wrap h3 {
+	margin: 0;
+	padding: 5px 10px;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: #F3F3F3;
+	border-top: 1px solid white;
+	border-bottom: 1px solid #BBB;
+	height: 20px;
+	line-height: 20px;
+	color: #666;
+}
 .console {
-	height: 300px;
+	height: 301px;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 .console p {
 	padding: 0 0 5px 3px;
 	border-bottom: 1px solid #E1E1E1;
+	margin: 5px 0;
 }
 .console span {
 	padding: 3px;

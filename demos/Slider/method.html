@@ -5,6 +5,8 @@
         <meta name="description" content="Carousel 组件">
         <title>滑动条组件 --- 常用方法</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Slider/magic.Slider.css">
 	    <style type="text/css">
@@ -25,11 +27,6 @@
 	        .tang-slider-vtl .tang-knob:hover{background-image:url("../../resources/default/magic.control.Slider/slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
 	        .tang-slider-vtl .tang-knob:active{background-image:url("../../resources/default/magic.control.Slider/slider-v-knobHover.png");_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../resources/default/magic.control.Slider/slider-v-knobHover.png");}
 	    </style>
-        <script>
-            function log(type, msg){
-                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
-            }
-        </script>
         <script type="text/javascript" src='../../src/import.php?f=magic.Slider,magic.control.Slider.$fx,magic.control.Slider.$cache'></script>
     </head>
     <body>
@@ -58,7 +55,7 @@
                 </div>
                	<div id='slider'></div>
                	<form autocomplete="off">
-               		<label class="label">启用/禁用： <button id="switch">禁用</button></label>
+               		<label class="label">启用/禁用： <button type="button" id="switch">禁用</button></label>
                		<label class="label">设置值： 
 	               		<select id="setValue">
 	               			<option value="0" selected>0</option>
@@ -69,7 +66,7 @@
 	               			<option value="1">1</option>
 	               		</select>
                		</label>
-               		<label class="label">获取当前值： <button id="getValue">获取</button></label>
+               		<label class="label">获取当前值： <button type="button" id="getValue">获取</button></label>
                		<label class="label">设置可滑动范围： 
 	               		<select id="setRange">
 	               			<option value="0.1">0.1</option>

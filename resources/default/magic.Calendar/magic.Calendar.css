@@ -146,20 +146,16 @@
  *      timer插件的样式
  */
  .tang-calendar-timer{
+    float: left;
     overflow: hidden;
-    padding: 5px;
-    background: url(bg.png) repeat-x scroll 0 0 #BFBFBF;
-    _background-position: 0 2px;
-    border-width: 0px 1px 1px 1px;
-    border-style: solid;
-    border-color: #979797;
-    line-height: 20px;
+    line-height: 15px;
     _height: 20px;
  }
 
  .tang-calendar-timer-table{
     table-layout: fixed;
     border-spacing: 0px;
+    _width: 140px;
  }
  .tang-calendar-timer-character{
     font-size: 14px;
@@ -242,4 +238,32 @@
 
  .tang-calendar-timer-down{
     background-position: -16px -75px;
+ }
+
+ /* 今天插件区域 */
+ .tang-calendar .tang-calendar-footer{
+    padding: 3px;
+    background: url(bg.png) repeat-x scroll 0 0 #BFBFBF;
+    _background-position: 0 2px;
+    border: 1px solid #a9a9a9;
+    border-width: 0 1px 1px 1px;
+    overflow: hidden;
+    _zoom: 1;
+ }
+
+ .tang-calendar-footer .tang-calendar-footer-today{
+    line-height: 15px;
+    _height: 15px;
+    float: right;
+    padding: 2px 5px;
+    background: #E3E3E3;
+    border: 1px solid #BBBBBB;
+ }
+
+ .tang-calendar-footer .tang-calendar-footer-today .tang-calendar-footer-button{
+    display: inline-block;
+    vertical-align: middle;
+    color: #333;
+    text-decoration: none;
+    outline: none;
  }

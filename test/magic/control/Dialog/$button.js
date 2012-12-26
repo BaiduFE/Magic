@@ -72,7 +72,7 @@ test("render, default and custom params,using default button builder", function(
 	 stop();
 	 ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 		var me = this;
-		ua.importsrc("baidu.dom.children,baidu.string.trim,baidu.dom.text", function(){
+		ua.importsrc("baidu.browser.ie,baidu.dom.children,baidu.string.trim,baidu.dom.text", function(){
 			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -515,7 +515,7 @@ test("button plugin setup", function(){
 		dialog.$dispose();
 		document.body.removeChild(baidu("#one-dialog")[0]);
 		start();
-	}, "magic.setup.dialog");
+	}, "magic.setup.dialog", "magic.control.Dialog.$button");
 });
 
 
@@ -852,7 +852,7 @@ test('magic.alert', function(){
             equals(l2, l1, '事件已全部移除');
 
             start();
-    });
+    }, "baidu.ajax.request", "magic.control.Dialog.$button");
 });
 
 //case 7
@@ -870,7 +870,7 @@ test('magic.alert 英文环境', function(){
 
        	start();
        	ua.click(instance.buttons[0]);
-    });
+    }, "baidu.i18n.cultures.en-US", "magic.control.Dialog.$button");
 });
 
 //case 8
@@ -1029,21 +1029,17 @@ test('magic.confirm', function(){
 //case 9
 test('magic.confirm 英文环境', function(){
     expect(2);
-    stop();
-    ua.importsrc("baidu.i18n.cultures.en-US", function(){
-    	var instance = magic.confirm({
-            'content': '内容',
-            'titleText': '标题',
-            'ok': function(){},
-            'cancel': function(){}
-        });
-
-        ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == 'ok', '确定按钮文案显示正确');
-        ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == 'cancel', '取消按钮文案显示正确');
-
-       	start();
-       	ua.click(instance.buttons[0]);
+	var instance = magic.confirm({
+        'content': '内容',
+        'titleText': '标题',
+        'ok': function(){},
+        'cancel': function(){}
     });
+
+    ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == 'ok', '确定按钮文案显示正确');
+    ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == 'cancel', '取消按钮文案显示正确');
+
+   	ua.click(instance.buttons[0]);
 });
 
 
@@ -1101,6 +1097,7 @@ test('magic.confirm with multiple parameters', function(){
 test("test mask", function(){
     expect(12);
     stop();
+    var ie = baidu.browser.ie || 1;
     ua.frameExt(function(w, f){
         var me = this;
         ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
@@ -1131,13 +1128,13 @@ test("test mask", function(){
 
 		        var getViewHeight = function () {
 				    var doc = w.document,
-				        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+				        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
 
 				    return client.clientHeight;
 				};
 				var getViewWidth = function () {
 				    var doc = w.document,
-				        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
+				        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
 
 				    return client.clientWidth;
 				};
