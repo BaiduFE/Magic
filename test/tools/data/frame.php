@@ -11,10 +11,15 @@
 <script type="text/javascript" src="../br/js/jquery-1.7.2.js"></script>
 <?php
 $release = preg_match('/release=true/i', $_SERVER['QUERY_STRING']);
+$cov = preg_match('/cov=true/i', $_SERVER['QUERY_STRING']);
 preg_match('/[?&,]dep=[A-Za-z]*[^(?&,)]/', $_SERVER['QUERY_STRING'], $urldep);
 
-if($release == 0 && array_key_exists('f', $_GET))
-	print "<script type='text/javascript' src='../br/import.php?f={$_GET['f']}{$urldep[0]}'></script>";
+if($release == 0 && array_key_exists('f', $_GET)){
+	$src = '../br/import.php?f='.$_GET['f'].$urldep[0];
+	if($cov)
+		$src .= "&cov=true";
+	print "<script type='text/javascript' src=".$src."></script>";
+}
 else{
 	print "<script type='text/javascript' src='../../../magic.js'></script>";	
 }
