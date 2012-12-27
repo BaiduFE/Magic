@@ -873,6 +873,8 @@ var UserAction = {
 		};
 		if (exclude)
 			ps.e = exclude;
+		if(location.search.indexOf("cov=true") > -1)
+			ps.cov = true;
 		var param1 = exclude || "";
 		/**
 		 * IE下重复载入会出现无法执行情况
@@ -886,6 +888,8 @@ var UserAction = {
 			var sc = doc.createElement('script');
 			sc.type = 'text/javascript';
 			sc.src = srcpath + "?f=" + param0 + "&e=" + param1;
+			if(location.search.indexOf("cov=true") > -1)
+				sc.src += "&cov=true";
 			head.appendChild(sc);
 		}
 
