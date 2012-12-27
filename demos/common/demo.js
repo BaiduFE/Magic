@@ -7,12 +7,14 @@ function log(type, msg){
 baidu(function (){
     var list = baidu('div.demo-list a');
     var nameMatcher = /\/(.+\.html)/;
-    var currentName = nameMatcher.exec(window.location.href)[1];
+    var nameMatch = nameMatcher.exec(window.location.href);
+    var currentName = nameMatch && nameMatch[1];
     var i; 
     for(i=0; i < list.length; ++i) {
         var a = list[i];
-        var name = nameMatcher.exec(a.href)[1];
-        if(name == currentName) {
+        var nameMatch = nameMatcher.exec(a.href);
+        var name = nameMatch && nameMatch[1];
+        if( name == currentName ) {
             baidu(a).addClass("selected");
         }
         baidu(a).after('<a class="open-blank" href="' + a.href + '" target="_blank" title="在新窗口打开"></a>')
