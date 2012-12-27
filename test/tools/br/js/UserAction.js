@@ -763,6 +763,8 @@ var UserAction = {
 		url='?f='+f.substr(1)+'&e='+e;
 		if(pw.location.href.indexOf("release=true") > -1)
 			url += '&release=true';
+		if(pw.location.href.indexOf("cov=true") > -1)
+			url += '&cov=true';
 		var dep = pw.location.href.match("[?&,]dep=[A-Za-z]*[^(?&,)]");
 		if(dep && dep[0])
 			url += dep[0];

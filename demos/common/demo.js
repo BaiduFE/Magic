@@ -20,4 +20,5 @@ baidu(function (){
         baidu(a).after('<a class="open-blank" href="' + a.href + '" target="_blank" title="在新窗口打开"></a>')
     };
     baidu.browser.ie < 8 && baidu('body').height() < 500 && baidu('body').height( 500 );
+    window.top != window && baidu('body').addClass('no-scroll');
 });
