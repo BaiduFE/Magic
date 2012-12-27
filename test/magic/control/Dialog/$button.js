@@ -1100,7 +1100,8 @@ test("test mask", function(){
     var ie = baidu.browser.ie || 1;
     ua.frameExt(function(w, f){
         var me = this;
-        ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
+        ua.importsrc("baidu.page.getViewHeight,baidu.page.getViewWidth", function(){
+        	ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 
 		        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 400).css("width", 400).css('margin',0).css('padding',0).css('border',0);
 		        $(f).attr('allowtransparency', 'true');
@@ -1125,22 +1126,9 @@ test("test mask", function(){
 		            }
 		        });
 		        var alert_el = $('.tang-dialog');
-
-		        var getViewHeight = function () {
-				    var doc = w.document,
-				        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
-
-				    return client.clientHeight;
-				};
-				var getViewWidth = function () {
-				    var doc = w.document,
-				        client = doc.compatMode == 'BackCompat' && ie < 9 ? doc.body : doc.documentElement;
-
-				    return client.clientWidth;
-				};
 				var _mask = w.$('.tang-mask')[0];
-				equals(_mask.style.height, getViewHeight() + "px", "The height is right");
-				equals(_mask.style.width, getViewWidth() + "px", "The width is right");
+				equals(_mask.style.height, w.baidu.page.getViewHeight() + "px", "The height is right");
+				equals(_mask.style.width, w.baidu.page.getViewWidth() + "px", "The width is right");
 				var left = '0px';
 				var top = '0px';
 				equals(w.$(_mask).css('left'), left, "The left is right");
@@ -1150,8 +1138,8 @@ test("test mask", function(){
 				$(f).css("height", 500).css("width", 500);
 				setTimeout(function(){
 					
-					equals(_mask.style.height, getViewHeight() + "px", "After window resize, the height is right");
-					equals(_mask.style.width, getViewWidth() + "px", "After window resize, the width is right");
+					equals(_mask.style.height, w.baidu.page.getViewHeight() + "px", "After window resize, the height is right");
+					equals(_mask.style.width, w.baidu.page.getViewWidth() + "px", "After window resize, the width is right");
 					var left = '0px';
 					var top = '0px';
 					equals(w.$(_mask).css('left'), left, "After window resize, the left is right");
@@ -1161,8 +1149,8 @@ test("test mask", function(){
 					// w.document.documentElement.scrollTop = w.document.documentElement.scrollLeft = 100;
 					w.scrollBy(200, 200);
 					setTimeout(function(){
-						equals(_mask.style.height, getViewHeight() + "px", "After window scroll, the height is right");
-						equals(_mask.style.width, getViewWidth() + "px", "After window scroll, the width is right");
+						equals(_mask.style.height, w.baidu.page.getViewHeight() + "px", "After window scroll, the height is right");
+						equals(_mask.style.width, w.baidu.page.getViewWidth() + "px", "After window scroll, the width is right");
 
 						if(baidu.browser.ie == 6){
 							var left = '200px';
@@ -1179,7 +1167,8 @@ test("test mask", function(){
 						// ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
 					}, 50);
 				}, 50);
-        }, w);
+        	}, w);
+        }, "baidu.page.getViewWidth", "magic.control.Dialog.$button", w);
     })  
 });
 
