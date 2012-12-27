@@ -8,7 +8,7 @@ body {
 	overflow-y: auto;
 }
 
-iframe body {
+body.no-scroll {
 	overflow-y: hidden;
 }
 
