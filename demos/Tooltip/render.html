@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Carousel 组件">
+        <title>提示框组件</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
+        <style type='text/css'>
+            .demo-region {
+                margin:20px auto;
+                width: 560px;
+                height: 120px;
+                font-size: 20px;
+            }
+            .demo-flow{
+                float: left;
+            }
+            .spacer{
+                width: 100px;
+            }
+            .demo-line{
+                height: 30px;
+            }
+            .demo-background{
+                background: #f2f2f2;
+            }
+        </style>
+    </head>
+<body>
+    <div class="content">
+        <div class="demo-list">
+            <h3>Demo列表</h3>
+            <ul>
+                <li><a href="./render.html">render 模式</a></li>
+            </ul>
+        </div>
+        <div class="main-wrap">
+            <div class="demo-wrap">
+                <h3>提示框组件</h3>
+                <p>Render 模式: 通过调用 render 方法创建组件，可通过配置target参数，或者render时传入参数。</p>
+                <div class="demo-view">
+                </div>
+            </div>
+            <div class="demo-region">
+                <div class="demo-line">
+                    <div class='demo-flow demo-background' id='topRegion'>top tooltip 示例</div>
+                    <div class='demo-flow spacer'>&nbsp;</div>
+                    <div class='demo-flow demo-background' id='bottomRegion'>bottom tooltip 示例</div>
+                </div>
+                <div>
+                    <div class='demo-flow demo-background' id='leftRegion'>left tooltip 示例</div>
+                    <div class='demo-flow spacer'>&nbsp;</div>
+                    <div class='demo-flow demo-background' id='rightRegion'>right tooltip 示例</div>
+                </div>
+            </div>
+            <div class="console-wrap">
+                <h3>控制台</h3>
+                <div id="J_console" class="console"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    		var tooltip = new magic.Tooltip({
+    	        content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div style="width:100px">this is a tooltip</div>',
+                position: 'top'
+    	    });
+    	    tooltip.render('topRegion');
+    	    tooltip.hide();
+
+    	    tooltip = new magic.Tooltip({
+    	        content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div style="width:100px">this is a tooltip</div>',
+    	        target: baidu('#bottomRegion').get(0)
+    	    });
+    	    tooltip.render();
+            tooltip.hide();
+
+    	    tooltip = new magic.Tooltip({
+    	        content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div style="width:100px">this is a tooltip</div>',
+    	        target: baidu('#leftRegion').get(0),
+    	        position: 'left'
+
+    	    });
+    	    tooltip.render();
+            tooltip.hide();
+
+    	    tooltip = new magic.Tooltip({
+    	        content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div style="width:100px">this is a tooltip</div>',
+    	        target: baidu('#rightRegion').get(0),
+    	        position: 'right'
+    	    });
+    	    tooltip.render();
+            tooltip.hide();
+    </script>
+</body>
+</html>
