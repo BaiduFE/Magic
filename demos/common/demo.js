@@ -1,7 +1,7 @@
 ///import baidu.dom.height;
 
 function log(type, msg){
-    baidu('#J_console').insertHTML('beforeEnd', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+    baidu('#J_console').append('<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
     baidu('#J_console').get(0).scrollTop = 999999;
 }
 baidu(function (){
@@ -20,5 +20,12 @@ baidu(function (){
         baidu(a).after('<a class="open-blank" href="' + a.href + '" target="_blank" title="在新窗口打开"></a>')
     };
     baidu.browser.ie < 8 && baidu('body').height() < 500 && baidu('body').height( 500 );
-    window.top != window && baidu('body').addClass('no-scroll');
+    window.top != window && baidu('body').addClass('iframe');
+    baidu('<a>')
+        .text('清空')
+        .attr('title','清空日志内容')
+        .addClass('clear-console')
+        .click( function() {
+            baidu('#J_console').empty();
+        }).appendTo('.console-wrap');
 });
