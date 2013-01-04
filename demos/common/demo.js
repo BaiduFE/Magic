@@ -4,11 +4,6 @@ function log(type, msg) {
 }
 
 baidu(function (){
-    (function makeNavigationInBlank() {
-        baidu('div.demo-list a').each( function( index ) {
-            baidu(this).after('<a class="open-blank" href="' + this.href + '" target="_blank" title="在新窗口打开"></a>');
-        });
-    })();
 
     (function highlightCurrentNav() {
         var nameMatcher = /\/(.+\.html)/;
@@ -19,7 +14,13 @@ baidu(function (){
         var currentName = matchName( window.location.href );
         baidu('div.demo-list a').filter( function( index ) {
             return matchName( this.href ) === currentName;
-        }).addClass('selected');
+        }).addClass('selected').removeAttr('href');
+    })();
+
+    (function makeNavigationInBlank() {
+        baidu('div.demo-list a').each( function( index ) {
+            baidu(this).after('<a class="open-blank" href="' + this.href + '" target="_blank" title="在新窗口打开"></a>');
+        });
     })();
 
     (function autoHeightForIE() {        
@@ -59,6 +60,8 @@ baidu(function (){
             expander.hasClass('expanded') ? collapse() : expand();
         }
         expander.click(toggle);
+
+        // 恢复上次记忆的状态
         baidu.cookie.get(cookieName) ? expand() : collapse();
 
         // 绑定快捷键和快捷键说明

@@ -90,7 +90,7 @@ body.iframe .demo-list {
 	margin-bottom: 240px;
 }
 .demo-wrap {
-	background-color: #8899DD;
+	background-color: #808080;
 	color: #FFF;
 	padding: 15px;
 	margin-top: 15px;
@@ -103,7 +103,7 @@ body.iframe .demo-list {
 	font-family: 'Microsoft Yahei';
 	margin: 10px 0 20px;
 	font-weight: normal;
-	text-shadow: 1px 1px #0C1EA7;
+	text-shadow: 1px 1px #000;
 }
 .demo-view {
 }
