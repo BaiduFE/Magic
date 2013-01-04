@@ -8,6 +8,11 @@ body {
 	overflow-y: auto;
 }
 
+html, body {
+	*height: 100%;
+	*background-image: url(about:blank);
+	max-height: 100%;
+}
 body.iframe {
 	overflow-y: hidden;
 }
@@ -25,7 +30,6 @@ a {
 }
 .demo-list {
 	position: fixed;
-	*position: absolute;
 	left: 0;
 	top: 0;
 	bottom: 0;
@@ -34,6 +38,10 @@ a {
 	padding: 10px;
 	border-right: 1px solid #AAA;
 	box-shadow: inset -1px 0 white, 1px 0 8px #CCC;
+	*position: absolute;
+	*height: 100%;
+	*top: expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt
+(this.currentStyle.marginBottom,10)||0) + 30);
 }
 body.iframe .demo-list {	
 	z-index: 9999999999;
@@ -109,7 +117,6 @@ body.iframe .demo-list {
 }
 .console-wrap {
 	border: 1px solid #999;
-	*position: absolute;
 	position: fixed;
 	bottom: 0;
 	left: 239px;
@@ -117,7 +124,10 @@ body.iframe .demo-list {
 	z-index: 100;
 	margin: 0;
 	border-bottom: none;
-	border-right: none;
+	border-right: none;	
+	*position: absolute;
+	*top: expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt
+(this.currentStyle.marginBottom,10)||0));
 }
 .console-wrap h3 {
 	margin: 0;
