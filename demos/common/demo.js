@@ -5,21 +5,22 @@ function log(type, msg) {
 
 baidu(function (){
 
-    (function highlightCurrentNav() {
+    /**
+     * 1. 高亮当前超链接
+     * 2. 给每个超链接加上“在新窗口打开”
+     */
+    (function processNavigation() {
         var nameMatcher = /\/(.+\.html)/;
         function matchName( href ) {
             var nameMatch = nameMatcher.exec(href);
             return nameMatch && nameMatch[1];
         }
         var currentName = matchName( window.location.href );
-        baidu('div.demo-list a').filter( function( index ) {
-            return matchName( this.href ) === currentName;
-        }).addClass('selected').removeAttr('href');
-    })();
-
-    (function makeNavigationInBlank() {
-        baidu('div.demo-list a').each( function( index ) {
+        baidu('div.demo-list a').each( function() {
             baidu(this).after('<a class="open-blank" href="' + this.href + '" target="_blank" title="在新窗口打开"></a>');
+            if ( matchName( this.href ) === currentName ) {
+                baidu(this).addClass('selected').removeAttr('href');
+            }
         });
     })();
 
