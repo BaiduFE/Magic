@@ -176,6 +176,9 @@
         }
         tooltip.render('tooltipBtn');
         tooltip.show();
+        baidu(window).on('resize', function(){
+            tooltip.reposition();
+        });
     </script>
 </body>
 </html>

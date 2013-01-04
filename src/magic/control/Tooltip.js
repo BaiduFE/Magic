@@ -24,6 +24,7 @@
 ///import baidu.dom.offsetParent;
 ///import baidu.dom.append;
 ///import baidu.dom.empty;
+///import baidu.dom.contains;
 ///import baidu.array.indexOf;
 ///import baidu.fn.bind;
 ///import magic.Base;
@@ -234,10 +235,11 @@ magic.control.Tooltip = baidu.lang.createClass(
                 pecent = /\d+%/ig, r = {};
             //百分数处理
             value &&  pecent.test(value) && (value = node[measure](true) * parseFloat(value) * 0.01);
+            value && typeof value != 'number' && (value = parseFloat(value));
             //取最佳位置,始终指向目标中间
             value === null && (value = (max >> 1) - (isX ? opt.offsetX : opt.offsetY));
             //验证最小值
-            value < 0 && (value = arrowRegion.start);
+            value < arrowRegion.start && (value = arrowRegion.start);
             //验证最大值
             value > arrowRegion.end && (value = arrowRegion.end);
             r[attr] = value;

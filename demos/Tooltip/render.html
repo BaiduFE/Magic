@@ -12,7 +12,6 @@
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
-        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
         <style type='text/css'>
             .magic-tooltip{
                 color: black;
@@ -20,7 +19,7 @@
             .demo-region {
                 margin:20px auto;
                 width: 600px;
-                height: 160px;
+                height: 350px;
                 text-align: center;
             }
             .demo-flow{
@@ -40,6 +39,8 @@
                 color: black;
             }
         </style>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
+        <script type="text/javascript" src="../../demos/common/exec.js"></script>
     </head>
 <body>
     <div class="content">
@@ -69,10 +70,50 @@
                             <div class='demo-flow spacer'>&nbsp;</div>
                             <div class='demo-flow demo-background' id='bottomRegion'>bottom tooltip 示例</div>
                         </div>
-                        <div>
+                        <div class="demo-line">
                             <div class='demo-flow demo-background' id='leftRegion'>left tooltip 示例</div>
                             <div class='demo-flow spacer'>&nbsp;</div>
                             <div class='demo-flow demo-background' id='rightRegion'>right tooltip 示例</div>
+                        </div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>选择示例</td>
+                                        <td><select id='slt'>
+                                                <option value='0' selected>top tooltip示例</option>
+                                                <option value='1'>bottom tooltip示例</option>
+                                                <option value='2'>left tooltip示例</option>
+                                                <option value='3'>right tooltip示例</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>设置arrowPosition值：Number</td>
+                                        <td><input type="text" id='numArrowPosition' value='0'/></td>
+                                        <td></td>
+                                        <td><input cmd="setTooltip('arrowPosition', 'numArrowPosition');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>设置arrowPosition值：Percent</td>
+                                        <td><input type="text" id='pctArrowPosition' value='0'/></td>
+                                        <td>%</td>
+                                        <td><input cmd="setTooltip('arrowPosition', 'pctArrowPosition');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>设置offsetX值</td>
+                                        <td><input type="text" id='offsetXValue' value='0'/></td>
+                                        <td></td>
+                                        <td><input cmd="setTooltip('offsetX', 'offsetXValue');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>设置offsetY值</td>
+                                        <td><input type="text" id='offsetYValue' value='0'/></td>
+                                        <td></td>
+                                        <td><input cmd="setTooltip('offsetY', 'offsetYValue');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -85,6 +126,17 @@
     </div>
 
     <script type="text/javascript">
+            function getTooltip(){
+                return tooltips[baidu('#slt')[0].value];
+            }
+            function setTooltip(attr, id){
+                var tooltip = getTooltip(),
+                    value = baidu('#' + id)[0].value;
+                value = parseFloat(value);
+                id == 'pctArrowPosition' && (value += '%');
+                value != undefined && (tooltip._options[attr] = value);
+                tooltip.reposition();
+            }
             var img = new Image();
             img.src = "http://www.baidu.com/img/baidu_jgylogo3.gif";
             img.onload = img.onreadystatechange = function(){
@@ -94,20 +146,18 @@
                     });
                 }
             };
-            var position = ['top', 'bottom', 'left', 'right'], tooltip, tooltips = [];
+            var position = ['top', 'bottom', 'left', 'right'], tooltips = [];
             baidu.forEach(position, function(pos, index){
-                tooltip = new magic.Tooltip({
+                var tooltip = new magic.Tooltip({
                     content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
-                    position: pos,
-                    offsetY:index == 3 ? 10: 0,
-                    offsetX:index == 3 ? 10: 0
+                    position: pos
                 });
                 tooltip.render(pos + 'Region');
                 tooltip.onbeforeshow = function() {
                     log(pos + ' tooltip info', 'beforeshow event');
                 };
                 tooltip.onshow = function() {
-                    log(pos + ' tooltip info', 'show event' + (index == 3 ? ', and offsetX = 10, offsetY = 10' : ''));
+                    log(pos + ' tooltip info', 'show event' + ', offsetX = ' + tooltip._options.offsetX + ', offsetY = ' + tooltip._options.offsetY + ', arrowPosition = ' + tooltip._options.arrowPosition);
                 };
                 tooltip.onbeforehide = function() {
                     log(pos + ' tooltip info', 'beforehide event');
