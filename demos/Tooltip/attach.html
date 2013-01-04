@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Tooltip 组件">
+        <title>提示框组件 setTarget示例</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
+        <script type="text/javascript" src="../../demos/common/exec.js"></script>
+        <style type='text/css'>
+            .demo-region {
+                margin:20px auto;
+                width: 600px;
+                text-align: center;
+            }
+            .tang-background td{
+                border: 0px solid black;
+                line-height: 12px;
+                padding: 0px;
+            }
+            .console span{
+                background-color: #89D;
+            }
+        </style>
+    </head>
+<body>
+    <div class="content">
+        <div class="demo-list">
+            <h3>Demo列表</h3>
+            <ul>
+                <li><a href="./render.html">render 模式</a></li>
+                <li><a href="./attach.html">绑定节点 示例</a></li>
+                <li><a href="./focus.html">focus和blur 示例</a></li>
+                <li><a href="./methods.html">接口示例</a></li>
+            </ul>
+            <h3>最佳demo列表</h3>
+            <ul>
+                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
+                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
+            </ul>
+        </div>
+        <div class="main-wrap">
+            <div class="demo-wrap">
+                <h3>Tooltip 组件 <strong>setTarget</strong> 示例</h3>
+                <p>通过setTarget方法来和某个dom元素进行绑定，使tooltip指示到该元素，且只有一个tooltip实例, 之前指定的dom元素不会有提示框信息。</p>
+                <div class="demo-view">
+                    <div class="demo-region">
+                        <table class="demo-control">
+                        <!-- item start -->
+                        <tr>
+                            <td id='bdNode'>百度</td>
+                            <td>tooltip.<strong>setTarget</strong>(<em>target</em>);</td>
+                            <td><input cmd="log('当前节点为 ', '百度');tooltip.setTarget(baidu('#bdNode')[0]);" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td id='ggNode'>谷歌</td>
+                            <td>tooltip.<strong>setTarget</strong>(<em>target</em>);</td>
+                            <td><input cmd="log('当前节点为', '谷歌');tooltip.setTarget(baidu('#ggNode')[0]);" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->         
+                    </table>
+                    </div>
+                </div>
+            </div>
+            <div class="console-wrap">
+                <h3>控制台</h3>
+                <div id="J_console" class="console"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+                var tooltip = new magic.Tooltip({
+                    content: function(target){
+                        return '我现在是 ' + baidu(target).text() + ' 的提示框'
+                    },
+                    position: 'top',
+                    hasCloseBtn: false
+                });
+                tooltip.render('bdNode');
+                log('当前节点为', '百度');
+    </script>
+</body>
+</html>

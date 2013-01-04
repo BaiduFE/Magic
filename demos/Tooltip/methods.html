@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Tooltip 组件各个接口的使用示例">
+        <title> 提示框组件各个接口的使用示例</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css">
+        <style type="text/css" media="screen">
+            .magic-tooltip{
+                color: black;
+            }
+            #targetNode{
+                width: 100px;
+                color: red;
+                margin: 5px 200px 5px;
+            }
+            .tang-body .content{
+                font-size: 14px;
+            }
+        </style>
+        <script type="text/javascript" src="../../src/import.php?f=magic.Tooltip"></script>
+        <script type="text/javascript" src="../../demos/common/exec.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./render.html">render 模式</a></li>
+                    <li><a href="./attach.html">绑定节点 示例</a></li>
+                    <li><a href="./focus.html">focus和blur 示例</a></li>
+                    <li><a href="./methods.html">接口示例</a></li>
+                </ul>
+                <h3>最佳demo列表</h3>
+            <ul>
+                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
+                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
+            </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>提示框组件各个接口的使用示例</h3>
+                    <p>本例只有 Tooltip 的 render 模式做演示。</p>
+                    <p><em>notice:</em> 本例仅是 Tooltip 组件方法的使用演示，不代表 Tooltip 只有这些方法，参考方法请详见官网 api 页面。此处atuoHide为false。</p>
+                    <p><em>notice:</em> 调用方法，只能在 render 完成后才可生效。</p>
+                    <p id="targetNode">看看我，有提示</p>
+                    <table class="demo-control">
+
+                        <!-- item start -->
+                        <tr>
+                            <td>显示</td>
+                            <td>tooltip.<strong>show</strong>();</td>
+                            <td><input cmd="tooltip.show();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>隐藏</td>
+                            <td>tooltip.<strong>hide</strong>();</td>
+                            <td><input cmd="tooltip.hide();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>重定位</td>
+                            <td>tooltip.<strong>reposition</strong>();</td>
+                            <td><input cmd="tooltip.reposition();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td rowspan="2">设置内容(文本)，该操作后需要重定位。</td>
+                            <td>tooltip.<strong>setContent</strong>( <em>str</em>, "text" );</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><span>str = </span><span><input type="text" class="textArea" id="strContent" value="hello <b>magic</b>"></span></td>
+                            <td><input cmd="tooltip.setContent(baidu('#strContent')[0].value);" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>       
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td rowspan="2">设置内容(html)，该操作后需要重定位。</td>
+                            <td>tooltip.<strong>setContent</strong>( <em>html</em>, "html" );</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><span>html = </span><span><input type="text" class="textArea" id="strHtml" value="hello <b>magic</b>"></span></td>
+                            <td><input cmd="tooltip.setContent(baidu('#strHtml')[0].value);" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>       
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td rowspan="2">设置内容(Function)，该操作后需要重定位。</td>
+                            <td>tooltip.<strong>setContent</strong>( <em>Function</em>, "function" );</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><span>function = function(target){return 'hello word!'}</span><span></span></td>
+                            <td><input cmd="tooltip.setContent(function(){return 'hello word!'});" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>        
+                        <!-- item end -->         
+
+                        <!-- item start -->
+                        <tr>
+                            <td rowspan="3">设置位置</td>
+                            <td>tooltip.<strong>setPosition</strong>( <em>pos</em> );</td>
+                            <td rowspan="3"><input cmd="tooltip.setPosition({x:baidu('#tipLeft')[0].value,y:baidu('#tipTop')[0].value});" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <tr>
+                            <td><span>pos.x = </span><span><input type="text" class="textInput-s" id="tipLeft" value="500"></span></td>
+                        </tr>
+                        <tr>
+                            <td><span>pos.y = </span><span><input type="text" class="textInput-s" id="tipTop" value="200"></span></td>
+                        </tr>   
+                        <!-- item end -->            
+                    </table>
+                </div>
+            </div> 
+        </div>
+        <script>
+            tooltip = new magic.Tooltip({
+                content: '我是提示',
+                target: baidu('#targetNode')[0],
+                autoHide: false,
+                position: 'left'
+            });
+            tooltip.render(); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
+        </script>
+    </body>
+</html>

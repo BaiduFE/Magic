@@ -11,6 +11,7 @@
 ///import baidu.string.format;
 ///import baidu.dom.insertHTML;
 ///import baidu.dom.parent;
+///import baidu.dom.hide;
 ///import baidu.global.getZIndex;
 ///import magic.control.Tooltip;
 ///import magic.Background.$styleBox;
@@ -77,6 +78,7 @@
             }));
             
             var host = me.getElement("");
+            baidu(host).hide();
             host.style.zIndex = baidu.global.getZIndex("popup");
 
             me.background = new magic.Background({coverable:true, styleBox:me.styleBox});

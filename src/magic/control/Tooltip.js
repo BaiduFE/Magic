@@ -67,18 +67,23 @@ magic.control.Tooltip = baidu.lang.createClass(
                 arrowPosition: null
             }, options || {});
         //显示状态
-        me._isShow = true;
+        me._isShow = false;
         me._refresh = false;
         me.styleBox = true;
 
         me.on("load", function(){
             me._posInfo = baidu.array(['top', 'bottom', 'left', 'right']);
             me._posCache = {};
+            me._eventList = [];
 
             //事件处理
-            var eventDeal = function(eventName, eventHandler, node){
+            var eventDeal = me._eventDeal = function(eventName, eventHandler, node, events){
                     eventName = eventName && baidu.string(eventName).trim();
-                    eventName && node.on(eventName, eventHandler) && me.on('dispose', function(){node.off(eventName, eventHandler); });
+                    if(eventName){
+                        var destroy = function(){node.off(eventName, eventHandler); };
+                        node.on(eventName, eventHandler);
+                        events ? events.push(destroy) : me.on('dispose', destroy);
+                    }
                 },
                 resizeHandler = function(){
                     me._refresh = true;
@@ -86,11 +91,8 @@ magic.control.Tooltip = baidu.lang.createClass(
                 },
                 showHandler = baidu.fn.bind('show', me),
                 hideHandler = baidu.fn.bind('hide', me);
-
-            //显示事件
-            eventDeal(opt.showEvent, showHandler, baidu(opt.target));
-            //隐藏事件            
-            eventDeal(opt.hideEvent, hideHandler, baidu(opt.target));
+            //自定义事件绑定
+            me._bindCustomEvent(opt.target);
             //关闭按钮            
             opt.hasCloseBtn ? eventDeal('click', hideHandler, baidu(me.getElement("close"))) : baidu(me.getElement("close")).hide();
             //自动隐藏
@@ -100,6 +102,11 @@ magic.control.Tooltip = baidu.lang.createClass(
             }, baidu(document)));
             //resize操作
             eventDeal('resize', resizeHandler, baidu(window));
+            //自定义事件销毁
+            me.on("dispose", function(){
+                for(var i = 0, l = me._eventList.length; i < l; i ++)
+                    me._eventList[i].call(me);
+            });
             //箭头是否可见
             var arrow = baidu(me.getElement("arrow"));
             opt.hasArrow && arrow.addClass("arrow-" + me._getOpositePos(opt.position)) || arrow.hide();
@@ -112,7 +119,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             typeof opt.content == 'string' && imgDitect.test(opt.content) && (timelimit = 150);
             //位置处理
             setTimeout(function(){
-                me._position();    
+                me.reposition();
             }, timelimit);
         });
     },
@@ -123,7 +130,7 @@ magic.control.Tooltip = baidu.lang.createClass(
     /** @lends magic.control.Tooltip.prototype */
     {
         /**
-         * @description 提示框位于目标节点上边，内部方法，在计算箭头位置的时候忽略目标节点margin的值
+         * @description 提示框位于目标节点上边，内部方法
          * @name magic.control.Tooltip#_top
          * @function
          */
@@ -131,16 +138,21 @@ magic.control.Tooltip = baidu.lang.createClass(
             var opt = this._options;
             //提示框位置处理
             if(!isArrow){
-                return {top: tpos.top - node.outerHeight() - arrow.outerHeight() + opt.offsetY,
-                        left: tpos.left + opt.offsetX,
+                target = baidu(target);
+                var marginLeft = parseFloat(target.css("margin-left")),
+                    marginTop = parseFloat(target.css("margin-top"));
+                isNaN(marginLeft) && (marginLeft = 0);
+                isNaN(marginTop) && (marginTop = 0);
+                return {top: tpos.top + marginTop - node.outerHeight(true) - (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
+                        left: tpos.left + marginLeft + opt.offsetX,
                         position: 'top'};
             }
             //箭头位置处理
-            return this._arrowPos('left', 'bottom', {start:1, end:node.outerWidth() - arrow.outerWidth() - 7, gap: 5}, true);
+            return this._arrowPos('left', 'bottom', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: 5}, true);
         },
 
         /**
-         * @description 提示框位于目标节点下边，内部方法，在计算箭头位置的时候忽略目标节点margin的值
+         * @description 提示框位于目标节点下边，内部方法
          * @name magic.control.Tooltip#_bottom
          * @function
          */
@@ -148,16 +160,21 @@ magic.control.Tooltip = baidu.lang.createClass(
             var opt = this._options;
             //提示框位置处理
             if(!isArrow){
-                return {top: tpos.top + target.outerHeight() + arrow.outerHeight() + opt.offsetY,
-                        left: tpos.left + opt.offsetX,
+                target = baidu(target);
+                var marginLeft = parseFloat(target.css("margin-left")),
+                    marginBottom = parseFloat(target.css("margin-bottom"));
+                isNaN(marginLeft) && (marginLeft = 0);
+                isNaN(marginBottom) && (marginBottom = 0);    
+                return {top: tpos.top + marginBottom + target.outerHeight(true) + (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
+                        left: tpos.left + marginLeft + opt.offsetX,
                         position: 'bottom'};
             }
             //箭头位置处理
-            return this._arrowPos('left', 'top', {start:1, end:node.outerWidth() - arrow.outerWidth() - 7, gap: 1}, true);
+            return this._arrowPos('left', 'top', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: 1}, true);
         },
 
         /**
-         * @description 提示框位于目标节点左边，内部方法，在计算箭头位置的时候忽略目标节点margin的值
+         * @description 提示框位于目标节点左边，内部方法
          * @name magic.control.Tooltip#_left
          * @function
          */
@@ -165,16 +182,21 @@ magic.control.Tooltip = baidu.lang.createClass(
             var opt = this._options;
             //提示框位置处理
             if(!isArrow){
-                return {top: tpos.top + opt.offsetY,
-                        left: tpos.left - node.outerWidth() - arrow.outerWidth() + opt.offsetX,
+                target = baidu(target);
+                var marginLeft = parseFloat(target.css("margin-left")),
+                    marginTop = parseFloat(target.css("margin-top"));
+                isNaN(marginLeft) && (marginLeft = 0);
+                isNaN(marginTop) && (marginTop = 0);
+                return {top: tpos.top + marginTop + opt.offsetY,
+                        left: tpos.left + marginLeft - node.outerWidth(true) - (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
                         position: 'left'};
             }
             //箭头位置处理
-            return this._arrowPos('top', 'right', {start:1, end:node.outerHeight() - arrow.outerHeight() - 7, gap: 5});
+            return this._arrowPos('top', 'right', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 5});
         },
 
         /**
-         * @description 提示框位于目标节点右边，内部方法，在计算箭头位置的时候忽略目标节点margin的值
+         * @description 提示框位于目标节点右边，内部方法
          * @name magic.control.Tooltip#_right
          * @function
          */
@@ -182,12 +204,16 @@ magic.control.Tooltip = baidu.lang.createClass(
             var opt = this._options;
             //提示框位置处理
             if(!isArrow){
-                return {top: tpos.top + opt.offsetY,
-                        left: tpos.left + target.outerWidth() + arrow.outerWidth() + opt.offsetX,
+                var marginRight = parseFloat(target.css("margin-right")),
+                    marginTop = parseFloat(target.css("margin-top"));
+                isNaN(marginRight) && (marginRight = 0);
+                isNaN(marginTop) && (marginTop = 0);
+                return {top: tpos.top + marginTop + opt.offsetY,
+                        left: tpos.left + target.outerWidth(true) - marginRight + (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
                         position: 'right'};
             }
             //箭头位置处理
-            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight() - arrow.outerHeight() - 7, gap: 2});
+            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 2});
         },
 
         /**
@@ -203,11 +229,11 @@ magic.control.Tooltip = baidu.lang.createClass(
                 target = baidu(opt.target),
                 node = baidu(me.getElement("")),
                 measure = isX ? 'outerWidth' : 'outerHeight',
-                d = isX ? -arrow.outerHeight() : -arrow.outerWidth(),
+                d = isX ? -arrow.outerHeight(true) : -arrow.outerWidth(true),
                 max = target[measure]() - arrow[measure](),
                 pecent = /\d+%/ig, r = {};
             //百分数处理
-            value &&  pecent.test(value) && (value = node[measure]() * parseFloat(value) * 0.01);
+            value &&  pecent.test(value) && (value = node[measure](true) * parseFloat(value) * 0.01);
             //取最佳位置,始终指向目标中间
             value === null && (value = (max >> 1) - (isX ? opt.offsetX : opt.offsetY));
             //验证最小值
@@ -241,11 +267,11 @@ magic.control.Tooltip = baidu.lang.createClass(
                 pos = me['_' + position](target, tpos, node, arrow, isArrow);
             if(isArrow){return pos;}
             var parent = node.offsetParent(),
-                region = {w: parent.outerWidth(), h: parent.outerHeight()};
+                region = {w: parent.outerWidth(true), h: parent.outerHeight(true)};
             me._posCache[position] = 1;
             //提示框位置正常显示
-            if(pos.left >= 0 && pos.left + node.outerWidth() <= region.w
-                && pos.top >= 0 && pos.top + node.outerHeight() <= region.h){
+            if(pos.left >= 0 && pos.left + node.outerWidth(true) <= region.w
+                && pos.top >= 0 && pos.top + node.outerHeight(true) <= region.h){
                 return pos;
             }
             //提示框被遮挡，只考虑两种case, 上与下互换，左与右互换,index值的更改可使其按照一定规律来取
@@ -269,11 +295,16 @@ magic.control.Tooltip = baidu.lang.createClass(
         },
 
         /**
-         * @description 设置提示框位置，内部方法
-         * @name magic.control.Tooltip#_position
+         * @description 重新定位提示框位置
+         * @name magic.control.Tooltip#reposition
          * @function
+         * @grammar magic.control.Tooltip#reposition()
+         * @example
+         * var instance = new magic.Tooltip();
+         * instance.render('tooltipNode');
+         * instance.reposition();
          */
-        _position: function(){
+        reposition: function(){
             var me = this,
                 opt = me._options,
                 node = baidu(me.getElement("")),
@@ -305,10 +336,29 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _content: function(content){
-            var ct = baidu(this.getElement("container"));
-            this._options.content = content;
+            var ct = baidu(this.getElement("container")),
+                opt = this._options;
+            opt.content = content;
             ct.empty();
             typeof content == 'function' ? ct.html(content(opt.target)) : ct.append(content);
+        },
+
+        /**
+         * @description 绑定自定义事件，内部方法
+         * @name magic.control.Tooltip#_bindCustomEvent
+         * @function
+         */
+        _bindCustomEvent: function(target){
+            var me = this,
+                opt = me._options,
+                showHandler = baidu.fn.bind('show', me),
+                hideHandler = baidu.fn.bind('hide', me);
+            for(var i = 0, l = me._eventList.length; i < l; i ++)
+                    me._eventList[i].call(me);
+            //显示事件
+            me._eventDeal(opt.showEvent, showHandler, baidu(target), me._eventList);
+            //隐藏事件            
+            me._eventDeal(opt.hideEvent, hideHandler, baidu(target), me._eventList);
         },
 
         /**
@@ -321,7 +371,9 @@ magic.control.Tooltip = baidu.lang.createClass(
          * instance.show();
          */
         show: function(){
-            if(this._isShow){return;}
+            var me = this,
+                opt = me._options;
+            if(me._isShow){return;}
             /**
              * @description 显示提示框之前触发,如果返回为false,则阻止显示。
              * @name magic.control.Tooltip#onbeforeshow
@@ -338,14 +390,16 @@ magic.control.Tooltip = baidu.lang.createClass(
              *     //do something...
              * };
              */
-            if(this.fire("beforeshow") === false){
+            if(me.fire("beforeshow") === false){
                 return;
             }
-
-            this._refresh && (this._refresh = false) || this._position();
-
-            baidu(this.getElement("")).show();
-            this._isShow = true;
+            //重新定位
+            me._refresh && ((me._refresh = false) || me.reposition());
+            //重设内容
+            typeof opt.content == 'function' && me._content(opt.content);
+            
+            baidu(me.getElement("")).show();
+            me._isShow = true;
             /**
              * @description 显示提示框时触发
              * @name magic.control.Tooltip#onshow
@@ -362,7 +416,7 @@ magic.control.Tooltip = baidu.lang.createClass(
              *     //do something...
              * };
              */
-            this.fire("show");
+            me.fire("show");
         },
 
         /**
@@ -427,9 +481,13 @@ magic.control.Tooltip = baidu.lang.createClass(
          * instance.setTarget(baidu('#target')[0], true);
          */        
         setTarget: function(target, show){
-            this._options.target = target;
-            this._position();
-            show && this.show();
+            var me = this,
+                opt = me._options;
+            if(target == opt.target){return;}
+            me._bindCustomEvent(target);
+            opt.target = target;
+            me.reposition();
+            show && me.show();
         },
 
         /**
@@ -469,8 +527,8 @@ magic.control.Tooltip = baidu.lang.createClass(
         setPosition: function(pos){
             var me = this,
                 node = baidu(me.getElement(""));
-            pos.x && node.css("left", pos.x);
-            pos.y && node.css("top", pos.y);
+            pos.x && node.css("left", parseFloat(pos.x));
+            pos.y && node.css("top", parseFloat(pos.y));
         },
 
         /**
