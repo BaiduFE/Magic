@@ -213,7 +213,7 @@ magic.control.Tooltip = baidu.lang.createClass(
                         position: 'right'};
             }
             //箭头位置处理
-            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 2});
+            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 3});
         },
 
         /**
@@ -324,10 +324,10 @@ magic.control.Tooltip = baidu.lang.createClass(
             arrow.addClass("arrow-" + me._getOpositePos(pos.position));
             //提示框箭头位置处理
             pos = me['_' + pos.position](target, position, node, arrow, true);
-            arrow.css("top", pos.top);
-            arrow.css("left", pos.left);
-            arrow.css("bottom", pos.bottom);
-            arrow.css("right", pos.right);
+            arrow.css("top", pos.top || null);
+            arrow.css("left", pos.left || null);
+            arrow.css("bottom", pos.bottom || null);
+            arrow.css("right", pos.right || null);
         },
 
         /**
