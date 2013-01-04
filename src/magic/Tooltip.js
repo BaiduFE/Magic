@@ -89,9 +89,9 @@
             });
              /**
              * @description 提示框渲染完时触发
-             * @name magic.control.Tooltip#onload
+             * @name magic.Tooltip#onload
              * @event 
-             * @grammar magic.control.Tooltip#onload()
+             * @grammar magic.Tooltip#onload()
              * @example
              * var instance = new magic.Tooltip();
              * instance.on("load", function(){

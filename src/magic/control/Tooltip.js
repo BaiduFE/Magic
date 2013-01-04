@@ -111,7 +111,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             var arrow = baidu(me.getElement("arrow"));
             opt.hasArrow && arrow.addClass("arrow-" + me._getOpositePos(opt.position)) || arrow.hide();
             //内容处理
-            me._content(opt.content);
+            opt.content && me._content(opt.content);
 
             var timelimit = 0, imgDitect = /<img\s[\w\=\"\/\.\_\:]*\/?>\w*(<\/img>)?/ig;
 
@@ -324,10 +324,10 @@ magic.control.Tooltip = baidu.lang.createClass(
             arrow.addClass("arrow-" + me._getOpositePos(pos.position));
             //提示框箭头位置处理
             pos = me['_' + pos.position](target, position, node, arrow, true);
-            arrow.css("top", pos.top || null);
-            arrow.css("left", pos.left || null);
-            arrow.css("bottom", pos.bottom || null);
-            arrow.css("right", pos.right || null);
+            arrow.css("top", pos.top == undefined ? null : pos.top);
+            arrow.css("left", pos.left == undefined ? null : pos.left);
+            arrow.css("bottom", pos.bottom == undefined ? null : pos.bottom);
+            arrow.css("right", pos.right == undefined ? null : pos.right);
         },
 
         /**

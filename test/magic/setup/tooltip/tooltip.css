@@ -145,6 +145,7 @@
 	display: block;
 	/*border: 1px solid black;*/
 }
+
 .magic-tooltip .magic-tooltip-close{
     position:absolute; 
 	width:10px; 
@@ -157,6 +158,9 @@
 	display:block; 
 	width:100%; 
 	height:100%;
+}
+.magic-tooltip .tang-background{
+	line-height: 12px;
 }
 .magic-tooltip .magic-tooltip-arrow{
 	background:transparent url(arrow.gif) no-repeat;
@@ -180,7 +184,7 @@
 	background-position: 0px -10px;
 }
 .magic-tooltip .arrow-left{
-	background-position: -15px 0px;
+	background-position: -17px 0px;
 }
 .magic-tooltip .arrow-right{
 	background-position: -26px 0px;
