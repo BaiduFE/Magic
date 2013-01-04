@@ -9,7 +9,7 @@
 
 ///import baidu.lang.createClass;
 ///import baidu.string.format;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.dom.parent;
 ///import baidu.dom.hide;
 ///import baidu.global.getZIndex;
@@ -69,20 +69,19 @@
 
             var template = magic.Tooltip.template.join("");
 
-            baidu(el).insertHTML("beforeEnd", baidu.string.format(template, {
-                foregroundId: me.$getId(""),
+            baidu(el).append(baidu.string.format(template, {
+                containerId: me.$getId(""),
                 closeId: me.$getId("close"),
-                closeBtnId: me.$getId("closeBtn"),
-                containerId: me.$getId("container"),
+                contentId: me.$getId("container"),
                 arrowId: me.$getId("arrow")
             }));
             
-            var host = me.getElement("");
-            baidu(host).hide();
-            host.style.zIndex = baidu.global.getZIndex("popup");
+            var self = me.getElement("");
+            baidu(self).hide();
+            self.style.zIndex = baidu.global.getZIndex("popup");
 
             me.background = new magic.Background({coverable:true, styleBox:me.styleBox});
-            me.background.render(host);
+            me.background.render(self);
 
             me.on("dispose", function(){
                 me.background.$dispose();
@@ -108,9 +107,11 @@
      });
 
 magic.Tooltip.template = [
-    "<div class='magic-tooltip magic-ui' id='#{foregroundId}'>",
-        "<div class='magic-tooltip-close' id='#{closeId}'><a id='#{closeBtnId}' href='' onmousedown='event.stopPropagation && event.stopPropagation(); event.cancelBubble = true; return false;' onclick='return false;'></a></div>",
-        "<div class='magic-tooltip-content' id='#{containerId}'></div>",
-        "<div class='magic-tooltip-arrow' id='#{arrowId}'></div>",
+    "<div class='magic-tooltip magic-ui' id='#{containerId}'>",
+        "<div class='tang-foreground'>",
+            "<div class='magic-tooltip-close' id='#{closeId}'><a href='' onmousedown='event.stopPropagation && event.stopPropagation(); event.cancelBubble = true; return false;' onclick='return false;'></a></div>",
+            "<div class='magic-tooltip-content' id='#{contentId}'></div>",
+            "<div class='magic-tooltip-arrow' id='#{arrowId}'></div>",
+        "</div>",
     "</div>"
 ];
