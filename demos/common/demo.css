@@ -87,6 +87,7 @@ body.iframe .demo-list {
 .main-wrap {
 	margin-left: 255px;
 	margin-right: 15px;
+	margin-bottom: 240px;
 }
 .demo-wrap {
 	background-color: #8899DD;
@@ -94,6 +95,7 @@ body.iframe .demo-list {
 	padding: 15px;
 	margin-top: 15px;
 	border-radius: 10px;
+	margin-bottom: 15px;
 	*zoom:1;
 }
 .demo-wrap h3 {
@@ -103,14 +105,23 @@ body.iframe .demo-list {
 	font-weight: normal;
 	text-shadow: 1px 1px #0C1EA7;
 }
+.demo-view {
+}
 .console-wrap {
-	margin: 20px 0;
 	border: 1px solid #999;
-	position: relative;
+	*position: absolute;
+	position: fixed;
+	bottom: 0;
+	left: 239px;
+	right: 0;
+	z-index: 100;
+	margin: 0;
+	border-bottom: none;
+	border-right: none;
 }
 .console-wrap h3 {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 5px 35px 5px 10px;
 	font-size: 14px;
 	font-weight: normal;
 	background-color: #F3F3F3;
@@ -119,14 +130,14 @@ body.iframe .demo-list {
 	height: 20px;
 	line-height: 20px;
 	color: #666;
+	text-align: right;
 }
 a.clear-console {
 	position: absolute;
-	right: 5px;
+	left: 5px;
 	top: 4px;
 	display: block;
 	height: 16px;
-	font-size: 12px;
 	line-height: 16px;
 	padding: 3px 5px 3px 24px;
 	background: url(edit_clear.png) 4px 2px no-repeat;
@@ -153,8 +164,34 @@ a.clear-console:active {
 	     -o-transition: all .05s ease;
 	        transition: all .05s ease;
 }
+a.console-expander {
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	display: block;
+	width: 25px;
+	height: 25px;
+	background: url(expander.png) no-repeat;
+	cursor: pointer;
+}
+a.console-expander:hover{
+	background-position: 0 -25px;
+}
+a.console-expander:active{
+	background-position: 0 -50px;
+}
+a.console-expander.expanded{
+	background-position: 0 -75px;
+}
+a.console-expander.expanded:hover{
+	background-position: 0 -100px;
+}
+a.console-expander.expanded:active{
+	background-position: 0 -125px;
+}
 .console {
-	height: 301px;
+	height: 200px;
+	background-color: white;
 	overflow: scroll;
 	overflow-x: hidden;
 }
@@ -191,6 +228,7 @@ a.clear-console:active {
 .demo-control {
 	border-collapse: collapse;
 	color: #333;
+	margin-top: 10px;
 }
 
 .demo-control td {
