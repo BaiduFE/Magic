@@ -28,6 +28,9 @@
             .console span{
                 background-color: #89D;
             }
+            .text{
+                _width: 100px;
+            }
         </style>
     </head>
 <body>
@@ -56,7 +59,7 @@
                         <table class="demo-control">
                         <!-- item start -->
                         <tr>
-                            <td id='bdNode'>百度</td>
+                            <td><span  id='bdNode'>百度</span></td>
                             <td>tooltip.<strong>setTarget</strong>(<em>target</em>);</td>
                             <td><input cmd="log('当前节点为 ', '百度');tooltip.setTarget(baidu('#bdNode')[0]);" onclick="exec(this)" class="btn" type="button" value="apply"></td>
                         </tr>
@@ -64,7 +67,7 @@
 
                         <!-- item start -->
                         <tr>
-                            <td id='ggNode'>谷歌</td>
+                            <td><span  id='ggNode'>谷歌</span></td>
                             <td>tooltip.<strong>setTarget</strong>(<em>target</em>);</td>
                             <td><input cmd="log('当前节点为', '谷歌');tooltip.setTarget(baidu('#ggNode')[0]);" onclick="exec(this)" class="btn" type="button" value="apply"></td>
                         </tr>
@@ -83,7 +86,7 @@
     <script type="text/javascript">
                 var tooltip = new magic.Tooltip({
                     content: function(target){
-                        return '我现在是 ' + baidu(target).text() + ' 的提示框'
+                        return '<div class="text">我现在是 ' + baidu(target).text() + ' 的提示框</div>'
                     },
                     position: 'top',
                     hasCloseBtn: false

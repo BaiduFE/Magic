@@ -132,89 +132,102 @@ magic.control.Tooltip = baidu.lang.createClass(
     /** @lends magic.control.Tooltip.prototype */
     {
         /**
-         * @description 提示框位于目标节点上边，内部方法
-         * @name magic.control.Tooltip#_calctop
+         * @description 计算提示框位于目标节点上边的位置，内部方法
+         * @name magic.control.Tooltip#_calcTop
          * @function
          */
-        _calctop: function(target, tpos, node, arrow, isArrow){
-            var opt = this._options;
-            //提示框位置处理
-            if(!isArrow){
-                target = baidu(target);
-                var marginLeft = parseFloat(target.css("margin-left")),
-                    marginTop = parseFloat(target.css("margin-top"));
-                isNaN(marginLeft) && (marginLeft = 0);
-                isNaN(marginTop) && (marginTop = 0);
-                return {top: tpos.top + marginTop - node.outerHeight(true) - (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
-                        left: tpos.left + marginLeft + opt.offsetX,
-                        position: 'top'};
-            }
-            //箭头位置处理
+        _calcTop: function(target, tpos, node, arrow){
+            var marginLeft = parseFloat(target.css("margin-left")),
+                marginTop = parseFloat(target.css("margin-top")),
+                opt = this._options;
+            isNaN(marginLeft) && (marginLeft = 0);
+            isNaN(marginTop) && (marginTop = 0);
+            return {top: tpos.top + marginTop - node.outerHeight(true) - (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
+                    left: tpos.left + marginLeft + opt.offsetX,
+                    position: 'top'};
+        },
+
+        /**
+         * @description 计算提示框位于目标节点上边时箭头的位置，内部方法
+         * @name magic.control.Tooltip#_calcArrowTop
+         * @function
+         */
+        _calcArrowTop: function(node, arrow){
             return this._arrowPos('left', 'bottom', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: 5}, true);
         },
 
         /**
-         * @description 提示框位于目标节点下边，内部方法
-         * @name magic.control.Tooltip#_calcbottom
+         * @description 计算提示框位于目标节点下边的位置，内部方法
+         * @name magic.control.Tooltip#_calcBottom
          * @function
          */
-        _calcbottom: function(target, tpos, node, arrow, isArrow){
-            var opt = this._options;
-            //提示框位置处理
-            if(!isArrow){
-                target = baidu(target);
-                var marginLeft = parseFloat(target.css("margin-left")),
-                    marginBottom = parseFloat(target.css("margin-bottom"));
-                isNaN(marginLeft) && (marginLeft = 0);
-                isNaN(marginBottom) && (marginBottom = 0);    
-                return {top: tpos.top + marginBottom + target.outerHeight(true) + (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
-                        left: tpos.left + marginLeft + opt.offsetX,
-                        position: 'bottom'};
-            }
-            //箭头位置处理
+        _calcBottom: function(target, tpos, node, arrow){
+            var marginLeft = parseFloat(target.css("margin-left")),
+                marginBottom = parseFloat(target.css("margin-bottom")),
+                opt = this._options;
+            isNaN(marginLeft) && (marginLeft = 0);
+            isNaN(marginBottom) && (marginBottom = 0);    
+            return {top: tpos.top + marginBottom + target.outerHeight(true) + (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
+                    left: tpos.left + marginLeft + opt.offsetX,
+                    position: 'bottom'};
+        },
+
+        /**
+         * @description 计算提示框位于目标节点下边时箭头的位置，内部方法
+         * @name magic.control.Tooltip#_calcArrowBottom
+         * @function
+         */
+        _calcArrowBottom: function(node, arrow){
             return this._arrowPos('left', 'top', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: 1}, true);
         },
 
         /**
          * @description 提示框位于目标节点左边，内部方法
-         * @name magic.control.Tooltip#_calcleft
+         * @name magic.control.Tooltip#_calcLeft
          * @function
          */
-        _calcleft: function(target, tpos, node, arrow, isArrow){
-            var opt = this._options;
-            //提示框位置处理
-            if(!isArrow){
-                target = baidu(target);
-                var marginLeft = parseFloat(target.css("margin-left")),
-                    marginTop = parseFloat(target.css("margin-top"));
-                isNaN(marginLeft) && (marginLeft = 0);
-                isNaN(marginTop) && (marginTop = 0);
-                return {top: tpos.top + marginTop + opt.offsetY,
-                        left: tpos.left + marginLeft - node.outerWidth(true) - (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
-                        position: 'left'};
-            }
-            //箭头位置处理
+        _calcLeft: function(target, tpos, node, arrow){
+            var marginLeft = parseFloat(target.css("margin-left")),
+                marginTop = parseFloat(target.css("margin-top")),
+                opt = this._options;
+            isNaN(marginLeft) && (marginLeft = 0);
+            isNaN(marginTop) && (marginTop = 0);
+            return {top: tpos.top + marginTop + opt.offsetY,
+                    left: tpos.left + marginLeft - node.outerWidth(true) - (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
+                    position: 'left'};
+        },
+
+        /**
+         * @description 计算提示框位于目标节点左边时箭头的位置，内部方法
+         * @name magic.control.Tooltip#_calcArrowLeft
+         * @function
+         */
+        _calcArrowLeft: function(node, arrow){
             return this._arrowPos('top', 'right', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 5});
         },
 
         /**
          * @description 提示框位于目标节点右边，内部方法
-         * @name magic.control.Tooltip#_calcright
+         * @name magic.control.Tooltip#_calcRight
          * @function
          */
-        _calcright: function(target, tpos, node, arrow, isArrow){
-            var opt = this._options;
-            //提示框位置处理
-            if(!isArrow){
-                var marginRight = parseFloat(target.css("margin-right")),
-                    marginTop = parseFloat(target.css("margin-top"));
-                isNaN(marginRight) && (marginRight = 0);
-                isNaN(marginTop) && (marginTop = 0);
-                return {top: tpos.top + marginTop + opt.offsetY,
-                        left: tpos.left + target.outerWidth(true) - marginRight + (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
-                        position: 'right'};
-            }
-            //箭头位置处理
+        _calcRight: function(target, tpos, node, arrow){
+            var marginRight = parseFloat(target.css("margin-right")),
+                marginTop = parseFloat(target.css("margin-top")),
+                opt = this._options;
+            isNaN(marginRight) && (marginRight = 0);
+            isNaN(marginTop) && (marginTop = 0);
+            return {top: tpos.top + marginTop + opt.offsetY,
+                    left: tpos.left + target.outerWidth(true) - marginRight + (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
+                    position: 'right'};
+        },
+
+        /**
+         * @description 计算提示框位于目标节点右边时箭头的位置，内部方法
+         * @name magic.control.Tooltip#_calcArrowRight
+         * @function
+         */
+        _calcArrowRight: function(node, arrow){
             return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 3});
         },
 
@@ -267,7 +280,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          */
         _posControl: function(position, target, tpos, node, arrow, isArrow){
             var me = this,
-                pos = me['_calc' + position](target, tpos, node, arrow, isArrow);
+                pos = me[me._CamelCaseName('_calc', position)](target, tpos, node, arrow, isArrow);
             if(isArrow){return pos;}
             var parent = node.offsetParent(),
                 region = {w: parent.outerWidth(true), h: parent.outerHeight(true)};
@@ -277,8 +290,8 @@ magic.control.Tooltip = baidu.lang.createClass(
                 && pos.top >= 0 && pos.top + node.outerHeight(true) <= region.h){
                 return pos;
             }
-            //提示框被遮挡，只考虑两种case, 上与下互换，左与右互换,index值的更改可使其按照一定规律来取
-            var nextPos = me._getOpositePos(position);
+            //提示框被遮挡，获取下个可能的方向
+            var nextPos = me._getFuturePos(position);
             if(!me._posCache[nextPos]){
                 return me._posControl(nextPos, target, tpos, node, arrow);
             }
@@ -286,15 +299,31 @@ magic.control.Tooltip = baidu.lang.createClass(
         },
 
         /**
+         * @description 获取下个方向，当前只按相反方向规则处理
+         * @name magic.control.Tooltip#_getFuturePos
+         * @function
+         */
+        _getFuturePos: function(position){
+            return this._getOpositePos(position);
+        },
+
+         /**
          * @description 获取相反方向
          * @name magic.control.Tooltip#_getOpositePos
          * @function
          */
         _getOpositePos: function(position){
-            var me = this,
-                order = me._posInfo,
-                index = order.indexOf(position);
-            return me._posInfo[index % 2 == 0 ? index + 1 : index - 1];
+            var index = this._posInfo.indexOf(position);
+            return this._posInfo[index % 2 == 0 ? index + 1 : index - 1];
+        },
+
+        /**
+         * @description 驼峰命名
+         * @name magic.control.Tooltip#_CamelCaseName
+         * @function
+         */
+        _CamelCaseName: function(prev, name){
+            return prev + name.charAt(0).toUpperCase() + name.substr(1);
         },
 
         /**
@@ -326,7 +355,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             //设置提示框箭头位置样式
             arrow.addClass("arrow-" + me._getOpositePos(pos.position));
             //提示框箭头位置处理
-            pos = me['_calc' + pos.position](target, position, node, arrow, true);
+            pos = me[me._CamelCaseName('_calcArrow', pos.position)](node, arrow);
             arrow.css("top", pos.top == undefined ? null : pos.top);
             arrow.css("left", pos.left == undefined ? null : pos.left);
             arrow.css("bottom", pos.bottom == undefined ? null : pos.bottom);
@@ -481,16 +510,32 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @grammar magic.control.Tooltip#setTarget()
          * @example
          * var instance = new magic.Tooltip();
-         * instance.setTarget(baidu('#target')[0], true);
+         * instance.setTarget(baidu('#target')[0]);
          */        
-        setTarget: function(target, showOnSetted){
+        setTarget: function(target){
             var me = this,
                 opt = me._options;
             if(target == opt.target){return;}
             me._bindCustomEvent(target);
             opt.target = target;
             me.reposition();
-            showOnSetted && me.show();
+            /**
+             * @description 当目标节点发生变化时触发。
+             * @name magic.control.Tooltip#ontargetchange
+             * @event 
+             * @grammar magic.control.Tooltip#ontargetchange()
+             * @example
+             * var instance = new magic.Tooltip();
+             * instance.on("targetchange", function(event){
+             *     event.returnValue = false;
+             * });
+             * @example
+             * var instance = new magic.Tooltip();
+             * instance.ontargetchange = function(){
+             *     //do something...
+             * };
+             */
+            me.fire('targetchange', {target: target});
         },
 
         /**

@@ -100,6 +100,9 @@
                 clear: both;
                 visibility: hidden;
             }
+            .ui_bubble_body{
+                _width: 400px;
+            }
         </style>
     </head>
 <body>
@@ -162,7 +165,7 @@
 
     <script type="text/javascript">
        var  tooltip = new magic.Tooltip({
-            content: '<div class="ui_bubble_body j_body">暂时还没有发现你有爱逛的吧，我们忍不住为你推荐几个，<a href="#" onclick="return false" class="j_add_like add_likesee">请点击看看</a>。</div>',
+            content: '<div class="ui_bubble_body j_body">暂时还没有发现你有爱逛的吧，我们忍不住为你推荐几个，请点击看看。</div>',
             position: "bottom",
             autoHide: false,
             hideEvent: '',
