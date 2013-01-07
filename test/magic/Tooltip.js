@@ -184,7 +184,7 @@ test("test interface", function(){
 //case 4
 test("test event", function(){
     stop();
-    expect(10);
+    expect(11);
     
     var node = createNode(document.body),
         tooltip = new magic.Tooltip({
@@ -216,9 +216,15 @@ test("test event", function(){
     ua.mouseover(node);
     ua.mouseout(node);
 
+    var node2 = createNode(document.body);
+    tooltip.ontargetchange = function(){
+        ok(true, 'targetchange event触发');
+    };
+    tooltip.setTarget(node2);
     setTimeout(function(){
         tooltip.$dispose();
         document.body.removeChild(node);
+        document.body.removeChild(node2);
         start();
     }, 150);
 });
