@@ -72,7 +72,7 @@
             baidu(el).append(baidu.string.format(template, {
                 containerId: me.$getId(""),
                 closeId: me.$getId("close"),
-                contentId: me.$getId("container"),
+                contentId: me.$getId("content"),
                 arrowId: me.$getId("arrow")
             }));
             

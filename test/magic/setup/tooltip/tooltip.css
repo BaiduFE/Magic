@@ -49,7 +49,7 @@
 .tang-background .right__{width:12px;}
 
 /* 放入背景图 */
-.tang-background .corner__{background:red url(corner.png) no-repeat;}
+.tang-background .corner__{background:transparent url(corner.png) no-repeat;}
 .tang-background .vertical__{background:transparent url(vertical.png) repeat-x;}
 .tang-background .horizontal__{background:transparent url(horizontal.png) repeat-y;}
 .tang-background .midland__{background-image:url(midland.png);}

@@ -76,7 +76,8 @@ magic.control.Tooltip = baidu.lang.createClass(
             me._posInfo = baidu.array(['top', 'bottom', 'left', 'right']);
             me._posCache = {};
             me._eventList = [];
-
+            //箭头在背景上产生的间隙
+            me.arrowPosGap = {top: 1, bottom: 5, left: 3, right: 5};
             //事件处理
             var eventDeal = me._eventDeal = function(eventName, eventHandler, node, events){
                     eventName = eventName && baidu.string(eventName).trim();
@@ -142,7 +143,7 @@ magic.control.Tooltip = baidu.lang.createClass(
                 opt = this._options;
             isNaN(marginLeft) && (marginLeft = 0);
             isNaN(marginTop) && (marginTop = 0);
-            return {top: tpos.top + marginTop - node.outerHeight(true) - (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
+            return {top: tpos.top + marginTop - node.outerHeight(true) - (opt.hasArrow ? arrow.outerHeight(true) - this.arrowPosGap.bottom: 0) + opt.offsetY,
                     left: tpos.left + marginLeft + opt.offsetX,
                     position: 'top'};
         },
@@ -153,7 +154,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowTop: function(node, arrow){
-            return this._arrowPos('left', 'bottom', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: 5}, true);
+            return this._arrowPos('left', 'bottom', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: this.arrowPosGap.bottom}, true);
         },
 
         /**
@@ -167,7 +168,7 @@ magic.control.Tooltip = baidu.lang.createClass(
                 opt = this._options;
             isNaN(marginLeft) && (marginLeft = 0);
             isNaN(marginBottom) && (marginBottom = 0);    
-            return {top: tpos.top + marginBottom + target.outerHeight(true) + (opt.hasArrow ? arrow.outerHeight(true) : 0) + opt.offsetY,
+            return {top: tpos.top - marginBottom + target.outerHeight(true) + (opt.hasArrow ? arrow.outerHeight(true) - this.arrowPosGap.top : 0) + opt.offsetY,
                     left: tpos.left + marginLeft + opt.offsetX,
                     position: 'bottom'};
         },
@@ -178,7 +179,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowBottom: function(node, arrow){
-            return this._arrowPos('left', 'top', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: 1}, true);
+            return this._arrowPos('left', 'top', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: this.arrowPosGap.top}, true);
         },
 
         /**
@@ -193,7 +194,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             isNaN(marginLeft) && (marginLeft = 0);
             isNaN(marginTop) && (marginTop = 0);
             return {top: tpos.top + marginTop + opt.offsetY,
-                    left: tpos.left + marginLeft - node.outerWidth(true) - (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
+                    left: tpos.left + marginLeft - node.outerWidth(true) - (opt.hasArrow ? arrow.outerWidth(true) - this.arrowPosGap.right : 0) + opt.offsetX,
                     position: 'left'};
         },
 
@@ -203,7 +204,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowLeft: function(node, arrow){
-            return this._arrowPos('top', 'right', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 5});
+            return this._arrowPos('top', 'right', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: this.arrowPosGap.right});
         },
 
         /**
@@ -218,7 +219,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             isNaN(marginRight) && (marginRight = 0);
             isNaN(marginTop) && (marginTop = 0);
             return {top: tpos.top + marginTop + opt.offsetY,
-                    left: tpos.left + target.outerWidth(true) - marginRight + (opt.hasArrow ? arrow.outerWidth(true) : 0) + opt.offsetX,
+                    left: tpos.left + target.outerWidth(true) - marginRight + (opt.hasArrow ? arrow.outerWidth(true) - this.arrowPosGap.left: 0) + opt.offsetX,
                     position: 'right'};
         },
 
@@ -228,7 +229,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowRight: function(node, arrow){
-            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: 3});
+            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: this.arrowPosGap.left});
         },
 
         /**
@@ -250,7 +251,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             //百分数处理
             value &&  pecent.test(value) && (value = node[measure](true) * parseFloat(value) * 0.01);
             value && typeof value != 'number' && (value = parseFloat(value));
-            //取最佳位置,始终指向目标中间
+            //取最佳位置,始终尽可能靠近目标中间，在提示框的范围内
             value === null && (value = (max >> 1) - (isX ? opt.offsetX : opt.offsetY));
             //验证最小值
             value < arrowRegion.start && (value = arrowRegion.start);
@@ -368,7 +369,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _setContent: function(content){
-            var ct = baidu(this.getElement("container")),
+            var ct = baidu(this.getElement("content")),
                 opt = this._options;
             opt.content = content;
             ct.empty();
