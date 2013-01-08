@@ -43,7 +43,7 @@
  * @config {Boolean} hasArrow 是否显示箭头。默认值为true。
  * @config {Number} offsetX 定位时的偏移量，X方向。
  * @config {Number} offsetY 定位时的偏移量，Y方向。
- * @config {Array} target 需要提示的节点。
+ * @config {Array} target 需要提示的节点。(必选)
  * @config {Function|String} content 自定义内容定制。若为Function,参数为Tangram对象(目标节点)。默认值为空。
  * @config {String} showEvent 提示显示的动作，默认值为mouseover,focus。
  * @config {String} hideEvent 提示隐藏的动作，默认值为mouseout,blur。

@@ -1,9 +1,9 @@
 module("magic.Tooltip");
 
-function createNode(host, x, y, w, h){
+function createNode(host, x, y, w, h, id){
     var div = document.createElement("div");
     host.appendChild(div);
-    div.id = "tooltip";
+    div.id = id || "tooltip";
     div.style.position = "absolute";
     div.style.background = 'blue';
     div.style.height = (h || 20) + 'px';
@@ -65,15 +65,16 @@ function checkArrowPos(tooltip, target, offset, isX, arrowRegion){
 //case 1
 test("test default parameters", function() {
     stop();
-    expect(24);
+    expect(26);
     ua.importsrc('baidu.dom.hasClass,baidu.dom.trigger', function() {
         ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
             //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
             document.body.style.height = '500px';
-            var node = createNode(document.body),
-                tooltip = new magic.Tooltip(),
+            var node2 = createNode(document.body,null,null,null,null,'parent'),
+                node = createNode(node2),
+                tooltip = new magic.Tooltip({target: node}),
                 opt = tooltip._options;
-            tooltip.render(node);
+            tooltip.render(node2);
             setTimeout(function(){
                 tooltip.show();
                 equals(opt.offsetY, 0, 'offsetY为0');
@@ -108,18 +109,20 @@ test("test default parameters", function() {
                 
                 tooltip.show();
                 ua.keydown(document, {keyCode:27});
-                equals(tooltip.getElement("").style.display, "none", 'escape键，提示框隐藏');                
-                tooltip.show();
-                ua.click(document.body);
-                equals(tooltip.getElement("").style.display, "none", 'click操作，提示框隐藏');
+                equals(tooltip.getElement("").style.display, "none", 'escape键，提示框隐藏');
 
                 //resize
                 tooltip.show();
                 baidu.dom(window).trigger("resize");
                 equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
 
+                var tNode = tooltip.getElement("");
                 tooltip.$dispose();
-                document.body.removeChild(node);
+                ok(!baidu(document.body).contains(tNode), 'tooltip组件实例的节点已经被删除');
+                ok(baidu(document.body).contains(node), 'target节点依然存在');
+                ok(baidu(document.body).contains(node2), 'tooltip组件实例的节点的父亲节点依然存在');
+                node2.removeChild(node);
+                document.body.removeChild(node2);
                 document.body.style.height = 'auto';
                 start();
             }, 0);
@@ -148,13 +151,14 @@ test("test custom parameters", function(){
     tooltip.render();
     tooltip.show();
     setTimeout(function(){
+        equals(tooltip.getElement("").parentNode, node.parentNode, 'tooltip与target是兄弟节点');
         equals(tooltip.getElement("close").style.display, "none", '关闭按钮隐藏');
         equals(tooltip.getElement("arrow").style.display, "none", '箭头隐藏');
         ok(upCheck(tooltip, tooltip.getElement(""), node, 20), '提示框位于目标元素上方, 并且位置正确');
         equals(baidu(tooltip.getElement("")).position().left - baidu(node).position().left, 10, '水平偏移量为10');
-        equals(baidu(tooltip.getElement("")).position().top + baidu(tooltip.getElement("")).outerHeight(true) - baidu(node).position().top, 20, '垂直偏移量为10');
         equals(tooltip.getElement("content").innerHTML, '我是提示框', '内容正确');
 
+        tooltip.hide();
         ua.click(node);
         equals(tooltip.getElement("").style.display, "", '目标获得焦点，提示框显示');
 
@@ -182,18 +186,21 @@ test("test custom parameters", function(){
 //case 3
 test("test interface", function(){
     stop();
-    expect(6);
+    expect(7);
     
     var node = createNode(document.body),
         tooltip = new magic.Tooltip({
+            target: node,
             autoHide: false,
             content: '我是提示框'
         });
-    tooltip.render('tooltip');
+    tooltip.render();
     tooltip.show();
     setTimeout(function(){
         tooltip.setContent('我是新内容');
         equals(tooltip.getElement("content").innerHTML, '我是新内容', '设置内容正确');
+        tooltip.setContent(function(){return '我是方法';});
+        equals(tooltip.getElement("content").innerHTML, '我是方法', '设置内容(Function)正确');
         var node2 = createNode(document.body);
         tooltip.setTarget(node2);
         equals(tooltip._options.target, node2, '设置目标节点正确');
@@ -215,10 +222,10 @@ test("test interface", function(){
 });
 
 //case 4
-test("test event", function(){
+test("test event and dispose", function(){
     stop();
-    expect(11);
-    
+    expect(13);
+    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
     var node = createNode(document.body),
         tooltip = new magic.Tooltip({
             target: node,
@@ -256,7 +263,11 @@ test("test event", function(){
         };
         tooltip.setTarget(node2);
         setTimeout(function(){
+            var tNode = tooltip.getElement("");
             tooltip.$dispose();
+            var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            equals(l1, l2, '事件绑定已经清除');
+            ok(!baidu(document.body).contains(tNode), '节点已经删除');
             document.body.removeChild(node);
             document.body.removeChild(node2);
             start();
@@ -267,22 +278,28 @@ test("test event", function(){
 //case 5
 test("test position and offset", function(){
     stop();
-    expect(12);
+    expect(20);
     document.body.style.height = '1000px';
-    var node = createNode(document.body, 200, 200),
+    var node = createNode(document.body, 200, 200, 80, 80),
         tooltip = new magic.Tooltip({
             target: node,
             content: '我是提示框',
             position: 'left',
-            offsetX: 10,
+            offsetX: -10,
             offsetY: 20
         });
     tooltip.render();
     setTimeout(function(){
         tooltip.show();
         equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-right'), true, '箭头为向右');
-        equals(leftCheck(tooltip, tooltip.getElement(""), node, 10, tooltip.getElement("arrow")), true, '提示框位于目标元素左边,并且位置正确');
+        equals(leftCheck(tooltip, tooltip.getElement(""), node, -10, tooltip.getElement("arrow")), true, '提示框位于目标元素左边,并且位置正确');
         equals(baidu(tooltip.getElement("")).position().top - 20, baidu(node).position().top, "提示框top位置正确");
+        tooltip._options.offsetY = 50;
+        tooltip.reposition();
+        equals(baidu(tooltip.getElement("")).position().top - 50, baidu(node).position().top, "提示框top位置正确");
+        tooltip._options.offsetY = -20;
+        tooltip.reposition();
+        equals(baidu(tooltip.getElement("")).position().top + 20, baidu(node).position().top, "提示框top位置正确");
         tooltip.$dispose();
 
         tooltip = new magic.Tooltip({
@@ -298,6 +315,12 @@ test("test position and offset", function(){
             equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-left'), true, '箭头为向左');
             equals(rightCheck(tooltip, tooltip.getElement(""), node, 10, tooltip.getElement("arrow")), true, '提示框位于目标元素右边,并且位置正确');
             equals(baidu(tooltip.getElement("")).position().top - 20, baidu(node).position().top, "提示框top位置正确");
+            tooltip._options.offsetY = 50;
+            tooltip.reposition();
+            equals(baidu(tooltip.getElement("")).position().top - 50, baidu(node).position().top, "提示框top位置正确");
+            tooltip._options.offsetY = -20;
+            tooltip.reposition();
+            equals(baidu(tooltip.getElement("")).position().top + 20, baidu(node).position().top, "提示框top位置正确");
             tooltip.$dispose();
 
             tooltip = new magic.Tooltip({
@@ -305,14 +328,20 @@ test("test position and offset", function(){
                 content: '我是提示框',
                 position: 'top',
                 offsetX: 10,
-                offsetY: 20
+                offsetY: -20
             });
             tooltip.render();
             tooltip.show();
             setTimeout(function(){
                 equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-bottom'), true, '箭头为向下');
-                equals(upCheck(tooltip, tooltip.getElement(""), node, 20, tooltip.getElement("arrow")), true, '提示框位于目标元素上边,并且位置正确');
+                equals(upCheck(tooltip, tooltip.getElement(""), node, -20, tooltip.getElement("arrow")), true, '提示框位于目标元素上边,并且位置正确');
                 equals(baidu(tooltip.getElement("")).position().left - 10, baidu(node).position().left, "提示框left位置正确");
+                tooltip._options.offsetX = 50;
+                tooltip.reposition();
+                equals(baidu(tooltip.getElement("")).position().left - 50, baidu(node).position().left, "提示框left位置正确");
+                tooltip._options.offsetX = -80;
+                tooltip.reposition();
+                equals(baidu(tooltip.getElement("")).position().left + 80, baidu(node).position().left, "提示框left位置正确");
                 tooltip.$dispose();
 
                 tooltip = new magic.Tooltip({
@@ -328,6 +357,12 @@ test("test position and offset", function(){
                     equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
                     equals(downCheck(tooltip, tooltip.getElement(""), node, 20, tooltip.getElement("arrow")), true, '提示框位于目标元素下边,并且位置正确');
                     equals(baidu(tooltip.getElement("")).position().left - 10, baidu(node).position().left, "提示框left位置正确");
+                    tooltip._options.offsetX = 50;
+                    tooltip.reposition();
+                    equals(baidu(tooltip.getElement("")).position().left - 50, baidu(node).position().left, "提示框left位置正确");
+                    tooltip._options.offsetX = -80;
+                    tooltip.reposition();
+                    equals(baidu(tooltip.getElement("")).position().left + 80, baidu(node).position().left, "提示框left位置正确");
                     tooltip.$dispose();
                     document.body.style.height = 'auto';
                     document.body.removeChild(node);
@@ -555,11 +590,12 @@ test("test beforeshow and beforehide", function(){
     expect(2);
     var node = createNode(document.body),
         tooltip = new magic.Tooltip({
+            target: node,
             content: '我是提示框',
             autoHide: false,
             position: 'left'
         });
-    tooltip.render('tooltip');
+    tooltip.render();
     tooltip.show();
     setTimeout(function(){
         tooltip.onbeforehide = function(event){
