@@ -65,8 +65,8 @@ function checkArrowPos(tooltip, target, offset, isX, arrowRegion){
 //case 1
 test("test default parameters", function() {
     stop();
-    expect(23);
-    ua.importsrc('baidu.dom.hasClass', function() {
+    expect(24);
+    ua.importsrc('baidu.dom.hasClass,baidu.dom.trigger', function() {
         ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
             //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
             document.body.style.height = '500px';
@@ -114,13 +114,17 @@ test("test default parameters", function() {
                 equals(tooltip.getElement("").style.display, "none", 'click操作，提示框隐藏');
 
                 //resize
+                tooltip.show();
+                baidu.dom(window).trigger("resize");
+                equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
+
                 tooltip.$dispose();
                 document.body.removeChild(node);
                 document.body.style.height = 'auto';
                 start();
             }, 0);
         });
-    }, 'baidu.dom.hasClass', 'magic.Tooltip');
+    }, 'baidu.dom.trigger', 'magic.Tooltip');
 });
 
 //case 2
@@ -165,6 +169,8 @@ test("test custom parameters", function(){
         equals(tooltip.getElement("").style.display, "", 'click操作，提示框显示');
 
         //resize
+        baidu.dom(window).trigger("resize");
+        equals(tooltip.getElement("").style.display, "", 'resize操作，提示框显示');
 
         tooltip.$dispose();
         document.body.removeChild(node);
