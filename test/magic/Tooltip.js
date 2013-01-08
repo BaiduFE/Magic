@@ -65,11 +65,11 @@ function checkArrowPos(tooltip, target, offset, isX, arrowRegion){
 //case 1
 test("test default parameters", function() {
     stop();
-    expect(26);
+    expect(27);
     ua.importsrc('baidu.dom.hasClass,baidu.dom.trigger', function() {
         ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
             //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
-            document.body.style.height = '500px';
+            document.body.style.height = '2000px';
             var node2 = createNode(document.body,null,null,null,null,'parent'),
                 node = createNode(node2),
                 tooltip = new magic.Tooltip({target: node}),
@@ -116,6 +116,10 @@ test("test default parameters", function() {
                 baidu.dom(window).trigger("resize");
                 equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
 
+                tooltip.show();
+                baidu.dom(window).trigger("scroll");
+                equals(tooltip.getElement("").style.display, "none", 'scroll操作，提示框隐藏');
+
                 var tNode = tooltip.getElement("");
                 tooltip.$dispose();
                 ok(!baidu(document.body).contains(tNode), 'tooltip组件实例的节点已经被删除');
@@ -133,8 +137,8 @@ test("test default parameters", function() {
 //case 2
 test("test custom parameters", function(){
     stop();
-    expect(11);
-    document.body.style.height = '1000px';
+    expect(12);
+    document.body.style.height = '2000px';
     var node = createNode(document.body, 200, 200),
         tooltip = new magic.Tooltip({
             hasCloseBtn: false,
@@ -175,6 +179,10 @@ test("test custom parameters", function(){
         //resize
         baidu.dom(window).trigger("resize");
         equals(tooltip.getElement("").style.display, "", 'resize操作，提示框显示');
+
+        baidu.dom(window).trigger("scroll");
+        equals(tooltip.getElement("").style.display, "", 'scroll操作，提示框隐藏');
+
 
         tooltip.$dispose();
         document.body.removeChild(node);
