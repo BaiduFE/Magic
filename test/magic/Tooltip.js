@@ -130,7 +130,7 @@ test("test default parameters", function() {
 //case 2
 test("test custom parameters", function(){
     stop();
-    expect(10);
+    expect(11);
     document.body.style.height = '1000px';
     var node = createNode(document.body, 200, 200),
         tooltip = new magic.Tooltip({
