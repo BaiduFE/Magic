@@ -228,7 +228,7 @@ test("自定义参数1", function(){
     });
     ca.render(container);
     
-    equals(ca.currentDate.toString(), baidu.i18n.date.toLocaleDate(new Date()).toString(), "英文状态，不设置initDate时，初始化日期为当前系统时间国际化后的日期");
+    equals(ca.currentDate.toString(), new Date().toString(), "英文状态，不设置initDate时，初始化日期为当前系统时间国际化后的日期");
     
     ca.$dispose();
     document.body.removeChild(container);
@@ -460,7 +460,7 @@ test("检查展示", function(){
     var date = new Date();
     ca.go(date.getFullYear(), date.getMonth() + 1);
     var el = baidu(".tang-calendar-today")[0];
-    equals(baidu(el).attr("date"), baidu.date.format(baidu.i18n.date.toLocaleDate(date), "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
+    equals(baidu(el).attr("date"), baidu.date.format(date, "yyyy/MM/dd"), "今天为"+baidu.date.format(date, "yyyy/MM/dd"));
     
     ca.$dispose();
     document.body.removeChild(container);

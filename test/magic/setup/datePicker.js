@@ -372,14 +372,10 @@ test('测试获取当前日期和当前选中日期', function(){
             }
         });
         
-        var cndate = baidu.i18n.date.toLocaleDate(new Date(), null, 'zh-CN'),
-            endate = baidu.i18n.date.toLocaleDate(new Date(), null, 'en-US'),
-            curLocal = baidu.i18n.currentLocale;
-        baidu.i18n.currentLocale = 'zh-CN'
+        var cndate = new Date(),
+            endate = new Date();
         equals(dp.getDate().getHours(), cndate.getHours(), "当前中文时间正确");
-        baidu.i18n.currentLocale = 'en-US';
         equals(dp.getDate().getHours(), endate.getHours(), "当前英文时间正确");
-        baidu.i18n.currentLocale = curLocal;
 
         equals(dp.getSelectedDate().getHours(), 10, "当前选中时间小时正确");
         equals(dp.getSelectedDate().getMinutes(), 11, "当前选中时间分钟正确");

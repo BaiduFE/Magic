@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="description" content="DatePicker 组件">
-        <title>日历组件</title>
+        <meta name="description" content="DatePicker 组件回到今天插件示例">
+        <title>日历组件 回到今天插件示例</title>
         <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
         <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
         <script type="text/javascript" src="../../demos/common/demo.js"></script>
@@ -38,7 +38,7 @@
                 color: #999;
             }
         </style>
-        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.datePicker,magic.Calendar.$timer,magic.Calendar.$today'></script>
     </head>
     <body>
         <div class="content">
@@ -54,10 +54,10 @@
             </div>
             <div class="main-wrap">
                 <div class="demo-wrap">
-                    <h3>日历组件示例</h3>
-                    <p>通过展示日历方便使用者快速填写日期，多用于需要填写日期的input表单输入控件。</p>
+                    <h3>日历组件 回到今天插件示例</h3>
+                    <p>启用回到今天插件后</p>
                     <div class="demo-view">
-                    	<form autocomplete="off">
+                        <form autocomplete="off">
                         	<p>点击输入框，选择日期：<input type="text" id="J_input" /></p>
                         </form>
                     </div>
@@ -79,15 +79,17 @@
 
         <script>
             var datepicker = new magic.setup.datePicker('J_input', {
-                'format': 'yyyy/MM/dd',
-                'popupOptions': {
-                    offsetY: 20
-                },
+                'format': 'yyyy/MM/dd HH:mm:ss',
                 'calendarOptions': {
-                    'weekStart': 'sat',
                     'initDate': new Date(),
                     'highlightDates': [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/06/05')}, new Date('2012/06/30')],
-                    'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+                    'disabledDates': [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+                    'timer': {
+                        enable: true
+                    },
+                    'today': {
+                        enable: true
+                    }
                 }
             });
             datepicker.on("show", function(){
@@ -97,7 +99,7 @@
                 log('event', 'custom event fired: onhide.');
             });
             datepicker.on("selectdate", function(e){
-                log('info', 'date selected: ' + baidu.date.format(e.date, 'yyyy-MM-dd'));
+                log('info', 'date selected: ' + baidu.date.format(e.date, 'yyyy-MM-dd HH:mm:ss'));
             })
         </script>
     </body>

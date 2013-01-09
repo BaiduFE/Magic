@@ -207,7 +207,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
 
         me.showing = true;
 
-        me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || baidu.i18n.date.toLocaleDate(new Date()));
+        me.calendar.setDate(me._getInputDate() || me.calendarOption.initDate || new Date());
         me.popup.attach(me.input, {
             'offsetY': me.popupOption.offsetY || -1,
             'offsetX': me.popupOption.offsetX || 0
@@ -291,7 +291,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
      * @grammar magic.control.DatePicker#getDate()
      */
     getDate: function(){
-        return baidu.i18n.date.toLocaleDate(new Date());
+        return new Date();
     },
     /**
      * @description 获取当前选中日期

@@ -29,7 +29,7 @@ if(typeof magic != "function"){
 
 magic.resourcePath = "";
 magic.skinName = "default";
-magic.version = "1.0.2.2";
+magic.version = "1.0.3.1";
 
 /msie 6/i.test(navigator.userAgent) && 
 document.execCommand("BackgroundImageCache", false, true);

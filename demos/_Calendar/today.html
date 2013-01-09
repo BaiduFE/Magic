@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="description" content="Calendar 组件 quickStart" />
-        <title>Calendar 组件 quickStart</title>
+        <meta name="description" content="Calendar插件today" />
+        <title>Calendar插件today</title>
         <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
         <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css"/>
         <style type="text/css" media="screen">
@@ -48,17 +48,20 @@
                 color: #999;
             }
         </style>
-        <script type="text/javascript" src='../../src/import.php?f=magic.Calendar'></script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Calendar,magic.Calendar.$timer,magic.Calendar.$today'></script>
     </head>
     <body>
         <h1>Calendar 组件</h1>
         <div class='demo'>
             <div id="J_calendar"></div>
             <p>选中的日期：<input type="text" id="J_input" /></p>
+            <div id="J_calendar2"></div>
+            <p>选中的日期：<input type="text" id="J_input2" /></p>
         </div>
         <div class="describe">
             <h4>日期各状态颜色说明：</h4>
             <p><span class="disable">21</span>不可选日期</p>
+            <p><span class="disable">2</span>不可选日期</p>
             <p><span class="selected">21</span>当前选中日期</p>
             <p><span class="highlight">21</span>高亮日期</p>
             <p><span class="hover">21</span>鼠标悬停日期</p>
@@ -68,14 +71,36 @@
         <script type="text/javascript" charset="utf-8">
             var calendar = new magic.Calendar({
                 weekStart: 'sun',
-                initDate: new Date('2012/05/30'),
+                initDate: new Date('2012/05/30 10:11:12'),
                 highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/05/20')}, new Date('2012/06/30')],
-                disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')]
+                disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+                disabledDayOfWeek: ['tue'],
+                today: {
+                    enable: true
+                }
             });
             calendar.on("selectdate", function(e){
-                baidu("#J_input")[0].value = calendar._formatDate(e.date);
+                baidu("#J_input")[0].value = calendar._formatDate(calendar.getDate());
             });
             calendar.render("J_calendar");
+
+            var calendar2 = new magic.Calendar({
+                weekStart: 'sun',
+                initDate: new Date('2012/05/30 10:11:12'),
+                highlightDates: [new Date('2012/05/06'), new Date('2010/09/12'), {start: new Date('2012/05/15'), end: new Date('2012/05/20')}, new Date('2012/06/30')],
+                disabledDates: [{end: new Date('2012/05/05')}, new Date('2012/06/25')],
+                disabledDayOfWeek: ['tue'],
+                today: {
+                    enable: true
+                },
+                timer: {
+                    enable: true
+                }
+            });
+            calendar2.on("selectdate", function(e){
+                baidu("#J_input2")[0].value = calendar2._formatDate(calendar2.getDate());
+            });
+            calendar2.render("J_calendar2");
         </script>
     </body>
 </html>

@@ -763,6 +763,11 @@ var UserAction = {
 		url='?f='+f.substr(1)+'&e='+e;
 		if(pw.location.href.indexOf("release=true") > -1)
 			url += '&release=true';
+		if(pw.location.href.indexOf("cov=true") > -1)
+			url += '&cov=true';
+		var dep = pw.location.href.match("[?&,]dep=[A-Za-z]*[^(?&,)]");
+		if(dep && dep[0])
+			url += dep[0];
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");
@@ -870,6 +875,8 @@ var UserAction = {
 		};
 		if (exclude)
 			ps.e = exclude;
+		if(location.search.indexOf("cov=true") > -1)
+			ps.cov = true;
 		var param1 = exclude || "";
 		/**
 		 * IE下重复载入会出现无法执行情况
@@ -883,6 +890,8 @@ var UserAction = {
 			var sc = doc.createElement('script');
 			sc.type = 'text/javascript';
 			sc.src = srcpath + "?f=" + param0 + "&e=" + param1;
+			if(location.search.indexOf("cov=true") > -1)
+				sc.src += "&cov=true";
 			head.appendChild(sc);
 		}
 
