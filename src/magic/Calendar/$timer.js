@@ -14,6 +14,7 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.text;
 ///import baidu.dom.children;
+///import baidu.dom.append;
 ///import baidu.event;
 
 /**
@@ -127,7 +128,7 @@
              me.timerSkeleton = '<div id="#{id}" class="#{class}">#{content}</div>';
 
              //构建时间区域和浮动区域
-             baidu(me.getElement("calendar")).insertHTML('beforeEnd', baidu.string.format(me.timerSkeleton, {
+             baidu(me.getElement("calendar")).append(baidu.string.format(me.timerSkeleton, {
                                     "id": me.$getId(timerIdty),
                                     "class": getClass("timer"),
                                     "content": buildTimer

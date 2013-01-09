@@ -6,7 +6,7 @@
 //依赖包
 ///import magic.Base;
 ///import baidu.lang.createClass;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.dom.addClass;
@@ -208,7 +208,7 @@ magic.Pager = baidu.lang.createClass(function(options) {
         }
         target = baidu.dom('#'+target);
         baidu.dom(target).addClass('tang-pager')
-                            .insertHTML('beforeEnd', this.$toHTMLString());
+                            .append(this.$toHTMLString());
        /**
         * @description 渲染后触发
         * @name magic.Pager#onload

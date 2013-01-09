@@ -10,7 +10,7 @@
 ///import magic.control.Popup;
 ///import baidu.lang.createClass;
 ///import baidu.lang.inherits;
-///import baidu.dom.insertHTML;
+///import baidu.dom.prepend;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.object.extend;
@@ -100,7 +100,7 @@
             }
         }
         var box = new magic.Base();
-        baidu.dom(document.body).insertHTML("afterbegin", [
+        baidu.dom(document.body).prepend([
             "<div class='tang-popup' id='",box.$getId(),"' "
             ,"style='position:absolute; display:none;'>"
                 ,(box.background = new magic.Background({coverable:true})).toHTMLString()

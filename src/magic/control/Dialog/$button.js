@@ -35,7 +35,7 @@
  *                    return function(btnOptions,anchor,instance,index){
  *                      btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
  *                      btnTemplate[4] = btnOptions.text;
- *                      baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+ *                      baidu(anchor).append(btnTemplate.join(''));
  *                      !hasFocused && btnOptions.focused && !btnOptions.disabled 
  *                        && (hasFocused = false) || anchor.focus();
  *                        return  anchor;                 
@@ -115,7 +115,7 @@
                     return function(btnOptions, anchor){
                         btnOptions.disabled ? (btnTemplate[1] = 'tang-dialog-button-disabled') : (btnTemplate[1] = '');
                         btnTemplate[6] = btnOptions.text || '&nbsp;';
-                        baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+                        baidu(anchor).append(btnTemplate.join(''));
                         return     baidu(anchor).children().get(0);                            
                     };
                 })();

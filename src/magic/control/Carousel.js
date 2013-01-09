@@ -18,7 +18,8 @@
 ///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
+///import baidu.dom.prepend;
 ///import baidu.dom.remove;
 ///import baidu.dom.contains;
 ///import baidu.dom.closest;
@@ -62,8 +63,8 @@ void function(){
             child = baidu.dom(target).children(),
             tagName = child[0] ? child[0].tagName : 'li',
             template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>';
-        baidu.dom(target).insertHTML(direction == 'forward' ? 'beforeEnd' : 'afterBegin',
-            baidu.string.format(template, {
+            position = direction == 'forward' ? 'append' : 'prepend'
+        baidu.dom(target)[position](baidu.string.format(template, {
                 rsid: me.guid,
                 'class': 'tang-carousel-item' + (opt.empty ? ' tang-carousel-item-empty' : ''),
                 content: opt.empty ? '&nbsp;' : ''
@@ -352,7 +353,7 @@ void function(){
                     && (offset = viewSize - totalCount + index);
             }
             
-            baidu.array(child).each(function(index, item){
+            baidu(child).each(function(index, item){
                 (index < posIndex - offset || index > posIndex + viewSize - offset - 1)
                     && baidu.dom(item).remove();
             });
@@ -410,7 +411,6 @@ void function(){
          * @param {String} direction 可选，滚动方向，取值：forward|backward
          */
         _scrollTo: function(index, direction){
-            debugger;
             var me = this,
                 opt = me._options,
                 focusRange = opt.focusRange,

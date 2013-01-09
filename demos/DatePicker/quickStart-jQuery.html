@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="DatePicker 组件quickStart">
+        <title>日历组件quickStart</title>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Calendar/magic.Calendar.css">
+        <script type="text/javascript" src="../common/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="../../src/import.php?f=magic.adapter.jQuery"></script>
+        <script type="text/javascript" src='../../src/import0.php?f=magic.setup.datePicker,magic.control.DatePicker.$title'></script>
+    </head>
+    <body>
+        <div class='demo'>
+            <h1>DatePicker </h1>
+            <form autocomplete="off">
+	            <p>选择日期：<input type="text" id="J_input" /></p>
+        	</form>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            var datepicker = new magic.setup.datePicker('J_input', {
+                    'title': {
+                        enable: false
+                    }
+                }
+            );
+        </script>
+    </body>
+</html>

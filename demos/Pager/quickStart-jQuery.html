@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="description" content="Pager 组件quickStart">
+		<title>分页组件quickStart</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+		<link rel="stylesheet" type="text/css" href="../../resources/default/magic.Pager/magic.Pager.css">
+		<script type="text/javascript" src="../common/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="../../src/import.php?f=magic.adapter.jQuery"></script>
+		<script type="text/javascript" src="../../src/import0.php?f=magic.Pager"></script>
+	</head>
+	<body>
+		<div id="magic-pager"></div>
+		<script type="text/javascript">
+		var pager = new magic.Pager({'currentPage' : 1, 'totalPage' : 8});
+		pager.render('magic-pager');
+		pager.on('pagechange', function(evt) {
+			alert(evt.pageNum);
+			evt.returnValue = false;
+		});
+		</script>
+	</body>
+</html>

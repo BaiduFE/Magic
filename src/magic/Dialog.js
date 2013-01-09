@@ -12,7 +12,7 @@
 ///import magic.control.Dialog;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.string.format;
 ///import baidu.string.encodeHTML;
 ///import baidu.dom.on;
@@ -112,7 +112,7 @@ magic.Dialog.extend(
         // if(typeof this.content == "string")
         //     content = this.content;
 
-        baidu(el).insertHTML("beforeEnd", baidu.string.format(template, {
+        baidu(el).append(baidu.string.format(template, {
             content: "",
             titleId: this.$getId("title"),
             bodyId: this.$getId("body"),
@@ -191,7 +191,7 @@ magic.Dialog.extend(
                 "<a id='",this.$getId("closeBtn"),"' class='close-btn' href='' onmousedown='event.stopPropagation && event.stopPropagation(); event.cancelBubble = true; return false;' onclick='return false;'></a>",
             "</div>",
             "<span id='",this.$getId("titleText"),"'>",baidu.string.encodeHTML(this._options.titleText || "") || "&nbsp;","</span>"];
-        baidu(this.getElement("title")).insertHTML("beforeEnd", template.join(""));
+        baidu(this.getElement("title")).append(template.join(""));
         baidu(this.getElement("closeBtn")).on("click", this._closeBtnFn = baidu.fn.bind(this.hide, this));
     }
 });

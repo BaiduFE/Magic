@@ -10,7 +10,7 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.addClass;
 ///import baidu.dom.contains;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.string.format;
 ///import baidu.object.extend;
 ///import baidu.i18n.cultures.zh-CN;
@@ -206,7 +206,7 @@ magic.Calendar.extend(
         var me = this,
             container = me.container;
         
-        baidu(container).insertHTML('beforeEnd', baidu.string.format(me.tplSkeleton, {
+        baidu(container).append(baidu.string.format(me.tplSkeleton, {
             calendarId: me._getId(),
             calendarClass: me._getClass(),
             titleId: me._getId('title'),
