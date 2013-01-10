@@ -94,7 +94,7 @@ test("test default parameters", function() {
                 equals(tooltip.getElement("arrow").style.display, "", '箭头显示');
                 equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
                 ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
-                equals(tooltip.getElement("").style.left, node.style.left || '0px', '提示框left位置正确');
+                equals(tooltip.getElement("").offsetLeft, node.offsetLeft, '提示框left位置正确');
                 equals(tooltip.getElement("content").innerHTML, '', '内容为空');
                 equals(checkArrowPos(tooltip, node, 0, true, {start:2, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7, gap:tooltip.arrowPosGap.top}, 'left', 'top'), true, '箭头位置正确');
 

@@ -69,7 +69,7 @@ magic.setup.tooltip = function(el, options){
     instance.$mappingDom("", baidu(".magic-tooltip", container)[0]);
     instance.$mappingDom("close", baidu(".magic-tooltip-close", container)[0]);
     instance.$mappingDom("closeBtn", baidu("a", instance.getElement("close"))[0]);
-    instance.$mappingDom("container", baidu(".magic-tooltip-content", container)[0]);
+    instance.$mappingDom("content", baidu(".magic-tooltip-content", container)[0]);
     instance.$mappingDom("arrow", baidu(".magic-tooltip-arrow", instance.getElement("body"))[0]);
     instance._isShow = true;
     instance.hide();
