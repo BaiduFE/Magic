@@ -96,7 +96,7 @@ test("test default parameters", function() {
                 ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
                 ok(tooltip.getElement("").style.left, node.style.left, '提示框left位置正确');
                 equals(tooltip.getElement("content").innerHTML, '', '内容为空');
-                equals(checkArrowPos(tooltip, node, 0, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7, gap:tooltip.arrowPosGap.top}, 'left', 'top'), true, '箭头位置正确');
+                ok(checkArrowPos(tooltip, node, 0, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7, gap:tooltip.arrowPosGap.top}, 'left', 'top'), '箭头位置正确');
 
                 ua.click(document.body);
                 equals(tooltip.getElement("").style.display, "none", '点击body元素提示框隐藏');
@@ -244,7 +244,7 @@ test("test event and dispose", function(){
     tooltip.onload = function(){
         ok(true, 'load event触发');
     }; 
-    tooltip.render(node);
+    tooltip.render();
     setTimeout(function(){
         tooltip.onbeforeshow = function(){
             ok(true, 'beforeshow event触发');
