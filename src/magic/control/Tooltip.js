@@ -154,7 +154,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowTop: function(node, arrow){
-            return this._arrowPos('left', 'bottom', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: this.arrowPosGap.bottom}, true);
+            return this._arrowPos('left', 'bottom', {start:2, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: this.arrowPosGap.bottom}, true);
         },
 
         /**
@@ -179,7 +179,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowBottom: function(node, arrow){
-            return this._arrowPos('left', 'top', {start:1, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: this.arrowPosGap.top}, true);
+            return this._arrowPos('left', 'top', {start:2, end:node.outerWidth(true) - arrow.outerWidth(true) - 7, gap: this.arrowPosGap.top}, true);
         },
 
         /**
@@ -204,7 +204,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowLeft: function(node, arrow){
-            return this._arrowPos('top', 'right', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: this.arrowPosGap.right});
+            return this._arrowPos('top', 'right', {start:2, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: this.arrowPosGap.right});
         },
 
         /**
@@ -229,7 +229,7 @@ magic.control.Tooltip = baidu.lang.createClass(
          * @function
          */
         _calcArrowRight: function(node, arrow){
-            return this._arrowPos('top', 'left', {start:1, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: this.arrowPosGap.left});
+            return this._arrowPos('top', 'left', {start:2, end:node.outerHeight(true) - arrow.outerHeight(true) - 7, gap: this.arrowPosGap.left});
         },
 
         /**
