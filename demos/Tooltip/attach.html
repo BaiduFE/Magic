@@ -20,6 +20,9 @@
                 width: 600px;
                 text-align: center;
             }
+            .magic-tooltip .magic-tooltip-content{
+                color: black;
+            }
             .tang-background td{
                 border: 0px solid black;
                 line-height: 12px;
@@ -55,7 +58,7 @@
                 <h3>Tooltip 组件 <strong>setTarget</strong> 示例</h3>
                 <p>通过setTarget方法来和某个dom元素进行绑定，使tooltip指示到该元素，且只有一个tooltip实例, 之前指定的dom元素不会有提示框信息。</p>
                 <div class="demo-view">
-                    <div class="demo-region">
+                    <div class="demo-region" id='region'>
                         <table class="demo-control">
                         <!-- item start -->
                         <tr>
@@ -85,13 +88,14 @@
 
     <script type="text/javascript">
                 var tooltip = new magic.Tooltip({
+                    target: baidu('#bdNode')[0],
                     content: function(target){
-                        return '<div class="text">我现在是 ' + baidu(target).text() + ' 的提示框</div>'
+                        return '<div class="text">我现在是 ' + baidu.string.trim(baidu(target).text()) + ' 的提示框</div>'
                     },
                     position: 'top',
                     hasCloseBtn: false
                 });
-                tooltip.render('bdNode');
+                tooltip.render('region');
                 log('当前节点为', '百度');
     </script>
 </body>

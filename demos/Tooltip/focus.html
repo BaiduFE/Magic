@@ -19,6 +19,9 @@
                 width: 600px;
                 text-align: center;
             }
+            .magic-tooltip .magic-tooltip-content{
+                color: black;
+            }
         </style>
     </head>
 <body>
@@ -59,13 +62,14 @@
 
     <script type="text/javascript">
                 var tooltip = new magic.Tooltip({
+                    target: baidu('#myinput')[0],
                     content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
                     position: "right",
                     autoHide: false,
                     showEvent: 'focus',
                     hideEvent: 'blur'
                 });
-                tooltip.render('myinput');
+                tooltip.render();
                 tooltip.on('show', function(){
                     log('focus event', '提示框显示');
                 });

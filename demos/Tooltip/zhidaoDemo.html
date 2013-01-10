@@ -321,15 +321,16 @@
          baidu.forEach(baidu(".user-name"), function(node){
             var timeoutId,
                 tooltip = new magic.Tooltip({
-                content: getContent,
-                position: "bottom",
-                hasArrow: false,
-                hasCloseBtn: false,
-                autoHide: false,
-                hideEvent: '',
-                showEvent: ''
-            });
-            tooltip.render(node);
+                    target: node,
+                    content: getContent,
+                    position: "bottom",
+                    hasArrow: false,
+                    hasCloseBtn: false,
+                    autoHide: false,
+                    hideEvent: '',
+                    showEvent: ''
+                });
+            tooltip.render();
             baidu(node).on('mouseover', function(e){
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function(){

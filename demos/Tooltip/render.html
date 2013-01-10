@@ -101,10 +101,11 @@
             var position = ['top', 'bottom', 'left', 'right'], tooltips = [];
             baidu.forEach(position, function(pos, index){
                 var tooltip = new magic.Tooltip({
+                    target: baidu('#' + pos + 'Region')[0],
                     content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div class="text">this is a tooltip</div>',
                     position: pos
                 });
-                tooltip.render(pos + 'Region');
+                tooltip.render();
                 tooltip.onbeforeshow = function() {
                     log(pos + ' tooltip info', 'beforeshow event');
                 };

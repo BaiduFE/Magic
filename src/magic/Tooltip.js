@@ -48,7 +48,7 @@
          * @name magic.Tooltip#render
          * @function
          * @grammar magic.Tooltip#render(el)
-         * @param  {HTMLElement|id|dom} el 渲染目标容器，如果缺省，则渲染到 body 尾部
+         * @param  {HTMLElement|id|dom} el 渲染到目标容器下，如果该值存在，则提示框组件在el下，如果不存在且目标节点存在的情况下，提示框组件和目标节点是兄弟关系，如果都不存在，则渲染到body下。
          * @example
          * var instance = new magic.Tooltip();
          * instance.render('tooltip-container');
@@ -63,9 +63,8 @@
             
             el = baidu(el)[0];
 
-            el || (el = opt.target || (opt.target = document.body));
+            el || (el = (opt.target && opt.target.parentNode) || (opt.target = document.body));
             opt.target || (opt.target = el);
-            el != document.body && (el = baidu(el).parent().get(0));
 
             var template = magic.Tooltip.template.join("");
 

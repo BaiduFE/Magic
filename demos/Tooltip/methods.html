@@ -120,11 +120,12 @@
         </div>
         <script>
             tooltip = new magic.Tooltip({
+                target: baidu('#targetNode')[0],
                 content: '我是提示',
                 autoHide: false,
                 position: 'left'
             });
-            tooltip.render('targetNode'); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
+            tooltip.render(); // render(el), el 不是必须，如果缺省 el，则在 body 尾部自动创建容器
         </script>
     </body>
 </html>

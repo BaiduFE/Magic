@@ -50,22 +50,23 @@ function rightCheck(tooltip, node, compareNode, offset, arrow){
     return node.position().left - arrowWidth - (offset || 0) == compareNode.position().left + compareNode.outerWidth(true) - marginRight;
 }
 
-function checkArrowPos(tooltip, target, offset, isX, arrowRegion){
+function checkArrowPos(tooltip, target, offset, isX, arrowRegion, attr, posAttr){
     var measure = isX ? "outerWidth" : "outerHeight",
         max = baidu(target)[measure]() - baidu(tooltip.getElement("arrow"))[measure](),
-        value = (max>>1) + offset,
-        arrowPos = baidu(tooltip.getElement("arrow")).position();
+        value = (max>>1) - offset,
+        arrow = baidu(tooltip.getElement("arrow")),
+        d = isX ? -arrow.outerHeight(true) : -arrow.outerWidth(true);
     //验证最小值
     value < arrowRegion.start && (value = arrowRegion.start);
     //验证最大值
     value > arrowRegion.end && (value = arrowRegion.end);
-    return arrowPos[isX ? "left" : "top"] == value;
+    return arrow.css(attr) == value + "px" && arrow.css(posAttr) == d + arrowRegion.gap + "px";
 }
 
 //case 1
 test("test default parameters", function() {
     stop();
-    expect(27);
+    expect(28);
     ua.importsrc('baidu.dom.hasClass,baidu.dom.trigger', function() {
         ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
             //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
@@ -74,7 +75,7 @@ test("test default parameters", function() {
                 node = createNode(node2),
                 tooltip = new magic.Tooltip({target: node}),
                 opt = tooltip._options;
-            tooltip.render(node2);
+            tooltip.render('parent');
             setTimeout(function(){
                 tooltip.show();
                 equals(opt.offsetY, 0, 'offsetY为0');
@@ -93,8 +94,9 @@ test("test default parameters", function() {
                 equals(tooltip.getElement("arrow").style.display, "", '箭头显示');
                 equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
                 ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
+                ok(tooltip.getElement("").style.left, node.style.left, '提示框left位置正确');
                 equals(tooltip.getElement("content").innerHTML, '', '内容为空');
-                equals(checkArrowPos(tooltip, node, 0, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7}), true, '箭头位置正确');
+                equals(checkArrowPos(tooltip, node, 0, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7, gap:tooltip.arrowPosGap.top}, 'left', 'top'), true, '箭头位置正确');
 
                 ua.click(document.body);
                 equals(tooltip.getElement("").style.display, "none", '点击body元素提示框隐藏');
@@ -232,7 +234,7 @@ test("test interface", function(){
 //case 4
 test("test event and dispose", function(){
     stop();
-    expect(13);
+    expect(14);
     var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
     var node = createNode(document.body),
         tooltip = new magic.Tooltip({
@@ -275,7 +277,8 @@ test("test event and dispose", function(){
             tooltip.$dispose();
             var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
             equals(l1, l2, '事件绑定已经清除');
-            ok(!baidu(document.body).contains(tNode), '节点已经删除');
+            ok(!baidu(document.body).contains(tNode), '提示框组件节点已经删除');
+            ok(baidu(document.body).contains(node), '目标节点依然存在');
             document.body.removeChild(node);
             document.body.removeChild(node2);
             start();
@@ -286,7 +289,7 @@ test("test event and dispose", function(){
 //case 5
 test("test position and offset", function(){
     stop();
-    expect(20);
+    expect(32);
     document.body.style.height = '1000px';
     var node = createNode(document.body, 200, 200, 80, 80),
         tooltip = new magic.Tooltip({
@@ -302,12 +305,15 @@ test("test position and offset", function(){
         equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-right'), true, '箭头为向右');
         equals(leftCheck(tooltip, tooltip.getElement(""), node, -10, tooltip.getElement("arrow")), true, '提示框位于目标元素左边,并且位置正确');
         equals(baidu(tooltip.getElement("")).position().top - 20, baidu(node).position().top, "提示框top位置正确");
+        equals(checkArrowPos(tooltip, node, 20, false, {start:1, end:baidu(tooltip.getElement("")).outerHeight(true) - baidu(tooltip.getElement("arrow")).outerHeight(true) - 7,gap:tooltip.arrowPosGap.right}, 'top', 'right'), true, '箭头位置正确');
         tooltip._options.offsetY = 50;
         tooltip.reposition();
         equals(baidu(tooltip.getElement("")).position().top - 50, baidu(node).position().top, "提示框top位置正确");
+        equals(checkArrowPos(tooltip, node, 50, false, {start:1, end:baidu(tooltip.getElement("")).outerHeight(true) - baidu(tooltip.getElement("arrow")).outerHeight(true) - 7,gap:tooltip.arrowPosGap.right},'top', 'right'), true, '箭头位置正确');
         tooltip._options.offsetY = -20;
         tooltip.reposition();
         equals(baidu(tooltip.getElement("")).position().top + 20, baidu(node).position().top, "提示框top位置正确");
+        equals(checkArrowPos(tooltip, node, -20, false, {start:1, end:baidu(tooltip.getElement("")).outerHeight(true) - baidu(tooltip.getElement("arrow")).outerHeight(true) - 7,gap:tooltip.arrowPosGap.right},'top', 'right'), true, '箭头位置正确');
         tooltip.$dispose();
 
         tooltip = new magic.Tooltip({
@@ -323,12 +329,15 @@ test("test position and offset", function(){
             equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-left'), true, '箭头为向左');
             equals(rightCheck(tooltip, tooltip.getElement(""), node, 10, tooltip.getElement("arrow")), true, '提示框位于目标元素右边,并且位置正确');
             equals(baidu(tooltip.getElement("")).position().top - 20, baidu(node).position().top, "提示框top位置正确");
+            equals(checkArrowPos(tooltip, node, 20, false, {start:1, end:baidu(tooltip.getElement("")).outerHeight(true) - baidu(tooltip.getElement("arrow")).outerHeight(true) - 7,gap:tooltip.arrowPosGap.left},'top', 'left'), true, '箭头位置正确');
             tooltip._options.offsetY = 50;
             tooltip.reposition();
             equals(baidu(tooltip.getElement("")).position().top - 50, baidu(node).position().top, "提示框top位置正确");
+            equals(checkArrowPos(tooltip, node, 50, false, {start:1, end:baidu(tooltip.getElement("")).outerHeight(true) - baidu(tooltip.getElement("arrow")).outerHeight(true) - 7,gap:tooltip.arrowPosGap.left},'top', 'left'), true, '箭头位置正确');
             tooltip._options.offsetY = -20;
             tooltip.reposition();
             equals(baidu(tooltip.getElement("")).position().top + 20, baidu(node).position().top, "提示框top位置正确");
+            equals(checkArrowPos(tooltip, node, -20, false, {start:1, end:baidu(tooltip.getElement("")).outerHeight(true) - baidu(tooltip.getElement("arrow")).outerHeight(true) - 7,gap:tooltip.arrowPosGap.left},'top', 'left'), true, '箭头位置正确');
             tooltip.$dispose();
 
             tooltip = new magic.Tooltip({
@@ -344,12 +353,15 @@ test("test position and offset", function(){
                 equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-bottom'), true, '箭头为向下');
                 equals(upCheck(tooltip, tooltip.getElement(""), node, -20, tooltip.getElement("arrow")), true, '提示框位于目标元素上边,并且位置正确');
                 equals(baidu(tooltip.getElement("")).position().left - 10, baidu(node).position().left, "提示框left位置正确");
+                equals(checkArrowPos(tooltip, node, 10, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7,gap:tooltip.arrowPosGap.bottom},'left', 'bottom'), true, '箭头位置正确');
                 tooltip._options.offsetX = 50;
                 tooltip.reposition();
                 equals(baidu(tooltip.getElement("")).position().left - 50, baidu(node).position().left, "提示框left位置正确");
+                equals(checkArrowPos(tooltip, node, 50, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7,gap:tooltip.arrowPosGap.bottom},'left', 'bottom'), true, '箭头位置正确');
                 tooltip._options.offsetX = -80;
                 tooltip.reposition();
                 equals(baidu(tooltip.getElement("")).position().left + 80, baidu(node).position().left, "提示框left位置正确");
+                equals(checkArrowPos(tooltip, node, -80, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7,gap:tooltip.arrowPosGap.bottom},'left', 'bottom'), true, '箭头位置正确');
                 tooltip.$dispose();
 
                 tooltip = new magic.Tooltip({
@@ -365,12 +377,15 @@ test("test position and offset", function(){
                     equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
                     equals(downCheck(tooltip, tooltip.getElement(""), node, 20, tooltip.getElement("arrow")), true, '提示框位于目标元素下边,并且位置正确');
                     equals(baidu(tooltip.getElement("")).position().left - 10, baidu(node).position().left, "提示框left位置正确");
+                    equals(checkArrowPos(tooltip, node, 10, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7,gap:tooltip.arrowPosGap.top},'left', 'top'), true, '箭头位置正确');
                     tooltip._options.offsetX = 50;
                     tooltip.reposition();
                     equals(baidu(tooltip.getElement("")).position().left - 50, baidu(node).position().left, "提示框left位置正确");
+                    equals(checkArrowPos(tooltip, node, 50, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7,gap:tooltip.arrowPosGap.top},'left', 'top'), true, '箭头位置正确');
                     tooltip._options.offsetX = -80;
                     tooltip.reposition();
                     equals(baidu(tooltip.getElement("")).position().left + 80, baidu(node).position().left, "提示框left位置正确");
+                    equals(checkArrowPos(tooltip, node, -80, true, {start:1, end:baidu(tooltip.getElement("")).outerWidth(true) - baidu(tooltip.getElement("arrow")).outerWidth(true) - 7,gap:tooltip.arrowPosGap.top},'left', 'top'), true, '箭头位置正确');
                     tooltip.$dispose();
                     document.body.style.height = 'auto';
                     document.body.removeChild(node);
@@ -393,7 +408,7 @@ test("test arrowPosition for number and position", function(){
             arrowPosition: 10,
             position: "bottom"
         });
-    tooltip.render(node);
+    tooltip.render();
     tooltip.show();
     setTimeout(function(){
         equals(tooltip.getElement("arrow").style.left, '10px', 'arrow position水平方向固定为10');
@@ -406,7 +421,7 @@ test("test arrowPosition for number and position", function(){
             position: 'top',
             arrowPosition: 10
         });
-        tooltip.render(node);
+        tooltip.render();
         tooltip.show();
         setTimeout(function(){
             equals(tooltip.getElement("arrow").style.left, '10px', 'arrow position水平方向固定为10');
@@ -419,7 +434,7 @@ test("test arrowPosition for number and position", function(){
                 position: 'left',
                 arrowPosition: 10
             });
-            tooltip.render(node);
+            tooltip.render();
             tooltip.show();
             setTimeout(function(){
                 equals(tooltip.getElement("arrow").style.top, '10px', 'arrow position垂直方向固定为10');
@@ -432,7 +447,7 @@ test("test arrowPosition for number and position", function(){
                     position: 'right',
                     arrowPosition: 10
                 });
-                tooltip.render(node);
+                tooltip.render();
                 tooltip.show();
                 setTimeout(function(){
                     equals(tooltip.getElement("arrow").style.top, '10px', 'arrow position垂直方向固定为10');
@@ -527,6 +542,7 @@ test("test top to bottom, and bottom to top", function(){
     node.style.border = '1px solid black';
     var limitedNode = createNode(node, 50, 50),
         tooltip = new magic.Tooltip({
+            target: limitedNode,
             content: '我是提示框',
             autoHide: false,
             position: 'top'
@@ -540,6 +556,7 @@ test("test top to bottom, and bottom to top", function(){
         tooltip.$dispose();
 
         tooltip = new magic.Tooltip({
+            target: limitedNode,
             content: '我是提示框',
             position: 'bottom'
         });
@@ -564,6 +581,7 @@ test("test left to right, and right to left", function(){
     node.style.border = '1px solid black';
     var limitedNode = createNode(node, 50, 50),
         tooltip = new magic.Tooltip({
+            target: limitedNode,
             content: '我是提示框',
             autoHide: false,
             position: 'left'
@@ -577,6 +595,7 @@ test("test left to right, and right to left", function(){
         tooltip.$dispose();
 
         tooltip = new magic.Tooltip({
+            target: limitedNode,
             content: '我是提示框',
             position: 'right'
         });
@@ -695,7 +714,7 @@ test("test arrowPosition, offset and position", function(){
             offsetY: 20,
             position: "bottom"
         });
-    tooltip.render(node);
+    tooltip.render();
     setTimeout(function(){
         tooltip.show();
         equals(tooltip.getElement("arrow").style.left, '10px', 'arrow position水平方向固定为10');
@@ -713,7 +732,7 @@ test("test arrowPosition, offset and position", function(){
             offsetY: 20,
             arrowPosition: 10
         });
-        tooltip.render(node);
+        tooltip.render();
         tooltip.show();
         setTimeout(function(){
             equals(tooltip.getElement("arrow").style.left, '10px', 'arrow position水平方向固定为10');
@@ -731,7 +750,7 @@ test("test arrowPosition, offset and position", function(){
                 offsetY: 20,
                 arrowPosition: 10
             });
-            tooltip.render(node);
+            tooltip.render();
             tooltip.show();
             setTimeout(function(){
                 equals(tooltip.getElement("arrow").style.top, '10px', 'arrow position垂直方向固定为10');
@@ -749,7 +768,7 @@ test("test arrowPosition, offset and position", function(){
                     offsetY: 20,
                     arrowPosition: 10
                 });
-                tooltip.render(node);
+                tooltip.render();
                 tooltip.show();
                 setTimeout(function(){
                     equals(tooltip.getElement("arrow").style.top, '10px', 'arrow position垂直方向固定为10');

@@ -165,6 +165,7 @@
 
     <script type="text/javascript">
        var  tooltip = new magic.Tooltip({
+            target: baidu('#tooltipBtn')[0],
             content: '<div class="ui_bubble_body j_body">暂时还没有发现你有爱逛的吧，我们忍不住为你推荐几个，请点击看看。</div>',
             position: "bottom",
             autoHide: false,
@@ -177,7 +178,7 @@
         tooltip.onhide = function(){
             log('按钮提示信息', '隐藏');
         }
-        tooltip.render('tooltipBtn');
+        tooltip.render();
         tooltip.show();
         baidu(window).on('resize', function(){
             tooltip.reposition();
