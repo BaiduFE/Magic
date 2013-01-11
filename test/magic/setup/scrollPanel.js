@@ -14,17 +14,18 @@ function create(odd){
 
 test('选项参数检查', function(){
     stop();
-    expect(7);
+    expect(8);
     ua.loadcss(upath + "scrollPanel/scrollPanel.css", function(){
         create();
         var instance = magic.setup.scrollPanel('test');
-        equals(instance.options.autoUpdateDelay, 500, "autoUpdateDelay is right");
-        equals(instance.options.arrowButtonStep, 20, "arrowButtonStep is right");
-        equals(instance.options.mousewheelStep, 50, "mousewheelStep is right");
-        equals(instance.options.scrollbarStep, 80, "scrollbarStep is right");
-        equals(instance.options.intervalScrollDelay, 300, "scrollbarStep is right");
-        equals(instance.options.intervalScrollFreq, 100, "scrollbarStep is right");
-        equals(instance.options.scrollbarMinHeight, 10, "scrollbarMinHeight is right");
+        equals(instance._options.autoUpdateDelay, 500, "autoUpdateDelay is right");
+        equals(instance._options.arrowButtonStep, 20, "arrowButtonStep is right");
+        equals(instance._options.mousewheelStep, 50, "mousewheelStep is right");
+        equals(instance._options.scrollbarStep, 80, "scrollbarStep is right");
+        equals(instance._options.intervalScrollDelay, 300, "scrollbarStep is right");
+        equals(instance._options.intervalScrollFreq, 100, "scrollbarStep is right");
+        equals(instance._options.scrollbarMinHeight, 10, "scrollbarMinHeight is right");
+        equals(instance._active, true, "Active");
         instance.$dispose();
         baidu('#test').remove();
         start();

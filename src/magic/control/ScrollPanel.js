@@ -74,8 +74,8 @@
  */
 magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     var me = this;
-    me.active = false;
-    me.options = baidu.extend({
+    me._active = false;
+    me._options = baidu.extend({
         autoUpdateDelay: 500,     // 动态内容自动更新延时
         arrowButtonStep: 20,
         mousewheelStep: 50,
@@ -86,19 +86,20 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     }, options);
     
     me.on('load', function(){
-        var target = me.target = baidu(me.getElement('target'));
+        var target = me.target = baidu(me.getElement('target')),
+            opt = me._options;
         target.addClass('tang-scrollpanel');
         me.on('installpanel', me._installSlider);
         me.on('uninstallpanel', me._uninstallSlider);
         me._installPanel();
         me.update();
-        if(me.options.autoUpdateDelay){
+        if(opt.autoUpdateDelay){
             (function(){
                 var fn = arguments.callee;
                 me.updateTimer = setTimeout(function(){
                     me.update();
                     fn();
-                }, me.options.autoUpdateDelay);
+                }, opt.autoUpdateDelay);
             })();
         }
     });
@@ -111,8 +112,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      * @private 
      */
     _installPanel: function(){
-        var me = this;
-        var wrapper = baidu('<div id="'+ me.$getId('wrapper') +'" class="tang-scrollpanel-wrapper"></div>')
+        var me = this,
+            opt = me._options,
+            wrapper = baidu('<div id="'+ me.$getId('wrapper') +'" class="tang-scrollpanel-wrapper"></div>')
             .css({
                 width: me.target.width(),
                 height: me.target.height()
@@ -122,9 +124,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         wrapper.append(content);
         me.target.append(wrapper);
         function mousewheel(e){
-            if(!me.active) return;
+            if(!me._active) return;
             e.preventDefault();
-            me.scrollBy(e.wheelDelta > 0 ? -me.options.mousewheelStep : me.options.mousewheelStep);
+            me.scrollBy(e.wheelDelta > 0 ? -opt.mousewheelStep : opt.mousewheelStep);
         }
         wrapper.on('mousewheel', mousewheel);
         me.on('dispose', function(){
@@ -169,6 +171,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     _hackSlider: function(){
         var me = this,
+            opt = me._options,
             $slider = baidu(me.getElement('slider')),
             knob = baidu(me.slider.getElement('knob')),
             view = me.slider.getElement('view'),
@@ -216,8 +219,8 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
                         return;
                     }
                     me.scrollBy(num);
-                }, me.options.intervalScrollFreq);
-            }, me.options.intervalScrollDelay);
+                }, opt.intervalScrollFreq);
+            }, opt.intervalScrollDelay);
             
             baidu(document).on('mouseup', stop);
             baidu(document).on('selectstart', unselect);
@@ -231,14 +234,14 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         
         var onArrowMousedown = function(e){
             var n = e.target == arrowTop.get(0) ? -1 : 1;
-            mousedown(e, n * me.options.arrowButtonStep);
+            mousedown(e, n * opt.arrowButtonStep);
         };
         var onSliderMousedown = function(e){
             if(e.target == me.slider.getElement('knob')) return;
             if(e.pageY < knob.offset().top){
-                mousedown(e, -me.options.scrollbarStep);
+                mousedown(e, -opt.scrollbarStep);
             }else if(e.pageY > knob.offset().top + knob.outerHeight()){
-                mousedown(e, me.options.scrollbarStep);
+                mousedown(e, opt.scrollbarStep);
             }
         };
         
@@ -270,6 +273,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      */
     _resetSliderUnitsPos: function(){
         var me = this,
+            opt = me._options,
             view = baidu(me.slider.getElement('view')),
             knob = baidu(me.slider.getElement('knob')),
             content = baidu(me.getElement('content')),
@@ -281,7 +285,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
             $slider = baidu($slider),
             newKnobHeight = Math.round((me.target.height() / content.outerHeight()) * ($slider.height() - arrowTopHeight - arrowBottomHeight));
         knob.css({
-            height: newKnobHeight > me.options.scrollbarMinHeight ? newKnobHeight : me.options.scrollbarMinHeight
+            height: newKnobHeight > opt.scrollbarMinHeight ? newKnobHeight : opt.scrollbarMinHeight
         });
         view.css({
             top: arrowTopHeight,
@@ -335,7 +339,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
             width: wrapper.width() - $slider.width()
         });
         me._resetSliderUnitsPos();
-        me.active = true;
+        me._active = true;
         me.oldContentHeight = content.outerHeight();
     },
     _setInactive: function(){
@@ -346,7 +350,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
             width: content.width() + $slider.width()
         });
         $slider.hide();
-        me.active = false;
+        me._active = false;
     },
     /**
      * @description 根据变化了的内容区域，重新计算滚动条(是否出现、位置、高度等)
@@ -360,7 +364,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     update: function(){
         var me = this;
         if(me._isScrollable(me.target).y){
-            if(!me.active){
+            if(!me._active){
                 me._setActive();
             }else{
                 if(me.oldContentHeight != baidu(me.getElement('content')).outerHeight()){
@@ -370,7 +374,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
                 }
             }
         }else{
-            if(me.active){
+            if(me._active){
                 me._setInactive();
                 me.scrollTo(0);
             }
