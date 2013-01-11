@@ -1,0 +1,78 @@
+.tang-scrollpanel{
+    overflow:hidden;
+}
+.tang-scrollpanel .tang-scrollpanel-wrapper{
+    position: relative;
+    overflow: hidden;
+}
+.tang-scrollpanel .tang-scrollpanel-content{
+    position: absolute;
+    left:0;
+    top:0;
+}
+/** slider */
+.tang-scrollpanel .tang-slider {
+    font-size: 0;
+    position:absolute;
+    top:0;
+    right:0;
+    background:url(bg.gif) repeat-y -18px 0;
+}
+.tang-scrollpanel .tang-slider .tang-inner {
+    position: relative;
+}
+
+.tang-scrollpanel .tang-slider-vtl {
+    height: 100%;
+}
+.tang-scrollpanel .tang-slider-vtl .tang-view {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    *height: 100%;
+}
+.tang-scrollpanel .tang-slider-vtl .tang-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+}
+.tang-scrollpanel .tang-slider-vtl .tang-inner {
+    display:none;
+}
+
+.tang-scrollpanel .tang-slider-vtl .tang-corner {
+    height: 18px;
+    width: 18px;
+    background:url(bg.gif) no-repeat;
+    position: absolute;
+}
+.tang-scrollpanel .tang-slider-vtl .tang-start {
+    left: 0;
+    top:0;
+    background-position:0 0;
+}
+.tang-scrollpanel .tang-slider-vtl .tang-last {
+    left: 0;
+    bottom:0;
+    background-position:0 -18px;
+}
+
+/** 游标 */
+.tang-scrollpanel .tang-slider .tang-knob {
+    position: absolute;
+    display: block;
+    height: 16px;
+    width: 16px;
+    border:1px solid #d2d2d3;
+    outline: none;
+    z-index: 10;
+    cursor: default;
+}
+.tang-scrollpanel .tang-slider-vtl .tang-knob {
+    background:#fff;
+}
+
+.cssloaded{
+    width: 20px
+}
