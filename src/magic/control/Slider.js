@@ -378,8 +378,7 @@ magic.control.Slider.extend({
      * @private
      */
     _processPercent: function(pos){
-        return parseFloat(pos) / this._info._limit * 100 + '%';
-
+        return this._info._limit == 0 ? '0' : parseFloat(pos) / this._info._limit * 100 + '%';
     },
 
     /**
@@ -693,8 +692,10 @@ magic.control.Slider.extend({
             if(evt.target == knob && evt.type == 'mousedown'){
                 me._startDrag(evt);
             }else if(evt.type == 'mousedown'){
-                me._setPosition(evt);
-                me.fire('onslideclick');
+                if(me.fire('onbeforeslideclick')){
+                    me._setPosition(evt);
+                    me.fire('onslideclick');
+                }
             }
         }
 

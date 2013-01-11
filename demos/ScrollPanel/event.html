@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content=" 组件">
+        <title>ScrollPanel 组件 --- 常用事件</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.ScrollPanel/magic.control.ScrollPanel.css" />
+		<style type="text/css">
+            .demo{height:400px;}
+            .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+            .wrap{width:200px;margin:10px auto;font-size:12px;}
+            .item{
+                margin:10px 0 30px 0;
+            }
+            h4{
+                margin:0 0 10px 0;
+            }
+            .target{
+                margin-bottom:5px;
+                background:#6FA7DC;
+                width:640px;
+                color:#fff;
+            }
+            .target p{
+                padding:0;
+                margin:0;
+                line-height:18px;
+                padding:10px ;
+            }
+            .button-list p{
+                overflow:hidden;
+                margin:10px 0;
+                height:28px;
+                line-height:28px;
+                border:1px dotted #ccc;
+                padding:7px 0 7px 10px;
+                font-family:Arial;
+            }
+            .button-list a, .button-list span{
+                float:left;
+            }
+            .button-list a{
+                margin-right:10px;
+                display:inline;
+                padding:5px 10px;
+                border:2px solid #ccc;
+                color:#666;
+                background:#efefef;
+                border-radius:3px;
+                cursor:pointer;
+                line-height:14px;
+                font-size:14px;
+            }
+            .button-list a:hover{
+                background:#fefefe;
+                color:#333;
+                border:2px solid #058cf5;
+            }
+            
+		</style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.scrollPanel,baidu.dom.eq,baidu.dom.remove,baidu.dom.attr'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./customStyle.html">自定义样式</a></li>
+                    <li><a href="./method.html">常用方法</a></li>
+                    <li><a href="./event.html">常用事件</a></li>
+                    <li><a href="./update.html">更新</a></li>
+                </ul>
+                <h3>最佳实践</h3>
+                <ul>
+                    <li>
+                        <a href="./zhidao-static.html">知道---分类排行榜</a>
+                    </li>
+                    <li>
+                        <a href="./zhidao-dynamic.html">知道---分类排行榜(动态内容)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>常用事件</h3>
+                    <p>beforescroll 事件在滚动发生前触发，事件对象中的 pos 属性传递了将要滚动到的位置<br />您可以在这个事件中调用 e.preventDefault() 阻止滚动的发生。</p>
+                    <p>afterscroll 事件在滚动后触发，事件对象中的 pos 属性传递了已经滚动到的位置。</p>
+                </div>          
+                <div class="item">
+                    <div id="target" class="target" style="height:250px;">
+                        <div id="target-content">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            appendSeveralParagraph(20, baidu('#target-content'));
+            baidu('#target-content').append('<p><img src="img/0.jpg" /></p>');
+            appendSeveralParagraph(15, baidu('#target-content'));
+            function appendSeveralParagraph(n, target, index){
+                for(var i = 0; i < n; i++){
+                    target.append('<p>paragraph...'+ baidu('#target-content p').length + '</p>');
+                }
+            }
+            var instance = magic.setup.scrollPanel('target');
+            instance.on('beforescroll', function(e){
+                log('event', 'beforescroll....当前位置: '+instance.getScroll() + ', 将要滚动到的位置: ' + e.pos);
+            });
+            instance.on('afterscroll', function(e){
+                log('event', 'afterscroll....滚动后的位置: ' + e.pos);
+            });
+        </script>
+    </body>
+</html>
