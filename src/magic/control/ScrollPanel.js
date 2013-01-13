@@ -104,8 +104,8 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         }
     });
 },{
-	type: "magic.control.ScrollPanel",
-	superClass: magic.Base
+    type: "magic.control.ScrollPanel",
+    superClass: magic.Base
 }).extend({
     /**
      * @description 安装 panel

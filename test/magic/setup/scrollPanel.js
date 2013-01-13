@@ -246,7 +246,7 @@ test('基本操作 --- 滚动条空白区域', function(){
         ua.mousedown($slider, {
             clientX: clientX,
             clientY: clientY
-        });
+        }); 
         equals(instance.getScroll(), 80, "向下滚动，持续点击 --- 未释放");
         setTimeout(function(){
             ua.mouseup($slider);

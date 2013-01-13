@@ -1,4 +1,4 @@
-/*
+/* 
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
  * 
@@ -12,12 +12,12 @@
 
 
 magic.setup.scrollPanel = function(el, options){
-	if(baidu.type(el) === "string"){
+    if(baidu.type(el) === "string"){
         el = '#' + el;
     }
-	var el = baidu(el)[0],
+    var el = baidu(el)[0],
     instance = magic.setup(el, magic.control.ScrollPanel, options);
-	instance.$mappingDom('target', el);
-	instance.fire('load');
-	return instance;
+    instance.$mappingDom('target', el);
+    instance.fire('load');
+    return instance;
 };
