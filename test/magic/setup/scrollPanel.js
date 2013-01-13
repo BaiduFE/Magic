@@ -1,7 +1,7 @@
 ﻿module('magic.setup.scrollPanel');
 
 function create(odd){
-    var wrapper = baidu('<div id="test"/>').css({
+    var wrapper = baidu('<div id="test" class="original-class" />').css({
         height: odd ? 151 : 150,
         width: 200
     });
@@ -12,20 +12,27 @@ function create(odd){
     baidu('body').append(wrapper.append(content));
 }
 
-test('选项参数检查', function(){
+test('default param', function(){
     stop();
-    expect(8);
+    expect(11);
     ua.loadcss(upath + "scrollPanel/scrollPanel.css", function(){
         create();
         var instance = magic.setup.scrollPanel('test');
-        equals(instance._options.autoUpdateDelay, 500, "autoUpdateDelay is right");
-        equals(instance._options.arrowButtonStep, 20, "arrowButtonStep is right");
-        equals(instance._options.mousewheelStep, 50, "mousewheelStep is right");
-        equals(instance._options.scrollbarStep, 80, "scrollbarStep is right");
-        equals(instance._options.intervalScrollDelay, 300, "scrollbarStep is right");
-        equals(instance._options.intervalScrollFreq, 100, "scrollbarStep is right");
-        equals(instance._options.scrollbarMinHeight, 10, "scrollbarMinHeight is right");
+        ok(isShown(instance.getElement()), "scrollPanel is shown, param: id");
+        equals(instance._options.autoUpdateDelay, 500, "default: autoUpdateDelay is right");
+        equals(instance._options.arrowButtonStep, 20, "default: arrowButtonStep is right");
+        equals(instance._options.mousewheelStep, 50, "default: mousewheelStep is right");
+        equals(instance._options.scrollbarStep, 80, "default: scrollbarStep is right");
+        equals(instance._options.intervalScrollDelay, 300, "default: scrollbarStep is right");
+        equals(instance._options.intervalScrollFreq, 100, "default: scrollbarStep is right");
+        equals(instance._options.scrollbarMinHeight, 10, "default: scrollbarMinHeight is right");
         equals(instance._active, true, "Active");
+        equals(instance._updateTimer != undefined, true, "autoUpdateDelay is right");
+        instance.$dispose();
+        baidu('#test').remove();
+        create();
+        instance = magic.setup.scrollPanel(document.getElementById('test'));
+        ok(isShown(instance.getElement()), "scrollPanel is shown, param: DOM");
         instance.$dispose();
         baidu('#test').remove();
         start();
@@ -62,46 +69,82 @@ test('scroll 相关方法', function(){
 });
 
 test('update 相关', function(){
-    expect(11);
+    expect(27);
     create();
     var instance = magic.setup.scrollPanel('test', {
         autoUpdateDelay: 50,
         scrollbarMinHeight: 8
     });
     stop();
-    baidu('#test-content').css('height', 50);
+    baidu('#test-content').css('height', 150);
     setTimeout(function(){
-        equals(baidu(instance.getElement('slider')).css('display'), 'none', '自动更新：不可滚动');
+        equals(isShown(instance.getElement('slider')), false, '自动更新：不可滚动 --- 滚动条不显示');
+        equals(baidu(instance.getElement('content')).width(), 200, '自动更新：不可滚动 --- 内容区域宽度');
+        // TODO 滚动不阻止默认事件
+        
         baidu('#test-content').css('height', 8000);
+        instance.scrollTo(50);
         setTimeout(function(){
-            equals(baidu(instance.getElement('slider')).css('display'), 'block', '自动更新： 可滚动');
-            equals(baidu(instance.slider.getElement('knob')).height(), 8, '自动更新： 可滚动（滚动条达到最小值）');
+            equals(isShown(instance.getElement('slider')), true, '自动更新： 可滚动 --- 滚动条显示');
+            equals(baidu(instance._slider.getElement('knob')).height(), 8, '自动更新： 可滚动 --- 滚动条达到高度达到最小值');
+            equals(instance.getScroll() / (8000 - 150), instance._slider.getValue(), '自动更新： 可滚动 --- 滚动条位置');
+            equals(baidu(instance.getElement('content')).width(), 200-18, '自动更新： 可滚动 --- 内容区域宽度');
+            // TODO 滚动阻止默认事件
+            
             baidu('#test-content').css('height', 340);
+            instance.scrollTo(50);
             setTimeout(function(){
-                equals(baidu(instance.slider.getElement('knob')).height(), 50, '自动更新： 可滚动（滚动条未达到最小值）');
+                equals(isShown(instance.getElement('slider')), true, '自动更新： 可滚动 --- 滚动条显示');
+                equals(baidu(instance._slider.getElement('knob')).height(), 50, '自动更新： 可滚动 --- 滚动条未达到高度达到最小值');
+                equals(instance.getScroll() / (340 - 150), instance._slider.getValue(), '自动更新： 可滚动 --- 滚动条位置');
+                equals(baidu(instance.getElement('content')).width(), 200-18, '自动更新： 可滚动 --- 内容区域宽度');
+                // TODO 滚动阻止默认事件
+                
                 start();
                 instance.clearAutoUpdate();
+                equals(instance._updateTimer, undefined, '清除自动更新计时器');
                 baidu('#test-content').css('height', 50);
                 instance.update();
-                equals(baidu(instance.getElement('slider')).css('display'), 'none', '手动更新：不可滚动');
-                equals(baidu('#test-content').css('width'), '200px', '内容区域宽度为整个容器宽度');
+                equals(isShown(instance.getElement('slider')), false, '手动更新：不可滚动 --- 滚动条不显示');
+                equals(baidu(instance.getElement('content')).width(), 200, '手动更新：不可滚动 --- 内容区域宽度');
+                // TODO 滚动不阻止默认事件
+                
                 baidu('#test-content').css('height', 8000);
+                instance.scrollTo(50);
                 instance.update();
-                equals(baidu(instance.getElement('slider')).css('display'), 'block', '手动更新：可滚动');
-                equals(baidu('#test-content').css('width'), 200-18+'px', '内容区域宽度为整个容器宽度减去滚动条宽度');
-                equals(baidu(instance.slider.getElement('knob')).height(), 8, '手动更新：可滚动（滚动条达到最小值）');
+                equals(isShown(instance.getElement('slider')), true, '手动更新： 可滚动 --- 滚动条显示');
+                equals(baidu(instance._slider.getElement('knob')).height(), 8, '手动更新： 可滚动 --- 滚动条达到高度达到最小值');
+                equals(instance.getScroll() / (8000 - 150), instance._slider.getValue(), '手动更新： 可滚动 --- 滚动条位置');
+                equals(baidu(instance.getElement('content')).width(), 200-18, '手动更新： 可滚动 --- 内容区域宽度');
+                // TODO 滚动阻止默认事件
+
                 baidu('#test-content').css('height', 340);
+                instance.scrollTo(50);
                 instance.update();
-                equals(baidu(instance.slider.getElement('knob')).height(), 50, '手动更新： 可滚动（滚动条未达到最小值）');
+                equals(isShown(instance.getElement('slider')), true, '手动更新： 可滚动 --- 滚动条显示');
+                equals(baidu(instance._slider.getElement('knob')).height(), 50, '手动更新： 可滚动 --- 滚动条未达到高度达到最小值');
+                equals(instance.getScroll() / (340 - 150), instance._slider.getValue(), '手动更新： 可滚动 --- 滚动条位置');
+                equals(baidu(instance.getElement('content')).width(), 200-18, '手动更新： 可滚动 --- 内容区域宽度');
+                // TODO 滚动阻止默认事件
+                
+                equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '0px', 'even: 底部按钮bottom定位');
+                equals(baidu(instance._slider.getElement('view')).height(), 62, 'even: view 高度');
+                equals(baidu(instance._slider.getElement('knob')).height(), 50, 'even: knob height ie6 hack');
                 instance.$dispose();
                 baidu('#test').remove();
-                create(true);
+                // ie6 hack test
+                create(true);   // odd slider height, odd view height
                 instance = magic.setup.scrollPanel('test');
                 if(baidu.browser.ie < 7){
-                    equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '-1px', '底部按钮bottom定位');
+                    equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '-1px', 'odd: 底部按钮bottom定位');
+                    equals(baidu(instance._slider.getElement('view')).height(), 90, 'odd: view 高度');
+                    equals(baidu(instance._slider.getElement('knob')).height(), 23, 'odd: knob height ie6 hack');
                 }else{
-                    equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '0px', '底部按钮bottom定位');
+                    equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '0px', 'odd: 底部按钮bottom定位');
+                    equals(baidu(instance._slider.getElement('view')).height(), 89, 'odd: view 高度');
+                    equals(baidu(instance._slider.getElement('knob')).height(), 24, 'odd: knob height');
                 }
+                
                 stop();
                 instance.$dispose();
                 baidu('#test').remove();
@@ -110,11 +153,11 @@ test('update 相关', function(){
     }, 50);
 });
 
-test('滚动', function(){
-    expect(12);
+test('基本操作 --- 箭头', function(){
+    expect(8);
     create();
-    var intervalScrollDelay = 300,
-        intervalScrollFreq = 100;
+    var intervalScrollDelay = 100,
+        intervalScrollFreq = 50;
     var instance = magic.setup.scrollPanel('test', {
         arrowButtonStep: 58,
         mousewheelStep: 50,
@@ -125,21 +168,13 @@ test('滚动', function(){
     var $slider = instance.getElement('slider'),
         arrowTop = instance.getElement('arrowTop'),
         arrowBottom = instance.getElement('arrowBottom'),
-        knob = instance.slider.getElement('knob');
-    
-    instance.slider.setValue(.5);
-    equals(instance.getScrollPct(), .5, "滚动条 --- 滚动条与滚动区域位置一致(设置滚动条)");
-    instance.scrollTo(0);
-    equals(instance.slider.getValue(), instance.getScrollPct(), "滚动条 --- 滚动条与滚动区域位置一致(设置滚动区域)");
-    
+        knob = instance._slider.getElement('knob');
     ua.mousedown(arrowBottom);
     ua.mouseup(arrowBottom);
     equals(instance.getScroll(), 58, "向下箭头 --- 点击立即释放");
-    
     ua.mousedown(arrowTop);
     ua.mouseup(arrowTop);
     equals(instance.getScroll(), 0, "向上箭头 --- 点击立即释放");
-
     stop();
     ua.mousedown(arrowBottom, {
         clientX: baidu(arrowBottom).offset().left + baidu(arrowBottom).outerWidth() / 2,
@@ -148,7 +183,7 @@ test('滚动', function(){
     equals(instance.getScroll(), 58, "向下箭头 --- 持续按下未释放");
     setTimeout(function(){
         ua.mouseup(arrowBottom);
-        equals(instance.getScroll(), 58 * (Math.floor((790 - intervalScrollDelay) / intervalScrollFreq) + 1), "向下箭头 --- 持续按下释放");
+        equals(instance.getScroll(), 58 * (Math.floor((170 - intervalScrollDelay) / intervalScrollFreq) + 1), "向下箭头 --- 持续按下释放");
 
         instance.scrollToBottom();
         var pos = instance.getScroll();
@@ -159,62 +194,155 @@ test('滚动', function(){
         equals(instance.getScroll(), pos - 58, "向上箭头 --- 持续按下未释放");
         setTimeout(function(){
             ua.mouseup(arrowTop);
-            equals(instance.getScroll(), pos - 58 * (Math.floor((790 - intervalScrollDelay) / intervalScrollFreq) + 1), "向上箭头 --- 持续按下释放");
+            equals(instance.getScroll(), pos - 58 * (Math.floor((170 - intervalScrollDelay) / intervalScrollFreq) + 1), "向上箭头 --- 持续按下释放");
+            start();
+            instance.scrollTo(0);
+            ua.mousedown(arrowTop);
+            ua.mouseup(arrowTop);
+            equals(instance.getScroll(), 0, "向上箭头 --- 边界不滚动");
+            instance.scrollToBottom();
+            ua.mousedown(arrowBottom);
+            ua.mouseup(arrowBottom);
+            equals(instance.getScroll(), 585, "向下箭头 --- 边界不滚动");
+            instance.$dispose();
+            baidu('#test').remove();
+        }, 170);
+    }, 170);
+});
 
-            ua.importsrc('baidu.dom.trigger', function(){
-                var pos = instance.getScroll();
-                /*
-                baidu(instance.getElement('wrapper')).trigger('mousewheel', {
-                    wheelDelta: 120
-                });
-                equals(instance.getScroll(), pos + 50, "鼠标滚轮 --- 向下滚动");
-                */
-                /*
-                var pos = instance.getScroll();
-                baidu(instance.getElement('wrapper')).trigger('mousewheel', {
-                    wheelDelta: -120
-                });
-                equals(instance.getScroll(), pos, "鼠标滚轮 --- 向上滚动");
-                */
+test('基本操作 --- 滚动条空白区域', function(){
+    expect(8);
+    create();
+    var instance = magic.setup.scrollPanel('test', {
+        arrowButtonStep: 58,
+        mousewheelStep: 50,
+        scrollbarStep: 80,
+        intervalScrollDelay: 100,
+        intervalScrollFreq: 50
+    });
+    var $slider = instance.getElement('slider'),
+        arrowTop = instance.getElement('arrowTop'),
+        arrowBottom = instance.getElement('arrowBottom'),
+        knob = instance._slider.getElement('knob');
+    stop();
+    ua.importsrc('baidu.dom.trigger', function(){
+        instance.scrollTo(0);
+        ua.mousedown($slider, {
+            clientX: baidu(arrowBottom).offset().left + baidu(arrowBottom).outerWidth() / 2,
+            clientY: baidu(arrowBottom).offset().top - 5
+        });
+        ua.mouseup($slider);
+        equals(instance.getScroll(), 80, '向下滚动，点击立即释放');
+        
+        ua.mousedown(instance._slider.getElement('view'), {
+            clientX: baidu(arrowTop).offset().left + baidu(arrowTop).outerWidth() / 2,
+            clientY: baidu(arrowTop).offset().top + baidu(arrowTop).outerHeight() + 1
+        });
+        ua.mouseup($slider);
+        equals(instance.getScroll(), 0, '向上滚动，点击立即释放');
+
+        var clientX = baidu($slider).offset().left + baidu($slider).width() / 2,
+            clientY = baidu($slider).offset().top + baidu($slider).height() / 2;
+        ua.mousedown($slider, {
+            clientX: clientX,
+            clientY: clientY
+        });
+        equals(instance.getScroll(), 80, "向下滚动，持续点击 --- 未释放");
+        setTimeout(function(){
+            ua.mouseup($slider);
+            equals(instance.getScroll(), 160, "向下滚动，持续点击 --- 释放");
+            instance.scrollToBottom();
+            ua.mousedown($slider, {
+                clientX: clientX,
+                clientY: clientY
+            });
+            equals(instance.getScroll(), 585-80, "向上滚动，持续点击 --- 未释放");
+            setTimeout(function(){
+                ua.mouseup($slider);
+                equals(instance.getScroll(), 585-240, "向上滚动，持续点击 --- 释放");
                 instance.scrollTo(0);
                 ua.mousedown($slider, {
-                    clientX: baidu(arrowBottom).offset().left + baidu(arrowBottom).outerWidth() / 2,
-                    clientY: baidu(arrowBottom).offset().top - 1
-                });
-                ua.mouseup($slider);
-                equals(instance.getScroll(), 80, '滚动条空白区域点击立即释放 --- 向下滚动，点击');
-                
-                ua.mousedown(instance.slider.getElement('view'), {
-                    clientX: baidu(arrowTop).offset().left + baidu(arrowTop).outerWidth() / 2,
-                    clientY: baidu(arrowTop).offset().top + baidu(arrowTop).outerHeight() + 1
-                });
-                ua.mouseup($slider);
-                equals(instance.getScroll(), 0, '滚动条空白区域点击立即释放  --- 向上滚动，点击');
-
-                var clientX = baidu($slider).offset().left + baidu($slider).width() / 2,
-                    clientY = baidu($slider).offset().top + baidu($slider).height() / 2;
-                ua.mousedown($slider, {
                     clientX: clientX,
-                    clientY: clientY
+                    clientY: baidu(knob).offset().top + baidu(knob).outerHeight() + 5
                 });
                 setTimeout(function(){
                     ua.mouseup($slider);
-                    equals(baidu(knob).offset().top < clientY, true, "滚动条空白区域持续按下 --- 向下滚动，滚动条位置正确");
-                    equals(baidu(knob).offset().top + baidu(knob).outerHeight() > clientY, true, "滚动条空白区域持续按下--- 向下滚动，滚动条位置正确");
-                    start();
-                    instance.$dispose();
-                    baidu('#test').remove();
-                }, 700);
-            });
-        }, 790);
-    }, 790);
+                    equals(instance.getScroll(), 80, '向下滚动 --- 滚动条控制柄的边界超过点击点位置');
+                    instance.scrollToBottom();
+                    ua.mousedown($slider, {
+                        clientX: clientX,
+                        clientY: baidu(knob).offset().top - 5
+                    });
+                    setTimeout(function(){
+                        ua.mouseup($slider);
+                        equals(instance.getScroll(), 585-80, '向上滚动 --- 滚动条控制柄的边界超过点击点位置');
+                        start();
+                        instance.$dispose();
+                        baidu('#test').remove();
+                    }, 230);
+                });
+            }, 230);
+        }, 170);
+    });
+});
+
+test('基本操作 --- 拖动滚动条控制柄', function(){
+    create();
+    var instance = magic.setup.scrollPanel('test'),
+        $slider = instance.getElement('slider'),
+        slider = instance._slider,
+        knob = instance._slider.getElement('knob');
+        view = instance._slider.getElement('view');
+    ua.mousedown(knob);
+    stop();
+    setTimeout(function(){
+        ua.mousemove(knob, {
+            clientX : 0,
+            clientY : 10
+        });
+        setTimeout(function(){
+            ua.mouseup(knob);
+            equals(Math.round(baidu(knob).position().top / baidu(view).height() * 100)/100, instance.getScrollPct(), '正常拖动');
+            equals(Math.round(slider.getValue() * 100)/100, instance.getScrollPct(), '正常拖动');
+            ua.mousedown(knob);
+            setTimeout(function(){
+                ua.mousemove(knob, {
+                    clientX : 0,
+                    clientY : 9999
+                });
+                setTimeout(function(){
+                    ua.mouseup(knob);
+                    equals(Math.round(baidu(knob).position().top / baidu(view).height() * 100)/100, 1, '拖动超出下边界');
+                    equals(Math.round(slider.getValue() * 100)/100, 1, '拖动超出下边界');
+                    ua.mousedown(knob);
+                    setTimeout(function(){
+                        ua.mousemove(knob, {
+                            clientX : 0,
+                            clientY : -9999
+                        });
+                        setTimeout(function(){
+                            ua.mouseup(knob);
+                            start();
+                            equals(Math.round(baidu(knob).position().top / baidu(view).height() * 100)/100, 0, '拖动超出上边界');
+                            equals(Math.round(slider.getValue() * 100)/100, 0, '拖动超出上边界');
+                            start();
+                            instance.$dispose();
+                            baidu('#test').remove();
+                        }, 100);
+                    }, 50);
+                }, 100);
+            }, 50);
+        }, 100);
+    }, 50);
 });
 
 test("events&dispose", function(){
-    expect(7);
+    expect(10);
     create();
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
-    var instance = magic.setup.scrollPanel('test');
+    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue),
+        className = baidu('#test').get(0).className,
+        instance = magic.setup.scrollPanel('test'),
+        wrapperId = instance.$getId('wrapper');
     instance.on('beforescroll', function(e){
         ok(true, "beforescroll is fire");
         equals(instance.getScroll() + 30, e.pos, 'beforescroll e.pos is right');
@@ -226,9 +354,12 @@ test("events&dispose", function(){
     instance.scrollTo(30);
     instance.$dispose();
     equals(instance.updateTimer, undefined, "updateTimer clear");
+    equals(baidu('#test').get(0).className, className, "class removed");
+    equals(baidu('#test').size(), 1, "original nodes existing");
+    equals(baidu('#test-content').size(), 1, "original nodes existing");
+    equals(baidu('#'+wrapperId).size(), 0, "components's nodes removed");
     baidu('#test').remove();
     var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
     equals(l2, l1, "The events are un");
-    equals(!baidu('#test').hasClass('tang-scrollpanel'), true, "class removed");
     
 });

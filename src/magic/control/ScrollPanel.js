@@ -86,7 +86,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     }, options);
     
     me.on('load', function(){
-        var target = me.target = baidu(me.getElement('target')),
+        var target = me._target = baidu(me.getElement('target')),
             opt = me._options;
         target.addClass('tang-scrollpanel');
         me.on('installpanel', me._installSlider);
@@ -96,7 +96,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         if(opt.autoUpdateDelay){
             (function(){
                 var fn = arguments.callee;
-                me.updateTimer = setTimeout(function(){
+                me._updateTimer = setTimeout(function(){
                     me.update();
                     fn();
                 }, opt.autoUpdateDelay);
@@ -116,13 +116,13 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
             opt = me._options,
             wrapper = baidu('<div id="'+ me.$getId('wrapper') +'" class="tang-scrollpanel-wrapper"></div>')
             .css({
-                width: me.target.width(),
-                height: me.target.height()
+                width: me._target.width(),
+                height: me._target.height()
             }),
             content = baidu('<div id="'+ me.$getId('content') +'" class="tang-scrollpanel-content"></div>');
-        content.append(me.target.children());
+        content.append(me._target.children());
         wrapper.append(content);
-        me.target.append(wrapper);
+        me._target.append(wrapper);
         function mousewheel(e){
             if(!me._active) return;
             e.preventDefault();
@@ -140,7 +140,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      */
     _uninstallPanel: function(){
         var me = this;
-        me.target.append(baidu(me.getElement('content')).children())
+        me._target.append(baidu(me.getElement('content')).children())
             .removeClass('tang-scrollpanel');
             // .css('overflow', 'auto');
         baidu(me.getElement('wrapper')).remove();
@@ -154,27 +154,29 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         var me = this,
             wrapper = baidu(me.getElement('wrapper')),
             $slider = baidu('<div id="'+ me.$getId('slider') +'"></div>').css({
-                height: me.target.height()
-            });
+                height: me._target.height()
+            }),
+            slider;
         wrapper.append($slider);
         
         // instantiate slider
-        me.slider = new magic.Slider({
+        me._slider = slider = new magic.Slider({
             orientation: 'vertical',
             currentValue: 0
         });
-        me.slider.on('change', function(e){
+        slider.on('change', function(e){
             me.scrollTo(me._pctToPixel(e.value));
         });
-        me.slider.render(me.$getId('slider'));
+        slider.render(me.$getId('slider'));
         me._hackSlider();
     },
     _hackSlider: function(){
         var me = this,
             opt = me._options,
             $slider = baidu(me.getElement('slider')),
-            knob = baidu(me.slider.getElement('knob')),
-            view = me.slider.getElement('view'),
+            slider = me._slider,
+            knob = baidu(slider.getElement('knob')),
+            view = slider.getElement('view'),
             arrowTop = baidu('.tang-start', view),
             arrowBottom = baidu('.tang-last', view),
             view = baidu(view);
@@ -237,7 +239,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
             mousedown(e, n * opt.arrowButtonStep);
         };
         var onSliderMousedown = function(e){
-            if(e.target == me.slider.getElement('knob')) return;
+            if(e.target == slider.getElement('knob')) return;
             if(e.pageY < knob.offset().top){
                 mousedown(e, -opt.scrollbarStep);
             }else if(e.pageY > knob.offset().top + knob.outerHeight()){
@@ -255,7 +257,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         });
        
         // for prevent setValue-like action on mousedown
-        me.slider.on('beforeslideclick', function(e){
+        slider.on('beforeslideclick', function(e){
             e.returnValue = false;
         });
     },
@@ -264,8 +266,8 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      * @private 
      */
     _uninstallSlider: function(){
-        if(this.slider)
-            this.slider.$dispose();
+        if(this._slider)
+            this._slider.$dispose();
     },
     /**
      * @description 根据 content 高度重设 knob 高度
@@ -274,8 +276,8 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     _resetSliderUnitsPos: function(){
         var me = this,
             opt = me._options,
-            view = baidu(me.slider.getElement('view')),
-            knob = baidu(me.slider.getElement('knob')),
+            view = baidu(me._slider.getElement('view')),
+            knob = baidu(me._slider.getElement('knob')),
             content = baidu(me.getElement('content')),
             $slider = me.getElement('slider'),
             arrowTop = baidu('.tang-start' ,$slider),
@@ -283,7 +285,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
             arrowTopHeight = arrowTop.css('display') == 'none' ? 0 : arrowTop.outerHeight(),
             arrowBottomHeight = arrowBottom.css('display') == 'none' ? 0 : arrowBottom.outerHeight(),
             $slider = baidu($slider),
-            newKnobHeight = Math.round((me.target.height() / content.outerHeight()) * ($slider.height() - arrowTopHeight - arrowBottomHeight));
+            newKnobHeight = Math.round((me._target.height() / content.outerHeight()) * ($slider.height() - arrowTopHeight - arrowBottomHeight));
         knob.css({
             height: newKnobHeight > opt.scrollbarMinHeight ? newKnobHeight : opt.scrollbarMinHeight
         });
@@ -328,7 +330,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     _setActive: function(){
         var me = this,
             $slider = baidu(me.getElement('slider')),
-            sliderView = baidu(me.slider.getElement('view')),
+            sliderView = baidu(me._slider.getElement('view')),
             content = baidu(me.getElement('content')),
             wrapper = baidu(me.getElement('wrapper'));
         $slider.show();
@@ -340,7 +342,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         });
         me._resetSliderUnitsPos();
         me._active = true;
-        me.oldContentHeight = content.outerHeight();
+        me._oldContentHeight = content.outerHeight();
     },
     _setInactive: function(){
         var me = this,
@@ -363,13 +365,13 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      */
     update: function(){
         var me = this;
-        if(me._isScrollable(me.target).y){
+        if(me._isScrollable(me._target).y){
             if(!me._active){
                 me._setActive();
             }else{
-                if(me.oldContentHeight != baidu(me.getElement('content')).outerHeight()){
+                if(me._oldContentHeight != baidu(me.getElement('content')).outerHeight()){
                     me._resetSliderUnitsPos();
-                    me.oldContentHeight = baidu(me.getElement('content')).outerHeight();
+                    me._oldContentHeight = baidu(me.getElement('content')).outerHeight();
                     me._scrollTo(me.getScroll());
                 }
             }
@@ -390,9 +392,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      * instance.clearAutoUpdate();
      */
     clearAutoUpdate: function(){
-        if(!this.updateTimer) return;
-        clearTimeout(this.updateTimer);
-        delete this.updateTimer;
+        if(!this._updateTimer) return;
+        clearTimeout(this._updateTimer);
+        delete this._updateTimer;
     },
     /**
      * @description 判断一个区域是否可滚动
@@ -402,7 +404,7 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      */
     _isScrollable: function(){
         var me = this,
-            target = me.target,
+            target = me._target,
             targetWidth = target.innerWidth(),
             targetHeight = target.innerHeight(),
         x = baidu(me.getElement('content')).innerWidth() > targetWidth,
@@ -475,13 +477,14 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      * @private 
      */
     _scrollTo: function(pos){
-        var me = this;
+        var me = this,
+            slider = me._slider;
         baidu(me.getElement('content')).css({
             top: -pos
         });
-        me.slider.un('change');
-        me.slider.setValue(me._pixelToPct(pos));
-        me.slider.on('change', function(e){
+        slider.un('change');
+        slider.setValue(me._pixelToPct(pos));
+        slider.on('change', function(e){
             me.scrollTo(me._pctToPixel(e.value));
         });
     },
