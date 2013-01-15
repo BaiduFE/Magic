@@ -10,6 +10,7 @@
 ///import baidu.dom.off;
 ///import baidu.dom.drag;
 ///import baidu.dom.css;
+///import baidu.event.stopPropagation;
 ///import baidu.object.extend;
 ///import baidu.array.each;
 ///import baidu.fn.bind;
@@ -265,7 +266,7 @@ magic.control.Slider.extend({
             range = info._range,
             rect = [],
             offset = parseInt(baidu.dom(knob).css('margin-' + info._knobKey));
-
+        evt.stopPropagation();
         if(info._isVertical){ // 计算拖拽的范围
             r2 = range[1] + extra;
             t1 = range[0];

@@ -554,7 +554,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
      * instance.getScroll();
      */
     getScroll: function(){
-        return -Math.round(baidu(this.getElement('content')).position().top);
+        // FIXME can't get exactly value in Chrome 24, fix this if it is okay in future version
+        // return -Math.round(baidu(this.getElement('content')).position().top);
+        return -Math.round(parseFloat(baidu(this.getElement('content')).css('top')));
     },
     /**
      * @description 获取当前滚动的百分比位置
