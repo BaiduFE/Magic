@@ -1,5 +1,12 @@
-var UserAction = {
-
+var UserAction = 
+/**
+ * 用例中常用方法的集合
+ * 
+ * @author bellcliff
+ * @type UserAction
+ */
+{
+	beforedispatch : null,
 	isf /* is function ? */: function(value) {
 		return value && (typeof value == 'function');
 	},
@@ -187,6 +194,11 @@ var UserAction = {
 				}
 
 			}
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 
 			// fire the event
 			target.dispatchEvent(customEvent);
@@ -211,6 +223,11 @@ var UserAction = {
 			 */
 			customEvent.keyCode = (charCode > 0) ? charCode : keyCode;
 
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
+			
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -218,6 +235,8 @@ var UserAction = {
 			throw new Error(
 					"simulateKeyEvent(): No event simulation framework present.");
 		}
+		
+		this.beforedispatch = null;
 	},
 
 	/**
@@ -290,7 +309,7 @@ var UserAction = {
 	simulateMouseEvent : function(target /* :HTMLElement */,
 			type /* :String */, bubbles /* :Boolean */,
 			cancelable /* :Boolean */, view /* :Window */,
-			detail /* :int */, screenX /* :int */, screenY /* :int */,
+			detail /* :int */, wheelDelta /* :int */, screenX /* :int */, screenY /* :int */,
 			clientX /* :int */, clientY /* :int */, ctrlKey /* :Boolean */,
 			altKey /* :Boolean */, shiftKey /* :Boolean */,
 			metaKey /* :Boolean */, button /* :int */, relatedTarget /* :HTMLElement */) /* :Void */
@@ -316,6 +335,8 @@ var UserAction = {
 			case "mousemove":
 			case "mouseenter":// 非标准支持，仅为测试提供，该项仅IE下work
 			case "mouseleave":
+			case "mousewheel":
+			case "dommousescroll":
 				break;
 			default:
 				throw new Error("simulateMouseEvent(): Event type '" + type
@@ -367,7 +388,16 @@ var UserAction = {
 		if (!this.isn(button)) {
 			button = 0;
 		}
-
+		if (!this.isn(wheelDelta)) {
+			wheelDelta = 0;
+		}
+		
+		if(this.browser.firefox){
+			detail = wheelDelta / -40;
+		}
+		if(type == "dommousescroll")
+			type = "DOMMouseScroll";
+		
 		// try to create a mouse event
 		var customEvent /* :MouseEvent */= null;
 
@@ -415,6 +445,15 @@ var UserAction = {
 					customEvent.fromElement = relatedTarget;
 				}
 			}
+			
+			if(type == "mousewheel"){
+				customEvent.wheelDelta = wheelDelta;
+			}
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 
 			// fire the event
 			target.dispatchEvent(customEvent);
@@ -448,6 +487,7 @@ var UserAction = {
 				break;
 			case 2:
 				// leave as is
+				customEvent.button = 2;
 				break;
 			default:
 				customEvent.button = 0;
@@ -459,7 +499,11 @@ var UserAction = {
 			 * YAHOO.util.customEvent.getRelatedTarget() functional.
 			 */
 			customEvent.relatedTarget = relatedTarget;
-
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -492,7 +536,7 @@ var UserAction = {
 	{
 		options = options || {};
 		this.simulateMouseEvent(target, type, options.bubbles,
-				options.cancelable, options.view, options.detail,
+				options.cancelable, options.view, options.detail, options.wheelDelta,
 				options.screenX, options.screenY, options.clientX,
 				options.clientY, options.ctrlKey, options.altKey,
 				options.shiftKey, options.metaKey, options.button,
@@ -609,6 +653,23 @@ var UserAction = {
 	 */
 	mouseup : function(target /* :HTMLElement */, options /* Object */) /* :Void */{
 		this.fireMouseEvent(target, "mouseup", options);
+	},
+	
+	/**
+	 * Simulates a mousewheel on a particular element.
+	 * 
+	 * @param {HTMLElement}
+	 *            target The element to act on.
+	 * @param {Object}
+	 *            options Additional event options (use DOM standard names).
+	 * @method mouseup
+	 * @static
+	 */
+	mousewheel : function(target /* :HTMLElement */, options /* Object */) /* :Void */{
+		if(this.browser.firefox)
+			this.fireMouseEvent(target, "DOMMouseScroll", options);
+		else
+			this.fireMouseEvent(target, "mousewheel", options);
 	},
 
 	dragto : function(target, options) {
@@ -785,7 +846,7 @@ var UserAction = {
 			// 找到当前操作的iframe，然后call ontest
 		}).attr('src', srcpath);
 	},
-
+	
 	/**
 	 * 
 	 * 判断2个数组是否相等
@@ -1133,7 +1194,7 @@ var UserAction = {
 
 		},
 
-		ua = nav && nav.userAgent,
+		_ua = nav && nav.userAgent,
 
 		loc = win && win.location,
 
@@ -1143,30 +1204,30 @@ var UserAction = {
 
 		o.secure = href && (href.toLowerCase().indexOf("https") === 0);
 
-		if (ua) {
+		if (_ua) {
 
-			if ((/windows|win32/i).test(ua)) {
+			if ((/windows|win32/i).test(_ua)) {
 				o.os = 'windows';
-			} else if ((/macintosh/i).test(ua)) {
+			} else if ((/macintosh/i).test(_ua)) {
 				o.os = 'macintosh';
-			} else if ((/rhino/i).test(ua)) {
+			} else if ((/rhino/i).test(_ua)) {
 				o.os = 'rhino';
 			}
 
 			// Modern KHTML browsers should qualify as Safari X-Grade
-			if ((/KHTML/).test(ua)) {
+			if ((/KHTML/).test(_ua)) {
 				o.webkit = 1;
 			}
 			// Modern WebKit browsers are at least X-Grade
-			m = ua.match(/AppleWebKit\/([^\s]*)/);
+			m = _ua.match(/AppleWebKit\/([^\s]*)/);
 			if (m && m[1]) {
 				o.webkit = numberify(m[1]);
 
 				// Mobile browser check
-				if (/ Mobile\//.test(ua)) {
+				if (/ Mobile\//.test(_ua)) {
 					o.mobile = "Apple"; // iPhone or iPod Touch
 				} else {
-					m = ua.match(/NokiaN[^\/]*|Android \d\.\d|webOS\/\d\.\d/);
+					m = _ua.match(/NokiaN[^\/]*|Android \d\.\d|webOS\/\d\.\d/);
 					if (m) {
 						o.mobile = m[0]; // Nokia N-series, Android, webOS,
 						// ex:
@@ -1174,14 +1235,14 @@ var UserAction = {
 					}
 				}
 
-				var m1 = ua.match(/Safari\/([^\s]*)/);
+				var m1 = _ua.match(/Safari\/([^\s]*)/);
 				if (m1 && m1[1]) // Safari
 					o.safari = numberify(m1[1]);
-				m = ua.match(/Chrome\/([^\s]*)/);
+				m = _ua.match(/Chrome\/([^\s]*)/);
 				if (o.safari && m && m[1]) {
 					o.chrome = numberify(m[1]); // Chrome
 				} else {
-					m = ua.match(/AdobeAIR\/([^\s]*)/);
+					m = _ua.match(/AdobeAIR\/([^\s]*)/);
 					if (m) {
 						o.air = m[0]; // Adobe AIR 1.0 or better
 					}
@@ -1193,26 +1254,29 @@ var UserAction = {
 				// fi; U;
 				// try get firefox and it's ver
 				// ssr)
-				m = ua.match(/Opera[\s\/]([^\s]*)/);
+				m = _ua.match(/Opera[\s\/]([^\s]*)/);
 				if (m && m[1]) {
+					m[1]= _ua.match(/Version[\s\/]([^\s]*)/)[1] || m[1]; //tianlili修改，为了得到opera10之后的真实版本信息而非固定标识9.80
 					o.opera = numberify(m[1]);
-					m = ua.match(/Opera Mini[^;]*/);
+					m = _ua.match(/Opera Mini[^;]*/);
 					if (m) {
 						o.mobile = m[0]; // ex: Opera Mini/2.0.4509/1316
 					}
 				} else { // not opera or webkit
-					m = ua.match(/MSIE\s([^;]*)/);
+					m = _ua.match(/MSIE\s([^;]*)/);
 					if (m && m[1]) {
 						o.ie = numberify(m[1]);
 					} else { // not opera, webkit, or ie
-						m = ua.match(/Gecko\/([^\s]*)/);
+						m = _ua.match(/Gecko\/([^\s]*)/);
 						if (m) {
 							o.gecko = 1; // Gecko detected, look for revision
-							m = ua.match(/rv:([^\s\)]*)/);
+							m = _ua.match(/rv:([^\s\)]*)/);
 							if (m && m[1]) {
 								o.gecko = numberify(m[1]);
 							}
 						}
+						m = _ua.match("Firefox/([^\s]*)");
+						o.firefox = numberify(m[1]);
 					}
 				}
 			}
@@ -1255,7 +1319,7 @@ var UserAction = {
 		return check;
 	},
 	
-    getEventsLength: function(evtQueue, target){
+	getEventsLength: function(evtQueue, target){
         var ret = 0,
             has = target === undefined,
             handlers = has ? evtQueue.get(target) : evtQueue.attachCache,
@@ -1272,7 +1336,42 @@ var UserAction = {
         }
         return ret;
 //        return baidu._util_.eventBase._getEventsLength(target);
-    }
+    },
+    
+	fnQueue : function() {
+		var check = {
+			fnlist : [],
+			/**
+			 * 该方法会在fn上注册一个delay属性
+			 * 
+			 * @param fn
+			 * @param delay
+			 */
+			add : function(fn, delay) {
+				delay && (fn.delay = delay);
+				check.fnlist.push(fn);
+				return check;
+			},
+			/**
+			 * 自动下一个
+			 */
+			next : function() {
+				if(check.fnlist.length == 0)
+					return;
+				var fn = check.fnlist[0];		
+				if (fn.delay) {
+					setTimeout(check.next, fn.delay);
+					delete fn.delay;
+				} else {
+					check.fnlist.shift()();
+					// 切断堆栈
+					// setTimeout(fnQueue.next, 0);
+					check.next();
+				}
+			}
+		};
+		return check;
+	}
 };
 var ua = UserAction;
 var upath = ua.commonData.currentPath();
