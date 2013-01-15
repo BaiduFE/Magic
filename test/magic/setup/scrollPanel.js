@@ -336,7 +336,8 @@ test('基本操作 --- 鼠标滚轮', function(){
     var instance = magic.setup.scrollPanel('test', {
         mousewheelStep: 60
     }),
-    wrapper = instance.getElement('wrapper');
+    wrapper = instance.getElement('wrapper'),
+    ieLowVersion = baidu.browser.ie < 9;
     ua.mousewheel(wrapper, {
         wheelDelta: -120
     });
@@ -344,12 +345,14 @@ test('基本操作 --- 鼠标滚轮', function(){
     ua.mousewheel(wrapper, {
         wheelDelta: 120
     });
-    equals(instance.getScroll(), 0, '向上');
+    if(ieLowVersion) equals(instance.getScroll(), 120, '向下');
+    else equals(instance.getScroll(), 0, '向上');
     instance.scrollTo(20);
     ua.mousewheel(wrapper, {
         wheelDelta: 120
     });
-    equals(instance.getScroll(), 0, '到达边界--向上');
+    if(ieLowVersion) equals(instance.getScroll(), 20+60, '到达边界--向下');
+    else equals(instance.getScroll(), 0, '到达边界--向上');
     
     instance.scrollTo(570);
     ua.mousewheel(wrapper, {
