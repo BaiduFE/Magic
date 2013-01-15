@@ -284,16 +284,20 @@ test('基本操作 --- 拖动滚动条控制柄', function(){
         slider = instance._slider,
         knob = instance._slider.getElement('knob'),
         view = instance._slider.getElement('view');
+    ua.mousemove(slider.getElement("knob"), {
+        clientX : baidu.dom(slider.getElement("view")).offset().left,
+        clientY : baidu.dom(slider.getElement("view")).offset().top
+    });
     ua.mousedown(knob);
     stop();
     setTimeout(function(){
         ua.mousemove(knob, {
-            clientX : 0,
-            clientY : baidu(knob).offset().top + 10
+            clientX : baidu(slider.getElement("view")).offset().left,
+            clientY : baidu(slider.getElement("view")).offset().top + 10
         });
         setTimeout(function(){
             ua.mouseup(knob);
-            equals(Math.round(baidu(knob).position().top), baidu.browser.ie < 7 ? 90 : 89, '正常拖动 --- 滚动条控制柄位置');
+            equals(Math.round(baidu(knob).position().top), 10, '正常拖动 --- 滚动条控制柄位置');
             equals(Math.round(slider.getValue() * 100)/100, instance.getScrollPct(), '正常拖动');
             ua.mousedown(knob);
             setTimeout(function(){
@@ -327,7 +331,6 @@ test('基本操作 --- 拖动滚动条控制柄', function(){
 });
 
 test('基本操作 --- 鼠标滚轮', function(){
-    return;
     expect(4);
     create();
     var instance = magic.setup.scrollPanel('test', {
@@ -335,13 +338,13 @@ test('基本操作 --- 鼠标滚轮', function(){
     }),
     wrapper = instance.getElement('wrapper');
     ua.mousewheel(wrapper, {
-        wheelDelta: 120
-    });
-    equals(instance.getScroll(), 60, '向上');
-    ua.mousewheel(wrapper, {
         wheelDelta: -120
     });
-    equals(instance.getScroll(), 0, '向下');
+    equals(instance.getScroll(), 60, '向下');
+    ua.mousewheel(wrapper, {
+        wheelDelta: 120
+    });
+    equals(instance.getScroll(), 0, '向上');
     instance.scrollTo(20);
     ua.mousewheel(wrapper, {
         wheelDelta: 120
