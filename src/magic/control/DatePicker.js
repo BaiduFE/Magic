@@ -164,11 +164,14 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         input.oninput = function() {
             if(me.disposed) return;
            
-            if(me._getInputDate() && me.calendar.setDate(me._getInputDate())){
-                me.fire("selectdate", {
-                    'date': new Date(me._getInputDate())
-                });
-            }
+            // 20130106 chengyang ie6下通过js修改input的value，也会触发oninput事件，所以这个地方不派发selectdate了
+            // if(me._getInputDate() && me.calendar.setDate(me._getInputDate())){
+            //     me.fire("selectdate", {
+            //         'date': new Date(me._getInputDate())
+            //     });
+            // }
+
+            me._getInputDate() && me.calendar.setDate(me._getInputDate());
         }
         
         baidu(document).on("click", documentClickHandler);

@@ -131,7 +131,8 @@ magic.Calendar.extend(
         me._bindNavBtn();
 
         //快捷键
-        me._addkeystrokesListener();
+        // 20130107 chengyang 去掉对快捷键的支持
+        // me._addkeystrokesListener();
         
         /**
         * @description 日历渲染完成

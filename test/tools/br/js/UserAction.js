@@ -1,4 +1,4 @@
-var UserAction = 
+﻿var UserAction = 
 /**
  * 用例中常用方法的集合
  * 
