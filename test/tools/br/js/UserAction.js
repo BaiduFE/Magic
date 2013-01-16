@@ -1358,7 +1358,7 @@ var UserAction =
             next : function() {
                 if(check.fnlist.length == 0)
                     return;
-                var fn = check.fnlist[0];       
+                var fn = check.fnlist[0];
                 if (fn.delay) {
                     setTimeout(check.next, fn.delay);
                     delete fn.delay;
