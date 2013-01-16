@@ -21,12 +21,13 @@
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.hasClass;
+///import baidu.dom.append;
+///import baidu.dom.closest;
 ///import baidu.global.getZIndex;
 ///import baidu.page.getWidth;
 ///import baidu.page.getHeight;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
-///import baidu.dom.closest;
 
 /**
  * @description 对话框组件的控制器

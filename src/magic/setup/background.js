@@ -38,7 +38,7 @@ magic.setup.background = function(el, options){
 
     bg.coverable && baidu.dom(y).append(bg._coverDom||"");
     yp != document.body
-        && baidu.dom(yp).getCurrentStyle("position")=="static"
+        && baidu.dom(yp).css("position")=="static"
         && (yp.style.position="relative");
 
     return bg;

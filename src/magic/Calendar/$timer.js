@@ -300,7 +300,7 @@
 
                  //构建时间区域和浮动区域
                  var footer = baidu(me.footerEl);
-                 footer.insertHTML('beforeEnd', baidu.string.format(me.timerSkeleton, {
+                 footer.append(baidu.string.format(me.timerSkeleton, {
                                         "id": me.$getId(timerIdty),
                                         "class": getClass("timer"),
                                         "content": buildTimer

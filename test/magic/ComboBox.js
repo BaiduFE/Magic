@@ -240,7 +240,7 @@ test("render, events", function() {
         equals('dispose', 'dispose', "The dispose Event is right");
         var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
         equals(l2, l1, "The events are un");
-    }); 	
+    });
 	combobox1.render(div1);
 	
 	ua.click(combobox1.getElement("arrow"));

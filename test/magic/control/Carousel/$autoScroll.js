@@ -14,7 +14,7 @@ module("magic.control.Carousel.$antoscroll");
 		        {content: 'text9'}
 		    ];
 	mouseenter = function(target){
-		baidu.dom(target).trigger("mouseenter");
+		$(target).trigger("mouseenter");
 		// if(ua.browser.ie)
 		// 	ua.simulateMouseEvent(target, 'mouseenter', 0, 0, window, 1, 0, 0, 0, 0,
 		// 		false, false, false, false, 0, document.documentElement);
@@ -22,7 +22,7 @@ module("magic.control.Carousel.$antoscroll");
 		// 	ua.mouseover(target);
 	};
 	mouseleave = function(target){
-		baidu.dom(target).trigger("mouseleave");
+		$(target).trigger("mouseleave");
 		// if(ua.browser.ie)
 		// 	ua.simulateMouseEvent(target, 'mouseleave', 0, 0, window, 1, 0, 0, 0, 0,
 		// 		false, false, false, false, 0, document.documentElement);
@@ -70,23 +70,23 @@ test("render,default params", function(){
 			});
 			c.on("onmouseenter", function(evt){
 		        evt.target.stop();
-				equals(c._selectedIndex, 8, "scroll to 8");
+ß				equals(c._selectedIndex, 8, "a scroll to 8");
 		    });
 		    c.on("onmouseleave", function(evt){
-				equals(c._selectedIndex, 8, "scroll to 8");
+				equals(c._selectedIndex, 8, "b scroll to 8");
 		        evt.target.start();
 		    });
 		    c.on("onfocus", function(){
 				scroll ++;
 				if(scroll == 1){
-					equals(c._selectedIndex, 8, "scroll to 8");
+					equals(c._selectedIndex, 8, "c scroll to 8");
 					mouseenter(c.getElement("element"));
 			        setTimeout(function(){
 			        	mouseleave(c.getElement("element"));
 			        }, 0);
 				}
 				if(scroll == 2){
-					equals(c._selectedIndex, 9, "scroll to 9");
+					equals(c._selectedIndex, 9, "d scroll to 9");
 					c.$dispose();
 					document.body.removeChild(div);
 					start();
@@ -106,7 +106,7 @@ test("render,all params", function(){
 	var scroll = 0; 
 	var time1 = 0;
 	var time2 = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var c = new magic.Carousel({
 	    items: citems,
 	    isLoop: true,
@@ -144,7 +144,7 @@ test("render,all params", function(){
 		    ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
 			c.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
 			start();
@@ -262,7 +262,7 @@ test("setup, all params", function(){
 	var scroll = 0; 
 	var time1 = 0;
 	var time2 = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var options = {
 	    items: citems,
 	    isLoop: true,
@@ -301,7 +301,7 @@ test("setup, all params", function(){
 			ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
 			c.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(baidu.dom.g("one-carousel"));
 			start();

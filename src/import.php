@@ -28,6 +28,9 @@ if(isset($_GET['path'])){
     $PATH = array();
 }
 
+// 添加正确的 MIME 响应 By Techird 2013/01/06
+header('Content-Type: text/javascript');
+
 echo importTangram(explode(',', $_GET['f']), false);
 
 // 无敌旋转分隔线

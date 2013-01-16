@@ -602,7 +602,7 @@ test("events & dispose", function(){
 	var div = document.createElement("div");
 	document.body.appendChild(div);
 	div.id = "one-carousel";
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var c = new magic.Carousel({
 	    items: citems,
 	    fx: {                   //保证release模式下Carousel不会被fx插件影响
@@ -623,7 +623,7 @@ test("events & dispose", function(){
     	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
-    	var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    	var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     	equals(l2, l1, "The events are un");
     });
     c.focus(8, 'backward');

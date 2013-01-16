@@ -197,7 +197,7 @@ test("render, events", function() {
     div1.id = "div1";
     div1.innerHTML = '<select id="s"><option value="f">女</option><option value="m">男</option></select>';
     var s = baidu.dom.g('s');
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     var combobox1 = magic.setup.comboBox(s);
     var highlight = pick = change = 0;
     
@@ -275,7 +275,7 @@ test("render, events", function() {
     });
     combobox1.on("dispose", function(e, data){
         equals('dispose', 'dispose', "The dispose Event is right");
-        var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+        var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
         equals(l2, l1, "The events are un");
     });     
    

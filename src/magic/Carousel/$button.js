@@ -52,7 +52,7 @@ baidu.lang.register(magic.Carousel, function(options){
             content: me._options.button.buttonLabel.next
         }));
         me.on('ondispose', function(){
-            baidu.array.each(['prev', 'next'], function(item){
+            baidu(['prev', 'next']).each(function(index, item){
                 baidu.dom(me.getElement(item)).remove();
             });
         });
