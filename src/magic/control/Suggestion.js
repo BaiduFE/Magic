@@ -12,6 +12,7 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.contains;
 ///import baidu.dom.attr;
+///import baidu.dom.width;
 ///import baidu.lang.createClass;
 ///import baidu.object.extend;
 ///import baidu.string.format;
@@ -336,7 +337,7 @@ magic.control.Suggestion = baidu.lang.createClass(function(options){
             // 20130105 chengyang 
             // 当宽度被设置到table上时，appendHTML和prependHTML在ie6下会撑开suggestion容器到body边缘
             // 此处强制在suggestion容器上再设置一次width
-            baidu.dom('#' + me.suggestion.$getId('content')).css("width", baidu.dom(suggestion_table).width() + 'px');
+            baidu.dom('#' + me.suggestion.$getId('content')).css("width", baidu(suggestion_table).width() + 'px');
         }
 
 
