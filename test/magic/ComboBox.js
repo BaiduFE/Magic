@@ -121,43 +121,39 @@ test("render, readonly", function(){
 
 //4
 test("render, render", function() {
-    stop();
-    ua.importsrc('baidu.dom.contains', function() {
-        var div1 = document.createElement("div");
-        document.body.appendChild(div1);
-        div1.id = "div1";
-        var combobox1 = new magic.ComboBox({
-            items : [{
-                'value' : 'f', 'content' : '女'
-            }, {
-                'value' : 'm', 'content' : '男'
-            }]
-        });
-        combobox1.render(div1);
-        
-        var container = combobox1.getElement('container');
-        equals(true, baidu.dom.contains(div1, container), 'position of combobox is right.');
-        equals(baidu.dom(div1).offset().left, baidu.dom(container).offset().left, 'left');
-        equals(baidu.dom(div1).offset().top, baidu.dom(container).offset().top, 'top');
-        combobox1.menu.show();
-        var menu = combobox1.getElement('menu');
-        equals(baidu.dom(container).offset().left, baidu.dom(menu).offset().left, 'left');
-        var offset =  -1;
-        equals(baidu.dom(container).offset().top + container.offsetHeight + offset, baidu.dom(menu).offset().top, 'top');
-        combobox1.$dispose();
-        document.body.removeChild(div1);
-        start();
-    }, 'baidu.dom.contains', 'magic.ComboBox');
+    var div1 = document.createElement("div");
+    document.body.appendChild(div1);
+    div1.id = "div1";
+    var combobox1 = new magic.ComboBox({
+        items : [{
+            'value' : 'f', 'content' : '女'
+        }, {
+            'value' : 'm', 'content' : '男'
+        }]
+    });
+    combobox1.render(div1);
+    
+    var container = combobox1.getElement('container');
+    equals(true, $.contains(div1, container), 'position of combobox is right.');
+    equals(baidu.dom(div1).offset().left, baidu.dom(container).offset().left, 'left');
+    equals(baidu.dom(div1).offset().top, baidu.dom(container).offset().top, 'top');
+    combobox1.menu.show();
+    var menu = combobox1.getElement('menu');
+    equals(baidu.dom(container).offset().left, baidu.dom(menu).offset().left, 'left');
+    var offset =  -1;
+    equals(baidu.dom(container).offset().top + container.offsetHeight + offset, baidu.dom(menu).offset().top, 'top');
+    combobox1.$dispose();
+    document.body.removeChild(div1);
 });
 
-//4
+//5
 test("render, events", function() {
     expect(32);
 	var div1 = document.createElement("div");
 	document.body.appendChild(div1);
 	div1.id = "div1";
 	var highlight = pick = change = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var combobox1 = new magic.ComboBox({
 		items : [{
 		    'value' : 'f', 'content' : '女'
@@ -242,7 +238,7 @@ test("render, events", function() {
     });
     combobox1.on("dispose", function(e, data){
         equals('dispose', 'dispose', "The dispose Event is right");
-        var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+        var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
         equals(l2, l1, "The events are un");
     }); 	
 	combobox1.render(div1);
@@ -612,7 +608,7 @@ test("render, disable", function(){
     });
     combobox1.render(div1);
     combobox1.disable();
-    equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), true, "The disable style is right");
+    equals($(combobox1.getElement('container')).hasClass('magic-combobox-disable'), true, "The disable style is right");
     equals(combobox1.getElement('input').disabled, true, "input disabled right");
     equals(combobox1.disabled, true, "instance.disabled is right.");
     combobox1.$dispose();
@@ -633,7 +629,7 @@ test("render, enable", function(){
     });
     combobox1.render(div1);
     combobox1.enable();
-    equals(baidu.dom.hasClass(combobox1.getElement('container'), 'magic-combobox-disable'), false, "The enable style is right");
+    equals($(combobox1.getElement('container')).hasClass('magic-combobox-disable'), false, "The enable style is right");
     equals(combobox1.getElement('input').disabled, false, "input enable right");
     equals(combobox1.disabled, false, "instance.disabled is right.");
     combobox1.$dispose();
@@ -683,9 +679,9 @@ test("render, dispose", function() {
         equals(0, baidu.array.indexOf(magic.control.ComboBox.instanceArray, comboid), 'guid is added in global array.')
         ua.click(combobox1.getElement('arrow'));
         combobox1.$dispose();
-        equals(baidu.dom.contains(document.body, container), false, 'container is removed');
-        equals(baidu.dom.contains(document.body, menu), false, 'menu is removed');
-        equals(baidu.dom.g(popdomid).style.display, 'none', 'popup is hidden');
+        equals($.contains(document.body, container), false, 'container is removed');
+        equals($.contains(document.body, menu), false, 'menu is removed');
+        //equals(baidu.dom('#' + popdomid).style.display, 'none', 'popup is hidden');
         equals(undefined, baiduInstance(popguid), 'popup is disposed.');
         equals(-1, baidu.array.indexOf(magic.control.ComboBox.instanceArray, comboid), 'guid is removed from global array.')
         document.body.removeChild(div1);
@@ -776,12 +772,12 @@ test("render, mouse action in readonly = false combobox", function(){
         switch (mouseover) {
             case 1 :
             equals(e.index, 0, 'The mouseover action is right');
-            equals(baidu.dom.hasClass($('li', combobox1.getElement('menu'))[0], 'magic-combobox-menu-item-hover'), true, 'The highlight style is right');
+            equals($('li', combobox1.getElement('menu')).eq(0).hasClass('magic-combobox-menu-item-hover'), true, 'The highlight style is right');
             break;
             case 2 :
             equals(e.index, 1, 'The mouseover action is right');
-            equals(baidu.dom.hasClass($('li', combobox1.getElement('menu'))[0], 'magic-combobox-menu-item-hover'), false, 'clearHighlight is right');
-            equals(baidu.dom.hasClass($('li', combobox1.getElement('menu'))[1], 'magic-combobox-menu-item-hover'), true, 'The highlight style is right');
+            equals($('li', combobox1.getElement('menu')).eq(0).hasClass('magic-combobox-menu-item-hover'), false, 'clearHighlight is right');
+            equals($('li', combobox1.getElement('menu')).eq(0).hasClass('magic-combobox-menu-item-hover'), true, 'The highlight style is right');
             break;
         }
         
