@@ -1,6 +1,6 @@
-var UserAction = 
+ï»¿var UserAction = 
 /**
- * ÓÃÀıÖĞ³£ÓÃ·½·¨µÄ¼¯ºÏ
+ * ç”¨ä¾‹ä¸­å¸¸ç”¨æ–¹æ³•çš„é›†åˆ
  * 
  * @author bellcliff
  * @type UserAction
@@ -333,7 +333,7 @@ var UserAction =
 			case "click":
 			case "dblclick":
 			case "mousemove":
-			case "mouseenter":// ·Ç±ê×¼Ö§³Ö£¬½öÎª²âÊÔÌá¹©£¬¸ÃÏî½öIEÏÂwork
+			case "mouseenter":// éæ ‡å‡†æ”¯æŒï¼Œä»…ä¸ºæµ‹è¯•æä¾›ï¼Œè¯¥é¡¹ä»…IEä¸‹work
 			case "mouseleave":
 			case "mousewheel":
 			case "dommousescroll":
@@ -773,18 +773,18 @@ var UserAction =
 	},
 
 	/**
-	 * Ìá¹©iframeÀ©Õ¹Ö§³Ö£¬ÓÃÀı²âÊÔĞèÒª¶ÀÁ¢³¡¾°µÄÓÃÀı£¬ÓÉÓÚÒì²½Ö§³Ö£¬Í¨¹ıfinish·½·¨´¥·¢start
-	 * <li>ÊÂ¼ş°ó¶¨ÔÚframeÉÏ£¬°üÀ¨afterfinishºÍjsloaded
+	 * æä¾›iframeæ‰©å±•æ”¯æŒï¼Œç”¨ä¾‹æµ‹è¯•éœ€è¦ç‹¬ç«‹åœºæ™¯çš„ç”¨ä¾‹ï¼Œç”±äºå¼‚æ­¥æ”¯æŒï¼Œé€šè¿‡finishæ–¹æ³•è§¦å‘start
+	 * <li>äº‹ä»¶ç»‘å®šåœ¨frameä¸Šï¼ŒåŒ…æ‹¬afterfinishå’Œjsloaded
 	 * 
 	 * @param op.win
 	 * @param op.nojs
-	 *            ²»¼ÓÔØ¶îÍâjs
+	 *            ä¸åŠ è½½é¢å¤–js
 	 * @param op.ontest
-	 *            ²âÊÔ²½Öè
+	 *            æµ‹è¯•æ­¥éª¤
 	 * @param op.onbeforestart
-	 *            ²âÊÔÆô¶¯Ç°´¦Àí²½Öè£¬Ä¬ÈÏÎªQUnit.stop();
+	 *            æµ‹è¯•å¯åŠ¨å‰å¤„ç†æ­¥éª¤ï¼Œé»˜è®¤ä¸ºQUnit.stop();
 	 * @param op.onafterfinish
-	 *            ²âÊÔÍê±ÏÖ´ĞĞ²½Öè£¬Ä¬ÈÏÎªQUnit.start()
+	 *            æµ‹è¯•å®Œæ¯•æ‰§è¡Œæ­¥éª¤ï¼Œé»˜è®¤ä¸ºQUnit.start()
 	 * 
 	 */
 	frameExt : function(op) {
@@ -804,7 +804,7 @@ var UserAction =
 		};
 
 		if (pw.$(fid).length == 0) {
-			/* Ìí¼Óframe£¬²¿·ÖÇé¿öÏÂ£¬iframeÃ»ÓĞ±ß¿ò£¬ÎªÁË¿ÉÒÔ¿´µ½Ğ§¹û£¬Ìí¼ÓÒ»¸ö´ø±ß¿òµÄdiv */
+			/* æ·»åŠ frameï¼Œéƒ¨åˆ†æƒ…å†µä¸‹ï¼Œiframeæ²¡æœ‰è¾¹æ¡†ï¼Œä¸ºäº†å¯ä»¥çœ‹åˆ°æ•ˆæœï¼Œæ·»åŠ ä¸€ä¸ªå¸¦è¾¹æ¡†çš„div */
 			pw.$(pw.document.body).append('<div id="div' + id + '"></div>');
 			pw.$('div#div' + id).append('<iframe id="' + id + '" frameborder="no"></iframe>');
 		}
@@ -838,18 +838,18 @@ var UserAction =
 		pw.$(fid).one('load', function(e) {
 			var w = e.target.contentWindow;
 			var h = setInterval(function() {
-				if (w.baidu) {// µÈ´ı¼ÓÔØÍê³É£¬IE6ÏÂÕâµØ·½×Ü³öÎÊÌâ
+				if (w.baidu) {// ç­‰å¾…åŠ è½½å®Œæˆï¼ŒIE6ä¸‹è¿™åœ°æ–¹æ€»å‡ºé—®é¢˜
 					clearInterval(h);
 					op.ontest(w, w.frameElement);
 				}
 			}, 20);
-			// ÕÒµ½µ±Ç°²Ù×÷µÄiframe£¬È»ºócall ontest
+			// æ‰¾åˆ°å½“å‰æ“ä½œçš„iframeï¼Œç„¶åcall ontest
 		}).attr('src', srcpath);
 	},
 	
 	/**
 	 * 
-	 * ÅĞ¶Ï2¸öÊı×éÊÇ·ñÏàµÈ
+	 * åˆ¤æ–­2ä¸ªæ•°ç»„æ˜¯å¦ç›¸ç­‰
 	 * 
 	 * @static
 	 */
@@ -870,12 +870,12 @@ var UserAction =
 
 	/***************************************************************************
 	 * 
-	 * Í¨ÓÃÊı¾İÄ£¿é
+	 * é€šç”¨æ•°æ®æ¨¡å—
 	 * 
 	 * @static
 	 * 
 	 **************************************************************************/
-	commonData : {// Õë¶Ô²âÊÔÎÄ¼şµÄÂ·¾¶¶ø²»ÊÇUserActionµÄÂ·¾¶
+	commonData : {// é’ˆå¯¹æµ‹è¯•æ–‡ä»¶çš„è·¯å¾„è€Œä¸æ˜¯UserActionçš„è·¯å¾„
 		"testdir" : '../../',
 		datadir : (function() {
 			var href = '';
@@ -911,7 +911,7 @@ var UserAction =
 
 	importsrc : function(src, callback, matcher, exclude, win) {
 		/**
-		 * Ö§³Örelease·ÖÖ®£¬´Ë´¦Ó¦¸ÃÖ±½Ó·µ»Ø
+		 * æ”¯æŒreleaseåˆ†ä¹‹ï¼Œæ­¤å¤„åº”è¯¥ç›´æ¥è¿”å›
 		 */
 		if (location.search.indexOf("release=true") >= 0 && src.indexOf("baidu") == -1) {
 			if (callback && typeof callback == "function")
@@ -940,7 +940,7 @@ var UserAction =
 			ps.cov = true;
 		var param1 = exclude || "";
 		/**
-		 * IEÏÂÖØ¸´ÔØÈë»á³öÏÖÎŞ·¨Ö´ĞĞÇé¿ö
+		 * IEä¸‹é‡å¤è½½å…¥ä¼šå‡ºç°æ— æ³•æ‰§è¡Œæƒ…å†µ
 		 */
 		if (win.execScript) {
 			$.get(srcpath, ps, function(data) {
@@ -961,12 +961,12 @@ var UserAction =
 		var h = setInterval(function() {
 			var p = win;
 			for ( var i = 0; i < mm.length; i++) {
-				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //Èç¹ûÒª¼ÓÔØµÄÊÇ²å¼ş
-                    if (p._addons && p._addons.length == 1) { //uiµÄ²å¼ş
+				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //å¦‚æœè¦åŠ è½½çš„æ˜¯æ’ä»¶
+                    if (p._addons && p._addons.length == 1) { //uiçš„æ’ä»¶
                         // console.log(mm[i]);
                         return;
                     }   
-                    if (!p._addons && typeof (p.prototype.un) == 'undefined') { //baseµÄ²å¼ş£¬Èçbaidu.lang.Class.$removeEventListener
+                    if (!p._addons && typeof (p.prototype.un) == 'undefined') { //baseçš„æ’ä»¶ï¼Œå¦‚baidu.lang.Class.$removeEventListener
                         return;
                     }
 	
@@ -985,7 +985,7 @@ var UserAction =
 		}, 20);
 	},
 
-	/* ÓÃÓÚ¼ÓÔØcssÎÄ¼ş£¬Èç¹ûÃ»ÓĞ¼ÓÔØÍê±ÏÔò²»Ö´ĞĞ»Øµ÷º¯Êı */
+	/* ç”¨äºåŠ è½½cssæ–‡ä»¶ï¼Œå¦‚æœæ²¡æœ‰åŠ è½½å®Œæ¯•åˆ™ä¸æ‰§è¡Œå›è°ƒå‡½æ•° */
     loadcss : function(urls, callback, w, classname, style, value) {
         var w = w || window;
         var document = w.document;
@@ -1256,7 +1256,7 @@ var UserAction =
 				// ssr)
 				m = _ua.match(/Opera[\s\/]([^\s]*)/);
 				if (m && m[1]) {
-					m[1]= _ua.match(/Version[\s\/]([^\s]*)/)[1] || m[1]; //tianliliĞŞ¸Ä£¬ÎªÁËµÃµ½opera10Ö®ºóµÄÕæÊµ°æ±¾ĞÅÏ¢¶ø·Ç¹Ì¶¨±êÊ¶9.80
+					m[1]= _ua.match(/Version[\s\/]([^\s]*)/)[1] || m[1]; //tianliliä¿®æ”¹ï¼Œä¸ºäº†å¾—åˆ°opera10ä¹‹åçš„çœŸå®ç‰ˆæœ¬ä¿¡æ¯è€Œéå›ºå®šæ ‡è¯†9.80
 					o.opera = numberify(m[1]);
 					m = _ua.match(/Opera Mini[^;]*/);
 					if (m) {
@@ -1286,7 +1286,7 @@ var UserAction =
 	})(),
 
 	/**
-	 * Ìá¹©¶ÓÁĞ·½Ê½Ö´ĞĞÓÃÀıµÄ·½°¸£¬½Ó¿Ú°üÀ¨start¡¢add¡¢next£¬·½·¨È«²¿Ö´ĞĞÍê±ÏÊ±»áÆô¶¯ÓÃÀı¼ÌĞøÖ´ĞĞ
+	 * æä¾›é˜Ÿåˆ—æ–¹å¼æ‰§è¡Œç”¨ä¾‹çš„æ–¹æ¡ˆï¼Œæ¥å£åŒ…æ‹¬startã€addã€nextï¼Œæ–¹æ³•å…¨éƒ¨æ‰§è¡Œå®Œæ¯•æ—¶ä¼šå¯åŠ¨ç”¨ä¾‹ç»§ç»­æ‰§è¡Œ
 	 */
 	functionListHelper : function() {
 		var check = {
@@ -1294,7 +1294,7 @@ var UserAction =
 			start : function() {
 				var self = this;
 				$(this).bind('next', function() {
-					setTimeout(function() {// ±ÜÃâÌ«ÉîµÄ¶ÑÕ»
+					setTimeout(function() {// é¿å…å¤ªæ·±çš„å †æ ˆ
 						if (self.list.length == 0)
 							start();
 						else
@@ -1342,7 +1342,7 @@ var UserAction =
 		var check = {
 			fnlist : [],
 			/**
-			 * ¸Ã·½·¨»áÔÚfnÉÏ×¢²áÒ»¸ödelayÊôĞÔ
+			 * è¯¥æ–¹æ³•ä¼šåœ¨fnä¸Šæ³¨å†Œä¸€ä¸ªdelayå±æ€§
 			 * 
 			 * @param fn
 			 * @param delay
@@ -1353,7 +1353,7 @@ var UserAction =
 				return check;
 			},
 			/**
-			 * ×Ô¶¯ÏÂÒ»¸ö
+			 * è‡ªåŠ¨ä¸‹ä¸€ä¸ª
 			 */
 			next : function() {
 				if(check.fnlist.length == 0)
@@ -1364,7 +1364,7 @@ var UserAction =
 					delete fn.delay;
 				} else {
 					check.fnlist.shift()();
-					// ÇĞ¶Ï¶ÑÕ»
+					// åˆ‡æ–­å †æ ˆ
 					// setTimeout(fnQueue.next, 0);
 					check.next();
 				}
