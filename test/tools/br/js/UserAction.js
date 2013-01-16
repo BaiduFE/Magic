@@ -889,7 +889,7 @@ var UserAction = {
 			var head = doc.getElementsByTagName('head')[0];
 			var sc = doc.createElement('script');
 			sc.type = 'text/javascript';
-			sc.src = srcpath + "?f=" + param0 + "&e=" + param1;
+			sc.src = srcpath + "?f=" + param0 + "&e=" + param1 + (ua.adapterMode ? '&dep=jquery' : '');
 			if(location.search.indexOf("cov=true") > -1)
 				sc.src += "&cov=true";
 			head.appendChild(sc);
@@ -1275,5 +1275,6 @@ var UserAction = {
     }
 };
 var ua = UserAction;
+ua.adapterMode = /dep=\S+/.test(location.search);
 var upath = ua.commonData.currentPath();
 var cpath = ua.commonData.datadir;
