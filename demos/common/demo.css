@@ -5,6 +5,16 @@ body {
 	margin: 0;
 	min-height: 500px;
 	padding-bottom: 15px;
+	overflow-y: auto;
+}
+
+html, body {
+	*height: 100%;
+	*background-image: url(about:blank);
+	max-height: 100%;
+}
+body.iframe {
+	overflow-y: hidden;
 }
 
 ul, li {
@@ -20,7 +30,6 @@ a {
 }
 .demo-list {
 	position: fixed;
-	*position: absolute;
 	left: 0;
 	top: 0;
 	bottom: 0;
@@ -29,6 +38,12 @@ a {
 	padding: 10px;
 	border-right: 1px solid #AAA;
 	box-shadow: inset -1px 0 white, 1px 0 8px #CCC;
+	*position: absolute;
+	*height: 100%;
+	*top: expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt
+(this.currentStyle.marginBottom,10)||0) + 30);
+}
+body.iframe .demo-list {	
 	z-index: 9999999999;
 }
 .demo-list h3 {
@@ -80,13 +95,15 @@ a {
 .main-wrap {
 	margin-left: 255px;
 	margin-right: 15px;
+	margin-bottom: 240px;
 }
 .demo-wrap {
-	background-color: #8899DD;
+	background-color: #808080;
 	color: #FFF;
 	padding: 15px;
 	margin-top: 15px;
 	border-radius: 10px;
+	margin-bottom: 15px;
 	*zoom:1;
 }
 .demo-wrap h3 {
@@ -94,15 +111,27 @@ a {
 	font-family: 'Microsoft Yahei';
 	margin: 10px 0 20px;
 	font-weight: normal;
-	text-shadow: 1px 1px #0C1EA7;
+	text-shadow: 1px 1px #000;
+}
+.demo-view {
 }
 .console-wrap {
-	margin: 20px 0;
 	border: 1px solid #999;
+	position: fixed;
+	bottom: 0;
+	left: 239px;
+	right: 0;
+	z-index: 100;
+	margin: 0;
+	border-bottom: none;
+	border-right: none;	
+	*position: absolute;
+	*top: expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt
+(this.currentStyle.marginBottom,10)||0));
 }
 .console-wrap h3 {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 5px 35px 5px 10px;
 	font-size: 14px;
 	font-weight: normal;
 	background-color: #F3F3F3;
@@ -111,9 +140,68 @@ a {
 	height: 20px;
 	line-height: 20px;
 	color: #666;
+	text-align: right;
+}
+a.clear-console {
+	position: absolute;
+	left: 5px;
+	top: 4px;
+	display: block;
+	height: 16px;
+	line-height: 16px;
+	padding: 3px 5px 3px 24px;
+	background: url(edit_clear.png) 4px 2px no-repeat;
+	cursor: default;
+	color: #666;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	-webkit-transition: all .15s ease;
+	   -moz-transition: all .15s ease;
+	    -ms-transition: all .15s ease;
+	     -o-transition: all .15s ease;
+	        transition: all .15s ease;
+}
+a.clear-console:hover {
+	border: 1px solid #777;
+	color: black;
+	box-shadow: inset 0 1px white;
+}
+a.clear-console:active {
+	box-shadow: inset 0px 0px 4px rgba(0,0,0,.3);	
+	-webkit-transition: all .05s ease;
+	   -moz-transition: all .05s ease;
+	    -ms-transition: all .05s ease;
+	     -o-transition: all .05s ease;
+	        transition: all .05s ease;
+}
+a.console-expander {
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	display: block;
+	width: 25px;
+	height: 25px;
+	background: url(expander.png) no-repeat;
+	cursor: pointer;
+}
+a.console-expander:hover{
+	background-position: 0 -25px;
+}
+a.console-expander:active{
+	background-position: 0 -50px;
+}
+a.console-expander.expanded{
+	background-position: 0 -75px;
+}
+a.console-expander.expanded:hover{
+	background-position: 0 -100px;
+}
+a.console-expander.expanded:active{
+	background-position: 0 -125px;
 }
 .console {
-	height: 301px;
+	height: 200px;
+	background-color: white;
 	overflow: scroll;
 	overflow-x: hidden;
 }
@@ -150,6 +238,7 @@ a {
 .demo-control {
 	border-collapse: collapse;
 	color: #333;
+	margin-top: 10px;
 }
 
 .demo-control td {

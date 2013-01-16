@@ -26,91 +26,90 @@
                 <div class="demo-wrap">
                     <h3>组合框方法和事件演示</h3>
                     <p>请按下方的按钮调用组合框的方法。</p>
-                    <div class="demo-view">
-                    	<div style="width:200px">
-                    		<div id="combobox"></div>
-                    	</div>
-						<table class="demo-control">
-						<!-- item start -->
-						<tr>
-							<td>获得选中项的值</td>
-							<td>combobox.<strong>getValue</strong>();</td>
-							<td><input cmd="alert(combobox.getValue());" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-
-						<!-- item start -->
-						<tr>
-							<td>获得选中项的索引值</td>
-							<td>combobox.<strong>getSelectIndex</strong>();</td>
-							<td><input cmd="alert(combobox.getSelectIndex());" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-						
-						<!-- item start -->
-						<tr>
-							<td>使组合框获得焦点</td>
-							<td>combobox.<strong>focus</strong>();</td>
-							<td><input cmd="combobox.focus();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-
-						<!-- item start -->
-						<tr>
-							<td>使组合框失去焦点</td>
-							<td>combobox.<strong>blur</strong>();</td>
-							<td><input cmd="combobox.blur();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-
-						<!-- item start -->
-						<tr>
-							<td>将组合框重置</td>
-							<td>combobox.<strong>reset</strong>();</td>
-							<td><input cmd="combobox.reset();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-
-						<!-- item start -->
-						<tr>
-							<td>设置组合框为不可用状态。</td>
-							<td>combobox.<strong>disable</strong>();</td>
-							<td><input cmd="combobox.disable();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-
-						<!-- item start -->
-						<tr>
-							<td>设置组合框为可用状态</td>
-							<td>combobox.<strong>enable</strong>();</td>
-							<td><input cmd="combobox.enable();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<!-- item end -->
-						
-						<!-- item start -->
-						<tr>
-							<td rowspan="2">根据选中项的值设置组合框</td>
-							<td>combobox.<strong>setByValue</strong>( <em>value</em> );</td>
-							<td rowspan="2"><input cmd="combobox.setByValue('#{value}');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<tr>
-							<td><span>str = </span><span><input class="textInput" value="1" id="value"></span></td>
-						</tr>
-						<!-- item end -->
-
-						<!-- item start -->
-						<tr>
-							<td rowspan="2">设置组合框的宽度</td>
-							<td>combobox.<strong>setWidth</strong>( <em>width</em> );</td>
-							<td rowspan="2"><input cmd="combobox.setWidth('#{width}');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
-						</tr>
-						<tr>
-							<td><span>str = </span><span><input class="textInput" value="300px" id="width"></span></td>
-						</tr>
-						<!-- item end -->
-
-					</table>
+                </div>            
+                <div class="demo-view">
+                    <div style="width:200px">
+                        <div id="combobox"></div>
                     </div>
+                    <table class="demo-control">
+                        <!-- item start -->
+                        <tr>
+                            <td>获得选中项的值</td>
+                            <td>combobox.<strong>getValue</strong>();</td>
+                            <td><input cmd="alert(combobox.getValue());" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>获得选中项的索引值</td>
+                            <td>combobox.<strong>getSelectIndex</strong>();</td>
+                            <td><input cmd="alert(combobox.getSelectIndex());" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+                        
+                        <!-- item start -->
+                        <tr>
+                            <td>使组合框获得焦点</td>
+                            <td>combobox.<strong>focus</strong>();</td>
+                            <td><input cmd="combobox.focus();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>使组合框失去焦点</td>
+                            <td>combobox.<strong>blur</strong>();</td>
+                            <td><input cmd="combobox.blur();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>将组合框重置</td>
+                            <td>combobox.<strong>reset</strong>();</td>
+                            <td><input cmd="combobox.reset();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>设置组合框为不可用状态。</td>
+                            <td>combobox.<strong>disable</strong>();</td>
+                            <td><input cmd="combobox.disable();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td>设置组合框为可用状态</td>
+                            <td>combobox.<strong>enable</strong>();</td>
+                            <td><input cmd="combobox.enable();" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <!-- item end -->
+                        
+                        <!-- item start -->
+                        <tr>
+                            <td rowspan="2">根据选中项的值设置组合框</td>
+                            <td>combobox.<strong>setByValue</strong>( <em>value</em> );</td>
+                            <td rowspan="2"><input cmd="combobox.setByValue('#{value}');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <tr>
+                            <td><span>str = </span><span><input class="textInput" value="1" id="value"></span></td>
+                        </tr>
+                        <!-- item end -->
+
+                        <!-- item start -->
+                        <tr>
+                            <td rowspan="2">设置组合框的宽度</td>
+                            <td>combobox.<strong>setWidth</strong>( <em>width</em> );</td>
+                            <td rowspan="2"><input cmd="combobox.setWidth('#{width}');" onclick="exec(this)" class="btn" type="button" value="apply"></td>
+                        </tr>
+                        <tr>
+                            <td><span>str = </span><span><input class="textInput" value="300px" id="width"></span></td>
+                        </tr>
+                        <!-- item end -->
+                    </table>
                 </div>
                 <div id="magic-pager"></div>
                 <div class="console-wrap">
