@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content=" 组件">
+        <title>ScrollPanel 组件 --- 常用方法</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.ScrollPanel/magic.control.ScrollPanel.css" />
+		<style type="text/css">
+            .demo{height:400px;}
+            .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+            .wrap{width:200px;margin:10px auto;font-size:12px;}
+            .item{
+                margin:10px 0 30px 0;
+            }
+            h4{
+                margin:0 0 10px 0;
+            }
+            .target{
+                margin-bottom:5px;
+                background:#6FA7DC;
+                color:#fff;
+                width:640px;
+            }
+            .target p{
+                padding:0;
+                margin:0;
+                line-height:18px;
+                padding:10px ;
+            }
+            .button-list p{
+                overflow:hidden;
+                margin:10px 0;
+                border:1px dotted #ccc;
+                padding:0 0 0 10px;
+                font-family:Arial;
+            }
+            .button-list a, .button-list span{
+               display:inline-block;
+            }
+            .button-list a{
+                margin-right:10px;
+                margin-top:7px;
+                margin-bottom:7px;
+                padding:5px 10px;
+                border:2px solid #ccc;
+                color:#666;
+                background:#efefef;
+                border-radius:3px;
+                cursor:pointer;
+                line-height:14px;
+                font-size:14px;
+            }
+            .button-list span{
+                margin-right:10px;
+                margin-top:7px;
+                margin-bottom:7px;
+                padding:5px 10px;
+            }
+            .button-list a:hover{
+                background:#fefefe;
+                color:#333;
+                border:2px solid #058cf5;
+            }
+            
+		</style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.scrollPanel,baidu.dom.eq,baidu.dom.remove,baidu.dom.attr'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./customStyle.html">自定义样式</a></li>
+                    <li><a href="./method.html">常用方法</a></li>
+                    <li><a href="./event.html">常用事件</a></li>
+                    <li><a href="./update.html">更新</a></li>
+                </ul>
+                <h3>最佳实践</h3>
+                <ul>
+                    <li>
+                        <a href="./zhidao-static.html">知道---分类排行榜</a>
+                    </li>
+                    <li>
+                        <a href="./zhidao-dynamic.html">知道---分类排行榜(动态内容)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>常用方法</h3>
+                    <p>scrollPanel 的方法主要包含滚动和获取滚动值两大部分</p>
+                    <p>在下面这个 scrollPanel 示例下方列举了这些常用的方法，点击这些按钮，查看这些方法是如何工作的。</p>
+                </div>          
+                <div class="item">
+                    <div id="target" class="target" style="height:250px;">
+                        <div id="target-content">
+                        </div>
+                    </div>
+                    <div class="button-list">
+                        <p>
+                            <span>按绝对值滚动：</span>
+                            <a href="#" class="type1" name="scrollTo" param="200">scrollTo(200) 滚动到200px</a>
+                            <a href="#" class="type1" name="scrollToTop">scrollToTop() 滚动到顶部</a>
+                            <a href="#" class="type1" name="scrollToBottom">scrollToBottom() 滚动到底部</a>
+                        </p>
+                        <p>
+                            <span>按相对值滚动：</span>
+                            <a href="#" class="type1" name="scrollBy" param="20">scrollBy(20) 向下滚动 20px</a>
+                            <a href="#" class="type1" name="scrollBy" param="-20">scrollBy(-20) 向上滚动 20px</a>
+                        </p>
+                        <p>
+                        <span>按指定元素所在位置滚动：</span>
+                            <a href="#" class="type1" name="scrollToElement" param="img">scrollToElement(img) 滚动到图片</a><br />
+                        </p>
+                        <p>
+                       <span>获取滚动位置：</span>
+                            <a href="#" name="getScroll" class="type2">getScroll() 获取当前滚动的位置</a>
+                            <a href="#" name="getScrollPct" class="type2">getScrollPct()  获取当前滚动的位置（百分比）</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="console-wrap">
+                    <h3>控制台</h3>
+                    <div id="J_console" class="console"></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            appendSeveralParagraph(20, baidu('#target-content'));
+            baidu('#target-content').append('<p><img src="img/0.jpg" /></p>');
+            appendSeveralParagraph(15, baidu('#target-content'));
+            function appendSeveralParagraph(n, target, index){
+                for(var i = 0; i < n; i++){
+                    target.append('<p>paragraph...'+ baidu('#target-content p').length + '</p>');
+                }
+            }
+            var instance = magic.setup.scrollPanel('target');
+            
+            baidu('.button-list a').each(function(index, item){
+                baidu(item).on('click', function(e){
+                    e.preventDefault();
+                    var method = baidu(this).attr('name');
+                    var param = baidu(this).attr('param');
+                    var returnValue = instance[method](isNaN(baidu(this).attr('param')) ? param : (+param));
+                    if(baidu(item).hasClass('type2')){
+                        log('info', method + ' : ' +returnValue);
+                    }
+                });
+            });
+            
+        </script>
+    </body>
+</html>
