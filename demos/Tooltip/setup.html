@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Tooltip 组件">
+        <title>提示框组件 setup模式</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.tooltip'></script>
+        <style type='text/css'>
+            .magic-tooltip{
+                color: black;
+            }
+            #target{
+                width: 100px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="content">
+        <div class="demo-list">
+            <h3>Demo列表</h3>
+            <ul>
+                <li><a href="./render.html">render 模式</a></li>
+                <li><a href="./setup.html">setup 模式</a></li>
+                <li><a href="./attach.html">绑定节点 示例</a></li>
+                <li><a href="./focus.html">focus和blur 示例</a></li>
+                <li><a href="./methods.html">接口示例</a></li>
+            </ul>
+            <h3>最佳demo列表</h3>
+            <ul>
+                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
+                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
+            </ul>
+        </div>
+        <div class="main-wrap">
+            <div class="demo-wrap">
+                <h3>提示框组件 setup 模式示例</h3>
+                <p>其中 class 为 magic-tooltip, magic-tooltip-close(其包含a标签), magic-tooltip-content, magic-tooltip-arrow 为必须元素，其它元素非必须，您可以做任意调整以满足使用需求。</p>
+                <p>setup 模式的好处在于 js 还没有加载之前，提示框样子已经呈现，保证 html 优先加载。</p>
+                <div class="demo-view">
+                    <div class="demo-region">
+                        <div id="target">看我，有提示</div>
+                        <div class='magic-tooltip magic-ui' id='tooltip'>
+                            <div class='magic-tooltip-close'>
+                                <a href='#' onclick='return false;'></a>
+                            </div>
+                            <div class='magic-tooltip-content'><img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div></div>
+                            <div class='magic-tooltip-arrow'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="console-wrap">
+                <h3>控制台</h3>
+                <div id="J_console" class="console"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+            var tooltip = magic.setup.tooltip(baidu('#tooltip')[0], {target:baidu('#target')[0]});
+            tooltip.onbeforeshow = function() {
+                log('tooltip info', 'beforeshow event');
+            };
+            tooltip.onshow = function() {
+                log('tooltip info', 'show event');
+            };
+            tooltip.onbeforehide = function() {
+                log('tooltip info', 'beforehide event');
+            };
+            tooltip.onhide = function() {
+                log('tooltip info', 'hide event');
+            };
+    </script>
+</body>
+</html>

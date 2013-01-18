@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Tooltip 组件">
+        <title>知道产品线示例</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
+        <style type='text/css'>
+            .console span{
+                background-color: #89D;
+            }
+            .demo-region {
+                margin:20px auto;
+                width: 600px;
+                text-align: center;
+            }
+            .wgt-answers {
+                border: 1px solid #D6D6D6;
+                padding: 10px 9px;
+                background-color: white;
+                zoom: 1;
+                margin-bottom: 10px;
+                width: 600px;
+                font: 14px/24px arial,宋体b8b\4f53,sans-serif,"Microsoft YaHei",tahoma;
+                color: black;
+            }
+            .wgt-answers .hd {
+                padding: 0 15px;
+            }
+            .line::after {
+                content: " 0020";
+                display: block;
+                height: 0;
+                clear: both;
+                overflow: hidden;
+                visibility: hidden;
+            }
+            .f-info, a.f-info {
+                font-size: 12px;
+                font-weight: normal;
+                font-family: tahoma,arial,宋体b8b\4f53;
+                color: #666;
+            }
+            .grid-r {
+                display: inline;
+                float: right;
+            }
+            .wgt-answers .content {
+                word-wrap: break-word;
+            }
+            .i-master {
+                width: 16px;
+                height: 16px;
+                display: -moz-inline-box;
+                -moz-box-orient: vertical;
+                display: inline-block;
+                vertical-align: middle;
+                background-repeat: no-repeat;
+                background-position: -494px -171px;
+            }
+            .f-pipe {
+                color: #C1C1C1;
+                margin: 0 10px;
+            }
+            a:link, a:visited {
+                color: #2D64B3;
+                text-decoration: none;
+            }
+            h2, .h2 {
+                font: bold 15px/24px "Microsoft YaHei",SimHei,arial,宋体b8b\4f53;
+                color: 
+                black;
+            }
+            .i-other-reply {
+                width: 19px;
+                height: 19px;
+                display: -moz-inline-box;
+                -moz-box-orient: vertical;
+                display: inline-block;
+                vertical-align: middle;
+                background-repeat: no-repeat;
+                background-position: -450px -238px;
+            }
+            .ml-5 {
+                margin-left: 5px;
+            }
+            .wgt-answers .mod-title {
+                vertical-align: middle;
+            }
+            .wgt-answers .bd {
+                border-bottom: 1px dashed #BBB;
+                padding: 10px 15px;
+            }
+            .grid {
+                display: inline;
+                float: left;
+            }
+
+            .avatar-66 {
+                position: relative;
+                zoom: 1;
+                width: 70px;
+                height: 72px;
+                background: no-repeat 
+                transparent;
+                background-position: -75px 0;
+            }
+            .mr-10 {
+                margin-right: 10px;
+            }
+            .avatar-66 a {
+                display: inline-block;
+                height: 66px;
+                margin: 2px;
+                overflow: hidden;
+            }
+            .avatar-66 img {
+                width: 66px;
+            }
+            .user-card .card-name {
+                line-height: 20px;
+            }
+            .fixed-ask {
+                background: no-repeat 
+                transparent;
+                display: inline-block;
+                font-size: 12px;
+                width: 52px;
+                height: 18px;
+                line-height: 18px;
+                text-align: center;
+                cursor: pointer;
+                outline: 0;
+                background-position: -337px -146px;
+            }
+            .i-hi-off {
+                width: 16px;
+                height: 16px;
+                display: -moz-inline-box;
+                -moz-box-orient: vertical;
+                display: inline-block;
+                vertical-align: middle;
+                background-repeat: no-repeat;
+                background-position: -511px -236px;
+            }
+            .fixed-ask,.i-hi-off,.avatar-66,.i-other-reply,.i-master{
+                background-image: url("http://cdn.iknow.bdimg.com/static/question/pkg/css_zaaab4e8d.png");
+            }
+            .f-bold, a.f-bold {
+                font-weight: bold;
+                font-size: 12px;
+                color: #666;
+                text-align: left;
+            }
+            p{
+                padding: 0px;
+                margin: 0px;
+            }
+            .user-card .card-info p {
+                padding-top: 2px;
+            }
+            .user-card .card-info {
+                border-top: 1px dashed #999;
+            }
+            .mr-5 {
+                margin-right: 5px;
+            }
+            .mb-10 {
+                margin-bottom: 10px;
+            }
+            .line{
+                width: 350px;
+            }
+            .card-shadow .user-card .line{
+                height: 90px\0;
+            }
+        </style>
+    </head>
+<body>
+    <div class="content">
+        <div class="demo-list">
+            <h3>Demo列表</h3>
+            <ul>
+                <li><a href="./render.html">render 模式</a></li>
+                <li><a href="./setup.html">setup 模式</a></li>
+                <li><a href="./attach.html">绑定节点 示例</a></li>
+                <li><a href="./focus.html">focus和blur 示例</a></li>
+                <li><a href="./methods.html">接口示例</a></li>
+            </ul>
+            <h3>最佳demo列表</h3>
+            <ul>
+                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
+                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
+            </ul>
+        </div>
+        <div class="main-wrap">
+            <div class="demo-wrap">
+                <h3>Tooltip 组件 <strong>最贱实践</strong> 示例</h3>
+                <p>结合产品线来展现Tooltip组件demo, 以下demo主要是和知道产品线进行结合。鼠标悬浮在zzlyuan、gqy10157、紫晶小陌 上就能看到具体的用户提示信息。</p>
+                </br>
+                <div class="demo-view">
+                    <div class="wgt-answers mb-10" id="wgt-answers">
+                        <div class="hd line">
+                            <span class="grid-r f-info">
+                                <span class="f-black">按默认排序</span>
+                                <span class="f-pipe">|</span>
+                                <a href="#" onClick="return false;">按时间排序</a>
+                            </span> 
+                            <h2>
+                                <i class="i-other-reply"></i> 
+                                <span class="mod-title ml-5">回答</span> 
+                                <span class="mod-title f-info">共3条</span> 
+                            </h2>
+                        </div>   
+                        <div class="bd answer   " id="answer-1289265692">
+                            <div class="line">
+                                <div class="line info f-info">
+                                    <span class="grid-r"> 
+                                        <ins class="accuse-area" style="display: none; "></ins>2012-12-26 09:07
+                                    </span>
+                                    <a alog-action="qb-username" class="user-name" href="http://www.baidu.com/p/zzlyuan?from=zhidao" target="_blank">zzlyuan</a>
+                                    <span class="f-pipe">|</span>    
+                                    <span>四级</span> 
+                                </div>
+                                <div class="line content">
+                                    <pre id="answer-content-1289265692" accuse="aContent" class="answer-text mb-10">你得拍图片上来，没图片没发说呀！~总体来说卷发是修饰脸型的</pre>
+                                    <div class="grid-r f-info ">
+                                        <span class="evaluate" id="evaluate-1289265692" data-evaluate="0" style="">
+                                            <span class="evaluate-outer" id="TANGRAM__44-outer">
+                                                <span class="evaluate-inner" id="TANGRAM__44-inner">
+                                                    <b class="evaluate-tip" style="display:none" id="TANGRAM__44-tip">赞同</b>
+                                                    <b class="evaluate-num evaluate-num-fixed" id="TANGRAM__44-num">0</b>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span class="f-pipe">|</span>
+                                        <span class="comment" id="comment-1289265692">评论</span>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="bd answer   answer-fold" id="answer-1289278894">
+                            <div class="line">
+                                <div class="line info f-info">
+                                    <span class="grid-r"> 
+                                        <ins class="accuse-area" style="display: none; "></ins>2012-12-26 09:25
+                                    </span>
+                                    <a alog-action="qb-username" class="user-name" href="http://www.baidu.com/p/gqy10157?from=zhidao" target="_blank">gqy10157</a>
+                                    <span class="f-pipe">|</span>    
+                                    <span>二级</span> 
+                                </div>
+                                <div class="line content">
+                                    <pre id="answer-content-1289278894" accuse="aContent" class="answer-text mb-10">平刘海包住脸的 会显得脸小哦</pre>
+                                    <div class="grid-r f-info ">
+                                        <span class="evaluate" id="evaluate-1289278894" data-evaluate="0" style="">
+                                            <span class="evaluate-outer" id="TANGRAM__48-outer">
+                                                <span class="evaluate-inner" id="TANGRAM__48-inner">
+                                                    <b class="evaluate-tip" style="display:none" id="TANGRAM__48-tip">赞同</b>
+                                                    <b class="evaluate-num evaluate-num-fixed" id="TANGRAM__48-num">0</b>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span class="f-pipe">|</span>
+                                        <span class="comment" id="comment-1289278894">评论</span>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="bd answer answer-last  answer-fold" id="answer-1289322803">
+                            <div class="line">
+                                <div class="line info f-info">
+                                    <span class="grid-r"> 
+                                        <ins class="accuse-area" style="display: none; "></ins>2012-12-26 10:15
+                                    </span>
+                                    <a alog-action="qb-username" class="user-name" href="http://www.baidu.com/p/紫晶小陌?from=zhidao" target="_blank">紫晶小陌</a>
+                                    <a class="i-master ml-5" title="知道达人" href="http://www.baidu.com/search/zhidao/userelite.html" target="_blank"></a>
+                                    <span class="f-pipe">|</span>    
+                                    <span>六级</span> 
+                                </div>
+                                <div class="line content">
+                                    <pre id="answer-content-1289322803" accuse="aContent" class="answer-text mb-10">可以剪沙宣</pre>
+                                    <div class="grid-r f-info ">
+                                        <span class="evaluate" id="evaluate-1289322803" data-evaluate="0" style="">
+                                            <span class="evaluate-outer" id="TANGRAM__52-outer">
+                                                <span class="evaluate-inner" id="TANGRAM__52-inner">
+                                                    <b class="evaluate-tip" style="display:none" id="TANGRAM__52-tip">赞同</b>
+                                                    <b class="evaluate-num evaluate-num-fixed" id="TANGRAM__52-num">0</b>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span class="f-pipe">|</span>
+                                        <span class="comment" id="comment-1289322803">评论</span>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div> 
+                        <div alog-group="qb-ans-pager" class="wgt-pager pager line"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="console-wrap">
+                <h3>控制台</h3>
+                <div id="J_console" class="console"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+         var getContent = function(target){
+            var html = ['<div class="card-shadow line"><div class="user-card" id="user-card-e19a7a7a6c7975616e150a"><div class="line mb-10"><div class="grid avatar-66 mr-10"><a class="avatar-normal-a" href="http://www.baidu.com/p/zzlyuan?from=zhidao" target="_blank"><img class="avatar-normal-img" src="http://img.baidu.com/img/iknow/avarta/66/r6s1g4.gif"></a></div><div class="grid"><p class="card-name"><a href="http://www.baidu.com/p/zzlyuan?from=zhidao" class="user-name f-yahei v-middle" target="_blank">', baidu(target).text(), '</a></p><p><a class="f-info" href="http://www.baidu.com/search/zhidao_help.html#如何选择头衔" target="_blank">四级</a><span class="ml-10 f-info">采纳率：60%</span></p><p><a href="#" alog-action="qb-ask-user" class="fixed-ask fixed-ask-normal f-green" username="zzlyuan">求助知友</a><span class="f-pipe">|</span><a href="#" class="i-hi-off"></a></p></div></div><div class="card-info pt-5"><p><span class="f-bold">擅长领域：</span><a class="mr-5" href="/browse/177" target="_blank">求职就业</a><a class="mr-5" href="/browse/180" target="_blank">情感情绪</a><a class="mr-5" href="/browse/902" target="_blank">美发/护发</a></p><p><span class="f-bold">参与团队：</span><a href="/team/view/发郎中" target="_blank">发郎中</a></p><p><span class="f-bold">个人简介：</span><span class="user-introduce">暂无</span></p></div></div></div>'];
+            return html.join("");
+         };
+         baidu.forEach(baidu(".user-name"), function(node){
+            var timeoutId,
+                tooltip = new magic.Tooltip({
+                    target: node,
+                    content: getContent,
+                    position: "bottom",
+                    hasArrow: false,
+                    hasCloseBtn: false,
+                    autoHide: false,
+                    hideEvent: '',
+                    showEvent: ''
+                });
+            tooltip.render();
+            baidu(node).on('mouseover', function(e){
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function(){
+                    tooltip.show();
+                    log(baidu(node).text(),'显示用户信息提示框');
+                }, 300);
+            });
+            baidu(node).on('mouseout', function(e){
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function(){
+                    tooltip.hide();
+                    log(baidu(node).text(),'隐藏用户信息提示框');
+                }, 500);
+            });
+            baidu(tooltip.getElement("")).on('mouseover', function(e){
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function(){
+                    tooltip.show();
+                    log(baidu(node).text(),'显示用户信息提示框');
+                }, 500);
+            });
+            baidu(tooltip.getElement("")).on('mouseout', function(e){
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function(){
+                    tooltip.hide();
+                    log(baidu(node).text(),'隐藏用户信息提示框');
+                }, 500);
+            });
+         });
+    </script>
+</body>
+</html>
