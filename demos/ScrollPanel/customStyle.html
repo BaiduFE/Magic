@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content=" 组件">
+        <title>ScrollPanel 组件 --- 自定义样式</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.ScrollPanel/magic.control.ScrollPanel.css" />
+		<style type="text/css">
+            .demo{height:400px;}
+            .view{margin:20px 20px 10px;width:200px;height:50%;float:left;}
+            .wrap{width:200px;margin:10px auto;font-size:12px;}
+            .item{
+                margin:10px 0 30px 0;
+            }
+            h4{
+                margin:0 0 10px 0;
+            }
+            .target{
+                margin-bottom:5px;
+                color:#fff;
+                width:640px;
+            }
+            .target p{
+                padding:0;
+                margin:0;
+                line-height:18px;
+                padding:10px ;
+            }
+            .target b{
+                font-size:20px;
+                padding-top:5px;
+                padding-bottom:10px;
+                display:block;
+            }
+            .method-list p{
+                margin:10px 0;
+                border:1px dotted #ccc;
+                padding:5px 0 5px 10px;
+            }
+            
+            /** 无箭头 **/
+            #target-2 .tang-slider{
+                background: #E8E8E8;
+            }
+            #target-2 .tang-corner{
+                display:none;
+            }
+            #target-2 .tang-knob{
+                background:#DD1CCF;
+                width: 5px;
+                border:none;
+                cursor:pointer;
+                border-bottom:1px solid #DE20D1;
+                border-top:1px solid #DE20D1;
+            }
+            
+            /** 无箭头 黑色 **/
+            #target-3{
+                border:1px solid #000;
+            }
+            #target-3 .tang-slider{
+                background: #222;
+                border-left:1px solid #000;
+            }
+            #target-3 .tang-corner{
+                display:none;
+            }
+            #target-3 .tang-knob{
+                background:url(img/knob.png) center center no-repeat;
+                width: 12px;
+                border:none;
+                cursor:pointer;
+                border-bottom:1px solid #1a1a1a;
+                border-top:1px solid #222;
+            }
+		</style>
+        <script>
+            function log(type, msg){
+                baidu.dom('#J_console').insertHTML('afterBegin', '<p><span class="' + type + '">' + type + '</span>' + msg + '</p>');
+            }
+        </script>
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.scrollPanel,baidu.dom.eq,baidu.dom.remove,baidu.dom.attr'></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="demo-list">
+                <h3>Demo列表</h3>
+                <ul>
+                    <li><a href="./customStyle.html">自定义样式</a></li>
+                    <li><a href="./method.html">常用方法</a></li>
+                    <li><a href="./event.html">常用事件</a></li>
+                    <li><a href="./update.html">更新</a></li>
+                </ul>
+                <h3>最佳实践</h3>
+                <ul>
+                    <li>
+                        <a href="./zhidao-static.html">知道---分类排行榜</a>
+                    </li>
+                    <li>
+                        <a href="./zhidao-dynamic.html">知道---分类排行榜(动态内容)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-wrap">
+                <div class="demo-wrap">
+                    <h3>自定义样式</h3>
+                    <p>通过简单的css设置，轻松自定义自己的样式。下面是一些示例：</p>
+                </div>          
+                <div class="item">
+                    <h4>Default Style: </h4>
+                    <div id="target-1" class="target" style="height:280px;background:#6FA7DC;">
+                        <div id="target-content-1"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <h4>Custom Style 1: </h4>
+                    <div id="target-2" class="target" style="height:280px;background:#6FA7DC;">
+                        <div id="target-content-2"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <h4>Custom Style 2: </h4>
+                    <div id="target-3" class="target" style="height:280px;">
+                        <div id="target-content-3" style="background:#313131"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function generateContent(id){
+                var desc = ['Duck', 'Speech', 'Concerto', 'Why?', 'Snail', 'Winter'],
+                    target = baidu('#target-content-'+id);
+                for(var i = 0; i < 6; i++){
+                    target.append('<p><b>'+(i+1)+'. '+desc[i]+'</b><img src="img/'+i+'.jpg" /></p>');
+                }
+            }
+            
+            
+            generateContent(1);
+            magic.setup.scrollPanel('target-1');
+            generateContent(2);
+            magic.setup.scrollPanel('target-2');
+            generateContent(3);
+            magic.setup.scrollPanel('target-3');
+            
+
+            
+        </script>
+    </body>
+</html>

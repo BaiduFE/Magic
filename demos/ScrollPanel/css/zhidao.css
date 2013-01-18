@@ -1,0 +1,1624 @@
+a {
+    color: #133DB6
+}
+.fleft {
+    float: left
+}
+.fright {
+    float: right
+}
+.bold {
+    font-weight: bold
+}
+.hidden {
+    text-indent: -9999px
+}
+.none {
+    display: none
+}
+.f-yahei {
+    font-family: "Microsoft YaHei", "黑体", arial
+}
+.f-song {
+    font-family: "宋体"
+}
+.c-gray {
+    color: #999
+}
+.c-blue {
+    color: #133DB6
+}
+.c-red {
+    color: #f00
+}
+.c-green {
+    color: #1D7A00
+}
+#body {
+    font-size: 12px
+}
+#footer {
+    margin-bottom: 30px
+}
+.l-aside-col {
+    margin-top: 18px
+}
+.l-aside-col-nonav {
+    margin-top: 0
+}
+.bubble .bubble-top .x {
+    display: none
+}
+.team-bubble .bubble-ctn {
+    border-right: 1px solid #AAD29E;
+    border-left: 1px solid #AAD29E;
+    background: #fff;
+    color: #000
+}
+.team-bubble .bubble-top {
+    background-position: right -36px
+}
+.team-bubble .bubble-btm span {
+    background-position: left -73px
+}
+.team-bubble .bubble-btm {
+    background-position: right -61px
+}
+.team-bubble .bubble-btm span {
+    background-position: -37px -61px
+}
+.team-bubble .bubble-top span {
+    background-position: -37px -36px
+}
+.team-bubble .bubble-top .arrow {
+    background-position: left -46px
+}
+.team-bubble .bubble-top .l-t, .task-bubble .bubble-top .l-b {
+    background-position: left -46px
+}
+.team-bubble .bubble-top .r-t, .task-bubble .bubble-top .r-b {
+    background-position: -29px -46px
+}
+.team-bubble .bubble-top .t-l, .task-bubble .bubble-top .t-r {
+    background-position: -9px -36px
+}
+.team-bubble .bubble-top .b-l, .task-bubble .bubble-top .b-r {
+    background-position: -9px -61px
+}
+.box-rod {
+    margin-bottom: 10px;
+    zoom: 1
+}
+.box-rod .rod2, .box-rod .rod3 {
+    height: 1px;
+    border: 0 solid;
+    margin: 0 1px;
+    overflow: hidden
+}
+.box-rod .rod1 {
+    margin: 0 3px;
+    border-top: 1px solid;
+    height: 0;
+    font-size: 0;
+    overflow: hidden
+}
+.box-rod .rod4 {
+    margin: 0 3px;
+    border-bottom: 1px solid;
+    border-color: #eee;
+    height: 0;
+    font-size: 0;
+    overflow: hidden
+}
+.box-rod .rod2 {
+    border-left-width: 2px;
+    border-right-width: 2px
+}
+.box-rod .rod3 {
+    border-left-width: 1px;
+    border-right-width: 1px
+}
+.box-rod .rod {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    overflow: hidden
+}
+.box-rod .rod:after {
+    content: '\20';
+    height: 0;
+    display: block;
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden
+}
+.box-rod .rod, .box-rod .rod1, .box-rod .rod2, .box-rod .rod3, .box-rod .rod4 {
+    border-color: #e3e3e3
+}
+.rod h2 {
+    margin: 0 10px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 14px;
+    border-bottom: 1px solid #e3e3e3
+}
+.top-box {
+    border: 1px solid #e3e3e3;
+    border-top: 2px solid #4CBE00;
+    background: url(http://img.baidu.com/img/iknow/qb/qb-bg.png) repeat-x scroll 0 -45px transparent
+}
+.top-box .hd {
+    padding: 7px 0 0
+}
+.top-box .hd h2 {
+    font-size: 14px;
+    padding-left: 22px;
+    margin-left: 25px;
+    background: url(http://img.baidu.com/img/iknow/browse/i_col.png) no-repeat left center
+}
+.top-box .bd {
+    padding: 0 0 10px 24px;
+    background: #FCFEFC;
+    zoom: 1
+}
+.category h4 {
+    margin-top: 14px;
+    margin-bottom: 2px;
+    font-weight: normal
+}
+.category ul {
+    margin: 10px 0 10px
+}
+.category ul li {
+    float: left;
+    width: 200px;
+    height: 26px;
+    line-height: 26px;
+    padding-left: 10px;
+    margin-left: 3px;
+    font-size: 14px;
+    background: url(http://img.baidu.com/img/iknow/browse/dot.png) no-repeat left center;
+    white-space: nowrap
+}
+.category ul.tags li {
+    width: 147px
+}
+.related-category dl {
+    background: #FCFEFC;
+    display: inline-block !important;
+    display: block
+}
+.related-category dt a, .i-downlist {
+    margin-right: 4px;
+    padding-right: 10px;
+    background: url(http://img.baidu.com/img/iknow/browse/arrow.png) no-repeat right center;
+    white-space: nowrap
+}
+.related-category dd {
+    display: none;
+    white-space: nowrap
+}
+.related-box {
+    position: absolute;
+    background: #ccc;
+    z-index: 9999
+}
+.related-box dl {
+    border: 1px solid #b2d09e;
+    padding: 1px;
+    position: relative;
+    top: -3px;
+    left: -3px;
+    background: #fff;
+    z-index: 9999
+}
+.related-box dl dt {
+    padding: 1px 5px 1px 15px;
+    line-height: 20px;
+    background: url(http://img.baidu.com/img/iknow/browse/dot.png) no-repeat 5px center
+}
+.category .related-box dl dt {
+    height: 20px
+}
+.related-box dl dd {
+    padding: 1px 10px 1px 15px;
+    line-height: 20px;
+    display: list-item
+}
+.tab-container {
+    border: 1px solid #d6d6d6;
+    margin-top: 10px
+}
+.tab-holder {
+    background: #f8f7f7;
+    border-bottom: 1px solid #c9c9ca
+}
+.tab-holder ul {
+    border-left: 1px solid #c9c9ca;
+    margin-left: 30px
+}
+.tab-holder ul li {
+    float: left;
+    border-right: 1px solid #c9c9ca
+}
+.tab-holder a {
+    float: left;
+    height: 30px;
+    padding: 0 12px;
+    line-height: 30px;
+    position: relative;
+    bottom: -1px;
+    font-size: 14px;
+    border-bottom: 1px solid #c9c9ca;
+    outline: none
+}
+.tab-holder .tang-title-item-selected a {
+    border-bottom: 1px solid #fff;
+    font-weight: bold;
+    background: #fff;
+    color: #000;
+    cursor: default;
+    text-decoration: none;
+    padding: 0 9px 0 10px
+}
+.tab-panel {
+    padding: 2px 30px
+}
+.tab-panel td {
+    font-size: 12px
+}
+.tab-panel table {
+    height: 177px
+}
+.table-list {
+    text-align: center
+}
+table.table-list {
+    height: auto
+}
+.table-list td {
+    padding: 7px 0 5px
+}
+.table-list tbody td, .table-list tfoot td {
+    border-top: 1px dashed #e1e1e1;
+    color: #999
+}
+.table-list tbody td a {
+    font-size: 14px
+}
+.pager b {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-right: 5px;
+    width: 25px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block
+}
+.gray {
+    color: #999
+}
+.button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer
+}
+.button span, .button b {
+    display: block;
+    background: url(http://img.baidu.com/img/iknow/browse/search_btn.png) no-repeat;
+    height: 23px;
+    line-height: 23px;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    color: #fff;
+    cursor: pointer
+}
+.button b {
+    padding-left: 15px;
+    background-position: left top
+}
+.button span {
+    padding-right: 15px;
+    background-position: right top
+}
+.path {
+    height: 25px;
+    line-height: 25px;
+    margin-top: -7px
+}
+.path ul li {
+    float: left;
+    margin-left: 5px;
+    display: inline
+}
+.path .related-box dt {
+    padding-left: 5px;
+    background: none
+}
+.path .related-box dd {
+    padding-left: 5px
+}
+.path #iscat {
+    padding-left: 5px;
+    *padding-top: 1px
+}
+.pagination {
+    padding: 5px 0;
+    text-align: center
+}
+.pagination a {
+    margin-right: 5px;
+    font-size: 14px;
+    border: 1px solid #E7ECF0;
+    color: #0000cd;
+    background-color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    line-height: 22px;
+    display: inline-block;
+    width: 23px;
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden
+}
+.pagination a:hover {
+    background-color: #E9F1F7;
+    text-decoration: none
+}
+.pagination .first, .pagination .last {
+    width: 41px
+}
+.pagination .pre, .pagination .next {
+    width: 60px;
+    line-height: 23px;
+    font-family: "宋体"
+}
+#admin-panel .rod {
+    padding-bottom: 5px
+}
+.d-gride {
+    margin: 5px 10px 0;
+    padding: 2px 5px
+}
+.d-gride dt, .d-gride dd {
+    float: left;
+    width: 110px;
+    padding-left: 22px;
+    white-space: nowrap;
+    line-height: 20px;
+    overflow: hidden;
+    position: relative
+}
+.d-gride dd {
+    display: none
+}
+.d-gride dd.visibility {
+    display: block
+}
+.d-gride dt a {
+    display: block
+}
+.d-gride-hover {
+    background: #f7f7f7
+}
+.d-gride-hover dd {
+    display: block
+}
+a.i-admin-level-0, a.i-admin-level-1, a.i-admin-level-2, a.i-admin-level-3, a.i-admin-level-4, a.i-admin-level-5, a.i-admin-level-6, a.i-admin-level-7, a.i-admin-level-8, a.i-admin-level-9, a.i-admin-level-10, a.i-admin-level-11, a.i-admin-level-12, a.i-admin-level-13, a.i-admin-level-14, a.i-admin-level-15, a.i-admin-level-16, a.i-admin-level-17, a.i-admin-level-18, a.i-admin-level-19, a.i-admin-level-20, a.i-admin-level-10000 {
+    background: url(http://img.baidu.com/img/iknow/qb/admin-icon.gif) no-repeat scroll 0 0 transparent;
+    width: 18px;
+    height: 22px;
+    line-height: 22px;
+    vertical-align: middle;
+    display: inline-block;
+    *margin-left: 3px;
+    position: absolute;
+    left: 0
+}
+a.i-admin-level-0 {
+    background-position: 0 0
+}
+a.i-admin-level-1 {
+    background-position: 0 -22px
+}
+a.i-admin-level-2 {
+    background-position: 0 -46px
+}
+a.i-admin-level-3 {
+    background-position: 0 -68px
+}
+a.i-admin-level-4 {
+    background-position: 0 -90px
+}
+a.i-admin-level-5 {
+    background-position: 0 -112px
+}
+a.i-admin-level-6 {
+    background-position: 0 -134px
+}
+a.i-admin-level-7 {
+    background-position: 0 -156px
+}
+a.i-admin-level-8 {
+    background-position: 0 -178px
+}
+a.i-admin-level-9 {
+    background-position: 0 -200px
+}
+a.i-admin-level-10 {
+    background-position: 0 -222px
+}
+a.i-admin-level-11 {
+    background-position: 0 -244px
+}
+a.i-admin-level-12 {
+    background-position: 0 -266px
+}
+a.i-admin-level-13 {
+    background-position: 0 -288px
+}
+a.i-admin-level-14 {
+    background-position: 0 -310px
+}
+a.i-admin-level-15 {
+    background-position: 0 -332px
+}
+a.i-admin-level-16 {
+    background-position: 0 -354px
+}
+a.i-admin-level-17 {
+    background-position: 0 -376px
+}
+a.i-admin-level-18 {
+    background-position: 0 -398px
+}
+a.i-admin-level-19 {
+    background-position: 0 -420px
+}
+a.i-admin-level-20 {
+    background-position: 0 -442px
+}
+a.i-admin-level-10000 {
+    background-position: 0 -464px
+}
+.expert .d-gride dt, .expert .d-gride dd {
+    float: none;
+    width: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all
+}
+.expert .d-gride dt {
+    background: url(http://img.baidu.com/img/iknow/browse/i_expert.png) no-repeat left center
+}
+.expert .d-gride dd img {
+    display: block;
+    margin: 5px 0
+}
+.expert .d-gride-hover dt span {
+    display: none
+}
+.rank .tab-container, .admin .tab-container {
+    padding: 10px;
+    margin: 0;
+    border: none
+}
+.rank .tab-container .tab-holder, .rank .tab-container .tab-holder ul, .rank .tab-container .tab-holder li, .admin .tab-container .tab-holder, .admin .tab-container .tab-holder ul, .admin .tab-container .tab-holder li {
+    border: none;
+    margin: 0
+}
+.rank .tab-container .tab-holder ul, .admin .tab-container .tab-holder ul {
+    border: 1px solid #e3e3e3
+}
+.rank .tab-container .tab-holder li {
+    text-align: center;
+    width: 33.2%
+}
+.rank .tab-holder a, .admin .tab-holder a {
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    left: -1px;
+    border-left: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+    color: #000;
+    float: none;
+    display: block
+}
+.rank .tab-holder .tang-title-item-selected a, .admin .tab-holder a.current {
+    border-bottom: 1px solid #fff;
+    font-weight: bold
+}
+.rank .tab-holder a span, .admin .tab-holder a span {
+    display: block;
+    margin-right: -1px
+}
+.admin .tab-container .tab-holder li {
+    text-align: center;
+    width: 50%
+}
+.admin .tab-panel {
+    padding: 0
+}
+.admin .d-gride {
+    padding: 0;
+    margin: 5px 0
+}
+.team {
+    height: 171px;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin: 10px 0 0
+}
+.team dl {
+    height: 90px
+}
+#rank-panel .team dt {
+    float: left;
+    padding-right: 30px;
+    _padding-right: 27px;
+    width: 62px
+}
+.team dt img {
+    display: block;
+    margin: 0 auto 5px
+}
+.team .scroll-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px
+}
+#scroll-bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+    padding: 25px 0
+}
+#scroll-bar .scroll-holder-btn {
+    display: block;
+    height: 10px;
+    width: 10px;
+    margin: 5px auto;
+    background: #ccc;
+    cursor: pointer
+}
+#scroll-next-btn, #scroll-prev-btn {
+    width: 25px;
+    height: 25px;
+    background: #000;
+    position: absolute;
+    left: 0
+}
+#scroll-prev-btn {
+    top: 0
+}
+#scroll-next-btn {
+    bottom: 0
+}
+.process-btns {
+    padding: 5px 0;
+    text-align: center
+}
+.process-btns .btn {
+    margin: 5px 7px
+}
+.carefield dl, .carefield .care-class {
+    margin: 10px 20px 0;
+    line-height: 20px
+}
+.carefield dl dt {
+    border-bottom: 1px dashed #e3e3e3;
+    height: 20px;
+    padding-bottom: 4px
+}
+.carefield .edit-link {
+    float: right
+}
+.carefield dd {
+    height: 20px;
+    min-height: 20px;
+    margin-top: 4px
+}
+.carefield dd a {
+    padding: 0 3px;
+    float: left;
+    white-space: nowrap
+}
+.carefield .total-num {
+    float: right;
+    white-space: nowrap
+}
+.carefield .may-careclass td {
+    font-size: 12px;
+    padding: 5px 0
+}
+.carefield .may-careclass .table-head td {
+    padding: 0 0 6px;
+    border-bottom: 1px dashed #e3e3e3
+}
+.carefield td.isCur {
+    padding-left: 10px;
+    background: url(http://img.baidu.com/img/iknow/arrow_y.gif) no-repeat scroll left center
+}
+.bottom-search-box {
+    padding-top: 10px;
+    background: #f0f0f0
+}
+.bottom-search-box form {
+    padding: 10px 0 14px;
+    background: #f9fef7;
+    border: 1px solid #d6d6d6
+}
+.bottom-search-box p {
+    width: 65%;
+    padding-top: 4px;
+    margin: 0 auto
+}
+#bottom-search-text {
+    width: 80%;
+    height: 25px;
+    line-height: 25px;
+    padding: 1px 2px;
+    margin-right: 10px
+}
+#bottom-search-answer, #bottom-i-ask, #bottom-i-reply {
+    margin-right: 10px;
+    padding: 2px 10px;
+    overflow: visible;
+    _height: 2em;
+    line-height: 16px
+}
+#scroll-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 268px
+}
+#scrollbar-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18px;
+    z-index: 99
+}
+.scrollbar-up {
+    cursor: pointer;
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #d2d2d3;
+    background: url(http://img.baidu.com/img/iknow/browse/scroll_up.png) no-repeat center
+}
+.scrollbar-track {
+    width: 16px;
+    height: 129px;
+    position: absolute;
+    top: 18px;
+    left: 0;
+    background: #fff;
+    border-left: 1px solid #d2d2d3;
+    border-right: 1px solid #d2d2d3
+}
+.scrollbar-handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 18px;
+    width: 16px;
+    background: #fff;
+    border-top: 1px solid #d2d2d3;
+    border-bottom: 1px solid #d2d2d3;
+    cursor: pointer
+}
+.scrollbar-down {
+    cursor: pointer;
+    position: absolute;
+    top: 147px;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #d2d2d3;
+    background: url(http://img.baidu.com/img/iknow/browse/scroll_down.png) no-repeat center
+}
+#panel {
+    position: absolute
+}
+.status2 {
+    background: url("http://img.baidu.com/img/iknow/line.gif") no-repeat scroll center center transparent;
+    font-size: 0;
+    padding: 10px;
+    line-height: 20px
+}
+.status0 {
+    background: url("http://img.baidu.com/img/iknow/arr_up.gif") no-repeat scroll center center transparent;
+    font-size: 0;
+    padding: 10px;
+    line-height: 20px
+}
+.status1 {
+    background: url("http://img.baidu.com/img/iknow/arr_down.gif") no-repeat scroll center center transparent;
+    font-size: 0;
+    padding: 10px;
+    line-height: 20px
+}
+.status3 {
+    background: url("http://img.baidu.com/img/iknow/new.gif") no-repeat scroll center center transparent;
+    font-size: 0;
+    padding: 10px;
+    line-height: 20px
+}
+#body .g-grade1, #body .g-grade2, #body .g-grade3, #body .g-grade4, #body .g-grade5, #body .g-grade6, #body .g-grade7, #body .g-grade8, #body .g-grade9, #body .g-grade10 {
+    letter-spacing: normal
+}
+.gaoshou-list-dot a.g-gradeholder, .gaoshou-list-dot a.g-gradeholder:visited {
+    color: #256E16;
+    text-decoration: none
+}
+#body .g-star3 {
+    background: url("http://img.baidu.com/img/iknow/userteam/green_grade_button_bg.gif") no-repeat scroll 0 -158px transparent;
+    clear: both;
+    cursor: pointer;
+    float: left;
+    padding-left: 5px;
+    white-space: nowrap;
+    width: 43px
+}
+#body .g-grade6 {
+    color: #256E16;
+    font-family: "宋体";
+    padding: 3px 10px 2px 9px
+}
+.teamlev33 {
+    background-position: -3px -80px
+}
+.teamlev51 {
+    background-position: -3px -200px
+}
+.teamlev11 {
+    background-position: -3px 0
+}
+.teamlev21 {
+    background-position: -3px -20px
+}
+.teamlev31 {
+    background-position: -3px -40px
+}
+.teamlev32 {
+    background-position: -3px -60px
+}
+.teamlev34 {
+    background-position: -3px -100px
+}
+.teamlev41 {
+    background-position: -3px -120px
+}
+.teamlev42 {
+    background-position: -3px -140px
+}
+.teamlev43 {
+    background-position: -3px -160px
+}
+.teamlev44 {
+    background-position: -3px -180px
+}
+.teamlev52 {
+    background-position: -3px -220px
+}
+.teamlev53 {
+    background-position: -3px -240px
+}
+.teamlev54 {
+    background-position: -3px -260px
+}
+.teamlev61 {
+    background-position: -3px -280px
+}
+.teamlev62 {
+    background-position: -3px -300px
+}
+.teamlev63 {
+    background-position: -3px -320px
+}
+.teamlev64 {
+    background-position: -3px -340px
+}
+.teamlev71 {
+    background-position: -3px -360px
+}
+.teamlev {
+    background-image: url(http://img.baidu.com/img/iknow/userteam/lev/l.gif);
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    height: 17px;
+    margin-right: 4px;
+    width: 14px;
+    margin-left: -20px
+}
+#advertise {
+    margin-top: 10px;
+    font-size: 12px
+}
+#advertise table td {
+    font-size: 12px
+}
+#advertise .f14 {
+    font-size: 14px;
+    text-decoration: underline
+}
+.task-note {
+    position: absolute;
+    z-index: 100
+}
+.task-note-body {
+    background: #FFF9E3;
+    border: 1px solid #FBE5A3;
+    width: 100px;
+    padding-left: 4px;
+    font-size: 12px
+}
+.task-note .arrow {
+    background: url(http://img.baidu.com/img/iknow/task/arrow.gif) 0 0 no-repeat;
+    overflow: hidden;
+    position: absolute;
+    top: 9px;
+    left: 0;
+    z-index: 1
+}
+.task-note .side {
+    width: 11px;
+    height: 21px
+}
+.task-note .close {
+    width: 13px;
+    height: 13px;
+    background: url(http://img.baidu.com/img/iknow/task/close.gif) no-repeat 0 0;
+    overflow: hidden;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    z-index: 2
+}
+.task-note .notice-info {
+    background: url(http://img.baidu.com/img/iknow/task/note.gif) no-repeat 0 center;
+    padding-left: 20px;
+    margin: 8px 8px 0;
+    line-height: 22px
+}
+.web-im-icon {
+    position: absolute;
+    top: 3px;
+    left: 5px
+}
+a.web-im-link {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline
+}
+.web-im-link span {
+    color: red
+}
+.web-im .rhi {
+    border-left: 1px solid #86CCE3;
+    border-right: 1px solid #86CCE3;
+    zoom: 1;
+    padding-bottom: 1px;
+    background: #B7E3F2
+}
+.web-im .rhi_1, .web-im .rhi_2 {
+    height: 1px;
+    overflow: hidden;
+    font-size: 0;
+    margin: 0 1px;
+    border: 0 solid #86CCE3
+}
+.web-im .rhi_1 {
+    background: #86CCE3;
+    margin: 0 2px
+}
+.web-im .rhi_2 {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    background: #B7E3F2
+}
+#help-panel .rod {
+    padding: 4px 10px;
+    color: #666;
+    line-height: 24px
+}
+#help-panel li {
+    padding: 2px 0 4px;
+    border-bottom: 1px solid #EEE
+}
+#help-panel li.last {
+    padding: 0;
+    border: none
+}
+.wenku h2 a {
+    color: #000
+}
+.wenku p {
+    margin: 10px 15px
+}
+.wenku .wenku-btn {
+    padding-left: 60px;
+    padding-bottom: 15px
+}
+.wenku .wenku-btn a {
+    display: block;
+    width: 137px;
+    height: 38px;
+    outline: none;
+    text-indent: -9999px;
+    background: url(http://img.baidu.com/img/iknow/wenku_btn.png)
+}
+.wenku .wenku-btn a:hover {
+    background-position: 0 -38px
+}
+.quickbtn, .answerarea .quicksub {
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    outline: none
+}
+.quickbtn {
+    background: url(http://img.baidu.com/img/iknow/ql/quick-answer.gif) transparent -31px -31px no-repeat;
+    width: 73px;
+    height: 21px;
+    *vertical-align: baseline;
+    float: right
+}
+.haveAnswered {
+    float: right;
+    padding: 1px;
+    *margin-top: -23px;
+    _margin-top: -22px
+}
+.answerarea .quickanswer-edit, .answerarea .quicksubinfo {
+    margin-top: 5px
+}
+.answerarea .quickanswer-edit {
+    width: 480px;
+    height: 70px;
+    line-height: 18px;
+    outline: none;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-top: 2px;
+    resize: none
+}
+.answerarea .quicksubinfo {
+    text-align: right
+}
+.answerarea .quicksubinfo span {
+    margin-left: 5px;
+    vertical-align: -9px;
+    *vertical-align: -8px;
+    _vertical-align: -11px;
+    margin-right: 10px
+}
+.answerarea .anoy {
+    margin-top: 16px
+}
+.answerarea .quicksub {
+    text-align: center;
+    white-space: nowrap;
+    background: url(http://img.baidu.com/img/iknow/ql/quick-answer.gif) transparent -13px -85px no-repeat;
+    text-decoration: none;
+    height: 33px;
+    width: 91px
+}
+.answerarea .qdesc {
+    font-size: 12px;
+    color: black
+}
+.answerarea .qdesc a {
+    color: #133DB6;
+    font-size: 12px
+}
+.answerarea .quick-error-tip {
+    color: red;
+    font-size: 12px;
+    float: left
+}
+.table-list .align-l {
+    *float: left
+}
+.table-list tbody td {
+    *height: 21px;
+    *line-height: 21px;
+    _vertical-align: top
+}
+.table-list tbody td .haveAnswered {
+    _vertical-align: -5px
+}
+.table-list .quick-time, .table-list .quick-num {
+    vertical-align: top
+}
+.qlist-tr .title {
+    word-break: break-all;
+    word-wrap: break-word
+}
+.table-list {
+    table-layout: fixed
+}
+.cellphone {
+    top: 2px;
+    position: relative
+}
+.newarea {
+    _padding-top: 5px
+}
+.unify_new {
+    background: url(http://img.baidu.com/img/iknow/unify_new.png) no-repeat;
+    padding-left: 24px;
+    zoom: 1;
+    position: relative;
+    top: 4px;
+    margin-left: 5px
+}
+.lbs-tab-container {
+    margin-top: 10px
+}
+.lbs-tab-holder li {
+    margin-right: 1px;
+    float: left
+}
+.tab-a {
+    display: block;
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) 0 -58px repeat-x;
+    color: #868686;
+    padding: 0 17px;
+    float: left;
+    height: 30px;
+    position: relative;
+    bottom: -1px;
+    font-size: 14px;
+    line-height: 30px;
+    outline: none;
+    border: 1px solid #D6D6D6
+}
+.tab-a:hover {
+    text-decoration: none
+}
+.tab-a-unsel:hover {
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) 0 -88px repeat-x
+}
+.tab-a-sel {
+    background: #FFF;
+    color: #419A13;
+    padding: 0 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #FFF
+}
+.lbs-tab-panel {
+    border: 1px solid #D6D6D6;
+    padding: 13px 16px
+}
+#recommend {
+    width: 100%;
+    *width: auto;
+    padding: 5px 16px 18px 16px;
+    margin-left: -16px;
+    *margin-right: -16px;
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) 0 -126px repeat-x;
+    border-bottom: 1px solid #F3F3F3
+}
+#recommend p {
+    font: 15px 微软雅黑,宋体;
+    color: #757575;
+    overflow: hidden
+}
+#recommend span {
+    color: #47B200
+}
+.add-point-enter {
+    float: right
+}
+#mypoint {
+    padding-bottom: 11px;
+    color: #828282
+}
+#mypoint > div {
+    overflow: hidden
+}
+#mypoint li {
+    float: left;
+    white-space: nowrap;
+    padding: 0 8px;
+    zoom: 1
+}
+#mypoint #addr_list {
+    width: 520px;
+    float: left;
+    zoom: 1
+}
+#mypoint .my-all-point {
+    padding-left: 0;
+    border-right: 1px solid #DCDCDC
+}
+#addr_list .point {
+    color: #2F66B4;
+    border-right: 1px solid #DCDCDC
+}
+#addr_list .last-point {
+    border-right: none
+}
+.point span {
+    padding-right: 0;
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) no-repeat 0 -43px;
+    *background-position: 0 -41px;
+    -webkit-transition: padding-right 0.4s ease;
+    -moz-transition: padding-right 0.4s ease;
+    transition: padding-right 0.4s ease
+}
+.point .show-x {
+    padding-right: 14px;
+    cursor: pointer;
+    zoom: 1
+}
+.cur-point {
+    color: #868686;
+    cursor: default
+}
+.cur-point:hover {
+    text-decoration: none
+}
+.quick_ope {
+    float: right
+}
+.add {
+    border-right: 1px solid #DCDCDC
+}
+.list-content .no-border-top {
+    border-top: none
+}
+.list-content td {
+    text-align: left;
+    padding: 13px 0;
+    _padding: 12px 0
+}
+.list-content ul {
+    margin-top: 6px
+}
+.list-content li {
+    display: inline;
+    font-size: 12px;
+    padding-left: 17px;
+    margin-right: 15px
+}
+.list-content .q-map a {
+    font-size: 12px;
+    color: #999
+}
+.lbs-quick-time {
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) no-repeat 0 1px
+}
+.lbs-quick-num {
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) no-repeat 0 -13px
+}
+.q-map {
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/lbs_tip2.png) no-repeat 0 -28px;
+    *background-position: 0 -30px
+}
+.lbs-q-score {
+    background: url(http://img.baidu.com/img/iknow/browse/gold.png) no-repeat
+}
+#userinfo {
+    font: 14px/24px arial,宋体 b8b\4f53, sans-serif;
+    border: 1px solid #D5D5D5;
+    margin-bottom: 10px;
+    padding: 10px;
+    zoom: 1;
+    overflow: hidden
+}
+#userinfo ul {
+    font-size: 12px
+}
+#userinfo span {
+    color: #666
+}
+.user-head {
+    margin-right: 10px;
+    float: left
+}
+.user-head img {
+    border: 1px solid #E3E3E3;
+    display: block
+}
+#proselect, #proselect_tocity {
+    background: #FFF;
+    width: 366px;
+    *width: 376px;
+    border: 1px solid #D6D6D6;
+    border-top: none;
+    position: absolute;
+    left: -1px;
+    top: 31px;
+    cursor: default;
+    padding: 10px 15px;
+    visibility: hidden;
+    z-index: 100
+}
+#proselect dl {
+    margin: 0;
+    line-height: 24px
+}
+#proselect dt, #proselect dd, #cityselect dt, #cityselect dd {
+    display: inline;
+    font-weight: normal;
+    color: #868686
+}
+#proselect dd {
+    margin-right: 10px;
+    zoom: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: break-word
+}
+.switch {
+    cursor: pointer
+}
+.switch:hover #proselect {
+    visibility: visible
+}
+.triangle {
+    border: 4px solid #595959;
+    border-color: #595959 transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+    position: relative;
+    top: -2px;
+    left: 4px;
+    font-size: 0
+}
+.ie6hover, .switch:hover .triangle {
+    border-color: transparent transparent #595959 transparent;
+    border-style: dashed dashed solid dashed;
+    top: -6px
+}
+#cityselect {
+    font-size: 14px;
+    background: #FFFDED;
+    padding: 15px;
+    border: 1px solid #F4EBCD;
+    margin-bottom: 18px;
+    -webkit-box-shadow: 2px 2px 5px #C4C0C0;
+    -moz-box-shadow: 2px 2px 5px #C4C0C0;
+    box-shadow: 2px 2px 5px #C4C0C0;
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135,Color='#C4C0C0');
+    -ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135,Color='#C4C0C0')
+}
+#cityselect dl, #cityselect li {
+    padding: 5px 0
+}
+#cityselect a {
+    padding: 8px 6px;
+    _padding: 8px 5px
+}
+#cityselect dt {
+    color: #868686
+}
+#cityselect .cur-point {
+    background: url(http://img.baidu.com/img/iknow/browse/lbs_browse/selected.png) no-repeat 50% 50%
+}
+#cityselect ul {
+    margin: 0 50px;
+    overflow: hidden;
+    -webkit-transition: height 0.5s ease;
+    -moz-transition: height 0.5s ease;
+    transition: height 0.5s ease
+}
+#show_more a {
+    padding: 8px 0 8px 6px
+}
+#show_more a:hover {
+    text-decoration: none
+}
+#show_more {
+    cursor: pointer
+}
+#show_more .triangle {
+    top: -4px
+}
+#show_more .triangle-click {
+    top: -8px;
+    border-color: transparent transparent #595959 transparent;
+    border-style: dashed dashed solid dashed
+}
+#cityselect li {
+    float: left;
+    zoom: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: break-word
+}
+.noquestion {
+    width: 400px;
+    margin: 40px auto;
+    font-size: 16px;
+    font-family: 微软雅黑
+}
+.list-content .quickbtn {
+    visibility: hidden;
+    outline: none
+}
+.td-hover {
+    background: #F7FCF8
+}
+.td-hover .quickbtn-show {
+    visibility: visible
+}
+.list-content .quickbtn-click {
+    background-position: -31px -1px;
+    visibility: visible
+}
+.list-content .answerarea .quickanswer-edit {
+    width: 637px;
+    border: 1px solid #CCC;
+    color: #ACACAC
+}
+.list-content .answerarea .quickanswer-edit-focus {
+    border: 1px solid #60A506;
+    color: #000
+}
+.list-content .qdesc {
+    margin: 4px 0 7px 0
+}
+.list-content .answerarea .quickanswer-edit, .list-content .answerarea .quicksubinfo {
+    margin-top: 0
+}
+.list-content .answerarea .quicksub {
+    margin-top: 4px
+}
+.list-content .haveAnswered {
+    margin-top: 0
+}
+.add-point .tip {
+    background: url(http://img.baidu.com/img/iknow/ql/lbs/i-lbs-guide.png) 0 0 no-repeat;
+    margin-top: 28px;
+    margin-left: 54px;
+    height: 51px;
+    line-height: 51px;
+    padding-left: 72px;
+    font-size: 16px;
+    font-family: 微软雅黑;
+    color: #666
+}
+.add-point dl {
+    margin-left: 75px;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666
+}
+.add-point ul {
+    margin-top: 16px;
+    overflow: hidden;
+    zoom: 1
+}
+.add-point li {
+    float: left;
+    overflow: hidden;
+    zoom: 1;
+    margin-right: 15px;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    word-wrap: break-word
+}
+*+ html .add-point li, * html .add-point li {
+    float: none;
+    display: inline
+}
+.add-point li .poi-item {
+    float: left;
+    white-space: nowrap;
+    zoom: 1
+}
+.add-point .btn-area {
+    margin-left: 160px;
+    margin-top: 28px
+}
+.add-point .add-other-poi {
+    margin-left: 28px
+}
+.add-point .bottom-bg, .add-point .bottom-bg .inner {
+    margin-top: 45px;
+    width: 100%;
+    height: 147px;
+    background: url(http://img.baidu.com/img/iknow/ql/lbs/add-poi-bg-left.png) 0 0 no-repeat
+}
+.add-point .bottom-bg .inner {
+    background: url(http://img.baidu.com/img/iknow/ql/lbs/add-poi-bg-right.png) 100% 0 no-repeat
+}
+.add-point .selected span {
+    font-size: 12px;
+    color: #999;
+    font-weight: normal
+}
+.add-point .selected strong {
+    color: #FF6E00
+}
+#selected {
+    height: 30px
+}
+#selected .placehoder {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px
+}
+button.btn-grey {
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    background: url(http://img.baidu.com/img/iknow/ql/lbs/btn-31-white-l.png) 0 0 no-repeat;
+    width: 171px;
+    height: 33px;
+    overflow: hidden;
+    padding-left: 3px;
+    -moz-padding-start: 0
+}
+button.btn-grey span {
+    display: inline-block;
+    background: url(http://img.baidu.com/img/iknow/ql/lbs/btn-31-white-r.png) 100% 0 no-repeat;
+    padding-right: 3px;
+    float: left
+}
+button.btn-grey b {
+    display: inline-block;
+    background: url(http://img.baidu.com/img/iknow/ql/lbs/btn-31-white-bg.png) 0 0 repeat-x;
+    height: 33px;
+    line-height: 33px;
+    padding: 0 12px
+}
+a.poi-item {
+    border: 1px solid #d6d6d6;
+    font-size: 12px;
+    overflow: hidden;
+    zoom: 1;
+    display: block;
+    height: 20px;
+    background-color: #ecffdc;
+    white-space: nowrap;
+    word-wrap: break-word
+}
+a.poi-item:hover {
+    text-decoration: none
+}
+.poi-item .icon {
+    display: inline-block;
+    zoom: 1;
+    overflow: hidden;
+    width: 8px;
+    height: 8px;
+    margin: 6px;
+    cursor: pointer
+}
+a.poi-add .icon {
+    background: #ecffdc url(http://img.baidu.com/img/iknow/ql/lbs/poi-item.png) 0 -9px no-repeat
+}
+a.poi-add:hover .icon {
+    background: #ecffdc url(http://img.baidu.com/img/iknow/ql/lbs/poi-item.png) 0 -18px no-repeat
+}
+a.poi-delete .icon {
+    background: #f9f9f9 url(http://img.baidu.com/img/iknow/ql/lbs/poi-item.png) 0 -40px no-repeat;
+    width: 9px;
+    height: 9px;
+    margin: 5px
+}
+a.poi-disabled .icon {
+    background: #ededed url(http://img.baidu.com/img/iknow/ql/lbs/poi-item.png) 0 0 no-repeat
+}
+.poi-item .text {
+    background: #fbfffa;
+    color: #589b00;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 6px;
+    border-right: 1px solid #d6d6d6;
+    display: inline-block;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer
+}
+a.poi-add:hover .text {
+    color: #7bbe24
+}
+a.poi-delete .text {
+    color: #666;
+    background: #fcfcfc
+}
+a.poi-disabled .text {
+    color: #999;
+    background: #fcfcfc
+}
+.hot .switch {
+    display: block;
+    color: #868686;
+    padding: 2px 17px;
+    float: left;
+    position: relative;
+    outline: none;
+    border: 1px solid #D6D6D6
+}
+.hot .lastswitch {
+    border-left: none
+}
+.hot .switch:hover {
+    text-decoration: none;
+    border-color: #D6D6D6
+}
+.hot .triangle {
+    top: -3px
+}
+.hot .ie6hover, .hot .switch:hover .triangle {
+    border-color: transparent transparent #595959 transparent;
+    border-style: dashed dashed solid dashed;
+    top: -7px
+}
+.hot #proselect {
+    top: 25px;
+    border-top: 1px solid #D6D6D6
+}
+.adapt {
+    position: absolute;
+    visibility: hidden;
+    width: 100%;
+    height: 1px;
+    top: 25px;
+    left: 0;
+    background: #FFF;
+    z-index: 100
+}
+.hot .switch:hover .adapt {
+    visibility: visible
+}
+.hotspot {
+    height: 27px;
+    line-height: 27px;
+    margin-left: 10px
+}
+.add-point .nohotspot {
+    margin: 0 0 0 200px;
+    font: 16px 微软雅黑;
+    _margin-left: 100px
+}
+.map-pop {
+    width: 442px;
+    height: 322px;
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    *margin-top: 7px
+}
+.map-pop-head {
+    background: url(http://img.baidu.com/img/iknow/qb/qb_lbs.gif) no-repeat -1px -15px transparent;
+    width: 30px;
+    height: 14px;
+    position: absolute;
+    top: -6px;
+    left: 27px;
+    *top: -13px
+}
+.map-pop-body {
+    width: 440px;
+    height: 322px;
+    border: 1px solid #ccc;
+    margin-top: 7px;
+    background-color: white
+}
+.map-pop-contain {
+    width: 430px;
+    height: 310px;
+    margin: 6px
+}
