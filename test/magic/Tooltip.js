@@ -117,7 +117,6 @@ test("test default parameters", function() {
 
                 //resize
                 tooltip.show();
-                var resizenode = createNode(document.body);
                 baidu.dom(window).trigger("resize");
                 equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
 
@@ -131,7 +130,6 @@ test("test default parameters", function() {
                 ok(baidu(document.body).contains(node), 'target节点依然存在');
                 ok(baidu(document.body).contains(node2), 'tooltip组件实例的节点的父亲节点依然存在');
                 node2.removeChild(node);
-                document.body.removeChild(resizenode);
                 document.body.removeChild(node2);
                 document.body.style.height = 'auto';
                 start();
