@@ -14,7 +14,7 @@ module("magic.control.Carousel.$antoscroll");
 		        {content: 'text9'}
 		    ];
 	mouseenter = function(target){
-		$(target).trigger("mouseenter");
+		baidu.dom(target).trigger("mouseenter");
 		// if(ua.browser.ie)
 		// 	ua.simulateMouseEvent(target, 'mouseenter', 0, 0, window, 1, 0, 0, 0, 0,
 		// 		false, false, false, false, 0, document.documentElement);
@@ -22,7 +22,7 @@ module("magic.control.Carousel.$antoscroll");
 		// 	ua.mouseover(target);
 	};
 	mouseleave = function(target){
-		$(target).trigger("mouseleave");
+		baidu.dom(target).trigger("mouseleave");
 		// if(ua.browser.ie)
 		// 	ua.simulateMouseEvent(target, 'mouseleave', 0, 0, window, 1, 0, 0, 0, 0,
 		// 		false, false, false, false, 0, document.documentElement);
@@ -55,7 +55,7 @@ module("magic.control.Carousel.$antoscroll");
 test("render,default params", function(){
 	stop();
 	expect(4);
-	ua.importsrc("baidu.dom.trigger,magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
+	ua.importsrc((ua.adapterMode ? '' : 'baidu.dom.trigger,') + "magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -70,7 +70,7 @@ test("render,default params", function(){
 			});
 			c.on("onmouseenter", function(evt){
 		        evt.target.stop();
-ß				equals(c._selectedIndex, 8, "a scroll to 8");
+				equals(c._selectedIndex, 8, "a scroll to 8");
 		    });
 		    c.on("onmouseleave", function(evt){
 				equals(c._selectedIndex, 8, "b scroll to 8");
@@ -249,7 +249,7 @@ test("setup,default params", function(){
 		if(scroll == 2){
 			equals(c._selectedIndex, 9, "scroll to 9");
 			c.$dispose();
-			document.body.removeChild(baidu.dom.g("one-carousel"));
+			$('#one-carousel').remove();
 			start();
 		}
 	});
@@ -303,7 +303,7 @@ test("setup, all params", function(){
 			c.$dispose();
 			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			equals(l2, l1, "The events are un");
-			document.body.removeChild(baidu.dom.g("one-carousel"));
+			$('#one-carousel').remove();
 			start();
 		}
 	});
@@ -338,7 +338,7 @@ test("setup, button", function(){
 			time2 = new Date();
 			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
 			c.$dispose();
-			document.body.removeChild(baidu.dom.g("one-carousel"));
+			$('#one-carousel').remove();
 			start();
 		}
 	});
@@ -364,6 +364,6 @@ test("setup, disable", function(){
 	});
     ok(true);
     c.$dispose();
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $('#one-carousel').remove();
 	start();
 });

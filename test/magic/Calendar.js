@@ -105,7 +105,7 @@ test('默认参数', function(){
         ok(ca._datesEqual(ca.selectedDate, new Date()), "测试当前选中日期是否是当天");
         
         var selectedDateTD = baidu('.tang-calendar-selected')[0];
-        var dateStr = baidu(selectedDateTD).attr("date");
+        var dateStr = $(selectedDateTD).attr("date");
         equals(dateStr, baidu.date.format(new Date(), 'yyyy/MM/dd'), "测试当前选中日期是否是当天");
         
         equals(baidu(ca.getElement("title"))[0].innerHTML, (new Date()).getFullYear() + '年&nbsp;' + ((new Date()).getMonth() + 1) + '月', '测试title是否使用中文格式显示');
@@ -390,17 +390,18 @@ test("基本操作", function(){
     
     var tdDoms = baidu(".tang-calendar-date");
     ua.mouseover(tdDoms[0]);
-    equals(colorHex(baidu.dom(tdDoms[0]).css("backgroundColor")), "#E94949", "鼠标悬停时，背景颜色为#E94949");
-    equals(colorHex(baidu.dom(tdDoms[1]).css("color")), "#999999", "其他月份日期颜色为#999999");
-    equals(colorHex(baidu.dom(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期的颜色为#CCCCCC");
+    console.log(baidu.dom);
+    equals(colorHex($(tdDoms[0]).css("backgroundColor")), "#E94949", "鼠标悬停时，背景颜色为#E94949");
+    equals(colorHex($(tdDoms[1]).css("color")), "#999999", "其他月份日期颜色为#999999");
+    equals(colorHex($(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期的颜色为#CCCCCC");
     
     ua.click(tdDoms[0]);
     ua.mouseout(tdDoms[0]);//点击后，将鼠标移到其他地方去，否则该元素为鼠标悬停状态
-    equals(colorHex(baidu.dom(tdDoms[0]).css("color")), "#CC0000", "可选日期被选中时，颜色为CC000");
+    equals(colorHex($(tdDoms[0]).css("color")), "#CC0000", "可选日期被选中时，颜色为CC000");
     
     ua.click(tdDoms[6]);
     ua.mouseout(tdDoms[6]);//点击后，将鼠标移到其他地方去，否则该元素为鼠标悬停状态
-    equals(colorHex(baidu.dom(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期被选中时，颜色依然为#CCCCCC");
+    equals(colorHex($(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期被选中时，颜色依然为#CCCCCC");
     
     ua.click(ca.getElement("premonthbtn"));
     ok(checkMonth(4), "当前2012年5月，preMonth后为4月份");

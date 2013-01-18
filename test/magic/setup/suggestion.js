@@ -28,7 +28,6 @@ module("magic.setup.suggestion");
 test('default params', function(){
 	expect(55);
 	stop();
-	ua.importsrc("baidu.ajax.request", function(){
 		ua.loadcss(upath + "suggestion/suggestion.css", function(){
 			enSetup();
 			var show = 0;
@@ -171,7 +170,6 @@ test('default params', function(){
 			$("input").focus();
 			$("input").attr("value", "a");
 		});
-	}, "baidu.ajax.request", "magic.setup.suggestion");
 });
 
 test("all params", function(){

@@ -19,7 +19,7 @@ function checkYear(year){
 test("测试参数", function(){
     expect(5);
     stop();
-    ua.importsrc('magic.setup.datePicker,baidu.i18n.cultures.en-US,baidu.dom.trigger', function() {
+    ua.importsrc((ua.adapterMode ? '' : 'baidu.dom.trigger,') + 'magic.setup.datePicker,baidu.i18n.cultures.en-US', function() {
         ua.loadcss(upath + "../../Calendar/magic.Calendar.css", function(){
             var container = document.createElement("div");
             document.body.appendChild(container);
@@ -55,7 +55,7 @@ test("测试参数", function(){
             datepicker.$dispose();
             document.body.removeChild(container);
         });
-    }, "baidu.dom.trigger", "magic.control.DatePicker.$title");
+    }, "baidu.i18n.cultures.en-US", "magic.control.DatePicker.$title");
 });
 
 test("测试基本操作", function(){
@@ -87,7 +87,7 @@ test("测试基本操作", function(){
     equals(options[options.length-1].innerHTML, "2022", "可选择年份以2022年结束");
     
     yearSelect.selectedIndex = 0;
-    $(yearSelect).trigger('change');
+    baidu.dom(yearSelect).trigger('change');
     var yearEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[0];
     var monthEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[1];
     var yearSelect = datepicker.calendar.getElement("title").getElementsByTagName("select")[0];
@@ -110,7 +110,7 @@ test("测试基本操作", function(){
     
     
     monthSelect.selectedIndex = 0;
-    $(monthSelect).trigger('change');
+    baidu.dom(monthSelect).trigger('change');
     var yearEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[0];
     var monthEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[1];
     var yearSelect = datepicker.calendar.getElement("title").getElementsByTagName("select")[0];
@@ -158,7 +158,7 @@ test("测试英文日历", function(){
     equals(options[options.length-1].innerHTML, "2022", "可选择年份以2022年结束");
     
     yearSelect.selectedIndex = 0;
-    $(yearSelect).trigger('change');
+    baidu.dom(yearSelect).trigger('change');
     var yearEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[1];
     var monthEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[0];
     var yearSelect = datepicker.calendar.getElement("title").getElementsByTagName("select")[1];
@@ -181,7 +181,7 @@ test("测试英文日历", function(){
     
     
     monthSelect.selectedIndex = 0;
-    $(monthSelect).trigger('change');
+    baidu.dom(monthSelect).trigger('change');
     var yearEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[1];
     var monthEl = datepicker.calendar.getElement("title").getElementsByTagName("span")[0];
     var yearSelect = datepicker.calendar.getElement("title").getElementsByTagName("select")[1];

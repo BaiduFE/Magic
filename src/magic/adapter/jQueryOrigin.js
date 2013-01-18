@@ -10,7 +10,6 @@ if (typeof jQuery != 'undefined') {
 ///import baidu.lang.isDate;
 ///import baidu.object.extend;
 ///import baidu.object.merge;
-///import baidu.isPlainObject;
 ///import baidu.object.isPlain;
 ///import baidu.string.format;
 ///import baidu.string.encodeHTML;
@@ -26,6 +25,8 @@ if (typeof jQuery != 'undefined') {
 ///import baidu.event;
 ///import baidu.i18n.cultures.zh-CN;
 ///import baidu.i18n.date;
+///import baidu.each;
+///import baidu.browser.ie;
 
 baidu.page = baidu.page || {};
 baidu.page.getWidth = function () {
@@ -472,7 +473,7 @@ baidu.fx.scrollTo = function(element, point, options) {
 })();
 
 baidu.fx.move = function(element, options) {
-    if (!(element = $(element))
+    if (!(element = $(element).get(0))
         || $(element).css("position") == "static") return null;
     
     options = baidu.object.extend({x:0, y:0}, options || {});

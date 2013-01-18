@@ -1,15 +1,15 @@
 module('magic.setup.scrollPanel');
 
 function create(odd){
-    var wrapper = baidu('<div id="test" class="original-class" />').css({
+    var wrapper = baidu.dom('<div id="test" class="original-class" />').css({
         height: odd ? 151 : 150,
         width: 200
     });
-    var content = baidu('<div id="test-content">test</div>').css({
+    var content = baidu.dom('<div id="test-content">test</div>').css({
         height: 735,
         background: 'red'
     });
-    baidu('body').append(wrapper.append(content));
+    baidu.dom('body').append(wrapper.append(content));
 }
 
 test('default param', function(){
@@ -29,12 +29,12 @@ test('default param', function(){
         equals(instance._active, true, "Active");
         equals(instance._updateTimer != undefined, true, "autoUpdateDelay is right");
         instance.$dispose();
-        baidu('#test').remove();
+        baidu.dom('#test').remove();
         create();
         instance = magic.setup.scrollPanel(document.getElementById('test'));
         ok(isShown(instance.getElement()), "scrollPanel is shown, param: DOM");
         instance.$dispose();
-        baidu('#test').remove();
+        baidu.dom('#test').remove();
         start();
     });
 });
@@ -44,7 +44,7 @@ test('scroll 相关方法', function(){
     create();
     var instance = magic.setup.scrollPanel('test');
     instance.scrollTo(150);
-    equals(Math.abs(baidu(instance.getElement('content')).position().top), 150, 'scrollTo is right');
+    equals(Math.abs(baidu.dom(instance.getElement('content')).position().top), 150, 'scrollTo is right');
     equals(instance.getScroll(), 150, 'getScroll is right');
     equals(instance.getScrollPct(), 0.26, 'getScrollPct is right');
     instance.scrollTo(-9999);
@@ -61,12 +61,12 @@ test('scroll 相关方法', function(){
     equals(instance.getScroll(), 110, 'scrollBy is right (positive)');
     instance.scrollBy(-30);
     equals(instance.getScroll(), 80, 'scrollBy is right (negative)');
-    var ele = baidu('<div>s</div>');
-    baidu('#test-content').append(ele);
+    var ele = baidu.dom('<div>s</div>');
+    baidu.dom('#test-content').append(ele);
     instance.scrollToElement(ele.get(0));
-    equals(ele.offset().top, baidu(instance.getElement('wrapper')).offset().top, 'scrollToElement is right');
+    equals(ele.offset().top, baidu.dom(instance.getElement('wrapper')).offset().top, 'scrollToElement is right');
     instance.$dispose();
-    baidu('#test').remove();
+    baidu.dom('#test').remove();
 });
 
 test('update 相关', function(){
@@ -77,74 +77,74 @@ test('update 相关', function(){
         scrollbarMinHeight: 8
     });
     stop();
-    baidu('#test-content').css('height', 150);
+    baidu.dom('#test-content').css('height', 150);
     setTimeout(function(){
         equals(isShown(instance.getElement('slider')), false, '自动更新：不可滚动 --- 滚动条不显示');
-        equals(baidu(instance.getElement('content')).width(), 200, '自动更新：不可滚动 --- 内容区域宽度');
+        equals(baidu.dom(instance.getElement('content')).width(), 200, '自动更新：不可滚动 --- 内容区域宽度');
         
-        baidu('#test-content').css('height', 8000);
+        baidu.dom('#test-content').css('height', 8000);
         instance.scrollTo(50);
         setTimeout(function(){
             equals(isShown(instance.getElement('slider')), true, '自动更新： 可滚动 --- 滚动条显示');
-            equals(baidu(instance._slider.getElement('knob')).height(), 8, '自动更新： 可滚动 --- 滚动条达到高度达到最小值');
+            equals(baidu.dom(instance._slider.getElement('knob')).height(), 8, '自动更新： 可滚动 --- 滚动条达到高度达到最小值');
             equals(instance.getScroll() / (8000 - 150), instance._slider.getValue(), '自动更新： 可滚动 --- 滚动条位置');
             equals(Math.round(instance.getScroll() / (8000 - 150) * 10000) / 10000, 0.0064, '自动更新： 可滚动 --- 滚动条位置');
-            equals(baidu(instance.getElement('content')).width(), 200-18, '自动更新： 可滚动 --- 内容区域宽度');
+            equals(baidu.dom(instance.getElement('content')).width(), 200-18, '自动更新： 可滚动 --- 内容区域宽度');
             
-            baidu('#test-content').css('height', 340);
+            baidu.dom('#test-content').css('height', 340);
             instance.scrollTo(50);
             setTimeout(function(){
                 equals(isShown(instance.getElement('slider')), true, '自动更新： 可滚动 --- 滚动条显示');
-                equals(baidu(instance._slider.getElement('knob')).height(), 50, '自动更新： 可滚动 --- 滚动条未达到高度达到最小值');
+                equals(baidu.dom(instance._slider.getElement('knob')).height(), 50, '自动更新： 可滚动 --- 滚动条未达到高度达到最小值');
                 equals(instance.getScroll() / (340 - 150), instance._slider.getValue(), '自动更新： 可滚动 --- 滚动条位置');
-                equals(baidu(instance.getElement('content')).width(), 200-18, '自动更新： 可滚动 --- 内容区域宽度');
+                equals(baidu.dom(instance.getElement('content')).width(), 200-18, '自动更新： 可滚动 --- 内容区域宽度');
                 
                 instance.clearAutoUpdate();
                 equals(instance._updateTimer, undefined, '清除自动更新计时器');
-                baidu('#test-content').css('height', 8000);
+                baidu.dom('#test-content').css('height', 8000);
                 setTimeout(function(){
-                    equals(baidu(instance._slider.getElement('knob')).height(), 50, '清除自动更新计时器, 更新已停止');
+                    equals(baidu.dom(instance._slider.getElement('knob')).height(), 50, '清除自动更新计时器, 更新已停止');
                     start();
-                    baidu('#test-content').css('height', 50);
+                    baidu.dom('#test-content').css('height', 50);
                     instance.update();
                     equals(isShown(instance.getElement('slider')), false, '手动更新：不可滚动 --- 滚动条不显示');
-                    equals(baidu(instance.getElement('content')).width(), 200, '手动更新：不可滚动 --- 内容区域宽度');
+                    equals(baidu.dom(instance.getElement('content')).width(), 200, '手动更新：不可滚动 --- 内容区域宽度');
                     
-                    baidu('#test-content').css('height', 8000);
+                    baidu.dom('#test-content').css('height', 8000);
                     instance.scrollTo(50);
                     instance.update();
                     equals(isShown(instance.getElement('slider')), true, '手动更新： 可滚动 --- 滚动条显示');
-                    equals(baidu(instance._slider.getElement('knob')).height(), 8, '手动更新： 可滚动 --- 滚动条达到高度达到最小值');
+                    equals(baidu.dom(instance._slider.getElement('knob')).height(), 8, '手动更新： 可滚动 --- 滚动条达到高度达到最小值');
                     equals(instance.getScroll() / (8000 - 150), instance._slider.getValue(), '手动更新： 可滚动 --- 滚动条位置');
-                    equals(baidu(instance.getElement('content')).width(), 200-18, '手动更新： 可滚动 --- 内容区域宽度');
+                    equals(baidu.dom(instance.getElement('content')).width(), 200-18, '手动更新： 可滚动 --- 内容区域宽度');
     
-                    baidu('#test-content').css('height', 340);
+                    baidu.dom('#test-content').css('height', 340);
                     instance.scrollTo(50);
                     instance.update();
                     equals(isShown(instance.getElement('slider')), true, '手动更新： 可滚动 --- 滚动条显示');
-                    equals(baidu(instance._slider.getElement('knob')).height(), 50, '手动更新： 可滚动 --- 滚动条未达到高度达到最小值');
+                    equals(baidu.dom(instance._slider.getElement('knob')).height(), 50, '手动更新： 可滚动 --- 滚动条未达到高度达到最小值');
                     equals(instance.getScroll() / (340 - 150), instance._slider.getValue(), '手动更新： 可滚动 --- 滚动条位置');
-                    equals(baidu(instance.getElement('content')).width(), 200-18, '手动更新： 可滚动 --- 内容区域宽度');
+                    equals(baidu.dom(instance.getElement('content')).width(), 200-18, '手动更新： 可滚动 --- 内容区域宽度');
                     
-                    equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '0px', 'even: 底部按钮bottom定位');
-                    equals(baidu(instance._slider.getElement('view')).height(), 62, 'even: view 高度');
-                    equals(baidu(instance._slider.getElement('knob')).height(), 50, 'even: knob height ie6 hack');
+                    equals(baidu.dom(instance.getElement('arrowBottom')).css('bottom'), '0px', 'even: 底部按钮bottom定位');
+                    equals(baidu.dom(instance._slider.getElement('view')).height(), 62, 'even: view 高度');
+                    equals(baidu.dom(instance._slider.getElement('knob')).height(), 50, 'even: knob height ie6 hack');
                     instance.$dispose();
-                    baidu('#test').remove();
+                    baidu.dom('#test').remove();
                     // ie6 hack test
                     create(true);   // odd slider height, odd view height
                     instance = magic.setup.scrollPanel('test');
                     if(baidu.browser.ie < 7){
-                        equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '-1px', 'odd: 底部按钮bottom定位');
-                        equals(baidu(instance._slider.getElement('view')).height(), 90, 'odd: view 高度');
-                        equals(baidu(instance._slider.getElement('knob')).height(), 23, 'odd: knob height ie6 hack');
+                        equals(baidu.dom(instance.getElement('arrowBottom')).css('bottom'), '-1px', 'odd: 底部按钮bottom定位');
+                        equals(baidu.dom(instance._slider.getElement('view')).height(), 90, 'odd: view 高度');
+                        equals(baidu.dom(instance._slider.getElement('knob')).height(), 23, 'odd: knob height ie6 hack');
                     }else{
-                        equals(baidu(instance.getElement('arrowBottom')).css('bottom'), '0px', 'odd: 底部按钮bottom定位');
-                        equals(baidu(instance._slider.getElement('view')).height(), 89, 'odd: view 高度');
-                        equals(baidu(instance._slider.getElement('knob')).height(), 24, 'odd: knob height');
+                        equals(baidu.dom(instance.getElement('arrowBottom')).css('bottom'), '0px', 'odd: 底部按钮bottom定位');
+                        equals(baidu.dom(instance._slider.getElement('view')).height(), 89, 'odd: view 高度');
+                        equals(baidu.dom(instance._slider.getElement('knob')).height(), 24, 'odd: knob height');
                     }
                     instance.$dispose();
-                    baidu('#test').remove();
+                    baidu.dom('#test').remove();
                 }, 50);
             }, 50);
         }, 50);
@@ -173,8 +173,8 @@ test('基本操作 --- 箭头', function(){
     equals(instance.getScroll(), 0, "向上箭头 --- 点击立即释放");
     stop();
     ua.mousedown(arrowBottom, {
-        clientX: baidu(arrowBottom).offset().left + baidu(arrowBottom).outerWidth() / 2,
-        clientY: baidu(arrowBottom).offset().top + baidu(arrowBottom).outerHeight() / 2
+        clientX: baidu.dom(arrowBottom).offset().left + baidu.dom(arrowBottom).outerWidth() / 2,
+        clientY: baidu.dom(arrowBottom).offset().top + baidu.dom(arrowBottom).outerHeight() / 2
     });
     equals(instance.getScroll(), 58, "向下箭头 --- 持续按下未释放");
     setTimeout(function(){
@@ -182,8 +182,8 @@ test('基本操作 --- 箭头', function(){
         equals(instance.getScroll(), 116, "向下箭头 --- 持续按下释放");
         instance.scrollToBottom();
         ua.mousedown(arrowTop, {
-            clientX: baidu(arrowTop).offset().left + baidu(arrowTop).outerWidth() / 2,
-            clientY: baidu(arrowTop).offset().top + baidu(arrowTop).outerWidth() / 2
+            clientX: baidu.dom(arrowTop).offset().left + baidu.dom(arrowTop).outerWidth() / 2,
+            clientY: baidu.dom(arrowTop).offset().top + baidu.dom(arrowTop).outerWidth() / 2
         });
         equals(instance.getScroll(), 585 - 58, "向上箭头 --- 持续按下未释放");
         setTimeout(function(){
@@ -199,7 +199,7 @@ test('基本操作 --- 箭头', function(){
             ua.mouseup(arrowBottom);
             equals(instance.getScroll(), 585, "向下箭头 --- 边界不滚动");
             instance.$dispose();
-            baidu('#test').remove();
+            baidu.dom('#test').remove();
         }, 170);
     }, 170);
 });
@@ -219,21 +219,21 @@ test('基本操作 --- 滚动条空白区域', function(){
     
     instance.scrollTo(0);
     ua.mousedown($slider, {
-        clientX: baidu(arrowBottom).offset().left + baidu(arrowBottom).outerWidth() / 2,
-        clientY: baidu(arrowBottom).offset().top - 5
+        clientX: baidu.dom(arrowBottom).offset().left + baidu.dom(arrowBottom).outerWidth() / 2,
+        clientY: baidu.dom(arrowBottom).offset().top - 5
     });
     ua.mouseup($slider);
     equals(instance.getScroll(), 70, '向下滚动，点击立即释放');
-    
+
     ua.mousedown(instance._slider.getElement('view'), {
-        clientX: baidu(arrowTop).offset().left + baidu(arrowTop).outerWidth() / 2,
-        clientY: baidu(arrowTop).offset().top + baidu(arrowTop).outerHeight() + 1
+        clientX: baidu.dom(arrowTop).offset().left + baidu.dom(arrowTop).outerWidth() / 2,
+        clientY: baidu.dom(arrowTop).offset().top + baidu.dom(arrowTop).outerHeight() + 1
     });
     ua.mouseup($slider);
     equals(instance.getScroll(), 0, '向上滚动，点击立即释放');
 
-    var clientX = baidu($slider).offset().left + baidu($slider).width() / 2,
-        clientY = baidu($slider).offset().top + baidu($slider).height() / 2;
+    var clientX = baidu.dom($slider).offset().left + baidu.dom($slider).width() / 2,
+        clientY = baidu.dom($slider).offset().top + baidu.dom($slider).height() / 2;
     ua.mousedown($slider, {
         clientX: clientX,
         clientY: clientY
@@ -255,7 +255,7 @@ test('基本操作 --- 滚动条空白区域', function(){
             instance.scrollTo(0);
             ua.mousedown($slider, {
                 clientX: clientX,
-                clientY: baidu(knob).offset().top + baidu(knob).outerHeight() + 5
+                clientY: baidu.dom(knob).offset().top + baidu.dom(knob).outerHeight() + 5
             });
             setTimeout(function(){
                 ua.mouseup($slider);
@@ -263,14 +263,14 @@ test('基本操作 --- 滚动条空白区域', function(){
                 instance.scrollToBottom();
                 ua.mousedown($slider, {
                     clientX: clientX,
-                    clientY: baidu(knob).offset().top - 5
+                    clientY: baidu.dom(knob).offset().top - 5
                 });
                 setTimeout(function(){
                     ua.mouseup($slider);
                     equals(instance.getScroll(), 585-70, '向上滚动 --- 滚动条控制柄的边界超过点击点位置');
                     start();
                     instance.$dispose();
-                    baidu('#test').remove();
+                    baidu.dom('#test').remove();
                 }, 230);
             }, 170);
         }, 230);
@@ -292,12 +292,12 @@ test('基本操作 --- 拖动滚动条控制柄', function(){
     stop();
     setTimeout(function(){
         ua.mousemove(knob, {
-            clientX : baidu(slider.getElement("view")).offset().left,
-            clientY : baidu(slider.getElement("view")).offset().top + 10
+            clientX : baidu.dom(slider.getElement("view")).offset().left,
+            clientY : baidu.dom(slider.getElement("view")).offset().top + 10
         });
         setTimeout(function(){
             ua.mouseup(knob);
-            equals(Math.round(baidu(knob).position().top), 10, '正常拖动 --- 滚动条控制柄位置');
+            equals(Math.round(baidu.dom(knob).position().top), 10, '正常拖动 --- 滚动条控制柄位置');
             equals(Math.round(slider.getValue() * 100)/100, instance.getScrollPct(), '正常拖动');
             ua.mousedown(knob);
             setTimeout(function(){
@@ -307,7 +307,7 @@ test('基本操作 --- 拖动滚动条控制柄', function(){
                 });
                 setTimeout(function(){
                     ua.mouseup(knob);
-                    equals(baidu(knob).position().top, baidu.browser.ie < 7 ? 90 : 89, '拖动超出下边界 --- 滚动条控制柄位置');
+                    equals(baidu.dom(knob).position().top, baidu.browser.ie < 7 ? 90 : 89, '拖动超出下边界 --- 滚动条控制柄位置');
                     equals(Math.round(slider.getValue() * 100)/100, 1, '拖动超出下边界');
                     ua.mousedown(knob);
                     setTimeout(function(){
@@ -317,11 +317,11 @@ test('基本操作 --- 拖动滚动条控制柄', function(){
                         });
                         setTimeout(function(){
                             ua.mouseup(knob);
-                            equals(baidu(knob).position().top, 0, '拖动超出上边界 --- 滚动条控制柄位置');
+                            equals(baidu.dom(knob).position().top, 0, '拖动超出上边界 --- 滚动条控制柄位置');
                             equals(Math.round(slider.getValue() * 100)/100, 0, '拖动超出上边界');
                             start();
                             instance.$dispose();
-                            baidu('#test').remove();
+                            baidu.dom('#test').remove();
                         }, 100);
                     }, 50);
                 }, 100);
@@ -360,14 +360,14 @@ test('基本操作 --- 鼠标滚轮', function(){
     });
     equals(instance.getScroll(), 585, '到达边界--向下');
     instance.$dispose();
-    baidu('#test').remove();
+    baidu.dom('#test').remove();
 });
 
 test("events&dispose", function(){
     expect(10);
     create();
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue),
-        className = baidu('#test').get(0).className,
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0,
+        className = baidu.dom('#test').get(0).className,
         instance = magic.setup.scrollPanel('test'),
         wrapperId = instance.$getId('wrapper');
     instance.on('beforescroll', function(e){
@@ -381,12 +381,12 @@ test("events&dispose", function(){
     instance.scrollTo(30);
     instance.$dispose();
     equals(instance.updateTimer, undefined, "updateTimer clear");
-    equals(baidu('#test').get(0).className, className, "class removed");
-    equals(baidu('#test').size(), 1, "original nodes existing");
-    equals(baidu('#test-content').size(), 1, "original nodes existing");
-    equals(baidu('#'+wrapperId).size(), 0, "components's nodes removed");
-    baidu('#test').remove();
-    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    equals(baidu.dom('#test').get(0).className, className, "class removed");
+    equals(baidu.dom('#test').size(), 1, "original nodes existing");
+    equals(baidu.dom('#test-content').size(), 1, "original nodes existing");
+    equals(baidu.dom('#'+wrapperId).size(), 0, "components's nodes removed");
+    baidu.dom('#test').remove();
+    var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     equals(l2, l1, "The events are un");
     
 });

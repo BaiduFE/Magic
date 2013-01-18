@@ -777,7 +777,7 @@ test("render, mouse action in readonly = false combobox", function(){
             case 2 :
             equals(e.index, 1, 'The mouseover action is right');
             equals($('li', combobox1.getElement('menu')).eq(0).hasClass('magic-combobox-menu-item-hover'), false, 'clearHighlight is right');
-            equals($('li', combobox1.getElement('menu')).eq(0).hasClass('magic-combobox-menu-item-hover'), true, 'The highlight style is right');
+            equals($('li', combobox1.getElement('menu')).eq(1).hasClass('magic-combobox-menu-item-hover'), true, 'The highlight style is right');
             break;
         }
         
