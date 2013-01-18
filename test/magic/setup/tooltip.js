@@ -93,6 +93,7 @@ test("test default parameters", function() {
                 opt = tooltip._options;
             setTimeout(function(){
                 tooltip.show();
+                
                 equals(opt.offsetY, 0, 'offsetY为0');
                 equals(opt.offsetX, 0, 'offsetX为0');
                 equals(opt.arrowPosition, null, 'arrowPosition为null');
@@ -134,7 +135,7 @@ test("test default parameters", function() {
                 equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
 
                 tooltip.show();
-                baidu.dom(window).trigger("scroll");
+                baidu.dom(document).trigger("scroll");
                 equals(tooltip.getElement("").style.display, "none", 'scroll操作，提示框隐藏');
 
                 var tNode = tooltip.getElement("");
@@ -195,7 +196,7 @@ test("test custom parameters", function(){
         baidu.dom(window).trigger("resize");
         equals(tooltip.getElement("").style.display, "", 'resize操作，提示框显示');
 
-        baidu.dom(window).trigger("scroll");
+        baidu.dom(document).trigger("scroll");
         equals(tooltip.getElement("").style.display, "", 'scroll操作，提示框隐藏');
 
 

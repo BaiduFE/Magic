@@ -8,8 +8,8 @@ function createNode(host, x, y, w, h, id){
     div.style.background = 'blue';
     div.style.height = (h || 20) + 'px';
     div.style.width = (w || 20) + 'px';
-    x !== undefined && (div.style.left = x + 'px');
-    y !== undefined && (div.style.top = y + 'px');
+    x != undefined && (div.style.left = x + 'px');
+    y != undefined && (div.style.top = y + 'px');
     return div;
 }
 
@@ -71,13 +71,14 @@ test("test default parameters", function() {
         ua.loadcss(upath + "setup/tooltip/tooltip.css", function(){
             //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
             document.body.style.height = '2000px';
-            var node2 = createNode(document.body,null,null,null,null,'parent'),
+            var node2 = createNode(document.body,null,null,500,500,'parent'),
                 node = createNode(node2),
                 tooltip = new magic.Tooltip({target: node}),
                 opt = tooltip._options;
             tooltip.render('parent');
             setTimeout(function(){
                 tooltip.show();
+
                 equals(opt.offsetY, 0, 'offsetY为0');
                 equals(opt.offsetX, 0, 'offsetX为0');
                 equals(opt.arrowPosition, null, 'arrowPosition为null');
@@ -93,6 +94,7 @@ test("test default parameters", function() {
                 equals(tooltip.getElement("close").style.display, "", '关闭按钮显示');
                 equals(tooltip.getElement("arrow").style.display, "", '箭头显示');
                 equals(baidu(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
+
                 ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
                 equals(tooltip.getElement("").offsetLeft, node.offsetLeft, '提示框left位置正确');
                 equals(tooltip.getElement("content").innerHTML, '', '内容为空');
@@ -115,11 +117,12 @@ test("test default parameters", function() {
 
                 //resize
                 tooltip.show();
+                var resizenode = createNode(document.body);
                 baidu.dom(window).trigger("resize");
                 equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
 
                 tooltip.show();
-                baidu.dom(window).trigger("scroll");
+                baidu.dom(document).trigger("scroll");
                 equals(tooltip.getElement("").style.display, "none", 'scroll操作，提示框隐藏');
 
                 var tNode = tooltip.getElement("");
@@ -128,6 +131,7 @@ test("test default parameters", function() {
                 ok(baidu(document.body).contains(node), 'target节点依然存在');
                 ok(baidu(document.body).contains(node2), 'tooltip组件实例的节点的父亲节点依然存在');
                 node2.removeChild(node);
+                document.body.removeChild(resizenode);
                 document.body.removeChild(node2);
                 document.body.style.height = 'auto';
                 start();
@@ -182,9 +186,8 @@ test("test custom parameters", function(){
         baidu.dom(window).trigger("resize");
         equals(tooltip.getElement("").style.display, "", 'resize操作，提示框显示');
 
-        baidu.dom(window).trigger("scroll");
-        equals(tooltip.getElement("").style.display, "", 'scroll操作，提示框隐藏');
-
+        baidu.dom(document).trigger("scroll");
+        equals(tooltip.getElement("").style.display, "", 'scroll操作，提示框显示');
 
         tooltip.$dispose();
         document.body.removeChild(node);

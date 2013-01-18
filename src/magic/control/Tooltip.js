@@ -99,7 +99,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             //关闭按钮            
             opt.hasCloseBtn ? eventDeal('click', hideHandler, baidu(me.getElement("close"))) : baidu(me.getElement("close")).hide();
             //自动隐藏
-            opt.autoHide && (eventDeal('scroll', hideHandler, baidu(window)) || eventDeal('click', hideHandler, baidu(document)) || eventDeal('keydown', function(e){
+            opt.autoHide && (eventDeal('scroll', hideHandler, baidu(document)) || eventDeal('click', hideHandler, baidu(document)) || eventDeal('keydown', function(e){
                 //escape
                 e.keyCode == ESC_KEY_CODE && me.hide();
             }, baidu(document)));
