@@ -304,12 +304,24 @@ test("render, setRange, backward", function(){
 
 test("render, events&dispose", function(){
 	stop();
-	expect(8);
+	expect(9);
 	var slide = 0;
 	var change = 0;
+	// parentNode is use to test stop propagation
+	var parentNode = document.createElement('div');
 	var div = document.createElement("div");
-	document.body.appendChild(div);
+	parentNode.appendChild(div);
+	document.body.appendChild(parentNode);
 	div.id = "div1";
+	parentNode.id = 'parentNode';
+	var parentNodeDragCounter = 0;
+	baidu('#parentNode').on('mousedown', function(){
+        baidu.dom.drag(baidu('#parentNode').get(0), {
+            ondrag: function(){
+                parentNodeDragCounter++;
+            }
+        });
+    });
 	$(div).css("width", "222px");
 	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
 	var slider = new magic.Slider({
@@ -331,7 +343,8 @@ test("render, events&dispose", function(){
 	slider.on("onslidestop", function(){
 		ok(true, "The onslidestop is fire");
 	});
-	slider.render('div1');
+	slider.render('div1');	
+	
 	ua.mousemove(slider.getElement("view"), {
 		clientX : baidu.dom(slider.getElement("view")).offset().left,
 		clientY : baidu.dom(slider.getElement("view")).offset().top
@@ -343,6 +356,7 @@ test("render, events&dispose", function(){
 			clientY : baidu.dom(slider.getElement("view")).offset().top
 		});
 		setTimeout(function(){
+		    equals(parentNodeDragCounter, 0, "stopPropagation is right");
 			ua.mouseup(slider.getElement("knob"));
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");//本应是49，根据精确度定位到40
 			slider.$dispose();
