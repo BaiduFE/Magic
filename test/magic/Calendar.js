@@ -390,7 +390,6 @@ test("基本操作", function(){
     
     var tdDoms = baidu(".tang-calendar-date");
     ua.mouseover(tdDoms[0]);
-    console.log(baidu.dom);
     equals(colorHex($(tdDoms[0]).css("backgroundColor")), "#E94949", "鼠标悬停时，背景颜色为#E94949");
     equals(colorHex($(tdDoms[1]).css("color")), "#999999", "其他月份日期颜色为#999999");
     equals(colorHex($(tdDoms[6]).css("color")), "#CCCCCC", "不可选日期的颜色为#CCCCCC");

@@ -81,6 +81,7 @@ magic.control.Tooltip = baidu.lang.createClass(
             //事件处理
             var eventDeal = me._eventDeal = function(eventName, eventHandler, node, events){
                     eventName = eventName && baidu.string(eventName).trim();
+                    eventName = eventName.replace(',', ' ');
                     if(eventName){
                         var destroy = function(){node.off(eventName, eventHandler); };
                         node.on(eventName, eventHandler);
