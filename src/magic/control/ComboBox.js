@@ -333,7 +333,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         data = data || this._options.items;
         var html = this.$menuContentToHTMLString(data);
         this.getElement('menu').innerHTML = html;
-
+        baidu(me.menu.getElement()).addClass('magic-combobox-popup');
     },
     
     /**

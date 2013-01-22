@@ -753,7 +753,6 @@ test('magic.alert', function(){
     expect(24);
     stop();
     ua.importsrc("baidu.ajax.request", function(){
-            var called = false;
             var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
             var instance = magic.alert({
                 'content': '内容',
@@ -761,7 +760,7 @@ test('magic.alert', function(){
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '确定按钮回调执行成功');
                     }
                 }
             });
@@ -784,7 +783,7 @@ test('magic.alert', function(){
 
             //测试确定按钮
             ua.click(instance.buttons[0]);
-            ok(called == true, '确定按钮回调执行成功');
+            
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
             var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -798,13 +797,13 @@ test('magic.alert', function(){
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '点击关闭按钮，确定按钮回调执行成功');
                     }
                 }
             });
             
             ua.click(instance.getElement('closeBtn'));
-            ok(called == true, '点击关闭按钮，确定按钮回调执行成功');
+            
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
             var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -818,13 +817,12 @@ test('magic.alert', function(){
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '按下ESC键，确定按钮回调执行成功');
                     }
                 }
             });
             
             ua.keydown(document.body, {keyCode:27})
-            ok(called == true, '按下ESC键，确定按钮回调执行成功');
             
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
@@ -839,13 +837,13 @@ test('magic.alert', function(){
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '按下Enter键，确定按钮回调执行成功');
                     }
                 }
             });
             
             ua.keydown(document.body, {keyCode:13})
-            ok(called == true, '按下Enter键，确定按钮回调执行成功');
+            
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
             var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -877,8 +875,6 @@ test('magic.alert 英文环境', function(){
 test('magic.confirm', function(){
     expect(29);
     stop();
-    var okcalled = false;
-    var cancelcalled = false;
     var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
     var instance = magic.confirm({
         'content': '内容',
@@ -886,13 +882,13 @@ test('magic.confirm', function(){
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '取消按钮回调执行成功');
             }
         }
     });
@@ -915,7 +911,7 @@ test('magic.confirm', function(){
     ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == '否', '按钮文案显示正确');
     //测试确定按钮
     ua.click(instance.buttons[0]);
-    ok(okcalled == true, '确定按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
     
@@ -931,18 +927,18 @@ test('magic.confirm', function(){
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '取消按钮回调执行成功');
             }
         }
     });
     ua.click(instance.buttons[1]);
-    ok(cancelcalled == true, '取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
     var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -956,18 +952,18 @@ test('magic.confirm', function(){
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '点击关闭按钮，取消按钮回调执行成功');
             }
         }
     });
     ua.click(instance.getElement('closeBtn'));
-    ok(cancelcalled == true, '点击关闭按钮，取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
     var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -981,18 +977,18 @@ test('magic.confirm', function(){
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '按下ESC键，取消按钮回调执行成功');
             }
         }
     });
     ua.keydown(document.body, {keyCode:27})
-    ok(cancelcalled == true, '按下ESC键，取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
     var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -1006,18 +1002,18 @@ test('magic.confirm', function(){
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '按下Enter键，取消按钮回调执行成功');
             }
         }
     });
     ua.keydown(document.body, {keyCode:13})
-    ok(cancelcalled == true, '按下Enter键，取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
     var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
@@ -1121,7 +1117,6 @@ test("test mask", function(){
 		            'ok': {
 		                'label': '好',
 		                'callback': function(){
-		                    called = true;
 		                }
 		            }
 		        });

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Tooltip 组件">
+        <title>提示框组件</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
+        <style type='text/css'>
+            .magic-tooltip{
+                color: black;
+            }
+            .demo-region {
+                margin:20px auto;
+                width: 600px;
+                height: 150px;
+                text-align: center;
+            }
+            .demo-flow{
+                float: left;
+            }
+            .spacer{
+                width: 150px;
+            }
+            .demo-line{
+                height: 100px;
+            }
+            .demo-background{
+                background: #f2f2f2;
+                padding:16px 20px;
+                width: 180px;
+                font-size: 20px;
+                color: black;
+            }
+            .text{
+                _width: 150px;
+            }
+        </style>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
+        <script type="text/javascript" src="../../demos/common/exec.js"></script>
+    </head>
+<body>
+    <div class="content">
+        <div class="demo-list">
+            <h3>Demo列表</h3>
+            <ul>
+                <li><a href="./render.html">render 模式</a></li>
+                <li><a href="./setup.html">setup 模式</a></li>
+                <li><a href="./attach.html">绑定节点 示例</a></li>
+                <li><a href="./focus.html">focus和blur 示例</a></li>
+                <li><a href="./methods.html">接口示例</a></li>
+            </ul>
+            <h3>最佳demo列表</h3>
+            <ul>
+                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
+                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
+            </ul>
+        </div>
+        <div class="main-wrap">
+            <div class="demo-wrap">
+                <h3>Tooltip 组件</h3>
+                <p>Render 模式: 通过调用 render 方法创建组件，可通过配置target参数，或者render时传入参数。</p>
+                <div class="demo-view">
+                    <div class="demo-region">
+                        <div class="demo-line">
+                            <div class='demo-flow demo-background' id='topRegion'>top tooltip 示例</div>
+                            <div class='demo-flow spacer'>&nbsp;</div>
+                            <div class='demo-flow demo-background' id='bottomRegion'>bottom tooltip 示例</div>
+                        </div>
+                        <div class="demo-line">
+                            <div class='demo-flow demo-background' id='leftRegion'>left tooltip 示例</div>
+                            <div class='demo-flow spacer'>&nbsp;</div>
+                            <div class='demo-flow demo-background' id='rightRegion'>right tooltip 示例</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="console-wrap">
+                <h3>控制台</h3>
+                <div id="J_console" class="console"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+            var img = new Image();
+            img.src = "http://www.baidu.com/img/baidu_jgylogo3.gif";
+            img.onload = img.onreadystatechange = function(){
+                if(img.readystate == "complete" || img.readystate == "loaded" || img.complete == true){  
+                    baidu.forEach(tooltips, function(tooltip){
+                        tooltip.reposition();
+                    });
+                }
+            };
+            var position = ['top', 'bottom', 'left', 'right'], tooltips = [];
+            baidu.forEach(position, function(pos, index){
+                var tooltip = new magic.Tooltip({
+                    target: baidu('#' + pos + 'Region')[0],
+                    content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div class="text">this is a tooltip</div>',
+                    position: pos
+                });
+                tooltip.render();
+                tooltip.onbeforeshow = function() {
+                    log(pos + ' tooltip info', 'beforeshow event');
+                };
+                tooltip.onshow = function() {
+                    log(pos + ' tooltip info', 'show event');
+                };
+                tooltip.onbeforehide = function() {
+                    log(pos + ' tooltip info', 'beforehide event');
+                };
+                tooltip.onhide = function() {
+                    log(pos + ' tooltip info', 'hide event');
+                };
+                tooltips.push(tooltip);
+            });
+    </script>
+</body>
+</html>

@@ -1,10 +1,11 @@
+/* Techird: Disable these rules at 2013/01/07 */
 .tang-popup{}
 
 .tang-popup .tang-foreground {
-	padding:5px;
+	/*padding:5px;*/
 }
 
 .tang-popup .tang-background {
-	border:1px solid #CCCCCC;
-	background-color:#FFFFFF;
+	/*border:1px solid #CCCCCC;*/
+	/*background-color:#FFFFFF;*/
 }
