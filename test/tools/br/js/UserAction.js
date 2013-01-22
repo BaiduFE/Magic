@@ -812,7 +812,7 @@ var UserAction =
         var f = '';
         var e = '';
         pw.$('script').each(function() {
-            if (this.src && this.src.indexOf('import.php') >= 0) {
+            if (this.src && this.src.indexOf('import.php') >= 0 && this.src.indexOf('/src/') < 0) {
                 //import.php?f=xxx&e=xxx&cov=xxx
                 //url = this.src.split('import.php')[1];
                 /[?&]f=([^&]+)/.test(this.src);
@@ -938,6 +938,8 @@ var UserAction =
             ps.e = exclude;
         if(location.search.indexOf("cov=true") > -1)
             ps.cov = true;
+        if(ua.adapterMode)
+        	ps.dep = "jquery";
         var param1 = exclude || "";
         /**
          * IE下重复载入会出现无法执行情况
