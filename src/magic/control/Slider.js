@@ -12,7 +12,6 @@
 ///import baidu.dom.css;
 ///import baidu.event.stopPropagation;
 ///import baidu.object.extend;
-///import baidu.array.each;
 ///import baidu.fn.bind;
 ///import baidu.dom.offset;
 
@@ -89,13 +88,13 @@ magic.control.Slider = baidu.lang.createClass(/* constructor */ function(options
         info._limit = inner[info._val];
         info._const = (info._range[1] - info._limit) / 2;
 
-        baidu.array.each(eventsList, function(type, i){
+        baidu(eventsList).each(function(i, type){
             baidu.dom(view).on(type, eventHandler);
         });
 
         // 解除dom events绑定
         me.on('dispose', function(){
-            baidu.array.each(eventsList, function(type, i){
+            baidu(eventsList).each(function(i, type){
                 baidu.dom(view).off(type, eventHandler);
             });
         }) ;

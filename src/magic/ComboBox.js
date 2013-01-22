@@ -5,7 +5,7 @@
 
 ///import magic.control.ComboBox;
 ///import baidu.lang.createClass;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.dom.remove;
 ///import baidu.array.each;
 ///import baidu.event.shortcut;
@@ -103,7 +103,7 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      */
     '$menuContentToHTMLString' : function(items) {
         var HTMLString = [];
-        baidu.array(items).each(function(index, item) {
+        baidu(items).each(function(index, item) {
             HTMLString.push('<li data-index="' + index + '" data-value="' + items[index].value + '" class="magic-combobox-menu-item">' + items[index].content + '</li>');
         });
         return HTMLString.join('');
@@ -115,14 +115,12 @@ magic.ComboBox = baidu.lang.createClass(function(options) {
      * @function
      * @grammar magic.ComboBox#render(target, position)
      * @param {String|HTMLElement} target 渲染的容器，默认为document.body。
-     * @param {String} position 渲染的位置，可以是beforeBegin, afterBegin, beforeEnd, afterEnd，默认beforeEnd。
      * @example
      * //这里tagertDom是ComboBox的父级元素。
      * instance.render(targetDom, "beforeEnd");
      */
-    'render' :  function(target, position) {
-        position = position || 'beforeEnd';
-        baidu(target).insertHTML(position, this.$toHTMLString(this._options.items));
+    'render' :  function(target) {
+        baidu(target).append(this.$toHTMLString(this._options.items));
         /**
          * @description 组合框渲染后触发 
          * @event

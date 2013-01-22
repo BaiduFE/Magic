@@ -106,7 +106,8 @@ class Kiss{
 			if($cov) $importurl.='&cov=true';
 			if($dep){
 				$importurl.='&dep='.$dep;
-				print "<script type='text/javascript' src='{$this->projroot}src/magic/adapter/jQuery.js'></script>\n";
+				//print "<script type='text/javascript' src='{$this->projroot}src/magic/adapter/jQuery.js'></script>\n";
+				print "<script type='text/javascript' src='{$this->projroot}src/import.php?f=magic.adapter.jQueryOrigin'></script>\n";
 			}
 			print "<script type='text/javascript' src='$importurl' ></script>\n";
 		}else{

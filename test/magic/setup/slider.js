@@ -307,7 +307,7 @@ test("setup, events&dispose", function(){
 	enSetupH();
 	var slide = 0;
 	var change = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var slider = new magic.setup.slider("s1", {
 		accuracy: 0.1
 	});
@@ -341,7 +341,7 @@ test("setup, events&dispose", function(){
 			ua.mouseup(slider.getElement("knob"));
 			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
 			slider.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			equals(div.childNodes.length, 1, "The dom is not clear");
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);

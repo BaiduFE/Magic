@@ -4,7 +4,7 @@ module("magic.Calendar.$today");
 test("test plugin enable", function(){
 	expect(4);
     stop();
-    ua.importsrc('magic.Calendar.$timer,baidu.dom.text,baidu.i18n.cultures.en-US' ,function(){
+    ua.importsrc('magic.Calendar.$timer,baidu.i18n.cultures.en-US' ,function(){
     	ua.loadcss(upath + "./magic.Calendar.css", function(){
 		    var container = document.createElement("div");
 		    document.body.appendChild(container);
@@ -30,7 +30,7 @@ test("test plugin enable", function(){
 		    });
 		    ca.render(container);
 		    ok(ca.getElement("today") != undefined, "启用插件，回到今天区域在底部区域");
-		    equals(baidu(ca.getElement("today")).text(), '今天', '回到今天区域label中文为：今天');
+		    equals($(ca.getElement("today")).text(), '今天', '回到今天区域label中文为：今天');
 		    ca.$dispose();
 
 		    //英文
@@ -42,7 +42,7 @@ test("test plugin enable", function(){
 		        language: 'en-US'
 		    });
 		    ca.render(container);
-		    equals(baidu(ca.getElement("today")).text(), 'Today', '回到今天区域label英文为：Today');
+		    equals($(ca.getElement("today")).text(), 'Today', '回到今天区域label英文为：Today');
 
 
 		    start();

@@ -10,6 +10,7 @@
 ///import magic.setup;
 ///import magic.Background;
 ///import baidu.dom.getCurrentStyle;
+///import baidu.dom.append;
 
 /**
  * 在页面已有 html 结构的基础上创建 background 组件
@@ -35,9 +36,9 @@ magic.setup.background = function(el, options){
     s.position = "absolute";
     s.zIndex = -9;
 
-    bg.coverable && baidu.dom(y).insertHTML("beforeend", bg._coverDom||"");
+    bg.coverable && baidu.dom(y).append(bg._coverDom||"");
     yp != document.body
-        && baidu.dom(yp).getCurrentStyle("position")=="static"
+        && baidu.dom(yp).css("position")=="static"
         && (yp.style.position="relative");
 
     return bg;

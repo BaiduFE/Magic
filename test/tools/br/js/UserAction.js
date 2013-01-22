@@ -1,4 +1,4 @@
-﻿var UserAction = 
+var UserAction = 
 /**
  * 用例中常用方法的集合
  * 
@@ -950,7 +950,7 @@
             var head = doc.getElementsByTagName('head')[0];
             var sc = doc.createElement('script');
             sc.type = 'text/javascript';
-            sc.src = srcpath + "?f=" + param0 + "&e=" + param1;
+            sc.src = srcpath + "?f=" + param0 + "&e=" + param1 + (ua.adapterMode ? '&dep=jquery' : '');
             if(location.search.indexOf("cov=true") > -1)
                 sc.src += "&cov=true";
             head.appendChild(sc);
@@ -1358,7 +1358,7 @@
             next : function() {
                 if(check.fnlist.length == 0)
                     return;
-                var fn = check.fnlist[0];        
+                var fn = check.fnlist[0];
                 if (fn.delay) {
                     setTimeout(check.next, fn.delay);
                     delete fn.delay;
@@ -1375,4 +1375,5 @@
 };
 var ua = UserAction;
 var upath = ua.commonData.currentPath();
+ua.adapterMode = /dep=\S+/.test(location.search);
 var cpath = ua.commonData.datadir;

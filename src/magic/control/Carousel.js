@@ -14,10 +14,12 @@
 ///import baidu.makeArray;
 ///import baidu.array.each;
 ///import baidu.array.indexOf;
+///import baidu.array.removeAt;
 ///import baidu.dom.children;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
+///import baidu.dom.prepend;
 ///import baidu.dom.remove;
 ///import baidu.dom.contains;
 ///import baidu.dom.closest;
@@ -61,8 +63,8 @@ void function(){
             child = baidu.dom(target).children(),
             tagName = child[0] ? child[0].tagName : 'li',
             template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>';
-        baidu.dom(target).insertHTML(direction == 'forward' ? 'beforeEnd' : 'afterBegin',
-            baidu.string.format(template, {
+            position = direction == 'forward' ? 'append' : 'prepend'
+        baidu.dom(target)[position](baidu.string.format(template, {
                 rsid: me.guid,
                 'class': 'tang-carousel-item' + (opt.empty ? ' tang-carousel-item-empty' : ''),
                 content: opt.empty ? '&nbsp;' : ''
@@ -351,7 +353,7 @@ void function(){
                     && (offset = viewSize - totalCount + index);
             }
             
-            baidu.array(child).each(function(index, item){
+            baidu(child).each(function(index, item){
                 (index < posIndex - offset || index > posIndex + viewSize - offset - 1)
                     && baidu.dom(item).remove();
             });
@@ -375,6 +377,7 @@ void function(){
          * @param {Number} index 滚动项索引
          */
         _toggle: function(index){
+            console.log('toggle' + index);
             var me = this;
             baidu.dom('#'+me._dataIds[me._selectedIndex]).removeClass('tang-carousel-item-selected');
             me._selectedIndex = index;
@@ -427,9 +430,9 @@ void function(){
                     - (vector ? child.length - posIndex - 1 : posIndex),//((vector ? -1 : 1) * y - x + len) % len.
                 empty = [],
                 count, ele, distance, insertItem, entry;
-            if(index == selectedIndex
+            if(/*index == selectedIndex
                 || me._dataIds.length <= opt.viewSize
-                || me._scrolling){//exit
+                ||*/ me._scrolling){//exit
                 return;
             }
             me._scrolling = true;

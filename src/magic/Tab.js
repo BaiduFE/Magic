@@ -6,9 +6,9 @@
 
 ///import magic.control.Tab;
 ///import baidu.object.extend;
-///import baidu.array.each;
+///import baidu.each;
 ///import baidu.string.format;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.remove;
@@ -65,7 +65,7 @@ magic.Tab = baidu.lang.createClass(function(options) {
             template = '<ul class="#{titleClass}">#{titleContent}</ul><div class="#{bodyClass}">#{bodyContent}</div>',
             tplTitles = [],
             tplBodies = [];
-        baidu.array.each(me._items, function(item, index) {
+        baidu(me._items).each(function(index, item) {
             tplTitles.push(baidu.string.format(me.tplTitle, {
                 titleClass: 'tang-title-item' + (me._selectedIndex == index ? ' tang-title-item-selected' : ''),
                 content: item.title
@@ -99,7 +99,7 @@ magic.Tab = baidu.lang.createClass(function(options) {
         me.$mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
         baidu.dom(container).addClass('tang-ui tang-tab');
-        baidu.dom(container).insertHTML('beforeEnd', me.toHTMLString());
+        baidu.dom(container).append(me.toHTMLString());
         me.fire('onload');
     },
     

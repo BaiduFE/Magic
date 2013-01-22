@@ -39,7 +39,7 @@
                              '</a></div>'];
          me.on("render", function(){
              //创建骨架
-             baidu(me.footerEl).insertHTML('beforeEnd', todaySkeleton.join(''));
+             baidu(me.footerEl).append(todaySkeleton.join(''));
              //事件处理
              var    todayBtn = me.getElement('today'), eventHandler;
              baidu(todayBtn).click(eventHandler = function(){

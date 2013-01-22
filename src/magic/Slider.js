@@ -10,7 +10,6 @@
 ///import magic.control.Slider;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.insertHTML;
 ///import baidu.string.format;
 ///import baidu.object.extend;
 
