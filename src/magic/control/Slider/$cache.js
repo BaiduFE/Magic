@@ -5,7 +5,7 @@
 
 ///import baidu.lang.register;
 ///import magic.control.Slider;
-///import baidu.dom.insertHTML;
+///import baidu.dom.prepend;
 ///import baidu.dom.css;
 ///import baidu.string.format;
 
@@ -33,7 +33,7 @@ baidu.lang.register(magic.control.Slider, function(options){
             id = me.$getId('cache'),
             html = info._oppsite ? '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-start"></div>' : '<div id="#{id}" class="tang-cache #{cacheClass}"><div class="tang-cache-corner tang-cache-last"></div>';
 
-        baidu.dom(inner).insertHTML('afterBegin', baidu.string.format(html ,{
+        baidu.dom(inner).prepend(baidu.string.format(html ,{
             id: id,
             cacheClass: cacheClass
         }));

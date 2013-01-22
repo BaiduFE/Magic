@@ -89,7 +89,7 @@ function getFileContents($filename){
         }
     }
     //为编译更新路径by bell 2011-2-15
-    //return file_get_contents("../../Tangram2/src/". $filename);
+    return file_get_contents("../../Tangram2/src/". $filename);
     return '';
 }
 

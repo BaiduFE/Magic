@@ -10,7 +10,8 @@
 ///import magic.Base;
 ///import magic.control;
 ///import baidu.dom.css;
-///import baidu.dom.setPixel;
+///import baidu.dom.width;
+///import baidu.dom.height;
 ///import baidu.object.extend;
 ///import baidu.lang.createClass;
 
@@ -72,7 +73,8 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
      * @param {Number} width 宽度值:30%|30px|30em|3cm
      */
     ,setWidth :  function(width) {
-        baidu.dom.setPixel(this.getElement(), "width",(this.width=width));
+        this.width = width;
+        baidu(this.getElement()).width(width);
     }
     
     /**
@@ -83,7 +85,8 @@ magic.control.Layer = baidu.lang.createClass(function(setting){
      * @param {Number} height 高度值:30%|30px|30em|3cm
      */
     ,setHeight :  function(height) {
-        baidu.dom.setPixel(this.getElement(), "height",(this.height=height));
+        this.height = height;
+        baidu.dom(this.getElement()).height(height);
     }
     
      /**

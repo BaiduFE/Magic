@@ -28,7 +28,6 @@ module("magic.setup.suggestion");
 test('default params', function(){
 	expect(55);
 	stop();
-	ua.importsrc("baidu.ajax.request", function(){
 		ua.loadcss(upath + "suggestion/suggestion.css", function(){
 			enSetup();
 			var show = 0;
@@ -154,7 +153,7 @@ test('default params', function(){
 		        onhide: function(){
 		        	ok(!isShown(this.getElement("suggestion")), "hide");
 		        	this.on("ondispose", function(){//不能在ondispose中写，因为ondispose在代码解绑监听函数之前运行，那时还有一些监听函数没有解绑
-		        		var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+		        		var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			        	equals(l2, l1, "The events are un");
 			        	equals(this.getElement("suggestion").style.display, "none", "The dom is hide");
 			        	document.body.removeChild(div);
@@ -166,12 +165,11 @@ test('default params', function(){
 		        	
 		        }
 		    };
-			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			var s = magic.setup.suggestion('tang-suggestion-input', options);
 			$("input").focus();
 			$("input").attr("value", "a");
 		});
-	}, "baidu.ajax.request", "magic.setup.suggestion");
 });
 
 test("all params", function(){

@@ -12,7 +12,7 @@
 ///import baidu.lang.inherits;
 
 ///import baidu.object.extend;
-///import baidu.dom.insertHTML;
+///import baidu.dom.prepend;
 ///import baidu.page.getViewWidth;
 ///import baidu.page.getViewHeight;
 ///import baidu.page.getScrollTop;
@@ -68,7 +68,7 @@ magic.Mask = function(options){
     var sf = baidu.browser.safari,
         ie = baidu.browser.ie;
         
-    baidu.dom(me.container).insertHTML("afterBegin", me.toHTMLString());
+    baidu.dom(me.container).prepend(me.toHTMLString());
     
     if(ie == 6){
         me.getElement().style.position = "absolute";

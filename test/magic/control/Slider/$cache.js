@@ -45,7 +45,7 @@ test("render, enable", function(){
 			div.id = "div1";
 			$(div).css("width", "222px");
 			var num = 0;
-			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			var slider = new magic.Slider({
 				cache:{
 					enable: true
@@ -88,7 +88,7 @@ test("render, enable, vertical", function(){
 	div.id = "div1";
 	$(div).css("height", "222px");
 	var num = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var slider = new magic.Slider({
 		orientation: 'vertical',
 		cache:{
@@ -127,7 +127,7 @@ test("setup, default params&events", function(){
     expect(5);
 	enSetupH();
 	var num = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var slider = new magic.setup.slider("s1", {
 		cache: {
 			enable: true

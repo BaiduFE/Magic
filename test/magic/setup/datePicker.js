@@ -47,7 +47,7 @@ function getListenersOnInput(inputEl){
     //     }
     // }
     // return count;
-    return ua.getEventsLength(baidu._util_.eventBase.queue, inputEl);
+    return ua.adapterMode ? 0 : ua.getEventsLength(baidu._util_.eventBase.queue, inputEl);
 }
 
 

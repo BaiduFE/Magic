@@ -7,7 +7,7 @@
 ///import baidu.object.extend;
 ///import magic.control.Carousel;
 ///import baidu.string.format;
-///import baidu.dom.insertHTML;
+///import baidu.dom.append;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.remove;
@@ -133,7 +133,7 @@ magic.Carousel = baidu.lang.createClass(function(options){
         me.$mappingDom('', baidu.dom('#'+target).get(0) || document.body);
         container = me.getElement();
         baidu.dom(container).addClass('tang-ui tang-carousel')
-                            .insertHTML('beforeEnd', me.toHTMLString());
+                            .append(me.toHTMLString());
         me.fire('ondomready');
         me.fire('onload');
     },

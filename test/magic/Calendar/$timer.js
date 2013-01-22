@@ -3,7 +3,7 @@ module("magic.Calendar.$timer");
 test("test parameters and shown", function(){
     expect(15);
     stop();
-    ua.importsrc('baidu.dom.hasClass,baidu.dom.css,baidu.i18n.cultures.en-US' ,function(){
+    ua.importsrc('baidu.i18n.cultures.en-US' ,function(){
         ua.loadcss(upath + "./magic.Calendar.css", function(){
             var container = document.createElement("div");
             document.body.appendChild(container);
@@ -42,7 +42,7 @@ test("test parameters and shown", function(){
 
             //浮动数值区域
             ok(ca.getElement(ca._getId("choosen")) != undefined, "浮动数值区域已创建");
-            equals(baidu(ca.getElement(ca._getId("choosen"))).css('display'), "none", "浮动数值区域默认隐藏");
+            equals($(ca.getElement(ca._getId("choosen"))).css('display'), "none", "浮动数值区域默认隐藏");
             ca.$dispose();
 
             ca = new magic.Calendar({
@@ -148,7 +148,7 @@ test("test basic operation for up and down operation", function(){
         hms = ca._hms,
         upNode = baidu("." + ca._getClass("timer-up"))[0],
         downNode = baidu("." + ca._getClass("timer-down"))[0];
-    ok(!baidu(document.activeElement).hasClass(ca._getClass("timer-input")), '当前时分秒没有获取焦点');
+    ok(!$(document.activeElement).hasClass(ca._getClass("timer-input")), '当前时分秒没有获取焦点');
     ua.keydown(timer, {keyCode : 38});
     equals(hms[0].value, '00', '小时没有变化');
     ua.click(upNode);

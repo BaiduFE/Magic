@@ -19,7 +19,7 @@ if($release == 0 && array_key_exists('f', $_GET)){
 	if($cov)
 		$src .= "&cov=true";
 	if($urldep[0])
-		print "<script type='text/javascript' src='../../../src/magic/adapter/jQuery.js'></script>\n";
+		print "<script type='text/javascript' src='../../../src/import.php?f=magic.adapter.jQueryOrigin'></script>\n";
 	print "<script type='text/javascript' src=".$src."></script>";
 }
 else{

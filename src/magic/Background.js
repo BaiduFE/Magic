@@ -14,7 +14,7 @@
 ///import baidu.browser.isStrict;
 ///import baidu.dom.css;
 ///import baidu.dom.hasClass;
-///import baidu.dom.insertHTML;
+///import baidu.dom.prepend;
 ///import baidu.dom.getCurrentStyle;
 
 /**
@@ -79,7 +79,7 @@ magic.Background = baidu.lang.createClass(function(options){
         box != document.body
             && baidu.dom(box).css('position')=="static"
             && (box.style.position="relative");
-        baidu.dom(box).insertHTML("afterbegin", this.toHTMLString());
+        baidu.dom(box).prepend(this.toHTMLString());
     },
 
     /**
