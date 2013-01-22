@@ -5,9 +5,10 @@ if (typeof jQuery != 'undefined') {
 
 ///import baidu.lang.createClass;
 ///import baidu.lang.inherits;
-///import baidu.lang.Class.$removeEventListener;
 ///import baidu.lang.register;
 ///import baidu.lang.isDate;
+///import baidu.lang.isString;
+///import baidu.lang.guid;
 ///import baidu.object.extend;
 ///import baidu.object.merge;
 ///import baidu.object.isPlain;
@@ -455,9 +456,9 @@ baidu.fx.scrollTo = function(element, point, options) {
         // 如果用户限定了可拖动的范围
         if (baidu.isObject(rg) && rg.length == 4) {
             el = Math.max(rg[3], el);
-            el = Math.min(rg[1] - target.width(), el);
+            el = Math.min(rg[1] - target.outerWidth(), el);
             et = Math.max(rg[0], et);
-            et = Math.min(rg[2] - target.height(), et);
+            et = Math.min(rg[2] - target.outerHeight(), et);
         }
         target.css('left', el + 'px');
         target.css('top', et + 'px');

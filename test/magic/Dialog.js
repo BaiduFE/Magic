@@ -25,9 +25,9 @@ test("default params", function(){
 		
 		var beforehideEventHandler = function(){};
 		dialog.on('beforehide', beforehideEventHandler);
-		equals(dialog.__listeners.hasOwnProperty("onbeforehide") && dialog.__listeners["onbeforehide"].length == 1, true, "event on");
+		equals(dialog._listeners_.hasOwnProperty("onbeforehide") && dialog._listeners_["onbeforehide"].length == 1, true, "event on");
 		dialog.un('beforehide', beforehideEventHandler);
-		equals(dialog.__listeners.hasOwnProperty("onbeforehide") && dialog.__listeners["onbeforehide"].length == 0, true, "event un");
+		equals(dialog._listeners_.hasOwnProperty("onbeforehide") && dialog._listeners_["onbeforehide"].length == 0, true, "event un");
 		// equals(dialog.getElement("body").offsetHeight, dialog.getElement("content").offsetHeight + 1, "The content height is right");
 		document.body.removeChild(div);
 		start();

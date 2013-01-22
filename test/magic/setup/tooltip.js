@@ -82,69 +82,79 @@ function checkArrowPos(tooltip, target, offset, isX, arrowRegion, attr, posAttr)
 //case 1
 test("test default parameters", function() {
     expect(27);
-        ua.loadcss(upath + "tooltip/tooltip.css", function(){
-            //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
-            document.body.style.height = '2000px';
-            enSetup();
-            var node = createNode(document.body),
-                tooltip = new magic.setup.tooltip('tooltipNode', {target: node}),
-                opt = tooltip._options;
-            setTimeout(function(){
-                tooltip.show();
-                
-                equals(opt.offsetY, 0, 'offsetY为0');
-                equals(opt.offsetX, 0, 'offsetX为0');
-                equals(opt.arrowPosition, null, 'arrowPosition为null');
-                equals(opt.showEvent, 'mouseover,focus', 'showEvent为mouseover,focus');
-                equals(opt.hideEvent, 'mouseout,blur', 'hideEvent为mouseout,blur');
-                equals(opt.autoHide, true, 'autoHide为true');
-                equals(opt.hasCloseBtn, true, '关闭是否显示参数为true');
-                equals(opt.hasArrow, true, '箭头是否显示参数为true');
-                equals(opt.target, node, '目标节点存在');
-                equals(opt.position, 'bottom', '位置参数为bottom');
-                equals(opt.content, '', '内容参数为空');
+    function testing() {
+        document.body.style.height = '2000px';
+        enSetup();
+        var node = createNode(document.body),
+            tooltip = new magic.setup.tooltip('tooltipNode', {target: node}),
+            opt = tooltip._options;
+        setTimeout(function() {
+            equals(opt.offsetY, 0, 'offsetY为0');
+            equals(opt.offsetX, 0, 'offsetX为0');
+            equals(opt.arrowPosition, null, 'arrowPosition为null');
+            equals(opt.showEvent, 'mouseover,focus', 'showEvent为mouseover,focus');
+            equals(opt.hideEvent, 'mouseout,blur', 'hideEvent为mouseout,blur');
+            equals(opt.autoHide, true, 'autoHide为true');
+            equals(opt.hasCloseBtn, true, '关闭是否显示参数为true');
+            equals(opt.hasArrow, true, '箭头是否显示参数为true');
+            equals(opt.target, node, '目标节点存在');
+            equals(opt.position, 'bottom', '位置参数为bottom');
+            equals(opt.content, '', '内容参数为空');
 
-                equals(tooltip.getElement("close").style.display, "", '关闭按钮显示');
-                equals(tooltip.getElement("arrow").style.display, "", '箭头显示');
-                equals($(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
-                ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
-                equals(tooltip.getElement("").offsetLeft, node.offsetLeft, '提示框left位置正确');
-                equals(tooltip.getElement("content").innerHTML, '', '内容为空');
-                equals(checkArrowPos(tooltip, node, 0, true, {start:2, end:$(tooltip.getElement("")).outerWidth(true) - $(tooltip.getElement("arrow")).outerWidth(true) - 7, gap:tooltip.arrowPosGap.top}, 'left', 'top'), true, '箭头位置正确');
+            equals(tooltip.getElement("close").style.display, "", '关闭按钮显示');
+            equals(tooltip.getElement("arrow").style.display, "", '箭头显示');
+            equals($(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
+            ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
+            equals(tooltip.getElement("").offsetLeft, node.offsetLeft, '提示框left位置正确');
+            equals(tooltip.getElement("content").innerHTML, '', '内容为空');
+            equals(checkArrowPos(tooltip, node, 0, true, {start:2, end:$(tooltip.getElement("")).outerWidth(true) - $(tooltip.getElement("arrow")).outerWidth(true) - 7, gap:tooltip.arrowPosGap.top}, 'left', 'top'), true, '箭头位置正确');
 
-                ua.click(document.body);
-                equals(tooltip.getElement("").style.display, "none", '点击body元素提示框隐藏');
-                ua.mouseover(node);
-                equals(tooltip.getElement("").style.display, "", '鼠标悬浮，提示框显示');
-                ua.mouseout(node);
-                equals(tooltip.getElement("").style.display, "none", '鼠标离开，提示框隐藏');
+            ua.click(document.body);
+            equals(tooltip.getElement("").style.display, "none", '点击body元素提示框隐藏');
+            ua.mouseover(node);
+            equals(tooltip.getElement("").style.display, "", '鼠标悬浮，提示框显示');
+            ua.mouseout(node);
+            equals(tooltip.getElement("").style.display, "none", '鼠标离开，提示框隐藏');
 
-                tooltip.show();
-                ua.click(tooltip.getElement("close"));
-                equals(tooltip.getElement("").style.display, "none", '关闭按钮点击，提示框隐藏');
-                
-                tooltip.show();
-                ua.keydown(document, {keyCode:27});
-                equals(tooltip.getElement("").style.display, "none", 'escape键，提示框隐藏');
+            tooltip.show();
+            ua.click(tooltip.getElement("close"));
+            equals(tooltip.getElement("").style.display, "none", '关闭按钮点击，提示框隐藏');
+            
+            tooltip.show();
+            ua.keydown(document, {keyCode:27});
+            equals(tooltip.getElement("").style.display, "none", 'escape键，提示框隐藏');
 
-                //resize
-                tooltip.show();
-                $(window).trigger("resize");
-                equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
+            //resize
+            tooltip.show();
+            baidu.dom(window).trigger("resize");
+            equals(tooltip.getElement("").style.display, "none", 'resize操作，提示框隐藏');
 
-                tooltip.show();
-                $(document).trigger("scroll");
-                equals(tooltip.getElement("").style.display, "none", 'scroll操作，提示框隐藏');
+            tooltip.show();
+            baidu.dom(document).trigger("scroll");
+            equals(tooltip.getElement("").style.display, "none", 'scroll操作，提示框隐藏');
 
-                var tNode = tooltip.getElement("");
-                tooltip.$dispose();
-                ok(!$.contains(document.body, tNode), 'tooltip组件实例的节点已经被删除');
-                ok($.contains(document.body, node), 'target节点依然存在');
-                document.body.removeChild(node);
-                document.body.style.height = 'auto';
+            var tNode = tooltip.getElement("");
+            tooltip.$dispose();
+            ok(!$.contains(document.body, tNode), 'tooltip组件实例的节点已经被删除');
+            ok($.contains(document.body, node), 'target节点依然存在');
+            document.body.removeChild(node);
+            document.body.style.height = 'auto';
+        }, 0);
+        tooltip.show();
+    }
+    stop();
+    ua.loadcss(upath + "tooltip/tooltip.css", function(){
+        //默认body的高度不够，无法容纳提示框，故要设定一个高度来进行测试。
+        if (!ua.adapterMode) {
+            ua.importsrc('baidu.dom.trigger', function() {
+                testing();
                 start();
-            }, 0);
-        });
+            }, 'baidu.dom.trigger', 'magic.Tooltip');
+        } else {
+            testing();
+            start();
+        }
+    });
 });
 
 //case 2
@@ -177,24 +187,24 @@ test("test custom parameters", function(){
 
         tooltip.hide();
         ua.click(node);
-        equals(tooltip.getElement("").style.display, "", '目标获得焦点，提示框显示');
+        ok(tooltip.getElement("").style.display != 'none', '目标获得焦点，提示框显示');
 
         ua.mouseout(node);
         equals(tooltip.getElement("").style.display, "none", '目标失去焦点，提示框隐藏');
 
         tooltip.show();
         ua.keydown(document.body, {keyCode:27});
-        equals(tooltip.getElement("").style.display, "", 'escape键，提示框显示');                
+        ok(tooltip.getElement("").style.display != 'none', 'escape键，提示框显示');                
         
         ua.click(document.body);
-        equals(tooltip.getElement("").style.display, "", 'click操作，提示框显示');
+        ok(tooltip.getElement("").style.display != 'none', 'click操作，提示框显示');
 
         //resize
         $(window).trigger("resize");
-        equals(tooltip.getElement("").style.display, "", 'resize操作，提示框显示');
+        ok(tooltip.getElement("").style.display != 'none', 'resize操作，提示框显示');
 
         $(document).trigger("scroll");
-        equals(tooltip.getElement("").style.display, "", 'scroll操作，提示框隐藏');
+        ok(tooltip.getElement("").style.display != 'none', 'scroll操作，提示框隐藏');
 
 
         tooltip.$dispose();
@@ -243,8 +253,8 @@ test("test interface", function(){
 
 //case 4
 test("test event and dispose", function(){
-    stop();
     expect(13);
+    stop();
     var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     enSetup();
     var node = createNode(document.body),
@@ -524,7 +534,7 @@ test("test focus and blur", function(){
     setTimeout(function(){ 
         node.focus();
         setTimeout(function(){
-            equals(tooltip.getElement("").style.display, "", '提示框显示');
+            ok(tooltip.getElement("").style.display != 'none', '提示框显示');
             node2.focus();
 
             setTimeout(function(){
@@ -639,7 +649,7 @@ test("test beforeshow and beforehide", function(){
             ok(true, 'it is wrong, the beforehide return false.');
         };
         tooltip.hide();
-        equals(tooltip.getElement("").style.display, '', 'beforehide return false');
+        ok(tooltip.getElement("").style.display != 'none', 'beforehide return false');
 
         tooltip.onbeforehide = null;
         tooltip.onhide = null;
@@ -693,9 +703,9 @@ test("test showEvent and hideEvent is empty string", function(){
         setTimeout(function(){
             tooltip.show();   
             ua.mouseout(node);
-            equals(tooltip.getElement("").style.display, "", 'mouseout操作，提示框不隐藏');
+            ok(tooltip.getElement("").style.display != 'none', 'mouseout操作，提示框不隐藏');
             node2.focus();
-            equals(tooltip.getElement("").style.display, "", 'blur操作，提示框不隐藏');
+            ok(tooltip.getElement("").style.display != 'none', 'blur操作，提示框不隐藏');
             
             tooltip.$dispose();
             document.body.removeChild(node);
