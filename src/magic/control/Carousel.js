@@ -377,7 +377,6 @@ void function(){
          * @param {Number} index 滚动项索引
          */
         _toggle: function(index){
-            console.log('toggle' + index);
             var me = this;
             baidu.dom('#'+me._dataIds[me._selectedIndex]).removeClass('tang-carousel-item-selected');
             me._selectedIndex = index;

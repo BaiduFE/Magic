@@ -517,3 +517,9 @@ baidu.fx.moveTo = function(element, point, options) {
 
     return fx;
 };
+
+baidu.string.extend({
+    trim : function() {
+        return jQuery.trim(this);
+    }    
+});

@@ -146,7 +146,7 @@ magic.control.DatePicker = baidu.lang.createClass(function(options){
         function documentClickHandler(e){
             var target = baidu.event(e).target,
                 node = calendar.getElement("calendar");
-            if(target != input && !(baidu(node).contains(target) || node == target)){
+            if(target != input && !(baidu.dom.contains(node, target) || node == target)){
                 me.hide();
             }
         }
