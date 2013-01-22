@@ -28,6 +28,7 @@ if (typeof jQuery != 'undefined') {
 ///import baidu.i18n.date;
 ///import baidu.each;
 ///import baidu.browser.ie;
+///import baidu.date.format;
 
 baidu.page = baidu.page || {};
 baidu.page.getWidth = function () {
