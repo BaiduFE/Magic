@@ -23,6 +23,7 @@ if (typeof jQuery != 'undefined') {
 ///import baidu.array.indexOf;
 ///import baidu.array.contains;
 ///import baidu.array.remove;
+///import baidu.array.filter;
 ///import baidu.event;
 ///import baidu.i18n.cultures.zh-CN;
 ///import baidu.i18n.date;
