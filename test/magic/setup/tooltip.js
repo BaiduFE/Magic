@@ -38,7 +38,6 @@ function upCheck(tooltip, node, compareNode, offset, arrow){
     return node.position().top + node.outerHeight(true) + arrowHeight - (offset || 0) == compareNode.position().top - marginTop;
 }
 
-
 function downCheck(tooltip, node, compareNode, offset, arrow){
     node = $(node);
     compareNode = $(compareNode);
@@ -89,6 +88,7 @@ test("test default parameters", function() {
             tooltip = new magic.setup.tooltip('tooltipNode', {target: node}),
             opt = tooltip._options;
         setTimeout(function() {
+            tooltip.show();
             equals(opt.offsetY, 0, 'offsetY为0');
             equals(opt.offsetX, 0, 'offsetX为0');
             equals(opt.arrowPosition, null, 'arrowPosition为null');
@@ -104,6 +104,7 @@ test("test default parameters", function() {
             equals(tooltip.getElement("close").style.display, "", '关闭按钮显示');
             equals(tooltip.getElement("arrow").style.display, "", '箭头显示');
             equals($(tooltip.getElement("arrow")).hasClass('arrow-top'), true, '箭头为向上');
+
             ok(downCheck(tooltip, tooltip.getElement(""), node, 0, tooltip.getElement("arrow")), '提示框位于目标元素下方, 并且位置正确');
             equals(tooltip.getElement("").offsetLeft, node.offsetLeft, '提示框left位置正确');
             equals(tooltip.getElement("content").innerHTML, '', '内容为空');
@@ -140,7 +141,6 @@ test("test default parameters", function() {
             document.body.removeChild(node);
             document.body.style.height = 'auto';
         }, 0);
-        tooltip.show();
     }
     stop();
     ua.loadcss(upath + "tooltip/tooltip.css", function(){
