@@ -81,7 +81,7 @@ test("vertical", function(){
 		equals(c.getElement("element").childNodes[3].innerHTML,  "text9", "The item is right");
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text8", "The selectedIndex is right");   
 	    c.$dispose();
-	    document.body.removeChild(baidu.dom.g("one-carousel"));
+	    $("#one-carousel").remove();
 	    start();
 	});
 });
@@ -111,7 +111,7 @@ test("default params", function(){
 	    equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text0", "The selectedIndex is right");
 	    equals(c.getCurrentIndex(), 0, "The getCurrentIndex is right");
 	    equals(c.getTotalCount(), 10, "The getTotalCount is right");
-	    document.body.removeChild(baidu.dom.g("one-carousel"));
+	    $("#one-carousel").remove();
 	    start();
 	});
 });
@@ -144,7 +144,7 @@ test("all params", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text5", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text6", "The item is right");
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text5", "The selectedIndex is right");
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("all params, special selectedIndex", function(){
@@ -173,7 +173,7 @@ test("all params, special selectedIndex", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text8", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text9", "The item is right");
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text9", "The selectedIndex is right");
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("all params, special selectedIndex & focusRange", function(){
@@ -202,7 +202,7 @@ test("all params, special selectedIndex & focusRange", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text6", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text7", "The item is right");
     equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text4", "The selectedIndex is right");
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("next, default params", function(){
@@ -231,7 +231,7 @@ test("next, default params", function(){
     	}
     	c.focusNext();
      }
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("next, all params", function(){
@@ -266,7 +266,7 @@ test("next, all params", function(){
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i * 2 + 4) % 10, "The selectedIndex is right");
     	c.focusNext();
      }
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("next, step more than focusRange", function(){
@@ -300,7 +300,7 @@ test("next, step more than focusRange", function(){
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i * 2 + 4) % 10, "The selectedIndex is right");
     	c.focusNext();
      }
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("next, step less than focusRange", function(){
@@ -334,7 +334,7 @@ test("next, step less than focusRange", function(){
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i + 4) % 10, "The selectedIndex is right");
     	c.focusNext();
      }
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("prev, default params", function(){
@@ -364,7 +364,7 @@ test("prev, default params", function(){
     	}
     	c.focusPrev();
      }
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("prev, all params", function(){
@@ -391,7 +391,7 @@ test("prev, all params", function(){
 		equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text" + (i * 2 + 6) % 10, "The selectedIndex is right");
     	c.focusPrev();
      }
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("focus, default params", function(){
@@ -439,7 +439,7 @@ test("focus, default params", function(){
 	equals(c.getElement("element").childNodes[1].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text3", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
-	document.body.removeChild(baidu.dom.g("one-carousel"));
+	$("#one-carousel").remove();
 });
 test("focus, all params", function(){
 	expect(36);
@@ -498,7 +498,7 @@ test("focus, all params", function(){
 	equals(c.getElement("element").childNodes[2].innerHTML,  "text2", "The item is right");
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text3", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
-	document.body.removeChild(baidu.dom.g("one-carousel"));
+	$("#one-carousel").remove();
 });
 
 test("focus, next, prev", function(){
@@ -543,13 +543,13 @@ test("focus, next, prev", function(){
 	equals(c.getElement("element").childNodes[3].innerHTML,  "text3", "The item is right");
 	equals($(".tang-carousel-item-selected",c.getElement("element")).text(), "text1", "The selectedIndex is right");
     c.$dispose();
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("events & dispose", function(){
 	expect(6);
 	enSetup();
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var options = {
 	    fx: {                   //保证release模式下Carousel不会被fx插件影响
 	    	enable: false
@@ -569,7 +569,7 @@ test("events & dispose", function(){
     	ok(true, "onmouseoutitem");
     });
     c.on("ondispose", function(){
-    	var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    	var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     	equals(l2, l1, "The events are un");
     });
     c.focus(8, "backward");
@@ -577,7 +577,7 @@ test("events & dispose", function(){
     ua.mouseout(c.getElement("element").childNodes[0]);
     c.$dispose();
 	equals(c.disposed, true, "disposed");
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });
 
 test("getElement", function(){
@@ -591,5 +591,5 @@ test("getElement", function(){
     var c = magic.setup.carousel('one-carousel', options);
     equals(c.getElement().id, "one-carousel", "getElement");
     equals(c.getElement("container").className, "tang-carousel-container", "getElement");
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $("#one-carousel").remove();
 });

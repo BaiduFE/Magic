@@ -13,7 +13,6 @@
 ///import baidu.lang.Event;
 ///import baidu.lang.inherits;
 ///import baidu.lang.isString;
-///import baidu.lang.Class.$removeEventListener;
 
 /**
  * UI基类，所有的UI都应该从这个类中派生出去

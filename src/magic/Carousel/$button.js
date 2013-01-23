@@ -7,6 +7,7 @@
 ///import magic.Carousel;
 ///import baidu.array.each;
 ///import magic.control.Carousel.$button;
+///import baidu.dom.prepend;
 
 /**
  * @description 为图片轮播组件添加前后按钮插件
@@ -42,16 +43,16 @@ baidu.lang.register(magic.Carousel, function(options){
     if(!me._options.button.enable){return;}
     me.on('ondomready', function(evt){
         var container = me.getElement();
-        baidu.dom(container).insertHTML('afterBegin', baidu.string.format(tplButton, {
+        baidu.dom(container).prepend(baidu.string.format(tplButton, {
             'class': 'tang-carousel-btn-prev',
             content: me._options.button.buttonLabel.prev
         }));
-        baidu.dom(container).insertHTML('beforeEnd', baidu.string.format(tplButton, {
+        baidu.dom(container).append(baidu.string.format(tplButton, {
             'class': 'tang-carousel-btn-next',
             content: me._options.button.buttonLabel.next
         }));
         me.on('ondispose', function(){
-            baidu.array.each(['prev', 'next'], function(item){
+            baidu(['prev', 'next']).each(function(index, item){
                 baidu.dom(me.getElement(item)).remove();
             });
         });

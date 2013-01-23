@@ -55,7 +55,7 @@ module("magic.control.Carousel.$antoscroll");
 test("render,default params", function(){
 	stop();
 	expect(4);
-	ua.importsrc("baidu.dom.trigger,magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
+	ua.importsrc((ua.adapterMode ? '' : 'baidu.dom.trigger,') + "magic.Carousel.$button,magic.Carousel,magic.setup.carousel", function(){
 		ua.loadcss(upath + "../../setup/carousel/carousel_fx.css", function(){
 			var div = document.createElement("div");
 			document.body.appendChild(div);
@@ -70,23 +70,23 @@ test("render,default params", function(){
 			});
 			c.on("onmouseenter", function(evt){
 		        evt.target.stop();
-				equals(c._selectedIndex, 8, "scroll to 8");
+				equals(c._selectedIndex, 8, "a scroll to 8");
 		    });
 		    c.on("onmouseleave", function(evt){
-				equals(c._selectedIndex, 8, "scroll to 8");
+				equals(c._selectedIndex, 8, "b scroll to 8");
 		        evt.target.start();
 		    });
 		    c.on("onfocus", function(){
 				scroll ++;
 				if(scroll == 1){
-					equals(c._selectedIndex, 8, "scroll to 8");
+					equals(c._selectedIndex, 8, "c scroll to 8");
 					mouseenter(c.getElement("element"));
 			        setTimeout(function(){
 			        	mouseleave(c.getElement("element"));
 			        }, 0);
 				}
 				if(scroll == 2){
-					equals(c._selectedIndex, 9, "scroll to 9");
+					equals(c._selectedIndex, 9, "d scroll to 9");
 					c.$dispose();
 					document.body.removeChild(div);
 					start();
@@ -106,7 +106,7 @@ test("render,all params", function(){
 	var scroll = 0; 
 	var time1 = 0;
 	var time2 = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var c = new magic.Carousel({
 	    items: citems,
 	    isLoop: true,
@@ -144,7 +144,7 @@ test("render,all params", function(){
 		    ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
 			c.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			equals(l2, l1, "The events are un");
 			document.body.removeChild(div);
 			start();
@@ -249,7 +249,7 @@ test("setup,default params", function(){
 		if(scroll == 2){
 			equals(c._selectedIndex, 9, "scroll to 9");
 			c.$dispose();
-			document.body.removeChild(baidu.dom.g("one-carousel"));
+			$('#one-carousel').remove();
 			start();
 		}
 	});
@@ -262,7 +262,7 @@ test("setup, all params", function(){
 	var scroll = 0; 
 	var time1 = 0;
 	var time2 = 0;
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var options = {
 	    items: citems,
 	    isLoop: true,
@@ -301,9 +301,9 @@ test("setup, all params", function(){
 			ok((time2 - time1 >= 100 || Math.abs(time2 - time1 - 100) < 10) && time2 - time1 < 500, "The duration is right " + (time2 - time1));
 			equals(c._selectedIndex, 7, "scroll to 7");
 			c.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			equals(l2, l1, "The events are un");
-			document.body.removeChild(baidu.dom.g("one-carousel"));
+			$('#one-carousel').remove();
 			start();
 		}
 	});
@@ -338,7 +338,7 @@ test("setup, button", function(){
 			time2 = new Date();
 			ok(time2 - time1 >= 100 || Math.abs((time2 - time1) - 100) < 15, "The duration is right " + (time2 - time1));//autoScroll的轮训没有因为点击按钮滚动而乱掉
 			c.$dispose();
-			document.body.removeChild(baidu.dom.g("one-carousel"));
+			$('#one-carousel').remove();
 			start();
 		}
 	});
@@ -364,6 +364,6 @@ test("setup, disable", function(){
 	});
     ok(true);
     c.$dispose();
-    document.body.removeChild(baidu.dom.g("one-carousel"));
+    $('#one-carousel').remove();
 	start();
 });

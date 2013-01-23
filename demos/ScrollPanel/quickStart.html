@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="ScrollPanel 组件 quickStart">
+        <title>ScrollPanel 组件 quickStart</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.ScrollPanel/magic.control.ScrollPanel.css" />
+        <script type="text/javascript" src='../../src/import.php?f=magic.setup.scrollPanel'></script>
+        <style>
+            #panel{
+                width: 400px;
+                height:200px;
+            }
+            #content{
+                height:800px;
+                background:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="panel">
+            <div id="content">Test</div>
+        </div>
+        
+        <script type="text/javascript">
+            var instance = magic.setup.scrollPanel('panel');
+        </script>
+    </body>
+</html>

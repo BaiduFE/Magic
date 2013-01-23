@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Tooltip 组件">
+        <title>知道产品线示例</title>
+        <link rel="stylesheet" type="text/css" href="../../demos/common/demo.css">
+        <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
+        <script type="text/javascript" src="../../demos/common/demo.js"></script>
+        <link rel="stylesheet" type="text/css" href="./demo.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Background/magic.Background.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.control.Popup/magic.control.Popup.css"/>
+        <link rel="stylesheet" type="text/css" href="../../resources/default/magic.Tooltip/magic.Tooltip.css"/>
+        <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
+        <style type='text/css'>
+            .console span{
+                background-color: #89D;
+            }
+            .demo-region {
+                margin:20px auto;
+                width: 600px;
+                text-align: center;
+            }
+            #newTopPanel {
+                padding-left: 10px;
+                padding-right: 10px;
+                border: 1px solid gainsboro;
+                margin: 6px 6px 0;
+                _margin-top: 6px;
+                background: #FAFAFA;
+                font: 12px/18px 宋体;
+                color: black;
+            }
+            .magic-tooltip .magic-tooltip-content .j_add_like{
+                text-decoration: none;
+                float: none;
+                font-size: 12px;
+            }
+            p, div, td {
+                word-break: break-all;
+            }
+            .itieba_head_top {
+                margin: 0 1px;
+            }
+            .always_go_header {
+                padding-bottom: 3px;
+            }
+            .bot_line {
+                border-bottom: solid 1px gainsboro;
+                padding-bottom: 1px;
+            }
+            .clearfix {
+                zoom: 1;
+            }
+            .head_title {
+                font-size: 14px;
+                font-weight: bold;
+                margin-left: 3px;
+                float: left;
+            }
+            .always_go_list {
+                margin: 0 10px 8px 10px;
+            }
+            ul, form, h2, fieldset {
+                margin: 0;
+                padding: 0;
+            }
+            ul, ol {
+                list-style: none;
+            }
+            .always_go_list li.operateli {
+                width: 60px;
+            }
+            .always_go_list li {
+                width: 130px;
+                list-style-type: none;
+                height: 25px;
+                display: inline-block;
+                zoom: 1;
+                vertical-align: top;
+            }
+            a {
+                color: #0449BE;
+            }
+            .add_btn_freshman {
+                width: 51px;
+                height: 23px;
+                background: url(http://tb2.bdstatic.com/tb/static-itieba3/img/ihome/add_btn_freshman_86a923d6.png) no-repeat center;
+            }
+            .always_go_list li a, .always_go_list li a:link, .always_go_list li a:visited, .always_go_list li a:hover {
+                float: left;
+                font-size: 14px;
+                text-decoration: none;
+            }
+            .clearfix::after {
+                content: ".";
+                display: block;
+                height: 0;
+                clear: both;
+                visibility: hidden;
+            }
+            .ui_bubble_body{
+                _width: 400px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="content">
+        <div class="demo-list">
+            <h3>Demo列表</h3>
+            <ul>
+                <li><a href="./render.html">render 模式</a></li>
+                <li><a href="./setup.html">setup 模式</a></li>
+                <li><a href="./attach.html">绑定节点 示例</a></li>
+                <li><a href="./focus.html">focus和blur 示例</a></li>
+                <li><a href="./methods.html">接口示例</a></li>
+            </ul>
+            <h3>最佳demo列表</h3>
+            <ul>
+                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
+                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
+            </ul>
+        </div>
+        <div class="main-wrap">
+            <div class="demo-wrap">
+                <h3>Tooltip 组件 <strong>最贱实践</strong> 示例</h3>
+                <p>结合产品线来展现Tooltip组件demo, 以下demo主要是和贴吧产品线进行结合。</p>
+                <div class="demo-view">
+                    <div id="newTopPanel">
+                        <div class="itieba_head_top" id="itieba_head_top" style="z-index:9">
+                            <div style="height:10px"></div>
+                            <div class="clearfix bot_line always_go_header">
+                                <span class="head_title">我爱逛的贴吧</span>
+                                <div id="header_right" class="header_right" style="display: none; ">
+                                    <div class="sign_block j_sign_block">
+                                        <input type="checkbox" id="sign_checkbox" checked="checked"> 
+                                        <label for="sign_checkbox">显示签到标记</label>
+                                    </div>
+                                    <span class="sign_block_sep">|</span>
+                                    <a id="edit_forum" class="edit_forum" href="#">编辑</a>
+                                </div>
+                            </div>
+                            <div style="height:13px"></div>
+                            <div class="always_go_list" id="always_go_list" st_type="always_go">
+                                <ul class="clearfix">
+                                    <li class="j_operateli operateli" style="z-index:101">
+                                        <a id='tooltipBtn' href="#" click="return false" class="add_btn_freshman j_freshman_click j_add_like">&nbsp;</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="coll_btn_link" class="coll_btn_link" style="display: none">
+                                <a href="#" class="expend_ba_link"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="console-wrap">
+                <h3>控制台</h3>
+                <div id="J_console" class="console"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+       var  tooltip = new magic.Tooltip({
+            target: baidu('#tooltipBtn')[0],
+            content: '<div class="ui_bubble_body j_body">暂时还没有发现你有爱逛的吧，我们忍不住为你推荐几个，请点击看看。</div>',
+            position: "bottom",
+            autoHide: false,
+            hideEvent: '',
+            showEvent: ''
+        });
+        tooltip.onshow = function(){
+            log('按钮提示信息', '显示');
+        }
+        tooltip.onhide = function(){
+            log('按钮提示信息', '隐藏');
+        }
+        tooltip.render();
+        tooltip.show();
+        baidu(window).on('resize', function(){
+            tooltip.reposition();
+        });
+    </script>
+</body>
+</html>

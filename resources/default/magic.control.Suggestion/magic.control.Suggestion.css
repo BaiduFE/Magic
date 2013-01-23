@@ -23,11 +23,16 @@
     font-size: 14px;
     background-color: #fff;
 }
+.tang-suggestion-popup .tang-background {
+    border: none;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.3);
+}
 .tang-suggestion-popup .tang-background table {
     display: none;
 }
 .tang-suggestion-popup .tang-foreground {
     border: 1px solid #817f82;
+    padding: 0;
     overflow: hidden;
 }
 .tang-suggestion-popup .tang-suggestion-prepend,

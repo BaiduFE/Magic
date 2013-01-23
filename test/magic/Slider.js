@@ -1,4 +1,4 @@
-module("magic.Slider");
+﻿module("magic.Slider");
 
 test("render, default param", function(){
 	stop();
@@ -121,12 +121,12 @@ test("render, adaptive", function(){
 	equals(slider.getElement("view").offsetWidth, 200, "The width is right");
 	equals(slider._info.currentValue, 0.55, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 110 - 11, "The position of The knob is right");
-	
+
 	$(div).css("width", "422px");
 	equals(slider.getElement("view").offsetWidth, 400, "The width is right");
 	equals(slider._info.currentValue, 0.55, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 220 - 11, "The position of The knob is right");
-	
+
 	ua.mousemove(slider.getElement("view"), {
 		clientX : baidu.dom(slider.getElement("view")).offset().left + 38,
 		clientY : baidu.dom(slider.getElement("view")).offset().top
@@ -135,7 +135,7 @@ test("render, adaptive", function(){
 	ua.mouseup(slider.getElement("view"));
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");
-	
+
 	$(div).css("width", "222px");
 	equals(slider.getElement("view").offsetWidth, 200, "The width is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
@@ -158,12 +158,12 @@ test("render, adaptive, vertical", function(){
 	equals(slider.getElement("view").offsetHeight, 200, "The height is right");
 	equals(slider._info.currentValue, 0.55, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 110 - 11, "The position of The knob is right");
-	
+
 	$(div).css("height", "422px");
 	equals(slider.getElement("view").offsetHeight, 400, "The height is right");
 	equals(slider._info.currentValue, 0.55, "The currentValue is right");
 	approximateEqual(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 220 - 11, "The position of The knob is right");
-	
+
 	ua.mousemove(slider.getElement("view"), {
 		clientX : baidu.dom(slider.getElement("view")).offset().left,
 		clientY : baidu.dom(slider.getElement("view")).offset().top + 38
@@ -172,7 +172,7 @@ test("render, adaptive, vertical", function(){
 	ua.mouseup(slider.getElement("view"));
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
 	equals(baidu.dom(slider.getElement("knob")).offset().top, baidu.dom(slider.getElement("view")).offset().top + 40 - 11, "The position of The knob is right");
-	
+
 	$(div).css("height", "222px");
 	equals(slider.getElement("view").offsetHeight, 200, "The height is right");
 	equals(slider._info.currentValue, 0.1, "The currentValue is right");
@@ -304,14 +304,26 @@ test("render, setRange, backward", function(){
 
 test("render, events&dispose", function(){
 	stop();
-	expect(8);
+	expect(9);
 	var slide = 0;
 	var change = 0;
+	// parentNode is use to test stop propagation
+	var parentNode = document.createElement('div');
 	var div = document.createElement("div");
-	document.body.appendChild(div);
+	parentNode.appendChild(div);
+	document.body.appendChild(parentNode);
 	div.id = "div1";
+	parentNode.id = 'parentNode';
+	var parentNodeDragCounter = 0;
+	baidu('#parentNode').on('mousedown', function(){
+        baidu.dom.drag(baidu('#parentNode').get(0), {
+            ondrag: function(){
+                parentNodeDragCounter++;
+            }
+        });
+    });
 	$(div).css("width", "222px");
-	var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+	var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 	var slider = new magic.Slider({
 		accuracy: 0.1
 	});
@@ -331,7 +343,8 @@ test("render, events&dispose", function(){
 	slider.on("onslidestop", function(){
 		ok(true, "The onslidestop is fire");
 	});
-	slider.render('div1');
+	slider.render('div1');	
+	
 	ua.mousemove(slider.getElement("view"), {
 		clientX : baidu.dom(slider.getElement("view")).offset().left,
 		clientY : baidu.dom(slider.getElement("view")).offset().top
@@ -343,10 +356,11 @@ test("render, events&dispose", function(){
 			clientY : baidu.dom(slider.getElement("view")).offset().top
 		});
 		setTimeout(function(){
+		    equals(parentNodeDragCounter, 0, "stopPropagation is right");
 			ua.mouseup(slider.getElement("knob"));
-			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");//本应�?9，根据精确度定位�?0
+			equals(baidu.dom(slider.getElement("knob")).offset().left, baidu.dom(slider.getElement("view")).offset().left + 40 - 11, "The position of The knob is right");//本应是49，根据精确度定位到40
 			slider.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			ok(!isShown(div), "The dom is clear");
 			equals(l2, l1, "The events are un");
 			start();

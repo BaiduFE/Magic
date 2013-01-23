@@ -49,7 +49,7 @@
 .tang-background .right__{width:12px;}
 
 /* 放入背景图 */
-.tang-background .corner__{background:red url(corner.png) no-repeat;}
+.tang-background .corner__{background:transparent url(corner.png) no-repeat;}
 .tang-background .vertical__{background:transparent url(vertical.png) repeat-x;}
 .tang-background .horizontal__{background:transparent url(horizontal.png) repeat-y;}
 .tang-background .midland__{background-image:url(midland.png);}
@@ -137,6 +137,58 @@
 
 .tang-tooltip .dir_top .arrow_bottom{display:none;}
 .tang-tooltip .dir_bottom .arrow_top{display:none;}
+
+/* Tooltip */
+.magic-tooltip{
+	padding:16px 20px 16px 16px;
+	position: absolute;
+	display: block;
+	/*border: 1px solid black;*/
+}
+
+.magic-tooltip .magic-tooltip-close{
+    position:absolute; 
+	width:10px; 
+	height:9px; 
+	top:8px; 
+	right:11px;
+}
+.magic-tooltip-close a{
+	background:url(close.gif) no-repeat center center;
+	display:block; 
+	width:100%; 
+	height:100%;
+}
+.magic-tooltip .tang-background{
+	line-height: 12px;
+}
+.magic-tooltip .magic-tooltip-arrow{
+	background:transparent url(arrow.gif) no-repeat;
+	position: absolute;
+	_font-size: 0px;
+}
+.magic-tooltip .arrow-top,
+.magic-tooltip .arrow-bottom{
+	height: 10px;
+	width: 15px;
+}
+.magic-tooltip .arrow-left,
+.magic-tooltip .arrow-right{
+	height: 15px;
+	width: 10px;
+}
+.magic-tooltip .arrow-top{
+	background-position: 0px 2px;	
+}
+.magic-tooltip .arrow-bottom{
+	background-position: 0px -10px;
+}
+.magic-tooltip .arrow-left{
+	background-position: -17px -1px;
+}
+.magic-tooltip .arrow-right{
+	background-position: -26px 0px;
+}
 
 .cssloaded{
 	width: 20px

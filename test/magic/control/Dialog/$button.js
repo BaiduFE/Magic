@@ -72,8 +72,7 @@ test("render, default and custom params,using default button builder", function(
 	 stop();
 	 ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 		var me = this;
-		ua.importsrc("baidu.browser.ie,baidu.dom.children,baidu.string.trim,baidu.dom.text", function(){
-			var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			var div = document.createElement("div");
 			document.body.appendChild(div);
 			div.id = "one-dialog";
@@ -107,9 +106,9 @@ test("render, default and custom params,using default button builder", function(
 				}
 			});
 			dialog.render("one-dialog");
-			var trim = baidu.string.trim;
+			var trim = $.trim;
 			//test focus element
-			equals(trim(baidu(document.activeElement).text()), '有效', 'the focused element is right');
+			equals(trim($(document.activeElement).text()), '有效', 'the focused element is right');
 
 			//test the dialog.buttons is a array contains the node information.
 			var buttons = dialog.buttons || [];
@@ -117,16 +116,16 @@ test("render, default and custom params,using default button builder", function(
 			//test button
 			var btnCheck = function(){
 				var first = function(item){
-						equals(baidu.string.trim(baidu(item).text()), '', 'the first button\'s text is space');
-						equals(baidu(item).hasClass('tang-dialog-button-disabled'), false, 'the first button is enable');
+						equals($.trim($(item).text()), '', 'the first button\'s text is space');
+						equals($(item).hasClass('tang-dialog-button-disabled'), false, 'the first button is enable');
 					},
 					second = function(item){
-						equals(baidu.string.trim(baidu(item).text()), '无效', 'the second button\'s text is 无效');	
-						equals(baidu(item).hasClass('tang-dialog-button-disabled'), true, 'the second button is disabled');
+						equals($.trim($(item).text()), '无效', 'the second button\'s text is 无效');	
+						equals($(item).hasClass('tang-dialog-button-disabled'), true, 'the second button is disabled');
 					},
 					third = function(item){
-						equals(baidu.string.trim(baidu(item).text()), '有效', 'the third button\'s text is 有效');
-						equals(baidu(item).hasClass('tang-dialog-button-disabled'), false, 'the third button is enable');
+						equals($.trim($(item).text()), '有效', 'the third button\'s text is 有效');
+						equals($(item).hasClass('tang-dialog-button-disabled'), false, 'the third button is enable');
 					};
 				return function(item,index){
 					equals(item.nodeType,1,["The ", index, " button is a Node."].join('') );
@@ -155,8 +154,8 @@ test("render, default and custom params,using default button builder", function(
 			ua.click(buttons[2]);
 
 			//test dialog align
-			equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-right'), true, "The footer container of dialog container right css class");
-			equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
+			equals($(dialog.getElement('footerContainer')).hasClass('tang-button-right'), true, "The footer container of dialog container right css class");
+			equals($(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
 
 			//test height
 			approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
@@ -164,11 +163,10 @@ test("render, default and custom params,using default button builder", function(
 			approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 
 			dialog.$dispose();
-			var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+			var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
 			ok(l2 == l1, 'All events are dispose');
 			document.body.removeChild(div);
 			start();
-		}, "baidu.dom.text", "magic.control.Dialog.$button");
 	});
 });
 
@@ -223,7 +221,7 @@ test("render, custom params, using custom builder to create button", function(){
 	          	btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
 	          	btnTemplate[4] = btnOptions.text;
 	          	anchor.innerHTML = btnTemplate.join('');
-	          	// baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+	          	// $(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
 	          	!hasFocused && btnOptions.focused && !btnOptions.disabled 
 	            	&& (hasFocused = false) || anchor.focus();
 	            return  anchor;                 
@@ -246,8 +244,8 @@ test("render, custom params, using custom builder to create button", function(){
 	dialog.buttons && ua.click(dialog.buttons[0]);
 
 	//test dialog align
-	equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-center'), true, "The footer container of dialog container center css class");
-	equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'center', "The value of dialog alignment is center");
+	equals($(dialog.getElement('footerContainer')).hasClass('tang-button-center'), true, "The footer container of dialog container center css class");
+	equals($(dialog.getElement('footerContainer')).css('text-align'), 'center', "The value of dialog alignment is center");
 
 	//test the footer region
 	equals((dialog.getElement("footer")||{}).nodeType,1,"Footer region exist in the bottom of the dialog");
@@ -307,8 +305,8 @@ test("render, button plugin alignment", function(){
 	dialog.render("one-dialog");
 
 	//test dialog align
-	equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-left'), true, "The footer container of dialog container left css class");
-	equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'left', "The value of dialog alignment is left");
+	equals($(dialog.getElement('footerContainer')).hasClass('tang-button-left'), true, "The footer container of dialog container left css class");
+	equals($(dialog.getElement('footerContainer')).css('text-align'), 'left', "The value of dialog alignment is left");
 
 	dialog.$dispose();
 
@@ -358,7 +356,7 @@ test("render, button plugin disabled", function(){
 	dialog.render("one-dialog");
 
 	//test enable
-	equals(baidu('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
+	equals($('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
 
 	//test height
 	approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
@@ -411,7 +409,7 @@ test("render, button plugin enable but not buttons", function(){
 
 	//test buttons 
 	equals(dialog.buttons.length, 0, 'The count of buttons is 0');
-	equals(baidu(dialog.getElement("footerContainer")).children().size() , 0, 'The footerContainer doesn\'t have child');
+	equals($(dialog.getElement("footerContainer")).children().size() , 0, 'The footerContainer doesn\'t have child');
 
 	dialog.$dispose();
 
@@ -456,9 +454,9 @@ test("button plugin setup", function(){
 			},
 			dialog = magic.setup.dialog("one-dialog", options);
 
-		var trim = baidu.string.trim;
+		var trim = $.trim;
 		//test focus element
-		equals(trim(baidu(document.activeElement).text()), '有效', 'the focused element is right');
+		equals(trim($(document.activeElement).text()), '有效', 'the focused element is right');
 
 		//test the dialog.buttons is a array contains the node information.
 		var buttons = dialog.buttons || [];
@@ -466,16 +464,16 @@ test("button plugin setup", function(){
 		//test button
 		var btnCheck = function(){
 			var first = function(item){
-					equals(baidu.string.trim(baidu(item).text()), '', 'the first button\'s text is space');
-					equals(baidu(item).hasClass('tang-dialog-button-disabled'), false, 'the first button is enable');
+					equals($.trim($(item).text()), '', 'the first button\'s text is space');
+					equals($(item).hasClass('tang-dialog-button-disabled'), false, 'the first button is enable');
 				},
 				second = function(item){
-					equals(baidu.string.trim(baidu(item).text()), '无效', 'the second button\'s text is 无效');	
-					equals(baidu(item).hasClass('tang-dialog-button-disabled'), true, 'the second button is disabled');
+					equals($.trim($(item).text()), '无效', 'the second button\'s text is 无效');	
+					equals($(item).hasClass('tang-dialog-button-disabled'), true, 'the second button is disabled');
 				},
 				third = function(item){
-					equals(baidu.string.trim(baidu(item).text()), '有效', 'the third button\'s text is 有效');
-					equals(baidu(item).hasClass('tang-dialog-button-disabled'), false, 'the third button is enable');
+					equals($.trim($(item).text()), '有效', 'the third button\'s text is 有效');
+					equals($(item).hasClass('tang-dialog-button-disabled'), false, 'the third button is enable');
 				};
 			return function(item,index){
 				equals(item.nodeType,1,["The ", index, " button is a Node."].join('') );
@@ -504,8 +502,8 @@ test("button plugin setup", function(){
 		ua.click(buttons[2]);
 
 		//test dialog align
-		equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-right'), true, "The footer container of dialog container right css class");
-		equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
+		equals($(dialog.getElement('footerContainer')).hasClass('tang-button-right'), true, "The footer container of dialog container right css class");
+		equals($(dialog.getElement('footerContainer')).css('text-align'), 'right', "The value of dialog alignment is right");
 
 		//test height
 		approximateEqual(dialog.getElement().offsetHeight, "100", "The height is right");
@@ -513,7 +511,7 @@ test("button plugin setup", function(){
 		approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 
 		dialog.$dispose();
-		document.body.removeChild(baidu("#one-dialog")[0]);
+		document.body.removeChild($("#one-dialog")[0]);
 		start();
 	}, "magic.setup.dialog", "magic.control.Dialog.$button");
 });
@@ -567,7 +565,7 @@ test("setup, custom params, using custom builder to create button", function(){
 	          	btnOptions.disabled && (btnTemplate[1] = 'tang-dialog-button-disabled');
 	          	btnTemplate[4] = btnOptions.text;
 	          	anchor.innerHTML = btnTemplate.join('');
-	          	// baidu(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
+	          	// $(anchor).insertHTML('beforeEnd', btnTemplate.join(''));
 	          	!hasFocused && btnOptions.focused && !btnOptions.disabled 
 	            	&& (hasFocused = false) || anchor.focus();
 	            return  anchor;                 
@@ -591,8 +589,8 @@ test("setup, custom params, using custom builder to create button", function(){
 	dialog.buttons && ua.click(dialog.buttons[0]);
 
 	//test dialog align
-	equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-center'), true, "The footer container of dialog container center css class");
-	equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'center', "The value of dialog alignment is center");
+	equals($(dialog.getElement('footerContainer')).hasClass('tang-button-center'), true, "The footer container of dialog container center css class");
+	equals($(dialog.getElement('footerContainer')).css('text-align'), 'center', "The value of dialog alignment is center");
 
 	//test the footer region
 	equals((dialog.getElement("footer")||{}).nodeType,1,"Footer region exist in the bottom of the dialog");
@@ -603,7 +601,7 @@ test("setup, custom params, using custom builder to create button", function(){
 	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight - dialog._footerHeight + "px", "The height of content is right");
 	dialog.$dispose();
 
-	document.body.removeChild(baidu("#one-dialog")[0]);
+	document.body.removeChild($("#one-dialog")[0]);
 	start();
 });
 
@@ -648,12 +646,12 @@ test("setup, button plugin alignment", function(){
 		dialog = magic.setup.dialog("one-dialog", options);
 
 	//test dialog align
-	equals(baidu(dialog.getElement('footerContainer')).hasClass('tang-button-left'), true, "The footer container of dialog container left css class");
-	equals(baidu(dialog.getElement('footerContainer')).css('text-align'), 'left', "The value of dialog alignment is left");
+	equals($(dialog.getElement('footerContainer')).hasClass('tang-button-left'), true, "The footer container of dialog container left css class");
+	equals($(dialog.getElement('footerContainer')).css('text-align'), 'left', "The value of dialog alignment is left");
 
 	dialog.$dispose();
 
-	document.body.removeChild(baidu("#one-dialog")[0]);
+	document.body.removeChild($("#one-dialog")[0]);
 	start();
 });
 
@@ -695,7 +693,7 @@ test("setup, button plugin disabled", function(){
 		dialog = magic.setup.dialog("one-dialog", options);
 
 	//test enable
-	equals(baidu('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
+	equals($('.tang-dialog-button-carrier', dialog.getElement("footerContainer")).length, 0, "The button plugin is disabled");			
 
 	//test height
 	approximateEqual(dialog.getElement().offsetHeight, "300", "The height is right");
@@ -703,7 +701,7 @@ test("setup, button plugin disabled", function(){
 	approximateEqual(dialog.getElement("body").style.height, dialog.getElement().offsetHeight - dialog._titleHeight + "px", "The height of content is right");
 
 	dialog.$dispose();
-	document.body.removeChild(baidu("#one-dialog")[0]);
+	document.body.removeChild($("#one-dialog")[0]);
 	start();
 });
 
@@ -744,24 +742,21 @@ test("setup, button plugin enable but not buttons", function(){
 
 	dialog.$dispose();
 
-	document.body.removeChild(baidu("#one-dialog")[0]);
+	document.body.removeChild($("#one-dialog")[0]);
 	start();
 });
 
 //case 6
 test('magic.alert', function(){
     expect(24);
-    stop();
-    ua.importsrc("baidu.ajax.request", function(){
-            var called = false;
-            var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '确定按钮回调执行成功');
                     }
                 }
             });
@@ -778,81 +773,78 @@ test('magic.alert', function(){
             }
             ok(mask_el[0].style.zIndex < alert_el[0].style.zIndex, '遮罩层显示在alert的下方');
 
-            ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
-            ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
-            ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == '好', '按钮文案显示正确');
+            ok($('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+            ok($('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+            ok($.trim($(instance.buttons[0]).text()) == '好', '按钮文案显示正确');
 
             //测试确定按钮
             ua.click(instance.buttons[0]);
-            ok(called == true, '确定按钮回调执行成功');
+            
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             equals(l2, l1, '事件已全部移除');
 
             //测试关闭按钮
-            var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '点击关闭按钮，确定按钮回调执行成功');
                     }
                 }
             });
             
             ua.click(instance.getElement('closeBtn'));
-            ok(called == true, '点击关闭按钮，确定按钮回调执行成功');
+            
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             equals(l2, l1, '事件已全部移除');
 
             //测试键盘响应：esc
-            var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '按下ESC键，确定按钮回调执行成功');
                     }
                 }
             });
             
             ua.keydown(document.body, {keyCode:27})
-            ok(called == true, '按下ESC键，确定按钮回调执行成功');
             
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             equals(l2, l1, '事件已全部移除');
 
             //测试键盘响应：enter
-            var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             var instance = magic.alert({
                 'content': '内容',
                 'titleText': '标题',
                 'ok': {
                     'label': '好',
                     'callback': function(){
-                        called = true;
+                        ok(true, '按下Enter键，确定按钮回调执行成功');
                     }
                 }
             });
             
             ua.keydown(document.body, {keyCode:13})
-            ok(called == true, '按下Enter键，确定按钮回调执行成功');
+            
             equals($('.tang-dialog').length, 0, 'alert元素已移除');
             equals($('.tang-mask').length, 0, '遮罩层已移除');
-            var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+            var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
             equals(l2, l1, '事件已全部移除');
 
-            start();
-    }, "baidu.ajax.request", "magic.control.Dialog.$button");
 });
 
 //case 7
@@ -866,7 +858,7 @@ test('magic.alert 英文环境', function(){
             'ok': function(){}
         });
 
-        ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == 'ok', '按钮文案显示正确');
+        ok($.trim($(instance.buttons[0]).text()) == 'ok', '按钮文案显示正确');
 
        	start();
        	ua.click(instance.buttons[0]);
@@ -877,22 +869,20 @@ test('magic.alert 英文环境', function(){
 test('magic.confirm', function(){
     expect(29);
     stop();
-    var okcalled = false;
-    var cancelcalled = false;
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     var instance = magic.confirm({
         'content': '内容',
         'titleText': '标题',
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '取消按钮回调执行成功');
             }
         }
     });
@@ -909,118 +899,118 @@ test('magic.confirm', function(){
     }
     ok(mask_el[0].style.zIndex < alert_el[0].style.zIndex, '遮罩层显示在alert的下方');
 
-    ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
-    ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
-    ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == '是', '按钮文案显示正确');
-    ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == '否', '按钮文案显示正确');
+    ok($('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+    ok($('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+    ok($.trim($(instance.buttons[0]).text()) == '是', '按钮文案显示正确');
+    ok($.trim($(instance.buttons[1]).text()) == '否', '按钮文案显示正确');
     //测试确定按钮
     ua.click(instance.buttons[0]);
-    ok(okcalled == true, '确定按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
     
-    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     equals(l2, l1, '事件已全部移除');
 
 
     //测试取消按钮
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     var instance = magic.confirm({
         'content': '内容',
         'titleText': '标题',
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '取消按钮回调执行成功');
             }
         }
     });
     ua.click(instance.buttons[1]);
-    ok(cancelcalled == true, '取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
-    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     equals(l2, l1, '事件已全部移除');
 
     //测试关闭按钮
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     var instance = magic.confirm({
         'content': '内容',
         'titleText': '标题',
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '点击关闭按钮，取消按钮回调执行成功');
             }
         }
     });
     ua.click(instance.getElement('closeBtn'));
-    ok(cancelcalled == true, '点击关闭按钮，取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
-    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     equals(l2, l1, '事件已全部移除');
 
     //测试关闭按钮
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     var instance = magic.confirm({
         'content': '内容',
         'titleText': '标题',
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '按下ESC键，取消按钮回调执行成功');
             }
         }
     });
     ua.keydown(document.body, {keyCode:27})
-    ok(cancelcalled == true, '按下ESC键，取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
-    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     equals(l2, l1, '事件已全部移除');
 
     //测试关闭按钮
-    var l1 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l1 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     var instance = magic.confirm({
         'content': '内容',
         'titleText': '标题',
         'ok': {
             'label': '是',
             'callback': function(){
-                okcalled = true;
+                ok(true, '确定按钮回调执行成功');
             }
         },
         'cancel': {
             'label': '否',
             'callback': function(){
-                cancelcalled = true;
+                ok(true, '按下Enter键，取消按钮回调执行成功');
             }
         }
     });
     ua.keydown(document.body, {keyCode:13})
-    ok(cancelcalled == true, '按下Enter键，取消按钮回调执行成功');
+    
     equals($('.tang-dialog').length, 0, 'confirm元素已移除');
     equals($('.tang-mask').length, 0, '遮罩层已移除');
-    var l2 = ua.getEventsLength(baidu._util_.eventBase.queue);
+    var l2 = !ua.adapterMode ? ua.getEventsLength(baidu._util_.eventBase.queue) : 0;
     equals(l2, l1, '事件已全部移除');
 
     start();
@@ -1036,8 +1026,8 @@ test('magic.confirm 英文环境', function(){
         'cancel': function(){}
     });
 
-    ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == 'ok', '确定按钮文案显示正确');
-    ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == 'cancel', '取消按钮文案显示正确');
+    ok($.trim($(instance.buttons[0]).text()) == 'ok', '确定按钮文案显示正确');
+    ok($.trim($(instance.buttons[1]).text()) == 'cancel', '取消按钮文案显示正确');
 
    	ua.click(instance.buttons[0]);
 });
@@ -1057,9 +1047,9 @@ test('magic.alert with multiple parameters', function(){
   );
   ok(isShown(instance.getElement(), "The dialog shows"));
   ok(isShown($('.tang-mask')[0]), '遮罩层已render');
-  ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
-  ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
-  ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == '好', '按钮文案显示正确');
+  ok($('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+  ok($('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+  ok($.trim($(instance.buttons[0]).text()) == '好', '按钮文案显示正确');
 
   //测试确定按钮
   ua.click(instance.buttons[0]);
@@ -1085,10 +1075,10 @@ test('magic.confirm with multiple parameters', function(){
   ok(isShown(instance.getElement(), "The dialog shows"));
   ok(isShown($('.tang-mask')[0]), '遮罩层已render');
   
-  ok(baidu('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
-  ok(baidu('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
-  ok(baidu.string.trim(baidu(instance.buttons[0]).text()) == '是', '按钮文案显示正确');
-  ok(baidu.string.trim(baidu(instance.buttons[1]).text()) == '否', '按钮文案显示正确');
+  ok($('#' + instance.$getId('titleText'))[0].innerHTML == '标题', '标题显示正确');
+  ok($('#' + instance.$getId('content'))[0].innerHTML == '内容', '内容显示正确');
+  ok($.trim($(instance.buttons[0]).text()) == '是', '按钮文案显示正确');
+  ok($.trim($(instance.buttons[1]).text()) == '否', '按钮文案显示正确');
   //测试取消按钮
   ua.click(instance.buttons[1]);
 });
@@ -1100,7 +1090,6 @@ test("test mask", function(){
     var ie = baidu.browser.ie || 1;
     ua.frameExt(function(w, f){
         var me = this;
-        ua.importsrc("baidu.page.getViewHeight,baidu.page.getViewWidth", function(){
         	ua.loadcss(upath + "../../setup/dialog/dialog.css", function(){
 
 		        $(f).css("position", "absolute").css("left", 0).css("top", 0).css("height", 400).css("width", 400).css('margin',0).css('padding',0).css('border',0);
@@ -1121,7 +1110,6 @@ test("test mask", function(){
 		            'ok': {
 		                'label': '好',
 		                'callback': function(){
-		                    called = true;
 		                }
 		            }
 		        });
@@ -1164,11 +1152,10 @@ test("test mask", function(){
 						equals(w.$(_mask).css('top'), top, "After window scroll, the top is right");
 						
 						me.finish();
-						// ua.click(baidu('#' + instance.$getId('ok-button'))[0]);
+						// ua.click($('#' + instance.$getId('ok-button'))[0]);
 					}, 50);
 				}, 50);
         	}, w);
-        }, "baidu.page.getViewWidth", "magic.control.Dialog.$button", w);
     })  
 });
 

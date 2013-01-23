@@ -12,10 +12,8 @@
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
 ///import baidu.dom.attr;
-///import baidu.dom.text;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
-///import baidu.event.shortcut;
 ///import baidu.array.remove;
 ///import baidu.object.extend;
 ///import baidu.event.shortcut;
@@ -335,7 +333,7 @@ magic.control.ComboBox = baidu.lang.createClass(function(options) {
         data = data || this._options.items;
         var html = this.$menuContentToHTMLString(data);
         this.getElement('menu').innerHTML = html;
-
+        baidu(me.menu.getElement()).addClass('magic-combobox-popup');
     },
     
     /**

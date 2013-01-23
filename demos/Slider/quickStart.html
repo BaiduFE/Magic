@@ -4,10 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8;">
     <meta name="description" content="Slider组件quickStart">
     <title>Slider组件 quickStart</title>
-    <script type="text/javascript" src="http://fe.bdimg.com/tangram/2.0.1.2.js"></script>
     <link rel="stylesheet" type="text/css" href="../../resources/default/common/common.css">
     <link rel="stylesheet" href="../../resources/default/magic.control.Slider/magic.Slider.css">
-    <script src="../../src/import.php?f=magic.Slider" type="text/javascript"></script>
+    <script src="../../src/import.php?f=magic.Slider,baidu.dom.ready" type="text/javascript"></script>
     <style type="text/css">
         .view{margin:20px 20px 10px;width:60%;}
         .wrap{margin:10px auto;font-size:12px;}
@@ -23,11 +22,13 @@
 <body>
     <div id="slider"></div>
     <script type="text/javascript">
+        baidu.dom.ready(function(){
             var s1 = new magic.Slider({
             	orientation:'horizonal',
             	direction:'forward'
             }); 
             s1.render('slider');
+        });
     </script>
 
 </body>

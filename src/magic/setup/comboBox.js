@@ -6,7 +6,7 @@
 ///import magic.setup;
 ///import baidu.array.each;
 ///import baidu.dom.getAttr;
-///import baidu.dom.insertHTML;
+///import baidu.dom.before;
 ///import baidu.dom.remove;
 ///import magic.ComboBox;
 
@@ -29,7 +29,7 @@
  */
 magic.setup.comboBox = function(el, options) {
     options = options || {};
-    var el = baidu.dom.g(el),
+    var el = baidu.dom(el).get(0),
         optData = parseSelectOptions(el),
         newItemOpt = null;
     
@@ -47,7 +47,7 @@ magic.setup.comboBox = function(el, options) {
     */
     var instance = magic.setup(el, magic.ComboBox, options);
     
-    baidu.dom.insertHTML(el, 'beforeBegin', '<span id="' + instance.guid + '-host" class="magic-combobox-host"></span>');
+    baidu.dom(el).before('<span id="' + instance.guid + '-host" class="magic-combobox-host"></span>');
     
     var host = baidu('#' + instance.guid + '-host');
     host.append(el);
