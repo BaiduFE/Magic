@@ -32,10 +32,10 @@
 ///import magic.Base;
 ///import magic.Slider;
 /**
- * @description 滚动条
- * @name magic.setup.scrollPanel
- * @function
- * @grammar magic.setup.scrollPanel(options)
+ * @description 滚动面板
+ * @name magic.control.ScrollPanel
+ * @class
+ * @grammar magic.control.ScrollPanel(options)
  * @param {Object} options 自定义选项
  * @param {Number} options.autoUpdateDelay 自动适应内容区域大小延时（ms）， 默认值 500。如果您的内容区域并非动态，设置为 false 可减少一个定时器开销
  * @param {Number} options.arrowButtonStep 点击箭头按钮滚动的距离（px）， 默认值 20
@@ -355,9 +355,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 根据变化了的内容区域，重新计算滚动条(是否出现、位置、高度等)
-     * @name magic.ScrollPanel#update
+     * @name magic.control.ScrollPanel#update
      * @function
-     * @grammar magic.ScrollPanel#update()
+     * @grammar magic.control.ScrollPanel#update()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.update();
@@ -383,9 +383,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 停止自动更新
-     * @name magic.ScrollPanel#clearAutoUpdate
+     * @name magic.control.ScrollPanel#clearAutoUpdate
      * @function
-     * @grammar magic.ScrollPanel#clearAutoUpdate()
+     * @grammar magic.control.ScrollPanel#clearAutoUpdate()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.clearAutoUpdate();
@@ -415,9 +415,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 滚动到某个位置
-     * @name magic.ScrollPanel#scrollTo
+     * @name magic.control.ScrollPanel#scrollTo
      * @function
-     * @grammar magic.ScrollPanel#scrollTo(pos)
+     * @grammar magic.control.ScrollPanel#scrollTo(pos)
      * @param {Number} pos 要滚动到的位置
      * @example
      * var instance = magic.setup.scrollPanel('target');
@@ -438,9 +438,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
                 
         /**
          * @description 滚动前触发
-         * @name magic.ScrollPanel#beforescroll
+         * @name magic.control.ScrollPanel#beforescroll
          * @event
-         * @grammar magic.ScrollPanel#beforescroll(e)
+         * @grammar magic.control.ScrollPanel#beforescroll(e)
          * @param {event} e
          * @param {Number} e.pos 要滚动到的位置
          * @example
@@ -455,9 +455,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
         me._scrollTo(pos);
         /**
          * @description 滚动后触发
-         * @name magic.ScrollPanel#afterscroll
+         * @name magic.control.ScrollPanel#afterscroll
          * @event
-         * @grammar magic.ScrollPanel#afterscroll(e)
+         * @grammar magic.control.ScrollPanel#afterscroll(e)
          * @param {event} e
          * @param {Number} e.pos 滚动后的位置
          * @example
@@ -489,9 +489,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 滚动到顶部
-     * @name magic.ScrollPanel#scrollToTop
+     * @name magic.control.ScrollPanel#scrollToTop
      * @function
-     * @grammar magic.ScrollPanel#scrollToTop()
+     * @grammar magic.control.ScrollPanel#scrollToTop()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.scrollToTop();
@@ -502,9 +502,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 滚动到底部
-     * @name magic.ScrollPanel#scrollToBottom
+     * @name magic.control.ScrollPanel#scrollToBottom
      * @function
-     * @grammar magic.ScrollPanel#scrollToBottom()
+     * @grammar magic.control.ScrollPanel#scrollToBottom()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.scrollToBottom();
@@ -515,9 +515,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 滚动到某个元素的位置
-     * @name magic.ScrollPanel#scrollToElement
+     * @name magic.control.ScrollPanel#scrollToElement
      * @function
-     * @grammar magic.ScrollPanel#scrollToElement(ele)
+     * @grammar magic.control.ScrollPanel#scrollToElement(ele)
      * @param {Element} ele 要滚动到的元素
      * @example
      * var instance = magic.setup.scrollPanel('target');
@@ -530,9 +530,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 以当前位置为基准滚动
-     * @name magic.ScrollPanel#scrollBy
+     * @name magic.control.ScrollPanel#scrollBy
      * @function
-     * @grammar magic.ScrollPanel#scrollBy(num)
+     * @grammar magic.control.ScrollPanel#scrollBy(num)
      * @param {Number} num 要滚动的距离
      * @example
      * var instance = magic.setup.scrollPanel('target');
@@ -545,9 +545,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 获取当前滚动的位置
-     * @name magic.ScrollPanel#getScroll
+     * @name magic.control.ScrollPanel#getScroll
      * @function
-     * @grammar magic.ScrollPanel#getScroll()
+     * @grammar magic.control.ScrollPanel#getScroll()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.getScroll();
@@ -559,9 +559,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 获取当前滚动的百分比位置
-     * @name magic.ScrollPanel#getScrollPct
+     * @name magic.control.ScrollPanel#getScrollPct
      * @function
-     * @grammar magic.ScrollPanel#getScrollPct()
+     * @grammar magic.control.ScrollPanel#getScrollPct()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.getScrollPct();
@@ -572,9 +572,9 @@ magic.control.ScrollPanel = baidu.lang.createClass(function(options){
     },
     /**
      * @description 析构
-     * @name magic.ScrollPanel#$dispose
+     * @name magic.control.ScrollPanel#$dispose
      * @function
-     * @grammar magic.ScrollPanel#$dispose()
+     * @grammar magic.control.ScrollPanel#$dispose()
      * @example
      * var instance = magic.setup.scrollPanel('target');
      * instance.$dispose();
