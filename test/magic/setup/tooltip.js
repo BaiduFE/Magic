@@ -113,7 +113,7 @@ test("test default parameters", function() {
             ua.click(document.body);
             equals(tooltip.getElement("").style.display, "none", '点击body元素提示框隐藏');
             ua.mouseover(node);
-            equals(tooltip.getElement("").style.display, "", '鼠标悬浮，提示框显示');
+            ok(tooltip.getElement("").style.display != 'none', '鼠标悬浮，提示框显示');
             ua.mouseout(node);
             equals(tooltip.getElement("").style.display, "none", '鼠标离开，提示框隐藏');
 
