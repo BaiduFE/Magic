@@ -19,24 +19,31 @@
 /**
  * Tooltip提示组件
  * @class
- * @superClass magic.Base
  * @name magic.Tooltip
  * @grammar new magic.Tooltip(options)
- * 
  * @param {JSON} options 参数设置
- * @config {Boolean} autoHide 是否自动隐藏, 默认值为true。
- * @config {Boolean} hasCloseBtn 是否可以通过右上角X来关闭提示。默认值为false。
- * @config {Boolean} hasArrow 是否显示箭头。默认值为true。
- * @config {Boolean} autoBuild 自动检测需要提示的节点，通过attr值来判断。默认值为false。
- * @config {Number} offsetX 定位时的偏移量，X方向。
- * @config {Number} offsetY 定位时的偏移量，Y方向。
- * @config {Array} target 需要提示的节点。
- * @config {Function|String} content 自定义内容定制。若为Function,参数为Tangram对象(目标节点)。
- * @config {String} showEvent 提示显示的动作，默认值为mouseover,focus。
- * @config {String} hideEvent 提示隐藏的动作，默认值为mouseout,blur。
- * @config {String} position 设置tooltip的位置，值为top|bottom|left|right，默认值为bottom。
- * @config {Number|Percent} arrowPosition 设置arrow的位置，如果是上、下方位的话，都相对于左边的距离。如果是左、右方位的话，都相对于上面的距离。如果该值不存在，则自动计算相对于目标节点中间的位置。
- * @author robin
+ * @param {Boolean} autoHide 是否自动隐藏, 如果为true,则会在scroll,resize,click,keydown(escape)下隐藏，默认值为true。
+ * @param {Boolean} hasCloseBtn 是否可以通过右上角X来关闭提示。默认值为true。
+ * @param {Boolean} hasArrow 是否显示箭头。默认值为true。
+ * @param {Number} offsetX 定位时的偏移量，X方向。
+ * @param {Number} offsetY 定位时的偏移量，Y方向。
+ * @param {Array} target 需要提示的节点。(必选)
+ * @param {Function|String} content 自定义内容定制。若为Function,参数为Tangram对象(目标节点)。默认值为空。
+ * @param {String} showEvent 提示显示的动作，默认值为mouseover,focus。
+ * @param {String} hideEvent 提示隐藏的动作，默认值为mouseout,blur。
+ * @param {String} position 设置tooltip的位置，值为top|bottom|left|right，默认值为bottom。
+ * @param {Number|Percent} arrowPosition 设置arrow的位置，如果是上、下方位的话，都相对于左边的距离。如果是左、右方位的话，都相对于上面的距离。如果该值不存在，则自动计算相对于目标节点中间的位置。
+ * @example 
+ * /// for options.hasCloseBtn,options.target,options.showEvent,options.hideEvent,options.position
+ * var instance = new magic.Tooltip({
+ *      hasCloseBtn: true,
+ *      target: node,
+ *      showEvent: 'mouseover',
+ *      hideEvent: 'mouseout',
+ *      position: 'top'
+ * });
+ * @return {magic.control.Tooltip} magic.control.Tooltip 实例
+ * @superClass magic.control.Tooltip
  */
  magic.Tooltip = baidu.lang.createClass(function(options){
 
