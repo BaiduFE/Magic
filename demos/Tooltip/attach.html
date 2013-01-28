@@ -31,9 +31,6 @@
             .console span{
                 background-color: #89D;
             }
-            .text{
-                _width: 100px;
-            }
         </style>
     </head>
 <body>
@@ -90,7 +87,7 @@
                 var tooltip = new magic.Tooltip({
                     target: baidu('#bdNode')[0],
                     content: function(target){
-                        return '<div class="text">我现在是 ' + baidu.string.trim(baidu(target).text()) + ' 的提示框</div>'
+                        return '<div>我现在是 ' + baidu.string.trim(baidu(target).text()) + ' 的提示框</div>'
                     },
                     position: 'top',
                     hasCloseBtn: false
