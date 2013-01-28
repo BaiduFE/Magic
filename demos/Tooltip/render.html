@@ -38,9 +38,6 @@
                 font-size: 20px;
                 color: black;
             }
-            .text{
-                _width: 150px;
-            }
         </style>
         <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
         <script type="text/javascript" src="../../demos/common/exec.js"></script>
@@ -102,7 +99,7 @@
             baidu.forEach(position, function(pos, index){
                 var tooltip = new magic.Tooltip({
                     target: baidu('#' + pos + 'Region')[0],
-                    content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div class="text">this is a tooltip</div>',
+                    content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
                     position: pos
                 });
                 tooltip.render();
