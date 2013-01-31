@@ -38,9 +38,6 @@
                 font-size: 20px;
                 color: black;
             }
-            .text{
-                _width: 150px;
-            }
         </style>
         <script type="text/javascript" src='../../src/import.php?f=magic.Tooltip'></script>
         <script type="text/javascript" src="../../demos/common/exec.js"></script>
@@ -55,11 +52,6 @@
                 <li><a href="./attach.html">绑定节点 示例</a></li>
                 <li><a href="./focus.html">focus和blur 示例</a></li>
                 <li><a href="./methods.html">接口示例</a></li>
-            </ul>
-            <h3>最佳demo列表</h3>
-            <ul>
-                <li><a href="./zhidaoDemo.html">用户提示信息</a></li>
-                <li><a href="./tiebaDemo.html">按钮提示信息</a></li>
             </ul>
         </div>
         <div class="main-wrap">
@@ -102,7 +94,7 @@
             baidu.forEach(position, function(pos, index){
                 var tooltip = new magic.Tooltip({
                     target: baidu('#' + pos + 'Region')[0],
-                    content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div class="text">this is a tooltip</div>',
+                    content: '<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"/><div>this is a tooltip</div>',
                     position: pos
                 });
                 tooltip.render();

@@ -61,7 +61,10 @@
 	padding:16px 20px 16px 16px;
 	position: absolute;
 	display: block;
-	/*border: 1px solid black;*/
+}
+
+.magic-tooltip .magic-tooltip-content{
+	white-space: nowrap;
 }
 
 .magic-tooltip .magic-tooltip-close{
