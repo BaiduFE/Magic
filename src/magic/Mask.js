@@ -160,6 +160,9 @@ baidu.lang.inherits(magic.Mask, magic.control.Layer, "magic.Mask").extend(
      */
     $dispose: function(){
         var layout = this.getElement();
+
+        this.fire('hide');
+        // TODO 补充用例
         layout.parentNode.removeChild(layout);
     }
 });
