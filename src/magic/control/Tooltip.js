@@ -344,9 +344,10 @@ magic.control.Tooltip = baidu.lang.createClass(
                 node = baidu(me.getElement("")),
                 arrow = baidu(me.getElement("arrow")),
                 target = baidu(opt.target),
-                position = target.position();
-            //提示框位置处理
-            pos = me._posControl(opt.position, target, position, node, arrow);
+                position = target.position(),
+                //提示框位置处理
+                pos = me._posControl(opt.position, target, position, node, arrow);
+
             node.css("left", pos.left);
             node.css("top", pos.top);
             //清空提示框位置信息计算缓存

@@ -813,64 +813,64 @@ magic.Calendar.extend(
     /**
      * 监听键盘按键
      */
-    _addkeystrokesListener: function(){
-        var me = this,
-            listenerAdded = false,
-            calendarEl = baidu('#' + me._getId())[0],
-            clickHandler;
+    // _addkeystrokesListener: function(){
+    //     var me = this,
+    //         listenerAdded = false,
+    //         calendarEl = baidu('#' + me._getId())[0],
+    //         clickHandler;
 
-        function keystrokesHandler(e){
-            e = e || window.event;
-            //e.preventDefault();
-            var preventDefault =  true;
-            switch (e.keyCode) {
-                case 33:    //Page Up键
-                    me.preMonth();
-                    break;
-                case 34:    //Page Down键
-                    me.nextMonth();
-                    break;
-                case 37:    //左方向键
-                    me._preDay();
-                    break;
-                case 38:    //上方向键
-                    me._preDay();
-                    break;
-                case 39:    //右方向键
-                    me._nextDay();
-                    break;
-                case 40:    //下方向键
-                    me._nextDay();
-                    break;
-                default:
-                    preventDefault =  false;
-                    break;
-            }
-            preventDefault && e.preventDefault();
-        }
+    //     function keystrokesHandler(e){
+    //         e = e || window.event;
+    //         //e.preventDefault();
+    //         var preventDefault =  true;
+    //         switch (e.keyCode) {
+    //             case 33:    //Page Up键
+    //                 me.preMonth();
+    //                 break;
+    //             case 34:    //Page Down键
+    //                 me.nextMonth();
+    //                 break;
+    //             case 37:    //左方向键
+    //                 me._preDay();
+    //                 break;
+    //             case 38:    //上方向键
+    //                 me._preDay();
+    //                 break;
+    //             case 39:    //右方向键
+    //                 me._nextDay();
+    //                 break;
+    //             case 40:    //下方向键
+    //                 me._nextDay();
+    //                 break;
+    //             default:
+    //                 preventDefault =  false;
+    //                 break;
+    //         }
+    //         preventDefault && e.preventDefault();
+    //     }
 
-        baidu(document).on("click", clickHandler = function(e){
+    //     baidu(document).on("click", clickHandler = function(e){
             
-            if(me.disposed) return;
+    //         if(me.disposed) return;
             
-            var target = e.target;
+    //         var target = e.target;
             
-            if(!(baidu.dom.contains(calendarEl, target) || target == calendarEl)){
-                baidu(document).off("keydown", keystrokesHandler);
-                listenerAdded = false;
-            }else{
-                if(listenerAdded)
-                    return;
-                baidu(document).on("keydown", keystrokesHandler);
-                listenerAdded = true;
-            }
-        });
+    //         if(!(baidu.dom.contains(calendarEl, target) || target == calendarEl)){
+    //             baidu(document).off("keydown", keystrokesHandler);
+    //             listenerAdded = false;
+    //         }else{
+    //             if(listenerAdded)
+    //                 return;
+    //             baidu(document).on("keydown", keystrokesHandler);
+    //             listenerAdded = true;
+    //         }
+    //     });
         
-        me.on("dispose", function(){
-            baidu(document).off("click", clickHandler);
-        });
+    //     me.on("dispose", function(){
+    //         baidu(document).off("click", clickHandler);
+    //     });
 
-    },
+    // },
 
     /**
      * 判断两个日期是否是同一天

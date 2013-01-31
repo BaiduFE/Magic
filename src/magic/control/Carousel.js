@@ -62,8 +62,9 @@ void function(){
             opt = me._options,
             child = baidu.dom(target).children(),
             tagName = child[0] ? child[0].tagName : 'li',
-            template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>';
-            position = direction == 'forward' ? 'append' : 'prepend'
+            template = '<'+ tagName +' id="#{rsid}" class="#{class}">#{content}</'+ tagName +'>',
+            position = direction == 'forward' ? 'append' : 'prepend';
+
         baidu.dom(target)[position](baidu.string.format(template, {
                 rsid: me.guid,
                 'class': 'tang-carousel-item' + (opt.empty ? ' tang-carousel-item-empty' : ''),
