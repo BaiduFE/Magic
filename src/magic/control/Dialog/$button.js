@@ -315,9 +315,6 @@
             instance.$dispose();
         });
 
-        disposeProcess.push(function(){
-            document.body.removeChild(alert_el[0]);
-        });
         createMask();
 
         return instance;
@@ -482,9 +479,6 @@
         
         disposeProcess.push(function(){
             instance.$dispose();
-        });
-        disposeProcess.push(function(){
-            document.body.removeChild(confirm_el[0]);
         });
         createMask();
 
