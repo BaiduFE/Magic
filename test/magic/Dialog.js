@@ -587,7 +587,23 @@ test("focus by click", function(){
 });
 
 //case 17
-test("dispose and then create a new instance,test title region", function(){
+test("dispose ,test container removed", function(){
+	expect(1);
+	var dialog = new magic.Dialog({
+		titleText : '标题',
+		content : '内容',
+		height : 100,
+		width : 100
+	});
+	dialog.render("dialog-1");
+	var el = dialog.getElement();
+	dialog.$dispose();
+
+	equals(el.parentElement, null , 'container is removed');
+});
+
+//case 18
+test("hide and then create a new instance,test title region", function(){
 	expect(1);
 	var div = document.createElement("div");
 	document.body.appendChild(div);
@@ -602,7 +618,7 @@ test("dispose and then create a new instance,test title region", function(){
 		this.$dispose();
 	});
 	dialog.render("dialog-1");
-
+	dialog.hide();
 	dialog = new magic.Dialog({
 		titleText : '标题',
 		content : '内容',

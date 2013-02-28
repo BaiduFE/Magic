@@ -101,11 +101,14 @@ magic.Dialog.extend(
      * instance.render('dialog-container');
      */
     render: function(el){
+        var customContainer = true;
         if(baidu.type(el) === "string"){
             el = '#' + el;
         }
         el = baidu(el)[0];
-        el || document.body.appendChild(el = document.createElement("div"));
+        if(!el)
+            document.body.appendChild(el = document.createElement("div")),
+            customContainer = false;
         var template = magic.Dialog.template.join(""), options = this._options;
         baidu(el).addClass("tang-ui tang-dialog").css('display', 'block');
 
@@ -178,6 +181,7 @@ magic.Dialog.extend(
                 this._background.$dispose();
                 el.innerHTML = "";
                 baidu(el).removeClass("tang-ui tang-dialog");
+                customContainer || document.body.removeChild(el);
             }
         );
     },
