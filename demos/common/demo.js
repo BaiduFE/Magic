@@ -9,7 +9,7 @@ baidu(function (){
      * 1. 高亮当前超链接
      * 2. 给每个超链接加上“在新窗口打开”
      */
-    (function processNavigation() {
+    function processNavigation() {
         var nameMatcher = /\/(.+\.html)/;
         function matchName( href ) {
             var nameMatch = nameMatcher.exec(href);
@@ -22,6 +22,28 @@ baidu(function (){
                 baidu(this).addClass('selected').removeAttr('href');
             }
         });
+    };
+
+    /**
+     * 加载目录
+     */
+    (function loadNavigation() {
+        var loc = window.location.href;
+        var pattern = /(http\:\/\/.+?\/magic\/)component\/(\w+?)\//;
+        var match = pattern.exec(loc);
+        if ( match ) {
+            baidu.ajax({
+                url: match[1] + '?m=frontData&a=getDemos&name=' + match[2],
+                dataType: 'json',
+                success: function( demos ) {
+                    var $ul = baidu('<ul></ul>').appendTo('div.demo-list');
+                    baidu.forEach( demos, function( demo ) {
+                        baidu('<li><a href="./' + demo.url + '">' + demo.description + '</a></li>').appendTo($ul);
+                    });
+                    processNavigation();
+                }
+            });
+        }
     })();
 
     (function autoHeightForIE() {        
